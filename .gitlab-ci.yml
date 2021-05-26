@@ -1,0 +1,23 @@
+variables:
+  CI_REGISTRY: "registry.gitlab.com/love4src/frontend"
+
+services:
+  - docker:dind
+
+build:
+  stage: build
+  image: docker:stable
+  script:
+    - docker build --pull --tag "${CI_REGISTRY}:${CI_COMMIT_SHA}" --tag "${CI_REGISTRY}:latest" .
+    - docker push "${CI_REGISTRY}:${CI_COMMIT_SHA}"
+    - docker push "${CI_REGISTRY}:latest"
+  only:
+    - main
+
+release:
+  stage: deploy
+  image: "hashicorp/levant:0.3.0"
+  script:
+    - levant deploy -address="http://localhost:4646" -var "commit_sha=${CI_COMMIT_SHA}" bitclout-frontend.hcl
+  only:
+    - main

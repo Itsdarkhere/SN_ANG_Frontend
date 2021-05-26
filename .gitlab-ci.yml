@@ -8,9 +8,9 @@ build:
   stage: build
   image: docker:stable
   script:
-    - docker build --pull --tag "${CI_REGISTRY}:${CI_COMMIT_SHA}" --tag "${CI_REGISTRY}:latest" .
-    - docker push "${CI_REGISTRY}:${CI_COMMIT_SHA}"
-    - docker push "${CI_REGISTRY}:latest"
+    - docker build --pull --tag "registry.gitlab.com/love4src/frontend:${CI_COMMIT_SHA}" --tag "registry.gitlab.com/love4src/frontend:latest" .
+    - docker push "registry.gitlab.com/love4src/frontend:${CI_COMMIT_SHA}"
+    - docker push "registry.gitlab.com/love4src/frontend:latest"
   only:
     - main
 

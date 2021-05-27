@@ -1,6 +1,9 @@
 variables:
   CI_REGISTRY: "registry.gitlab.com/love4src/frontend"
 
+before_script:
+  - docker info
+
 services:
   - docker:dind
 
@@ -8,7 +11,7 @@ build:
   stage: build
   image: docker:stable
   script:
-    - docker build --pull --tag "registry.gitlab.com/love4src/frontend:${CI_COMMIT_SHA}" --tag "registry.gitlab.com/love4src/frontend:latest" .
+    - docker build --tag "registry.gitlab.com/love4src/frontend:${CI_COMMIT_SHA}" --tag "registry.gitlab.com/love4src/frontend:latest" .
     - docker login registry.gitlab.com -u gitlab+deploy-token-470767 -p PyiC-v4QGZaGzbD9z8B_
     - docker push "registry.gitlab.com/love4src/frontend:${CI_COMMIT_SHA}"
     - docker push "registry.gitlab.com/love4src/frontend:latest"

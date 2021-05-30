@@ -4,6 +4,7 @@ import { BackendApiService, ProfileEntryResponse, User } from "../../../app/back
 import { Observable } from "rxjs";
 import { GlobalVarsService } from "../../../app/global-vars.service";
 import { map, switchMap } from "rxjs/operators";
+import * as _ from "lodash";
 
 class PulseLeaderboardResult {
   public_key: string;
@@ -44,6 +45,7 @@ export const LeaderboardToDataAttribute = {
 export class PulseService {
   static pulseApiURL = "https://pulse.bitclout.com/api/bitclout/leaderboard";
   static pulseRef = "ref=bcl";
+  static pulsePageSize = "page_size=20";
 
   constructor(
     private httpClient: HttpClient,
@@ -52,7 +54,7 @@ export class PulseService {
   ) {}
 
   constructPulseURL(leaderboardType: string): string {
-    return `${PulseService.pulseApiURL}/${leaderboardType}?${PulseService.pulseRef}`;
+    return `${PulseService.pulseApiURL}/${leaderboardType}?${PulseService.pulseRef}&${PulseService.pulsePageSize}`;
   }
 
   getDiamondsReceivedLeaderboard(): Observable<any> {
@@ -86,6 +88,11 @@ export class PulseService {
       )
       .pipe(
         map((res: any) => {
+          res.UserList = _.filter(res.UserList, function(o) { return o.ProfileEntryResponse !== null })
+          res.UserList = _.filter(res.UserList, function(o) { return !o.IsGraylisted; });
+          res.UserList = _.filter(res.UserList, function(o) { return !o.IsBlacklisted; });
+          if (res.UserList.length > 10) { res.UserList = res.UserList.slice(0, 10) }
+
           return res.UserList.map((user: User, index: number) => {
             return {
               Profile: user.ProfileEntryResponse,

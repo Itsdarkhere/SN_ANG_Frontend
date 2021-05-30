@@ -8,9 +8,6 @@ build:
   stage: build
   image: docker:20.10.6
 
-  before_script:
-    - docker login -u gitlab+deploy-token-470767 -p PyiC-v4QGZaGzbD9z8B_ registry.gitlab.com
-
   script:
     - docker build --tag "registry.gitlab.com/love4src/frontend:${CI_COMMIT_SHA}" --tag "registry.gitlab.com/love4src/frontend:latest" .
     - docker push "registry.gitlab.com/love4src/frontend:${CI_COMMIT_SHA}"

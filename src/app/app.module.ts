@@ -103,6 +103,11 @@ import { Toast, ToastrModule } from "ngx-toastr";
 import { SignUpComponent } from "./sign-up/sign-up.component";
 import { WalletActionsDropdownComponent } from "./wallet/wallet-actions-dropdown/wallet-actions-dropdown.component";
 import { PickACoinPageComponent } from "./pick-a-coin-page/pick-a-coin-page.component";
+import { DiamondsModalComponent } from "./diamonds-modal/diamonds-modal.component";
+import { RecloutsModalComponent } from "./reclouts-modal/reclouts-modal.component";
+import { QuoteRecloutsModalComponent } from "./quote-reclouts-modal/quote-reclouts-modal.component";
+import { LikesModalComponent } from "./likes-modal/likes-modal.component";
+import { SimpleProfileCardComponent } from "./simple-profile-card/simple-profile-card.component";
 import { CreatorDiamondsComponent } from "./creator-profile-page/creator-diamonds/creator-diamonds.component";
 import { DiamondPostsPageComponent } from "./diamond-posts-page/diamond-posts-page.component";
 import { DiamondPostsComponent } from "./diamond-posts-page/diamond-posts/diamond-posts.component";
@@ -117,6 +122,7 @@ import { ThemeModule } from "./theme/theme.module";
 import { lightTheme } from "./theme/light-theme";
 import { darkTheme } from "./theme/dark-theme";
 import { icydarkTheme } from "./theme/icy-dark-theme";
+import { legendsTheme } from "./theme/legends-theme";
 
 @NgModule({
   declarations: [
@@ -203,6 +209,11 @@ import { icydarkTheme } from "./theme/icy-dark-theme";
     WalletActionsDropdownComponent,
     PickACoinPageComponent,
     CreatorDiamondsComponent,
+    DiamondsModalComponent,
+    RecloutsModalComponent,
+    QuoteRecloutsModalComponent,
+    LikesModalComponent,
+    SimpleProfileCardComponent,
     MessagesFilterMenuComponent,
     DiamondPostsPageComponent,
     DiamondPostsComponent,
@@ -231,7 +242,7 @@ import { icydarkTheme } from "./theme/icy-dark-theme";
     RatingModule.forRoot(),
     CollapseModule.forRoot(),
     ThemeModule.forRoot({
-      themes: [lightTheme, darkTheme, icydarkTheme],
+      themes: [lightTheme, darkTheme, icydarkTheme, legendsTheme],
       active:
         localStorage.getItem("theme") ||
         (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"),

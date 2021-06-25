@@ -11,6 +11,12 @@ job "bitclout-frontend" {
       mode = "delay"
     }
 
+    volume "frontend" {
+      type = "host"
+      read_only = false
+      source = "frontend"
+    }
+
     task "bclt-frontend" {
       driver = "docker"
       config {
@@ -21,8 +27,8 @@ job "bitclout-frontend" {
         ]
 
         auth {
-          username = "gitlab+deploy-token-466108"
-          password = "ZT8TkoV8nk-yAbFxcL54"
+          username = "gitlab+deploy-token-472662"
+          password = "UVxsg7AR5dPeUDwGhDNo"
         }
       }     
 

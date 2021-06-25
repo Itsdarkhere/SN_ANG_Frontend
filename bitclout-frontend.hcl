@@ -42,10 +42,9 @@ job "bitclout-frontend" {
           PRIVATE_MODE=false
           STARTER_BITCLOUT_AMOUNT_NANOS=1000000
           ACCESS_CONTROL_ALLOW_ORIGINS="*"
-          AMPLITUDE_DOMAIN=api.amplitude.com
           MIN_SATOSHIS_BURNED_FOR_PROFILE_CREATION=500000
-          FORCE_SSL=false
-          SUPPORT_EMAIL="andy@astronation.world"
+          FORCE_SSL=true
+          SUPPORT_EMAIL="inbox@yexperiment.com"
           LOG_DB_SUMMARY_SNAPSHOTS=false
           SHOW_PROCESSING_SPINNERS=true
           CADDY_FILE="/app/frontend/Caddyfile"

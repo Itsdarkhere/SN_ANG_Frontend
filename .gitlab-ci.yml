@@ -9,7 +9,7 @@ before_script:
 build:
   stage: build
   script:
-    - echo "$DEPLOY_DOCKER_PASS" | docker login -u "$DEPLOY_DOCKER_USER" --password-stdin
+    - echo "$DEPLOY_DOCKER_PASS" | docker login -u "$DEPLOY_DOCKER_USER" --password-stdin registry.gitlab.com
     - docker build --tag $CI_REGISTRY:$CI_COMMIT_SHA .
     - docker push $CI_REGISTRY:$CI_COMMIT_SHA
     - docker logout

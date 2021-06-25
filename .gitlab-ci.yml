@@ -8,8 +8,9 @@ build:
   services:
     - docker:20.10.6-dind
   script:
-    - docker build --tag "${CI_REGISTRY}:${CI_COMMIT_SHA}" ..
-    - docker push "${CI_REGISTRY}:${CI_COMMIT_SHA}"
+    - docker info
+    - docker build --tag $CI_REGISTRY:$CI_COMMIT_SHA .
+    - docker push $CI_REGISTRY:$CI_COMMIT_SHA
   only:
     - main
 
@@ -17,6 +18,6 @@ release:
   stage: deploy
   image: "hashicorp/levant:0.3.0"
   script:
-    - levant deploy -address="http://localhost:4646" -var "commit_sha=${CI_COMMIT_SHA}" bitclout-frontend.hcl
+    - levant deploy -address="http://localhost:4646" -var "commit_sha=$CI_COMMIT_SHA" bitclout-frontend.hcl
   only:
     - main

@@ -3,9 +3,6 @@ image: docker:20.10.6
 variables:
   CI_REGISTRY: "registry.gitlab.com/love4src/frontend"
 
-before_script:
-  - docker info
-
 build:
   stage: build
   script:

@@ -32,6 +32,26 @@ job "bitclout-frontend" {
         }
       }     
 
+      env {
+          GLOG_V=0
+          RATE_LIMIT_FEERATE=0
+          MIN_FEERATE=1000
+          TARGET_OUTBOUND_PEERS=8
+          LIMIT_ONE_INBOUND_CONNECTION_PER_IP=true
+          STALL_TIMEOUT_SECONDS=900
+          PRIVATE_MODE=false
+          STARTER_BITCLOUT_AMOUNT_NANOS=1000000
+          ACCESS_CONTROL_ALLOW_ORIGINS="*"
+          AMPLITUDE_DOMAIN=api.amplitude.com
+          MIN_SATOSHIS_BURNED_FOR_PROFILE_CREATION=500000
+          FORCE_SSL=false
+          SUPPORT_EMAIL="andy@astronation.world"
+          LOG_DB_SUMMARY_SNAPSHOTS=false
+          SHOW_PROCESSING_SPINNERS=true
+          CADDY_FILE="/app/frontend/Caddyfile"
+      }
+      
+
       volume_mount {
         volume = "frontend"
         destination = "/app"
@@ -56,7 +76,7 @@ job "bitclout-frontend" {
     header Content-Security-Policy "
       default-src 'self';
       connect-src 'self'
-        api.love4src.com love4src.com:* pdv.love4src.com
+        api.love4src.com love4src.com:* 
         api.bitclout.com bitclout.com:*
         api.bitpop.dev
         bithunt.bitclout.com
@@ -64,14 +84,16 @@ job "bitclout-frontend" {
         bitclout.me:* api.bitclout.me:*
         localhost:*
         explorer.bitclout.com:*
-        https://blockchain.info/ticker
-        api.blockchain.info/mempool/fees
+        https://api.blockchain.com/ticker
+        https://api.blockchain.com/mempool/fees
         https://ka-f.fontawesome.com/
         bitcoinfees.earn.com
         api.blockcypher.com 
         amp.bitclout.com
         api.bitclout.green api.bitclout.blue 
-        api.bitclout.navy;
+        api.bitclout.navy
+        api.testwyre.com
+        api.sendwyre.com;
       script-src 'self' https://bitclout.com/tags.js https://cdn.jsdelivr.net/npm/sweetalert2@10 
         https://kit.fontawesome.com/070ca4195b.js https://ka-f.fontawesome.com/;
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
@@ -81,7 +103,10 @@ job "bitclout-frontend" {
       frame-src 'self' localhost:* 
         identity.bitclout.com identity.bitclout.blue identity.bitclout.green
         https://www.youtube.com
-        https://player.vimeo.com;"
+        https://player.vimeo.com
+        https://www.tiktok.com
+        pay.testwyre.com
+        pay.sendwyre.com;"
 }
 
 EOF
@@ -126,5 +151,6 @@ EOF
         }
       }
     }
+
   }
 }

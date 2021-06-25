@@ -1,13 +1,18 @@
+image docker:20.10.6
+
 variables:
   CI_REGISTRY: "registry.gitlab.com/love4src/frontend"
+  DOCKER_HOST: tcp://docker:2375
+
+before_script:
+  - docker info
+
+services:
+  - docker:20.10.6-dind
 
 build:
   stage: build
-  image: docker:20.10.6
-  services:
-    - docker:20.10.6-dind
   script:
-    - docker info
     - docker build --tag $CI_REGISTRY:$CI_COMMIT_SHA .
     - docker push $CI_REGISTRY:$CI_COMMIT_SHA
   only:

@@ -6,9 +6,6 @@ variables:
 before_script:
   - docker info
 
-services:
-  - docker:20.10.6-dind
-
 build:
   stage: build
   script:

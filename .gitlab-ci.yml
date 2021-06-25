@@ -2,7 +2,6 @@ image: docker:20.10.6
 
 variables:
   CI_REGISTRY: "registry.gitlab.com/love4src/frontend"
-  DOCKER_HOST: tcp://docker:2375
 
 before_script:
   - docker info

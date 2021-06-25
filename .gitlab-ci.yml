@@ -1,6 +1,5 @@
 variables:
   CI_REGISTRY: "registry.gitlab.com/love4src/frontend"
-  DOCKER_HOST: "tcp://docker:2375"
 
 build:
   stage: build

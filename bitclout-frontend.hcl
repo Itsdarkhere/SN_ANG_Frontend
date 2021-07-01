@@ -104,8 +104,9 @@ job "bitclout-frontend" {
         https://www.youtube.com
         https://player.vimeo.com
         https://www.tiktok.com
-        pay.testwyre.com
-        pay.sendwyre.com;"
+        https://giphy.com
+        https://open.spotify.com
+        https://w.soundcloud.com;"
 }
 
 EOF

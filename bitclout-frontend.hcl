@@ -25,11 +25,6 @@ job "bitclout-frontend" {
         volumes = [
           "local/Caddyfile:/app/frontend/Caddyfile",
         ]
-
-        auth {
-          username = "gitlab+deploy-token-472662"
-          password = "UVxsg7AR5dPeUDwGhDNo"
-        }
       }     
 
       env {

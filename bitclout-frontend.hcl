@@ -75,27 +75,21 @@ job "bitclout-frontend" {
         api.bitpop.dev
         bithunt.bitclout.com
         pulse.bitclout.com
-        bitclout.me:* api.bitclout.me:*
-        localhost:*
         explorer.bitclout.com:*
         https://api.blockchain.com/ticker
         https://api.blockchain.com/mempool/fees
         https://ka-f.fontawesome.com/
         bitcoinfees.earn.com
         api.blockcypher.com 
-        amp.bitclout.com
-        api.bitclout.green api.bitclout.blue 
-        api.bitclout.navy
-        api.testwyre.com
-        api.sendwyre.com;
+        amp.bitclout.com;
       script-src 'self' https://bitclout.com/tags.js https://cdn.jsdelivr.net/npm/sweetalert2@10 
         https://kit.fontawesome.com/070ca4195b.js https://ka-f.fontawesome.com/;
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
       img-src 'self' data: i.imgur.com images.bitclout.com;
       font-src 'self' https://fonts.googleapis.com 
         https://fonts.gstatic.com https://ka-f.fontawesome.com;
-      frame-src 'self' localhost:* 
-        identity.bitclout.com identity.bitclout.blue identity.bitclout.green
+      frame-src 'self' 
+        identity.bitclout.com identity.love4src.com
         https://www.youtube.com
         https://player.vimeo.com
         https://www.tiktok.com
@@ -116,7 +110,7 @@ EOF
         network {
           mbits = 10
           port "http" {
-            static = 8080
+            to = 8080
           }
         }
       }

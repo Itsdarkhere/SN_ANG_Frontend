@@ -61,7 +61,7 @@ job "bitclout-frontend" {
     auto_https off
 }
 
-:8080 {
+:${NOMAD_PORT_http} {
     file_server
     try_files {path} index.html
 
@@ -109,9 +109,7 @@ EOF
         memory = 128
         network {
           mbits = 10
-          port "http" {
-            to = 8080
-          }
+          port "http" {}
         }
       }
 

@@ -54,6 +54,7 @@ job "bitclout-frontend" {
       default-src 'self';
       connect-src 'self'
         api.love4src.com love4src.com:* 
+        api.bitclout.com bitclout.com:*
         bithunt.bitclout.com
         pulse.bitclout.com
         explorer.bitclout.com:*

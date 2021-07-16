@@ -28,34 +28,17 @@ job "bitclout-frontend" {
       }     
 
       env {
-          GLOG_V=0
-          RATE_LIMIT_FEERATE=0
-          MIN_FEERATE=1000
-          TARGET_OUTBOUND_PEERS=8
-          LIMIT_ONE_INBOUND_CONNECTION_PER_IP=true
-          STALL_TIMEOUT_SECONDS=900
-          PRIVATE_MODE=false
-          STARTER_BITCLOUT_AMOUNT_NANOS=1000000
-          ACCESS_CONTROL_ALLOW_ORIGINS="*"
-          MIN_SATOSHIS_BURNED_FOR_PROFILE_CREATION=500000
-          FORCE_SSL=true
-          SUPPORT_EMAIL="inbox@yexperiment.com"
-          LOG_DB_SUMMARY_SNAPSHOTS=false
-          SHOW_PROCESSING_SPINNERS=true
           CADDY_FILE="/app/frontend/Caddyfile"
       }
       
-
       volume_mount {
         volume = "frontend"
         destination = "/app"
         read_only = false
       }
 
-
       template {
         data = <<EOF
-
 {
     admin off
     auto_https off
@@ -71,8 +54,6 @@ job "bitclout-frontend" {
       default-src 'self';
       connect-src 'self'
         api.love4src.com love4src.com:* 
-        api.bitclout.com bitclout.com:*
-        api.bitpop.dev
         bithunt.bitclout.com
         pulse.bitclout.com
         explorer.bitclout.com:*
@@ -89,7 +70,8 @@ job "bitclout-frontend" {
       font-src 'self' https://fonts.googleapis.com 
         https://fonts.gstatic.com https://ka-f.fontawesome.com;
       frame-src 'self' 
-        identity.bitclout.com identity.love4src.com
+        https://identity.bitclout.com 
+        https://identity.love4src.com
         https://www.youtube.com
         https://player.vimeo.com
         https://www.tiktok.com
@@ -97,16 +79,13 @@ job "bitclout-frontend" {
         https://open.spotify.com
         https://w.soundcloud.com;"
 }
-
 EOF
-
         destination = "local/Caddyfile"
-
       }
 
       resources {
-        cpu    = 128
-        memory = 128
+        cpu    = 64
+        memory = 64
         network {
           mbits = 10
           port "http" {
@@ -140,6 +119,5 @@ EOF
         }
       }
     }
-
   }
 }

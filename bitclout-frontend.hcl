@@ -110,11 +110,11 @@ EOF
           name     = "BitClout Frontend"
           type     = "http"
           path     = "/"
-          interval = "120s"
-          timeout  = "30s"
+          interval = "10s"
+          timeout  = "10s"
           check_restart {
-            limit = 3
-            grace = "30s"
+            limit = 20
+            grace = "5s"
             ignore_warnings = true
           }
         }

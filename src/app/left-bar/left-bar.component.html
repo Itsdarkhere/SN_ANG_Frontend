@@ -4,7 +4,7 @@
     <div *ngIf="globalVars.loggedInUser != null" class="global__nav__inner">
       <div class="d-flex w-100 align-items-center fs-24px font-weight-bold" style="height: 80px">
         <a
-          class="link--unstyled d-flex align-items-center"
+          class="ml-10px link--unstyled d-flex align-items-center"
           (click)="globalVars.isLeftBarMobileOpen = false"
           [routerLink]="homeLink()"
           queryParamsHandling="merge"

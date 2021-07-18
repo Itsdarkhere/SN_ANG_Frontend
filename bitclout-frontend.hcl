@@ -2,12 +2,18 @@ job "bitclout-frontend" {
   datacenters = ["fin-yx"]
   type = "service"
   
+  update {
+    max_parallel = 1
+    stagger = "5s"
+  }
+
   group "bclt-front" {
+    count = 3
     
     restart {
-      attempts = 3
-      interval = "5m"
-      delay = "60s"
+      attempts = 2
+      interval = "2m"
+      delay = "20s"
       mode = "delay"
     }
 
@@ -44,7 +50,7 @@ job "bitclout-frontend" {
     auto_https off
 }
 
-:8080 {
+:{{ env "NOMAD_PORT_http" }} {
     file_server
     try_files {path} index.html
 
@@ -85,13 +91,11 @@ EOF
       }
 
       resources {
-        cpu    = 64
-        memory = 64
+        cpu    = 32
+        memory = 32
         network {
           mbits = 10
-          port "http" {
-            static = 8080
-          }
+          port "http" { }
         }
       }
 
@@ -111,10 +115,10 @@ EOF
           type     = "http"
           path     = "/"
           interval = "10s"
-          timeout  = "10s"
+          timeout  = "5s"
           check_restart {
-            limit = 20
-            grace = "5s"
+            limit = 30
+            grace = "2s"
             ignore_warnings = true
           }
         }

@@ -128,7 +128,7 @@ const icydarkTheme: Theme = { key: "icydark", name: "Icy Dark Theme" };
 const legendsTheme: Theme = { key: "legends", name: "Legends Theme" };
 const cakeTheme: Theme = { key: "cake", name: "Cake Theme" };
 const greenishTheme: Theme = { key: "greenish", name: "Green Theme" };
-const coderTheme: Theme = { key: "coder", name: "Green Theme" };
+const coderTheme: Theme = { key: "coder", name: "Coder Theme" };
 
 @NgModule({
   declarations: [

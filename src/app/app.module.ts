@@ -129,6 +129,8 @@ import { legendsTheme } from "./theme/legends-theme";
 import { cakeTheme } from "./theme/cake-theme";
 //Theme for BitClout by @mrpreet
 import { greenishTheme } from "./theme/greenish-theme";
+//Theme for BitBlout by @brootle
+import { coderTheme } from "./theme/coder-theme";
 
 
 @NgModule({
@@ -251,7 +253,7 @@ import { greenishTheme } from "./theme/greenish-theme";
     RatingModule.forRoot(),
     CollapseModule.forRoot(),
     ThemeModule.forRoot({
-      themes: [lightTheme, darkTheme, icydarkTheme, legendsTheme, cakeTheme, greenishTheme],
+      themes: [lightTheme, darkTheme, icydarkTheme, legendsTheme, cakeTheme, greenishTheme, coderTheme],
       active:
         localStorage.getItem("theme") ||
         (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"),

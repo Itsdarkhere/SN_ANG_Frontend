@@ -18,6 +18,10 @@ $feed-border-radius: 12px;
   color: var(--text) !important; // TODO: remove all !important, this is a platform to extend
 }
 
+.text-primary {
+  color: #0078d7 !important;
+}
+
 html {
   overflow-y: scroll;
   overscroll-behavior-y: none;

@@ -19,17 +19,9 @@
         <div>
           <!-- Amount in BitClout-->
           {{ globalVars.nanosToBitClout(globalVars.loggedInUser.BalanceNanos) }}
-        </div>
-
-        <div class="d-flex text-grey5">
-          <!-- Amount in USD-->
-          <div class="ml-10px mr-10px">≈</div>
-          <div *ngIf="globalVars.satoshisPerBitCloutExchangeRate">
-            <span>
-              {{ globalVars.nanosToUSD(globalVars.loggedInUser.BalanceNanos, 2) }} USD
+          <span class="text-muted" *ngIf="globalVars.satoshisPerBitCloutExchangeRate">
+              ≈ {{ globalVars.nanosToUSD(globalVars.loggedInUser.BalanceNanos, 2) }} USD
             </span>
-          </div>
-          <div *ngIf="!globalVars.satoshisPerBitCloutExchangeRate">Fetching... USD</div>
         </div>
       </div>
     </div>

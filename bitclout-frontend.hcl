@@ -76,15 +76,18 @@ job "bitclout-frontend" {
       img-src 'self' data: i.imgur.com images.bitclout.com;
       font-src 'self' https://fonts.googleapis.com 
         https://fonts.gstatic.com https://ka-f.fontawesome.com;
-      frame-src 'self' 
+      frame-src 'self'
         https://identity.bitclout.com 
         https://identity.love4src.com
         https://www.youtube.com
+        https://youtube.com
         https://player.vimeo.com
         https://www.tiktok.com
         https://giphy.com
         https://open.spotify.com
-        https://w.soundcloud.com;"
+        https://w.soundcloud.com;
+      frame-ancestor 'self';
+        "
 }
 EOF
         destination = "local/Caddyfile"

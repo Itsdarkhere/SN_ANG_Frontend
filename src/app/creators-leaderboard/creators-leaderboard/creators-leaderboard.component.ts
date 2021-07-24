@@ -71,8 +71,8 @@ export class CreatorsLeaderboardComponent implements OnInit {
       .toPromise()
       .then(
         (res) => {
-          const chunk = res.ProfilesFound;
-
+          const chunk = res.ProfilesFound.filter(item => !(item.IsReserved && !item.IsVerified));
+          
           // Index 0 means we're done. if the array is empty we're done.
           // subtract one so we don't fetch the last notification twice
           this.pagedKeys[page + 1] = res.NextPublicKey;

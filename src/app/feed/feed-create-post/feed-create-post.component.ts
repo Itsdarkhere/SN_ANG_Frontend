@@ -29,18 +29,20 @@ export class FeedCreatePostComponent implements OnInit {
 
   randomMovieQuote = "";
   randomMovieQuotes = [
-    "Go ahead, make my day.",
-    "The stuff that dreams are made of.",
-    "Made it, Ma! Top of the world!",
-    "I'll be back.",
-    "Open the pod bay doors, HAL.",
-    "Who's on first.",
-    "What's on second.",
-    "I feel the need - the need for speed!",
-    "I'm king of the world!",
-    "If you build it, they will come.",
-    "Roads? Where we're going we don't need roads",
-    "To infinity and beyond!",
+    "I love it when a plan comes together.",
+    "Hang on everybody, I want to try something I saw in a cartoon once!",
+    "We vote because we say we vote!",
+    "Ever notice you run into the nicest people in tanks?",
+    "Of course we have a plan. Onwards, to the moon!",
+    "Grab a Captain Bellybuster cap!",
+    "Are we decentralized yet?",
+    "Heads up to anyone planning - reality check incoming!",
+    "Are those, frickin' sharks with frickin' laser beams?",
+    "They are after my lucky charms!",
+    "Don't repeat yourself. Move forward!",
+    "Keep it simple, you aren't gonna need it!",
+    "If it ain't broke, don't fix it!",
+    "Don't fear missing out. You make it!"
   ];
 
   submittingPost = false;

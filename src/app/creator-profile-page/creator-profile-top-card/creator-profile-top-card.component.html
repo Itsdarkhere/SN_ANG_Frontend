@@ -95,7 +95,7 @@
     <div style="whitespace: nowrap" class="d-flex">
       <div class="font-weight-bold" style="display: inline">
         ~{{ globalVars.nanosToUSD(profile.CoinPriceBitCloutNanos, 2) }}
-        <span class="fc-muted font-weight-normal">Coin Price</span>
+        <span class="text-muted font-weight-normal">Coin Price</span>
       </div>
     </div>
 
@@ -122,7 +122,7 @@
           <span class="fc-muted">Following&nbsp;&nbsp;</span>
         </a>
         <div class="d-lg-flex d-none">
-          <span (click)="_copyPublicKey()" class="fs-15px cursor-pointer creator-profile__ellipsis-restriction">
+          <span (click)="_copyPublicKey()" class="fc-muted fs-15px cursor-pointer creator-profile__ellipsis-restriction">
           <i *ngIf="!publicKeyIsCopied" class="fas fa-key"></i>
           <i *ngIf="publicKeyIsCopied" class="far fa-check-circle fc-blue"></i>
           {{ profile.PublicKeyBase58Check }}
@@ -153,15 +153,15 @@
   <div class="fs-12px mt-10px pt-15px pb-15px flex-wrap border-top border-bottom border-color-grey light-grey-divider">
     <div class="fs-12x d-inline-block col-4 mb-0" style="text-align: center">
       <span class="font-weight-bold d-block">≈ {{ (profile.CoinEntry.CoinsInCirculationNanos / 1e9).toFixed(4) }}</span>
-      <span class="fc-muted d-block">Coins In Circulation</span>
+      <span class="text-muted d-block">Coins In Circulation</span>
     </div>
     <div class="fs-12px d-inline-block col-4 align-items-center mb-0" style="text-align: center">
       <span class="font-weight-bold d-block">≈ {{ totalUSDLocked() }}</span>
-      <span class="fc-muted d-block">Total USD Locked</span>
+      <span class="text-muted d-block">Total USD Locked</span>
     </div>
     <div class="fs-12px d-inline-block col-4 align-items-center mb-0" style="text-align: center">
       <span class="font-weight-bold d-block">≈ {{ usdMarketCap() }}</span>
-      <span class="fc-muted d-block">USD Market Cap</span>
+      <span class="text-muted d-block">USD Market Cap</span>
     </div>
   </div>
 </div>

@@ -122,14 +122,14 @@
           <span class="fc-muted">Following&nbsp;&nbsp;</span>
         </a>
         <div class="d-lg-flex d-none">
-          <span (click)="_copyPublicKey()" class="fc-muted fs-15px cursor-pointer creator-profile__ellipsis-restriction">
+          <span (click)="_copyPublicKey()" class="fs-15px cursor-pointer creator-profile__ellipsis-restriction">
           <i *ngIf="!publicKeyIsCopied" class="fas fa-key"></i>
           <i *ngIf="publicKeyIsCopied" class="far fa-check-circle fc-blue"></i>
           {{ profile.PublicKeyBase58Check }}
         </span>
           <div class="px-5px">
             <span class="font-weight-bold">&nbsp;{{ getFoundersRewardPercent() | number: "0.0-9" }}%</span>
-            FR
+            <span class="fc-muted">FR</span>
           </div>
         </div>
 

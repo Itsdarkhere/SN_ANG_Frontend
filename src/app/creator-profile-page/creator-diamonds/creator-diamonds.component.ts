@@ -40,7 +40,7 @@ export class CreatorDiamondsComponent implements OnInit {
         (res) => {
           this.diamondSummaryList = res.DiamondSenderSummaryResponses;
           if (this.diamondSummaryList.length) {
-            this.diamondSummaryList.push({ totalRow: true });
+            this.diamondSummaryList.unshift({ totalRow: true });
           }
           this.totalDiamonds = res.TotalDiamonds;
         },

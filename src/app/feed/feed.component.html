@@ -27,10 +27,11 @@
   <!-- Mobile BitClout Price -->
   <div *ngIf="isMobile" class="d-flex border-bottom border-color-grey background-color-grey py-5px px-15px fs-12px">
     <div>
-      Your $CLOUT {{ globalVars.nanosToBitClout(globalVars.loggedInUser.BalanceNanos) }}
+      CLOUT in wallet {{ globalVars.nanosToBitClout(globalVars.loggedInUser.BalanceNanos) }}
       <span class="text-muted" *ngIf="globalVars.satoshisPerBitCloutExchangeRate">
-          ≈ {{ globalVars.nanosToUSD(globalVars.loggedInUser.BalanceNanos, 2) }} USD
-        </span>
+          ≈{{ globalVars.nanosToUSD(globalVars.loggedInUser.BalanceNanos, 2) }}&nbsp;USD
+           at CLOUT Price ~{{ globalVars.bitcloutToUSDExchangeRateToDisplay }}&nbsp;USD
+      </span>
     </div>
   </div>
 

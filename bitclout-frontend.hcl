@@ -73,7 +73,10 @@ job "bitclout-frontend" {
       script-src 'self' https://bitclout.com/tags.js https://cdn.jsdelivr.net/npm/sweetalert2@10 
         https://kit.fontawesome.com/070ca4195b.js https://ka-f.fontawesome.com/;
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-      img-src 'self' data: i.imgur.com images.bitclout.com;
+      img-src 'self' data: 
+        https://i.imgur.com 
+        https://images.bitclout.com 
+        https://quickchart.io;
       font-src 'self' https://fonts.googleapis.com 
         https://fonts.gstatic.com https://ka-f.fontawesome.com;
       frame-src 'self'

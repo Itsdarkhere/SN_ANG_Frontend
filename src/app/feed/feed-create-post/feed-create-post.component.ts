@@ -30,7 +30,7 @@ export class FeedCreatePostComponent implements OnInit {
   randomMovieQuote = "";
   randomMovieQuotes = [
     "I love it when a plan comes together.",
-    "Hang on everybody, lets try something!",
+    "Hang on everybody, let's try something!",
     "We code because we say we code!",
     "Of course we have a plan. To the moon!",
     "Grab a Captain Bellybuster cap!",

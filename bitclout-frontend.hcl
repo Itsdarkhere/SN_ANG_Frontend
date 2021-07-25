@@ -70,18 +70,24 @@ job "bitclout-frontend" {
         bitcoinfees.earn.com
         api.blockcypher.com 
         amp.bitclout.com;
-      script-src 'self' https://bitclout.com/tags.js https://cdn.jsdelivr.net/npm/sweetalert2@10 
-        https://kit.fontawesome.com/070ca4195b.js https://ka-f.fontawesome.com/;
-      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      script-src 'self' 
+        https://bitclout.com/tags.js 
+        https://cdn.jsdelivr.net/npm/sweetalert2@10 
+        https://kit.fontawesome.com/070ca4195b.js 
+        https://ka-f.fontawesome.com/;
+      style-src 'self' 'unsafe-inline' 
+        https://fonts.googleapis.com;
       img-src 'self' data: 
         https://i.imgur.com 
         https://images.bitclout.com 
+        https://gfx.love4src.com
         https://quickchart.io;
       font-src 'self' https://fonts.googleapis.com 
         https://fonts.gstatic.com https://ka-f.fontawesome.com;
       frame-src 'self'
         https://identity.bitclout.com 
         https://identity.love4src.com
+        https://gfx.love4src.com
         https://www.youtube.com
         https://youtube.com
         https://player.vimeo.com

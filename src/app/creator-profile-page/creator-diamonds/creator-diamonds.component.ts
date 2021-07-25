@@ -39,9 +39,6 @@ export class CreatorDiamondsComponent implements OnInit {
       .subscribe(
         (res) => {
           this.diamondSummaryList = res.DiamondSenderSummaryResponses;
-          if (this.diamondSummaryList.length) {
-            this.diamondSummaryList.unshift({ totalRow: true });
-          }
           this.totalDiamonds = res.TotalDiamonds;
         },
         (err) => {

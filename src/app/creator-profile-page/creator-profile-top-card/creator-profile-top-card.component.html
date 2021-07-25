@@ -94,6 +94,10 @@
     </div>
     <div style="whitespace: nowrap" class="d-flex">
       <div class="font-weight-bold" style="display: inline">
+        {{ getFoundersRewardPercent() | number: "0.0-9" }}%
+        <span class="fc-muted font-weight-normal">FR</span>
+      </div>
+      <div class="font-weight-bold" style="display: inline">
         ~{{ globalVars.nanosToUSD(profile.CoinPriceBitCloutNanos, 2) }}
         <span class="fc-muted font-weight-normal">Coin Price</span>
       </div>
@@ -127,10 +131,6 @@
           <i *ngIf="publicKeyIsCopied" class="far fa-check-circle fc-blue"></i>
           {{ profile.PublicKeyBase58Check }}
         </span>
-          <div class="px-5px">
-            <span class="font-weight-bold">&nbsp;{{ getFoundersRewardPercent() | number: "0.0-9" }}%</span>
-            FR
-          </div>
         </div>
 
       </div>

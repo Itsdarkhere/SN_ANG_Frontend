@@ -30,19 +30,19 @@ export class FeedCreatePostComponent implements OnInit {
   randomMovieQuote = "";
   randomMovieQuotes = [
     "I love it when a plan comes together.",
-    "Hang on everybody, I want to try something I saw in a cartoon once!",
-    "We vote because we say we vote!",
+    "Hang on everybody, I want to try something I saw in a cartoon!",
+    "We code because we say we code!",
     "Ever notice you run into the nicest people in tanks?",
     "Of course we have a plan. Onwards, to the moon!",
     "Grab a Captain Bellybuster cap!",
-    "Are we decentralized yet?",
-    "Heads up to anyone planning - reality check incoming!",
-    "Are those, frickin' sharks with frickin' laser beams?",
+    "Are we decentralized enough?",
+    "Making plans? Reality check incoming!",
+    "Are those frickin' sharks with frickin' laser beams?",
     "They are after my lucky charms!",
     "Don't repeat yourself. Move forward!",
-    "Keep it simple, you aren't gonna need it!",
+    "Keep it as simple as possible, but not simpler.",
     "If it ain't broke, don't fix it!",
-    "Don't fear missing out. You make it!"
+    "Don't fear missing out. You create it!"
   ];
 
   submittingPost = false;

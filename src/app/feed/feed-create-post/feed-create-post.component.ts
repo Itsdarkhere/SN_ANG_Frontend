@@ -41,7 +41,18 @@ export class FeedCreatePostComponent implements OnInit {
     "Don't repeat yourself. Move on!",
     "Keep it as simple as possible.",
     "If it ain't broke, don't fix it!",
-    "Don't fear missing out. You create it!"
+    "Don't fear missing out. You create it!",
+    "Adapt, try again, and keep adapting.",
+    "Working hard? Don't miss out on life.",
+    "If you ship it, they will come.",
+    "Let's 🚀",
+    "A good deed is best served cold.",
+    "Wow, this looks exactly like CoD right?",
+    "Be one step ahead, don't run away!",
+    "Make in a week what others make in a year.",
+    "We believe in you, even if you don't.",
+    "When will chaos work for you?",
+    "Focus on the happy path & don't look back."
   ];
 
   submittingPost = false;

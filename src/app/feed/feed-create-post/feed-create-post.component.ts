@@ -36,8 +36,8 @@ export class FeedCreatePostComponent implements OnInit {
     "Grab a Captain Bellybuster cap!",
     "Are we decentralized enough?",
     "Making plans? Reality check incoming!",
-    "Frickin' sharks with laser beams?",
-    "They are after my lucky charms!",
+    "I want frickin' sharks with laser beams!",
+    "Run! They are after my lucky charms!",
     "Don't repeat yourself. Move on!",
     "Keep it as simple as possible.",
     "If it ain't broke, don't fix it!",
@@ -70,6 +70,7 @@ export class FeedCreatePostComponent implements OnInit {
     "What once was, still is - doesn't have to be.",
     "Its the direction that matters, not the goal!",
     "It is such a magical place, the land of joy.",
+    "One loves the sunrise when everybody is happy."
   ];
 
   submittingPost = false;

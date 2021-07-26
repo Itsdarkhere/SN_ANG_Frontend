@@ -60,7 +60,16 @@ export class FeedCreatePostComponent implements OnInit {
     "Lead, follow, or stay on board of the rocket.",
     "Who's making all the stars shine so bright?",
     "Turn the light on! I'm entering the stage!",
-    "Turn the lights off, I'm starting to code!"
+    "Turn the lights off, I'm starting to code!",
+    "Wake up, you are the chosen one...",
+    "Open your eyes and follow the white rabbit.",
+    "Can we have a world of our own? No nonsense?",
+    "Who in the world are you? Who am I?",
+    "How long is forever? Is it longer then now?",
+    "Nothing's impassible! Let's 🚀",
+    "What once was, still is - doesn't have to be.",
+    "Its the direction that matters, not the goal!",
+    "It is such a magical place, the land of joy.",
   ];
 
   submittingPost = false;

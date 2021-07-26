@@ -45,14 +45,22 @@ export class FeedCreatePostComponent implements OnInit {
     "Adapt, try again, and keep adapting.",
     "Working hard? Don't miss out on life.",
     "If you ship it, they will come.",
-    "Let's 🚀",
+    "Do you all have the BitClout song playing?",
     "A good deed is best served cold.",
     "Wow, this looks exactly like CoD right?",
     "Be one step ahead, don't run away!",
     "Make in a week what others make in a year.",
     "We believe in you, even if you don't.",
-    "When will chaos work for you?",
-    "Focus on the happy path & don't look back."
+    "When will the chaos start to work for you?",
+    "Focus on the happy path & don't look back.",
+    "Make sure that time is on your side.",
+    "Waiting to start? Please step aside.",
+    "Teamwork is what makes the team work!",
+    "Closed source is like a closed heart. Lonely.",
+    "Lead, follow, or stay on board of the rocket.",
+    "Who's making all the stars shine so bright?",
+    "Turn the light on! I'm entering the stage!",
+    "Turn the lights off, I'm starting to code!"
   ];
 
   submittingPost = false;

@@ -32,7 +32,7 @@ export class FeedCreatePostComponent implements OnInit {
     "I love it when a plan comes together.",
     "Hang on everybody, let's try something!",
     "We code because we say we code!",
-    "Of course we have a plan. To the moon!",
+    "Of course we have a plan. To the Moon!",
     "Grab a Captain Bellybuster cap!",
     "Are we decentralized enough?",
     "Making plans? Reality check incoming!",
@@ -70,7 +70,24 @@ export class FeedCreatePostComponent implements OnInit {
     "What once was, still is - doesn't have to be.",
     "Its the direction that matters, not the goal!",
     "It is such a magical place, the land of joy.",
-    "One loves the sunrise when everybody is happy."
+    "One loves the sunrise when everybody is happy.",
+    "Lets get these electrons jomping and romping!",
+    "Is this an atomic and nuclear misticism?",
+    "We don't do drugs. We are the drug.",
+    "Don't fear perfect. It's never so. Just do!",
+    "Everything alters me, but I keep growing.",
+    "Its either easy or impossible. Do both.",
+    "Online time is too short to remain unnoticed.",
+    "God invented man, and man invented BitClout.",
+    "Everything that is contradictory creates hype.",
+    "Start gazing. Start thinking. Start doing.",
+    "Am I so brief, or have I already finished?",
+    "Liking money is nothing less than mysticism.",
+    "So little of what will happen does happen.",
+    "Say, are we a groovy, happenin' bunch?",
+    "Fly By night, laugh and say: BitCloooout!",
+    "Let's build the catatonic choo-choo!",
+    "GodSpeed. Fasten your Seatbelt!"
   ];
 
   submittingPost = false;

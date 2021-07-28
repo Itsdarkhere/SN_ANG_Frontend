@@ -304,6 +304,15 @@ export class PostThreadComponent {
           this.router.navigateByUrl("/" + this.globalVars.RouteNames.NOT_FOUND, { skipLocationChange: true });
           return;
         }
+        if (
+          res.PostFound.IsNFT &&
+          (!this.route.snapshot.url.length || this.route.snapshot.url[0].path != this.globalVars.RouteNames.NFT)
+        ) {
+          this.router.navigate(["/" + this.globalVars.RouteNames.NFT, this.currentPostHashHex], {
+            queryParamsHandling: "merge",
+          });
+          return;
+        }
         // Set current post
         this.currentPost = res.PostFound;
         this.titleService.setTitle(this.currentPost.ProfileEntryResponse.Username + " on BitClout");

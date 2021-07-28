@@ -36,27 +36,27 @@ export class AdminComponent implements OnInit {
   searchingForPostsByClout = false;
   @Input() isMobile = false;
 
-  banlistPubKeyOrUsername = "";
-  restrictPubKeyOrUsername = "";
+  blacklistPubKeyOrUsername = "";
+  graylistPubKeyOrUsername = "";
   unrestrictPubKeyOrUsername = "";
-  grantlistPubKeyOrUsername = "";
-  ungrantlistPubKeyOrUsername = "";
+  whitelistPubKeyOrUsername = "";
+  unwhitelistPubKeyOrUsername = "";
   removePhonePubKeyorUsername = "";
 
   updateProfileSuccessType = "";
-  grantlistUpdateSuccess = false;
-  ungrantlistUpdateSuccess = false;
+  whitelistUpdateSuccess = false;
+  unwhitelistUpdateSuccess = false;
 
   clearSuccessTimeout: any;
-  grantlistSuccessTimeout: any;
-  ungrantlistSuccessTimeout: any;
+  whitelistSuccessTimeout: any;
+  unwhitelistSuccessTimeout: any;
 
   submittingProfileUpdateType = "";
-  submittingBanlistUpdate = false;
-  submittingRestrictUpdate = false;
+  submittingBlacklistUpdate = false;
+  submittingGraylistUpdate = false;
   submittingUnrestrictUpdate = false;
-  submittingGrantlistUpdate = false;
-  submittingUngrantlistUpdate = false;
+  submittingWhitelistUpdate = false;
+  submittingUnwhitelistUpdate = false;
   submittingEvictUnminedBitcoinTxns = false;
   submittingUSDToBitCloutReserveExchangeRateUpdate = false;
   submittingBuyBitCloutFeeRate = false;
@@ -77,6 +77,8 @@ export class AdminComponent implements OnInit {
   updatingUSDToBitcoin = false;
   updatingCreateProfileFee = false;
   updatingMinimumNetworkFee = false;
+  updatingMaxCopiesPerNFT = false;
+  updatingCreateNFTFeeNanos = false;
   feeRateBitCloutPerKB = (1000 / 1e9).toFixed(9); // Default fee rate.
   bitcoinBlockHashOrHeight = "";
   evictBitcoinTxnHashes = "";
@@ -95,12 +97,14 @@ export class AdminComponent implements OnInit {
     USDPerBitcoin: 0,
     CreateProfileFeeNanos: 0,
     MinimumNetworkFeeNanosPerKB: 0,
+    MaxCopiesPerNFT: 0,
+    CreateNFTFeeNanos: 0,
   };
   verifiedUsers: any = [];
   usernameVerificationAuditLogs: any = [];
   loadingVerifiedUsers = false;
   loadingVerifiedUsersAuditLog = false;
-  adminTabs = ["Posts", "Profiles", "Network", "Mempool", "Wyre", "Super"];
+  adminTabs = ["Posts", "Profiles", "NFTs", "Network", "Mempool", "Wyre"];
   POSTS_TAB = "Posts";
   POSTS_BY_CLOUT_TAB = "Posts By Clout";
   adminPostTabs = [this.POSTS_TAB, this.POSTS_BY_CLOUT_TAB];
@@ -144,6 +148,10 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(this.globalVars.showSuperAdminTools()) {
+      this.adminTabs.push("Super")
+    }
+
     this.route.queryParams.subscribe((queryParams) => {
       if (queryParams.adminTab) {
         this.activeTab = queryParams.adminTab;
@@ -194,10 +202,9 @@ export class AdminComponent implements OnInit {
   }
 
   _tabClicked(tabName: any) {
-    this.activeTab = tabName;
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { adminTab: tabName },
+      queryParams: { adminTab: this.activeTab },
       queryParamsHandling: "merge",
     });
   }
@@ -416,6 +423,8 @@ export class AdminComponent implements OnInit {
             USDPerBitcoin: res.USDCentsPerBitcoin / 100,
             CreateProfileFeeNanos: res.CreateProfileFeeNanos / 1e9,
             MinimumNetworkFeeNanosPerKB: res.MinimumNetworkFeeNanosPerKB,
+            MaxCopiesPerNFT: res.MaxCopiesPerNFT,
+            CreateNFTFeeNanos: res.CreateNFTFeeNanos / 1e9,
           };
           this.updateGlobalParamsValues = this.globalParams;
         },
@@ -503,18 +512,18 @@ export class AdminComponent implements OnInit {
     clearTimeout(this.clearSuccessTimeout);
 
     // Determine what variables to set based on the button pressed.
-    if (level === "banlist") {
-      console.log("Banlisting Pub Key: " + this.banlistPubKeyOrUsername);
-      targetPubKeyOrUsername = this.banlistPubKeyOrUsername;
+    if (level === "blacklist") {
+      console.log("Blacklisting Pub Key: " + this.blacklistPubKeyOrUsername);
+      targetPubKeyOrUsername = this.blacklistPubKeyOrUsername;
       removeEverywhere = true;
       removeFromLeaderboard = true;
-      this.submittingBanlistUpdate = true;
-    } else if (level === "restrict") {
-      console.log("Restricting Pub Key: " + this.restrictPubKeyOrUsername);
-      targetPubKeyOrUsername = this.restrictPubKeyOrUsername;
+      this.submittingBlacklistUpdate = true;
+    } else if (level === "graylist") {
+      console.log("Graylisting Pub Key: " + this.graylistPubKeyOrUsername);
+      targetPubKeyOrUsername = this.graylistPubKeyOrUsername;
       removeEverywhere = false;
       removeFromLeaderboard = true;
-      this.submittingRestrictUpdate = true;
+      this.submittingGraylistUpdate = true;
     } else if (level === "unrestrict") {
       console.log("Unrestricting Pub Key: " + this.unrestrictPubKeyOrUsername);
       targetPubKeyOrUsername = this.unrestrictPubKeyOrUsername;
@@ -560,12 +569,12 @@ export class AdminComponent implements OnInit {
         }
       )
       .add(() => {
-        if (level === "banlist") {
-          this.submittingBanlistUpdate = false;
-          this.banlistPubKeyOrUsername = "";
-        } else if (level === "restrict") {
-          this.submittingRestrictUpdate = false;
-          this.banlistPubKeyOrUsername = "";
+        if (level === "blacklist") {
+          this.submittingBlacklistUpdate = false;
+          this.blacklistPubKeyOrUsername = "";
+        } else if (level === "graylist") {
+          this.submittingGraylistUpdate = false;
+          this.graylistPubKeyOrUsername = "";
         } else if (level === "unrestrict") {
           this.submittingUnrestrictUpdate = false;
           this.unrestrictPubKeyOrUsername = "";
@@ -573,17 +582,17 @@ export class AdminComponent implements OnInit {
       });
   }
 
-  grantlistClicked() {
+  whitelistClicked() {
     let pubKey = "";
     let username = "";
-    this.submittingGrantlistUpdate = true;
-    clearTimeout(this.grantlistSuccessTimeout);
+    this.submittingWhitelistUpdate = true;
+    clearTimeout(this.whitelistSuccessTimeout);
 
     // Decipher whether the target string is a pub key or username.
-    if (this.globalVars.isMaybePublicKey(this.grantlistPubKeyOrUsername)) {
-      pubKey = this.grantlistPubKeyOrUsername;
+    if (this.globalVars.isMaybePublicKey(this.whitelistPubKeyOrUsername)) {
+      pubKey = this.whitelistPubKeyOrUsername;
     } else {
-      username = this.grantlistPubKeyOrUsername;
+      username = this.whitelistPubKeyOrUsername;
     }
 
     this.backendApi
@@ -601,9 +610,9 @@ export class AdminComponent implements OnInit {
       )
       .subscribe(
         (res) => {
-          this.grantlistUpdateSuccess = true;
-          this.grantlistSuccessTimeout = setTimeout(() => {
-            this.grantlistUpdateSuccess = false;
+          this.whitelistUpdateSuccess = true;
+          this.whitelistSuccessTimeout = setTimeout(() => {
+            this.whitelistUpdateSuccess = false;
           }, 1000);
         },
         (err) => {
@@ -611,22 +620,22 @@ export class AdminComponent implements OnInit {
         }
       )
       .add(() => {
-        this.submittingGrantlistUpdate = false;
-        this.grantlistPubKeyOrUsername = "";
+        this.submittingWhitelistUpdate = false;
+        this.whitelistPubKeyOrUsername = "";
       });
   }
 
-  ungrantlistClicked() {
+  unwhitelistClicked() {
     let pubKey = "";
     let username = "";
-    this.submittingUngrantlistUpdate = true;
-    clearTimeout(this.ungrantlistSuccessTimeout);
+    this.submittingUnwhitelistUpdate = true;
+    clearTimeout(this.unwhitelistSuccessTimeout);
 
     // Decipher whether the target string is a pub key or username.
-    if (this.globalVars.isMaybePublicKey(this.ungrantlistPubKeyOrUsername)) {
-      pubKey = this.ungrantlistPubKeyOrUsername;
+    if (this.globalVars.isMaybePublicKey(this.unwhitelistPubKeyOrUsername)) {
+      pubKey = this.unwhitelistPubKeyOrUsername;
     } else {
-      username = this.ungrantlistPubKeyOrUsername;
+      username = this.unwhitelistPubKeyOrUsername;
     }
 
     this.backendApi
@@ -644,9 +653,9 @@ export class AdminComponent implements OnInit {
       )
       .subscribe(
         (res) => {
-          this.ungrantlistUpdateSuccess = true;
-          this.ungrantlistSuccessTimeout = setTimeout(() => {
-            this.ungrantlistUpdateSuccess = false;
+          this.unwhitelistUpdateSuccess = true;
+          this.unwhitelistSuccessTimeout = setTimeout(() => {
+            this.unwhitelistUpdateSuccess = false;
           }, 1000);
         },
         (err) => {
@@ -654,8 +663,8 @@ export class AdminComponent implements OnInit {
         }
       )
       .add(() => {
-        this.submittingUngrantlistUpdate = false;
-        this.ungrantlistPubKeyOrUsername = "";
+        this.submittingUnwhitelistUpdate = false;
+        this.unwhitelistPubKeyOrUsername = "";
       });
   }
 
@@ -731,17 +740,27 @@ export class AdminComponent implements OnInit {
 
   updateGlobalParamUSDPerBitcoin() {
     this.updatingUSDToBitcoin = true;
-    this.updateGlobalParams(this.updateGlobalParamsValues.USDPerBitcoin, -1, -1);
+    this.updateGlobalParams(this.updateGlobalParamsValues.USDPerBitcoin, -1, -1, -1, -1);
   }
 
   updateGlobalParamCreateProfileFee() {
     this.updatingCreateProfileFee = true;
-    this.updateGlobalParams(-1, this.updateGlobalParamsValues.CreateProfileFeeNanos, -1);
+    this.updateGlobalParams(-1, this.updateGlobalParamsValues.CreateProfileFeeNanos, -1, -1, -1);
   }
 
   updateGlobalParamMinimumNetworkFee() {
     this.updatingMinimumNetworkFee = true;
-    this.updateGlobalParams(-1, -1, this.updateGlobalParamsValues.MinimumNetworkFeeNanosPerKB);
+    this.updateGlobalParams(-1, -1, this.updateGlobalParamsValues.MinimumNetworkFeeNanosPerKB, -1, -1);
+  }
+
+  updateGlobalParamMaxCopiesPerNFT() {
+    this.updatingMaxCopiesPerNFT = true;
+    this.updateGlobalParams(-1, -1, -1, this.updateGlobalParamsValues.MaxCopiesPerNFT, -1);
+  }
+
+  updateGlobalParamCreateNFTFeeNanos() {
+    this.updatingCreateNFTFeeNanos = true;
+    this.updateGlobalParams(-1, -1, -1, -1, this.updateGlobalParamsValues.CreateNFTFeeNanos);
   }
 
   updateUSDToBitCloutReserveExchangeRate(): void {
@@ -818,16 +837,24 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  updateGlobalParams(usdPerBitcoin: number, createProfileFeeNanos: number, minimumNetworkFeeNanosPerKB: number) {
+  updateGlobalParams(
+    usdPerBitcoin: number,
+    createProfileFeeNanos: number,
+    minimumNetworkFeeNanosPerKB: number,
+    maxCopiesPerNFT: number,
+    createNFTFeeNanos: number,
+  ) {
     const updateBitcoinMessage = usdPerBitcoin >= 0 ? `Update Bitcoin to USD exchange rate: ${usdPerBitcoin}\n` : "";
     const createProfileFeeNanosMessage =
-      createProfileFeeNanos >= 0 ? `Create Profile Fee Nanos: ${createProfileFeeNanos}\n` : "";
+      createProfileFeeNanos >= 0 ? `Create Profile Fee (in $CLOUT): ${createProfileFeeNanos}\n` : "";
     const minimumNetworkFeeNanosPerKBMessage =
-      minimumNetworkFeeNanosPerKB >= 0 ? `Minimum Network Fee Nanos Per KB: ${minimumNetworkFeeNanosPerKB}` : "";
+      minimumNetworkFeeNanosPerKB >= 0 ? `Minimum Network Fee Nanos Per KB: ${minimumNetworkFeeNanosPerKB}\n` : "";
+    const maxCopiesMessage = maxCopiesPerNFT >= 0 ? `Max Copies Per NFT: ${maxCopiesPerNFT}\n` : "";
+    const createNFTFeeNanosMessage = createNFTFeeNanos >= 0 ? `Create NFT Fee (in $CLOUT): ${createNFTFeeNanos}\n` : "";
     SwalHelper.fire({
       target: this.globalVars.getTargetComponentSelector(),
       title: "Are you ready?",
-      html: `${updateBitcoinMessage}${createProfileFeeNanosMessage}${minimumNetworkFeeNanosPerKBMessage}`,
+      html: `${updateBitcoinMessage}${createProfileFeeNanosMessage}${minimumNetworkFeeNanosPerKBMessage}${maxCopiesMessage}${createNFTFeeNanosMessage}`,
       showConfirmButton: true,
       showCancelButton: true,
       customClass: {
@@ -839,6 +866,7 @@ export class AdminComponent implements OnInit {
       .then((res: any) => {
         if (res.isConfirmed) {
           this.updatingGlobalParams = true;
+          console.log(maxCopiesPerNFT);
           this.backendApi
             .UpdateGlobalParams(
               this.globalVars.localNode,
@@ -846,6 +874,8 @@ export class AdminComponent implements OnInit {
               usdPerBitcoin >= 0 ? usdPerBitcoin * 100 : -1,
               createProfileFeeNanos >= 0 ? createProfileFeeNanos * 1e9 : -1,
               minimumNetworkFeeNanosPerKB >= 0 ? minimumNetworkFeeNanosPerKB : -1,
+              maxCopiesPerNFT >= 0 ? maxCopiesPerNFT : -1,
+              createNFTFeeNanos >= 0 ? createNFTFeeNanos * 1e9 : -1,
               minimumNetworkFeeNanosPerKB >= 0
                 ? minimumNetworkFeeNanosPerKB
                 : this.globalParams.MinimumNetworkFeeNanosPerKB >= 0
@@ -887,6 +917,8 @@ export class AdminComponent implements OnInit {
         this.updatingUSDToBitcoin = false;
         this.updatingCreateProfileFee = false;
         this.updatingMinimumNetworkFee = false;
+        this.updatingMaxCopiesPerNFT = false;
+        this.updatingCreateNFTFeeNanos = false;
       });
   }
 

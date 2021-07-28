@@ -81,7 +81,7 @@ job "bitclout-frontend" {
         https://i.imgur.com
         https://images.bitclout.com 
         https://gfx.love4src.com
-        https://arweave.net
+        https://*.arweave.net
         https://quickchart.io;
       font-src 'self' https://fonts.googleapis.com 
         https://fonts.gstatic.com https://ka-f.fontawesome.com;

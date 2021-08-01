@@ -87,7 +87,7 @@ export class FeedCreatePostComponent implements OnInit {
     "Say, are we a groovy, happenin' bunch?",
     "Fly by night, laugh, and shout: BitCloooout!",
     "Let's build the catatonic choo-choo!",
-    "GodSpeed. Fasten your Seatbelt!"
+    "Fasten your seatbelts! GodSpeed!"
   ];
 
   submittingPost = false;

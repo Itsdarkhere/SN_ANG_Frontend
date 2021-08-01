@@ -85,7 +85,7 @@ export class FeedCreatePostComponent implements OnInit {
     "Liking money is nothing less than mysticism.",
     "So little of what will happen does happen.",
     "Say, are we a groovy, happenin' bunch?",
-    "Fly By night, laugh and say: BitCloooout!",
+    "Fly by night, laugh, and shout: BitCloooout!",
     "Let's build the catatonic choo-choo!",
     "GodSpeed. Fasten your Seatbelt!"
   ];

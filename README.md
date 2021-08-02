@@ -2,6 +2,11 @@
 
 # Clone the repo and what next?
 
+* Install nodejs and angular
+```
+
+```
+
 * Setup hosts mapping
 ```
 sudo nano /etc/hosts
@@ -39,6 +44,11 @@ sudo ln -s /etc/nginx/sites-available/l4s_frontend /etc/nginx/sites-enabled/l4s_
 sudo systemctl restart nginx
 ```
 
+* If in doubt run local with
+```
+ng serve --disableHostCheck true
+```
+
 # About BitClout
 BitClout is a blockchain built from the ground up to support a fully-featured
 social network. Its architecture is similar to Bitcoin, only it supports complex
@@ -47,7 +57,7 @@ more.
 
 [Read about the vision](https://docs.bitclout.com/the-vision)
 
-# About This Repo
+# About The Reference Repo - https://github.com/bitclout/frontend
 Documentation for this repo lives on docs.bitclout.com. Specifically, the following
 docs should give you everything you need to get started:
 * [BitClout Code Walkthrough](https://docs.bitclout.com/code/walkthrough)

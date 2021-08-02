@@ -4,11 +4,11 @@ job "bitclout-frontend" {
   
   update {
     max_parallel = 1
-    stagger = "5s"
+    stagger = "30s"
   }
 
   group "bclt-front" {
-    count = 3
+    count = 6
     
     restart {
       attempts = 2

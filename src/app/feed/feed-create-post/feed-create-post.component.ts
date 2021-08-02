@@ -78,7 +78,7 @@ export class FeedCreatePostComponent implements OnInit {
     "Everything alters me, but I keep growing.",
     "Its either easy or impossible. Do both.",
     "Online time is too short to remain unnoticed.",
-    "God invented man, and man invented BitClout.",
+    "God made a human, and human made the BitClout.",
     "Everything that is contradictory creates hype.",
     "Start gazing. Start thinking. Start doing.",
     "Am I so brief, or have I already finished?",
@@ -87,7 +87,8 @@ export class FeedCreatePostComponent implements OnInit {
     "Say, are we a groovy, happenin' bunch?",
     "Fly by night, laugh, and shout: BitCloooout!",
     "Let's build the catatonic choo-choo!",
-    "Fasten your seatbelts! GodSpeed!"
+    "Fasten your seatbelts! GodSpeed!",
+    "Ain't nothing wrong with being practical."
   ];
 
   submittingPost = false;

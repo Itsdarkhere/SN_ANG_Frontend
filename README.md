@@ -1,10 +1,8 @@
 ![BitClout Logo](https://bitclout.com/assets/img/camelcase_logo.svg)
 
-# Clone the repo and what next?
-
-* Install nodejs and angular
+# Clone the repo and get yourself started?
 ```
-
+git clone https://gitlab.com/love4src/frontend.git
 ```
 
 * Setup hosts mapping
@@ -16,8 +14,9 @@ sudo nano /etc/hosts
 ```
 
 * Setup nginx or other proxy:
-
-/etc/nginx/sites-available/l4s_frontend
+```
+sudo nano /etc/nginx/sites-available/l4s_frontend
+```
 ```
 upstream l4s_frontend {
         server localhost:4200;
@@ -44,9 +43,19 @@ sudo ln -s /etc/nginx/sites-available/l4s_frontend /etc/nginx/sites-enabled/l4s_
 sudo systemctl restart nginx
 ```
 
-* If in doubt run local with
+* Setup nodejs and angular (Ubuntu)
 ```
-ng serve --disableHostCheck true
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# relogin / re-run profile
+
+npm install 
+```
+
+* Start the frontend (optionally disabling host check)
+```
+ng serve --disable-host-check
 ```
 
 # About BitClout

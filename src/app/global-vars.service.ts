@@ -765,11 +765,7 @@ export class GlobalVarsService {
 
     if (!this.localNode) {
       const hostname = (window as any).location.hostname;
-      if (environment.production) {
-        this.localNode = hostname;
-      } else {
-        this.localNode = `${hostname}:17001`;
-      }
+      this.localNode = hostname;
 
       this.backendApi.SetStorage(this.backendApi.LastLocalNodeKey, this.localNode);
     }

@@ -1,20 +1,18 @@
-job "bitclout-frontend" {
+job "l4s-frontend" {
   datacenters = ["fin-yx"]
   type = "service"
-  
-  update {
-    max_parallel = 1
-    stagger = "30s"
-  }
 
-  group "bclt-front" {
-    count = 6
-    
-    restart {
-      attempts = 2
-      interval = "2m"
-      delay = "20s"
-      mode = "delay"
+
+  group "l4s-bclt-front" {
+    count = 4
+
+    update {
+      max_parallel = 1
+      canary = 5
+      min_healthy_time = "30s"
+      healthy_deadline = "10m"
+      auto_revert = true
+      auto_promote = false
     }
 
     volume "frontend" {
@@ -23,7 +21,7 @@ job "bitclout-frontend" {
       source = "frontend"
     }
 
-    task "bclt-frontend" {
+    task "l4s-bclt-frontend" {
       driver = "docker"
       config {
         image = "registry.gitlab.com/love4src/frontend:[[.commit_sha]]"
@@ -114,7 +112,7 @@ EOF
       }
 
       service {
-        name = "bitclout-frontend"
+        name = "l4s-frontend"
         port = "http"
         
         tags = [
@@ -125,7 +123,7 @@ EOF
         ]
 
         check {
-          name     = "BitClout Frontend"
+          name     = "love4src Frontend"
           type     = "http"
           path     = "/"
           interval = "10s"

@@ -43,6 +43,34 @@ sudo ln -s /etc/nginx/sites-available/l4s_frontend /etc/nginx/sites-enabled/l4s_
 sudo systemctl restart nginx
 ```
 
+Optionally, setup the ssl:
+```
+upstream l4s_frontend {
+        server localhost:4200;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    ssl_certificate dev-love4src.crt;
+    ssl_certificate_key dev-love4src.key;
+
+    server_name dev.love4src.com;
+
+    try_files $uri /index.html =404;
+
+    location / {
+        proxy_pass http://l4s_frontend;
+    }
+
+    location /api/ { 
+        proxy_pass https://api.love4src.com/;
+        proxy_redirect off;
+    }
+}
+```
+
 * Setup nodejs and angular (Ubuntu)
 ```
 curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -

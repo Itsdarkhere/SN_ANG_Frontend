@@ -50,6 +50,8 @@ sudo apt-get install -y nodejs
 
 # relogin / re-run profile
 
+npm install -g @angular/cli
+
 npm install 
 ```
 

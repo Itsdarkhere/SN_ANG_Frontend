@@ -1,4 +1,4 @@
-FROM node:14.15.5-alpine3.13 AS frontend
+FROM node:16-alpine AS frontend
 
 WORKDIR /frontend
 
@@ -31,7 +31,7 @@ COPY ./src ./src
 RUN npm run build_prod
 
 # build minified version of frontend, served using caddy
-FROM caddy:2.3.0-alpine
+FROM caddy:2-alpine
 
 WORKDIR /frontend
 

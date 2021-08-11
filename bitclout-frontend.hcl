@@ -24,7 +24,7 @@ job "supernovas-frontend" {
     task "supernovas-bclt-frontend" {
       driver = "docker"
       config {
-        image = "registry.gitlab.com/supernovas/frontend:[[.commit_sha]]"
+        image = "registry.gitlab.com/supernovas2/frontend:[[.commit_sha]]"
 
         volumes = [
           "local/Caddyfile:/app/frontend/Caddyfile",

@@ -1,9 +1,9 @@
-job "l4s-frontend" {
-  datacenters = ["fin-yx"]
+job "supernovas-frontend" {
+  datacenters = ["supernovas-fin"]
   type = "service"
 
 
-  group "l4s-bclt-front" {
+  group "supernovas-bclt-front" {
     count = 4
 
     update {
@@ -21,10 +21,10 @@ job "l4s-frontend" {
       source = "frontend"
     }
 
-    task "l4s-bclt-frontend" {
+    task "supernovas-bclt-frontend" {
       driver = "docker"
       config {
-        image = "registry.gitlab.com/love4src/frontend:[[.commit_sha]]"
+        image = "registry.gitlab.com/supernovas/frontend:[[.commit_sha]]"
 
         volumes = [
           "local/Caddyfile:/app/frontend/Caddyfile",
@@ -53,11 +53,11 @@ job "l4s-frontend" {
     try_files {path} index.html
 
     header Access-Control-Allow-Methods "GET, PUT, POST, DELETE, OPTIONS"
-    header Access-Control-Allow-Origin "https://love4src.com"
+    header Access-Control-Allow-Origin "https://supernovas.app"
     header Content-Security-Policy "
       default-src 'self';
       connect-src 'self'
-        api.love4src.com love4src.com:* 
+        supernovas.app:* 
         api.bitclout.com bitclout.com:*
         bithunt.bitclout.com
         pulse.bitclout.com
@@ -78,7 +78,6 @@ job "l4s-frontend" {
       img-src 'self' data: 
         https://i.imgur.com
         https://images.bitclout.com 
-        https://gfx.love4src.com
         https://arweave.net
         https://*.arweave.net
         https://quickchart.io;
@@ -86,7 +85,6 @@ job "l4s-frontend" {
         https://fonts.gstatic.com https://ka-f.fontawesome.com;
       frame-src 'self'
         https://identity.bitclout.com 
-        https://identity.love4src.com
         https://gfx.love4src.com
         https://www.youtube.com
         https://youtube.com
@@ -112,18 +110,18 @@ EOF
       }
 
       service {
-        name = "l4s-frontend"
+        name = "supernovas-frontend"
         port = "http"
         
         tags = [
           "internal-proxy.enable=true",
-          "internal-proxy.http.routers.bitclout-frontend.rule=Host(`love4src.com`)",
+          "internal-proxy.http.routers.bitclout-frontend.rule=Host(`supernovas.app`)",
           "internal-proxy.http.routers.bitclout-frontend.tls=true",
-          "internal-proxy.http.routers.bitclout-frontend.tls.certresolver=astroresolver"
+          "internal-proxy.http.routers.bitclout-frontend.tls.certresolver=supernovasresolver"
         ]
 
         check {
-          name     = "love4src Frontend"
+          name     = "supernovas Frontend"
           type     = "http"
           path     = "/"
           interval = "10s"

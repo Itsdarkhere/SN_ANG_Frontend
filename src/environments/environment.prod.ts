@@ -5,7 +5,7 @@ export const environment = {
   dd: {
     apiKey: "DCEB26AC8BF47F1D7B4D87440EDCA6",
     jsPath: "https://bitclout.com/tags.js",
-    ajaxListenerPath: "love4src.com/api",
-    endpoint: "https://love4src.com/js/",
+    ajaxListenerPath: "supernovas.app/api",
+    endpoint: "https://supernovas.app/js/",
   },
 };

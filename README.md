@@ -45,6 +45,10 @@ sudo systemctl restart nginx
 
 Optionally, setup the ssl:
 ```
+openssl req -x509 -sha256 -nodes -days 765 -newkey rsa:2048 -keyout dev-love4src.key -out dev-love4src.crt
+```
+
+```
 upstream l4s_frontend {
         server localhost:4200;
 }

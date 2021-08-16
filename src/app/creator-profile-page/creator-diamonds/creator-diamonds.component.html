@@ -58,36 +58,46 @@
             ]"
             >
               <div class="row no-gutters py-10px border-bottom mb-0">
-              <div class="col-5 d-flex align-items-left mb-0">
-                <div
-                  *ngIf="row.ProfileEntryResponse"
-                  [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, row.ProfileEntryResponse.Username]"
-                  class="d-flex align-items-center link--unstyled"
-                >
+                <div class="col-5 d-flex align-items-left mb-0">
                   <div
-                    class="creator-profile-details__hodler-avatar mr-10px"
-                    [avatar]="row.ProfileEntryResponse.PublicKeyBase58Check"
-                  ></div>
-                  <div
-                    class="text-truncate"
-                    style="font-size: 14px"
-                    [ngStyle]="{ 'max-width': globalVars.isMobile() ? '100px' : '200px' }"
+                    [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, row.ProfileEntryResponse.Username]"
+                    class="d-flex align-items-center link--unstyled"
                   >
-                    <span>{{ row.ProfileEntryResponse.Username }}</span>
-                    <span
-                      *ngIf="row.ProfileEntryResponse.IsVerified"
-                      (click)="tooltip.toggle()"
-                      class="ml-1 mb-1 cursor-pointer text-primary"
-                      matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
-                      [matTooltip]="'This account is verified'"
-                      #tooltip="matTooltip"
+                    <div
+                      class="creator-profile-details__hodler-avatar mr-10px"
+                      [avatar]="row.ProfileEntryResponse.PublicKeyBase58Check"
+                    ></div>
+                    <div
+                      class="text-truncate"
+                      style="font-size: 14px"
+                      [ngStyle]="{ 'max-width': globalVars.isMobile() ? '100px' : '200px' }"
                     >
-                      <i class="fas fa-check-circle fa-md align-middle"></i>
-                    </span>
-                    <div class="text-grey9 fs-12px">
-                      {{ globalVars.nanosToUSD(row.ProfileEntryResponse.CoinPriceBitCloutNanos, 2) }}
+                      <span>{{ row.ProfileEntryResponse.Username }}</span>
+                      <span
+                        *ngIf="row.ProfileEntryResponse.IsVerified"
+                        (click)="tooltip.toggle()"
+                        class="ml-1 mb-1 cursor-pointer text-primary"
+                        matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
+                        [matTooltip]="'This account is verified'"
+                        #tooltip="matTooltip"
+                      >
+                        <i class="fas fa-check-circle fa-md align-middle"></i>
+                      </span>
+                      <div class="text-grey9 fs-12px">
+                        {{ globalVars.nanosToUSD(row.ProfileEntryResponse.CoinPriceBitCloutNanos, 2) }}
+                      </div>
                     </div>
                   </div>
+                </div>
+                <div class="col-4 mb-0 d-flex align-items-center justify-flex-start">
+                  <i
+                    *ngFor="let diamond of counter(row.HighestDiamondLevel)"
+                    class="icon-diamond fs-20px d-block"
+                    style="margin-right: -7px"
+                  ></i>
+                </div>
+                <div class="col-3 mb-0 d-flex align-items-center justify-content-center">
+                  {{ row.TotalDiamonds }}
                 </div>
               </div>
             </div>

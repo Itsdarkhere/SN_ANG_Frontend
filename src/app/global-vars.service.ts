@@ -748,7 +748,7 @@ export class GlobalVarsService {
 
   launchIdentityFlow(event: string): void {
     this.logEvent(`account : ${event} : launch`);
-    this.identityService.launch("/log-in").subscribe((res) => {
+    this.identityService.launch("/log-in?accessLevelRequest=4").subscribe((res) => {
       this.logEvent(`account : ${event} : success`);
       this.backendApi.setIdentityServiceUsers(res.users, res.publicKeyAdded);
       this.updateEverything().subscribe(() => {
@@ -803,7 +803,7 @@ export class GlobalVarsService {
 
     let identityServiceURL = this.backendApi.GetStorage(this.backendApi.LastIdentityServiceKey);
     if (!identityServiceURL) {
-      identityServiceURL = "https://identity.love4src.com";
+      identityServiceURL = "https://identity.bitclout.com";
       this.backendApi.SetStorage(this.backendApi.LastIdentityServiceKey, identityServiceURL);
     }
     this.identityService.identityServiceURL = identityServiceURL;

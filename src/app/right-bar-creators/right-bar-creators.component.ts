@@ -52,14 +52,14 @@ export class RightBarCreatorsComponent implements OnInit {
     [RightBarCreatorsComponent.GAINERS.name]: RightBarCreatorsComponent.GAINERS,
     [RightBarCreatorsComponent.DIAMONDS.name]: RightBarCreatorsComponent.DIAMONDS,
     [RightBarCreatorsComponent.COMMUNITY.name]: RightBarCreatorsComponent.COMMUNITY,
-    // [RightBarCreatorsComponent.ALL_TIME.name]: RightBarCreatorsComponent.ALL_TIME,
+    [RightBarCreatorsComponent.ALL_TIME.name]: RightBarCreatorsComponent.ALL_TIME,
   };
 
   ngOnInit() {
-    const defaultTab = this.backendApi.GetStorage(RightBarCreatorsComponent.RightBarTabKey);
-    this.activeTab =
-      defaultTab in RightBarCreatorsComponent.chartMap ? defaultTab : RightBarCreatorsComponent.ALL_TIME.name;
-    this.selectTab(true);
+    // const defaultTab = this.backendApi.GetStorage(RightBarCreatorsComponent.RightBarTabKey);
+    // this.activeTab =
+    //   defaultTab in RightBarCreatorsComponent.chartMap ? defaultTab : RightBarCreatorsComponent.COMMUNITY.name;
+    // this.selectTab(true);
   }
 
   selectTab(skipStorage: boolean = false) {

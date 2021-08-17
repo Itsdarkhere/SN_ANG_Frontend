@@ -35,11 +35,11 @@
   </div>
 
   <!-- Title -->
-  <div
+  <!-- <div
     class="fs-15px text-grey5 font-weight-bold mb-10px d-flex flex-column"
     [ngClass]="{ 'pb-10px': !activeRightTabOption.poweredBy }"
-  >
-    <div>
+  > -->
+    <!-- <div> -->
       <!-- <select
         #rightBarSelect
         id="right-bar-chart-select"
@@ -56,14 +56,14 @@
           {{ option.key }}
         </option>
       </select> -->
-    </div>
-    <div class="pt-5px" *ngIf="activeRightTabOption.poweredBy">
+    <!-- </div> -->
+    <!-- <div class="pt-5px" *ngIf="activeRightTabOption.poweredBy">
       <a class="link--unstyled fs-12px text-grey7" [href]="activeRightTabOption.poweredBy.link" target="_blank">
         <i class="fas fa-external-link-alt pr-5px"></i>
         Powered by {{ activeRightTabOption.poweredBy.name }}
       </a>
     </div>
-  </div>
+  </div> -->
 
   <!-- Creators -->
   <right-bar-creators-leaderboard [activeTab]="activeTab"></right-bar-creators-leaderboard>

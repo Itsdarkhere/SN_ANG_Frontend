@@ -40,7 +40,7 @@
     [ngClass]="{ 'pb-10px': !activeRightTabOption.poweredBy }"
   >
     <div>
-      <select
+      <!-- <select
         #rightBarSelect
         id="right-bar-chart-select"
         class="right-bar-select-box fs-15px text-grey5 font-weight-bold cursor-pointer"
@@ -55,7 +55,7 @@
         >
           {{ option.key }}
         </option>
-      </select>
+      </select> -->
     </div>
     <div class="pt-5px" *ngIf="activeRightTabOption.poweredBy">
       <a class="link--unstyled fs-12px text-grey7" [href]="activeRightTabOption.poweredBy.link" target="_blank">

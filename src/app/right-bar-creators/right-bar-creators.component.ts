@@ -52,7 +52,7 @@ export class RightBarCreatorsComponent implements OnInit {
     [RightBarCreatorsComponent.GAINERS.name]: RightBarCreatorsComponent.GAINERS,
     [RightBarCreatorsComponent.DIAMONDS.name]: RightBarCreatorsComponent.DIAMONDS,
     [RightBarCreatorsComponent.COMMUNITY.name]: RightBarCreatorsComponent.COMMUNITY,
-    [RightBarCreatorsComponent.ALL_TIME.name]: RightBarCreatorsComponent.ALL_TIME,
+    // [RightBarCreatorsComponent.ALL_TIME.name]: RightBarCreatorsComponent.ALL_TIME,
   };
 
   ngOnInit() {

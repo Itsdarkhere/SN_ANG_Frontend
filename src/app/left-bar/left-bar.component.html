@@ -25,10 +25,10 @@
             <left-bar-button [link]="homeLink()" [buttonLabel]="'Feed'"></left-bar-button>
 
             <left-bar-button [link]="'/' + globalVars.RouteNames.TRENDS" [buttonLabel]="'Marketplace'"></left-bar-button>
-
-            <div class="p-15px" *ngIf="globalVars.loggedInUser?.ProfileEntryResponse"></div>
             <left-bar-button [link]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse?.Username)" [queryParams]="{ 'nftTab': 'my_bids', 'tab': 'nfts' }" [buttonLabel]="'Active bids'" *ngIf="globalVars.loggedInUser?.ProfileEntryResponse"></left-bar-button>
-
+            
+            <!-- <div class="p-15px" *ngIf="globalVars.loggedInUser?.ProfileEntryResponse"></div> -->
+            
             <div class="p-15px"></div>
 
             <div *ngIf="globalVars.loggedInUser && globalVars.loggedInUser.ProfileEntryResponse?.Username; else elseBlock">

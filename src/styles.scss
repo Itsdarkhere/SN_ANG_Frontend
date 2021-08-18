@@ -2606,14 +2606,14 @@ em {
 }
 
 .apply_to_crt {
-    background: #1d1d1d;
+    background: var(--secondary);
     padding: 15px;
     border-radius: 10px;
 }
 
 .apply_to_crt h4 {
     font-size: 15px;
-    color: #fff;
+    color: var(--text);
     font-weight: 600;
     margin-bottom: 12px;
 }
@@ -2625,10 +2625,11 @@ em {
 
 .apply_to_crt p {
     font-size: 13px;
+    color: var(--text);
 }
 
 .apply_to_crt a {
-    color: #dcdcdc;
+    color: var(--text);
     font-weight: 600;
     font-size: 14px;
     display: inline-block;

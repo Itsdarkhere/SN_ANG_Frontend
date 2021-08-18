@@ -26,29 +26,8 @@
 
             <left-bar-button [link]="'/' + globalVars.RouteNames.TRENDS" [buttonLabel]="'Marketplace'"></left-bar-button>
 
-            <!-- <left-bar-button
-        [link]="'/' + globalVars.RouteNames.CREATORS"
-        [buttonLabel]="'Buy Creator Coins'"
-      ></left-bar-button>
-
-      <left-bar-button
-        [link]="'/' + globalVars.RouteNames.BUY_BITCLOUT"
-        [buttonLabel]="'Buy $CLOUT'"
-      ></left-bar-button> -->
-
-            <!-- <div class="w-100 d-flex pt-15px pl-15px" *ngIf="globalVars.showJumio && !globalVars.loggedInUser?.JumioVerified" (click)="globalVars.launchGetFreeCLOUTFlow()">
-        <a class="left-bar__dot-inactive">·</a>
-        <a class="cursor-pointer fs-15px text-grey5">Get Free $CLOUT</a>
-      </div> -->
-
             <div class="p-15px" *ngIf="globalVars.loggedInUser?.ProfileEntryResponse"></div>
             <left-bar-button [link]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse?.Username)" [queryParams]="{ 'nftTab': 'my_bids', 'tab': 'nfts' }" [buttonLabel]="'Active bids'" *ngIf="globalVars.loggedInUser?.ProfileEntryResponse"></left-bar-button>
-
-            <div class="p-15px"></div>
-
-
-
-            <left-bar-button [link]="'/' + globalVars.RouteNames.WALLET" [buttonLabel]="'Wallet'"></left-bar-button>
 
             <div class="p-15px"></div>
 
@@ -56,12 +35,15 @@
                 <left-bar-button [link]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse.Username)" [queryParams]="{ 'tab':'posts' }" [buttonLabel]="'Profile'"></left-bar-button>
             </div>
             <ng-template #elseBlock>
-                <left-bar-button [link]="'/' + this.globalVars.RouteNames.UPDATE_PROFILE" [buttonLabel]="'Update Profile'"></left-bar-button>
+                <left-bar-button [link]="'/' + this.globalVars.RouteNames.UPDATE_PROFILE" [buttonLabel]="'Profile'"></left-bar-button>
             </ng-template>
 
             <left-bar-button [link]="'/' + globalVars.RouteNames.NOTIFICATIONS" [buttonLabel]="'Notifications'" [isUnread]="globalVars.hasUnreadNotifications"></left-bar-button>
 
             <left-bar-button [hasNotifications]="true" [link]="'/' + globalVars.RouteNames.INBOX_PREFIX" [buttonLabel]="'Messages'"></left-bar-button>
+            <left-bar-button [link]="'/' + globalVars.RouteNames.WALLET" [buttonLabel]="'Wallet'"></left-bar-button>
+
+            <div class="p-15px"></div>
 
             <left-bar-button [link]="'/' + globalVars.RouteNames.SETTINGS" [buttonLabel]="'Settings'"></left-bar-button>
 

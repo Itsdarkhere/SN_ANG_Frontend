@@ -25,7 +25,7 @@
             <left-bar-button [link]="homeLink()" [buttonLabel]="'Feed'"></left-bar-button>
 
             <left-bar-button [link]="'/' + globalVars.RouteNames.TRENDS" [buttonLabel]="'Marketplace'"></left-bar-button>
-            <left-bar-button [link]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse?.Username)" [queryParams]="{ 'nftTab': 'my_bids', 'tab': 'nfts' }" [buttonLabel]="'Active bids'" *ngIf="globalVars.loggedInUser?.ProfileEntryResponse"></left-bar-button>
+            <left-bar-button [link]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse?.Username)" [queryParams]="{ 'nftTab': 'my_bids', 'tab': 'nfts' }" [buttonLabel]="'Active bids'" ></left-bar-button>
             
             <!-- <div class="p-15px" *ngIf="globalVars.loggedInUser?.ProfileEntryResponse"></div> -->
             

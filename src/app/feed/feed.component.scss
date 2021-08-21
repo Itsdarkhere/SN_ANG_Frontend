@@ -1,0 +1,13 @@
+:host ::ng-deep {
+    .feed_tabs {
+        .tabs_column_list {
+            width: 50% !important;
+            padding: 0 !important;
+            align-items: flex-start !important;
+            .tabs_column_list_inner {
+                font-size: 20px !important;
+                font-weight: 600;
+            }
+        }
+    }
+}

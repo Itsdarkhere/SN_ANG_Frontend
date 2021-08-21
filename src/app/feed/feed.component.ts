@@ -12,10 +12,10 @@ import { NftPostComponent } from "../nft-post-page/nft-post/nft-post.component";
 @Component({
   selector: "feed",
   templateUrl: "./feed.component.html",
-  styleUrls: ["./feed.component.sass"],
+  styleUrls: ["./feed.component.scss"],
 })
 export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
-  static GLOBAL_TAB = "Global";
+  static GLOBAL_TAB = "Supernovas Feed";
   static FOLLOWING_TAB = "Following";
   static SHOWCASE_TAB = "⚡ NFT Showcase ⚡";
   static TABS = [FeedComponent.GLOBAL_TAB, FeedComponent.FOLLOWING_TAB];

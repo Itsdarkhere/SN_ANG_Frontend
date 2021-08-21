@@ -1038,6 +1038,7 @@ $green-font-color: #19B028;
     align-items: stretch;
     margin: 0;
     padding: 0;
+    padding-top: 77px;
 }
 
 @media (min-width: 992px) {
@@ -1199,8 +1200,7 @@ input.bs-timepicker-field {
 }
 
 .global__nav__fixed {
-    top: 0;
-    height: 100%;
+    top: 77px;
     position: fixed;
 }
 
@@ -1208,7 +1208,7 @@ input.bs-timepicker-field {
     width: $global__nav__width;
     overflow-y: auto;
     overflow-x: hidden;
-    height: 100%;
+    height: calc(100vh - 77px);
     padding: 0;
     padding-right: 10px;
 }

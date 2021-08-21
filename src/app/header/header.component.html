@@ -28,9 +28,9 @@
                     [routerLink]="'/' + globalVars.RouteNames.INBOX_PREFIX" />
                 <span>Chat</span>
             </li>
+            <!-- [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse.Username)"> -->
             <li>
-                <div class="profile-img" title="My Profile"
-                    [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse.Username)">
+                <div class="profile-img" title="My Profile">
                     <img src="assets/img/default_profile_pic.png" />
                 </div>
             </li>

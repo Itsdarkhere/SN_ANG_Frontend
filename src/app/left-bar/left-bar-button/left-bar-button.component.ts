@@ -9,6 +9,7 @@ import { GlobalVarsService } from "../../global-vars.service";
 export class LeftBarButtonComponent {
   @Input() link: string;
   @Input() buttonLabel: string;
+  @Input() imgSrc: string;
   @Input() hasNotifications = false;
   @Input() isUnread = false;
   @Input() queryParams = null;

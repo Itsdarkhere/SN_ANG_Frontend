@@ -5,7 +5,7 @@ a{
     align-items: center;
     justify-content: flex-start;
     &.active, &:hover{
-        background-color: #F5F5F5;
+        background-color: var(--secondary);
     }
     .icon-cover{
         width: 18px;

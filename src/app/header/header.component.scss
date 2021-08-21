@@ -73,6 +73,17 @@ header {
                     }
                 }
             }
+            &.menu-options-list{
+                @media (max-width: 991px){
+                    display: none;
+                }
+            }
+            &.for-mobile{
+                display: none;
+                @media (max-width: 991px){
+                    display: flex;
+                }
+            }
         }
         .btn-create {
             color: var(--background);

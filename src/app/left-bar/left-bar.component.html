@@ -2,7 +2,7 @@
     <div class="global__nav__fixed">
         <!-- Logged-in Left Bar -->
         <div *ngIf="globalVars.loggedInUser != null" class="global__nav__inner">
-            <div class="d-flex w-100 align-items-center fs-24px font-weight-bold" style="height: 80px">
+            <!-- <div class="d-flex w-100 align-items-center fs-24px font-weight-bold" style="height: 80px">
                 <a class="ml-10px link--unstyled d-flex align-items-center"
                     (click)="globalVars.isLeftBarMobileOpen = false" [routerLink]="homeLink()"
                     queryParamsHandling="merge">
@@ -13,7 +13,7 @@
                 <div *ngIf="isMobile" class="flex-grow-1 d-flex justify-content-end pl-30px cursor-pointer">
                     <i class="fas fa-times fc-muted" (click)="closeMobile.emit()"></i>
                 </div>
-            </div>
+            </div> -->
 
             <div class="pt-10px"></div>
 
@@ -46,7 +46,7 @@
             <!-- <div class="p-15px" *ngIf="globalVars.loggedInUser?.ProfileEntryResponse"></div> -->
             <div class="p-15px"></div>
 
-            <div
+            <!-- <div
                 *ngIf="globalVars.loggedInUser && globalVars.loggedInUser.ProfileEntryResponse?.Username; else elseBlock">
                 <left-bar-button
                     [link]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse.Username)"
@@ -61,7 +61,7 @@
                 [isUnread]="globalVars.hasUnreadNotifications"></left-bar-button>
 
             <left-bar-button [hasNotifications]="true" [link]="'/' + globalVars.RouteNames.INBOX_PREFIX"
-                [buttonLabel]="'Messages'"></left-bar-button>
+                [buttonLabel]="'Messages'"></left-bar-button> -->
 
             <!-- <div class="p-15px"></div> -->
 

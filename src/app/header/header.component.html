@@ -6,21 +6,31 @@
         <search-bar></search-bar>
     </div>
     <div class="right-portion">
-        
+        <ul class="for-mobile">
+            <li>
+                <img src="assets/icons/search-icon-mobile.svg" alt="">
+            </li>
+            <li>
+                <img src="assets/icons/hamburger-icon.svg" alt="">
+            </li>
+        </ul>
         <ul class="menu-options-list">
             <li>
                 <button class="btn btn-create">Create</button>
             </li>
             <li>
-                <img src="assets/icons/notification-icon.svg" title="Notification" />
+                <img src="assets/icons/notification-icon.svg" title="Notification"
+                    [routerLink]="'/' + globalVars.RouteNames.NOTIFICATIONS" />
                 <span>Notification</span>
             </li>
             <li>
-                <img src="assets/icons/chat-plane-icon.svg" title="Chat" />
+                <img src="assets/icons/chat-plane-icon.svg" title="Chat"
+                    [routerLink]="'/' + globalVars.RouteNames.INBOX_PREFIX" />
                 <span>Chat</span>
             </li>
             <li>
-                <div class="profile-img" title="My Profile">
+                <div class="profile-img" title="My Profile"
+                    [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse.Username)">
                     <img src="assets/img/default_profile_pic.png" />
                 </div>
             </li>

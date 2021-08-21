@@ -138,7 +138,7 @@ code {
 //
 $global__top-bar__height: 60px;
 $global__top-bar__desktop-height: 80px;
-$global__nav__width: 188px;
+$global__nav__width: 200px;
 $global__center__width: 752px;
 $global__sidebar__width: 200px;
 $global__content__width: $global__center__width+$global__sidebar__width;
@@ -1207,8 +1207,10 @@ input.bs-timepicker-field {
 .global__nav__inner {
     width: $global__nav__width;
     overflow-y: auto;
+    overflow-x: hidden;
     height: 100%;
     padding: 0;
+    padding-right: 10px;
 }
 
 .global__content__flex {
@@ -1706,14 +1708,12 @@ input.bs-timepicker-field {
 .feed-post-icon-row__icon {
     font-size: 25px;
     border-radius: 50%;
-    margin-right: 2px;
     &:hover {
         background-color: var(--secondary);
     }
 }
 
 .feed-post-icon-row__icon.icon-reply {
-    margin-left: -6px;
     &:hover {
         background-color: $comment-hover;
         color: $comment-color;
@@ -1735,6 +1735,7 @@ input.bs-timepicker-field {
 
 .feed-post-icon-row__icon.icon-heart,
 .feed-post-icon-row__icon.icon-heart-fill {
+    color: var(--pink);
     &:hover {
         background-color: $like-hover;
         color: $like-color;
@@ -1745,6 +1746,7 @@ input.bs-timepicker-field {
 /* diamond button hover animation */
 
 .feed-post-icon-row__icon.icon-diamond {
+
     &:hover {
         background-color: $diamond-hover;
         color: $diamond-color;
@@ -1760,9 +1762,6 @@ input.bs-timepicker-field {
         color: $link-btn-color;
     }
 }
-
-.feed-post__icon-row-holder {}
-
 .feed-post__container {
     font-size: 15px
 }
@@ -2641,6 +2640,14 @@ em {
     background: var(--secondary);
     padding: 15px;
     border-radius: 10px;
+    position: relative;
+}
+.apply_to_crt .fa-times{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 12px;
+    color: var(--grey);
 }
 
 .apply_to_crt h4 {

@@ -7,7 +7,7 @@ import { IdentityService } from "../identity.service";
 @Component({
   selector: "left-bar",
   templateUrl: "./left-bar.component.html",
-  styleUrls: ["./left-bar.component.sass"],
+  styleUrls: ["./left-bar.component.scss"],
 })
 export class LeftBarComponent {
   MessagesInboxComponent = MessagesInboxComponent;

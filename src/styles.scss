@@ -257,6 +257,10 @@ $green-font-color: #19B028;
     font-weight: 500
 }
 
+.font-weight-semiboldn {
+    font-weight: 600
+}
+
 .font-weight-normal {
     font-weight: 400
 }
@@ -402,6 +406,10 @@ $green-font-color: #19B028;
 
 .fs-10px {
     font-size: 10px !important;
+}
+
+.fs-9px {
+    font-size: 9px !important;
 }
 
 // line heights
@@ -1233,16 +1241,13 @@ input.bs-timepicker-field {
 }
 
 .global__sidebar__fixed {
-    top: 0;
-    height: 100%;
-    position: fixed;
+    position: relative;
 }
 
 .global__sidebar__inner {
-    width: $global__sidebar__width;
+    width: 100%;
     overflow-y: auto;
     height: 100%;
-    padding-left: 25px;
 }
 
 .global__center__width {
@@ -1449,16 +1454,18 @@ input.bs-timepicker-field {
     height: 24px;
     min-width: 24px;
     margin-right: 10px;
-    border-radius: 3px;
+    border-radius: 23px;
+    border: 3px solid #fff;
+    box-shadow: 0px 0 5px rgb(0 0 0 / 20%);
 }
 
 .change-account-selector {
     position: relative;
     z-index: 30;
-    background-color: var(--secondary);
     width: 100%;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-top: 15px;
+    border-radius: 6px;
+    padding-bottom: 15px;
     border: 1px solid var(--border);
 }
 
@@ -1468,7 +1475,9 @@ input.bs-timepicker-field {
 
 .change-account-selector__down-arrow {
     margin-top: 2px;
-    margin-left: 2px;
+    font-size: 18px;
+    color: var(--norm);
+    margin-left: 10px;
 }
 
 .change-account-selector__hover:hover {
@@ -1499,9 +1508,13 @@ input.bs-timepicker-field {
 .change-account-selector__ellipsis-restriction {
     max-width: 150px;
     display: block;
-    overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    font-weight: 600;
+}
+
+.change-account-selector__acount-name {
+    overflow: hidden;
 }
 
 .change-account-selector__trash {
@@ -1823,7 +1836,6 @@ input.bs-timepicker-field {
 }
 
 .right-bar-creators__balance-box {
-    background-color: var(--secondary);
     color: var(--text);
 }
 

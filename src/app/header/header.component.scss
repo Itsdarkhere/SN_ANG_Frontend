@@ -112,7 +112,7 @@ header {
             padding: 10px 0px 0px;
             position: relative;
             overflow: auto;
-            height: calc(100vh - 140px);
+            max-height: calc(100vh - 140px);
             overflow-x: hidden;
             min-height: 200px;
             .triangle-up {

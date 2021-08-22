@@ -18,18 +18,144 @@
             <li>
                 <button class="btn btn-create clout">Create</button>
             </li>
-            <li>
-                <img src="assets/icons/notification-icon.svg" class="clout" title="Notification" [routerLink]="'/' + globalVars.RouteNames.NOTIFICATIONS" />
-                <span>Notification</span>
-            </li>
-            <li>
-                <img src="assets/icons/chat-plane-icon.svg" class="clout" title="Chat" [routerLink]="'/' + globalVars.RouteNames.INBOX_PREFIX" />
-                <span>Chat</span>
-            </li>
-            <li>
-                <div class="profile-img" title="My Profile" [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse.Username)">
-                    <img src="assets/img/default_profile_pic.png" class="clout" />
+            <li class="notification-icon-cover">
+                <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />
+
+
+                <div class="notification-list-cover" *ngIf="isNotificationOpen">
+                    <div class="notification-list">
+                        <div class="triangle-up">▲</div>
+                        <div class="single-notification">
+                            <div class="left-portion">
+                                <div class="icon-cover">
+                                    <i class="icon-reply feed-post-icon-row__icon"></i>
+                                </div>
+                                <div class="profile-picture">
+                                    <img src="assets//img/default_profile_pic.png" alt="User Profile Picture">
+                                </div>
+                            </div>
+                            <div class="right-portion">
+                                <h6 class="fc-default font-weight-bold">
+                                    lukasJackson
+                                </h6>
+                                <i class="fas fa-check-circle fa-md align-middle text-primary"></i>
+                                <p>gave</p>
+                                <h6 class="font-weight-bold">1 Diamond</h6>
+                                <p>(~$0.01)</p>
+                                <span class="text-gray font-italic">Have a good one boss</span>
+                            </div>
+                        </div>
+                        <div class="single-notification for-replying">
+                            <div class="left-portion">
+                                <div class="profile-picture">
+                                    <img src="assets/img/default_profile_pic.png" alt="User Profile Picture">
+                                </div>
+                            </div>
+                            <div class="right-portion">
+                                <div class="d-flex align-items-center">
+                                    <!-- Username-->
+                                    <h5 class="fc-default font-weight-bold">
+                                        lukasJackson
+                                        <i class="fas fa-check-circle fa-md align-middle text-primary"></i>
+                                    </h5>
+                                    <div class="desktop-creator-coin-info">
+                                        <ng-container *ngTemplateOutlet="creatorCoinInfo"></ng-container>
+                                    </div>
+                                    <follow-button class="ml-10px fs-12px d-lg-block d-none text-grey5" [displayAsLink]="true" [followLinkClass]="'link--unstyled'" [followedPubKeyBase58Check]="postContent.ProfileEntryResponse.PublicKeyBase58Check" [creatorCoinTemplate]="creatorCoinInfo"></follow-button>
+                                    <feed-post-dropdown class="ml-auto" [post]="post" [postContent]="postContent" [nftEntryResponses]="nftEntryResponses" (postHidden)="hidePost()" (userBlocked)="blockUser()" (toggleGlobalFeed)="_addPostToGlobalFeed($event)" (togglePostPin)="_pinPostToGlobalFeed($event)"></feed-post-dropdown>
+                                </div>
+                                <p>Unfollow</p>
+                                <p class="replying-to-text">replying to &nbsp; <a class="text-primary" href="">@fransarthur</a>
+                                </p>
+                                <h5 class="fs-14px">Thank You !!</h5>
+                                <feed-post-icon-row class="mt-2px" [post]="post" [postContent]="postContent" [parentPost]="parentPost" [hideNumbers]="true" [afterCommentCreatedCallback]="afterCommentCreatedCallback" [afterRecloutCreatedCallback]="afterRecloutCreatedCallback"></feed-post-icon-row>
+                            </div>
+                        </div>
+                        <div class="single-notification">
+                            <div class="left-portion">
+                                <div class="icon-cover">
+                                    <i class="icon-wallet"></i>
+                                </div>
+                                <div class="profile-picture">
+                                    <img src="assets/img/default_profile_pic.png" alt="User Profile Picture">
+                                </div>
+                            </div>
+                            <div class="right-portion">
+                                <h6 class="fc-default font-weight-bold">
+                                    ChesaToschi
+                                </h6>
+                                <i class="fas fa-check-circle fa-md align-middle text-primary"></i>
+                                <p>followed you</p>
+                            </div>
+                        </div>
+                        <div class="single-notification">
+                            <div class="left-portion">
+                                <div class="icon-cover">
+                                    <i class="icon-heart-fill"></i>
+                                </div>
+                                <div class="profile-picture">
+                                    <img src="assets//img/default_profile_pic.png" alt="User Profile Picture">
+                                </div>
+                            </div>
+                            <div class="right-portion">
+                                <h6 class="fc-default font-weight-bold">
+                                    lukasJackson
+                                </h6>
+                                <i class="fas fa-check-circle fa-md align-middle text-primary"></i>
+                                <p>liked</p>
+                                <span class="text-gray font-italic">Have a good one boss</span>
+                            </div>
+                        </div>
+                        <div class="single-notification">
+                            <div class="left-portion">
+                                <div class="icon-cover">
+                                    <i class="icon-wallet"></i>
+                                </div>
+                                <div class="profile-picture">
+                                    <img src="assets/img/default_profile_pic.png" alt="User Profile Picture">
+                                </div>
+                            </div>
+                            <div class="right-portion">
+                                <h6 class="fc-default font-weight-bold">
+                                    ChesaToschi
+                                </h6>
+                                <i class="fas fa-check-circle fa-md align-middle text-primary"></i>
+                                <p>followed you</p>
+                            </div>
+                        </div>
+                        <div class="single-notification">
+                            <div class="left-portion">
+                                <div class="icon-cover">
+                                    <i class="icon-heart-fill"></i>
+                                </div>
+                                <div class="profile-picture">
+                                    <img src="assets//img/default_profile_pic.png" alt="User Profile Picture">
+                                </div>
+                            </div>
+                            <div class="right-portion">
+                                <h6 class="fc-default font-weight-bold">
+                                    lukasJackson
+                                </h6>
+                                <i class="fas fa-check-circle fa-md align-middle text-primary"></i>
+                                <p>liked</p>
+                                <span class="text-gray font-italic">Have a good one boss</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a [routerLink]="'/' + globalVars.RouteNames.NOTIFICATIONS" class="view-all-text text-primary" title="View All Notifications">View All</a>
                 </div>
+
+            </li>
+            <li>
+                <img src="assets/icons/chat-plane-icon.svg" title="Chat" [routerLink]="'/' + globalVars.RouteNames.INBOX_PREFIX" />
+            </li>
+
+            <li>
+                <<<<<<< HEAD <div class="profile-img" title="My Profile" [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse.Username)">
+                    <img src="assets/img/default_profile_pic.png" class="clout" /> =======
+                    <div class="profile-img" title="My Profile" [routerLink]="AppRoutingModule.profilePath(globalVars?.loggedInUser?.ProfileEntryResponse?.Username)">
+                        <img src="assets/img/default_profile_pic.png" /> >>>>>>> b85eb059692932d5b00df8f20b376b07f68167f3
+                    </div>
             </li>
         </ul>
     </div>

@@ -1,6 +1,6 @@
 <header>
     <div class="logo-cover">
-        <img src="assets/img/l4s_logo.svg" alt="">
+        <img src="assets/img/l4s_logo.svg" class="clout" alt="">
     </div>
     <div class="search-bar-cover">
         <search-bar></search-bar>
@@ -8,15 +8,15 @@
     <div class="right-portion">
         <ul class="for-mobile">
             <li>
-                <img src="assets/icons/search-icon-mobile.svg" alt="">
+                <img src="assets/icons/search-icon-mobile.svg" class="clout" alt="">
             </li>
             <li>
-                <img src="assets/icons/hamburger-icon.svg" alt="">
+                <img src="assets/icons/hamburger-icon.svg" class="clout" alt="">
             </li>
         </ul>
         <ul class="menu-options-list">
             <li>
-                <button class="btn btn-create">Create</button>
+                <button class="btn btn-create clout">Create</button>
             </li>
             <li class="notification-icon-cover">
                 <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />
@@ -61,23 +61,14 @@
                                     <div class="desktop-creator-coin-info">
                                         <ng-container *ngTemplateOutlet="creatorCoinInfo"></ng-container>
                                     </div>
-                                    <follow-button class="ml-10px fs-12px d-lg-block d-none text-grey5"
-                                        [displayAsLink]="true" [followLinkClass]="'link--unstyled'"
-                                        [followedPubKeyBase58Check]="postContent.ProfileEntryResponse.PublicKeyBase58Check"
-                                        [creatorCoinTemplate]="creatorCoinInfo"></follow-button>
-                                    <feed-post-dropdown class="ml-auto" [post]="post" [postContent]="postContent"
-                                        [nftEntryResponses]="nftEntryResponses" (postHidden)="hidePost()"
-                                        (userBlocked)="blockUser()" (toggleGlobalFeed)="_addPostToGlobalFeed($event)"
-                                        (togglePostPin)="_pinPostToGlobalFeed($event)"></feed-post-dropdown>
+                                    <follow-button class="ml-10px fs-12px d-lg-block d-none text-grey5" [displayAsLink]="true" [followLinkClass]="'link--unstyled'" [followedPubKeyBase58Check]="postContent.ProfileEntryResponse.PublicKeyBase58Check" [creatorCoinTemplate]="creatorCoinInfo"></follow-button>
+                                    <feed-post-dropdown class="ml-auto" [post]="post" [postContent]="postContent" [nftEntryResponses]="nftEntryResponses" (postHidden)="hidePost()" (userBlocked)="blockUser()" (toggleGlobalFeed)="_addPostToGlobalFeed($event)" (togglePostPin)="_pinPostToGlobalFeed($event)"></feed-post-dropdown>
                                 </div>
                                 <p>Unfollow</p>
                                 <p class="replying-to-text">replying to &nbsp; <a class="text-primary" href="">@fransarthur</a>
                                 </p>
                                 <h5 class="fs-14px">Thank You !!</h5>
-                                <feed-post-icon-row class="mt-2px" [post]="post"
-                                    [postContent]="postContent" [parentPost]="parentPost" [hideNumbers]="true"
-                                    [afterCommentCreatedCallback]="afterCommentCreatedCallback"
-                                    [afterRecloutCreatedCallback]="afterRecloutCreatedCallback"></feed-post-icon-row>
+                                <feed-post-icon-row class="mt-2px" [post]="post" [postContent]="postContent" [parentPost]="parentPost" [hideNumbers]="true" [afterCommentCreatedCallback]="afterCommentCreatedCallback" [afterRecloutCreatedCallback]="afterRecloutCreatedCallback"></feed-post-icon-row>
                             </div>
                         </div>
                         <div class="single-notification">
@@ -151,21 +142,20 @@
                             </div>
                         </div>
                     </div>
-                    <a [routerLink]="'/' + globalVars.RouteNames.NOTIFICATIONS" class="view-all-text text-primary"
-                        title="View All Notifications">View All</a>
+                    <a [routerLink]="'/' + globalVars.RouteNames.NOTIFICATIONS" class="view-all-text text-primary" title="View All Notifications">View All</a>
                 </div>
 
             </li>
             <li>
-                <img src="assets/icons/chat-plane-icon.svg" title="Chat"
-                    [routerLink]="'/' + globalVars.RouteNames.INBOX_PREFIX" />
+                <img src="assets/icons/chat-plane-icon.svg" title="Chat" [routerLink]="'/' + globalVars.RouteNames.INBOX_PREFIX" />
             </li>
 
             <li>
-                <div class="profile-img" title="My Profile"
-                    [routerLink]="AppRoutingModule.profilePath(globalVars?.loggedInUser?.ProfileEntryResponse?.Username)">
-                    <img src="assets/img/default_profile_pic.png" />
-                </div>
+                <<<<<<< HEAD <div class="profile-img" title="My Profile" [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse.Username)">
+                    <img src="assets/img/default_profile_pic.png" class="clout" /> =======
+                    <div class="profile-img" title="My Profile" [routerLink]="AppRoutingModule.profilePath(globalVars?.loggedInUser?.ProfileEntryResponse?.Username)">
+                        <img src="assets/img/default_profile_pic.png" /> >>>>>>> b85eb059692932d5b00df8f20b376b07f68167f3
+                    </div>
             </li>
         </ul>
     </div>

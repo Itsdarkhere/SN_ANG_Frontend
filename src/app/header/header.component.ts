@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { AppRoutingModule } from '../app-routing.module';
 import { GlobalVarsService } from '../global-vars.service';
 
@@ -8,6 +8,9 @@ import { GlobalVarsService } from '../global-vars.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
+  @Input() imgSrc: string;
+
 
   isNotificationOpen: boolean = false;
 
@@ -22,4 +25,12 @@ export class HeaderComponent implements OnInit {
     this.isNotificationOpen = !this.isNotificationOpen;
   }
 
+
+homeLink(): string {
+    if (this.globalVars.showLandingPage()) {
+      return "/" + this.globalVars.RouteNames.LANDING;
+    } else {
+      return "/" + this.globalVars.RouteNames.BROWSE;
+    }
+  }
 }

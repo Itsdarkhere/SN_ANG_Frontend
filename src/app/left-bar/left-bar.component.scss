@@ -5,6 +5,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
+        margin: 1px 0;
         &.active,
         &:hover {
             background-color: var(--secondary);

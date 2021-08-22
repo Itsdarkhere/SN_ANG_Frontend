@@ -1,16 +1,18 @@
-a{
+a {
     padding: 8px 10px;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    &.active, &:hover{
+    margin: 1px 0;
+    &.active,
+    &:hover {
         background-color: var(--secondary);
     }
-    .icon-cover{
+    .icon-cover {
         width: 18px;
         margin-right: 10px;
-        img{
+        img {
             width: auto;
             max-width: 100%;
             margin: auto;

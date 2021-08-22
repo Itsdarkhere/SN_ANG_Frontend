@@ -1,6 +1,6 @@
 <header>
     <div class="logo-cover">
-        <img src="assets/img/l4s_logo.svg" alt="">
+        <img src="assets/img/l4s_logo.svg" class="clout" alt="">
     </div>
     <div class="search-bar-cover">
         <search-bar></search-bar>
@@ -8,30 +8,27 @@
     <div class="right-portion">
         <ul class="for-mobile">
             <li>
-                <img src="assets/icons/search-icon-mobile.svg" alt="">
+                <img src="assets/icons/search-icon-mobile.svg" class="clout" alt="">
             </li>
             <li>
-                <img src="assets/icons/hamburger-icon.svg" alt="">
+                <img src="assets/icons/hamburger-icon.svg" class="clout" alt="">
             </li>
         </ul>
         <ul class="menu-options-list">
             <li>
-                <button class="btn btn-create">Create</button>
+                <button class="btn btn-create clout">Create</button>
             </li>
             <li>
-                <img src="assets/icons/notification-icon.svg" title="Notification"
-                    [routerLink]="'/' + globalVars.RouteNames.NOTIFICATIONS" />
+                <img src="assets/icons/notification-icon.svg" class="clout" title="Notification" [routerLink]="'/' + globalVars.RouteNames.NOTIFICATIONS" />
                 <span>Notification</span>
             </li>
             <li>
-                <img src="assets/icons/chat-plane-icon.svg" title="Chat"
-                    [routerLink]="'/' + globalVars.RouteNames.INBOX_PREFIX" />
+                <img src="assets/icons/chat-plane-icon.svg" class="clout" title="Chat" [routerLink]="'/' + globalVars.RouteNames.INBOX_PREFIX" />
                 <span>Chat</span>
             </li>
             <li>
-                <div class="profile-img" title="My Profile"
-                    [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse.Username)">
-                    <img src="assets/img/default_profile_pic.png" />
+                <div class="profile-img" title="My Profile" [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse.Username)">
+                    <img src="assets/img/default_profile_pic.png" class="clout" />
                 </div>
             </li>
         </ul>

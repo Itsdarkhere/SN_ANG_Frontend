@@ -9,6 +9,8 @@ import { GlobalVarsService } from '../global-vars.service';
 })
 export class HeaderComponent implements OnInit {
 
+  isNotificationOpen: boolean = false;
+
   AppRoutingModule = AppRoutingModule;
 
   constructor(public globalVars: GlobalVarsService) {}
@@ -16,5 +18,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  showNotification(){
+    this.isNotificationOpen = !this.isNotificationOpen;
+  }
 
 }

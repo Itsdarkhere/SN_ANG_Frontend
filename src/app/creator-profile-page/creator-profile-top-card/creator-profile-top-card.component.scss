@@ -1,0 +1,81 @@
+.page-creator-top-profile{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 20px 10px;
+    .profile-img-cover{
+        width: 175px;
+        height: 175px;
+        border-radius: 50%;
+        border: 10px solid var(--background);
+        box-shadow: 0px 3px 10px 3px rgba(0,0,0,0.1);
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+    }
+    .user-info{
+        width: 280px;
+        padding-left: 30px;
+        h5{
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+        .followers-row{
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-top: 20px;
+            div{
+                margin-right: 20px;
+                h6{
+                    font-size: 10px;
+                    font-weight: bold;
+                    margin-bottom: 5px;
+                }
+                h5{
+                    font-size: 15px;
+                    font-weight: bold;
+                }
+            }
+        }
+        .btn-cover{
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 15px 0px;
+            .btn{
+                width: 85px;
+                &.btn-buy{
+                    background: var(--button);
+                    color: var(--background);
+                }
+                &.btn-follow{
+                    color: var(--button);
+                    border: 2px solid var(--button);
+                    background: var(--background);
+                    margin-left: 20px;
+                }
+            }
+        }
+        .founder-reward-text{
+            font-size: 10px;
+        }
+    }
+    .bio-cover{
+        width: calc(100% - 460px);
+        padding-top: 44px;
+        h6{
+            font-weight: bold;
+            font-size: 10px;
+            margin-bottom: 10px;
+        }
+        p{
+            font-size: 10px;
+            line-height: 1.4;
+        }
+    }
+}

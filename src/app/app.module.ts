@@ -143,6 +143,7 @@ import { ThemeModule } from "./theme/theme.module";
 import { Theme } from "./theme/symbols";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { HeaderComponent } from './header/header.component';
+import { NftCardComponent } from './nft-card/nft-card.component';
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "dark", name: "Dark Theme" };
 const icydarkTheme: Theme = { key: "icydark", name: "Icy Dark Theme" };
@@ -268,6 +269,7 @@ const coderTheme: Theme = { key: "coder", name: "Coder Theme" };
     AdminJumioComponent,
     JumioStatusComponent,
     HeaderComponent,
+    NftCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -1101,11 +1101,13 @@ $green-font-color: #19B028;
 .global__bottom-bar-mobile {
     z-index: 2;
     position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
+    left: 20px;
+    bottom: 40px;
+    width: calc(100% - 40px);
     background-color: var(--background);
-    height: 60px;
+    height: auto;
+    box-shadow: 0px 2px 3px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
 }
 
 .global__tooltip-icon {

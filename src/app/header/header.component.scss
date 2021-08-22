@@ -28,7 +28,9 @@ header {
         }
         @media screen and (max-width: 992px) {
             width: calc(100% - 450px);
-            // padding-left: 0px;
+        }
+        @media (max-width: 991px) {
+            display: none;
         }
     }
     .right-portion {
@@ -100,6 +102,16 @@ header {
 
 .notification-icon-cover {
     position: relative;
+    .triangle-up {
+        display: inline-block;
+        transform: scaleX(2.5);
+        color: var(--background);
+        text-shadow: 0px -3px 3px rgba(0, 0, 0, 0.1);
+        font-size: 20px;
+        position: absolute;
+        top: -22px;
+        right: 114px;
+    }
     .notification-list-cover {
         position: absolute;
         top: 50px;
@@ -107,7 +119,7 @@ header {
         right: -100px;
         box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1);
         border-radius: 8px;
-        background: var(--background);
+        background: var(--secondary);
         .notification-list {
             padding: 10px 0px 0px;
             position: relative;
@@ -115,16 +127,6 @@ header {
             max-height: calc(100vh - 140px);
             overflow-x: hidden;
             min-height: 200px;
-            .triangle-up {
-                display: inline-block;
-                transform: scaleX(2.5);
-                color: var(--background);
-                text-shadow: 0px -3px 3px rgba(0, 0, 0, 0.1);
-                font-size: 20px;
-                position: absolute;
-                top: -32px;
-                right: 114px;
-            }
             .single-notification {
                 display: flex;
                 align-items: center;
@@ -194,12 +196,13 @@ header {
                         display: block;
                         * {
                             display: inherit;
+                            margin-right: inherit;
                         }
-                        h5{
+                        h5 {
                             display: flex;
                             align-items: center;
                             font-size: 14px;
-                            i{
+                            i {
                                 margin-left: 10px;
                             }
                         }
@@ -208,6 +211,22 @@ header {
                             align-items: center;
                             a {
                                 display: inline-block;
+                            }
+                        }
+                        .counters-list {
+                            padding: 10px 20px 10px 0px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            .icon-cover {
+                                display: flex;
+                                align-items: center;
+                                i{
+                                    font-size: 20px;
+                                }
+                                span {
+                                    font-size: 11px;
+                                }
                             }
                         }
                     }

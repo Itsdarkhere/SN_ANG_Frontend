@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
 
 
   isNotificationOpen: boolean = false;
+  isSearchOpen: boolean = false;
 
   AppRoutingModule = AppRoutingModule;
 
@@ -23,6 +24,10 @@ export class HeaderComponent implements OnInit {
 
   showNotification(){
     this.isNotificationOpen = !this.isNotificationOpen;
+  }
+
+  showSearchBar(){
+    this.isSearchOpen = !this.isSearchOpen;
   }
 
 

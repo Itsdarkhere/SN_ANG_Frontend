@@ -1,46 +1,42 @@
 <div class="page-creator-top-profile">
-  <div class="profile-img-cover">
-    <img src="assets/img/default_profile_pic.png" class="claut" alt="User's profile image">
-  </div>
-  <div class="user-info">
-    <h5 class="bold">
-      @{{ profile.Username }} &nbsp;
-      <ng-container *ngIf="profile.IsReserved && !profile.IsVerified" (click)="tooltip.toggle()"
-        matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="'This profile is reserved'"
-        #tooltip="matTooltip">
-        <i class="far fa-clock"></i>
-      </ng-container>
-      <ng-container *ngIf="profile.IsVerified" (click)="tooltip.toggle()"
-        matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="'This account is verified'"
-        #tooltip="matTooltip">
-        <i class="fas fa-check-circle text-primary"></i>
-      </ng-container>
-    </h5>
-    <div class="followers-row">
-      <div>
-        <h6>FOLLOWERS</h6>
-        <h5>{{ followerCount }}</h5>
-      </div>
-      <div>
-        <h6>FOLLOWING</h6>
-        <h5>{{ followingCount }}</h5>
-      </div>
-      <div>
-        <h6>COIN PRICE</h6>
-        <h5>{{ globalVars.nanosToUSD(profile.CoinPriceBitCloutNanos, 2) }}</h5>
-      </div>
-    </div>
-    <div class="btn-cover">
-      <button class="btn btn-buy" [routerLink]="AppRoutingModule.buyCreatorPath(profile.Username)" queryParamsHandling="merge">Buy</button>
-      <button class="btn btn-follow">Follow</button>
-    </div>
-    <h6 class="founder-reward-text">FOUNDER REWARD {{ getFoundersRewardPercent() | number: "0.0-9" }}%</h6>
+    <div class="profile-img-cover" [avatar]="profile.PublicKeyBase58Check">
 
-  </div>
-  <div class="bio-cover">
-    <h6>BIO</h6>
-    <p>{{profile?.Description }}</p>
-  </div>
+    </div>
+    <div class="user-info">
+        <h5 class="bold">
+            @{{ profile.Username }} &nbsp;
+            <ng-container *ngIf="profile.IsReserved && !profile.IsVerified" (click)="tooltip.toggle()" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="'This profile is reserved'" #tooltip="matTooltip">
+                <i class="far fa-clock"></i>
+            </ng-container>
+            <ng-container *ngIf="profile.IsVerified" (click)="tooltip.toggle()" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="'This account is verified'" #tooltip="matTooltip">
+                <i class="fas fa-check-circle text-primary"></i>
+            </ng-container>
+        </h5>
+        <div class="followers-row">
+            <div>
+                <h6>FOLLOWERS</h6>
+                <h5>{{ followerCount }}</h5>
+            </div>
+            <div>
+                <h6>FOLLOWING</h6>
+                <h5>{{ followingCount }}</h5>
+            </div>
+            <div>
+                <h6>COIN PRICE</h6>
+                <h5>{{ globalVars.nanosToUSD(profile.CoinPriceBitCloutNanos, 2) }}</h5>
+            </div>
+        </div>
+        <div class="btn-cover">
+            <button class="btn btn-buy" [routerLink]="AppRoutingModule.buyCreatorPath(profile.Username)" queryParamsHandling="merge">Buy</button>
+            <button class="btn btn-follow">Follow</button>
+        </div>
+        <h6 class="founder-reward-text">FOUNDER REWARD {{ getFoundersRewardPercent() | number: "0.0-9" }}%</h6>
+
+    </div>
+    <div class="bio-cover">
+        <h6>BIO</h6>
+        <p>{{profile?.Description }}</p>
+    </div>
 </div>
 
 

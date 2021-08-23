@@ -1,60 +1,62 @@
-.page-creator-top-profile{
+.page-creator-top-profile {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     padding: 20px 10px;
-    .profile-img-cover{
+    .profile-img-cover {
         width: 175px;
         height: 175px;
         border-radius: 50%;
         border: 10px solid var(--background);
-        box-shadow: 0px 3px 10px 3px rgba(0,0,0,0.1);
-        img{
+        box-shadow: 0px 3px 10px 3px rgba(0, 0, 0, 0.1);
+        background-repeat: no-repeat;
+        background-size: cover;
+        img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             border-radius: 50%;
         }
     }
-    .user-info{
+    .user-info {
         width: 400px;
         padding: 0px 50px;
-        h5{
+        h5 {
             display: flex;
             align-items: center;
             font-weight: bold;
         }
-        .followers-row{
+        .followers-row {
             display: flex;
             align-items: center;
             justify-content: flex-start;
             margin-top: 20px;
-            div{
+            div {
                 margin-right: 20px;
-                h6{
+                h6 {
                     font-size: 12px;
                     font-weight: bold;
                     margin-bottom: 5px;
                 }
-                h5{
+                h5 {
                     font-size: 16px;
                     font-weight: bold;
                 }
             }
         }
-        .btn-cover{
+        .btn-cover {
             display: flex;
             align-items: center;
             justify-content: flex-start;
             padding: 15px 0px;
-            .btn{
+            .btn {
                 width: 85px;
                 font-weight: bold;
-                &.btn-buy{
+                &.btn-buy {
                     background: var(--button);
                     color: var(--background);
                 }
-                &.btn-follow{
+                &.btn-follow {
                     color: var(--button);
                     border: 2px solid var(--button);
                     background: var(--background);
@@ -62,19 +64,19 @@
                 }
             }
         }
-        .founder-reward-text{
+        .founder-reward-text {
             font-size: 10px;
         }
     }
-    .bio-cover{
+    .bio-cover {
         width: calc(100% - 600px);
         padding-top: 44px;
-        h6{
+        h6 {
             font-weight: bold;
             font-size: 12px;
             margin-bottom: 10px;
         }
-        p{
+        p {
             font-size: 12px;
             line-height: 1.4;
         }

@@ -4,10 +4,8 @@
 <div *ngIf="!mobile" class="global__desktop">
     <left-bar></left-bar>
     <div class="global__content__flex">
-        <div class="global__center__width">
-            <div class="global__center__inner">
-                <feed></feed>
-            </div>
+        <div class="global__center__width feed-cover">
+            <feed></feed>
         </div>
         <div class="global__sidebar__width" *ngIf="!mobile && !hideSidebar">
             <!-- <right-bar-creators class="global__sidebar__fixed"></right-bar-creators> -->

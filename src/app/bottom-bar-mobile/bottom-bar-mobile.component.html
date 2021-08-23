@@ -6,13 +6,12 @@
       </div>
       <h6>Home</h6>
     </bottom-bar-mobile-tab>
-    
-    <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser"
-    [link]="'/' + globalVars.RouteNames.MARKETPLACE">
-    <div class="icon-cover">
-      <img src="assets/icons/marketplace-icon.svg" alt="">
-    </div>
-    <h6>Marketplace</h6>
+
+    <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser" [link]="'/' + globalVars.RouteNames.MARKETPLACE">
+      <div class="icon-cover">
+        <img src="assets/icons/marketplace-icon.svg" alt="">
+      </div>
+      <h6>Marketplace</h6>
     </bottom-bar-mobile-tab>
 
     <!-- <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser"
@@ -21,20 +20,37 @@
     <h6>Marketplace</h6>
     </bottom-bar-mobile-tab> -->
 
-    <bottom-bar-mobile-tab [link]="'/' + globalVars.RouteNames.TRENDS">
+    <!-- <bottom-bar-mobile-tab [link]="'/' + globalVars.RouteNames.TRENDS">
       <i class="icon-up-arrow fs-25px"></i>
-    </bottom-bar-mobile-tab>
+    </bottom-bar-mobile-tab> -->
 
-    <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser"
-      [link]="'/' + globalVars.RouteNames.NOTIFICATIONS">
+    <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button>
+    <mat-menu #createMenu="matMenu">
+      <div class="create-menu-cover">
+
+        <button mat-menu-item>
+          <div class="icon-cover">
+            <img src="assets/icons/mint-icon.svg" alt="NFT">
+          </div>
+          Mint an NFT
+        </button>
+        <button mat-menu-item>
+          <div class="icon-cover">
+            <img src="assets/icons/create-post-icon.svg" alt="Post">
+          </div>
+          Create a Post
+        </button>
+      </div>
+    </mat-menu>
+
+    <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser" [link]="'/' + globalVars.RouteNames.NOTIFICATIONS">
       <div class="icon-cover">
         <img class="noti-img" src="assets/icons/notification-icon.svg" alt="">
       </div>
       <h6>Notification</h6>
     </bottom-bar-mobile-tab>
 
-    <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser"
-      [link]="'/' + globalVars.RouteNames.INBOX_PREFIX">
+    <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser" [link]="'/' + globalVars.RouteNames.INBOX_PREFIX">
       <!-- <i class="icon-messages fs-25px">
         <div *ngIf="globalVars.messageResponse && globalVars.messageResponse.NumberOfUnreadThreads != 0"
           class="bottom-bar__message-notifications-bubble roboto-mono">

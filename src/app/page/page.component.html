@@ -7,14 +7,13 @@
 
     <div class="global__content__flex">
         <div [class]="mobile || hideSidebar ? 'global__content__width' : 'global__center__width'">
-            <div [class]="mobile || hideSidebar ? 'global__content__inner' : 'global__center__inner'">
-                <ng-content></ng-content>
-            </div>
+            <ng-content></ng-content>
         </div>
-        <div class="global__sidebar__width" *ngIf="!mobile && !hideSidebar">
-            <!-- <right-bar-creators class="global__sidebar__fixed"></right-bar-creators> -->
-        </div>
+        <!-- <div class="global__sidebar__width" *ngIf="!mobile && !hideSidebar">
+            <right-bar-creators class="global__sidebar__fixed"></right-bar-creators>
+        </div> -->
 
-        <bottom-bar-mobile *ngIf="mobile" class="global__bottom-bar-mobile" [showPostButton]="showPostButton"></bottom-bar-mobile>
+        <bottom-bar-mobile *ngIf="mobile" class="global__bottom-bar-mobile" [showPostButton]="showPostButton">
+        </bottom-bar-mobile>
     </div>
 </div>

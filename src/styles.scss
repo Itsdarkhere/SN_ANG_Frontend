@@ -1,15 +1,15 @@
-$primary: #0059F7;
-$danger: #E63946;
+$primary: #0059f7;
+$danger: #e63946;
 $secondary: #ecf0f1;
-$success: #32ED4B;
+$success: #32ed4b;
 $info: #689eff;
 $feed-border-radius: 12px;
-@import 'variables.scss';
-@import 'app/theme/themes/index';
+@import "variables.scss";
+@import "app/theme/themes/index";
 @import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 // regular style toast
-@import '~ngx-toastr/toastr';
+@import "~ngx-toastr/toastr";
 // New themeing class
 .main {
     background: var(--background) !important; // TODO: remove all !important, this is a platform to extend
@@ -17,7 +17,7 @@ $feed-border-radius: 12px;
 }
 
 .text-primary {
-    color: #3549FA !important;
+    color: #3549fa !important;
 }
 
 html {
@@ -29,7 +29,7 @@ html {
 
 html,
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     min-height: 100%; // allows for scrolling
 }
 
@@ -54,7 +54,7 @@ h6,
 p {
     margin: 0;
     color: var(--text);
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: normal;
 }
 
@@ -88,7 +88,7 @@ code {
 
 .countdown-timer {
     text-align: center;
-    color: #252B37;
+    color: #252b37;
     animation: textColor 4s ease infinite;
     @keyframes textColor {
         0% {
@@ -141,17 +141,17 @@ $global__top-bar__desktop-height: 80px;
 $global__nav__width: 200px;
 $global__center__width: 752px;
 $global__sidebar__width: 200px;
-$global__content__width: $global__center__width+$global__sidebar__width;
-$border-grey: #E5E5E5;
-$staking-grey: #F0F0F0;
-$light-grey-for-divider: #F8F8F8;
-$light-grey-for-divider-2: #FAFAFA;
+$global__content__width: $global__center__width + $global__sidebar__width;
+$border-grey: #e5e5e5;
+$staking-grey: #f0f0f0;
+$light-grey-for-divider: #f8f8f8;
+$light-grey-for-divider-2: #fafafa;
 $buy-button-blue: var(--button);
 // Font colors.
 $light-font-color: #777777;
 $normal-font-color: #222222;
 $red-font-color: #fe3537;
-$green-font-color: #19B028;
+$green-font-color: #19b028;
 // For when you want a finger instead of an arrow.
 .cursor-pointer {
     cursor: pointer;
@@ -171,144 +171,144 @@ $green-font-color: #19B028;
 
 // Grey text colors
 .text-black {
-    color: #000000
+    color: #000000;
 }
 
 .text-grey1 {
-    color: #111111
+    color: #111111;
 }
 
 .text-grey2 {
-    color: #222222
+    color: #222222;
 } // mocks call this G0
 .text-grey3 {
-    color: #333333
+    color: #333333;
 }
 
 .text-grey4 {
-    color: #444444
+    color: #444444;
 }
 
 .text-grey5 {
-    color: var(--grey)
+    color: var(--grey);
 } // mocks call this G1
 .text-grey6 {
-    color: #666666
+    color: #666666;
 }
 
 .text-grey7 {
-    color: #777777
+    color: #777777;
 }
 
 .text-grey8 {
-    color: #888888
+    color: #888888;
 }
 
 .text-grey9 {
-    color: #999999
+    color: #999999;
 }
 
 .text-greyA {
-    color: #AAAAAA
+    color: #aaaaaa;
 }
 
 .text-greyB {
-    color: #BBBBBB
+    color: #bbbbbb;
 }
 
 .text-greyC {
-    color: #CCCCCC
+    color: #cccccc;
 }
 
 .text-greyD {
-    color: #DDDDDD
+    color: #dddddd;
 }
 
 .text-greyE {
-    color: #EEEEEE
+    color: #eeeeee;
 }
 
 .text-greyF {
-    color: #FFFFFF
+    color: #ffffff;
 }
 
 .text-grey8A {
-    color: #8A8A8A
+    color: #8a8a8a;
 } // mocks call this G2
 .text-greyE5 {
-    color: #E5E5E5
+    color: #e5e5e5;
 } // mocks call this G3
 .text-greyF5 {
-    color: #F5F5F5
+    color: #f5f5f5;
 } // mocks call this G4
 .text-grey-loading {
-    color: var(--loading)
+    color: var(--loading);
 }
 
 // Set toast-info to use system blue
 .toast-info {
-    background-color: $buy-button-blue
+    background-color: $buy-button-blue;
 }
 
 // font weights
 // font-weight-light: 300
 // font-weight-normal: 400
 .font-weight-semibold {
-    font-weight: 500
+    font-weight: 500;
 }
 
 .font-weight-semiboldn {
-    font-weight: 600
+    font-weight: 600;
 }
 
 .font-weight-normal {
-    font-weight: 400
+    font-weight: 400;
 }
 
 // font-weight-bold: 700
 // Widths
 .w-10 {
-    width: 10%
+    width: 10%;
 }
 
 .w-20 {
-    width: 20%
+    width: 20%;
 }
 
 .w-30 {
-    width: 10%
+    width: 10%;
 }
 
 .w-40 {
-    width: 40%
+    width: 40%;
 }
 
 .w-50 {
-    width: 50%
+    width: 50%;
 }
 
 .w-60 {
-    width: 60%
+    width: 60%;
 }
 
 .w-70 {
-    width: 70%
+    width: 70%;
 }
 
 .w-80 {
-    width: 80%
+    width: 80%;
 }
 
 .w-90 {
-    width: 90%
+    width: 90%;
 }
 
 .w-100 {
-    width: 100%
+    width: 100%;
 }
 
 .max-width-420px {
-    max-width: 420px
+    max-width: 420px;
 }
 
 // Custom font classes.
@@ -333,19 +333,19 @@ $green-font-color: #19B028;
 }
 
 .font-weight-500 {
-    font-weight: 500
+    font-weight: 500;
 }
 
 .fs-1 {
-    font-size: 2.5rem
+    font-size: 2.5rem;
 }
 
 .fs-2 {
-    font-size: 2rem
+    font-size: 2rem;
 }
 
 .fs-3 {
-    font-size: 1.75rem
+    font-size: 1.75rem;
 }
 
 .fs-35px {
@@ -446,11 +446,11 @@ $green-font-color: #19B028;
 }
 
 .roboto-regular {
-    font-family: 'Roboto'
+    font-family: "Roboto";
 }
 
 .roboto-mono {
-    font-family: 'Roboto Mono'
+    font-family: "Roboto Mono";
 }
 
 // Custom border classes.
@@ -478,7 +478,7 @@ $green-font-color: #19B028;
 }
 
 .background-color-light-grey-important {
-    background-color: var(--secondary) !important
+    background-color: var(--secondary) !important;
 }
 
 .background-color-light-pink {
@@ -1026,7 +1026,7 @@ $green-font-color: #19B028;
 
 // first child is router-outlet
 // last child is a Page component
-.global__container>*:last-child {
+.global__container > *:last-child {
     width: 100%;
 }
 
@@ -1038,6 +1038,8 @@ $green-font-color: #19B028;
     align-items: stretch;
     margin: 0;
     padding: 0;
+    padding-left: 7%;
+    padding-right: 7%;
     padding-top: 77px;
 }
 
@@ -1084,7 +1086,7 @@ $green-font-color: #19B028;
 .fixed-top-bar {
     position: fixed;
     background-color: var(--background);
-    z-index: 10
+    z-index: 10;
 }
 
 .global__mobile-scrollable-section {
@@ -1164,7 +1166,7 @@ input.bs-timepicker-field {
 }
 
 .top-bar-mobile-navigation-control__dark-color {
-    color: #8A8A8A;
+    color: #8a8a8a;
 }
 
 .top-bar-mobile-navigation-control__light-color {
@@ -1188,15 +1190,6 @@ input.bs-timepicker-field {
     background-color: $buy-button-blue;
 }
 
-// flex -> width -> fixed -> inner
-// content can fit center + sidebar
-.global__nav__flex {
-    flex-grow: 1;
-    align-items: flex-end;
-    flex-direction: column;
-    display: flex;
-}
-
 .global__nav__width {
     width: $global__nav__width;
 }
@@ -1212,13 +1205,6 @@ input.bs-timepicker-field {
     overflow-x: hidden;
     height: calc(100vh - 77px);
     padding: 10px 10px 10px 0px;
-}
-
-.global__content__flex {
-    flex-grow: 1;
-    align-items: flex-start;
-    flex-shrink: 1;
-    display: flex;
 }
 
 // Set a fixed width on desktop
@@ -1247,6 +1233,12 @@ input.bs-timepicker-field {
     position: relative;
 }
 
+.global__content__flex{
+    display: flex;
+    align-items: flex-start;
+    flex-grow: 1;
+}
+
 .global__sidebar__inner {
     width: 100%;
     overflow-y: auto;
@@ -1254,15 +1246,8 @@ input.bs-timepicker-field {
 }
 
 .global__center__width {
-    width: $global__center__width;
+    // width: $global__center__width;
     padding-left: 50px;
-}
-
-.global__center__inner {
-    min-height: 100vh;
-    width: calc($global__center__width - 50px);
-    // border-left: var(--border) solid 1px;
-    // border-right: var(--border) solid 1px;
 }
 
 .global__top-bar {
@@ -1349,7 +1334,7 @@ input.bs-timepicker-field {
         font-weight: bold;
         font-size: 1.25rem;
         vertical-align: middle;
-        padding-bottom: .15rem;
+        padding-bottom: 0.15rem;
         background-color: $x-color;
     }
 }
@@ -1484,7 +1469,7 @@ input.bs-timepicker-field {
 }
 
 .change-account-selector__hover:hover {
-    box-shadow: 1px 1px 2px rgba(101, 119, 134, 0.10);
+    box-shadow: 1px 1px 2px rgba(101, 119, 134, 0.1);
 }
 
 .change-account-selector_list {
@@ -1601,7 +1586,7 @@ input.bs-timepicker-field {
 }
 
 .feed-create-comment-form__reply-container {
-    margin-left: 80px
+    margin-left: 80px;
 }
 
 .feed-create-comment-form__avatar {
@@ -1633,7 +1618,7 @@ input.bs-timepicker-field {
 }
 
 .feed-create-post__avatar_default {
-    background-image: url('/assets/img/default_profile_pic.png');
+    background-image: url("/assets/img/default_profile_pic.png");
 }
 
 .feed-create-comment__textarea {
@@ -1721,7 +1706,6 @@ input.bs-timepicker-field {
     }
 }
 
-
 /* reclout hover animation */
 
 .feed-post-icon-row__icon.icon-repost {
@@ -1730,7 +1714,6 @@ input.bs-timepicker-field {
         color: $reclout-color;
     }
 }
-
 
 /* like button hover animation */
 
@@ -1743,17 +1726,14 @@ input.bs-timepicker-field {
     }
 }
 
-
 /* diamond button hover animation */
 
 .feed-post-icon-row__icon.icon-diamond {
-
     &:hover {
         background-color: $diamond-hover;
         color: $diamond-color;
     }
 }
-
 
 /* copy link button hover animation */
 
@@ -1764,7 +1744,7 @@ input.bs-timepicker-field {
     }
 }
 .feed-post__container {
-    font-size: 15px
+    font-size: 15px;
 }
 
 .feed-post__container.feed-post__parent-post-font-size {
@@ -2019,12 +1999,12 @@ input.bs-timepicker-field {
 }
 
 .message__sender-bubble-color {
-    background-color: #005BFF;
+    background-color: #005bff;
     color: white;
 }
 
 .message__non-sender-bubble-color {
-    background-color: #F8F8F8;
+    background-color: #f8f8f8;
 }
 
 .message-thread__unread-light-blue {
@@ -2130,7 +2110,7 @@ input.bs-timepicker-field {
 // Not found page
 //
 .not-found__content-container {
-    margin-top: 100px
+    margin-top: 100px;
 }
 
 // Notifications
@@ -2188,7 +2168,7 @@ input.bs-timepicker-field {
 }
 
 .landing__nav-link.btn {
-    color: #FFF;
+    color: #fff;
 }
 
 .landing__nav-buy {
@@ -2229,7 +2209,7 @@ input.bs-timepicker-field {
 
 .landing__prop {
     margin-top: 100px;
-    background: #C4C4C426;
+    background: #c4c4c426;
     border-radius: 25px;
     padding-top: 50px;
 }
@@ -2343,7 +2323,7 @@ input.bs-timepicker-field {
 }
 
 .landing__board tr {
-    border-bottom: 1px solid #DDD;
+    border-bottom: 1px solid #ddd;
 }
 
 .landing__post-img {
@@ -2408,30 +2388,28 @@ input.bs-timepicker-field {
     }
 }
 
-
 /* Apply only to screen sizes >= sm */
 
 .info-tooltip-contents {
     position: absolute;
     text-align: left;
-    top: -.5rem;
+    top: -0.5rem;
     left: 1.5rem;
     background-color: $light-color;
     cursor: pointer;
     border: 1px solid $dark-in-between-color;
-    padding: .5rem;
+    padding: 0.5rem;
     color: $dark-color;
     width: 15rem;
     z-index: 1;
     font-size: 1rem;
     font-weight: bold;
-    ;
 }
 
 .btn.disabled {
     // I don't think bootstrap's button opacity makes buttons look sufficiently disabled,
     // so I'm overriding bootstrap here.
-    opacity: 0.4
+    opacity: 0.4;
 }
 
 .btn.btn-light {
@@ -2472,7 +2450,8 @@ input.bs-timepicker-field {
     border: 1px solid transparent;
     padding: 0.375rem 0.75rem;
     border-radius: 0.25rem;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+        box-shadow 0.15s ease-in-out;
 }
 
 .divtext {
@@ -2530,8 +2509,8 @@ input {
     background-color: transparent;
     border: 1px solid $border-color;
     color: $important-text-color;
-    padding-left: .5rem;
-    padding-right: .5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     &:focus {
         outline: none;
     }
@@ -2545,8 +2524,8 @@ textarea {
     background-color: transparent;
     border: 1px solid var(--border);
     color: var(--text);
-    padding-left: .5rem;
-    padding-right: .5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     max-width: 100%;
     &:focus {
         outline: none;
@@ -2608,8 +2587,8 @@ em {
 
 .action-items-badge {
     width: auto;
-    padding-left: .5rem;
-    padding-right: .5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     background-color: $error-color;
     border-radius: 1rem;
     display: flex;
@@ -2622,7 +2601,7 @@ em {
 .minus {
     color: $light-color;
     display: inline-block;
-    margin-right: .5rem;
+    margin-right: 0.5rem;
     cursor: pointer;
 }
 
@@ -2644,7 +2623,7 @@ em {
     position: relative;
     box-shadow: 0px 2px 3px 1px rgba(0, 0, 0, 0.1);
 }
-.apply_to_crt .fa-times{
+.apply_to_crt .fa-times {
     position: absolute;
     top: 8px;
     right: 8px;
@@ -2660,7 +2639,7 @@ em {
 }
 
 .apply_to_crt h4 i {
-    color: #3549FA;
+    color: #3549fa;
     margin-right: 5px;
 }
 
@@ -2718,7 +2697,6 @@ em {
     }
 }
 
-
 /*Begin BitClout config*/
 
 .flex-center {
@@ -2763,7 +2741,7 @@ input {
 }
 
 .btn-secondary {
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border-color: var(--border);
 }
 
@@ -2776,7 +2754,7 @@ input {
 }
 
 .post-submitted p {
-    margin: 0
+    margin: 0;
 }
 
 .grey {
@@ -2788,7 +2766,7 @@ input {
 .slide-up-1,
 .slide-up-2,
 .slide-up-3 {
-    animation: slide-up 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-up 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
     visibility: visible !important;
 }
 
@@ -2965,8 +2943,8 @@ input {
     align-items: flex-start;
     justify-content: space-between;
     padding: 1rem 1rem;
-    border-top-left-radius: calc(.3rem - 1px);
-    border-top-right-radius: calc(.3rem - 1px);
+    border-top-left-radius: calc(0.3rem - 1px);
+    border-top-right-radius: calc(0.3rem - 1px);
 }
 
 .likes-modal-container,
@@ -3004,15 +2982,15 @@ input {
 }
 
 .nft-modal-separator {
-    border-bottom: #AAAAAA solid 1px;
+    border-bottom: #aaaaaa solid 1px;
 }
 
 .nft-modal-separator-2 {
-    border-bottom: #DDDDDD solid 1px;
+    border-bottom: #dddddd solid 1px;
 }
 
 .create-nft-auction-row-border {
-    border-bottom: #EEEEEE solid 1px;
+    border-bottom: #eeeeee solid 1px;
 }
 
 .interaction-detail {
@@ -3024,8 +3002,8 @@ input {
     }
 }
 
-[class*='mat-select'],
-[class*='mat-option-'],
+[class*="mat-select"],
+[class*="mat-option-"],
 .mat-form-field-label,
 select {
     color: var(--text);
@@ -3071,7 +3049,7 @@ option {
     padding-bottom: 1rem;
     padding-left: 2.25rem;
     & .custom-control-label {
-        padding-left: .75rem;
+        padding-left: 0.75rem;
         padding-top: 0.15rem;
         &::before {
             border-radius: 1rem;
@@ -3079,12 +3057,12 @@ option {
             width: 2.5rem;
         }
         &::after {
-            border-radius: .65rem;
+            border-radius: 0.65rem;
             height: calc(1.5rem - 4px);
             width: calc(1.5rem - 4px);
         }
     }
-    .custom-control-input:checked~.custom-control-label::after {
+    .custom-control-input:checked ~ .custom-control-label::after {
         transform: translateX(1rem);
     }
 }
@@ -3107,7 +3085,7 @@ option {
             width: calc(2rem - 4px);
         }
     }
-    .custom-control-input:checked~.custom-control-label::after {
+    .custom-control-input:checked ~ .custom-control-label::after {
         transform: translateX(1.5rem);
     }
 }
@@ -3192,12 +3170,11 @@ option {
             display: block;
             visibility: hidden;
             opacity: 0;
-            transition: 0s opacity,
-            0s visibility;
+            transition: 0s opacity, 0s visibility;
             // Each selectable diamond level in the diamond pop-up
             .reaction-icon {
                 // Enables "pop-up" animation
-                transition: all 0.3s cubic-bezier(.09, 1.22, .5, 1.04);
+                transition: all 0.3s cubic-bezier(0.09, 1.22, 0.5, 1.04);
                 opacity: 0;
                 transform: translate(0, 50px) scale(0);
                 width: 47px;
@@ -3205,7 +3182,7 @@ option {
                 display: inline-block;
                 background: var(--secondary);
                 background-color: transparent;
-                content: '\f219';
+                content: "\f219";
                 border-radius: 15px;
                 margin: 8px 0 0 0;
                 text-align: center;
@@ -3214,7 +3191,7 @@ option {
                     top: -30px;
                     left: -2px;
                     position: relative;
-                    transition: color .3s;
+                    transition: color 0.3s;
                 }
                 .diamond-help {
                     color: var(--grey);
@@ -3225,7 +3202,7 @@ option {
                     top: -24px;
                     border-radius: 10px;
                     font-size: 11px;
-                    color: #FFF;
+                    color: #fff;
                     background: #333;
                     visibility: visible;
                 }
@@ -3242,7 +3219,7 @@ option {
             }
         }
         // We want to disable phone-sized devices from showing the selector on hover.
-        @media(max-width: 600px) {
+        @media (max-width: 600px) {
             &.dragged-like {
                 .reaction-box {
                     display: block;
@@ -3252,18 +3229,17 @@ option {
             }
         }
         // Show the selector on hover for tablets and desktop machines
-        @media(min-width: 601px) {
+        @media (min-width: 601px) {
             &:hover {
                 .reaction-box {
                     visibility: visible;
                     opacity: 1;
                     // Don't delay appearance of pop up on tablet click
-                    @media(pointer: coarse) {
+                    @media (pointer: coarse) {
                         transition: 0s opacity, 0s visibility;
                         transition-delay: 0s;
                     }
-                    transition: 1s opacity,
-                    1s visibility;
+                    transition: 1s opacity, 1s visibility;
                     // Delay appearance of pop up on mouse hover
                     transition-delay: 1s;
                 }
@@ -3288,7 +3264,8 @@ option {
                     &.transformable {
                         // Prevent hover effects on mobile, we use the drag interface for that
                         @media (pointer: fine) {
-                            &.dragged-icon, &:hover {
+                            &.dragged-icon,
+                            &:hover {
                                 height: 35px;
                                 transform: scale(1.3);
                                 transform-origin: bottom;
@@ -3309,7 +3286,7 @@ option {
 }
 
 .diamond-mobile-drag-container {
-    display: none
+    display: none;
 }
 
 .diamond-mobile-drag-instructions {
@@ -3354,9 +3331,8 @@ option {
             top: 15px;
             text-align: center;
             position: relative;
-            ;
             display: table-cell;
-            color: var(--secalt)
+            color: var(--secalt);
         }
     }
     .diamond-mobile-drag-grab {
@@ -3401,21 +3377,21 @@ option {
     input#check {
         position: absolute;
         opacity: 0;
-        &:checked+label svg path {
+        &:checked + label svg path {
             stroke-dashoffset: 0;
         }
-        &:focus+label {
+        &:focus + label {
             transform: scale(1.03);
         }
     }
-    #check+label {
+    #check + label {
         display: block;
         border: 2px solid var(--grey);
         width: var(--d);
         height: var(--d);
         border-radius: 5px;
         cursor: pointer;
-        transition: all .2s ease;
+        transition: all 0.2s ease;
         svg {
             pointer-events: none;
             vertical-align: top;
@@ -3427,7 +3403,7 @@ option {
                 stroke-linejoin: round;
                 stroke-dasharray: 100;
                 stroke-dashoffset: 101;
-                transition: all 350ms cubic-bezier(1, 0, .37, .91);
+                transition: all 350ms cubic-bezier(1, 0, 0.37, 0.91);
             }
         }
     }
@@ -3484,5 +3460,25 @@ option {
         padding: 2px 8px;
         border-radius: 0 12px 12px 0;
         font-size: 11px;
+    }
+}
+
+.create-menu-cover {
+    min-width: 250px;
+    max-width: 100%;
+    .mat-menu-item {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 10px 15px;
+        font-weight: bold;
+        font-size: 16px;
+        .icon-cover {
+            width: 25px;
+            margin-right: 15px;
+            img {
+                width: 100%;
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@ import { Router } from "@angular/router";
 @Component({
   selector: "browse-page",
   templateUrl: "./browse-page.component.html",
-  styleUrls: ["./browse-page.component.sass"],
+  styleUrls: ["./browse-page.component.scss"],
 })
 export class BrowsePageComponent implements OnInit {
   FeedComponent = FeedComponent;

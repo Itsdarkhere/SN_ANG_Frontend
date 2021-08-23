@@ -137,6 +137,8 @@ import { NftShowcaseComponent } from "./nft-showcase/nft-showcase.component";
 import { VerifyEmailComponent } from "./verify-email/verify-email.component";
 import { AdminJumioComponent } from "./admin/admin-jumio/admin-jumio.component";
 import { JumioStatusComponent } from "./jumio-status/jumio-status.component";
+import {MatMenuModule} from '@angular/material/menu';
+
 
 // Modular Themes for BitClout by Carsen Klock @carsenk
 import { ThemeModule } from "./theme/theme.module";
@@ -282,6 +284,7 @@ const coderTheme: Theme = { key: "coder", name: "Coder Theme" };
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatTooltipModule,
+    MatMenuModule,
     TextFieldModule,
     NgxIntlTelInputModule,
     UiScrollModule,

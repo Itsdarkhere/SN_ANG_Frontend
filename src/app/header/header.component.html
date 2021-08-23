@@ -6,24 +6,41 @@
         <search-bar></search-bar>
     </div>
     <div class="right-portion">
-        <ul class="for-mobile">
-            <li>
+        <ul class="right-side-options for-mobile">
+            <li class="single-option">
                 <img src="assets/icons/search-icon-mobile.svg" class="clout" alt="">
             </li>
-            <li>
+            <li class="single-option">
                 <img src="assets/icons/hamburger-icon.svg" class="clout" alt="">
             </li>
         </ul>
-        <ul class="menu-options-list">
-            <li>
-                <button class="btn btn-create clout">Create</button>
+        <ul class="right-side-options menu-options-list">
+            <li class="single-option">
+                <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button>
+                <mat-menu #createMenu="matMenu" xPosition="before">
+                    <div class="create-menu-cover">
+
+                        <button mat-menu-item>
+                            <div class="icon-cover">
+                                <img src="assets/icons/mint-icon.svg" alt="NFT">
+                            </div>
+                            Mint an NFT
+                        </button>
+                        <button mat-menu-item>
+                            <div class="icon-cover">
+                                <img src="assets/icons/create-post-icon.svg" alt="Post">
+                            </div>
+                            Create a Post
+                        </button>
+                    </div>
+                </mat-menu>
             </li>
-            <li class="notification-icon-cover">
+            <li class="notification-icon-cover single-option">
                 <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />
                 <div class="notification-list-cover" *ngIf="isNotificationOpen">
                     <div class="triangle-up">▲</div>
-                    <div class="notification-list">
-                        <div class="single-notification">
+                    <ul class="notification-list">
+                        <li class="single-notification">
                             <div class="left-portion">
                                 <div class="icon-cover">
                                     <i class="icon-reply feed-post-icon-row__icon"></i>
@@ -42,8 +59,8 @@
                                 <p>(~$0.01)</p>
                                 <span class="text-gray font-italic">Have a good one boss</span>
                             </div>
-                        </div>
-                        <div class="single-notification for-replying">
+                        </li>
+                        <li class="single-notification for-replying">
                             <div class="left-portion">
                                 <div class="profile-picture">
                                     <img src="assets/img/default_profile_pic.png" alt="User Profile Picture">
@@ -59,11 +76,18 @@
                                     <div class="desktop-creator-coin-info">
                                         <ng-container *ngTemplateOutlet="creatorCoinInfo"></ng-container>
                                     </div>
-                                    <follow-button class="ml-10px fs-12px d-lg-block d-none text-grey5" [displayAsLink]="true" [followLinkClass]="'link--unstyled'" [followedPubKeyBase58Check]="postContent.ProfileEntryResponse.PublicKeyBase58Check" [creatorCoinTemplate]="creatorCoinInfo"></follow-button>
-                                    <feed-post-dropdown class="ml-auto" [post]="post" [postContent]="postContent" [nftEntryResponses]="nftEntryResponses" (postHidden)="hidePost()" (userBlocked)="blockUser()" (toggleGlobalFeed)="_addPostToGlobalFeed($event)" (togglePostPin)="_pinPostToGlobalFeed($event)"></feed-post-dropdown>
+                                    <follow-button class="ml-10px fs-12px d-lg-block d-none text-grey5"
+                                        [displayAsLink]="true" [followLinkClass]="'link--unstyled'"
+                                        [followedPubKeyBase58Check]="postContent.ProfileEntryResponse.PublicKeyBase58Check"
+                                        [creatorCoinTemplate]="creatorCoinInfo"></follow-button>
+                                    <feed-post-dropdown class="ml-auto" [post]="post" [postContent]="postContent"
+                                        [nftEntryResponses]="nftEntryResponses" (postHidden)="hidePost()"
+                                        (userBlocked)="blockUser()" (toggleGlobalFeed)="_addPostToGlobalFeed($event)"
+                                        (togglePostPin)="_pinPostToGlobalFeed($event)"></feed-post-dropdown>
                                 </div>
                                 <p>Unfollow</p>
-                                <p class="replying-to-text">replying to &nbsp; <a class="text-primary" href="">@fransarthur</a>
+                                <p class="replying-to-text">replying to &nbsp; <a class="text-primary"
+                                        href="">@fransarthur</a>
                                 </p>
                                 <h5 class="fs-14px">Thank You !!</h5>
                                 <div class="counters-list">
@@ -86,8 +110,8 @@
                                 </div>
                                 <!-- <feed-post-icon-row class="mt-2px" [post]="post" [postContent]="postContent" [parentPost]="parentPost" [hideNumbers]="true" [afterCommentCreatedCallback]="afterCommentCreatedCallback" [afterRecloutCreatedCallback]="afterRecloutCreatedCallback"></feed-post-icon-row> -->
                             </div>
-                        </div>
-                        <div class="single-notification">
+                        </li>
+                        <li class="single-notification">
                             <div class="left-portion">
                                 <div class="icon-cover">
                                     <i class="icon-wallet"></i>
@@ -103,8 +127,8 @@
                                 <i class="fas fa-check-circle fa-md align-middle text-primary"></i>
                                 <p>followed you</p>
                             </div>
-                        </div>
-                        <div class="single-notification">
+                        </li>
+                        <li class="single-notification">
                             <div class="left-portion">
                                 <div class="icon-cover">
                                     <i class="icon-heart-fill"></i>
@@ -121,8 +145,8 @@
                                 <p>liked</p>
                                 <span class="text-gray font-italic">Have a good one boss</span>
                             </div>
-                        </div>
-                        <div class="single-notification">
+                        </li>
+                        <li class="single-notification">
                             <div class="left-portion">
                                 <div class="icon-cover">
                                     <i class="icon-wallet"></i>
@@ -138,8 +162,8 @@
                                 <i class="fas fa-check-circle fa-md align-middle text-primary"></i>
                                 <p>followed you</p>
                             </div>
-                        </div>
-                        <div class="single-notification">
+                        </li>
+                        <li class="single-notification">
                             <div class="left-portion">
                                 <div class="icon-cover">
                                     <i class="icon-heart-fill"></i>
@@ -156,18 +180,22 @@
                                 <p>liked</p>
                                 <span class="text-gray font-italic">Have a good one boss</span>
                             </div>
-                        </div>
-                    </div>
-                    <a [routerLink]="'/' + globalVars.RouteNames.NOTIFICATIONS" class="view-all-text text-primary" title="View All Notifications">View All</a>
+                        </li>
+                    </ul>
+                    <a [routerLink]="'/' + globalVars.RouteNames.NOTIFICATIONS" class="view-all-text text-primary"
+                        title="View All Notifications">View All</a>
                 </div>
+
             </li>
-            <li>
-                <img src="assets/icons/chat-plane-icon.svg" title="Chat" [routerLink]="'/' + globalVars.RouteNames.INBOX_PREFIX" />
+            <li class="single-option">
+                <img src="assets/icons/chat-plane-icon.svg" title="Chat"
+                    [routerLink]="'/' + globalVars.RouteNames.INBOX_PREFIX" />
             </li>
 
-            <li>
-                <div class="profile-img" title="My Profile" [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse.Username)" [avatar]="globalVars.loggedInUser.PublicKeyBase58Check">
-
+            <li class="single-option">
+                <div class="profile-img" title="My Profile"
+                    [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse.Username)"
+                    [avatar]="globalVars.loggedInUser.PublicKeyBase58Check">
                 </div>
             </li>
         </ul>

@@ -12,7 +12,6 @@
 <!--p-0 is important here. Mobile UIs expect that there's no side padding.-->
 <div class="main global__container" [ngClass]="globalVars.userIsDragging ? 'unselectable' : ''"
   *ngIf="!globalVars.requestingStorageAccess">
-  <app-header></app-header>
   <router-outlet *ngIf="!globalVars.loadingInitialAppState"></router-outlet>
   <simple-center-loader *ngIf="globalVars.loadingInitialAppState"></simple-center-loader>
 </div>

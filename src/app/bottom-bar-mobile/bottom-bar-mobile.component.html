@@ -1,57 +1,57 @@
 <div class="page-bottom-bar-mobile">
-  <div class="bottom-bar-list border-color-grey">
-    <bottom-bar-mobile-tab [link]="'/' + globalVars.RouteNames.BROWSE">
-      <div class="icon-cover">
-        <img src="assets/icons/feed-icon.svg" alt="">
-      </div>
-      <h6>Home</h6>
-    </bottom-bar-mobile-tab>
+    <div class="bottom-bar-list border-color-grey">
+        <bottom-bar-mobile-tab [link]="'/' + globalVars.RouteNames.BROWSE">
+            <div class="icon-cover">
+                <img src="assets/icons/feed-icon.svg" alt="">
+            </div>
+            <h6>Home</h6>
+        </bottom-bar-mobile-tab>
 
-    <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser" [link]="'/' + globalVars.RouteNames.MARKETPLACE">
-      <div class="icon-cover">
-        <img src="assets/icons/marketplace-icon.svg" alt="">
-      </div>
-      <h6>Marketplace</h6>
-    </bottom-bar-mobile-tab>
+        <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser" [link]="'/' + globalVars.RouteNames.MARKETPLACE">
+            <div class="icon-cover">
+                <img src="assets/icons/marketplace-icon.svg" alt="">
+            </div>
+            <h6>Marketplace</h6>
+        </bottom-bar-mobile-tab>
 
-    <!-- <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser"
+        <!-- <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser"
     [link]="'/' + globalVars.RouteNames.WALLET">
     <img src="assets/icons/wallet-icon.svg" alt="">
     <h6>Marketplace</h6>
     </bottom-bar-mobile-tab> -->
 
-    <!-- <bottom-bar-mobile-tab [link]="'/' + globalVars.RouteNames.TRENDS">
+        <!-- <bottom-bar-mobile-tab [link]="'/' + globalVars.RouteNames.TRENDS">
       <i class="icon-up-arrow fs-25px"></i>
     </bottom-bar-mobile-tab> -->
 
-    <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button>
-    <mat-menu #createMenu="matMenu">
-      <div class="create-menu-cover">
+        <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button>
+        <mat-menu #createMenu="matMenu">
+            <div class="create-menu-cover">
 
-        <button mat-menu-item>
+                <button mat-menu-item>
           <div class="icon-cover">
             <img src="assets/icons/mint-icon.svg" alt="NFT">
           </div>
           Mint an NFT
         </button>
-        <button mat-menu-item>
+                <button mat-menu-item *ngIf="globalVars.loggedInUser && showPostButton" [routerLink]="'/' + globalVars.RouteNames.CREATE_POST" queryParamsHandling="merge">
           <div class="icon-cover">
             <img src="assets/icons/create-post-icon.svg" alt="Post">
           </div>
           Create a Post
         </button>
-      </div>
-    </mat-menu>
+            </div>
+        </mat-menu>
 
-    <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser" [link]="'/' + globalVars.RouteNames.NOTIFICATIONS">
-      <div class="icon-cover">
-        <img class="noti-img" src="assets/icons/notification-icon.svg" alt="">
-      </div>
-      <h6>Notification</h6>
-    </bottom-bar-mobile-tab>
+        <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser" [link]="'/' + globalVars.RouteNames.NOTIFICATIONS">
+            <div class="icon-cover">
+                <img class="noti-img" src="assets/icons/notification-icon.svg" alt="">
+            </div>
+            <h6>Notification</h6>
+        </bottom-bar-mobile-tab>
 
-    <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser" [link]="'/' + globalVars.RouteNames.INBOX_PREFIX">
-      <!-- <i class="icon-messages fs-25px">
+        <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser" [link]="'/' + globalVars.RouteNames.INBOX_PREFIX">
+            <!-- <i class="icon-messages fs-25px">
         <div *ngIf="globalVars.messageResponse && globalVars.messageResponse.NumberOfUnreadThreads != 0"
           class="bottom-bar__message-notifications-bubble roboto-mono">
           {{
@@ -61,18 +61,16 @@
           }}
         </div>
       </i> -->
-      <div class="icon-cover">
-        <img src="assets/icons/profile-icon.svg" alt="">
-      </div>
-      <h6>Profile</h6>
-    </bottom-bar-mobile-tab>
-  </div>
+            <div class="icon-cover" [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse.Username)">
+                <img src="assets/icons/profile-icon.svg" alt="">
+            </div>
+            <h6>Profile</h6>
+        </bottom-bar-mobile-tab>
+    </div>
 
-  <!-- TODO: on mobile, if you click this, should it prompt you to log in?-->
-  <a *ngIf="globalVars.loggedInUser && showPostButton"
-    class="bottom-bar-mobile__create-post-circle rounded-circle link--unstyled bg-primary text-white"
-    [routerLink]="'/' + globalVars.RouteNames.CREATE_POST" queryParamsHandling="merge">
+    <!-- TODO: on mobile, if you click this, should it prompt you to log in?-->
+    <!-- <a *ngIf="globalVars.loggedInUser && showPostButton" class="bottom-bar-mobile__create-post-circle rounded-circle link--unstyled bg-primary text-white" [routerLink]="'/' + globalVars.RouteNames.CREATE_POST" queryParamsHandling="merge">
     +
-  </a>
+  </a> -->
 
 </div>

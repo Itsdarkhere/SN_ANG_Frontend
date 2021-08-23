@@ -1193,11 +1193,19 @@ input.bs-timepicker-field {
 
 .global__nav__width {
     width: $global__nav__width;
+    @media (max-width: 767px) {
+        width: 100%;
+    }
 }
 
 .global__nav__fixed {
     top: 77px;
     position: fixed;
+    @media (max-width: 767px) {
+        top: 0;
+        position: relative;
+        padding: 0 10px 0 15px;
+    }
 }
 
 .global__nav__inner {
@@ -1206,6 +1214,9 @@ input.bs-timepicker-field {
     overflow-x: hidden;
     height: calc(100vh - 77px);
     padding: 10px 10px 10px 0px;
+    @media (max-width: 767px) {
+        width: 100%;
+    }
 }
 
 // Set a fixed width on desktop
@@ -1300,6 +1311,10 @@ input.bs-timepicker-field {
     min-width: 245px;
     height: 100vh;
     background-color: var(--background);
+    @media (max-width: 992px) {
+        width: 80vw;
+        max-width: 340px;
+    }
 }
 
 .right-bar-select-box {
@@ -1456,6 +1471,11 @@ input.bs-timepicker-field {
     border-radius: 6px;
     padding-bottom: 15px;
     border: 1px solid var(--border);
+    @media (max-width: 676px) {
+        border: 0;
+        padding-top: 0;
+        padding-left: 0;
+    }
 }
 
 .change-account-selector_list__inner {
@@ -1823,6 +1843,10 @@ input.bs-timepicker-field {
 
 .right-bar-creators__balance-box {
     color: var(--text);
+    @media (max-width: 992px) {
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 15px;
+    }
 }
 
 .creator-leaderboard__load-more:hover {
@@ -2500,6 +2524,14 @@ input.bs-timepicker-field {
     appearance: none;
 }
 
+.search-bar-cover {
+    @media (max-width: 991px) {
+        .form-control {
+            height: calc(1.5em + .75rem + 16px) !important;
+        }
+    }
+}
+
 .normal-text {
     color: $text-color;
     font-size: $normal-text-size;
@@ -2628,6 +2660,9 @@ em {
     border-radius: 10px;
     position: relative;
     box-shadow: 0px 2px 3px 1px rgba(0, 0, 0, 0.1);
+    @media (max-width: 676px) {
+        display: none
+    }
 }
 
 .apply_to_crt .fa-times {

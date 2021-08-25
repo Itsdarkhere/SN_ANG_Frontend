@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { GlobalVarsService } from "../../global-vars.service";
 import { BackendApiService, PostEntryResponse } from "../../backend-api.service";
 import { Datasource, IAdapter, IDatasource } from "ngx-ui-scroll";
@@ -11,12 +11,15 @@ import { InfiniteScroller } from "src/app/infinite-scroller";
   templateUrl: "./notifications-list.component.html",
   styleUrls: ["./notifications-list.component.scss"],
 })
-export class NotificationsListComponent {
-  static BUFFER_SIZE = 10;
-  static PAGE_SIZE = 50;
-  static WINDOW_VIEWPORT = true;
+export class NotificationsListComponent implements OnInit {
+  @Input() isNotificationBar = false;
+  private BUFFER_SIZE = 10;
+  private PAGE_SIZE = 50;
+  private  WINDOW_VIEWPORT = true;
+  notificationArr: Array<any>[];
+  constructor(private globalVars: GlobalVarsService, private backendApi: BackendApiService) {
 
-  constructor(private globalVars: GlobalVarsService, private backendApi: BackendApiService) {}
+  }
 
   // stores a mapping of page number to notification index
   pagedIndexes = {
@@ -35,19 +38,25 @@ export class NotificationsListComponent {
   // null means we're loading items
   totalItems = null;
 
+  ngOnInit(){
+    this.PAGE_SIZE = this.isNotificationBar ? 15 : 50;
+    this.WINDOW_VIEWPORT = !this.isNotificationBar;
+    this.getPage(0);
+  }
+
   getPage(page: number) {
     if (this.lastPage && page > this.lastPage) {
       return [];
     }
 
     this.loadingNextPage = true;
-    const fetchStartIndex = this.pagedIndexes[page];
+    const fetchStartIndex = this.pagedIndexes[!this.isNotificationBar ? page: 0];
     return this.backendApi
       .GetNotifications(
         this.globalVars.localNode,
         this.globalVars.loggedInUser.PublicKeyBase58Check,
         fetchStartIndex /*FetchStartIndex*/,
-        NotificationsListComponent.PAGE_SIZE /*NumToFetch*/
+        this.PAGE_SIZE /*NumToFetch*/
       )
       .toPromise()
       .then(
@@ -67,13 +76,13 @@ export class NotificationsListComponent {
           this.pagedIndexes[page + 1] = res.Notifications[res.Notifications.length - 1]?.Index - 1 || 0;
 
           // if the chunk was incomplete or the Index was zero we're done
-          if (chunk.length < NotificationsListComponent.PAGE_SIZE || this.pagedIndexes[page + 1] === 0) {
+          if (chunk.length < this.PAGE_SIZE || this.pagedIndexes[page + 1] === 0) {
             this.lastPage = page;
           }
 
           // Track the total number of items for our empty state
           this.totalItems = (this.totalItems || 0) + chunk.length;
-
+          this.notificationArr = chunk;
           return chunk;
         },
         (err) => {
@@ -338,10 +347,10 @@ export class NotificationsListComponent {
   }
 
   infiniteScroller: InfiniteScroller = new InfiniteScroller(
-    NotificationsListComponent.PAGE_SIZE,
+    this.PAGE_SIZE,
     this.getPage.bind(this),
-    NotificationsListComponent.WINDOW_VIEWPORT,
-    NotificationsListComponent.BUFFER_SIZE
+    this.WINDOW_VIEWPORT,
+    this.BUFFER_SIZE
   );
   datasource: IDatasource<IAdapter<PostEntryResponse>> = this.infiniteScroller.getDatasource();
 }

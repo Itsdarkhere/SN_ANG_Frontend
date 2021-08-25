@@ -5,6 +5,7 @@ import { GlobalVarsService } from '../global-vars.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MintYourNftComponent } from '../mint-your-nft/mint-your-nft.component';
 import { CreateYourNftComponent } from '../create-your-nft/create-your-nft.component';
+import { PlaceABidComponent } from '../place-a-bid/place-a-bid.component';
 
 @Component({
   selector: 'app-header',
@@ -25,19 +26,29 @@ export class HeaderComponent implements OnInit {
 
   createPost(): void {
     const dialogRef = this.dialog.open(CreatePostComponent, {
-      width: '420px',
+      width: '480px',
+      panelClass: 'popup-modal'
     });
   }
 
   mintYourNFT(): void {
     const dialogRef = this.dialog.open(MintYourNftComponent, {
-      width: '500px',
+      width: '620px',
+      panelClass: 'popup-modal'
     });
   }
 
   createYourNFT(): void {
     const dialogRef = this.dialog.open(CreateYourNftComponent, {
-      width: '500px',
+      width: '620px',
+      panelClass: 'popup-modal'
+    });
+  }
+
+  placeBid(): void {
+    const dialogRef = this.dialog.open(PlaceABidComponent, {
+      width: '600px',
+      panelClass: 'popup-modal'
     });
   }
 

@@ -11,6 +11,8 @@ import { IdentityService } from "../identity.service";
 })
 export class LeftBarComponent {
   MessagesInboxComponent = MessagesInboxComponent;
+ 
+  applycreator = true;
 
   @HostBinding("class") get classes() {
     return !this.isMobile ? "global__nav__flex" : "";
@@ -48,4 +50,9 @@ export class LeftBarComponent {
   logHelp(): void {
     this.globalVars.logEvent("help : click");
   }
+
+hidecreator(){
+  this.applycreator = false;
+}
+
 }

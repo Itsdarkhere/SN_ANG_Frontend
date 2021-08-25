@@ -74,14 +74,21 @@
 
             <div class="p-15px"></div>
 
-            <div class="apply_to_crt">
-                <i class="fas fa-times fa-md" aria-hidden="true"></i>
+            <div class="apply_to_crt" *ngIf="applycreator">
+                <i class="fas fa-times fa-md" (click)="hidecreator()" aria-hidden="true"></i>
                 <h4><i class="fas fa-check-circle fa-md" aria-hidden="true"></i> Apply to be a creator </h4>
                 <p>You must be selected to mint NFT’s on Supernovas. Once you are accepted you’ll get access mint NFT’s and your blue checkmark.</p>
                 <a href="https://xxplfwbep9k.typeform.com/to/sv1kaUT2" target="_blank">Apply here</a>
             </div>
 
             <left-bar-button *ngIf="globalVars.showAdminTools()" [link]="'/' + globalVars.RouteNames.ADMIN" [buttonLabel]="'Admin'"></left-bar-button>
+
+            <ul class="social_links">
+                <li><a href="#">TWITTER</a></li>
+                <li><a href="#">INSTAGRAM</a></li>
+                <li><a href="#">BLOG</a></li>
+                <li><a href="#">TERMS OF SERVICE</a></li>
+            </ul>
         </div>
 
         <!-- Logged-out Left Bar -->

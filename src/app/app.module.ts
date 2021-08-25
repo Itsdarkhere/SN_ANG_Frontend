@@ -2,11 +2,13 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSelectModule } from "@angular/material/select";
+import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { TextFieldModule } from "@angular/cdk/text-field";
-
+import { MatIconModule } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { BackendApiService } from "./backend-api.service";
@@ -88,6 +90,7 @@ import { UiScrollModule } from "ngx-ui-scroll";
 import { PageComponent } from "./page/page.component";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { PopoverModule } from "ngx-bootstrap/popover";
 import { RatingModule } from "ngx-bootstrap/rating";
 import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
@@ -137,7 +140,7 @@ import { NftShowcaseComponent } from "./nft-showcase/nft-showcase.component";
 import { VerifyEmailComponent } from "./verify-email/verify-email.component";
 import { AdminJumioComponent } from "./admin/admin-jumio/admin-jumio.component";
 import { JumioStatusComponent } from "./jumio-status/jumio-status.component";
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 // Modular Themes for BitClout by Carsen Klock @carsenk
@@ -146,6 +149,10 @@ import { Theme } from "./theme/symbols";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { HeaderComponent } from './header/header.component';
 import { NftCardComponent } from './nft-card/nft-card.component';
+import { CreatePostComponent } from './create-post/create-post.component';
+import { CreateYourNftComponent } from './create-your-nft/create-your-nft.component';
+import { MintYourNftComponent } from './mint-your-nft/mint-your-nft.component';
+import { PlaceABidComponent } from './place-a-bid/place-a-bid.component';
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "dark", name: "Dark Theme" };
 const icydarkTheme: Theme = { key: "icydark", name: "Icy Dark Theme" };
@@ -164,6 +171,9 @@ const coderTheme: Theme = { key: "coder", name: "Coder Theme" };
     FollowButtonComponent,
     NotFoundPageComponent,
     BrowsePageComponent,
+    CreatePostComponent,
+    MintYourNftComponent,
+    CreateYourNftComponent,
     FeedComponent,
     LeftBarComponent,
     RightBarCreatorsComponent,
@@ -272,12 +282,18 @@ const coderTheme: Theme = { key: "coder", name: "Coder Theme" };
     JumioStatusComponent,
     HeaderComponent,
     NftCardComponent,
+    CreatePostComponent,
+    CreateYourNftComponent,
+    MintYourNftComponent,
+    PlaceABidComponent,
   ],
   imports: [
     BrowserModule,
     DragDropModule,
     AppRoutingModule,
     FormsModule,
+    MatSlideToggleModule,
+    MatDialogModule,
     MatSelectModule,
     MatFormFieldModule,
     HttpClientModule,
@@ -285,6 +301,8 @@ const coderTheme: Theme = { key: "coder", name: "Coder Theme" };
     BrowserAnimationsModule,
     MatTooltipModule,
     MatMenuModule,
+    MatInputModule,
+    MatIconModule,
     TextFieldModule,
     NgxIntlTelInputModule,
     UiScrollModule,
@@ -306,4 +324,4 @@ const coderTheme: Theme = { key: "coder", name: "Coder Theme" };
   providers: [BackendApiService, GlobalVarsService, BsModalService, IdentityService],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

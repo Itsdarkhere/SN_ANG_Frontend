@@ -174,6 +174,7 @@ const coderTheme: Theme = { key: "coder", name: "Coder Theme" };
     CreatePostComponent,
     MintYourNftComponent,
     CreateYourNftComponent,
+    PlaceABidComponent,
     FeedComponent,
     LeftBarComponent,
     RightBarCreatorsComponent,

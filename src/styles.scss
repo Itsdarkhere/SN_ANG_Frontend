@@ -3526,3 +3526,15 @@ option {
         }
     }
 }
+.cdk-overlay-pane{
+    &.popup-modal{
+        max-height: 95vh;
+        max-width: 95vw;
+        .mat-dialog-container{
+            padding: 30px 20px;
+            @media screen and (max-width: 767px){
+                padding: 20px 14px;
+            }
+        }
+    }
+}

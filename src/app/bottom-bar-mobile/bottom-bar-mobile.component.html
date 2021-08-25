@@ -27,19 +27,20 @@
         <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button>
         <mat-menu #createMenu="matMenu">
             <div class="create-menu-cover">
-
-                <button mat-menu-item>
-          <div class="icon-cover">
-            <img src="assets/icons/mint-icon.svg" alt="NFT">
-          </div>
-          Mint an NFT
-        </button>
-                <button mat-menu-item *ngIf="globalVars.loggedInUser && showPostButton" [routerLink]="'/' + globalVars.RouteNames.CREATE_POST" queryParamsHandling="merge">
-          <div class="icon-cover">
-            <img src="assets/icons/create-post-icon.svg" alt="Post">
-          </div>
-          Create a Post
-        </button>
+<!-- 
+                <button mat-menu-item (click)="mintYourNFT()">
+                    <div class="icon-cover">
+                        <img src="assets/icons/mint-icon.svg" alt="NFT">
+                    </div>
+                    Mint an NFT
+                </button>
+                <button mat-menu-item *ngIf="globalVars.loggedInUser && showPostButton" (click)="createPost()" 
+                    [routerLink]="'/' + globalVars.RouteNames.CREATE_POST" queryParamsHandling="merge">
+                    <div class="icon-cover">
+                        <img src="assets/icons/create-post-icon.svg" alt="Post">
+                    </div>
+                    Create a Post
+                </button> -->
             </div>
         </mat-menu>
 
@@ -61,7 +62,8 @@
           }}
         </div>
       </i> -->
-            <div class="icon-cover" [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse.Username)">
+            <div class="icon-cover"
+                [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse.Username)">
                 <img src="assets/icons/profile-icon.svg" alt="">
             </div>
             <h6>Profile</h6>

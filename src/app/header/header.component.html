@@ -21,17 +21,29 @@
                 <mat-menu #createMenu="matMenu" xPosition="before">
                     <div class="create-menu-cover">
 
-                        <button mat-menu-item>
+                        <button mat-menu-item (click)="mintYourNFT()">
                             <div class="icon-cover">
-                                <img src="assets/icons/mint-icon.svg" alt="NFT">
+                                <img src="assets/icons/mint-icon.svg" class="clout" alt="Mint NFT">
                             </div>
                             Mint an NFT
                         </button>
-                        <button mat-menu-item>
+                        <button mat-menu-item (click)="createYourNFT()">
                             <div class="icon-cover">
-                                <img src="assets/icons/create-post-icon.svg" alt="Post">
+                                <img src="assets/icons/mint-icon.svg" class="clout" alt="Create NFT">
+                            </div>
+                            Create your NFT
+                        </button>
+                        <button mat-menu-item (click)="createPost()">
+                            <div class="icon-cover">
+                                <img src="assets/icons/create-post-icon.svg" class="clout" alt="Post">
                             </div>
                             Create a Post
+                        </button>
+                        <button mat-menu-item (click)="placeBid()">
+                            <div class="icon-cover">
+                                <img src="assets/icons/create-post-icon.svg" class="clout" alt="Place Bid">
+                            </div>
+                            Place a Bid
                         </button>
                     </div>
                 </mat-menu>

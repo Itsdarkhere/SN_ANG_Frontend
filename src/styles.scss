@@ -1713,7 +1713,7 @@ input.bs-timepicker-field {
 }
 
 .feed-post-icon-row__icon {
-    font-size: 25px;
+    font-size: 16px;
     border-radius: 50%;
     &:hover {
         background-color: var(--secondary);
@@ -3170,7 +3170,8 @@ option {
     position: relative;
     i {
         position: relative;
-        font-size: 22px;
+        font-size: 13px;
+        margin-right: 3px;
     }
     // Contains the button which triggers diamond pop ups
     .diamond-btn {
@@ -3526,14 +3527,164 @@ option {
         }
     }
 }
-.cdk-overlay-pane{
-    &.popup-modal{
+
+.cdk-overlay-pane {
+    &.popup-modal {
         max-height: 95vh;
         max-width: 95vw;
-        .mat-dialog-container{
+        .mat-dialog-container {
             padding: 30px 20px;
-            @media screen and (max-width: 767px){
+            @media screen and (max-width: 767px) {
                 padding: 20px 14px;
+            }
+        }
+    }
+}
+
+.nfts-card-list>div {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: 20px -10px 0px;
+    padding: 0px;
+    list-style-type: none;
+    [data-sid] {
+        padding: 10px;
+        width: calc(100% / 3);
+        min-width: 300px;
+        @media screen and (max-width: 500px) {
+            width: 100%;
+        }
+    }
+}
+
+.single-card {
+    box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    transition: .2s;
+    &:hover {
+        transform: translateY(-2px);
+    }
+    .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        background: transparent;
+        padding: 10px;
+        .profile-img {
+            width: 25px;
+            height: 25px;
+            margin-right: 10px;
+            a {
+                width: 25px;
+                height: 25px;
+                display: block;
+                background-position: center;
+                background-size: cover;
+                border-radius: 50%;
+            }
+        }
+        h6 {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .value-buy-cover {
+            display: inline-block;
+            padding: 4px 6px;
+            border-radius: 15px;
+            background: var(--border);
+            margin-left: 15px;
+            font-size: 10px;
+        }
+    }
+    .card-body {
+        padding: 0px;
+        .img-cover {
+            width: 100%;
+            height: 216px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--secondary);
+            img {
+                width: auto;
+                height: auto;
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
+        .caption-cover {
+            padding: 10px 12px;
+            height: 51px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            p {
+                font-size: 13px;
+            }
+        }
+        .bid-cover {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--button);
+            padding: 10px 12px;
+            border-radius: 0px 0px 10px 10px;
+            color: #ffffff;
+            .bid-col {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                &:not(:first-child) {
+                    margin-left: 20px;
+                }
+                p {
+                    color: var(--background);
+                    font-size: 12px;
+                    &:first-child {
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+            .btn-place-a-bid {
+                background: var(--background);
+                color: var(--button);
+                font-size: 12px;
+                font-weight: bold;
+            }
+        }
+    }
+    .card-footer {
+        background: transparent;
+        border: none;
+        padding: 5px 12px 8px;
+        .row-1 {
+            padding: 10px 0px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            h6 {
+                font-size: 10px;
+                span {
+                    font-weight: bold;
+                }
+            }
+        }
+        .row-2 {
+            padding-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            .icon-cover {
+                display: flex;
+                align-items: center;
+                span {
+                    font-size: 11px;
+                }
             }
         }
     }

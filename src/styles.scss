@@ -1804,6 +1804,16 @@ input.bs-timepicker-field {
     margin-right: 15px;
 }
 
+.feed-max-width-name {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    @media (max-width: 767px) {
+        max-width: 200px;
+    }
+}
+
 .feed-post__container {
     .btn-follow {
         border-radius: 0 !important;
@@ -2174,7 +2184,7 @@ input.bs-timepicker-field {
 
 .notifications__action {
     margin-left: 14px;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .notifications__icon {
@@ -3514,7 +3524,7 @@ option {
     }
     margin-left: 3.5rem !important;
     border: 1px solid var(--secalt);
-    display: flex;
+    display: inline-flex;
     align-items: center;
     font-weight: 500;
     .text-grey5 {
@@ -3711,7 +3721,7 @@ option {
 }
 
 .social_links {
-    display: flex;
+    display: none;
     padding: 0;
     margin: 0;
     justify-content: space-between;
@@ -3720,6 +3730,9 @@ option {
     left: 0;
     background: var(--secondary);
     width: 100%;
+    @media screen and (max-width: 767px) {
+        display: flex;
+    }
     li {
         list-style: none;
         display: block;
@@ -3729,5 +3742,16 @@ option {
             padding: 12px 10px;
             color: var(--textalt);
         }
+    }
+}
+
+.notification-list-cover {
+    .global__bottom-bar-mobile-height {
+        @media screen and (min-width: 767px) {
+            display: none;
+        }
+    }
+    .feed-max-width-name {
+        font-size: 13px;
     }
 }

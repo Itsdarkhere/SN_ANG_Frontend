@@ -1,34 +1,38 @@
 .popup-header {
     text-align: center;
     margin-bottom: 30px;
-    @media screen and (max-width: 767px){
+    @media screen and (max-width: 767px) {
         margin-bottom: 20px;
     }
     h1 {
         font-size: 42px !important;
         font-weight: bold;
-        @media screen and (max-width: 767px){
+        color: var( --topbar);
+        @media screen and (max-width: 767px) {
             font-size: 32px !important;
         }
     }
 }
+
 .popup-body {
     h5 {
         margin-bottom: 10px;
         font-size: 18px !important;
-        @media screen and (max-width: 767px){
+        color: var( --topbar);
+        @media screen and (max-width: 767px) {
             font-size: 16px !important;
         }
     }
     h6 {
         margin-bottom: 10px;
         font-size: 16px !important;
-        @media screen and (max-width: 767px){
+        color: var( --topbar);
+        @media screen and (max-width: 767px) {
             font-size: 14px !important;
         }
     }
-    .mat-input-element{
-        border: 1px solid var(--text);
+    .mat-input-element {
+        border: 1px solid var(--topbar);
         border-radius: 5px;
         max-width: 100%;
         width: 100%;
@@ -38,12 +42,12 @@
         font-size: 20px;
         margin-top: 7px;
         margin-bottom: 20px;
-        @media screen and (max-width: 767px){
+        @media screen and (max-width: 767px) {
             font-size: 16px !important;
         }
     }
-    .input-with-button{
-        border: 1px solid var(--text);
+    .input-with-button {
+        border: 1px solid var(--topbar);
         border-radius: 5px;
         max-width: 100%;
         width: 100%;
@@ -57,7 +61,7 @@
             border: none;
             margin: 0px;
         }
-        button{
+        button {
             background-color: var(--button);
             color: var(--background);
             font-weight: bold;
@@ -65,6 +69,7 @@
         }
     }
 }
+
 .popup-footer {
     padding-top: 20px;
     .btn {
@@ -79,8 +84,8 @@
         border: none;
         color: var(--background);
         font-weight: bold;
-        box-shadow: 3px 3px 5px 2px rgba(0,0,0,0.2);
-        @media screen and (max-width: 767px){
+        box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.2);
+        @media screen and (max-width: 767px) {
             font-size: 16px;
         }
     }

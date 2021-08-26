@@ -1536,6 +1536,12 @@ export class BackendApiService {
     });
   }
 
+  GetVerifiedUsers(endpoint: string, PublicKey: string): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminGetVerifiedUsers, PublicKey, {
+      PublicKey
+    });
+  }
+
   GetJumioStatusForPublicKey(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
     return this.jwtPost(endpoint, BackendRoutes.RoutePathGetJumioStatusForPublicKey, PublicKeyBase58Check, {
       PublicKeyBase58Check,

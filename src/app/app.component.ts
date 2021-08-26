@@ -289,8 +289,28 @@ export class AppComponent implements OnInit {
     });
 
     this.installDD();
+    setTimeout(() => {
+      this._loadVerifiedUsers();
+    }, 5000);
   }
+  _loadVerifiedUsers(){
+    // this.loadingVerifiedUsers = true;
+    console.log("..................Loading verified users..............");
 
+    this.backendApi
+      .GetVerifiedUsers(this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check)
+      .subscribe(
+        (res) => {
+          console.log(res.VerifiedUsers)
+        },
+        (err) => {
+          console.log(err);
+        }
+      )
+      .add(() => {
+        // this.loadingVerifiedUsers = false;
+      });
+  }
   loadApp() {
     this.identityService.identityServiceUsers = this.backendApi.GetStorage(this.backendApi.IdentityUsersKey) || {};
     // Filter out invalid public keys

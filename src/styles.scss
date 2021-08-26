@@ -139,7 +139,7 @@ code {
 $global__top-bar__height: 60px;
 $global__top-bar__desktop-height: 80px;
 $global__nav__width: 200px;
-$global__center__width: 752px;
+$global__center__width: 1024px;
 $global__sidebar__width: 200px;
 $global__content__width: $global__center__width+$global__sidebar__width;
 $border-grey: #e5e5e5;
@@ -1204,7 +1204,7 @@ input.bs-timepicker-field {
     @media (max-width: 767px) {
         top: 0;
         position: relative;
-        padding: 0 10px 0 15px;
+        padding: 10px 15px 0;
     }
 }
 
@@ -1216,6 +1216,8 @@ input.bs-timepicker-field {
     padding: 10px 10px 10px 0px;
     @media (max-width: 767px) {
         width: 100%;
+        height: 100vh;
+        padding: 0;
     }
 }
 
@@ -1258,8 +1260,11 @@ input.bs-timepicker-field {
 }
 
 .global__center__width {
-    // width: $global__center__width;
+    width: $global__center__width;
     padding-left: 50px;
+    @media (max-width: 1170px) {
+        width: calc(100% - 60px);
+    }
 }
 
 .global__top-bar {
@@ -1267,6 +1272,9 @@ input.bs-timepicker-field {
     background: var(--background);
     z-index: 30;
     width: $global__center__width - 50; // subtract 2 for borders
+    @media (max-width: 1170px) {
+        width: 650px;
+    }
     @media (min-width: 992px) {
         height: $global__top-bar__desktop-height;
     }
@@ -1794,6 +1802,17 @@ input.bs-timepicker-field {
 .feed-post__avatar-container {
     width: 45px; // TODO: figure out why chrome doesn't render this as 50px
     margin-right: 15px;
+}
+
+.feed-post__container {
+    .btn-follow {
+        border-radius: 0 !important;
+        border: 0 !important;
+        font-weight: normal !important;
+        padding: 0 7px 0 0 !important;
+        font-size: 12px !important;
+        background: transparent !important;
+    }
 }
 
 .feed-post__parent-thread-connector {
@@ -2670,6 +2689,7 @@ em {
     top: 8px;
     right: 8px;
     font-size: 12px;
+    cursor: pointer;
     color: var(--grey);
 }
 
@@ -2701,7 +2721,7 @@ em {
 }
 
 .apply_to_crt a:hover {
-    color: #fff;
+    color: var(--hover);
     text-decoration: none;
 }
 
@@ -3686,6 +3706,24 @@ option {
                     font-size: 11px;
                 }
             }
+.social_links {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    background: var(--secondary);
+    width: 100%;
+    li {
+        list-style: none;
+        display: block;
+        a {
+            display: block;
+            font-size: 10px;
+            padding: 12px 10px;
+            color: var(--textalt);
         }
     }
 }

@@ -7,6 +7,9 @@
             .tabs_column_list_inner {
                 font-size: 20px !important;
                 font-weight: 600;
+                @media screen and (max-width: 767px) {
+                    font-size: 14px !important;
+                }
             }
         }
     }

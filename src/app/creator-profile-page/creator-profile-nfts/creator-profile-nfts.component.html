@@ -55,7 +55,7 @@
             NFTs that @{{ profile.Username }} is currently selling
         </div>
     </div>
-    <div class="nfts-card-list" *ngIf="!globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)">
+    <div [class.nfts-card-list]="activeTab !== CreatorProfileNftsComponent.MY_BIDS" *ngIf="!globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)">
         <div #uiScroll *uiScroll="let nftEntry of datasource; let index = index" [ngClass]="{
       'br-12px': activeTab === CreatorProfileNftsComponent.MY_BIDS,
       'p-10px': activeTab === CreatorProfileNftsComponent.MY_BIDS,

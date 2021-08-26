@@ -63,9 +63,9 @@
       'm-15px': activeTab === CreatorProfileNftsComponent.MY_BIDS,
       'border': activeTab === CreatorProfileNftsComponent.MY_BIDS
       }">
-            <feed-post *ngIf="activeTab !== CreatorProfileNftsComponent.MY_BIDS && nftEntry.PostEntryResponse.ProfileEntryResponse" [contentShouldLinkToThread]="true" [includePaddingOnPost]="true" [post]="nftEntry.PostEntryResponse" [afterCommentCreatedCallback]="_prependComment.bind(this, nftEntry.PostEntryResponse, index)"
+            <app-nft-card *ngIf="activeTab !== CreatorProfileNftsComponent.MY_BIDS && nftEntry.PostEntryResponse.ProfileEntryResponse" [contentShouldLinkToThread]="true" [includePaddingOnPost]="true" [post]="nftEntry.PostEntryResponse" [afterCommentCreatedCallback]="_prependComment.bind(this, nftEntry.PostEntryResponse, index)"
                 [blocked]="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)" [showNFTDetails]="true" [showExpandedNFTDetails]="false" [setBorder]="true" [showAvailableSerialNumbers]="true" [cardStyle]="true" [profilePublicKeyBase58Check]="profile.PublicKeyBase58Check"
-                [isForSaleOnly]="activeTab === CreatorProfileNftsComponent.FOR_SALE" (userBlocked)="userBlocked()"></feed-post>
+                [isForSaleOnly]="activeTab === CreatorProfileNftsComponent.FOR_SALE" (userBlocked)="userBlocked()"></app-nft-card>
             <!-- <app-nft-card></app-nft-card> -->
             <div *ngIf="activeTab === CreatorProfileNftsComponent.MY_BIDS && nftEntry.PostEntryResponse">
                 <div class="row no-gutters w-100 pb-5px justify-content-start">

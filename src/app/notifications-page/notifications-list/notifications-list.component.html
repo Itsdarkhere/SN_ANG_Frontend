@@ -5,7 +5,7 @@
     Notifications1
 </div>
 <div *ngIf="!isNotificationBar" class="global__top-bar__height"></div>
-<div *ngIf="loadingFirstPage && !isNotificationBar">
+<div *ngIf="loadingFirstPage">
     <simple-center-loader></simple-center-loader>
 </div>
 <div *ngIf="(!totalItems || totalItems === 0) && !loadingFirstPage" class="d-flex justify-content-center mt-30px">

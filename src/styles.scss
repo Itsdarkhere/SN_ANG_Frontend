@@ -1204,7 +1204,7 @@ input.bs-timepicker-field {
     @media (max-width: 767px) {
         top: 0;
         position: relative;
-        padding: 0 10px 0 15px;
+        padding: 10px 15px 0;
     }
 }
 
@@ -1216,6 +1216,8 @@ input.bs-timepicker-field {
     padding: 10px 10px 10px 0px;
     @media (max-width: 767px) {
         width: 100%;
+        height: 100vh;
+        padding: 0;
     }
 }
 
@@ -2687,6 +2689,7 @@ em {
     top: 8px;
     right: 8px;
     font-size: 12px;
+    cursor: pointer;
     color: var(--grey);
 }
 
@@ -2718,7 +2721,7 @@ em {
 }
 
 .apply_to_crt a:hover {
-    color: #fff;
+    color: var(--hover);
     text-decoration: none;
 }
 
@@ -3553,6 +3556,28 @@ option {
             @media screen and (max-width: 767px) {
                 padding: 20px 14px;
             }
+        }
+    }
+}
+
+.social_links {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    background: var(--secondary);
+    width: 100%;
+    li {
+        list-style: none;
+        display: block;
+        a {
+            display: block;
+            font-size: 10px;
+            padding: 12px 10px;
+            color: var(--textalt);
         }
     }
 }

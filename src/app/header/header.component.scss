@@ -268,6 +268,12 @@ header {
     }
 }
 
+.header_notification_list_inner {
+    max-height: 400px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
 :host ::ng-deep {
     .search-bar-cover {
         .global__top-bar__height {
@@ -281,6 +287,14 @@ header {
             left: 10px;
             min-width: auto;
             z-index: 999;
+        }
+    }
+    .header_notification_list_inner {
+        .creator-coin-info {
+            margin-left: 1rem !important;
+        }
+        .feed-max-width-name {
+            max-width: 100px;
         }
     }
 }

@@ -52,7 +52,9 @@
                 <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />
                 <div class="notification-list-cover" *ngIf="isNotificationOpen">
                     <div class="triangle-up">▲</div>
-                    <app-notifications-list [isNotificationBar]="true"></app-notifications-list>
+                    <div class="header_notification_list_inner">
+                        <app-notifications-list [isNotificationBar]="true"></app-notifications-list>
+                    </div>
                     <a [routerLink]="'/' + globalVars.RouteNames.NOTIFICATIONS" class="view-all-text text-primary" title="View All Notifications">View All</a>
                 </div>
 

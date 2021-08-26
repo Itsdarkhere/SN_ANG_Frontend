@@ -1,12 +1,9 @@
 import { Component, OnInit } from "@angular/core";
+import { BackendApiService, NFTCollectionResponse } from "../../backend-api.service";
 import { GlobalVarsService } from "../../global-vars.service";
-import { BackendApiService } from "../../backend-api.service";
-import { HttpClient } from "@angular/common/http";
-import { PulseService } from "../../../lib/services/pulse/pulse-service";
-import { BithuntService } from "../../../lib/services/bithunt/bithunt-service";
-import { RightBarCreatorsComponent, RightBarTabOption } from "../../right-bar-creators/right-bar-creators.component";
+import { InfiniteScroller } from "../../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
-import { InfiniteScroller } from "src/app/infinite-scroller";
+import { uniqBy } from "lodash";
 
 @Component({
   selector: "trends",
@@ -14,108 +11,14 @@ import { InfiniteScroller } from "src/app/infinite-scroller";
   styleUrls: ["./trends.component.scss"],
 })
 export class TrendsComponent implements OnInit {
-  static BUFFER_SIZE = 5;
-  static PADDING = 0.25;
-  static PAGE_SIZE = 20;
+  globalVars: GlobalVarsService;
+  loading: boolean = false;
+  nftCollections: NFTCollectionResponse[];
+  lastPage: number;
+  static PAGE_SIZE = 50;
   static WINDOW_VIEWPORT = true;
-
-  RightBarCreatorsComponent = RightBarCreatorsComponent;
-
-  tabs: string[] = Object.keys(RightBarCreatorsComponent.chartMap).filter(
-    (tab: string) => tab !== RightBarCreatorsComponent.ALL_TIME.name
-  );
-  activeTab: string = RightBarCreatorsComponent.GAINERS.name;
-  activeRightTabOption: RightBarTabOption;
-  selectedOptionWidth: string;
-
-  pagedRequestsByTab = {};
-  lastPageByTab = {};
-  lastPage = null;
-  loading = true;
-  loadingNextPage = false;
-
-  bithuntService: BithuntService;
-  pulseService: PulseService;
-
-  constructor(
-    public globalVars: GlobalVarsService,
-    private backendApi: BackendApiService,
-    private httpClient: HttpClient
-  ) {
-    this.tabs.forEach((tab) => {
-      this.pagedRequestsByTab[tab] = {
-        "-1": new Promise((resolve) => {
-          resolve([]);
-        }),
-      };
-      this.lastPageByTab[tab] = null;
-    });
-    this.bithuntService = new BithuntService(this.httpClient, this.backendApi, this.globalVars);
-    this.pulseService = new PulseService(this.httpClient, this.backendApi, this.globalVars);
-    this.selectTab();
-  }
-
-  selectTab() {
-    const rightTabOption = RightBarCreatorsComponent.chartMap[this.activeTab];
-    this.activeRightTabOption = rightTabOption;
-    this.selectedOptionWidth = rightTabOption.width + "px";
-    this.loading = true;
-    this.infiniteScroller.reset();
-    this.datasource.adapter.reset().then(() => (this.loading = false));
-  }
-
-  ngOnInit() {
-    this.globalVars.updateLeaderboard(true);
-  }
-
-  getPage(page: number) {
-    if (this.activeTab === RightBarCreatorsComponent.GAINERS.name) {
-      this.loadingNextPage = page !== 0;
-      return this.pulseService
-        .getBitCloutLockedPage(page + 1, TrendsComponent.PAGE_SIZE, true)
-        .toPromise()
-        .then(
-          (res) => {
-            if (res.length < TrendsComponent.PAGE_SIZE) {
-              this.lastPageByTab[this.activeTab] = page;
-              this.lastPage = page;
-            }
-            this.loadingNextPage = false;
-            return res;
-          },
-          (err) => {
-            console.error(this.backendApi.stringifyError(err));
-          }
-        );
-    }
-    if (this.activeTab === RightBarCreatorsComponent.DIAMONDS.name) {
-      this.loadingNextPage = page !== 0;
-      return this.pulseService
-        .getDiamondsReceivedPage(page + 1, TrendsComponent.PAGE_SIZE, true)
-        .toPromise()
-        .then(
-          (res) => {
-            if (res.length < TrendsComponent.PAGE_SIZE) {
-              this.lastPageByTab[this.activeTab] = page;
-              this.lastPage = page;
-            }
-            this.loadingNextPage = true;
-            return res;
-          },
-          (err) => {
-            console.error(this.backendApi.stringifyError(err));
-          }
-        );
-    }
-    if (this.activeTab === RightBarCreatorsComponent.COMMUNITY.name) {
-      const start = TrendsComponent.PAGE_SIZE * page;
-      let end = start + TrendsComponent.PAGE_SIZE;
-      if (end > this.globalVars.allCommunityProjectsLeaderboard.length) {
-        end = this.globalVars.allCommunityProjectsLeaderboard.length;
-      }
-      return this.globalVars.allCommunityProjectsLeaderboard.slice(TrendsComponent.PAGE_SIZE * page, end);
-    }
-  }
+  static BUFFER_SIZE = 20;
+  static PADDING = 0.5;
 
   infiniteScroller: InfiniteScroller = new InfiniteScroller(
     TrendsComponent.PAGE_SIZE,
@@ -124,5 +27,51 @@ export class TrendsComponent implements OnInit {
     TrendsComponent.BUFFER_SIZE,
     TrendsComponent.PADDING
   );
+
   datasource: IDatasource<IAdapter<any>> = this.infiniteScroller.getDatasource();
+
+  constructor(private _globalVars: GlobalVarsService, private backendApi: BackendApiService) {
+    this.globalVars = _globalVars;
+  }
+
+  ngOnInit(): void {
+    this.loading = true;
+    this.backendApi
+      .GetNFTShowcase(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser?.PublicKeyBase58Check,
+        this.globalVars.loggedInUser?.PublicKeyBase58Check
+      )
+      .subscribe(
+        (res: any) => {
+          this.nftCollections = res.NFTCollections;
+          if (this.nftCollections) {
+            this.nftCollections.sort((a, b) => b.HighestBidAmountNanos - a.HighestBidAmountNanos);
+            this.nftCollections = uniqBy(
+              this.nftCollections,
+              (nftCollection) => nftCollection.PostEntryResponse.PostHashHex
+            );
+          }
+          this.lastPage = Math.floor(this.nftCollections.length / TrendsComponent.PAGE_SIZE);
+        },
+        (error) => {
+          this.globalVars._alertError(error.error.error);
+        }
+      )
+      .add(() => {
+        this.loading = false;
+      });
+  }
+
+  getPage(page: number) {
+    if (this.lastPage != null && page > this.lastPage) {
+      return [];
+    }
+    const startIdx = page * TrendsComponent.PAGE_SIZE;
+    const endIdx = (page + 1) * TrendsComponent.PAGE_SIZE;
+
+    return new Promise((resolve, reject) => {
+      resolve(this.nftCollections.slice(startIdx, Math.min(endIdx, this.nftCollections.length)));
+    });
+  }
 }

@@ -19,6 +19,9 @@ export class TrendsComponent implements OnInit {
   static WINDOW_VIEWPORT = true;
   static BUFFER_SIZE = 20;
   static PADDING = 0.5;
+  startIndex = 0;
+  endIndex = 20;
+  dataToShow: NFTCollectionResponse[];
 
   infiniteScroller: InfiniteScroller = new InfiniteScroller(
     TrendsComponent.PAGE_SIZE,
@@ -45,6 +48,7 @@ export class TrendsComponent implements OnInit {
       .subscribe(
         (res: any) => {
           this.nftCollections = res.NFTCollections;
+          this.dataToShow = this.nftCollections.slice(this.startIndex, this.endIndex);
           if (this.nftCollections) {
             this.nftCollections.sort((a, b) => b.HighestBidAmountNanos - a.HighestBidAmountNanos);
             this.nftCollections = uniqBy(
@@ -73,5 +77,11 @@ export class TrendsComponent implements OnInit {
     return new Promise((resolve, reject) => {
       resolve(this.nftCollections.slice(startIdx, Math.min(endIdx, this.nftCollections.length)));
     });
+  }
+  onScroll(){
+    console.log('window scroll!!');
+    this.startIndex = this.endIndex;
+    this.endIndex +=20;
+    this.dataToShow = [...this.dataToShow,...this.nftCollections.slice(this.startIndex, this.endIndex)];
   }
 }

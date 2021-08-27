@@ -68,8 +68,8 @@ export class MintYourNftComponent {
   }
 
   hasUnreasonableMinBidAmount() {
-    // return parseFloat(this.minBidAmountUSD) < 0 || this.minBidAmountCLOUT < 0;
-    return parseFloat(this.minBidAmountUSD) < 0;
+    return parseFloat(this.minBidAmountUSD) < 0 || this.minBidAmountCLOUT < 0;
+    // return parseFloat(this.minBidAmountUSD) < 0;
   }
 
   updateMinBidAmountUSD(cloutAmount) {

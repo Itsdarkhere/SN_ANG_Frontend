@@ -72,6 +72,7 @@
         }
         .caption-cover {
             padding: 10px 12px;
+            margin: 8px 0;
             p {
                 font-size: 13px;
             }
@@ -82,10 +83,10 @@
             // justify-content: space-between;
             flex-direction: column;
             background: var(--button);
-            padding: 10px 12px;
+            padding: 8px;
             border-radius: 0px 0px 10px 10px;
             color: #ffffff;
-            min-height: 88px;
+            // min-height: 88px;
             justify-content: center;
             .bid-row {
                 display: flex;

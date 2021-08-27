@@ -160,38 +160,37 @@
                         <p>{{postContent.Body}}</p>
                     </div>
                     <div class="bid-cover flex-wrap" *ngIf="showNFTDetails && postContent.IsNFT">
-                        <div class="bid-row">
+                        <!-- <div class="bid-row">
                             <p><span *ngIf="showAvailableSerialNumbers">{{ serialNumbersDisplay }}&nbsp;</span>
-                                <!-- <span *ngIf="!showAvailableSerialNumbers" class="cursor-pointer" (click)="NFTMOfNTooltip.toggle(); toggleShowMOfNNFTTooltip()" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="mOfNNFTTooltip" #NFTMOfNTooltip="matTooltip">
-              <b>{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} available&nbsp;</b>
-            </span> -->
+                                <span *ngIf="!showAvailableSerialNumbers" class="cursor-pointer" (click)="NFTMOfNTooltip.toggle(); toggleShowMOfNNFTTooltip()" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="mOfNNFTTooltip" #NFTMOfNTooltip="matTooltip"><b>{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} available&nbsp;</b></span>
                                 <span *ngIf="postContent.HasUnlockable" class="d-lg-inline-block d-none">|&nbsp;</span>
                                 <span *ngIf="postContent.HasUnlockable" class="cursor-pointer d-lg-inline-block d-block mt-5px" (click)="tooltip.toggle(); toggleShowUnlockableContent()" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="unlockableTooltip"
                                     #tooltip="matTooltip">
-              <i
-                class="fas"
-                [ngClass]="{
-                  'fa-lock': !decryptableNFTEntryResponses?.length || showUnlockableContent,
-                  'fa-unlock-alt': decryptableNFTEntryResponses?.length && !showUnlockableContent
-                }"
-              ></i>
-              {{
-                decryptableNFTEntryResponses?.length
-                  ? showUnlockableContent
-                    ? "Hide Unlockable"
-                    : "Show Unlockable"
-                  : "Unlockable Content"
-              }}
-            </span></p>
-                        </div>
+                                    <i
+                                      class="fas"
+                                      [ngClass]="{
+                                        'fa-lock': !decryptableNFTEntryResponses?.length || showUnlockableContent,
+                                        'fa-unlock-alt': decryptableNFTEntryResponses?.length && !showUnlockableContent
+                                      }"
+                                    ></i>
+                                    {{
+                                      decryptableNFTEntryResponses?.length
+                                        ? showUnlockableContent
+                                          ? "Hide Unlockable"
+                                          : "Show Unlockable"
+                                        : "Unlockable Content"
+                                    }}      
+                                </span>
+                            </p>
+                        </div> -->
                         <div class="bid-row">
-                            <ng-container *ngIf="showExpandedNFTDetails && (highBid || lowBid)">
+                            <ng-container>
                                 <div class="bid-col">
                                     <p>Highest Bid</p>
                                     <p class="font-weight-bold">{{ globalVars.nanosToBitClout(highBid, 5) }} CLOUT</p>
                                 </div>
                             </ng-container>
-                            <ng-container *ngIf="!showAvailableSerialNumbers">
+                            <ng-container>
                                 <div class="bid-col" (click)="NFTMOfNTooltip.toggle(); toggleShowMOfNNFTTooltip()" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="mOfNNFTTooltip" #NFTMOfNTooltip="matTooltip">
                                     <p>Edition</p>
                                     <p class="font-weight-bold">{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} </p>

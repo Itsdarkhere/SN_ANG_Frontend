@@ -13,9 +13,13 @@
 
             <div class="input-with-button">
                 <input [(ngModel)]="minBidAmountUSD" (ngModelChange)="updateMinBidAmountCLOUT($event)" matInput placeholder="Enter here...">
-                <button class="btn btn-black">$CLOUT</button>
+                <button class="btn btn-black">USD</button>
             </div>
 
+            <div class="input-with-button">
+                <input [(ngModel)]="minBidAmountCLOUT" (ngModelChange)="updateMinBidAmountUSD($event)" matInput placeholder="Enter here...">
+                <button class="btn btn-black">CLOUT</button>
+            </div>
 
             <h6 class="font-weight-bold">Creator Royalty</h6>
             <h6>Royalty you will recieve every time the NFT is sold.</h6>
@@ -51,7 +55,7 @@
     </mat-dialog-content>
 
     <div class="popup-footer">
-        <!-- <button class="btn btn-post" [disabled]="hasUnreasonableRoyalties() || hasUnreasonableNumCopies() || hasUnreasonableMinBidAmount() || minting" (click)="mintNft()">Mint your NFT</button> -->
-        <button class="btn btn-post" [disabled]="hasUnreasonableRoyalties() || hasUnreasonableMinBidAmount() || minting" (click)="mintNft()">Mint your NFT</button>
+        <button class="btn btn-post" [disabled]="hasUnreasonableRoyalties() || hasUnreasonableNumCopies() || hasUnreasonableMinBidAmount() || minting" (click)="mintNft()">Mint your NFT</button>
+        <!-- <button class="btn btn-post" [disabled]="hasUnreasonableRoyalties() || hasUnreasonableMinBidAmount() || minting" (click)="mintNft()">Mint your NFT</button> -->
     </div>
 </div>

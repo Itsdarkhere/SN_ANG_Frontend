@@ -2263,6 +2263,10 @@ input.bs-timepicker-field {
     padding: 10px;
 }
 
+.justify-content-bet {
+    justify-content: space-between;
+}
+
 .landing__log-in {
     margin-top: 10px;
     font-size: 13px;
@@ -3587,7 +3591,7 @@ option {
     margin: 20px -10px 0px;
     padding: 0px;
     list-style-type: none;
-    .single-card {
+    .nft-col-wrap {
         padding: 10px;
         width: calc(100% / 3);
         min-width: 300px;
@@ -3675,9 +3679,6 @@ option {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                &:not(:first-child) {
-                    margin-left: 20px;
-                }
                 p {
                     color: var(--background);
                     font-size: 12px;
@@ -3687,10 +3688,11 @@ option {
                 }
             }
             .btn-place-a-bid {
-                background: var(--background);
                 color: var(--button);
                 font-size: 12px;
                 font-weight: bold;
+                white-space: nowrap;
+                padding: 8px 10px !important;
             }
         }
     }

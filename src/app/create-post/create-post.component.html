@@ -16,7 +16,7 @@
         <input matInput placeholder="Enter here..." [(ngModel)]="postImageSrc">
     </div>
     <div class="popup-footer">
-        <button class="btn btn-post" (click)="_createPost()">Post</button>
+        <button [disabled]="(isSubmitPress || (postImageSrc === null && postImageSrc === '') || postInput === '')" class="btn btn-post" (click)="_createPost()">Post <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i></button>
         <h6>💡 Once you haver created your post, you can mint and put it up for sale it by clicking the upper right corner of the post! 💡</h6>
     </div>
 </div>

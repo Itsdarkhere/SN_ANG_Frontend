@@ -104,7 +104,7 @@ export class CreatePostComponent implements OnInit {
 
   globalVars: GlobalVarsService;
   GlobalVarsService = GlobalVarsService;
-
+  isSubmitPress: boolean = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -178,6 +178,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   submitPost() {
+    this.isSubmitPress = true;
     if (this.postInput.length > GlobalVarsService.MAX_POST_LENGTH) {
       return;
     }
@@ -241,13 +242,14 @@ export class CreatePostComponent implements OnInit {
           }
 
           this.postCreated.emit(response.PostEntryResponse);
+          this.isSubmitPress = false;
           this.diaref.close();
         },
         (err) => {
           const parsedError = this.backendApi.parsePostError(err);
           this.globalVars._alertError(parsedError);
           this.globalVars.logEvent(`post : ${postType} : error`, { parsedError });
-
+          this.isSubmitPress = false;
           this.submittingPost = false;
           this.changeRef.detectChanges();
         }

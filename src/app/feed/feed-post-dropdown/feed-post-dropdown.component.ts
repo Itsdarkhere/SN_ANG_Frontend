@@ -10,6 +10,8 @@ import { SwalHelper } from "../../../lib/helpers/swal-helper";
 // RPH Modals
 import { MintNftModalComponent } from "../../mint-nft-modal/mint-nft-modal.component";
 import { CreateNftAuctionModalComponent } from "../../create-nft-auction-modal/create-nft-auction-modal.component";
+import { MatDialog } from "@angular/material/dialog";
+import { MintYourNftComponent } from "src/app/mint-your-nft/mint-your-nft.component";
 
 @Component({
   selector: "feed-post-dropdown",
@@ -32,7 +34,8 @@ export class FeedPostDropdownComponent {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private modalService: BsModalService,
-    private platformLocation: PlatformLocation
+    private platformLocation: PlatformLocation,
+    public matdialog: MatDialog 
   ) {}
 
   reportPost(): void {
@@ -202,9 +205,8 @@ export class FeedPostDropdownComponent {
 
   openMintNftModal(event, component): void {
     event.stopPropagation();
-    this.modalService.show(MintNftModalComponent, {
-      class: "modal-dialog-centered modal-lg",
-      initialState: { post: this.post },
+    this.matdialog.open(MintYourNftComponent, {
+      data: { post: this.post },
     });
   }
 

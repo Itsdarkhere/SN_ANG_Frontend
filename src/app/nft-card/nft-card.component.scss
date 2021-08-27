@@ -78,17 +78,34 @@
         }
         .bid-cover {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            // align-items: center;
+            // justify-content: space-between;
+            flex-direction: column;
             background: var(--button);
             padding: 10px 12px;
             border-radius: 0px 0px 10px 10px;
-            .bid-col {
+            color: #ffffff;
+            min-height: 88px;
+            justify-content: center;
+            .bid-row {
+                display: flex;
+                flex-direction: row;
                 p {
-                    color: var(--background);
-                    font-size: 12px;
-                    &:first-child {
-                        margin-bottom: 5px;
+                    font-size: 11px;
+                    margin: 0 0 5px 0;
+                    color: #ffff;
+                }
+                .bid-col {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    flex: 1 1 auto;
+                    p {
+                        color: var(--background);
+                        font-size: 12px;
+                        &:first-child {
+                            margin-bottom: 5px;
+                        }
                     }
                 }
             }

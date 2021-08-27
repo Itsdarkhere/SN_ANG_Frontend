@@ -3667,34 +3667,46 @@ option {
                 font-size: 13px;
             }
         }
-        .bid-cover {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: var(--button);
-            padding: 10px 12px;
-            border-radius: 0px 0px 10px 10px;
-            color: #ffffff;
-            .bid-col {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                p {
-                    color: var(--background);
-                    font-size: 12px;
-                    &:first-child {
-                        margin-bottom: 5px;
-                    }
-                }
-            }
-            .btn-place-a-bid {
-                color: var(--button);
-                font-size: 12px;
-                font-weight: bold;
-                white-space: nowrap;
-                padding: 8px 10px !important;
-            }
-        }
+        // .bid-cover {
+        //     display: flex;
+        //     align-items: center;
+        //     justify-content: space-between;
+        //     flex-direction: column;
+        //     background: var(--button);
+        //     padding: 10px 12px;
+        //     border-radius: 0px 0px 10px 10px;
+        //     color: #ffffff;
+        //     min-height: 88px;
+        //     .bid-row {
+        //         display: flex;
+        //         align-items: center;
+        //         justify-content: space-between;
+        //         flex-direction: row;
+        //         background: var(--button);
+        //         padding: 10px 12px;
+        //         border-radius: 0px 0px 10px 10px;
+        //         color: #ffffff;
+        //         .bid-col {
+        //             display: flex;
+        //             flex-direction: column;
+        //             justify-content: center;
+        //             p {
+        //                 color: var(--background);
+        //                 font-size: 12px;
+        //                 &:first-child {
+        //                     margin-bottom: 5px;
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     .btn-place-a-bid {
+        //         color: var(--button);
+        //         font-size: 12px;
+        //         font-weight: bold;
+        //         white-space: nowrap;
+        //         padding: 8px 10px !important;
+        //     }
+        // }
     }
     .card-footer {
         background: transparent;

@@ -1842,6 +1842,14 @@ input.bs-timepicker-field {
     }
 }
 
+.nfts-card-list {
+    .date_ico_sec {
+        top: 17px;
+        right: 32px;
+        font-size: 10px;
+    }
+}
+
 .left-bar__dot-active {
     font-size: 50px;
     line-height: 18px;
@@ -3753,5 +3761,140 @@ option {
     }
     .feed-max-width-name {
         font-size: 13px;
+    }
+}
+
+.nft_details_main_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .nft_bx {
+        width: calc(50% - 10px);
+        margin-bottom: 10px;
+        &.gray {
+            background-color: var( --border);
+            padding: 0 50px;
+        }
+        &.nft_feed_post_wt_design {
+            .feed-post__image-container {
+                display: none;
+            }
+        }
+        &.nft_feed_post_design {
+            .feed-post__avatar-container,
+            .d-flex.align-items-center,
+            .nft_para,
+            .feed-post__blue-border.px-30px.pb-5px,
+            .fs-15px.w-100.background-color-grey.feed-post__blue-border,
+            .nft_place_bid_sec {
+                display: none !important;
+            }
+            .js-feed-post-hover {
+                background-color: transparent !important;
+            }
+        }
+        .feed-max-width-name {
+            max-width: 140px;
+            font-size: 12px;
+            font-weight: 600 !important;
+        }
+        .feed-post__avatar-container {
+            width: 30px;
+            .feed-post__avatar {
+                height: 28px;
+                width: 28px;
+            }
+        }
+        .nft_para {
+            font-size: 12px;
+        }
+        .d-lg-block {
+            &.fs-15px {
+                font-size: 12px;
+            }
+        }
+        &.linebx {
+            .hdb {
+                font-family: "Poppins", sans-serif;
+                font-size: 48px;
+                font-weight: 700;
+                background: rgb(243, 168, 60);
+                background: linear-gradient(45deg, #f3a83c 0%, #ec5454 9%, #f51ac1 19%, #2749f0 34%, #593eb7 41%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                line-height: 1.4;
+            }
+        }
+    }
+}
+
+.nft_place_bid_sec {
+    background: var(--background);
+    box-shadow: 1px 1px 5px rgb(0 0 0 / 15%);
+    padding: 30px;
+    border-radius: 8px;
+    .nft_current_bid_tpwrapper {
+        margin-bottom: 20px;
+        .nft_current_bid {
+            width: 50%;
+            padding-right: 20px;
+            padding-left: 30px;
+            .val {
+                font-size: 33px;
+                font-weight: 700;
+            }
+            .val_st {
+                font-size: 21px;
+                color: var( --textalt);
+            }
+        }
+        .nft_done_by {
+            .name {
+                font-size: 20px;
+                font-weight: 700;
+            }
+            .bid_by_avtar {
+                width: 35px;
+                height: 35px;
+                cursor: pointer;
+                overflow: hidden;
+                border-radius: 50%;
+                border: 3px solid var(--background);
+                box-shadow: 0px 4px 5px 3px rgb(0 0 0 / 10%);
+                background-size: cover;
+                margin-right: 15px;
+            }
+        }
+        .hq {
+            font-size: 13px;
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var( --grey);
+        }
+    }
+    .center_sec {
+        display: flex;
+        width: 100%;
+        color: var( --textalt);
+        justify-content: center;
+        font-size: 12px;
+        margin: 1px 0;
+    }
+    .nft_place_bid_btn {
+        &.btn {
+            background-image: url("assets/img/popup-btn-img.png");
+            background-size: cover;
+            background-position: center;
+            width: 350px;
+            padding: 10px 15px;
+            font-size: 12px;
+            margin: 0 auto 20px;
+            max-width: 100%;
+            border: none;
+            color: var(--background);
+            font-weight: 600;
+            box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.2);
+        }
     }
 }

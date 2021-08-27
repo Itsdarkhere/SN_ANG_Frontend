@@ -129,7 +129,7 @@
                         </div>
 
                         <!-- Content -->
-                        <div class="roboto-regular mt-1" [ngClass]="{ 'pb-10px': quotedContent && showQuotedContent }" style="overflow-wrap: anywhere; word-break: break-word; outline: none" [innerHTML]="postContent.Body | sanitizeAndAutoLink" queryParamsHandling="merge"></div>
+                        <div class="roboto-regular mt-1 nft_para" [ngClass]="{ 'pb-10px': quotedContent && showQuotedContent }" style="overflow-wrap: anywhere; word-break: break-word; outline: none" [innerHTML]="postContent.Body | sanitizeAndAutoLink" queryParamsHandling="merge"></div>
 
                         <!-- Media, don't show images on comment posts. -->
                         <div *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID" class="feed-post__image-container">
@@ -245,40 +245,8 @@
         </div>
     </div>
 
-    <div *ngIf="showNFTDetails && postContent.IsNFT" class="p-15px fs-15px w-100 background-color-grey" [ngStyle]="{ 'border-radius': setBorder || cardStyle ? '0 0 18px 18px' : '' }" [ngClass]="{ 'feed-post__blue-border': showLeftSelectedBorder }">
-        <div class="d-flex justify-content-between" [ngClass]="{
-            'flex-column': isQuotedContent,
-            'align-items-start': isQuotedContent,
-            'align-items-center': !isQuotedContent
-          }">
-            <div>
-                <span *ngIf="showAvailableSerialNumbers">{{ serialNumbersDisplay }}&nbsp;</span>
-                <span *ngIf="!showAvailableSerialNumbers" class="cursor-pointer" (click)="NFTMOfNTooltip.toggle(); toggleShowMOfNNFTTooltip()" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="mOfNNFTTooltip" #NFTMOfNTooltip="matTooltip">
-              <b>{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} available&nbsp;</b>
-            </span>
-                <span *ngIf="postContent.HasUnlockable" class="d-lg-inline-block d-none">|&nbsp;</span>
-                <span *ngIf="postContent.HasUnlockable" class="cursor-pointer d-lg-inline-block d-block mt-5px" (click)="tooltip.toggle(); toggleShowUnlockableContent()" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="unlockableTooltip"
-                    #tooltip="matTooltip">
-              <i
-                class="fas"
-                [ngClass]="{
-                  'fa-lock': !decryptableNFTEntryResponses?.length || showUnlockableContent,
-                  'fa-unlock-alt': decryptableNFTEntryResponses?.length && !showUnlockableContent
-                }"
-              ></i>
-              {{
-                decryptableNFTEntryResponses?.length
-                  ? showUnlockableContent
-                    ? "Hide Unlockable"
-                    : "Show Unlockable"
-                  : "Unlockable Content"
-              }}
-            </span>
-            </div>
-            <button class="btn btn-primary font-weight-bold br-8px fs-13px" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="openPlaceBidModal($event)" *ngIf="showPlaceABid">
-            Place a bid
-          </button>
-        </div>
+    <div *ngIf="showNFTDetails && postContent.IsNFT" class="fs-15px w-100 nft_place_bid_sec" [ngStyle]="{ 'border-radius': setBorder || cardStyle ? '0 0 18px 18px' : '' }" [ngClass]="{ 'feed-post__blue-border': showLeftSelectedBorder }">
+
         <div *ngIf="showUnlockableContent">
             <div *ngFor="let nftEntry of decryptableNFTEntryResponses" class="d-flex flex-row">
                 <div>#{{ nftEntry.SerialNumber }}:&nbsp;</div>
@@ -286,7 +254,26 @@
             </div>
         </div>
         <div></div>
-        <div *ngIf="showExpandedNFTDetails && (highBid || lowBid)" [ngClass]="{ 'pt-15px': globalVars.isMobile() }">
+
+        <div class="d-flex nft_current_bid_tpwrapper">
+            <div class="nft_current_bid" *ngIf="showExpandedNFTDetails && (highBid || lowBid)" [ngClass]="{ 'pt-15px': globalVars.isMobile() }">
+                <span class="hq">CURRENT BID</span>
+                <div class="val" *ngIf="highBid != null">${{ globalVars.nanosToBitClout(highBid, 5) }} </div>
+                <div class="val_st">{{ globalVars.nanosToUSD(highBid, 2) }}</div>
+            </div>
+            <div class="nft_done_by">
+                <span class="hq">Done By</span>
+                <div class="d-flex">
+                    <div class="bid_by_avtar" [avatar]="postContent.ProfileEntryResponse.PublicKeyBase58Check"></div>
+                    <div class="name">@maensivu</div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- <div *ngIf="showExpandedNFTDetails && (highBid || lowBid)" [ngClass]="{ 'pt-15px': globalVars.isMobile() }">
             <div *ngIf="highBid != null">
                 Highest: {{ globalVars.nanosToBitClout(highBid, 5) }} CLOUT
                 <span class="text-grey7">(~{{ globalVars.nanosToUSD(highBid, 2) }})</span>
@@ -295,6 +282,35 @@
                 From: {{ globalVars.nanosToBitClout(lowBid, 5) }} CLOUT
                 <span class="text-grey7">(~{{ globalVars.nanosToUSD(lowBid, 2) }})</span>
             </div>
+        </div> -->
+        <div class="d-flex flex-wrap justify-content-between" [ngClass]="{ 'flex-column': isQuotedContent, 'align-items-start': isQuotedContent, 'align-items-center': !isQuotedContent }">
+            <!-- <div>
+              <span *ngIf="showAvailableSerialNumbers">{{ serialNumbersDisplay }}&nbsp;</span>
+              <span *ngIf="!showAvailableSerialNumbers" class="cursor-pointer" (click)="NFTMOfNTooltip.toggle(); toggleShowMOfNNFTTooltip()" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="mOfNNFTTooltip" #NFTMOfNTooltip="matTooltip">
+            <b>{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} available&nbsp;</b>
+          </span>
+              <span *ngIf="postContent.HasUnlockable" class="d-lg-inline-block d-none">|&nbsp;</span>
+              <span *ngIf="postContent.HasUnlockable" class="cursor-pointer d-lg-inline-block d-block mt-5px" (click)="tooltip.toggle(); toggleShowUnlockableContent()" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="unlockableTooltip"
+                  #tooltip="matTooltip">
+            <i
+              class="fas"
+              [ngClass]="{
+                'fa-lock': !decryptableNFTEntryResponses?.length || showUnlockableContent,
+                'fa-unlock-alt': decryptableNFTEntryResponses?.length && !showUnlockableContent
+              }"
+            ></i>
+            {{
+              decryptableNFTEntryResponses?.length
+                ? showUnlockableContent
+                  ? "Hide Unlockable"
+                  : "Show Unlockable"
+                : "Unlockable Content"
+            }}
+          </span>
+          </div> -->
+            <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="openPlaceBidModal($event)" *ngIf="showPlaceABid">Place a bid</button>
+            <p class="center_sec font-weight-bold">CREATOR ROAYLTY 10%</p>
+            <p class="center_sec font-weight-bold">COIN HOLDER ROYALTY 10%</p>
         </div>
     </div>
 </div>

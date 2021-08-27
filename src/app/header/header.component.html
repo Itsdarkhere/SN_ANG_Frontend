@@ -65,7 +65,7 @@
             </li>
 
             <li class="single-option">
-                <div class="profile-img" title="My Profile" [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse.Username)" [avatar]="globalVars.loggedInUser.PublicKeyBase58Check">
+                <div class="profile-img" title="My Profile" [routerLink]="AppRoutingModule.profilePath(globalVars?.loggedInUser?.ProfileEntryResponse?.Username)" [avatar]="globalVars.loggedInUser.PublicKeyBase58Check">
                 </div>
             </li>
         </ul>

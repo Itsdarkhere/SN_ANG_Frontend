@@ -292,4 +292,7 @@ export class CreatorProfileNftsComponent implements OnInit {
   getIsForSaleValue(): boolean | null {
     return this.activeTab === CreatorProfileNftsComponent.MY_GALLERY ? null : true;
   }
+  onScroll(){
+    console.log('scrolling');
+  }
 }

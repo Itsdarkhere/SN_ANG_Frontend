@@ -153,6 +153,7 @@ import { CreatePostComponent } from './create-post/create-post.component';
 import { CreateYourNftComponent } from './create-your-nft/create-your-nft.component';
 import { MintYourNftComponent } from './mint-your-nft/mint-your-nft.component';
 import { PlaceABidComponent } from './place-a-bid/place-a-bid.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "dark", name: "Dark Theme" };
 const icydarkTheme: Theme = { key: "icydark", name: "Icy Dark Theme" };
@@ -307,6 +308,7 @@ const coderTheme: Theme = { key: "coder", name: "Coder Theme" };
     TextFieldModule,
     NgxIntlTelInputModule,
     UiScrollModule,
+    InfiniteScrollModule,
     AnimateOnScrollModule.forRoot(),
     ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),

@@ -17,7 +17,8 @@
         </ul>
         <ul class="right-side-options menu-options-list">
             <li class="single-option">
-                <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button>
+                <!-- <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button> -->
+                <button class="btn btn-create clout" (click)="createPost()">Create</button>
                 <mat-menu #createMenu="matMenu" xPosition="before">
                     <div class="create-menu-cover">
 
@@ -64,7 +65,7 @@
             </li>
 
             <li class="single-option">
-                <div class="profile-img" title="My Profile" [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse.Username)" [avatar]="globalVars.loggedInUser.PublicKeyBase58Check">
+                <div class="profile-img" title="My Profile" [routerLink]="AppRoutingModule.profilePath(globalVars?.loggedInUser?.ProfileEntryResponse?.Username)" [avatar]="globalVars.loggedInUser.PublicKeyBase58Check">
                 </div>
             </li>
         </ul>

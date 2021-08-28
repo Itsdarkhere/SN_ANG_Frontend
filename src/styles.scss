@@ -3904,6 +3904,10 @@ option {
                 -webkit-text-fill-color: transparent;
                 line-height: 1.4;
             }
+            >div {
+                width: 80%;
+                min-width: 380px;
+            }
         }
         &.linebx {
             border: 1px solid var( --border);

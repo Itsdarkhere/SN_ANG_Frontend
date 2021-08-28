@@ -79,9 +79,11 @@ export class TrendsComponent implements OnInit {
     });
   }
   onScroll(){
-    console.log('window scroll!!');
-    this.startIndex = this.endIndex;
-    this.endIndex +=20;
-    this.dataToShow = [...this.dataToShow,...this.nftCollections.slice(this.startIndex, this.endIndex)];
+    console.log('scrolling..!!');
+    if(this.endIndex <= this.nftCollections.length -1 ){
+      this.startIndex = this.endIndex;
+      this.endIndex +=20;
+      this.dataToShow = [...this.dataToShow,...this.nftCollections.slice(this.startIndex, this.endIndex)];
+    }
   }
 }

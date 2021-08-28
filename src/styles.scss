@@ -1263,7 +1263,7 @@ input.bs-timepicker-field {
     width: $global__center__width;
     padding-left: 50px;
     @media (max-width: 1170px) {
-        width: calc(100% - 60px);
+        width: 100%;
     }
 }
 
@@ -3817,16 +3817,47 @@ option {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    @media screen and (max-width: 767px) {
+        padding: 70px 10px 10px 10px;
+        align-items: flex-start;
+    }
     .nft_bx {
         width: calc(50% - 10px);
         margin-bottom: 10px;
+        @media screen and (max-width: 767px) {
+            width: 100%;
+        }
+        .creator-coin-info {
+            margin-left: 0.5rem !important;
+        }
+        .borderbg {
+            background-color: transparent !important;
+        }
+        .tabs_column_list {
+            margin-right: 15px;
+            .tabs_column_list_inner {
+                padding-left: 0;
+                &.fc-default {
+                    font-weight: 700;
+                }
+            }
+        }
         &.gray {
             background-color: var( --border);
             padding: 0 50px;
+            @media screen and (max-width: 1024px) {
+                display: none;
+            }
         }
         &.nft_feed_post_wt_design {
+            @media screen and (max-width: 1024px) {
+                width: 100%;
+            }
             .feed-post__image-container {
                 display: none;
+                @media screen and (max-width: 1024px) {
+                    display: block;
+                }
             }
         }
         &.nft_feed_post_design {
@@ -3868,10 +3899,50 @@ option {
                 font-size: 48px;
                 font-weight: 700;
                 background: rgb(243, 168, 60);
-                background: linear-gradient(45deg, #f3a83c 0%, #ec5454 9%, #f51ac1 19%, #2749f0 34%, #593eb7 41%);
+                background: linear-gradient(45deg, #f3a83c 0%, #ec5454 20%, #f51ac1 35%, #2749f0 74%, #593eb7 99%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 line-height: 1.4;
+            }
+        }
+        &.linebx {
+            border: 1px solid var( --border);
+            border-radius: 7px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 0;
+        }
+        .bids_list_sec {
+            margin-top: 30px;
+            .bids_ls_inner {
+                display: flex;
+                margin-bottom: 20px;
+                align-items: center;
+                .bids_avatar {
+                    width: 50px;
+                    height: 50px;
+                    background: var( --textalt);
+                    border-radius: 50%;
+                    margin: 0 10px 0 0;
+                    cursor: pointer;
+                    overflow: hidden;
+                    border: 3px solid var(--background);
+                    box-shadow: 0px 4px 5px 3px rgb(0 0 0 / 7%);
+                    background-size: cover;
+                }
+                .bids_lt {
+                    .hq {
+                        font-weight: 700;
+                    }
+                    p {
+                        font-size: 14px;
+                        color: var( --textalt);
+                        span {
+                            font-weight: 700;
+                        }
+                    }
+                }
             }
         }
     }

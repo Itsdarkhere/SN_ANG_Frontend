@@ -133,6 +133,8 @@ export class NftCardComponent implements OnInit {
   showPlaceABid: boolean;
   highBid: number = null;
   lowBid: number = null;
+  minBid: number = null;
+  lastSalePrice: number = null;
   availableSerialNumbers: NFTEntryResponse[];
   myAvailableSerialNumbers: NFTEntryResponse[];
   mySerialNumbersNotForSale: NFTEntryResponse[];
@@ -154,6 +156,7 @@ export class NftCardComponent implements OnInit {
       )
       .subscribe((res) => {
         this.nftEntryResponses = res.NFTEntryResponses;
+        // console.log(this.nftEntryResponses);
         this.nftEntryResponses.sort((a, b) => a.SerialNumber - b.SerialNumber);
         this.decryptableNFTEntryResponses = this.nftEntryResponses.filter(
           (sn) =>
@@ -191,7 +194,12 @@ export class NftCardComponent implements OnInit {
         );
         this.showPlaceABid = !!(this.availableSerialNumbers.length - this.myAvailableSerialNumbers.length);
         this.highBid = _.maxBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
+        console.log(this.highBid);
         this.lowBid = _.minBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
+        this.minBid = _.maxBy(this.availableSerialNumbers, "MinBidAmountNanos")?.MinBidAmountNanos || 0;
+        if(!this.showPlaceABid){
+          this.lastSalePrice = this.nftEntryResponses[0]['LastAcceptedBidAmountNanos'];
+        }
       });
   }
 
@@ -598,5 +606,16 @@ export class NftCardComponent implements OnInit {
   showmOfNNFTTooltip = false;
   toggleShowMOfNNFTTooltip(): void {
     this.showmOfNNFTTooltip = !this.showmOfNNFTTooltip;
+  }
+  compareBit(minBid, maxBid, showPlaceABid):string{
+    if(!showPlaceABid){
+      return 'Sold for'
+    } else {
+      if(Number(maxBid) > 0){
+        return 'Highest Bid';
+      } else if(Number(maxBid) === 0){
+        return 'Minimum Bid';
+      }
+    }
   }
 }

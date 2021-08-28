@@ -54,11 +54,17 @@ export class NftPostComponent {
   static MY_BIDS = "My Bids";
   static MY_AUCTIONS = "My Auctions";
   static OWNERS = "Owners";
-  static THREAD = "Thread";
+  static THREAD = "Comments";
 
+  // tabs = [
+  //   NftPostComponent.THREAD,
+  //   NftPostComponent.ALL_BIDS,
+  //   NftPostComponent.MY_BIDS,
+  //   NftPostComponent.MY_AUCTIONS,
+  //   NftPostComponent.OWNERS,
+  // ];
   tabs = [
     NftPostComponent.THREAD,
-    NftPostComponent.ALL_BIDS,
     NftPostComponent.MY_BIDS,
     NftPostComponent.MY_AUCTIONS,
     NftPostComponent.OWNERS,
@@ -173,6 +179,11 @@ export class NftPostComponent {
           this.myBids = this.nftBidData.BidEntryResponses.filter(
             (bidEntry) => bidEntry.PublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
           );
+          // adding my bid on data load
+          this.bids = this.nftBidData.BidEntryResponses.filter(
+            (bidEntry) => bidEntry.BidAmountNanos <= bidEntry.BidderBalanceNanos
+          );
+
           if (!this.myBids.length) {
             this.tabs = this.tabs.filter((t) => t !== NftPostComponent.MY_BIDS);
             this.activeTab = this.activeTab === NftPostComponent.MY_BIDS ? this.tabs[0] : this.activeTab;

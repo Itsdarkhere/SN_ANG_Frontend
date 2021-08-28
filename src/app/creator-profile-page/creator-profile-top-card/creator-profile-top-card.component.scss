@@ -6,6 +6,7 @@
     @media (max-width: 767px) {
         padding: 90px 20px 20px 20px;
         flex-wrap: wrap;
+        flex-direction: column;
     }
     .profile-img-cover {
         width: 175px;
@@ -16,9 +17,9 @@
         background-repeat: no-repeat;
         background-size: cover;
         @media (max-width: 767px) {
-            width: 50px;
-            height: 50px;
-            border-width: 5px;
+            width: 90px;
+            height: 90px;
+            border-width: 6px;
         }
         img {
             width: 100%;
@@ -31,8 +32,8 @@
         width: 400px;
         padding: 0px 50px;
         @media (max-width: 767px) {
-            width: calc(100% - 50px);
-            padding: 0 0 0 20px;
+            width: 100%;
+            padding: 20px 0 0 0
         }
         h5 {
             display: flex;
@@ -93,8 +94,7 @@
         padding-top: 44px;
         @media (max-width: 767px) {
             width: 100%;
-            padding-top: 30px;
-            padding-left: 65px;
+            padding-top: 20px;
         }
         h6 {
             font-weight: bold;

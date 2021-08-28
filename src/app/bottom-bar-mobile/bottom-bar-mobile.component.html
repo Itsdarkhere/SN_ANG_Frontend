@@ -7,7 +7,7 @@
             <h6>Home</h6>
         </bottom-bar-mobile-tab>
 
-        <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser" [link]="'/' + globalVars.RouteNames.MARKETPLACE">
+        <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser" [link]="'/' + globalVars.RouteNames.TRENDS" [buttonLabel]="'Marketplace'">
             <div class="icon-cover">
                 <img src="assets/icons/marketplace-icon.svg" alt="">
             </div>
@@ -27,7 +27,7 @@
         <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button>
         <mat-menu #createMenu="matMenu">
             <div class="create-menu-cover">
-<!-- 
+                <!-- 
                 <button mat-menu-item (click)="mintYourNFT()">
                     <div class="icon-cover">
                         <img src="assets/icons/mint-icon.svg" alt="NFT">
@@ -48,7 +48,7 @@
             <div class="icon-cover">
                 <img class="noti-img" src="assets/icons/notification-icon.svg" alt="">
             </div>
-            <h6>Notification</h6>
+            <h6>Notifications</h6>
         </bottom-bar-mobile-tab>
 
         <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser" [link]="'/' + globalVars.RouteNames.INBOX_PREFIX">
@@ -62,8 +62,7 @@
           }}
         </div>
       </i> -->
-            <div class="icon-cover"
-                [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse.Username)">
+            <div class="icon-cover" [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse.Username)">
                 <img src="assets/icons/profile-icon.svg" alt="">
             </div>
             <h6>Profile</h6>

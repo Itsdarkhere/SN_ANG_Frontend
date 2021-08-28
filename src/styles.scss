@@ -1104,7 +1104,7 @@ $green-font-color: #19b028;
     z-index: 2;
     position: fixed;
     left: 10px;
-    bottom: 10px;
+    bottom: 25px;
     width: calc(100% - 20px);
     background-color: var(--background);
     height: auto;
@@ -3583,6 +3583,12 @@ option {
     }
 }
 
+.creator_post_wrap {
+    @media screen and (max-width: 676px) {
+        padding: 0 12px;
+    }
+}
+
 .nfts-card-list {
     display: flex;
     align-items: flex-start;
@@ -3591,13 +3597,38 @@ option {
     margin: 20px -10px 0px;
     padding: 0px;
     list-style-type: none;
+    @media screen and (max-width: 676px) {
+        padding: 47px 15px 0 15px;
+    }
+    &.nft_creator_list {
+        @media screen and (max-width: 676px) {
+            padding-top: 0;
+        }
+    }
     .nft-col-wrap {
         padding: 10px;
         width: calc(100% / 3);
         min-width: 300px;
-        @media screen and (max-width: 500px) {
+        @media screen and (max-width: 676px) {
             width: 100%;
+            margin-bottom: 0;
         }
+    }
+    .mobile_mrk_head {
+        font-size: 24px;
+        font-weight: 600;
+        padding: 10px 0 9px;
+        color: var(--text);
+        margin: 0 10px 10px;
+        display: block;
+        border-bottom: 2px solid var(--text);
+        width: calc(100% - 20px);
+    }
+}
+
+.feed_mobile_gap {
+    @media screen and (max-width: 676px) {
+        padding: 0 10px;
     }
 }
 
@@ -3605,6 +3636,7 @@ option {
     box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     transition: .2s;
+    position: relative;
     &:hover {
         transform: translateY(-2px);
     }
@@ -3651,6 +3683,9 @@ option {
             align-items: center;
             justify-content: center;
             background: var(--secondary);
+            @media screen and (max-width: 767px) {
+                height: 304px;
+            }
             img {
                 width: auto;
                 height: auto;

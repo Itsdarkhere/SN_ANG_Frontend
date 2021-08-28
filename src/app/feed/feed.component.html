@@ -17,7 +17,7 @@
     </div> -->
 
     <!-- Mobile BitClout Price -->
-    <div *ngIf="isMobile" class="d-flex border-bottom border-color-grey background-color-light-grey py-5px px-15px fs-12px justify-content-between">
+    <!-- <div *ngIf="isMobile" class="d-flex border-bottom border-color-grey background-color-light-grey py-5px px-15px fs-12px justify-content-between">
         <div>
             CLOUT in wallet {{ globalVars.nanosToBitClout(globalVars.loggedInUser.BalanceNanos) }}
             <span class="text-muted" *ngIf="globalVars.satoshisPerBitCloutExchangeRate">
@@ -27,13 +27,14 @@
         <div>
             CLOUT Price ~{{ globalVars.bitcloutToUSDExchangeRateToDisplay }}&nbsp;USD
         </div>
-    </div>
+    </div> -->
 
-    <div *ngIf="isMobile && globalVars.loggedInUser && !globalVars.loggedInUser.JumioVerified" class="border-bottom border-color-grey background-color-light-grey py-5px px-15px fs-12px">
+    <!-- <div *ngIf="isMobile && globalVars.loggedInUser && !globalVars.loggedInUser.JumioVerified" class="border-bottom border-color-grey background-color-light-grey py-5px px-15px fs-12px">
         <jumio-status></jumio-status>
-    </div>
+    </div> -->
 
     <!-- Tab Selector -->
+    <div *ngIf="isMobile" class="global__top-bar__height"></div>
     <tab-selector class="feed_tabs" [tabs]="feedTabs" [activeTab]="activeTab" (tabClick)="_handleTabClick($event)"></tab-selector>
 
     <countdown-timer *ngIf="nextNFTShowcaseTime" [timerText]="'The next NFT showcase drops in...'" [fontWeight]="500" [timerEnd]="nextNFTShowcaseTime"></countdown-timer>
@@ -41,7 +42,7 @@
     <div [id]="getPullToRefreshMarkerId()"></div>
 
     <!-- Posts -->
-    <div *ngIf="showGlobalOrFollowingPosts()">
+    <div class="feed_mobile_gap" *ngIf="showGlobalOrFollowingPosts()">
         <div *ngFor="let post of postsToShow()">
             <div *ngIf="post.ProfileEntryResponse">
                 <!--

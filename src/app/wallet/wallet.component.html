@@ -17,8 +17,8 @@
                 <div class="d-flex align-items-center justify-content-between fs-18px font-weight-bold p-15px holdings__divider border-bottom border-color-grey">
                     <div>$CLOUT</div>
                     <div class="fs-15px" style="margin-top: 2px">
-                        <a *ngIf="globalVars.loggedInUser" href="{{ 'https://explorer.bitclout.com/?public-key=' + globalVars.loggedInUser.PublicKeyBase58Check }}" class="">
-              Transactions
+                        <a *ngIf="globalVars.loggedInUser" target="_blank" href="https://bitclout.com/buy-bitclout?tab=posts" class="">
+                            Buy $CLOUT
             </a>
                         <span class="px-5px">·</span>
                         <a [routerLink]="'/' + globalVars.RouteNames.SEND_BITCLOUT" queryParamsHandling="merge" class="">

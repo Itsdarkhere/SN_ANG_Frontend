@@ -1104,7 +1104,7 @@ $green-font-color: #19b028;
     z-index: 2;
     position: fixed;
     left: 10px;
-    bottom: 10px;
+    bottom: 25px;
     width: calc(100% - 20px);
     background-color: var(--background);
     height: auto;
@@ -1263,7 +1263,7 @@ input.bs-timepicker-field {
     width: $global__center__width;
     padding-left: 50px;
     @media (max-width: 1170px) {
-        width: calc(100% - 60px);
+        width: 100%;
     }
 }
 
@@ -3583,6 +3583,12 @@ option {
     }
 }
 
+.creator_post_wrap {
+    @media screen and (max-width: 676px) {
+        padding: 0 12px;
+    }
+}
+
 .nfts-card-list {
     display: flex;
     align-items: flex-start;
@@ -3591,13 +3597,38 @@ option {
     margin: 20px -10px 0px;
     padding: 0px;
     list-style-type: none;
+    @media screen and (max-width: 676px) {
+        padding: 47px 15px 0 15px;
+    }
+    &.nft_creator_list {
+        @media screen and (max-width: 676px) {
+            padding-top: 0;
+        }
+    }
     .nft-col-wrap {
         padding: 10px;
         width: calc(100% / 3);
         min-width: 300px;
-        @media screen and (max-width: 500px) {
+        @media screen and (max-width: 676px) {
             width: 100%;
+            margin-bottom: 0;
         }
+    }
+    .mobile_mrk_head {
+        font-size: 24px;
+        font-weight: 600;
+        padding: 10px 0 9px;
+        color: var(--text);
+        margin: 0 10px 10px;
+        display: block;
+        border-bottom: 2px solid var(--text);
+        width: calc(100% - 20px);
+    }
+}
+
+.feed_mobile_gap {
+    @media screen and (max-width: 676px) {
+        padding: 0 10px;
     }
 }
 
@@ -3605,6 +3636,7 @@ option {
     box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     transition: .2s;
+    position: relative;
     &:hover {
         transform: translateY(-2px);
     }
@@ -3651,6 +3683,9 @@ option {
             align-items: center;
             justify-content: center;
             background: var(--secondary);
+            @media screen and (max-width: 767px) {
+                height: 304px;
+            }
             img {
                 width: auto;
                 height: auto;
@@ -3782,16 +3817,47 @@ option {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    @media screen and (max-width: 767px) {
+        padding: 70px 10px 10px 10px;
+        align-items: flex-start;
+    }
     .nft_bx {
         width: calc(50% - 10px);
         margin-bottom: 10px;
+        @media screen and (max-width: 767px) {
+            width: 100%;
+        }
+        .creator-coin-info {
+            margin-left: 0.5rem !important;
+        }
+        .borderbg {
+            background-color: transparent !important;
+        }
+        .tabs_column_list {
+            margin-right: 15px;
+            .tabs_column_list_inner {
+                padding-left: 0;
+                &.fc-default {
+                    font-weight: 700;
+                }
+            }
+        }
         &.gray {
             background-color: var( --border);
             padding: 0 50px;
+            @media screen and (max-width: 1024px) {
+                display: none;
+            }
         }
         &.nft_feed_post_wt_design {
+            @media screen and (max-width: 1024px) {
+                width: 100%;
+            }
             .feed-post__image-container {
                 display: none;
+                @media screen and (max-width: 1024px) {
+                    display: block;
+                }
             }
         }
         &.nft_feed_post_design {
@@ -3833,10 +3899,50 @@ option {
                 font-size: 48px;
                 font-weight: 700;
                 background: rgb(243, 168, 60);
-                background: linear-gradient(45deg, #f3a83c 0%, #ec5454 9%, #f51ac1 19%, #2749f0 34%, #593eb7 41%);
+                background: linear-gradient(45deg, #f3a83c 0%, #ec5454 20%, #f51ac1 35%, #2749f0 74%, #593eb7 99%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 line-height: 1.4;
+            }
+        }
+        &.linebx {
+            border: 1px solid var( --border);
+            border-radius: 7px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 0;
+        }
+        .bids_list_sec {
+            margin-top: 30px;
+            .bids_ls_inner {
+                display: flex;
+                margin-bottom: 20px;
+                align-items: center;
+                .bids_avatar {
+                    width: 50px;
+                    height: 50px;
+                    background: var( --textalt);
+                    border-radius: 50%;
+                    margin: 0 10px 0 0;
+                    cursor: pointer;
+                    overflow: hidden;
+                    border: 3px solid var(--background);
+                    box-shadow: 0px 4px 5px 3px rgb(0 0 0 / 7%);
+                    background-size: cover;
+                }
+                .bids_lt {
+                    .hq {
+                        font-weight: 700;
+                    }
+                    p {
+                        font-size: 14px;
+                        color: var( --textalt);
+                        span {
+                            font-weight: 700;
+                        }
+                    }
+                }
             }
         }
     }
@@ -3897,7 +4003,7 @@ option {
     }
     .nft_place_bid_btn {
         &.btn {
-            background-image: url("assets/img/popup-btn-img.png");
+            background-image: url("/assets/img/popup-btnbg.png");
             background-size: cover;
             background-position: center;
             width: 350px;

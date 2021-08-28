@@ -3684,7 +3684,7 @@ option {
             justify-content: center;
             background: var(--secondary);
             @media screen and (max-width: 767px) {
-                height: 304px;
+                height: 304px !important;
             }
             img {
                 width: auto;
@@ -4015,6 +4015,67 @@ option {
             color: var(--background);
             font-weight: 600;
             box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+.nft_placebid_modal_bx {
+    width: 480px;
+    max-width: calc(100% - 18px);
+    .modal-content {
+        background: var(--background);
+        border: 0;
+        .nft-modal-container {
+            background: var(--background);
+            border: 0;
+            padding: 30px 30px;
+            .nft_bid_header {
+                flex-wrap: wrap;
+                .head_txt {
+                    font-size: 42px !important;
+                    font-weight: bold;
+                    color: var(--topbar);
+                    width: 100%;
+                    line-height: 1;
+                    justify-content: center;
+                    margin-bottom: 20px;
+                    @media screen and (max-width: 767px) {
+                        font-size: 32px !important;
+                    }
+                }
+                .close_btn {
+                    position: absolute;
+                    right: 0;
+                    top: 18px;
+                }
+            }
+            .nft_para {
+                font-size: 12px !important;
+                margin-bottom: 20px;
+            }
+            .create-nft-auction-row-border {
+                &.heads {
+                    opacity: 1 !important;
+                    .txt {
+                        font-size: 13px !important;
+                        font-weight: 700;
+                        color: var(--topbar);
+                        &:first-child {
+                            text-align: left !important;
+                        }
+                    }
+                }
+                &.nft_bid_tb_details {
+                    padding-left: 0 !important;
+                    padding-right: 0 !important;
+                    .txt {
+                        font-size: 12px!important;
+                        &.bd {
+                            font-weight: 700;
+                        }
+                    }
+                }
+            }
         }
     }
 }

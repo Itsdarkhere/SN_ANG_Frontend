@@ -190,7 +190,9 @@
                                     <p>
                                         {{compareBit(globalVars.nanosToBitClout(minBid, 5),globalVars.nanosToBitClout(highBid, 5), showPlaceABid)}}
                                     </p>
-                                    <p class="font-weight-bold">{{ globalVars.nanosToBitClout(highBid, 5) }} CLOUT</p>
+                                    <p class="font-weight-bold" *ngIf="showPlaceABid">{{ highBid === 0 ? globalVars.nanosToBitClout(minBid, 5) : globalVars.nanosToBitClout(highBid, 5) }} CLOUT</p>
+                                    <p class="font-weight-bold" *ngIf="!showPlaceABid">{{ globalVars.nanosToBitClout(lastSalePrice, 5) }} CLOUT</p>
+                                    <!-- <p class="font-weight-bold">{{ globalVars.nanosToBitClout(minBid, 5) }} CLOUT</p> -->
                                     <!-- <p class="font-weight-bold">{{ globalVars.nanosToBitClout(minBid, 5) }} CLOUT</p> -->
                                 </div>
                             </ng-container>
@@ -198,7 +200,7 @@
                                 <div class="bid-col" (click)="NFTMOfNTooltip.toggle(); toggleShowMOfNNFTTooltip()" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="mOfNNFTTooltip" #NFTMOfNTooltip="matTooltip">
                                     <p>Edition</p>
                                     <!-- <p class="font-weight-bold">{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} </p> -->
-                                    <p class="font-weight-bold">{{ postContent.NumNFTCopiesForSale }} </p>
+                                    <p class="font-weight-bold">{{ postContent.NumNFTCopies }} </p>
                                 </div>
                             </ng-container>
                             <ng-container *ngIf="showUnlockableContent">

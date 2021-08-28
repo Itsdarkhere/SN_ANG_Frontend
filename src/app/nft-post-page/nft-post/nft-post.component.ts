@@ -54,7 +54,7 @@ export class NftPostComponent {
   static MY_BIDS = "My Bids";
   static MY_AUCTIONS = "My Auctions";
   static OWNERS = "Owners";
-  static THREAD = "Thread";
+  static THREAD = "Comments";
 
   tabs = [
     NftPostComponent.THREAD,

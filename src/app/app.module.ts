@@ -154,13 +154,22 @@ import { CreateYourNftComponent } from './create-your-nft/create-your-nft.compon
 import { MintYourNftComponent } from './mint-your-nft/mint-your-nft.component';
 import { PlaceABidComponent } from './place-a-bid/place-a-bid.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
-const darkTheme: Theme = { key: "dark", name: "Dark Theme" };
-const icydarkTheme: Theme = { key: "icydark", name: "Icy Dark Theme" };
-const legendsTheme: Theme = { key: "legends", name: "Legends Theme" };
-const cakeTheme: Theme = { key: "cake", name: "Cake Theme" };
-const greenishTheme: Theme = { key: "greenish", name: "Green Theme" };
-const coderTheme: Theme = { key: "coder", name: "Coder Theme" };
+const darkTheme: Theme = { key: "light", name: "Dark Theme" };
+const icydarkTheme: Theme = { key: "light", name: "Icy Dark Theme" };
+const legendsTheme: Theme = { key: "light", name: "Legends Theme" };
+const cakeTheme: Theme = { key: "light", name: "Cake Theme" };
+const greenishTheme: Theme = { key: "light", name: "Green Theme" };
+const coderTheme: Theme = { key: "light", name: "Coder Theme" };
+
+// const lightTheme: Theme = { key: "light", name: "Light Theme" };
+// const darkTheme: Theme = { key: "dark", name: "Dark Theme" };
+// const icydarkTheme: Theme = { key: "icydark", name: "Icy Dark Theme" };
+// const legendsTheme: Theme = { key: "legends", name: "Legends Theme" };
+// const cakeTheme: Theme = { key: "cake", name: "Cake Theme" };
+// const greenishTheme: Theme = { key: "greenish", name: "Green Theme" };
+// const coderTheme: Theme = { key: "coder", name: "Coder Theme" };
 
 @NgModule({
   declarations: [

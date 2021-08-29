@@ -330,7 +330,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
       themes: [lightTheme, darkTheme, icydarkTheme, legendsTheme, cakeTheme, greenishTheme, coderTheme],
       active:
         localStorage.getItem("theme") ||
-        (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "coder"),
+        (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "light"),
     }),
   ],
   providers: [BackendApiService, GlobalVarsService, BsModalService, IdentityService],

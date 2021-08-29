@@ -1750,7 +1750,7 @@ input.bs-timepicker-field {
 
 .feed-post-icon-row__icon.icon-heart,
 .feed-post-icon-row__icon.icon-heart-fill {
-    color: var(--pink);
+    //color: var(--pink);
     &:hover {
         background-color: $like-hover;
         color: $like-color;
@@ -3845,8 +3845,9 @@ option {
         &.gray {
             background-color: var( --border);
             padding: 0 50px;
-            @media screen and (max-width: 1024px) {
-                display: none;
+            @media screen and (max-width: 767px) {
+                margin: -5px -10px 0 -10px;
+                width: calc(100% + 20px);
             }
         }
         &.nft_feed_post_wt_design {
@@ -3855,9 +3856,6 @@ option {
             }
             .feed-post__image-container {
                 display: none;
-                @media screen and (max-width: 1024px) {
-                    display: block;
-                }
             }
         }
         &.nft_feed_post_design {
@@ -3866,7 +3864,8 @@ option {
             .nft_para,
             .feed-post__blue-border.px-30px.pb-5px,
             .fs-15px.w-100.background-color-grey.feed-post__blue-border,
-            .nft_place_bid_sec {
+            .nft_place_bid_sec,
+            .mt-5px.d-lg-none.text-grey5 {
                 display: none !important;
             }
             .js-feed-post-hover {

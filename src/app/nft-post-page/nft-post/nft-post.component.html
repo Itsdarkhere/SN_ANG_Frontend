@@ -53,7 +53,7 @@
                     </div>
                 </div>
             </div> -->
-            <div *ngIf="!loading && !bids?.length" class="fs-15px p-15px pb-0 d-flex justify-content-between">
+            <div *ngIf="!loading && !bids?.length" class="fs-15px p-15px pb-0 d-flex justify-content-center">
                 There are no bids yet.
                 <button class="btn btn-danger font-weight-bold fs-15px br-12px" *ngIf="activeTab === NftPostComponent.MY_AUCTIONS && myAvailableSerialNumbers?.length" (click)="closeAuction()">
                     Close my auctions

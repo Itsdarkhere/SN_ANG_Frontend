@@ -318,7 +318,7 @@
                     <div class="val_st" *ngIf="!showPlaceABid">{{ globalVars.nanosToBitClout(lastSalePrice, 5) }} CLOUT</div>
 
                 </div>
-                <div class="nft_done_by" *ngIf="showPlaceABid">
+                <div class="nft_done_by" *ngIf="compareBit(globalVars.nanosToBitClout(minBid, 5),globalVars.nanosToBitClout(highBid, 5), showPlaceABid) == 'Highest Bid' ">
                     <span class="hq">Done By</span>
                     <div class="d-flex">
                         <div class="bid_by_avtar" [avatar]="showNFTOwnerInfo?.PublicKeyBase58Check"></div>

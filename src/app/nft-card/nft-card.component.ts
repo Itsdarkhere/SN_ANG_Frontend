@@ -584,7 +584,7 @@ export class NftCardComponent implements OnInit {
     }
     event.stopPropagation();
     const modalDetails = this.modalService.show(PlaceBidModalComponent, {
-      class: "modal-dialog-centered modal-lg",
+      class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
       initialState: { post: this.postContent },
     });
     const onHideEvent = modalDetails.onHide;

@@ -67,7 +67,7 @@ export class FeedPostComponent implements OnInit {
   //   - https://stackoverflow.com/questions/7150652/regex-valid-twitter-mention/8975426
   //   - https://github.com/regexhq/mentions-regex
   static MENTIONS_REGEX = /\B\@([\w\-]+)/gim;
-
+  @Input() showNFTOwnerInfo = {};
   @Input() showIconRow = true;
   @Input() showAdminRow = false;
   @Input() contentShouldLinkToThread: boolean;
@@ -133,6 +133,8 @@ export class FeedPostComponent implements OnInit {
   showPlaceABid: boolean;
   highBid: number = null;
   lowBid: number = null;
+  minBid: number = null;
+  lastSalePrice: number = null;
   availableSerialNumbers: NFTEntryResponse[];
   myAvailableSerialNumbers: NFTEntryResponse[];
   mySerialNumbersNotForSale: NFTEntryResponse[];
@@ -192,6 +194,10 @@ export class FeedPostComponent implements OnInit {
         this.showPlaceABid = !!(this.availableSerialNumbers.length - this.myAvailableSerialNumbers.length);
         this.highBid = _.maxBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
         this.lowBid = _.minBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
+        this.minBid = _.maxBy(this.availableSerialNumbers, "MinBidAmountNanos")?.MinBidAmountNanos || 0;
+        if(!this.showPlaceABid){
+          this.lastSalePrice = this.nftEntryResponses[0]['LastAcceptedBidAmountNanos'];
+        }
       });
   }
 
@@ -598,5 +604,16 @@ export class FeedPostComponent implements OnInit {
   showmOfNNFTTooltip = false;
   toggleShowMOfNNFTTooltip(): void {
     this.showmOfNNFTTooltip = !this.showmOfNNFTTooltip;
+  }
+  compareBit(minBid, maxBid, showPlaceABid):string{
+    if(!showPlaceABid){
+      return 'Sold for'
+    } else {
+      if(Number(maxBid) > 0){
+        return 'Highest Bid';
+      } else if(Number(maxBid) === 0){
+        return 'Minimum Bid';
+      }
+    }
   }
 }

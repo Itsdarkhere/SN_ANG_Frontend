@@ -48,7 +48,6 @@ export class TrendsComponent implements OnInit {
       .subscribe(
         (res: any) => {
           this.nftCollections = res.NFTCollections;
-          this.dataToShow = this.nftCollections.slice(this.startIndex, this.endIndex);
           if (this.nftCollections) {
             this.nftCollections.sort((a, b) => b.HighestBidAmountNanos - a.HighestBidAmountNanos);
             this.nftCollections = uniqBy(
@@ -56,6 +55,7 @@ export class TrendsComponent implements OnInit {
               (nftCollection) => nftCollection.PostEntryResponse.PostHashHex
             );
           }
+          this.dataToShow = this.nftCollections.slice(this.startIndex, this.endIndex);
           this.lastPage = Math.floor(this.nftCollections.length / TrendsComponent.PAGE_SIZE);
         },
         (error) => {

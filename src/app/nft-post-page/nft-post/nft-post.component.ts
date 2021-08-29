@@ -45,7 +45,7 @@ export class NftPostComponent {
   showBidsView: boolean = true;
   bids: NFTBidEntryResponse[];
   owners: NFTEntryResponse[];
-
+  hightestBidOwner: any = {};
   NftPostComponent = NftPostComponent;
 
   activeTab = NftPostComponent.THREAD;
@@ -184,6 +184,7 @@ export class NftPostComponent {
             (bidEntry) => bidEntry.BidAmountNanos <= bidEntry.BidderBalanceNanos
           );
 
+          this.hightestBidOwner = _.maxBy(this.bids, "BidAmountNanos");
           if (!this.myBids.length) {
             this.tabs = this.tabs.filter((t) => t !== NftPostComponent.MY_BIDS);
             this.activeTab = this.activeTab === NftPostComponent.MY_BIDS ? this.tabs[0] : this.activeTab;

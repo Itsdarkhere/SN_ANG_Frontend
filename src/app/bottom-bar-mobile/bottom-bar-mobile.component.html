@@ -24,7 +24,7 @@
       <i class="icon-up-arrow fs-25px"></i>
     </bottom-bar-mobile-tab> -->
 
-        <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button>
+        <button class="btn btn-create clout" (click)="createPost()">Create</button>
         <mat-menu #createMenu="matMenu">
             <div class="create-menu-cover">
                 <!-- 

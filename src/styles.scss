@@ -1546,8 +1546,8 @@ input.bs-timepicker-field {
     padding: 2px;
     padding-left: 5px;
     font-size: 19px;
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
     background-color: var(--formbg);
     border-color: var(--border);
     border-right-color: rgba(0, 0, 0, 0);
@@ -2566,11 +2566,32 @@ input.bs-timepicker-field {
 }
 
 .search-bar-cover {
+    .form-control {
+        border-radius: 30px;
+    }
     @media (max-width: 991px) {
         .form-control {
             height: calc(1.5em + .75rem + 16px) !important;
         }
     }
+}
+
+.feed-post__icon-row-holder {
+    .date_ico_sec {
+        top: 4px;
+    }
+}
+
+.become_creator {
+    background-color: var( --background);
+    border: 3px solid var(--mborder);
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--text);
+    border-radius: 5px;
+    padding: 8px;
+    box-sizing: border-box;
+    box-shadow: 0px 2px 4px rgb(0 0 0 / 12%);
 }
 
 .normal-text {
@@ -3962,6 +3983,7 @@ option {
             width: 50%;
             padding-right: 20px;
             padding-left: 30px;
+            padding-top: 0;
             .val {
                 font-size: 33px;
                 font-weight: 700;

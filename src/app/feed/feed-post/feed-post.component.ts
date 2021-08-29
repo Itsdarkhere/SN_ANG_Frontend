@@ -607,7 +607,7 @@ export class FeedPostComponent implements OnInit {
   }
   compareBit(minBid, maxBid, showPlaceABid): string {
     if (!showPlaceABid) {
-      return 'Sold for'
+      return 'Sold for';
     } else {
       if (Number(maxBid) > 0) {
         return 'Highest Bid';

@@ -255,8 +255,8 @@
         </div>
         <div></div>
 
-        <div class="d-flex nft_current_bid_tpwrapper">
-            <div class="nft_current_bid" *ngIf="showExpandedNFTDetails && (highBid || lowBid)" [ngClass]="{ 'pt-15px': globalVars.isMobile() }">
+        <div *ngIf="showExpandedNFTDetails && (highBid || lowBid)" class="d-flex nft_current_bid_tpwrapper">
+            <div class="nft_current_bid" [ngClass]="{ 'pt-15px': globalVars.isMobile() }">
                 <span class="hq">CURRENT BID</span>
                 <div class="val" *ngIf="highBid != null">${{ globalVars.nanosToBitClout(highBid, 5) }} </div>
                 <div class="val_st">{{ globalVars.nanosToUSD(highBid, 2) }}</div>

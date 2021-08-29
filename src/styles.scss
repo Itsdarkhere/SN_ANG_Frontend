@@ -1111,6 +1111,12 @@ $green-font-color: #19b028;
     box-shadow: 0px 2px 3px 1px rgb(0 0 0 / 20%);
     border-radius: 30px;
     padding: 0 15px;
+    display: flex;
+    min-height: 60px;
+    align-items: center;
+    .page-bottom-bar-mobile {
+        width: 100%;
+    }
 }
 
 .global__tooltip-icon {
@@ -3880,6 +3886,9 @@ option {
             }
         }
         &.nft_feed_post_design {
+            align-items: center;
+            justify-content: center;
+            display: flex;
             .feed-post__avatar-container,
             .d-flex.align-items-center,
             .nft_para,

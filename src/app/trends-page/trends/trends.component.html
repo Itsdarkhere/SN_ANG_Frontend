@@ -9,6 +9,7 @@
         <div class="nfts-card-list">
             <div class="mobile_mrk_head">Marketplace</div>
             <div class="nft-col-wrap" *ngFor="let nftCollection of dataToShow">
+                <!-- <code>{{nftCollection | json}}</code> -->
                 <app-nft-card [post]="nftCollection.PostEntryResponse" [includePaddingOnPost]="true" [showReplyingToContent]="nftCollection.PostEntryResponse.parentPost" [parentPost]="nftCollection.PostEntryResponse.parentPost" [contentShouldLinkToThread]="true" [showNFTDetails]="true"
                     [showExpandedNFTDetails]="true" [setBorder]="true" [nftCollectionHighBid]="nftCollection.HighestBidAmountNanos" [nftCollectionLowBid]="nftCollection.LowestBidAmountNanos"></app-nft-card>
             </div>

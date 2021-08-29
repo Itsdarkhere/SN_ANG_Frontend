@@ -60,7 +60,7 @@ export class FeedPostComponent implements OnInit {
     private router: Router,
     private modalService: BsModalService,
     private sanitizer: DomSanitizer
-  ) {}
+  ) { }
 
   // Got this from https://code.habd.as/jhabdas/xanthippe/src/branch/master/lib/xanthippe.js#L8
   // Other regexes:
@@ -102,7 +102,7 @@ export class FeedPostComponent implements OnInit {
   @Input() showAvailableSerialNumbers = false;
 
   @Input() profilePublicKeyBase58Check: string = "";
-
+  @Input() isNFTDetail = false;
   // If the post is shown in a modal, this is used to hide the modal on post click.
   @Input() containerModalRef: any = null;
 
@@ -195,7 +195,7 @@ export class FeedPostComponent implements OnInit {
         this.highBid = _.maxBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
         this.lowBid = _.minBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
         this.minBid = _.maxBy(this.availableSerialNumbers, "MinBidAmountNanos")?.MinBidAmountNanos || 0;
-        if(!this.showPlaceABid){
+        if (!this.showPlaceABid) {
           this.lastSalePrice = this.nftEntryResponses[0]['LastAcceptedBidAmountNanos'];
         }
       });
@@ -605,13 +605,13 @@ export class FeedPostComponent implements OnInit {
   toggleShowMOfNNFTTooltip(): void {
     this.showmOfNNFTTooltip = !this.showmOfNNFTTooltip;
   }
-  compareBit(minBid, maxBid, showPlaceABid):string{
-    if(!showPlaceABid){
+  compareBit(minBid, maxBid, showPlaceABid): string {
+    if (!showPlaceABid) {
       return 'Sold for'
     } else {
-      if(Number(maxBid) > 0){
+      if (Number(maxBid) > 0) {
         return 'Highest Bid';
-      } else if(Number(maxBid) === 0){
+      } else if (Number(maxBid) === 0) {
         return 'Minimum Bid';
       }
     }

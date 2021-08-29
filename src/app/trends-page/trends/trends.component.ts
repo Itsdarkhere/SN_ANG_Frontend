@@ -49,7 +49,7 @@ export class TrendsComponent implements OnInit {
         (res: any) => {
           this.nftCollections = res.NFTCollections;
           if (this.nftCollections) {
-            this.nftCollections.sort((a, b) => b.HighestBidAmountNanos - a.HighestBidAmountNanos);
+            this.nftCollections.sort((a, b) => b.PostEntryResponse.TimestampNanos - a.PostEntryResponse.TimestampNanos);
             this.nftCollections = uniqBy(
               this.nftCollections,
               (nftCollection) => nftCollection.PostEntryResponse.PostHashHex

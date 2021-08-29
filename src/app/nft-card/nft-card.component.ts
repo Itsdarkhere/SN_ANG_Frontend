@@ -608,8 +608,8 @@ export class NftCardComponent implements OnInit {
     this.showmOfNNFTTooltip = !this.showmOfNNFTTooltip;
   }
   compareBit(minBid, maxBid, showPlaceABid):string{
-    if(!showPlaceABid){
-      return 'Sold for'
+    if (!showPlaceABid && !!this.nftEntryResponses) {
+      return this.nftEntryResponses[0].IsForSale === false ? 'Sold for' : 'Minimum Bid';
     } else {
       if(Number(maxBid) > 0){
         return 'Highest Bid';

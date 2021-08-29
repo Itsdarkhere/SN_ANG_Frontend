@@ -55,7 +55,7 @@
             NFTs that @{{ profile.Username }} is currently selling
         </div>
     </div>
-    <div *ngIf="!globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)">
+    <div *ngIf="!globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check) && (myBids?.length > 0 || nftResponse?.length > 0)">
         <div class="search-results" infiniteScroll [infiniteScrollDistance]="5" [infiniteScrollThrottle]="150" (scrolled)="onScroll()" [ngClass]="{
             'br-12px': activeTab === CreatorProfileNftsComponent.MY_BIDS,
             'p-10px': activeTab === CreatorProfileNftsComponent.MY_BIDS,

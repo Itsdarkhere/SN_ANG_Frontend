@@ -4104,3 +4104,12 @@ option {
         }
     }
 }
+
+.wallet_page_container,
+.notification_mwrapper {
+    width: 668px;
+    max-width: 100%;
+    .global__top-bar {
+        width: 668px !important;
+    }
+}

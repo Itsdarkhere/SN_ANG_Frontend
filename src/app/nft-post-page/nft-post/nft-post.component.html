@@ -1,6 +1,6 @@
 <!-- Top Bar -->
 <!-- FIXME: TODO: post threads: loading skeletons -->
-<div *ngIf="nftPost" style="padding-bottom: 20vh" class="d-flex flex-column">
+<div *ngIf="nftPost" class="d-flex flex-column">
     <!-- New Page design -->
     <simple-center-loader *ngIf="isLoading"></simple-center-loader>
     <div class="nft_details_main_wrapper">
@@ -53,7 +53,7 @@
                     </div>
                 </div>
             </div> -->
-            <div *ngIf="!loading && !bids?.length" class="fs-15px p-15px pb-0 d-flex justify-content-between">
+            <div *ngIf="!loading && !bids?.length" class="fs-15px p-15px pb-0 d-flex justify-content-center">
                 There are no bids yet.
             </div>
             <div *ngIf="!loading && bids?.length">
@@ -116,7 +116,7 @@
                 <tab-selector [tabs]="tabs" [activeTab]="activeTab" (tabClick)="_handleTabClick($event)"></tab-selector>
             </div>
             <div *ngIf="showBidsView">
-                <div *ngIf="!loading && !bids?.length" class="fs-15px p-15px pb-0 d-flex justify-content-between">
+                <div *ngIf="!loading && !bids?.length" class="fs-15px p-15px pb-0 d-flex justify-content-center">
                     There are no bids yet.
                     <button class="btn btn-danger font-weight-bold fs-15px br-12px" *ngIf="activeTab === NftPostComponent.MY_AUCTIONS && myAvailableSerialNumbers?.length" (click)="closeAuction()">
                         Close my auctions
@@ -246,7 +246,7 @@
                 </div>
             </div>
             <div *ngIf="!loading && activeTab === NftPostComponent.THREAD && !reloadingThread">
-                <div *ngIf="!nftPost.CommentCount && !nftPost.ParentStakeID" class="p-15px">
+                <div *ngIf="!nftPost.CommentCount && !nftPost.ParentStakeID" class="p-15px d-flex justify-content-center">
                     There are no comments on this NFT yet.
                 </div>
                 <post-thread [hideHeader]="true" [hideCurrentPost]="!nftPost.ParentStakeID" *ngIf="nftPost.CommentCount || nftPost.ParentStakeID"></post-thread>

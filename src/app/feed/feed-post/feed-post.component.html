@@ -53,6 +53,7 @@
                         <span style="vertical-align: middle" class="fs-15px">@{{ reclouterProfile.Username }} reclouted</span>
                     </a>
 
+
                     <feed-post-dropdown *ngIf="showDropdown" class="ml-auto" [post]="post" [postContent]="postContent" [nftEntryResponses]="nftEntryResponses" (postHidden)="hidePost()" (userBlocked)="blockUser()" (toggleGlobalFeed)="_addPostToGlobalFeed()"></feed-post-dropdown>
                 </div>
 
@@ -78,7 +79,7 @@
                         <!-- Buy link -->
                         Buy
                     </a>
-                </ng-template>
+                </ng-template> -->
 
                 <div class="feed-post__container d-flex justify-content-left w-100" [ngClass]="{
                'px-15px': includePaddingOnPost,

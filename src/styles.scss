@@ -1546,8 +1546,8 @@ input.bs-timepicker-field {
     padding: 2px;
     padding-left: 5px;
     font-size: 19px;
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
     background-color: var(--formbg);
     border-color: var(--border);
     border-right-color: rgba(0, 0, 0, 0);
@@ -1750,7 +1750,7 @@ input.bs-timepicker-field {
 
 .feed-post-icon-row__icon.icon-heart,
 .feed-post-icon-row__icon.icon-heart-fill {
-    color: var(--pink);
+    //color: var(--pink);
     &:hover {
         background-color: $like-hover;
         color: $like-color;
@@ -2566,11 +2566,32 @@ input.bs-timepicker-field {
 }
 
 .search-bar-cover {
+    .form-control {
+        border-radius: 30px;
+    }
     @media (max-width: 991px) {
         .form-control {
             height: calc(1.5em + .75rem + 16px) !important;
         }
     }
+}
+
+.feed-post__icon-row-holder {
+    .date_ico_sec {
+        top: 4px;
+    }
+}
+
+.become_creator {
+    background-color: var( --background);
+    border: 3px solid var(--mborder);
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--text);
+    border-radius: 5px;
+    padding: 8px;
+    box-sizing: border-box;
+    box-shadow: 0px 2px 4px rgb(0 0 0 / 12%);
 }
 
 .normal-text {
@@ -3845,8 +3866,9 @@ option {
         &.gray {
             background-color: var( --border);
             padding: 0 50px;
-            @media screen and (max-width: 1024px) {
-                display: none;
+            @media screen and (max-width: 767px) {
+                margin: -5px -10px 0 -10px;
+                width: calc(100% + 20px);
             }
         }
         &.nft_feed_post_wt_design {
@@ -3855,9 +3877,6 @@ option {
             }
             .feed-post__image-container {
                 display: none;
-                @media screen and (max-width: 1024px) {
-                    display: block;
-                }
             }
         }
         &.nft_feed_post_design {
@@ -3866,7 +3885,8 @@ option {
             .nft_para,
             .feed-post__blue-border.px-30px.pb-5px,
             .fs-15px.w-100.background-color-grey.feed-post__blue-border,
-            .nft_place_bid_sec {
+            .nft_place_bid_sec,
+            .mt-5px.d-lg-none.text-grey5 {
                 display: none !important;
             }
             .js-feed-post-hover {
@@ -3963,6 +3983,7 @@ option {
             width: 50%;
             padding-right: 20px;
             padding-left: 30px;
+            padding-top: 0;
             .val {
                 font-size: 33px;
                 font-weight: 700;
@@ -4081,5 +4102,14 @@ option {
                 }
             }
         }
+    }
+}
+
+.wallet_page_container,
+.notification_mwrapper {
+    width: 668px;
+    max-width: 100%;
+    .global__top-bar {
+        width: 668px !important;
     }
 }

@@ -112,11 +112,11 @@
         <span *ngIf="!hideNumbers">{{ postContent.DiamondCount }}</span>
     </div>
 
-    <div class="d-none date_ico_sec d-lg-flex cursor-pointer align-items-center">
+    <!-- <div class="d-none date_ico_sec d-lg-flex cursor-pointer align-items-center">
         <span class="d-inline-block ml-1 cursor-pointer lh-12px fc-muted align-middle" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" mat-raised-button #tooltip="matTooltip" [matTooltip]="globalVars.convertTstampToDateTime(postContent.TimestampNanos)"
             (auxclick)="onTimestampClickHandler($event)">
             {{ globalVars.convertTstampToDaysOrHours(postContent.TimestampNanos) }}
         </span>
         <i class="icon-link js-feed-post-icon-row__copy-post-link-icon feed-post-icon-row__icon" (click)="copyPostLinkToClipboard($event)"></i>
-    </div>
+    </div> -->
 </div>

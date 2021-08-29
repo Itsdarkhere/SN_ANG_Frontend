@@ -26,8 +26,8 @@ export class MintYourNftComponent {
   putOnSale: boolean = true;
   minBidAmountUSD: string = "0";
   minBidAmountCLOUT: number = 0;
-  creatorRoyaltyPercent: number = 5;
-  coinRoyaltyPercent: number = 10;
+  creatorRoyaltyPercent: any = 5;
+  coinRoyaltyPercent: any = 10;
   includeUnlockable: boolean = false;
   createNFTFeeNanos: number;
   maxCopiesPerNFT: number;
@@ -53,14 +53,25 @@ export class MintYourNftComponent {
       });
   }
 
+  // hasUnreasonableRoyalties() {
+  //   let isEitherUnreasonable =
+  //     this.creatorRoyaltyPercent < 0 ||
+  //     this.creatorRoyaltyPercent > 100 ||
+  //     this.coinRoyaltyPercent < 0 ||
+  //     this.coinRoyaltyPercent > 100;
+  //   let isSumUnreasonable = this.creatorRoyaltyPercent + this.coinRoyaltyPercent > 100;
+  //   console.log(this.creatorRoyaltyPercent);
+  //   return isEitherUnreasonable || isSumUnreasonable;
+  // }
+
   hasUnreasonableRoyalties() {
     let isEitherUnreasonable =
-      this.creatorRoyaltyPercent < 0 ||
-      this.creatorRoyaltyPercent > 100 ||
-      this.coinRoyaltyPercent < 0 ||
-      this.coinRoyaltyPercent > 100;
-    let isSumUnreasonable = this.creatorRoyaltyPercent + this.coinRoyaltyPercent > 100;
-    return isEitherUnreasonable || isSumUnreasonable;
+      parseInt(this.creatorRoyaltyPercent) < 0 ||
+      parseInt(this.creatorRoyaltyPercent) > 100 ||
+      parseInt(this.coinRoyaltyPercent) < 0 ||
+      parseInt(this.coinRoyaltyPercent) > 100;
+    let isSumUnreasonable = parseInt(this.creatorRoyaltyPercent) + parseInt(this.coinRoyaltyPercent) > 100;
+    return isEitherUnreasonable || isSumUnreasonable;;
   }
 
   hasUnreasonableNumCopies() {

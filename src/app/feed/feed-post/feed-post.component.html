@@ -19,6 +19,7 @@
        border: setBorder || cardStyle,
        'feed-post__quoted-content': hoverable && isQuotedContent
      }">
+    <!-- <code>{{post | json}}</code> -->
     <div class="w-100">
         <div *ngIf="post.IsHidden" class="p-10px background-color-grey d-flex align-items-center justify-content-center fs-15px">
             <a (click)="onPostClicked($event)" class="link--unstyled" [routerLink]="['/' + globalVars.RouteNames.POSTS, post.PostHashHex]" queryParamsHandling="merge">

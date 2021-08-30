@@ -103,6 +103,7 @@ export class FeedPostComponent implements OnInit {
 
   @Input() profilePublicKeyBase58Check: string = "";
   @Input() isNFTDetail = false;
+  @Input() profileFeed = false;
   // If the post is shown in a modal, this is used to hide the modal on post click.
   @Input() containerModalRef: any = null;
 

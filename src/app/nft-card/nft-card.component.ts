@@ -106,6 +106,7 @@ export class NftCardComponent implements OnInit {
   // If the post is shown in a modal, this is used to hide the modal on post click.
   @Input() containerModalRef: any = null;
   @Input() fromFeed = false;
+  @Input() profileFeed = false;
   // emits the PostEntryResponse
   @Output() postDeleted = new EventEmitter();
 

@@ -13,8 +13,18 @@
 <ng-container *ngIf="!showProfileAsReserved">
     <div *ngIf="!globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)">
         <div #uiScroll *uiScroll="let post of datasource; let index = index">
-            <feed-post *ngIf="post.ProfileEntryResponse" [contentShouldLinkToThread]="true" [includePaddingOnPost]="true" [post]="post" [afterCommentCreatedCallback]="_prependComment.bind(this, post, index)" [blocked]="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)"
-                [cardStyle]="true" [showNFTDetails]="true" (userBlocked)="userBlocked()"></feed-post>
+            <!-- {{post?.IsNFT || post?.RecloutedPostEntryResponse?.IsNFT}} -->
+            <ng-container *ngIf="post?.IsNFT || post?.RecloutedPostEntryResponse?.IsNFT">
+                <app-nft-card *ngIf="post.ProfileEntryResponse" [contentShouldLinkToThread]="true" [includePaddingOnPost]="true" [post]="post" [afterCommentCreatedCallback]="_prependComment.bind(this, post, index)" [blocked]="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)"
+                    [cardStyle]="true" [fromFeed]="true" [showNFTDetails]="true" [profileFeed]="true" (userBlocked)="userBlocked()"></app-nft-card>
+            </ng-container>
+            <!-- {{!(post?.IsNFT || post?.RecloutedPostEntryResponse?.IsNFT)}} -->
+            <ng-container *ngIf="!(post?.IsNFT || post?.RecloutedPostEntryResponse?.IsNFT)">
+                <feed-post *ngIf="post.ProfileEntryResponse" [contentShouldLinkToThread]="true" [includePaddingOnPost]="true" [post]="post" [afterCommentCreatedCallback]="_prependComment.bind(this, post, index)" [blocked]="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)"
+                    [cardStyle]="true" [showNFTDetails]="true" [profileFeed]="true" (userBlocked)="userBlocked()"></feed-post>
+            </ng-container>
+            <!-- <feed-post *ngIf="post.ProfileEntryResponse" [contentShouldLinkToThread]="true" [includePaddingOnPost]="true" [post]="post" [afterCommentCreatedCallback]="_prependComment.bind(this, post, index)" [blocked]="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)"
+                [cardStyle]="true" [showNFTDetails]="true" [profileFeed]="true" (userBlocked)="userBlocked()"></feed-post> -->
             <div *ngFor="let comment of post.Comments">
                 <div class="pl-15px pb-15px post-thread__subcomment-container">
                     <feed-post [includePaddingOnPost]="true" [post]="comment" [parentPost]="post" [contentShouldLinkToThread]="true" [showIconRow]="false" [showDropdown]="false" [showReplyToContent]="false" [isSubcomment]="true" [cardStyle]="true"></feed-post>

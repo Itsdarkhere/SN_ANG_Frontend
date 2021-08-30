@@ -77,13 +77,14 @@
 
      - market-feed component -->
 <div class="single-card" [ngClass]="{
-  'br-12px': fromFeed,
-  'm-15px': fromFeed,
-  'js-feed-post-hover': fromFeed,
-  border: fromFeed,
-  'feed-post__quoted-content': fromFeed
+  'br-12px': fromFeed || profileFeed,
+  'm-15px': fromFeed || profileFeed,
+  'js-feed-post-hover': fromFeed || profileFeed,
+  border: fromFeed || profileFeed,
+  'feed-post__quoted-content': fromFeed || profileFeed
 }">
     <div class="w-100">
+        <!-- <code>{{post | json}}</code> -->
         <div *ngIf="post.IsHidden" class="p-10px background-color-grey d-flex align-items-center justify-content-center fs-15px">
             <a (click)="onPostClicked($event)" class="link--unstyled" [routerLink]="['/' + globalVars.RouteNames.POSTS, post.PostHashHex]" queryParamsHandling="merge">
       This post was removed by the author.
@@ -159,9 +160,29 @@
                 </div>
                 <!-- Main Content -->
                 <div class="card-body">
-                    <div class="img-cover" [ngClass]="{'for-feed': fromFeed}">
-                        <img *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID" (click)="openImgModal($event, postContent.ImageURLs[0])" data-toggle="modal" src="{{ mapImageURLs(postContent.ImageURLs[0]) }}" />
-                    </div>
+                    <ng-container *ngIf="profileFeed">
+                        <div class="img-cover" *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID" [ngClass]="{'for-feed': fromFeed}">
+                            <img (click)="openImgModal($event, postContent.ImageURLs[0])" data-toggle="modal" src="{{ mapImageURLs(postContent.ImageURLs[0]) }}" />
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="!profileFeed">
+                        <div class="img-cover" [ngClass]="{'for-feed': fromFeed}">
+                            <img *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID" (click)="openImgModal($event, postContent.ImageURLs[0])" data-toggle="modal" src="{{ mapImageURLs(postContent.ImageURLs[0]) }}" />
+                        </div>
+                    </ng-container>
+
+                    <!-- <div class="img-cover" *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID" [ngClass]="{'for-feed': fromFeed}">
+                        <img (click)="openImgModal($event, postContent.ImageURLs[0])" data-toggle="modal" src="{{ mapImageURLs(postContent.ImageURLs[0]) }}" />
+                    </div> -->
+                    <ng-container *ngIf="quotedContent?.IsNFT && profileFeed">
+                        <app-nft-card *ngIf="quotedContent && showQuotedContent" [post]="quotedContent" [isQuotedContent]="true" [includePaddingOnPost]="true" [showIconRow]="false" [showDropdown]="false" [showQuotedContent]="false" [contentShouldLinkToThread]="contentShouldLinkToThread"
+                            [hoverable]="hoverable" [showNFTDetails]="true" [cardStyle]="true"></app-nft-card>
+                    </ng-container>
+                    <ng-container *ngIf="!quotedContent?.IsNFT && profileFeed">
+                        <feed-post *ngIf="quotedContent && showQuotedContent" [post]="quotedContent" [isQuotedContent]="true" [includePaddingOnPost]="true" [showIconRow]="false" [showDropdown]="false" [showQuotedContent]="false" [contentShouldLinkToThread]="contentShouldLinkToThread"
+                            [hoverable]="hoverable" [showNFTDetails]="true" [cardStyle]="true"></feed-post>
+                    </ng-container>
+
                     <div class="caption-cover">
                         <p>{{postContent.Body}}</p>
                     </div>

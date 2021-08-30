@@ -66,11 +66,11 @@ export class MintYourNftComponent {
 
   hasUnreasonableRoyalties() {
     let isEitherUnreasonable =
-      parseInt(this.creatorRoyaltyPercent) < 0 ||
-      parseInt(this.creatorRoyaltyPercent) > 100 ||
-      parseInt(this.coinRoyaltyPercent) < 0 ||
-      parseInt(this.coinRoyaltyPercent) > 100;
-    let isSumUnreasonable = parseInt(this.creatorRoyaltyPercent) + parseInt(this.coinRoyaltyPercent) > 100;
+      Number(this.creatorRoyaltyPercent) < 0 ||
+      Number(this.creatorRoyaltyPercent) > 100 ||
+      Number(this.coinRoyaltyPercent) < 0 ||
+      Number(this.coinRoyaltyPercent) > 100;
+    let isSumUnreasonable = Number(this.creatorRoyaltyPercent) + Number(this.coinRoyaltyPercent) > 100;
     return isEitherUnreasonable || isSumUnreasonable;;
   }
 

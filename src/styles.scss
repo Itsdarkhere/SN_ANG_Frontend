@@ -4127,6 +4127,14 @@ option {
     }
 }
 
+.single-card .single-card {
+    width: calc(100% - 60px) !important;
+    margin-left: 60px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
 // @media screen and (min-width: 1240px) {
 //     .single-card .card-body .img-cover.for-feed {
 //         height: 480px;

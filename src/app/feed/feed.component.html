@@ -50,9 +50,16 @@
             in the feed with the "replying to @[parentPost.Username]" content diplayed.
             post.parentPost is set in appendCommentAfterParentPost
           -->
-                <feed-post *ngIf="!post.IsHidden" [post]="post" [includePaddingOnPost]="true" [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)" [afterRecloutCreatedCallback]="prependPostToFeed.bind(this)" [showReplyingToContent]="!!post.parentPost"
-                    [parentPost]="post.parentPost" [contentShouldLinkToThread]="true" [showLeftSelectedBorder]="post.IsPinned" [blocked]="globalVars.hasUserBlockedCreator(post.PosterPublicKeyBase58Check)" [cardStyle]="true" [showNFTDetails]="true" (postDeleted)="onPostHidden($event)"
-                    (userBlocked)="userBlocked()"></feed-post>
+                <ng-container *ngIf="post?.IsNFT">
+                    <app-nft-card *ngIf="!post.IsHidden" [post]="post" [includePaddingOnPost]="true" [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)" [afterRecloutCreatedCallback]="prependPostToFeed.bind(this)" [showReplyingToContent]="!!post.parentPost"
+                        [parentPost]="post.parentPost" [contentShouldLinkToThread]="true" [showLeftSelectedBorder]="post.IsPinned" [blocked]="globalVars.hasUserBlockedCreator(post.PosterPublicKeyBase58Check)" [cardStyle]="true" [showNFTDetails]="true" (postDeleted)="onPostHidden($event)"
+                        (userBlocked)="userBlocked()" [fromFeed]="true"></app-nft-card>
+                </ng-container>
+                <ng-container *ngIf="!post?.IsNFT">
+                    <feed-post *ngIf="!post.IsHidden" [post]="post" [includePaddingOnPost]="true" [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)" [afterRecloutCreatedCallback]="prependPostToFeed.bind(this)" [showReplyingToContent]="!!post.parentPost"
+                        [parentPost]="post.parentPost" [contentShouldLinkToThread]="true" [showLeftSelectedBorder]="post.IsPinned" [blocked]="globalVars.hasUserBlockedCreator(post.PosterPublicKeyBase58Check)" [cardStyle]="true" [showNFTDetails]="true" (postDeleted)="onPostHidden($event)"
+                        (userBlocked)="userBlocked()"></feed-post>
+                </ng-container>
             </div>
         </div>
 

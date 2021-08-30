@@ -76,7 +76,13 @@
      - feed-create-comment-form component (i.e. create comment view)
 
      - market-feed component -->
-<div class="single-card">
+<div class="single-card" [ngClass]="{
+  'br-12px': fromFeed,
+  'm-15px': fromFeed,
+  'js-feed-post-hover': fromFeed,
+  border: fromFeed,
+  'feed-post__quoted-content': fromFeed
+}">
     <div class="w-100">
         <div *ngIf="post.IsHidden" class="p-10px background-color-grey d-flex align-items-center justify-content-center fs-15px">
             <a (click)="onPostClicked($event)" class="link--unstyled" [routerLink]="['/' + globalVars.RouteNames.POSTS, post.PostHashHex]" queryParamsHandling="merge">
@@ -113,7 +119,6 @@
 
                     <feed-post-dropdown *ngIf="showDropdown" class="ml-auto" [post]="post" [postContent]="postContent" [nftEntryResponses]="nftEntryResponses" (postHidden)="hidePost()" (userBlocked)="blockUser()" (toggleGlobalFeed)="_addPostToGlobalFeed()"></feed-post-dropdown>
                 </div>
-
                 <div *ngIf="postContent.IsHidden" class="p-10px background-color-grey d-flex align-items-center justify-content-center fs-15px" [ngClass]="{
           'px-15px': includePaddingOnPost,
           'pb-15px': includePaddingOnPost,
@@ -154,7 +159,7 @@
                 </div>
                 <!-- Main Content -->
                 <div class="card-body">
-                    <div class="img-cover">
+                    <div class="img-cover" [ngClass]="{'for-feed': fromFeed}">
                         <img *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID" (click)="openImgModal($event, postContent.ImageURLs[0])" data-toggle="modal" src="{{ mapImageURLs(postContent.ImageURLs[0]) }}" />
                     </div>
                     <div class="caption-cover">

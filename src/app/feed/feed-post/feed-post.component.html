@@ -145,9 +145,15 @@
                      'max-width': getEmbedWidth(constructedEmbedURL)
                    }" [src]="constructedEmbedURL | sanitizeEmbed" frameborder="0" allow="picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; encrypted-media;" allowfullscreen></iframe>
                         </div>
+                        <ng-container *ngIf="quotedContent?.IsNFT">
+                            <app-nft-card *ngIf="quotedContent && showQuotedContent" [post]="quotedContent" [isQuotedContent]="true" [includePaddingOnPost]="true" [showIconRow]="false" [showDropdown]="false" [showQuotedContent]="false" [contentShouldLinkToThread]="contentShouldLinkToThread"
+                                [hoverable]="hoverable" [showNFTDetails]="true" [cardStyle]="true"></app-nft-card>
+                        </ng-container>
+                        <ng-container *ngIf="!quotedContent?.IsNFT">
+                            <feed-post *ngIf="quotedContent && showQuotedContent" [post]="quotedContent" [isQuotedContent]="true" [includePaddingOnPost]="true" [showIconRow]="false" [showDropdown]="false" [showQuotedContent]="false" [contentShouldLinkToThread]="contentShouldLinkToThread"
+                                [hoverable]="hoverable" [showNFTDetails]="true" [cardStyle]="true"></feed-post>
+                        </ng-container>
 
-                        <feed-post *ngIf="quotedContent && showQuotedContent" [post]="quotedContent" [isQuotedContent]="true" [includePaddingOnPost]="true" [showIconRow]="false" [showDropdown]="false" [showQuotedContent]="false" [contentShouldLinkToThread]="contentShouldLinkToThread"
-                            [hoverable]="hoverable" [showNFTDetails]="true" [cardStyle]="true"></feed-post>
 
                         <!-- Bottom Buttons -->
                         <div *ngIf="!showInteractionDetails" class="feed-post__icon-row-holder">

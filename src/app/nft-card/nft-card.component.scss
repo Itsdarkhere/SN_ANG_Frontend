@@ -15,13 +15,14 @@
         .profile-img {
             width: 25px;
             height: 25px;
-            border-radius: 5px;
-            overflow: hidden;
             margin-right: 10px;
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
+            a {
+                width: 25px;
+                height: 25px;
+                display: block;
+                background-position: center;
+                background-size: cover;
+                border-radius: 50%;
             }
         }
         h6 {
@@ -64,6 +65,11 @@
             align-items: center;
             justify-content: center;
             background: var(--secondary);
+            &.for-feed {
+                @media screen and (min-width: 1240px) {
+                    height: 480px;
+                }
+            }
             img {
                 width: auto;
                 height: auto;
@@ -74,6 +80,9 @@
         .caption-cover {
             padding: 10px 12px;
             margin: 8px 0;
+            height: 50px;
+            overflow: hidden;
+            text-overflow: ellipsis;
             p {
                 font-size: 13px;
             }

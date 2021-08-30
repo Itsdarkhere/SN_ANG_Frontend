@@ -3611,6 +3611,8 @@ option {
 }
 
 .creator_post_wrap {
+    width: 668px;
+    max-width: 100%;
     @media screen and (max-width: 676px) {
         padding: 0 12px;
     }

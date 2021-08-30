@@ -99,20 +99,18 @@
         </div>
 
         <div *ngIf="!post.IsHidden && !hidingPost && !globalVars.hasUserBlockedCreator(postContent.PosterPublicKeyBase58Check)" class="d-flex flex-column js-feed-post" [ngStyle]="{ 'border-radius': setBorder ? '18px 18px 0 0' : '' }">
-            <a (click)="onPostClicked($event)" Class="link--unstyled" [ngClass]="{
-        'cursor-inherit': !contentShouldLinkToThread
-      }">
+            <a (click)="onPostClicked($event)" Class="link--unstyled" [ngClass]="{'cursor-inherit': !contentShouldLinkToThread}">
                 <div *ngIf="showReplyingTo && post.ParentStakeID != ''" class="pl-15px pt-5px align-items-center" style="margin-bottom: -5px">
                     <a class="fc-muted font-weight-semibold fs-15px" queryParamsHandling="merge" [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, post.ParentPosts[0].ProfileEntryResponse.Username]">
-          replying to {{ post.ParentPosts[0].ProfileEntryResponse.Username }}
-        </a>
+                      replying to {{ post.ParentPosts[0].ProfileEntryResponse.Username }}
+                    </a>
                 </div>
                 <div *ngIf="reclouterProfile" class="feed-post__container d-flex justify-content-left w-100 pb-5px" [ngClass]="{
-          'feed-post__blue-border': showLeftSelectedBorder,
-          'feed-post__parent-post-font-size': isParentPostInThread,
-          'px-15px': includePaddingOnPost,
-          'pt-10px': includePaddingOnPost
-        }">
+                      'feed-post__blue-border': showLeftSelectedBorder,
+                      'feed-post__parent-post-font-size': isParentPostInThread,
+                      'px-15px': includePaddingOnPost,
+                      'pt-10px': includePaddingOnPost
+                    }">
                     <a class="fc-muted font-weight-semibold align-items-center" queryParamsHandling="merge" [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, reclouterProfile.Username]">
                         <i class="icon-repost fs-20px" style="vertical-align: middle"></i>
                         <span style="vertical-align: middle" class="fs-15px">@{{ reclouterProfile.Username }} reclouted</span>
@@ -121,23 +119,23 @@
                     <feed-post-dropdown *ngIf="showDropdown" class="ml-auto" [post]="post" [postContent]="postContent" [nftEntryResponses]="nftEntryResponses" (postHidden)="hidePost()" (userBlocked)="blockUser()" (toggleGlobalFeed)="_addPostToGlobalFeed()"></feed-post-dropdown>
                 </div>
                 <div *ngIf="postContent.IsHidden" class="p-10px background-color-grey d-flex align-items-center justify-content-center fs-15px" [ngClass]="{
-          'px-15px': includePaddingOnPost,
-          'pb-15px': includePaddingOnPost,
-          'pt-15px': includePaddingOnPost && !reclouterProfile,
-          'feed-post__blue-border': showLeftSelectedBorder,
-          'feed-post__parent-post-font-size': isParentPostInThread
-        }">
+                    'px-15px': includePaddingOnPost,
+                    'pb-15px': includePaddingOnPost,
+                    'pt-15px': includePaddingOnPost && !reclouterProfile,
+                    'feed-post__blue-border': showLeftSelectedBorder,
+                    'feed-post__parent-post-font-size': isParentPostInThread
+                  }">
                     <a (click)="onPostClicked($event)" class="link--unstyled" [routerLink]="['/' + globalVars.RouteNames.POSTS, postContent.PostHashHex]" queryParamsHandling="merge">
-          The original post was removed by its author.
-        </a>
+                        The original post was removed by its author.
+                    </a>
                 </div>
 
                 <ng-template #creatorCoinInfo>
                     <!-- Coin price-->
                     <a [routerLink]="AppRoutingModule.buyCreatorPath(postContent.ProfileEntryResponse.Username)" queryParamsHandling="merge">
                         <span class="text-grey5">
-            ~{{ globalVars.nanosToUSD(postContent.ProfileEntryResponse.CoinPriceBitCloutNanos, 2) }}
-          </span>
+                          ~{{ globalVars.nanosToUSD(postContent.ProfileEntryResponse.CoinPriceBitCloutNanos, 2) }}
+                        </span>
                         <!-- Buy link -->
                         <span class="buy_bg">Buy</span>
                     </a>

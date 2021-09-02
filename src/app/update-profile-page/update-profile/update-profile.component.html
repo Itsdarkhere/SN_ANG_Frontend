@@ -75,14 +75,14 @@
             class="fs-15px p-10px w-100"
             style="border-radius: 3px"
             rows="4"
-            maxlength="180"
+            maxlength="512"
           ></textarea>
           <div
             *ngIf="profileUpdateErrors.descriptionError"
             [ngClass]="{ 'fc-red': profileUpdateErrors.descriptionError }"
             class="fs-13px font-italic"
           >
-            Description can only be 180 characters
+            Description can only be 512 characters
           </div>
         </div>
 

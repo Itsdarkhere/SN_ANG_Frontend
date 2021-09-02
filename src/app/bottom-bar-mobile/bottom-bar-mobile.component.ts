@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
 import { AppRoutingModule } from '../app-routing.module';
-import { CreatePostComponent } from "../create-post/create-post.component";
+import { CreatePostUploadMintComponent } from "../create-post-upload-mint/create-post-upload-mint.component";
 import { CreateYourNftComponent } from "../create-your-nft/create-your-nft.component";
 import { MintYourNftComponent } from "../mint-your-nft/mint-your-nft.component";
 import { MatDialog } from "@angular/material/dialog";
@@ -20,8 +20,8 @@ export class BottomBarMobileComponent {
   constructor(public globalVars: GlobalVarsService, public dialog: MatDialog) { }
 
   createPost(): void {
-    const dialogRef = this.dialog.open(CreatePostComponent, {
-      width: '420px',
+    const dialogRef = this.dialog.open(CreatePostUploadMintComponent, {
+      width: '620px',
       panelClass: 'popup-modal'
     });
   }

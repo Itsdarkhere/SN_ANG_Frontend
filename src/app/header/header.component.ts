@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AppRoutingModule } from '../app-routing.module';
 import { CreatePostComponent } from '../create-post/create-post.component';
+import { CreatePostUploadMintComponent } from '../create-post-upload-mint/create-post-upload-mint.component';
 import { GlobalVarsService } from '../global-vars.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MintYourNftComponent } from '../mint-your-nft/mint-your-nft.component';
@@ -23,6 +24,13 @@ export class HeaderComponent implements OnInit {
   AppRoutingModule = AppRoutingModule;
 
   constructor(public globalVars: GlobalVarsService, public dialog: MatDialog) { }
+
+  createPostUploadMint(): void {
+    const dialogRef = this.dialog.open(CreatePostUploadMintComponent, {
+      width: '620px',
+      panelClass: 'popup-modal'
+    });
+  }
 
   createPost(): void {
     const dialogRef = this.dialog.open(CreatePostComponent, {

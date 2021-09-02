@@ -132,8 +132,7 @@ EOF
         tags = [
           "internal-proxy.enable=true",
           "internal-proxy.http.routers.bitclout-frontend.rule=Host(`love4src.com`)",
-          "internal-proxy.http.routers.bitclout-frontend.tls=true",
-          "internal-proxy.http.routers.bitclout-frontend.tls.certresolver=astroresolver"
+          "internal-proxy.http.routers.bitclout-frontend.entrypoints=https"
         ]
 
         check {

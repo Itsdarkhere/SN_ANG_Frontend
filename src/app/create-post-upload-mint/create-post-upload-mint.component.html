@@ -3,42 +3,45 @@
         <h1>Mint yout NFT</h1>
     </div>
     <div class="popup-body">
-        <h6 class="font-weight-bold">Upload an image</h6>
         <div class="row no-gutters">
             <div class="col col-8">
+                <h6 class="font-weight-bold">Upload an image</h6>
                 <h6>Your image will be uploaded to Arweave decentralized storage. Max 1GB in size.</h6>
             </div>
             <div class="col col-4 align-self-center text-right">
-              <a class="btn-modal" href="#">Upload image</a>  
+                <input #imageUploadInput class="d-none" type="file" accept="image/*" (change)="_handleFilesInput($event.target.files)" />
+                <button *ngIf="(isUploading && !isUploaded)" class="btn-modal">Uploading <i class="fa fa-spinner fa-spin"></i></button>  
+                <img id="imagePreview" *ngIf="isUploaded" src="{{this.postImageSrc}}" />
+                <button *ngIf="!(isUploading || isUploaded)" class="btn-modal" (click)="imageUploadInput.click()">Upload image</button>  
             </div>
         </div>
         
         <h6 class="font-weight-bold">Description</h6>
         <h6>Write a {{ GlobalVarsService.MAX_POST_LENGTH }} charactor caption for your NFT.</h6>
-        <textarea [(ngModel)]="postInput" rows="3" matInput placeholder="Enter the description of the NFT..."></textarea>
+        <textarea [(ngModel)]="postDescription" rows="3" matInput placeholder="Enter the description of the NFT..."></textarea>
 
         <h6 class="font-weight-bold">Minimum price</h6>
         <h6>The lowest price you'd be willing to accept.</h6>
         <div class="input-with-span">
-            <input matInput placeholder="Enter the NFT price...">
+            <input [(ngModel)]="postMinPrice" matInput placeholder="Enter the NFT price...">
             <span>$CLOUT</span>
         </div>
 
         <h6 class="font-weight-bold">Creator royalty</h6>
         <h6>Royalty you get everytime the NFT is sold.</h6>
         <div class="input-with-span">
-            <input matInput placeholder="Enter your royalty...">
+            <input [(ngModel)]="postCreatorRoyalty" matInput placeholder="Enter your royalty...">
             <span>%</span>
         </div>
 
         <h6 class="font-weight-bold">Coin Holder Royalty</h6>
         <h6>Royalty allocated to your Creator Coin.</h6>
         <div class="input-with-span">
-            <input matInput placeholder="Enter coin holders royalty...">
+            <input [(ngModel)]="postHoldersRoyalty" matInput placeholder="Enter coin holders royalty...">
             <span>%</span>
         </div>
     </div>
     <div class="popup-footer">
-        <button [disabled]="(isSubmitPress || (postImageSrc === null && postImageSrc === '') || postInput === '')" class="btn btn-post" (click)="_createPost()">Mint your NFT <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i></button>
+        <button [disabled]="(isSubmitPress || !this.isPostReady())" class="btn btn-post" (click)="_createPost()">Mint your NFT <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i></button>
     </div>
 </div>

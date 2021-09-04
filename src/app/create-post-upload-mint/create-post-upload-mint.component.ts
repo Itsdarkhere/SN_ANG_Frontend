@@ -3,11 +3,8 @@ import { GlobalVarsService } from "../global-vars.service";
 import { BackendApiService, PostEntryResponse } from "../backend-api.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { SharedDialogs } from "../../lib/shared-dialogs";
-import { CdkTextareaAutosize } from "@angular/cdk/text-field";
-import { EmbedUrlParserService } from "../../lib/services/embed-url-parser-service/embed-url-parser-service";
-import { environment } from "../../environments/environment";
+import { ArweaveJsService } from "../arweave-js.service";
 import { MatDialogRef } from "@angular/material/dialog";
-import Arweave from 'arweave';
 
 @Component({
   selector: 'app-create-post-upload-mint',
@@ -15,35 +12,29 @@ import Arweave from 'arweave';
   styleUrls: ['./create-post-upload-mint.component.scss']
 })
 export class CreatePostUploadMintComponent implements OnInit {
-  static arweave = Arweave.init({
-      host: '127.0.0.1',
-      port: 1984,
-      protocol: 'http'
-  });
-
-  static SHOW_POST_LENGTH_WARNING_THRESHOLD = 512;
-
-  EmbedUrlParserService = EmbedUrlParserService;
-
-  @Input() postRefreshFunc: any = null;
-  @Input() numberOfRowsInTextArea: number = 2;
-
-  @ViewChild("autosize") autosize: CdkTextareaAutosize;
-
-  submittingPost = false;
-  postInput = "";
-  postImageSrc = null;
-
-  showEmbedURL = false;
-  showImageLink = false;
-  embedURL = "";
-  constructedEmbedURL: any;
-  // Emits a PostEntryResponse. It would be better if this were typed.
+  
   @Output() postCreated = new EventEmitter();
 
   globalVars: GlobalVarsService;
   GlobalVarsService = GlobalVarsService;
-  isSubmitPress: boolean = false;
+
+  isUploading = false;
+  isUploaded = false;
+
+  isSubmitPress = false;
+  submittingPost = false;
+  submittingPhase = 0;
+
+  postImageSrc = "";
+  postDescription = "";
+  postMinPrice = null;
+  postCreatorRoyalty = null;
+  postHoldersRoyalty = null;
+
+  postHashHex = "";
+
+  private arweave: ArweaveJsService;
+  
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -53,124 +44,79 @@ export class CreatePostUploadMintComponent implements OnInit {
     private diaref: MatDialogRef<CreatePostUploadMintComponent>
   ) {
     this.globalVars = appData;
+    this.arweave = new ArweaveJsService(this.globalVars);
   }
 
   ngOnInit() {
-
+    
   }
 
-  onPaste(event: any): void {
-    const items = (event.clipboardData || event.originalEvent.clipboardData).items;
-    let blob = null;
-
-    for (const item of items) {
-      if (item.type.indexOf("image") === 0) {
-        blob = item.getAsFile();
-      }
-    }
-
-    if (blob) {
-      this._handleFileInput(blob);
-    }
+  mintNFT() {    
+    this.backendApi
+      .CreateNft(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        this.postHashHex,
+        1, // number of copies
+        Math.trunc(parseFloat(String(this.postCreatorRoyalty)) * 100),
+        Math.trunc(parseFloat(String(this.postHoldersRoyalty)) * 100),
+        false, // include unlockable
+        true, // put on sale
+        Math.trunc(parseFloat(String(this.postMinPrice)) * 1e9),
+        this.globalVars.defaultFeeRateNanosPerKB
+      )
+      .subscribe(
+        (res) => {
+          this.globalVars.updateEverything(res.TxnHashHex, this.mintNFTSuccess, this.mintNFTFailure, this);
+        },
+        (err) => {
+          this.globalVars._alertError(err.error.error);
+          this.router.navigate(["/" + this.globalVars.RouteNames.POSTS + "/" + this.postHashHex]);
+          this.diaref.close();
+        }
+      );
   }
 
-  uploadFile(event: any): void {
-    this._handleFileInput(event[0]);
+  mintNFTSuccess(comp: CreatePostUploadMintComponent) {
+    comp.router.navigate(["/" + comp.globalVars.RouteNames.NFT + "/" + comp.postHashHex]);
+    comp.diaref.close();
   }
 
-  showCharacterCountIsFine() {
-    return this.postInput.length < CreatePostUploadMintComponent.SHOW_POST_LENGTH_WARNING_THRESHOLD;
-  }
-
-  showCharacterCountWarning() {
-    return (
-      this.postInput.length >= CreatePostUploadMintComponent.SHOW_POST_LENGTH_WARNING_THRESHOLD &&
-      this.postInput.length <= GlobalVarsService.MAX_POST_LENGTH
-    );
-  }
-
-  characterCountExceedsMaxLength() {
-    return this.postInput.length > GlobalVarsService.MAX_POST_LENGTH;
-  }
-
-  setEmbedURL() {
-    EmbedUrlParserService.getEmbedURL(this.backendApi, this.globalVars, this.embedURL).subscribe(
-      (res) => (this.constructedEmbedURL = res)
-    );
+  mintNFTFailure(comp: CreatePostUploadMintComponent) {
+    comp.globalVars._alertError("Your post has been created, but the minting failed. Please mint it manually.");
+    comp.router.navigate(["/" + comp.globalVars.RouteNames.POSTS + "/" + comp.postHashHex]);
+    comp.diaref.close();
   }
 
   submitPost() {
+    if (this.isSubmitPress) return;
+    if (!this.isPostReady()) return;
+
     this.isSubmitPress = true;
-    if (this.postInput.length > GlobalVarsService.MAX_POST_LENGTH) {
-      return;
-    }
-
-    // post can't be blank
-    if (this.postInput.length === 0 && !this.postImageSrc) {
-      return;
-    }
-
-    if (this.submittingPost) {
-      return;
-    }
-
-    const postExtraData = {};
-    if (this.embedURL) {
-      if (EmbedUrlParserService.isValidEmbedURL(this.constructedEmbedURL)) {
-        postExtraData["EmbedVideoURL"] = this.constructedEmbedURL;
-      }
-    }
 
     const bodyObj = {
-      Body: this.postInput,
+      Body: this.postDescription,
       ImageURLs: [this.postImageSrc].filter((n) => n),
     };
     
-    this.submittingPost = true;
-
     this.backendApi
       .SubmitPost(
-        this.globalVars.localNode,
-        this.globalVars.loggedInUser.PublicKeyBase58Check,
-        "" /*PostHashHexToModify*/,
-        "" /*ParentPostHashHex*/,
-        "" /*Title*/,
-        bodyObj /*BodyObj*/,
-        "",
-        postExtraData,
-        "" /*Sub*/,
-        // TODO: Should we have different values for creator basis points and stake multiple?
-        // TODO: Also, it may not be reasonable to allow stake multiple to be set in the FE.
-        false /*IsHidden*/,
+        this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check,
+        "", "", "" /*Title*/, bodyObj /*BodyObj*/, "", {}, "", false /*IsHidden*/,
         this.globalVars.defaultFeeRateNanosPerKB /*MinFeeRateNanosPerKB*/
       )
       .subscribe(
         (response) => {
           this.globalVars.logEvent(`post : create`);
+          this.postHashHex = response.PostEntryResponse.PostHashHex;
 
-          this.submittingPost = false;
-
-          this.postInput = "";
-          this.postImageSrc = null;
-          this.embedURL = "";
-          this.constructedEmbedURL = "";
-          this.changeRef.detectChanges();
-
-          // Refresh the post page.
-          if (this.postRefreshFunc) {
-            this.postRefreshFunc(response.PostEntryResponse);
-          }
-
-          this.postCreated.emit(response.PostEntryResponse);
-          this.isSubmitPress = false;
-          this.diaref.close();
+          this.mintNFT();
         },
         (err) => {
           const parsedError = this.backendApi.parsePostError(err);
           this.globalVars._alertError(parsedError);
           this.globalVars.logEvent(`post : create : error`, { parsedError });
           this.isSubmitPress = false;
-          this.submittingPost = false;
           this.changeRef.detectChanges();
         }
       );
@@ -191,34 +137,83 @@ export class CreatePostUploadMintComponent implements OnInit {
       return;
     }
 
-    // The user has an account and a profile. Let's create a post.
+    // Check if the user's profile is verified
+    if (!this.globalVars.loggedInUser.ProfileEntryResponse?.IsVerified) {
+      this.globalVars.logEvent("alert : post : no-verification");
+      console.log("Verification is required to use this dialog");
+      return;
+    }
+
     this.submitPost();
   }
 
   _handleFilesInput(files: FileList) {
-    this.showImageLink = false;
     const fileToUpload = files.item(0);
-    this._handleFileInput(fileToUpload);
+    this.handleFileInput(fileToUpload);
   }
 
-  _handleFileInput(file: File) {
+  handleFileInput(file: File) {
+    if (false && !this.globalVars.loggedInUser.ProfileEntryResponse?.IsVerified) {
+      this.globalVars._alertError("You need to be verified to upload images.");
+      return;
+    }
+
     if (!file.type || !file.type.startsWith("image/")) {
       this.globalVars._alertError("File selected does not have an image file type.");
       return;
     }
-    if (file.size > 15 * (1024 * 1024)) {
-      this.globalVars._alertError("File is too large. Please choose a file less than 15MB");
+    if (file.size > 1024 * 1024 * 1024) {
+      this.globalVars._alertError("File is too large. Please choose a file of a size less than 1GB");
       return;
     }
-    this.backendApi
-      .UploadImage(environment.uploadImageHostname, this.globalVars.loggedInUser.PublicKeyBase58Check, file)
+
+    this.isUploading = true;
+
+    this.arweave
+      .UploadImage(file)
       .subscribe(
         (res) => {
-          this.postImageSrc = res.ImageURL;
+          this.postImageSrc = res;
+          this.isUploading = false;
+          this.isUploaded = (this.postImageSrc.length > 0);
         },
         (err) => {
-          this.globalVars._alertError(JSON.stringify(err.error.error));
+          this.isUploading = false;
+          this.isUploaded = false;
+          this.globalVars._alertError("Failed to upload image to arweave: " + err.error.error);
         }
       );
+  }
+
+  isPostReady() {
+    return (this.isUploaded && (this.postImageSrc.length > 0) && this.isDescribed() && this.isPriced());
+  }
+
+  isDescribed() {
+    return ((this.postDescription.length > 0) && (this.postDescription.length <= GlobalVarsService.MAX_POST_LENGTH));
+  }
+
+  isPriced() {
+    return (this.isPostMinPriceCorrect() && this.isPostRoyaltyCorrect());
+  }
+
+  isPostMinPriceCorrect() {
+    return (this.isNumber(this.postMinPrice) && this.postMinPrice >= 0);
+  }
+
+  isPostRoyaltyCorrect() {
+    return (this.isPostCreatorRoyaltyCorrect() && this.isPostHoldersRoyaltyCorrect() && ((parseFloat(String(this.postCreatorRoyalty)) + parseFloat(String(this.postHoldersRoyalty))) <= 100));
+  }
+
+  isPostCreatorRoyaltyCorrect() {
+    return (this.isNumber(this.postCreatorRoyalty) && (this.postCreatorRoyalty >= 0) && (this.postCreatorRoyalty <= 100));
+  }
+
+  isPostHoldersRoyaltyCorrect() {
+    return (this.isNumber(this.postHoldersRoyalty) && (this.postHoldersRoyalty >= 0) && (this.postHoldersRoyalty <= 100));
+  }
+
+  isNumber(n: string | number): boolean {
+    return !isNaN(parseFloat(String(n))) && isFinite(Number(n));
   }
 }

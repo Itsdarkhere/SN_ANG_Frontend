@@ -3,6 +3,7 @@
   "compilerOptions": {
     "downlevelIteration": true,
     "skipLibCheck": true,
+    "esModuleInterop": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

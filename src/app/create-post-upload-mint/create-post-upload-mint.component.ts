@@ -7,6 +7,7 @@ import { CdkTextareaAutosize } from "@angular/cdk/text-field";
 import { EmbedUrlParserService } from "../../lib/services/embed-url-parser-service/embed-url-parser-service";
 import { environment } from "../../environments/environment";
 import { MatDialogRef } from "@angular/material/dialog";
+import Arweave from 'arweave';
 
 @Component({
   selector: 'app-create-post-upload-mint',
@@ -14,6 +15,12 @@ import { MatDialogRef } from "@angular/material/dialog";
   styleUrls: ['./create-post-upload-mint.component.scss']
 })
 export class CreatePostUploadMintComponent implements OnInit {
+  static arweave = Arweave.init({
+      host: '127.0.0.1',
+      port: 1984,
+      protocol: 'http'
+  });
+
   static SHOW_POST_LENGTH_WARNING_THRESHOLD = 512;
 
   EmbedUrlParserService = EmbedUrlParserService;

@@ -2,8 +2,9 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    padding: 20px 10px;
+    padding: 20px 0;
     flex-direction: column;
+    max-width: 702px;
     @media (max-width: 767px) {
         padding: 90px 20px 20px 20px;
         flex-wrap: wrap;
@@ -35,12 +36,18 @@
         padding: 0;
         @media (max-width: 767px) {
             width: 100%;
-            padding: 20px 0 0 0
+            padding: 10px 0 0 0
         }
         h5 {
             display: flex;
             align-items: center;
             font-weight: bold;
+            &.usr_nm {
+                @media (max-width: 767px) {
+                    font-size: 22px;
+                    color: var(--link);
+                }
+            }
         }
         .followers-row {
             display: flex;
@@ -48,6 +55,10 @@
             justify-content: flex-start;
             margin-top: 20px;
             margin-right: 20px;
+            @media (max-width: 767px) {
+                margin-bottom: 15px;
+                margin-right: 0;
+            }
             div {
                 margin-right: 20px;
                 h6 {
@@ -55,14 +66,15 @@
                     font-weight: bold;
                     margin-bottom: 5px;
                     @media (max-width: 767px) {
-                        font-size: 12px;
+                        font-size: 16px;
+                        margin-bottom: 10px;
                     }
                 }
                 h5 {
                     font-size: 24px;
                     font-weight: bold;
                     @media (max-width: 767px) {
-                        font-size: 16px;
+                        font-size: 18px;
                     }
                 }
             }
@@ -87,11 +99,9 @@
                 }
             }
             .follow_ellips {
-                @media (max-width: 767px) {
-                    order: 5;
-                    margin-left: 15px;
-                    padding-right: 0;
-                }
+                order: 5;
+                margin-left: 15px;
+                padding-right: 0;
             }
         }
         .founder-reward-text {
@@ -99,11 +109,11 @@
         }
     }
     .bio-cover {
-        width: calc(100% - 600px);
+        width: 100%;
         padding-top: 20px;
         @media (max-width: 767px) {
             width: 100%;
-            padding-top: 20px;
+            padding-top: 30px;
         }
         h6 {
             font-weight: bold;
@@ -113,6 +123,13 @@
         p {
             font-size: 12px;
             line-height: 1.4;
+        }
+    }
+    .link-to-website {
+        margin: 30px 0 0 0;
+        font-size: 12px;
+        a:hover {
+            text-decoration: underline;
         }
     }
 }

@@ -105,7 +105,7 @@ export class PostThreadComponent {
         startIndex: 0,
         minIndex: 0,
         bufferSize: 10,
-        windowViewport: true,
+        windowViewport: false,
         infinite: true,
       },
     });

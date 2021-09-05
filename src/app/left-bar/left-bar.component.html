@@ -28,8 +28,12 @@
 
             <div class="pt-15px"></div>
 
-            <left-bar-button [link]="homeLink()" [buttonLabel]="'Feed'" [imgSrc]="'assets/icons/feed-icon.svg'">
-            </left-bar-button>
+            <!-- <left-bar-button [routerLink]="AppRoutingModule.profilePath(globalVars?.loggedInUser?.ProfileEntryResponse?.Username)" [buttonLabel]="'Profile'" [imgSrc]="'assets/icons/feed-icon.svg'"></left-bar-button>
+
+            <left-bar-button [routerLink]="'/' + globalVars.RouteNames.INBOX_PREFIX" [buttonLabel]="'Messages'" [imgSrc]="'assets/icons/chat-plane-icon.svg'"></left-bar-button> -->
+
+
+            <left-bar-button [link]="homeLink()" [buttonLabel]="'Feed'" [imgSrc]="'assets/icons/feed-icon.svg'"></left-bar-button>
 
             <left-bar-button [link]="'/' + globalVars.RouteNames.TRENDS" [buttonLabel]="'Marketplace'" [imgSrc]="'assets/icons/marketplace-icon.svg'"></left-bar-button>
 
@@ -60,9 +64,9 @@
 
             <!-- <div class="p-15px"></div> -->
 
-            <div class="w-100 d-flex left-bar-button" *ngIf="globalVars.supportEmail" (click)="logHelp()">
+            <div class="w-100 d-flex left-bar-button">
                 <!-- <a class="left-bar__dot-inactive" [href]="getHelpMailToAttr()" target="_blank">·</a> -->
-                <a class="cursor-pointer fs-15px text-grey5" [href]="getHelpMailToAttr()" target="_blank">
+                <a class="cursor-pointer fs-15px text-grey5" href="https://intercom.help/supernovas/en" target="_blank">
                     <div class="icon-cover">
                         <img src="assets/icons/support-icon.svg" />
                     </div>
@@ -115,13 +119,13 @@
             <div class="pt-15px"></div>
 
             <!-- Left Bar Buttons -->
-            <left-bar-button [link]="homeLink()" [buttonLabel]="'Home'"></left-bar-button>
+            <left-bar-button [link]="homeLink()" [buttonLabel]="'Feed'"></left-bar-button>
 
-            <left-bar-button [link]="'/' + globalVars.RouteNames.CREATORS" [buttonLabel]="'Buy Creator Coins'">
+            <!-- <left-bar-button [link]="'/' + globalVars.RouteNames.CREATORS" [buttonLabel]="'Buy Creator Coins'">
             </left-bar-button>
 
             <left-bar-button [link]="'/' + globalVars.RouteNames.BUY_BITCLOUT" [buttonLabel]="'Buy $CLOUT'">
-            </left-bar-button>
+            </left-bar-button> -->
         </div>
     </div>
 </div>

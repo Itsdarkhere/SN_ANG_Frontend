@@ -19,6 +19,9 @@ import { CloseNftAuctionModalComponent } from "../../close-nft-auction-modal/clo
 import { Subscription } from "rxjs";
 import { AddUnlockableModalComponent } from "../../add-unlockable-modal/add-unlockable-modal.component";
 import { FeedPostComponent } from "../../feed/feed-post/feed-post.component";
+import { RecloutsModalComponent } from "src/app/reclouts-modal/reclouts-modal.component";
+import { SharedDialogs } from "src/lib/shared-dialogs";
+import { CommentModalComponent } from "src/app/comment-modal/comment-modal.component";
 
 @Component({
   selector: "nft-post",
@@ -322,6 +325,7 @@ export class NftPostComponent {
   }
 
   _handleTabClick(tabName: string): void {
+    console.log(tabName);
     this.activeTab = tabName;
     this.showBidsView =
       tabName === NftPostComponent.ALL_BIDS ||
@@ -501,5 +505,40 @@ export class NftPostComponent {
     this.nftPost.CommentCount += 1;
     setTimeout(() => (this.reloadingThread = true));
     setTimeout(() => (this.reloadingThread = false));
+  }
+  openRecloutsModal(event, isQuote: boolean = false): void {
+    // Prevent the post navigation click from occurring.
+    event.stopPropagation();
+
+    if (!this.globalVars.loggedInUser) {
+      // Check if the user has an account.
+      this.globalVars.logEvent("alert : reply : account");
+      SharedDialogs.showCreateAccountToPostDialog(this.globalVars);
+    } else if (!this.globalVars.doesLoggedInUserHaveProfile()) {
+      // Check if the user has a profile.
+      this.globalVars.logEvent("alert : reply : profile");
+      SharedDialogs.showCreateProfileToPostDialog(this.router);
+    } else {
+      const initialState = {
+        // If we are quoting a post, make sure we pass the content so we don't reclout a reclout.
+        parentPost: this.nftPost,
+        afterCommentCreatedCallback: this.prependPostToFeed.bind(this),
+        isQuote,
+      };
+
+      // If the user has an account and a profile, open the modal so they can comment.
+      this.modalService.show(CommentModalComponent, {
+        class: "modal-dialog-centered",
+        initialState,
+      });
+    }
+  }
+  
+  // prependPostToFeed(postEntryResponse) {
+  //   NftPostComponent.prependPostToFeed(this.refreshPosts(), postEntryResponse);
+  // }
+
+  prependPostToFeed(postEntryResponse) {
+    this.refreshPosts();
   }
 }

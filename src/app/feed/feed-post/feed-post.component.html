@@ -12,7 +12,7 @@
      - feed-create-comment-form component (i.e. create comment view)
 
      - market-feed component -->
-<div class="d-flex flex-column" [ngClass]="{
+<div class="d-flex flex-column mobile_feed_post" [ngClass]="{
        'br-12px': setBorder || cardStyle,
        'm-15px': cardStyle && !isQuotedContent,
        'js-feed-post-hover': hoverable,
@@ -98,7 +98,7 @@
                     </div>
 
                     <!-- Main Content -->
-                    <div class="w-100">
+                    <div class="w-100 nft_feed_post_bx">
                         <div class="d-flex align-items-center">
                             <!-- Username-->
                             <a class="fc-default font-weight-bold" [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, postContent.ProfileEntryResponse.Username]" queryParamsHandling="merge">
@@ -195,7 +195,7 @@
            about the interactions with that thread.  TODO: We should probably break the
            "main" post in a thread into it's own file so it can have more custom styling
            with less code complexity.-->
-            <div class="feed-post__blue-border px-30px pb-5px" *ngIf="showInteractionDetails">
+            <div class="feed-post__blue-border nft_details_relout px-30px pb-5px" *ngIf="showInteractionDetails">
                 <div class="container w-100 p-0px">
                     <!-- DESKTOP -->
                     <div class="row no-gutters d-none d-lg-block py-10px fs-15px border-top border-bottom border-color-light-grey cursor-pointer">
@@ -237,7 +237,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="showInteractionDetails" class="feed-post__container d-flex justify-content-left w-100" [ngClass]="{
+            <div *ngIf="showInteractionDetails" class="feed-post__container nft_details_comment d-flex justify-content-left w-100" [ngClass]="{
              'px-15px': includePaddingOnPost,
              'pb-15px': includePaddingOnPost,
              'feed-post__blue-border': showLeftSelectedBorder,

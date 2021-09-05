@@ -20,7 +20,7 @@
                     [afterCommentCreatedCallback]="incrementCommentCounter.bind(this)" [isNFTDetail]="true" [showNFTOwnerInfo]="hightestBidOwner" (userBlocked)="afterUserBlocked($event)" (nftBidPlaced)="afterNftBidPlaced($event)"></feed-post>
             </div>
         </div>
-        <div class="nft_bx linebx">
+        <div class="nft_bx">
             <h3 class="hdb">All Bids</h3>
             <simple-center-loader *ngIf="refreshingBids"></simple-center-loader>
             <!-- <div class="bids_list_sec">
@@ -251,7 +251,7 @@
                 </div>
                 <post-thread [hideHeader]="true" [hideCurrentPost]="!nftPost.ParentStakeID" *ngIf="nftPost.CommentCount || nftPost.ParentStakeID"></post-thread>
             </div>
-
+            <button type="button" class="add_comment_btn" (click)="openRecloutsModal($event)"><i>+</i> Comment</button>
         </div>
     </div>
 

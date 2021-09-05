@@ -79,5 +79,10 @@ export class HeaderComponent implements OnInit {
       return "/" + this.globalVars.RouteNames.BROWSE;
     }
   }
-
+  closeDropdown(){
+    this.isNotificationOpen = false;
+  }
+  clickOutside(){
+    this.isNotificationOpen = false;
+  }
 }

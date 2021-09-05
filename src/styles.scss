@@ -1727,7 +1727,7 @@ input.bs-timepicker-field {
 }
 
 .feed-post-icon-row__icon {
-    font-size: 16px;
+    font-size: 18px;
     border-radius: 50%;
     &:hover {
         background-color: var(--secondary);
@@ -3907,6 +3907,11 @@ option {
             .js-feed-post-hover {
                 background-color: transparent !important;
             }
+            .feed-post__image-container {
+                border-radius: 3px !important;
+                margin: 0;
+                max-width: 435px;
+            }
         }
         .feed-max-width-name {
             max-width: 140px;
@@ -4069,6 +4074,10 @@ option {
             background: var(--background);
             border: 0;
             padding: 30px 30px;
+            min-height: 550px;
+            @media screen and (max-width: 767px) {
+                min-height: auto;
+            }
             .nft_bid_header {
                 flex-wrap: wrap;
                 .head_txt {
@@ -4142,3 +4151,81 @@ option {
 //         height: 480px;
 //     }
 // }
+.js-app-component__dynamically-added-router-link-class {
+    background: #2749f0;
+    background: linear-gradient( 45deg, #ec5454 -4%, #f51ac1 4%, #2749f0 94%, #593eb7 69%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.m_inner_wrapper {
+    width: 1205px;
+    max-width: 100%;
+    display: flex;
+    margin: 0 auto;
+}
+
+.post-thread-wrapper {
+    max-width: 702px;
+    @media screen and (max-width: 767px) {
+        padding-bottom: 100px;
+    }
+    .global__top-bar {
+        max-width: 702px !important;
+    }
+}
+
+.mobile_feed_post {
+    @media screen and (max-width: 767px) {
+        margin: 10px 0 !important;
+    }
+}
+
+.feed-post__quoted-content {
+    @media screen and (max-width: 767px) {
+        margin: 10px 0 !important;
+    }
+}
+
+.nft_feed_post_wt_design {
+    .nft_details_comment,
+    .nft_details_relout {
+        display: none !important;
+    }
+    .nft_feed_post_bx {
+        min-height: 200px;
+    }
+}
+
+.add_comment_btn {
+    border: 2px solid var(--button);
+    background: var(--background);
+    min-width: 100px;
+    margin: 20px auto;
+    display: flex;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 2px 12px;
+    border-radius: 3px;
+    align-items: center;
+    i {
+        font-size: 18px;
+        font-weight: normal;
+        font-style: normal;
+        margin-right: 5px;
+    }
+}
+
+.bg_notification::before {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    content: '';
+    background: rgb(0 0 0 / 20%);
+    z-index: 1;
+    @media screen and (max-width: 767px) {
+        display: none;
+    }
+}

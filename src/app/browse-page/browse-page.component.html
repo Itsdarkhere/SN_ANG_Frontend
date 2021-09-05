@@ -2,17 +2,19 @@
 <app-header></app-header>
 
 <div *ngIf="!mobile" class="global__desktop">
-    <left-bar></left-bar>
-    <div class="global__content__flex">
-        <div class="global__center__width feed-cover">
-            <feed></feed>
-        </div>
-        <div class="global__sidebar__width" *ngIf="!mobile && !hideSidebar">
-            <!-- <right-bar-creators class="global__sidebar__fixed"></right-bar-creators> -->
-        </div>
-        <!-- <div class="global__sidebar__width">
+    <div class="m_inner_wrapper">
+        <left-bar></left-bar>
+        <div class="global__content__flex">
+            <div class="global__center__width feed-cover">
+                <feed></feed>
+            </div>
+            <div class="global__sidebar__width" *ngIf="!mobile && !hideSidebar">
+                <!-- <right-bar-creators class="global__sidebar__fixed"></right-bar-creators> -->
+            </div>
+            <!-- <div class="global__sidebar__width">
             <right-bar-creators class="global__sidebar__fixed"></right-bar-creators>
         </div> -->
+        </div>
     </div>
 </div>
 

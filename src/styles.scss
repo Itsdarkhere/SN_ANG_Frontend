@@ -1727,7 +1727,7 @@ input.bs-timepicker-field {
 }
 
 .feed-post-icon-row__icon {
-    font-size: 16px;
+    font-size: 18px;
     border-radius: 50%;
     &:hover {
         background-color: var(--secondary);
@@ -4069,6 +4069,10 @@ option {
             background: var(--background);
             border: 0;
             padding: 30px 30px;
+            min-height: 550px;
+            @media screen and (max-width: 767px) {
+                min-height: auto;
+            }
             .nft_bid_header {
                 flex-wrap: wrap;
                 .head_txt {
@@ -4142,3 +4146,9 @@ option {
 //         height: 480px;
 //     }
 // }
+.js-app-component__dynamically-added-router-link-class {
+    background: #2749f0;
+    background: linear-gradient( 45deg, #ec5454 -4%, #f51ac1 4%, #2749f0 94%, #593eb7 69%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

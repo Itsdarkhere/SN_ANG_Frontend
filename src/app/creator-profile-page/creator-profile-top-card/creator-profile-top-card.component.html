@@ -14,11 +14,11 @@
         </h5>
         <div class="followers_inline_row">
             <div class="followers-row">
-                <div>
+                <div class="cursor-pointer" *ngIf="followerCount != null" [routerLink]="AppRoutingModule.userFollowersPath(profile.Username)" queryParamsHandling="merge">
                     <h6>FOLLOWERS</h6>
                     <h5>{{ followerCount }}</h5>
                 </div>
-                <div>
+                <div class="cursor-pointer" *ngIf="followingCount != null" [routerLink]="AppRoutingModule.userFollowingPath(profile.Username)" queryParamsHandling="merge">
                     <h6>FOLLOWING</h6>
                     <h5>{{ followingCount }}</h5>
                 </div>

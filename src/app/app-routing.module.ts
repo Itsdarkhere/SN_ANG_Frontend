@@ -65,7 +65,7 @@ class RouteNames {
   public static GET_STARTER_BITCLOUT = "get-starter-bitclout";
   public static LANDING = "/";
   public static DIAMONDS = "diamonds";
-  public static TRENDS = "trends";
+  public static TRENDS = "marketplace";
   public static NFT = "nft";
   public static VERIFY_EMAIL = "verify-email";
 }

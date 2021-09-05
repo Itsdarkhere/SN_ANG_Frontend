@@ -1,77 +1,78 @@
 <header>
-    <div class="logo-cover global__tooltip-icon" [routerLink]="homeLink()">
-        <img src="assets/img/l4s_logo.svg" class="clout" alt="">
-    </div>
-    <div class="search-bar-cover" [class.active-mobile]="isSearchOpen">
-        <search-bar></search-bar>
-    </div>
-    <div class="right-portion">
-        <ul class="right-side-options for-mobile">
-            <li class="single-option">
-                <img src="assets/icons/search-icon-mobile.svg" class="clout" alt="" (click)="showSearchBar()" *ngIf="!isSearchOpen">
-                <i class="icon-close" *ngIf="isSearchOpen" (click)="showSearchBar()" title="Close search"></i>
-            </li>
-            <li class="single-option">
-                <img src="assets/icons/chat-plane-icon.svg" title="Chat" [routerLink]="'/' + globalVars.RouteNames.INBOX_PREFIX" />
-            </li>
-            <li class="single-option" (click)="globalVars.isLeftBarMobileOpen = true">
-                <img src="assets/icons/hamburger-icon.svg" class="clout" alt="">
-            </li>
-        </ul>
-        <ul class="right-side-options menu-options-list">
-            <li class="single-option">
-                <!-- <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button> -->
-                <button class="btn btn-create clout" (click)="createPost()" *ngIf="globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified">Create</button>
-                <!-- <button class="btn btn-create clout" (click)="createPost()">Create</button> -->
-                <mat-menu #createMenu="matMenu" xPosition="before">
-                    <div class="create-menu-cover">
-
-                        <button mat-menu-item (click)="mintYourNFT()">
+    <div class="header_golal_wrapper">
+        <div class="logo-cover global__tooltip-icon" [routerLink]="homeLink()">
+            <img src="assets/img/l4s_logo.svg" class="clout" alt="">
+        </div>
+        <div class="search-bar-cover" [class.active-mobile]="isSearchOpen">
+            <search-bar></search-bar>
+        </div>
+        <div class="right-portion">
+            <ul class="right-side-options for-mobile">
+                <li class="single-option">
+                    <img src="assets/icons/search-icon-mobile.svg" class="clout" alt="" (click)="showSearchBar()" *ngIf="!isSearchOpen">
+                    <i class="icon-close" *ngIf="isSearchOpen" (click)="showSearchBar()" title="Close search"></i>
+                </li>
+                <li class="single-option">
+                    <img src="assets/icons/chat-plane-icon.svg" title="Chat" [routerLink]="'/' + globalVars.RouteNames.INBOX_PREFIX" />
+                </li>
+                <li class="single-option" (click)="globalVars.isLeftBarMobileOpen = true">
+                    <img src="assets/icons/hamburger-icon.svg" class="clout" alt="">
+                </li>
+            </ul>
+            <ul class="right-side-options menu-options-list">
+                <li class="single-option">
+                    <!-- <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button> -->
+                    <button class="btn btn-create clout" (click)="createPost()" *ngIf="globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified">Create</button>
+                    <!-- <button class="btn btn-create clout" (click)="createPost()">Create</button> -->
+                    <mat-menu #createMenu="matMenu" xPosition="before">
+                        <div class="create-menu-cover">
+                            <button mat-menu-item (click)="mintYourNFT()">
                             <div class="icon-cover">
                                 <img src="assets/icons/mint-icon.svg" class="clout" alt="Mint NFT">
                             </div>
                             Mint an NFT
                         </button>
-                        <button mat-menu-item (click)="createYourNFT()">
+                            <button mat-menu-item (click)="createYourNFT()">
                             <div class="icon-cover">
                                 <img src="assets/icons/mint-icon.svg" class="clout" alt="Create NFT">
                             </div>
                             Create your NFT
                         </button>
-                        <button mat-menu-item (click)="createPost()">
+                            <button mat-menu-item (click)="createPost()">
                             <div class="icon-cover">
                                 <img src="assets/icons/create-post-icon.svg" class="clout" alt="Post">
                             </div>
                             Create a Post
                         </button>
-                        <button mat-menu-item (click)="placeBid()">
+                            <button mat-menu-item (click)="placeBid()">
                             <div class="icon-cover">
                                 <img src="assets/icons/create-post-icon.svg" class="clout" alt="Place Bid">
                             </div>
                             Place a Bid
                         </button>
+                        </div>
+                    </mat-menu>
+                </li>
+                <li class="notification-icon-cover single-option">
+                    <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />
+                    <div class="notification-list-cover" *ngIf="isNotificationOpen">
+                        <div class="triangle-up">▲</div>
+                        <div class="header_notification_list_inner">
+                            <app-notifications-list [isNotificationBar]="true"></app-notifications-list>
+                        </div>
+                        <a [routerLink]="'/' + globalVars.RouteNames.NOTIFICATIONS" class="view-all-text text-primary" title="View All Notifications">View All</a>
                     </div>
-                </mat-menu>
-            </li>
-            <li class="notification-icon-cover single-option">
-                <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />
-                <div class="notification-list-cover" *ngIf="isNotificationOpen">
-                    <div class="triangle-up">▲</div>
-                    <div class="header_notification_list_inner">
-                        <app-notifications-list [isNotificationBar]="true"></app-notifications-list>
+
+                </li>
+                <li class="single-option">
+                    <img src="assets/icons/chat-plane-icon.svg" title="Chat" [routerLink]="'/' + globalVars.RouteNames.INBOX_PREFIX" />
+                </li>
+
+                <li class="single-option">
+                    <div class="profile-img" title="My Profile" [routerLink]="AppRoutingModule.profilePath(globalVars?.loggedInUser?.ProfileEntryResponse?.Username)" [avatar]="globalVars.loggedInUser.PublicKeyBase58Check">
                     </div>
-                    <a [routerLink]="'/' + globalVars.RouteNames.NOTIFICATIONS" class="view-all-text text-primary" title="View All Notifications">View All</a>
-                </div>
-
-            </li>
-            <li class="single-option">
-                <img src="assets/icons/chat-plane-icon.svg" title="Chat" [routerLink]="'/' + globalVars.RouteNames.INBOX_PREFIX" />
-            </li>
-
-            <li class="single-option">
-                <div class="profile-img" title="My Profile" [routerLink]="AppRoutingModule.profilePath(globalVars?.loggedInUser?.ProfileEntryResponse?.Username)" [avatar]="globalVars.loggedInUser.PublicKeyBase58Check">
-                </div>
-            </li>
-        </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 </header>

@@ -3,7 +3,7 @@
 
     </div>
     <div class="user-info">
-        <h5 class="bold">
+        <h5 class="bold usr_nm">
             @{{ profile.Username }} &nbsp;
             <ng-container *ngIf="profile.IsReserved && !profile.IsVerified" (click)="tooltip.toggle()" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="'This profile is reserved'" #tooltip="matTooltip">
                 <i class="far fa-clock"></i>
@@ -65,6 +65,9 @@
     <div class="bio-cover">
         <h6>BIO</h6>
         <p>{{profile?.Description }}</p>
+    </div>
+    <div class="link-to-website">
+        Link to website: <a href="#">Website.com</a>
     </div>
 </div>
 

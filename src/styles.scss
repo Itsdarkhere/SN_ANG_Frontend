@@ -4215,3 +4215,14 @@ option {
         margin-right: 5px;
     }
 }
+
+.bg_notification::before {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    content: '';
+    background: rgb(0 0 0 / 20%);
+    z-index: -1;
+}

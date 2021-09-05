@@ -154,6 +154,7 @@ import { CreateYourNftComponent } from './create-your-nft/create-your-nft.compon
 import { MintYourNftComponent } from './mint-your-nft/mint-your-nft.component';
 import { PlaceABidComponent } from './place-a-bid/place-a-bid.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ClickoutsideDirective } from './directives/clickoutside.directive';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -297,6 +298,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     CreateYourNftComponent,
     MintYourNftComponent,
     PlaceABidComponent,
+    ClickoutsideDirective,
   ],
   imports: [
     BrowserModule,

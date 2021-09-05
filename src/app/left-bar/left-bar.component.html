@@ -28,8 +28,12 @@
 
             <div class="pt-15px"></div>
 
-            <left-bar-button [link]="homeLink()" [buttonLabel]="'Feed'" [imgSrc]="'assets/icons/feed-icon.svg'">
-            </left-bar-button>
+            <!-- <left-bar-button [routerLink]="AppRoutingModule.profilePath(globalVars?.loggedInUser?.ProfileEntryResponse?.Username)" [buttonLabel]="'Profile'" [imgSrc]="'assets/icons/feed-icon.svg'"></left-bar-button>
+
+            <left-bar-button [routerLink]="'/' + globalVars.RouteNames.INBOX_PREFIX" [buttonLabel]="'Messages'" [imgSrc]="'assets/icons/chat-plane-icon.svg'"></left-bar-button> -->
+
+
+            <left-bar-button [link]="homeLink()" [buttonLabel]="'Feed'" [imgSrc]="'assets/icons/feed-icon.svg'"></left-bar-button>
 
             <left-bar-button [link]="'/' + globalVars.RouteNames.TRENDS" [buttonLabel]="'Marketplace'" [imgSrc]="'assets/icons/marketplace-icon.svg'"></left-bar-button>
 

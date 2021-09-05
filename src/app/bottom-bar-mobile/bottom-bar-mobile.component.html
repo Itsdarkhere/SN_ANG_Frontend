@@ -4,7 +4,7 @@
             <div class="icon-cover">
                 <img src="assets/icons/feed-icon.svg" alt="">
             </div>
-            <h6>Home</h6>
+            <h6>Feed</h6>
         </bottom-bar-mobile-tab>
 
         <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser" [link]="'/' + globalVars.RouteNames.TRENDS" [buttonLabel]="'Marketplace'">
@@ -62,10 +62,10 @@
           }}
         </div>
       </i> -->
-            <div class="icon-cover" [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse.Username)">
-                <img src="assets/icons/profile-icon.svg" alt="">
+            <div class="icon-cover" (click)="globalVars.isLeftBarMobileOpen = true">
+                <img src="assets/icons/hamburger-icon.svg" class="clout" alt="">
             </div>
-            <h6>Profile</h6>
+            <h6>Menu</h6>
         </bottom-bar-mobile-tab>
     </div>
 

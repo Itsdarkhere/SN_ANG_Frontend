@@ -533,9 +533,11 @@ export class NftPostComponent {
       });
     }
   }
+  
   // prependPostToFeed(postEntryResponse) {
   //   NftPostComponent.prependPostToFeed(this.refreshPosts(), postEntryResponse);
   // }
+
   prependPostToFeed(postEntryResponse) {
     this.refreshPosts();
   }

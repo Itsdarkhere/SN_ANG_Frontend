@@ -21,8 +21,8 @@
         <ul class="right-side-options menu-options-list">
             <li class="single-option">
                 <!-- <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button> -->
-                <button class="btn btn-create clout" (click)="createPost()" *ngIf="globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified">Create</button>
-                <!-- <button class="btn btn-create clout" (click)="createPost()">Create</button> -->
+                <!-- <button class="btn btn-create clout" (click)="createPost()" *ngIf="globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified">Create</button> -->
+                <button class="btn btn-create clout" (click)="placeBid()">Create</button>
                 <mat-menu #createMenu="matMenu" xPosition="before">
                     <div class="create-menu-cover">
 
@@ -53,7 +53,7 @@
                     </div>
                 </mat-menu>
             </li>
-            <li class="notification-icon-cover single-option">
+            <li class="notification-icon-cover single-option" clickOutside (clickOutside)="closeDropdown()">
                 <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />
                 <div class="notification-list-cover" *ngIf="isNotificationOpen">
                     <div class="triangle-up">▲</div>

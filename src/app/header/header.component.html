@@ -1,4 +1,4 @@
-<header>
+<header [class.bg_notification]="isNotificationOpen">
     <div class="header_golal_wrapper">
         <div class="logo-cover global__tooltip-icon" [routerLink]="homeLink()">
             <img src="assets/img/l4s_logo.svg" class="clout" alt="">
@@ -54,7 +54,7 @@
                         </div>
                     </mat-menu>
                 </li>
-                <li class="notification-icon-cover single-option">
+                <li class="notification-icon-cover single-option" (clickOutside)="clickOutside()">
                     <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />
                     <div class="notification-list-cover" *ngIf="isNotificationOpen">
                         <div class="triangle-up">▲</div>

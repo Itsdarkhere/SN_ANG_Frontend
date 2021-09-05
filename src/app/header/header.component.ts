@@ -74,4 +74,7 @@ export class HeaderComponent implements OnInit {
   closeDropdown(){
     this.isNotificationOpen = false;
   }
+  clickOutside(){
+    this.isNotificationOpen = false;
+  }
 }

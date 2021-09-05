@@ -20,6 +20,7 @@ export class CreatePostUploadMintComponent implements OnInit {
 
   isUploading = false;
   isUploaded = false;
+  isUploadConfirmed = false;
 
   isSubmitPress = false;
   submittingPost = false;
@@ -30,6 +31,7 @@ export class CreatePostUploadMintComponent implements OnInit {
   postMinPrice = null;
   postCreatorRoyalty = null;
   postHoldersRoyalty = null;
+  postUnlockable = false;
 
   postHashHex = "";
 
@@ -60,7 +62,7 @@ export class CreatePostUploadMintComponent implements OnInit {
         1, // number of copies
         Math.trunc(parseFloat(String(this.postCreatorRoyalty)) * 100),
         Math.trunc(parseFloat(String(this.postHoldersRoyalty)) * 100),
-        false, // include unlockable
+        this.postUnlockable, // include unlockable
         true, // put on sale
         Math.trunc(parseFloat(String(this.postMinPrice)) * 1e9),
         this.globalVars.defaultFeeRateNanosPerKB
@@ -173,20 +175,29 @@ export class CreatePostUploadMintComponent implements OnInit {
       .UploadImage(file)
       .subscribe(
         (res) => {
-          this.postImageSrc = res;
+          let url = "https://arweave.net/" + res;
+          this.postImageSrc = url;
           this.isUploading = false;
           this.isUploaded = (this.postImageSrc.length > 0);
+          this.arweave.ConfirmTransaction(res).subscribe(
+            (res) => {
+              this.isUploadConfirmed = res;
+            },
+            (err) => {
+              this.isUploadConfirmed = false;
+            }
+          );
         },
         (err) => {
           this.isUploading = false;
           this.isUploaded = false;
-          this.globalVars._alertError("Failed to upload image to arweave: " + err.error.error);
+          this.globalVars._alertError("Failed to upload image to arweave: " + err.message);
         }
       );
   }
 
   isPostReady() {
-    return (this.isUploaded && (this.postImageSrc.length > 0) && this.isDescribed() && this.isPriced());
+    return ((this.isUploading || this.isUploaded) && (this.postImageSrc.length > 0) && this.isDescribed() && this.isPriced());
   }
 
   isDescribed() {

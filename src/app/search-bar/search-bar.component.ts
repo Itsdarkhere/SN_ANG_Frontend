@@ -11,7 +11,8 @@ const DEBOUNCE_TIME_MS = 300;
   templateUrl: "./search-bar.component.html",
   styleUrls: ["./search-bar.component.scss"],
 })
-export class SearchBarComponent implements OnInit, AfterContentChecked {
+export class SearchBarComponent implements OnInit, OnChanges {
+  @Input() focusSearchInput;
   @ViewChild("searchBarRoot", { static: true }) searchBarRoot: ElementRef;
   @ViewChild("searchInput") searchInput: any;
   @Input() isSearchForUsersToMessage: boolean;
@@ -41,16 +42,16 @@ export class SearchBarComponent implements OnInit, AfterContentChecked {
     this.debouncedSearchFunction = _.debounce(this._searchUsernamePrefix.bind(this), DEBOUNCE_TIME_MS);
     console.log('on init')
   }
-  ngAfterContentChecked() {
-    if (!!this.searchInput) {
-      this.searchInput.nativeElement.focus();
-    }
-  }
   ngOnInit() {
     console.log('on init')
     if (this.startingSearchText) {
       this.searchText = this.startingSearchText;
       this._searchUsernamePrefix().add(() => (this.startingSearchText = ""));
+    }
+  }
+  ngOnChanges(){
+    if(this.focusSearchInput){
+      this.searchInput.nativeElement.focus(); 
     }
   }
 

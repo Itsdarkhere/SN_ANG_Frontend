@@ -1,4 +1,4 @@
-<div class="left-bar-button">
+<div class="left-bar-button" [ngClass]="{'d-md-none': forMobile, 'd-lg-none': forMobile, 'd-xl-none': forMobile}">
     <!-- I couldn't get "open in new tab" to work without the "; true" in (click) -->
     <!-- <a (click)="globalVars.isLeftBarMobileOpen = false; (true)" [routerLink]="[link]" [queryParams]="_queryParamsForLink(link)" queryParamsHandling="merge" routerLinkActive #rla="routerLinkActive" [ngClass]="{
       'left-bar__dot-unread': isUnread,

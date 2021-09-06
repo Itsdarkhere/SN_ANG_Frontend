@@ -71,6 +71,7 @@ import { TopBarMobileNavigationControlComponent } from "./top-bar-mobile/top-bar
 import { BottomBarMobileTabComponent } from "./bottom-bar-mobile/bottom-bar-mobile-tab/bottom-bar-mobile-tab.component";
 import { NotFoundComponent } from "./not-found-page/not-found/not-found.component";
 import { CreatePostPageComponent } from "./create-post-page/create-post-page.component";
+import { CreatePostUploadMintComponent } from "./create-post-upload-mint/create-post-upload-mint.component";
 import { CreatePostFormComponent } from "./create-post-page/create-post-form/create-post-form.component";
 import { TopBarMobileLogInOrSignUpComponent } from "./top-bar-mobile/top-bar-mobile-log-in-or-sign-up/top-bar-mobile-log-in-or-sign-up.component";
 import { TopBarMobileHamburgerMenuComponent } from "./top-bar-mobile/top-bar-mobile-hamburger-menu/top-bar-mobile-hamburger-menu.component";
@@ -238,6 +239,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     BottomBarMobileTabComponent,
     NotFoundComponent,
     CreatePostPageComponent,
+    CreatePostUploadMintComponent,
     CreatePostFormComponent,
     TopBarMobileLogInOrSignUpComponent,
     TopBarMobileHamburgerMenuComponent,

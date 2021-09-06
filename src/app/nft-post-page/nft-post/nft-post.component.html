@@ -251,7 +251,7 @@
                 </div>
                 <post-thread [hideHeader]="true" [hideCurrentPost]="!nftPost.ParentStakeID" *ngIf="nftPost.CommentCount || nftPost.ParentStakeID"></post-thread>
             </div>
-            <button type="button" class="add_comment_btn" (click)="openRecloutsModal($event)"><i>+</i> Comment</button>
+            <button type="button" class="add_comment_btn" (click)="openRecloutsModal($event)" *ngIf="!(nftPost.CommentCount || nftPost.ParentStakeID)"><i>+</i> Comment</button>
         </div>
     </div>
 

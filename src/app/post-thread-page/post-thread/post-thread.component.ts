@@ -8,13 +8,16 @@ import { ToastrService } from "ngx-toastr";
 import { Title } from "@angular/platform-browser";
 
 import * as _ from "lodash";
+import { SharedDialogs } from "src/lib/shared-dialogs";
+import { CommentModalComponent } from "src/app/comment-modal/comment-modal.component";
+import { BsModalService } from "ngx-bootstrap/modal";
 
 @Component({
   selector: "post-thread",
   templateUrl: "./post-thread.component.html",
   styleUrls: ["./post-thread.component.scss"],
 })
-export class PostThreadComponent {
+export class PostThreadComponent implements OnInit {
   currentPost;
   currentPostHashHex: string;
   scrollingDisabled = false;
@@ -32,7 +35,8 @@ export class PostThreadComponent {
     private backendApi: BackendApiService,
     private changeRef: ChangeDetectorRef,
     private toastr: ToastrService,
-    private titleService: Title
+    private titleService: Title,
+    private modalService: BsModalService
   ) {
     // This line forces the component to reload when only a url param changes.  Without this, the UiScroll component
     // behaves strangely and can reuse data from a previous post.
@@ -345,5 +349,56 @@ export class PostThreadComponent {
 
   afterUserBlocked(blockedPubKey: any) {
     this.globalVars.loggedInUser.BlockedPubKeys[blockedPubKey] = {};
+  }
+  ngOnInit(){
+    // setTimeout(() => {
+    //   console.log('refresh post...')
+    //   this.refreshPosts();
+    //   this.datasource.adapter.reset();
+    // }, 30000);
+  }
+  openRecloutsModal(event, isQuote: boolean = false): void {
+    // Prevent the post navigation click from occurring.
+    event.stopPropagation();
+
+    if (!this.globalVars.loggedInUser) {
+      // Check if the user has an account.
+      this.globalVars.logEvent("alert : reply : account");
+      SharedDialogs.showCreateAccountToPostDialog(this.globalVars);
+    } else if (!this.globalVars.doesLoggedInUserHaveProfile()) {
+      // Check if the user has a profile.
+      this.globalVars.logEvent("alert : reply : profile");
+      SharedDialogs.showCreateProfileToPostDialog(this.router);
+    } else {
+      const initialState = {
+        // If we are quoting a post, make sure we pass the content so we don't reclout a reclout.
+        parentPost: this.currentPost,
+        afterCommentCreatedCallback: this.prependPostToFeed.bind(this),
+        isQuote,
+      };
+
+      // If the user has an account and a profile, open the modal so they can comment.
+      this.modalService.show(CommentModalComponent, {
+        class: "modal-dialog-centered",
+        initialState,
+      });
+    }
+  }
+  
+  // prependPostToFeed(postEntryResponse) {
+  //   NftPostComponent.prependPostToFeed(this.refreshPosts(), postEntryResponse);
+  // }
+
+  // prependPostToFeed(postEntryResponse) {
+  //   this.refreshPosts();
+  // }
+  static prependPostToFeed(postsToShow, postEntryResponse) {
+    if(postsToShow){
+      postsToShow.unshift(postEntryResponse);
+    }
+  }
+  prependPostToFeed(postEntryResponse) {
+    PostThreadComponent.prependPostToFeed(this.currentPost.Comments, postEntryResponse);
+    this.datasource.adapter.reset();
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ViewChild, ElementRef, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Renderer2, ViewChild, ElementRef, Input, Output, EventEmitter, OnChanges, AfterViewInit, AfterContentChecked } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { BackendApiService, ProfileEntryResponse } from "../backend-api.service";
@@ -11,8 +11,9 @@ const DEBOUNCE_TIME_MS = 300;
   templateUrl: "./search-bar.component.html",
   styleUrls: ["./search-bar.component.scss"],
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent implements OnInit, AfterContentChecked {
   @ViewChild("searchBarRoot", { static: true }) searchBarRoot: ElementRef;
+  @ViewChild("searchInput") searchInput: any;
   @Input() isSearchForUsersToMessage: boolean;
   @Input() showCloutavista: boolean = true;
   @Input() isSearchForUsersToSendClout: boolean;
@@ -38,9 +39,15 @@ export class SearchBarComponent implements OnInit {
     this.selectedCreatorIndex = -1; // -1 represents no creator being selected.
     this._setUpClickOutListener();
     this.debouncedSearchFunction = _.debounce(this._searchUsernamePrefix.bind(this), DEBOUNCE_TIME_MS);
+    console.log('on init')
   }
-
+  ngAfterContentChecked() {
+    if (!!this.searchInput) {
+      this.searchInput.nativeElement.focus();
+    }
+  }
   ngOnInit() {
+    console.log('on init')
     if (this.startingSearchText) {
       this.searchText = this.startingSearchText;
       this._searchUsernamePrefix().add(() => (this.startingSearchText = ""));
@@ -206,15 +213,15 @@ export class SearchBarComponent implements OnInit {
       this.debouncedSearchFunction();
     }
   }
-  
+
   _handleMouseOut(creator: string, index: number) {
-      if (this.creatorSelected === creator) {
-        this.creatorSelected = "";
-      }
-      if (this.selectedCreatorIndex === index) {
-        this.selectedCreatorIndex = -1;
-      }
+    if (this.creatorSelected === creator) {
+      this.creatorSelected = "";
     }
+    if (this.selectedCreatorIndex === index) {
+      this.selectedCreatorIndex = -1;
+    }
+  }
 
   _setUpClickOutListener() {
     this.renderer.listen("window", "click", (e: any) => {

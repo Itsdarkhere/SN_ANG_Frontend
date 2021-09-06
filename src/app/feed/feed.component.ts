@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy, ChangeDetectorRef, AfterViewChecked } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
 import { BackendApiService } from "../backend-api.service";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { tap, finalize, first } from "rxjs/operators";
 import * as _ from "lodash";
@@ -110,6 +110,12 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   ngOnInit() {
+    this.router.events.subscribe(resp=>{
+      if(resp instanceof NavigationEnd){
+        console.log('refreshed');
+        this._loadPosts(true);
+      }
+    })
     this._initializeFeeds();
     this.titleService.setTitle("Feed - Supernovas");
   }

@@ -12,9 +12,9 @@ import { PlaceABidComponent } from "../place-a-bid/place-a-bid.component";
   templateUrl: "./bottom-bar-mobile.component.html",
   styleUrls: ["./bottom-bar-mobile.component.scss"],
 })
-export class BottomBarMobileComponent {
+export class BottomBarMobileComponent implements OnInit {
   @Input() showPostButton = false;
-  
+  lastScrollTop = 0;
   AppRoutingModule = AppRoutingModule;
 
   constructor(public globalVars: GlobalVarsService, public dialog: MatDialog) { }
@@ -45,5 +45,27 @@ export class BottomBarMobileComponent {
       width: '600px',
       panelClass: 'popup-modal'
     });
+  }
+  ngOnInit() {
+    let handle = null;
+    document.onscroll = () => {
+      var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+      if (st > this.lastScrollTop) {
+        if (!document.querySelector('.global__bottom-bar-mobile').classList.contains('scrolled')) {
+          document.querySelector('.global__bottom-bar-mobile').classList.add('scrolled');
+        }
+      } else {
+        if (document.querySelector('.global__bottom-bar-mobile').classList.contains('scrolled')) {
+          document.querySelector('.global__bottom-bar-mobile').classList.remove('scrolled');
+        }
+      }
+      this.lastScrollTop = st <= 0 ? 0 : st;
+      if (handle) {
+        clearTimeout(handle);
+      }
+      handle = setTimeout(()=>{
+        document.querySelector('.global__bottom-bar-mobile').classList.add('scrolled');
+      }, 200); // default 200 ms
+    }
   }
 }

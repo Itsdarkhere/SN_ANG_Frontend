@@ -1104,7 +1104,7 @@ $green-font-color: #19b028;
     z-index: 2;
     position: fixed;
     left: 10px;
-    bottom: 25px;
+    bottom: -200px;
     width: calc(100% - 20px);
     background-color: var(--background);
     height: auto;
@@ -1114,8 +1114,12 @@ $green-font-color: #19b028;
     display: flex;
     min-height: 60px;
     align-items: center;
+    transition: all 1s cubic-bezier(0, 0.57, 0.43, 1.06);
     .page-bottom-bar-mobile {
         width: 100%;
+    }
+    &.scrolled {
+        bottom: 25px;
     }
 }
 

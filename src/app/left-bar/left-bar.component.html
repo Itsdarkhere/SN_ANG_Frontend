@@ -33,9 +33,9 @@
             <left-bar-button [forMobile]="true" [link]="'/' + globalVars.RouteNames.INBOX_PREFIX" [buttonLabel]="'Messages'" [imgSrc]="'assets/icons/message_nv.svg'"></left-bar-button>
 
 
-            <left-bar-button [link]="homeLink()" [buttonLabel]="'Feed'" [imgSrc]="'assets/icons/feed-icon.svg'"></left-bar-button>
+            <left-bar-button [forDesktop]="true" [link]="homeLink()" [buttonLabel]="'Feed'" [imgSrc]="'assets/icons/feed-icon.svg'"></left-bar-button>
 
-            <left-bar-button [link]="'/' + globalVars.RouteNames.TRENDS" [buttonLabel]="'Marketplace'" [imgSrc]="'assets/icons/marketplace-icon.svg'"></left-bar-button>
+            <left-bar-button [forDesktop]="true" [link]="'/' + globalVars.RouteNames.TRENDS" [buttonLabel]="'Marketplace'" [imgSrc]="'assets/icons/marketplace-icon.svg'"></left-bar-button>
 
             <left-bar-button [link]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse?.Username)" [queryParams]="{ 'nftTab': 'my_bids', 'tab': 'nfts' }" [buttonLabel]="'Active bids'" [imgSrc]="'assets/icons/bid-icon.svg'" *ngIf="globalVars.loggedInUser?.ProfileEntryResponse">
             </left-bar-button>

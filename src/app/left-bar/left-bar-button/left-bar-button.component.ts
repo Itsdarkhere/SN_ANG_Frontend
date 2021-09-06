@@ -8,6 +8,7 @@ import { GlobalVarsService } from "../../global-vars.service";
 })
 export class LeftBarButtonComponent {
   @Input() forMobile: boolean = false;
+  @Input() forDesktop: boolean = false;
   @Input() link: string;
   @Input() buttonLabel: string;
   @Input() imgSrc: string;

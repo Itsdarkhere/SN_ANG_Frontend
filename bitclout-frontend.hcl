@@ -57,7 +57,8 @@ job "supernovas-frontend" {
     header Content-Security-Policy "
       default-src 'self';
       connect-src 'self'
-        supernovas.app:* 
+        supernovas.app:*
+        https://arweave.net 
         api.bitclout.com bitclout.com:*
         bithunt.bitclout.com
         pulse.bitclout.com

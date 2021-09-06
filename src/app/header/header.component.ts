@@ -68,9 +68,14 @@ export class HeaderComponent implements OnInit {
   }
 
   showSearchBar() {
+    //debugger
     this.isSearchOpen = !this.isSearchOpen;
+    document.getElementById('mb-inp-searchbar').focus();
+    //console.log(document.getElementById('mb-inp-searchbar'));
   }
 
+
+  
 
   homeLink(): string {
     if (this.globalVars.showLandingPage()) {

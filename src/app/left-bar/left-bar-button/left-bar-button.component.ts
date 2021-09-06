@@ -7,6 +7,7 @@ import { GlobalVarsService } from "../../global-vars.service";
   styleUrls: ["./left-bar-button.component.scss"],
 })
 export class LeftBarButtonComponent {
+  @Input() forMobile: boolean = false;
   @Input() link: string;
   @Input() buttonLabel: string;
   @Input() imgSrc: string;

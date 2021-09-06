@@ -64,11 +64,12 @@
     </div>
     <div class="bio-cover">
         <h6>BIO</h6>
-        <p>{{profile?.Description }}</p>
+        <p [innerHTML]="profile.Description | sanitizeAndAutoLink"></p>
     </div>
-    <div class="link-to-website">
+    <!-- <div class="link-to-website">
         Link to website: <a href="#">Website.com</a>
-    </div>
+        <p [innerHTML]="profile.Description | sanitizeAndAutoLink"></p>
+    </div> -->
 </div>
 
 

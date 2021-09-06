@@ -5,6 +5,7 @@ import { Datasource, IAdapter, IDatasource } from "ngx-ui-scroll";
 import * as _ from "lodash";
 import { AppRoutingModule } from "../../app-routing.module";
 import { InfiniteScroller } from "src/app/infinite-scroller";
+import { Router, NavigationEnd } from "@angular/router";
 
 @Component({
   selector: "app-notifications-list",
@@ -17,7 +18,7 @@ export class NotificationsListComponent implements OnInit {
   private PAGE_SIZE = 50;
   private  WINDOW_VIEWPORT = true;
   notificationArr: Array<any>[];
-  constructor(private globalVars: GlobalVarsService, private backendApi: BackendApiService) {
+  constructor(private globalVars: GlobalVarsService, private backendApi: BackendApiService, private router: Router) {
 
   }
 
@@ -41,6 +42,11 @@ export class NotificationsListComponent implements OnInit {
   ngOnInit(){
     this.PAGE_SIZE = this.isNotificationBar ? 15 : 50;
     this.WINDOW_VIEWPORT = !this.isNotificationBar;
+    this.router.events.subscribe(resp=>{
+      if(resp instanceof NavigationEnd){
+        this.getPage(0);
+      }
+    })
     this.getPage(0);
   }
 

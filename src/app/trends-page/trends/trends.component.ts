@@ -4,6 +4,7 @@ import { GlobalVarsService } from "../../global-vars.service";
 import { InfiniteScroller } from "../../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { uniqBy } from "lodash";
+import { Router, NavigationEnd } from "@angular/router";
 
 @Component({
   selector: "trends",
@@ -33,11 +34,40 @@ export class TrendsComponent implements OnInit {
 
   datasource: IDatasource<IAdapter<any>> = this.infiniteScroller.getDatasource();
 
-  constructor(private _globalVars: GlobalVarsService, private backendApi: BackendApiService) {
+  constructor(private _globalVars: GlobalVarsService, private backendApi: BackendApiService,
+    private router: Router) {
     this.globalVars = _globalVars;
   }
 
   ngOnInit(): void {
+    this.router.events.subscribe(resp=>{
+      if(resp instanceof NavigationEnd){
+        this.loadData();
+      }
+    })
+    this.loadData();
+  }
+
+  getPage(page: number) {
+    if (this.lastPage != null && page > this.lastPage) {
+      return [];
+    }
+    const startIdx = page * TrendsComponent.PAGE_SIZE;
+    const endIdx = (page + 1) * TrendsComponent.PAGE_SIZE;
+
+    return new Promise((resolve, reject) => {
+      resolve(this.nftCollections.slice(startIdx, Math.min(endIdx, this.nftCollections.length)));
+    });
+  }
+  onScroll(){
+    console.log('scrolling..!!');
+    if(this.endIndex <= this.nftCollections.length -1 ){
+      this.startIndex = this.endIndex;
+      this.endIndex +=20;
+      this.dataToShow = [...this.dataToShow,...this.nftCollections.slice(this.startIndex, this.endIndex)];
+    }
+  }
+  loadData(){
     this.loading = true;
     this.backendApi
       .GetNFTShowcase(
@@ -65,25 +95,5 @@ export class TrendsComponent implements OnInit {
       .add(() => {
         this.loading = false;
       });
-  }
-
-  getPage(page: number) {
-    if (this.lastPage != null && page > this.lastPage) {
-      return [];
-    }
-    const startIdx = page * TrendsComponent.PAGE_SIZE;
-    const endIdx = (page + 1) * TrendsComponent.PAGE_SIZE;
-
-    return new Promise((resolve, reject) => {
-      resolve(this.nftCollections.slice(startIdx, Math.min(endIdx, this.nftCollections.length)));
-    });
-  }
-  onScroll(){
-    console.log('scrolling..!!');
-    if(this.endIndex <= this.nftCollections.length -1 ){
-      this.startIndex = this.endIndex;
-      this.endIndex +=20;
-      this.dataToShow = [...this.dataToShow,...this.nftCollections.slice(this.startIndex, this.endIndex)];
-    }
   }
 }

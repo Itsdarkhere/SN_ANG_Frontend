@@ -110,13 +110,6 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   ngOnInit() {
-    this.router.events.subscribe(resp=>{
-      if(resp instanceof NavigationEnd){
-        // console.log('refreshed');
-        // this._loadPosts(true);
-        
-      }
-    })
     this._initializeFeeds();
     this.titleService.setTitle("Feed - Supernovas");
   }

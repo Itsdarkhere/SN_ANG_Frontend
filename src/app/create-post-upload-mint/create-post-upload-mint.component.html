@@ -6,7 +6,7 @@
         <div class="row no-gutters">
             <div class="col col-8">
                 <h6 class="font-weight-bold">Upload an image</h6>
-                <h6>Your image will be uploaded to Arweave decentralized storage. Max 1GB in size.</h6>
+                <h6>Your image will be uploaded to Arweave decentralized storage. Max 200KB in size.</h6>
             </div>
             <div class="col col-4 align-self-center text-right">
                 <input #imageUploadInput class="d-none" type="file" accept="image/*" (change)="_handleFilesInput($event.target.files)" />
@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col col-10">
                 <h6 class="font-weight-bold">Unlockable content</h6>
-                <h6>When the auction closes, you will be able to include text (eg. URL) visible only to the owner of the NFT.</h6>
+                <h6>When the auction closes, you will be able to include text (eg, high resolution file link) visible only to the owner of the NFT.</h6>
             </div>
             <div class="col col-2 align-self-center">
                 <mat-slide-toggle [(ngModel)]="postUnlockable"></mat-slide-toggle>

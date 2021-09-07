@@ -47,19 +47,29 @@ export class BottomBarMobileComponent implements OnInit {
     });
   }
   ngOnInit() {
-    document.querySelector('.global__bottom-bar-mobile').classList.add('scrolled');
+    if(document.querySelector('.global__bottom-bar-mobile')){
+      document.querySelector('.global__bottom-bar-mobile').classList.add('scrolled');
+    }    
     let handle = null;
     document.onscroll = () => {
       var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
       if (st > this.lastScrollTop) {
         // scroll down
-        if (document.querySelector('.global__bottom-bar-mobile').classList.contains('scrolled')) {
+        if (document.querySelector('.global__bottom-bar-mobile') && document.querySelector('.global__bottom-bar-mobile').classList.contains('scrolled')) {
           document.querySelector('.global__bottom-bar-mobile').classList.remove('scrolled');
+        }
+        if(st > 300){
+          if (!document.querySelector('.recent_post_btn').classList.contains('active')) {
+            document.querySelector('.recent_post_btn').classList.add('active');
+          }
         }
       } else {
         // scroll up
-        if (!document.querySelector('.global__bottom-bar-mobile').classList.contains('scrolled')) {
+        if (document.querySelector('.global__bottom-bar-mobile') && !document.querySelector('.global__bottom-bar-mobile').classList.contains('scrolled')) {
           document.querySelector('.global__bottom-bar-mobile').classList.add('scrolled');
+        }
+        if (document.querySelector('.recent_post_btn').classList.contains('active')) {
+          document.querySelector('.recent_post_btn').classList.remove('active');
         }
       }
       this.lastScrollTop = st <= 0 ? 0 : st;
@@ -67,7 +77,14 @@ export class BottomBarMobileComponent implements OnInit {
         clearTimeout(handle);
       }
       handle = setTimeout(()=>{ // callback when user stops scroll
-        document.querySelector('.global__bottom-bar-mobile').classList.add('scrolled');
+        if(document.querySelector('.global__bottom-bar-mobile')){
+          document.querySelector('.global__bottom-bar-mobile').classList.add('scrolled');
+        }
+        if(st > 300){
+          if (!document.querySelector('.recent_post_btn').classList.contains('active')) {
+            document.querySelector('.recent_post_btn').classList.add('active');
+          }
+        }
       }, 200); // default 200 ms
     }
   }

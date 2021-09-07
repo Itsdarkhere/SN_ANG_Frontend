@@ -18,7 +18,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   static GLOBAL_TAB = "Supernovas Feed";
   static FOLLOWING_TAB = "Following";
   static SHOWCASE_TAB = "⚡ NFT Showcase ⚡";
-  static TABS = [FeedComponent.GLOBAL_TAB, FeedComponent.FOLLOWING_TAB,FeedComponent.SHOWCASE_TAB];
+  static TABS = [FeedComponent.GLOBAL_TAB, FeedComponent.FOLLOWING_TAB, FeedComponent.SHOWCASE_TAB];
   static NUM_TO_FETCH = 50;
   static MIN_FOLLOWING_TO_SHOW_FOLLOW_FEED_BY_DEFAULT = 10;
   static PULL_TO_REFRESH_MARKER_ID = "pull-to-refresh-marker";
@@ -290,7 +290,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     }, 0);
   }
 
-  _loadPosts(reload: boolean = false) {
+  _loadPosts(reload: boolean = false, scrolltop: boolean = false) {
     this.loadingMoreGlobalFeedPosts = true;
 
     // Get the reader's public key for the request.
@@ -338,6 +338,10 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
               // We'll move to infinite scroll soon, so not sure this is worth fixing rn.
               // this.serverHasMoreGlobalFeedPosts = true
             }
+            if (scrolltop) {
+              document.body.scrollTop = 0; // For Safari
+              document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+            }
           },
           (err) => {
             console.error(err);
@@ -366,14 +370,14 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
         (response) => {
           this.followedPublicKeyToProfileEntry = response.PublicKeyToProfileEntry;
         },
-        (error) => {}
+        (error) => { }
       )
       .add(() => {
         this._afterLoadingFollowingOnPageLoad();
       });
   }
 
-  _loadFollowFeedPosts(reload: boolean = false) {
+  _loadFollowFeedPosts(reload: boolean = false, scrolltop: boolean = false) {
     this.loadingMoreFollowFeedPosts = true;
 
     // Get the reader's public key for the request.
@@ -422,6 +426,10 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
             }
             this.loadingFirstBatchOfFollowFeedPosts = false;
             this.loadingMoreFollowFeedPosts = false;
+            if (scrolltop) {
+              document.body.scrollTop = 0; // For Safari
+              document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+            }
           },
           (err) => {
             console.error(err);
@@ -526,5 +534,12 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     // Add the post to the parent's list of comments so that the comment count gets updated
     parentPost.Comments = parentPost.Comments || [];
     parentPost.Comments.unshift(postEntryResponse);
+  }
+  showRecent() {
+    if (this.activeTab === FeedComponent.FOLLOWING_TAB) {
+      this._loadFollowFeedPosts(true, true);
+    } else {
+      this._loadPosts(true, true);
+    }
   }
 }

@@ -40,11 +40,11 @@ export class TrendsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router.events.subscribe(resp=>{
-      if(resp instanceof NavigationEnd){
-        this.loadData();
-      }
-    })
+    // this.router.events.subscribe(resp=>{
+    //   if(resp instanceof NavigationEnd){
+    //     this.loadData();
+    //   }
+    // })
     this.loadData();
   }
 
@@ -67,8 +67,10 @@ export class TrendsComponent implements OnInit {
       this.dataToShow = [...this.dataToShow,...this.nftCollections.slice(this.startIndex, this.endIndex)];
     }
   }
-  loadData(){
-    this.loading = true;
+  loadData(showmore: boolean = false){
+    if(!showmore){
+      this.loading = true;
+    }
     this.backendApi
       .GetNFTShowcase(
         this.globalVars.localNode,
@@ -87,6 +89,10 @@ export class TrendsComponent implements OnInit {
           }
           this.dataToShow = this.nftCollections.slice(this.startIndex, this.endIndex);
           this.lastPage = Math.floor(this.nftCollections.length / TrendsComponent.PAGE_SIZE);
+          if (showmore) {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+          }
         },
         (error) => {
           this.globalVars._alertError(error.error.error);
@@ -95,5 +101,8 @@ export class TrendsComponent implements OnInit {
       .add(() => {
         this.loading = false;
       });
+  }
+  showRecent(){
+    this.loadData(true);
   }
 }

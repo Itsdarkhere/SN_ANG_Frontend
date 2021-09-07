@@ -1,4 +1,5 @@
 <div *ngIf="!loading">
+    <button type="button" class="recent_post_btn" (click)="showRecent()">Show recent</button>
     <!-- <div #uiScroll *uiScroll="let nftCollection of datasource">
         <div class="br-12px m-15px">
             <feed-post [post]="nftCollection.PostEntryResponse" [includePaddingOnPost]="true" [showReplyingToContent]="nftCollection.PostEntryResponse.parentPost" [parentPost]="nftCollection.PostEntryResponse.parentPost" [contentShouldLinkToThread]="true" [showNFTDetails]="true"

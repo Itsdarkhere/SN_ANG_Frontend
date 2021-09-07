@@ -4254,8 +4254,16 @@ option {
     box-shadow: 0.920325px 0.920325px 5px rgb(0 0 0 / 10%);
     border-radius: 30px;
     display: none;
-    margin: 21px auto 0;
+    // margin: 21px auto 0;
     padding: 3px 13px;
+    position: fixed;
+    z-index: 999;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    &.active {
+        top: 86px;
+    }
     @media screen and (max-width: 767px) {
         display: block;
     }

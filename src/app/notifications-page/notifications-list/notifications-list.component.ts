@@ -42,15 +42,18 @@ export class NotificationsListComponent implements OnInit {
   ngOnInit(){
     this.PAGE_SIZE = this.isNotificationBar ? 15 : 50;
     this.WINDOW_VIEWPORT = !this.isNotificationBar;
-    this.router.events.subscribe(resp=>{
-      if(resp instanceof NavigationEnd){
-        this.getPage(0);
-      }
-    })
+    // this.router.events.subscribe(resp=>{
+    //   if(resp instanceof NavigationEnd){
+    //     this.getPage(0);
+    //   }
+    // })
     this.getPage(0);
   }
 
-  getPage(page: number) {
+  showRecent(){
+    this.getPage(0, true);
+  }
+  getPage(page: number, scrolltop: boolean = false) {
     if (this.lastPage && page > this.lastPage) {
       return [];
     }
@@ -85,7 +88,10 @@ export class NotificationsListComponent implements OnInit {
           if (chunk.length < this.PAGE_SIZE || this.pagedIndexes[page + 1] === 0) {
             this.lastPage = page;
           }
-
+          if (scrolltop) { // shift page to top if required
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+          }
           // Track the total number of items for our empty state
           this.totalItems = (this.totalItems || 0) + chunk.length;
           this.notificationArr = chunk;

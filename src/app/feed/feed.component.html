@@ -40,7 +40,7 @@
     <countdown-timer *ngIf="nextNFTShowcaseTime" [timerText]="'The next NFT showcase drops in...'" [fontWeight]="500" [timerEnd]="nextNFTShowcaseTime"></countdown-timer>
 
     <div [id]="getPullToRefreshMarkerId()"></div>
-
+    <button type="button" class="recent_post_btn">Show recent</button>
     <!-- Posts -->
     <div class="feed_mobile_gap" *ngIf="showGlobalOrFollowingPosts()">
         <div *ngFor="let post of postsToShow()">

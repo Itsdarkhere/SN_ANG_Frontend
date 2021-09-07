@@ -53,7 +53,7 @@
                 <ng-container *ngIf="post?.IsNFT || post?.RecloutedPostEntryResponse?.IsNFT">
                     <app-nft-card *ngIf="!post.IsHidden" [post]="post" [includePaddingOnPost]="true" [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)" [afterRecloutCreatedCallback]="prependPostToFeed.bind(this)" [showReplyingToContent]="!!post.parentPost"
                         [parentPost]="post.parentPost" [contentShouldLinkToThread]="true" [showLeftSelectedBorder]="post.IsPinned" [blocked]="globalVars.hasUserBlockedCreator(post.PosterPublicKeyBase58Check)" [cardStyle]="true" [showNFTDetails]="true" (postDeleted)="onPostHidden($event)"
-                        (userBlocked)="userBlocked()" [fromFeed]="true"></app-nft-card>
+                        (userBlocked)="userBlocked()" [fromFeed]="true" [profileFeed]="true"></app-nft-card>
                 </ng-container>
                 <ng-container *ngIf="!(post?.IsNFT || post?.RecloutedPostEntryResponse?.IsNFT)">
                     <feed-post *ngIf="!post.IsHidden" [post]="post" [includePaddingOnPost]="true" [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)" [afterRecloutCreatedCallback]="prependPostToFeed.bind(this)" [showReplyingToContent]="!!post.parentPost"

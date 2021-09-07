@@ -27,6 +27,7 @@ export class PostThreadComponent implements OnInit {
 
   @Input() hideHeader: boolean = false;
   @Input() hideCurrentPost: boolean = false;
+  @Input() fromNFTDetail: boolean = false;
 
   constructor(
     private route: ActivatedRoute,

@@ -249,7 +249,7 @@
                 <div *ngIf="!nftPost.CommentCount && !nftPost.ParentStakeID" class="p-15px d-flex justify-content-center">
                     There are no comments on this NFT yet.
                 </div>
-                <post-thread [hideHeader]="true" [hideCurrentPost]="!nftPost.ParentStakeID" *ngIf="nftPost.CommentCount || nftPost.ParentStakeID"></post-thread>
+                <post-thread [hideHeader]="true" [fromNFTDetail]="true" [hideCurrentPost]="!nftPost.ParentStakeID" *ngIf="nftPost.CommentCount || nftPost.ParentStakeID"></post-thread>
             </div>
             <button type="button" class="add_comment_btn" (click)="openRecloutsModal($event)" *ngIf="!(nftPost.CommentCount || nftPost.ParentStakeID)"><i>+</i> Comment</button>
         </div>

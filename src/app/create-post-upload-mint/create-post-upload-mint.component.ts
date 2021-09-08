@@ -165,7 +165,7 @@ export class CreatePostUploadMintComponent implements OnInit {
       return;
     }
     if (file.size > 1024 * 1024 * 1024) {
-      this.globalVars._alertError("File is too large. Please choose a file of a size less than 1GB");
+      this.globalVars._alertError("File is too large. Please choose a file of a size less than 200KB");
       return;
     }
 

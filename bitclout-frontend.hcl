@@ -50,9 +50,20 @@ job "supernovas-frontend" {
 
 :{{ env "NOMAD_PORT_http" }} {
     file_server
-    try_files {path} index.html
+    # Fallback to index.html for everything but assets
+    @html {
+      not path *.js *.css *.png *.svg *.woff2
 
-    header Access-Control-Allow-Methods "GET, PUT, POST, DELETE, OPTIONS"
+      file index.html
+    }
+
+    handle_errors {
+      header Cache-Control no-store
+    }
+
+    rewrite @html {http.matchers.file.relative}
+
+    header @html Cache-Control no-store
     header Access-Control-Allow-Origin "https://supernovas.app"
     header Content-Security-Policy "
       default-src 'self';
@@ -81,6 +92,7 @@ job "supernovas-frontend" {
         https://images.bitclout.com 
         https://arweave.net
         https://*.arweave.net
+        https://cloudflare-ipfs.com
         https://quickchart.io;
       font-src 'self' https://fonts.googleapis.com 
         https://fonts.gstatic.com https://ka-f.fontawesome.com;
@@ -94,7 +106,7 @@ job "supernovas-frontend" {
         https://giphy.com
         https://open.spotify.com
         https://w.soundcloud.com;
-      frame-ancestor 'self';
+      frame-ancestors 'self';
         "
 }
 EOF
@@ -116,9 +128,8 @@ EOF
         
         tags = [
           "internal-proxy.enable=true",
-          "internal-proxy.http.routers.bitclout-frontend.rule=Host(`supernovas.app`)",
-          "internal-proxy.http.routers.bitclout-frontend.tls=true",
-          "internal-proxy.http.routers.bitclout-frontend.tls.certresolver=supernovasresolver"
+          "internal-proxy.http.routers.bitclout-frontend.entrypoints=https",
+          "internal-proxy.http.routers.bitclout-frontend.rule=Host(`supernovas.app`)"
         ]
 
         check {

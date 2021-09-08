@@ -52,15 +52,15 @@ export class BottomBarMobileComponent implements OnInit {
     }    
     let handle = null;
     document.onscroll = () => {
-      var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+      var st = window.pageYOffset || document.documentElement.scrollTop;
       if (st > this.lastScrollTop) {
         // scroll down
         if (document.querySelector('.global__bottom-bar-mobile') && document.querySelector('.global__bottom-bar-mobile').classList.contains('scrolled')) {
           document.querySelector('.global__bottom-bar-mobile').classList.remove('scrolled');
         }
         if(st > 300){
-          if (!document.querySelector('.recent_post_btn').classList.contains('active')) {
-            document.querySelector('.recent_post_btn').classList.add('active');
+          if (document.querySelector('.recent_post_btn').classList.contains('active')) {
+            document.querySelector('.recent_post_btn').classList.remove('active');
           }
         }
       } else {
@@ -68,8 +68,8 @@ export class BottomBarMobileComponent implements OnInit {
         if (document.querySelector('.global__bottom-bar-mobile') && !document.querySelector('.global__bottom-bar-mobile').classList.contains('scrolled')) {
           document.querySelector('.global__bottom-bar-mobile').classList.add('scrolled');
         }
-        if (document.querySelector('.recent_post_btn').classList.contains('active')) {
-          document.querySelector('.recent_post_btn').classList.remove('active');
+        if (!document.querySelector('.recent_post_btn').classList.contains('active')) {
+          document.querySelector('.recent_post_btn').classList.add('active');
         }
       }
       this.lastScrollTop = st <= 0 ? 0 : st;
@@ -84,6 +84,8 @@ export class BottomBarMobileComponent implements OnInit {
           if (!document.querySelector('.recent_post_btn').classList.contains('active')) {
             document.querySelector('.recent_post_btn').classList.add('active');
           }
+        } else {
+          document.querySelector('.recent_post_btn').classList.remove('active');
         }
       }, 200); // default 200 ms
     }

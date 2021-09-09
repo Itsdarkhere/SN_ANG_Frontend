@@ -102,8 +102,8 @@
                         <div class="d-flex align-items-center">
                             <!-- Username-->
                             <a class="fc-default font-weight-bold" [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, postContent.ProfileEntryResponse.Username]" queryParamsHandling="merge">
-                   {{ postContent.ProfileEntryResponse.Username }}
-                 </a>
+                                {{ postContent.ProfileEntryResponse.Username }}
+                            </a>
 
                             <span *ngIf="postContent.ProfileEntryResponse.IsVerified" class="ml-1 text-primary">
                    <i class="fas fa-check-circle fa-md align-middle"></i>
@@ -111,10 +111,21 @@
                             <div class="desktop-creator-coin-info">
                                 <!-- <ng-container *ngTemplateOutlet="creatorCoinInfo"></ng-container> -->
                             </div>
-
+                            <div class="nft-detail-lock-info-wrap ml-auto" *ngIf="isNFTDetail">
+                                <ng-container *ngIf="showNFTDetails && postContent.IsNFT">
+                                    <span *ngIf="postContent.HasUnlockable" class="cursor-pointer d-lg-inline-block d-block mt-5px" (click)="tooltip.toggle(); toggleShowUnlockableContent()" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="unlockableTooltip"
+                                        #tooltip="matTooltip">
+                                        <i class="fas" [ngClass]="{
+                                                'fa-lock': !decryptableNFTEntryResponses?.length || showUnlockableContent,
+                                                'fa-unlock-alt': decryptableNFTEntryResponses?.length && !showUnlockableContent
+                                            }"
+                                        ></i>
+                                    </span>
+                                </ng-container>
+                            </div>
                             <!-- Desktop follow button-->
                             <!-- <follow-button *ngIf="!hideFollowLink" class="ml-10px fs-12px d-lg-block d-none text-grey5" [displayAsLink]="true" [followLinkClass]="'link--unstyled'" [followedPubKeyBase58Check]="postContent.ProfileEntryResponse.PublicKeyBase58Check" [creatorCoinTemplate]="creatorCoinInfo"></follow-button> -->
-                            <feed-post-dropdown *ngIf="showDropdown && !reclouterProfile" class="ml-auto" [post]="post" [postContent]="postContent" [nftEntryResponses]="nftEntryResponses" (postHidden)="hidePost()" (userBlocked)="blockUser()" (toggleGlobalFeed)="_addPostToGlobalFeed($event)"
+                            <feed-post-dropdown *ngIf="showDropdown && !reclouterProfile" [class.ml-auto]="!isNFTDetail" [post]="post" [postContent]="postContent" [nftEntryResponses]="nftEntryResponses" (postHidden)="hidePost()" (userBlocked)="blockUser()" (toggleGlobalFeed)="_addPostToGlobalFeed($event)"
                                 (togglePostPin)="_pinPostToGlobalFeed($event)"></feed-post-dropdown>
                         </div>
 

@@ -158,6 +158,9 @@
                 </div>
                 <!-- Main Content -->
                 <div class="card-body">
+                    <div class="caption-cover" *ngIf="quotedContent?.IsNFT && profileFeed">
+                        <p>{{postContent.Body}}</p>
+                    </div>
                     <ng-container *ngIf="profileFeed">
                         <div class="img-cover" *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID" [ngClass]="{'for-feed': fromFeed}">
                             <img (click)="openImgModal($event, postContent.ImageURLs[0])" data-toggle="modal" src="{{ mapImageURLs(postContent.ImageURLs[0]) }}" />
@@ -181,7 +184,7 @@
                             [hoverable]="hoverable" [showNFTDetails]="true" [cardStyle]="true"></feed-post>
                     </ng-container>
 
-                    <div class="caption-cover">
+                    <div class="caption-cover" *ngIf="!quotedContent?.IsNFT && profileFeed">
                         <p>{{postContent.Body}}</p>
                     </div>
                     <div class="bid-cover flex-wrap" *ngIf="showNFTDetails && postContent.IsNFT">

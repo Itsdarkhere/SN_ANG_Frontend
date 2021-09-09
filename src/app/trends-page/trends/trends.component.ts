@@ -4,7 +4,7 @@ import { GlobalVarsService } from "../../global-vars.service";
 import { InfiniteScroller } from "../../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { uniqBy } from "lodash";
-import { Router, NavigationEnd } from "@angular/router";
+import { Router, NavigationEnd, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "trends",
@@ -35,11 +35,16 @@ export class TrendsComponent implements OnInit {
   datasource: IDatasource<IAdapter<any>> = this.infiniteScroller.getDatasource();
 
   constructor(private _globalVars: GlobalVarsService, private backendApi: BackendApiService,
-    private router: Router) {
+    private router: Router, private route: ActivatedRoute) {
     this.globalVars = _globalVars;
   }
 
   ngOnInit(): void {
+    // code to remove extra query param if not required
+    this.router.navigate(
+      ['.'], 
+      { relativeTo: this.route, queryParams: { } }
+    );
     // this.router.events.subscribe(resp=>{
     //   if(resp instanceof NavigationEnd){
     //     this.loadData();

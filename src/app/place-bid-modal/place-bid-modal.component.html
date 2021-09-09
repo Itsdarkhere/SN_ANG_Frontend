@@ -98,7 +98,7 @@
                 <div class="page-place-a-bid">
                     <div class="popup-body">
                         <h5>You must bid atleast</h5>
-                        <h5 class="font-weight-bold">{{ globalVars.nanosToBitClout(highBid) }} CLOUT</h5>
+                        <h5 class="font-weight-bold">{{ highBid > 0 ? globalVars.nanosToBitClout(highBid) : globalVars.nanosToBitClout(minBid) }} CLOUT</h5>
                         <br />
                         <div class="input-with-button">
                             <input matInput [(ngModel)]="bidAmountCLOUT" (ngModelChange)="updateBidAmountUSD($event)" type="number" min="0" aria-describedby="clout-label" placeholder="Enter here..." [disabled]="placingBids" />

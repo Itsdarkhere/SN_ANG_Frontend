@@ -30,6 +30,7 @@ export class PlaceBidModalComponent implements OnInit {
   biddableSerialNumbers: NFTEntryResponse[];
   highBid: number = null;
   lowBid: number = null;
+  minBid: number = null;
   loading = true;
   isSelectingSerialNumber = true;
   saveSelectionDisabled = false;
@@ -139,6 +140,7 @@ export class PlaceBidModalComponent implements OnInit {
       this.showSelectedSerialNumbers = true;
       this.highBid = this.selectedSerialNumber.HighestBidAmountNanos;
       this.lowBid = this.selectedSerialNumber.LowestBidAmountNanos;
+      this.minBid = this.selectedSerialNumber.MinBidAmountNanos;
       this.setErrors();
     }
   }

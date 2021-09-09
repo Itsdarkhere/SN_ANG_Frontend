@@ -41,10 +41,10 @@ export class TrendsComponent implements OnInit {
 
   ngOnInit(): void {
     // code to remove extra query param if not required
-    this.router.navigate(
-      ['.'], 
-      { relativeTo: this.route, queryParams: { } }
-    );
+    // this.router.navigate(
+    //   ['.'], 
+    //   { relativeTo: this.route, queryParams: { } }
+    // );
     // this.router.events.subscribe(resp=>{
     //   if(resp instanceof NavigationEnd){
     //     this.loadData();

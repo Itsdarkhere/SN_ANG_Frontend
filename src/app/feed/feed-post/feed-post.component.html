@@ -140,9 +140,9 @@
                    @{{ parentPost.ProfileEntryResponse.Username }}
                  </a>
                         </div>
-
                         <!-- Content -->
-                        <div class="roboto-regular mt-1" [ngClass]="{ 'pb-10px': quotedContent && showQuotedContent, 'nft_para': isNFTDetail }" style="overflow-wrap: anywhere; word-break: break-word; outline: none" [innerHTML]="postContent.Body | sanitizeAndAutoLink" queryParamsHandling="merge"></div>
+                        <div class="roboto-regular mt-1 feed-text-wrap" [ngClass]="{ 'pb-10px': quotedContent && showQuotedContent, 'nft_para': isNFTDetail }" style="overflow-wrap: anywhere; word-break: break-word; outline: none" [innerHTML]="postContent.Body | sanitizeAndAutoLink"
+                            queryParamsHandling="merge"></div>
 
                         <!-- Media, don't show images on comment posts. -->
                         <div *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID" class="feed-post__image-container">

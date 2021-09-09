@@ -42,10 +42,10 @@ export class NotificationsListComponent implements OnInit {
 
   ngOnInit(){
     // code to remove extra query param if not required
-    this.router.navigate(
-      ['.'], 
-      { relativeTo: this.route, queryParams: { } }
-    );
+    // this.router.navigate(
+    //   ['.'], 
+    //   { relativeTo: this.route, queryParams: { } }
+    // );
     this.PAGE_SIZE = this.isNotificationBar ? 15 : 50;
     this.WINDOW_VIEWPORT = !this.isNotificationBar;
     // this.router.events.subscribe(resp=>{

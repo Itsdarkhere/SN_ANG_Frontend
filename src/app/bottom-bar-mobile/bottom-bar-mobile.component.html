@@ -51,8 +51,8 @@
             <h6>Notifications</h6>
         </bottom-bar-mobile-tab>
 
-        <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser" [link]="'/' + globalVars.RouteNames.INBOX_PREFIX">
-            <!-- <i class="icon-messages fs-25px">
+
+        <!-- <i class="icon-messages fs-25px">
         <div *ngIf="globalVars.messageResponse && globalVars.messageResponse.NumberOfUnreadThreads != 0"
           class="bottom-bar__message-notifications-bubble roboto-mono">
           {{
@@ -62,11 +62,14 @@
           }}
         </div>
       </i> -->
+        <div class="bottom-bar-nav">
             <div class="icon-cover" (click)="globalVars.isLeftBarMobileOpen = true">
                 <img src="assets/icons/hamburger-icon.svg" class="clout" alt="">
             </div>
             <h6>Menu</h6>
-        </bottom-bar-mobile-tab>
+        </div>
+
+
     </div>
 
     <!-- TODO: on mobile, if you click this, should it prompt you to log in?-->

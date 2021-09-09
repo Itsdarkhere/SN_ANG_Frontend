@@ -9,12 +9,12 @@ import { GlobalVarsService } from "../global-vars.service";
   animations: [
     trigger("leftBarAnimation", [
       transition(":enter", [
-        style({ transform: "translateX(-85%)" }),
+        style({ transform: "translateX(85%)" }),
         animate("250ms ease", style({ transform: "translateX(0%)" })),
       ]),
       transition(":leave", [
         style({ transform: "translateX(0%)" }),
-        animate("250ms ease", style({ transform: "translateX(-85%)" })),
+        animate("250ms ease", style({ transform: "translateX(85%)" })),
       ]),
     ]),
     trigger("translucentBackgroundAnimation", [

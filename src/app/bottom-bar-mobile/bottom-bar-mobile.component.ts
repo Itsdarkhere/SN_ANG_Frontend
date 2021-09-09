@@ -58,18 +58,10 @@ export class BottomBarMobileComponent implements OnInit {
         if (document.querySelector('.global__bottom-bar-mobile') && document.querySelector('.global__bottom-bar-mobile').classList.contains('scrolled')) {
           document.querySelector('.global__bottom-bar-mobile').classList.remove('scrolled');
         }
-        if(st > 300){
-          if (document.querySelector('.recent_post_btn').classList.contains('active')) {
-            document.querySelector('.recent_post_btn').classList.remove('active');
-          }
-        }
       } else {
         // scroll up
         if (document.querySelector('.global__bottom-bar-mobile') && !document.querySelector('.global__bottom-bar-mobile').classList.contains('scrolled')) {
           document.querySelector('.global__bottom-bar-mobile').classList.add('scrolled');
-        }
-        if (!document.querySelector('.recent_post_btn').classList.contains('active')) {
-          document.querySelector('.recent_post_btn').classList.add('active');
         }
       }
       this.lastScrollTop = st <= 0 ? 0 : st;
@@ -79,13 +71,6 @@ export class BottomBarMobileComponent implements OnInit {
       handle = setTimeout(()=>{ // callback when user stops scroll
         if(document.querySelector('.global__bottom-bar-mobile')){
           document.querySelector('.global__bottom-bar-mobile').classList.add('scrolled');
-        }
-        if(st > 300){
-          if (!document.querySelector('.recent_post_btn').classList.contains('active')) {
-            document.querySelector('.recent_post_btn').classList.add('active');
-          }
-        } else {
-          document.querySelector('.recent_post_btn').classList.remove('active');
         }
       }, 200); // default 200 ms
     }

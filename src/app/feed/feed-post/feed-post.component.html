@@ -113,7 +113,7 @@
                             </div>
                             <div class="nft-detail-lock-info-wrap ml-auto" *ngIf="isNFTDetail">
                                 <ng-container *ngIf="showNFTDetails && postContent.IsNFT">
-                                    <span *ngIf="postContent.HasUnlockable" class="cursor-pointer d-lg-inline-block d-block mt-5px" (click)="tooltip.toggle(); toggleShowUnlockableContent()" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="unlockableTooltip"
+                                    <span *ngIf="postContent.HasUnlockable" class="cursor-pointer d-lg-inline-block d-block mt-5px" (click)="tooltip.toggle(); toggleShowUnlockableContent()" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size too-nft-detail" [matTooltip]="unlockableTooltip"
                                         #tooltip="matTooltip">
                                         <i class="fas" [ngClass]="{
                                                 'fa-lock': !decryptableNFTEntryResponses?.length || showUnlockableContent,

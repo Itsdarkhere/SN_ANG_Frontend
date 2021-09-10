@@ -1322,9 +1322,9 @@ input.bs-timepicker-field {
 }
 
 .nav_close {
-    position: absolute;
+    position: fixed;
     right: 45px;
-    bottom: 42px;
+    bottom: 4vh;
     width: 45px;
     height: 45px;
     z-index: 999;
@@ -1344,8 +1344,8 @@ input.bs-timepicker-field {
     background-size: 100% auto;
     transform-origin: right bottom;
     @media (max-width: 992px) {
-        width: 80vw;
-        max-width: 340px;
+        width: 92vw;
+        max-width: 100%;
     }
 }
 

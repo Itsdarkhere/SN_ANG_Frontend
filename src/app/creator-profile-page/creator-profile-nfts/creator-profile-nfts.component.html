@@ -57,11 +57,11 @@
     </div>
     <div *ngIf="!globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check) && (myBids?.length > 0 || nftResponse?.length > 0)">
         <div class="search-results" infiniteScroll [infiniteScrollDistance]="5" [infiniteScrollThrottle]="150" (scrolled)="onScroll()" [ngClass]="{
-            'br-12px': activeTab === CreatorProfileNftsComponent.MY_BIDS,
-            'p-10px': activeTab === CreatorProfileNftsComponent.MY_BIDS,
-            'background-color-grey': activeTab === CreatorProfileNftsComponent.MY_BIDS,
-            'm-15px': activeTab === CreatorProfileNftsComponent.MY_BIDS,
-            'border': activeTab === CreatorProfileNftsComponent.MY_BIDS
+            'br-12px creator_post_wrap': activeTab === CreatorProfileNftsComponent.MY_BIDS,
+            'p-10px creator_post_wrap': activeTab === CreatorProfileNftsComponent.MY_BIDS,
+            'background-color-grey creator_post_wrap': activeTab === CreatorProfileNftsComponent.MY_BIDS,
+            'm-15px creator_post_wrap': activeTab === CreatorProfileNftsComponent.MY_BIDS,
+            'border creator_post_wrap': activeTab === CreatorProfileNftsComponent.MY_BIDS
             }">
             <div class="row" *ngIf="activeTab === CreatorProfileNftsComponent.MY_BIDS">
                 <div class="col-12" *ngFor="let nftEntry of myBids">

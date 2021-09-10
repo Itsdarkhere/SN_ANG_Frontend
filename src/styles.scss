@@ -4176,7 +4176,8 @@ option {
     -webkit-text-fill-color: transparent;
 }
 
-.feed-text-wrap a[href] {
+.feed-text-wrap a[href],
+.caption-cover.auto-h a[href] {
     background: #2749f0;
     background: linear-gradient( 45deg, #ec5454 -4%, #f51ac1 4%, #2749f0 94%, #593eb7 69%);
     -webkit-background-clip: text;

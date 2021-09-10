@@ -83,6 +83,9 @@
             height: 50px;
             overflow: hidden;
             text-overflow: ellipsis;
+            &.auto-h {
+                height: auto;
+            }
             p {
                 font-size: 13px;
             }

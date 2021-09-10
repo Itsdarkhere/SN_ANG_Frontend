@@ -97,7 +97,7 @@
             <div *ngIf="biddableSerialNumbers?.length" [ngClass]="{'d-none': isSelectingSerialNumber}">
                 <div class="page-place-a-bid">
                     <div class="popup-body">
-                        <h5>You must bid atleast</h5>
+                        <h5>You must bid at least</h5>
                         <h5 class="font-weight-bold">{{ highBid > 0 ? globalVars.nanosToBitClout(highBid) : globalVars.nanosToBitClout(minBid) }} CLOUT</h5>
                         <br />
                         <div class="input-with-button">

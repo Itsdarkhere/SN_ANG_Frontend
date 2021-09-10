@@ -1321,16 +1321,28 @@ input.bs-timepicker-field {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+.nav_close {
+    position: absolute;
+    right: 45px;
+    bottom: 42px;
+    width: 45px;
+    height: 45px;
+    z-index: 999;
+}
+
 .left-bar-mobile__flyout-div {
     z-index: 100; // Needs to be higher than the bottom bar and staked posts.
     position: fixed;
-    top: 0;
+    top: 60px;
     right: 0;
     width: 75vw;
     max-width: 280px;
     min-width: 245px;
+    padding: 70px 30px 0 80px;
     height: 100vh;
-    background-color: var(--background);
+    background: url(assets/img/menu_bg.svg) no-repeat;
+    background-size: 100% auto;
+    transform-origin: right bottom;
     @media (max-width: 992px) {
         width: 80vw;
         max-width: 340px;

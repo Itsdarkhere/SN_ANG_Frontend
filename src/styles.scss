@@ -4185,6 +4185,7 @@ option {
     background: linear-gradient( 45deg, #ec5454 -4%, #f51ac1 4%, #2749f0 94%, #593eb7 69%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    word-break: break-all;
 }
 
 .bio-cover {
@@ -4307,4 +4308,12 @@ option {
         font-weight: bold;
         text-transform: uppercase;
     }
+}
+
+.nft-detail-lock-info-wrap {
+    color: #999;
+    font-size: 14px;
+    margin-right: 10px;
+    position: relative;
+    top: -3px;
 }

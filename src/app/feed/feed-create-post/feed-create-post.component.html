@@ -53,15 +53,15 @@
     <ng-container *ngIf="!isComment">
         <i class="fas fa-external-link-alt fa-lg text-grey8A cursor-pointer pr-15px fs-18px" (click)="showImageLink = !showImageLink"></i>
         <input #imageInput class="d-none" type="file" accept="image/*" (change)="_handleFilesInput($event.target.files)" />
-        <i class="far fa-image fa-lg text-grey8A cursor-pointer feed-create-post__image-icon" (click)="imageInput.click()"></i>
+        <i class="text-grey8A cursor-pointer feed-create-post__image-icon" (click)="imageInput.click()"><img src="assets/icons/img_ico.svg" alt=""> </i>
     </ng-container>
-    <button class="btn btn-primary font-weight-bold ml-15px fs-14px br-12px" style="height: 36px; width: 75px; line-height: 15px" [ngClass]="{
+    <button class="btn btn-primary post_btn font-weight-bold ml-15px fs-14px br-12px" style="height: 36px; width: 75px; line-height: 15px" [ngClass]="{
       disabled: (postInput.length <= 0 && !postImageSrc) || characterCountExceedsMaxLength(),
       'btn-loading': submittingPost
     }" (click)="_createPost()">
     Post
   </button>
 </div>
-<div class="feed_approved">
+<!-- <div class="feed_approved">
     <p>Only approved creatorscan mint NFTs 🌈</p>
-</div>
+</div> -->

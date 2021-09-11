@@ -12,6 +12,26 @@
                     <img src="assets/icons/search-icon-mobile.svg" class="clout" alt="" (click)="showSearchBar()" *ngIf="!isSearchOpen">
                     <i class="icon-close" *ngIf="isSearchOpen" (click)="showSearchBar()" title="Close search"></i>
                 </li>
+                <li class="single-option">
+                    <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button>
+                    <mat-menu #createMenu="matMenu" xPosition="before">
+                        <div class="create-menu-cover">
+
+                            <button mat-menu-item (click)="createPostUploadMint()" *ngIf="globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified">
+                            <div class="icon-cover">
+                                <img src="assets/icons/mint-icon.svg" class="clout" alt="Mint NFT">
+                            </div>
+                            Mint an NFT
+                        </button>
+                            <button mat-menu-item (click)="createPost()">
+                            <div class="icon-cover">
+                                <img src="assets/icons/create-post-icon.svg" class="clout" alt="Post">
+                            </div>
+                            Create a Post
+                        </button>
+                        </div>
+                    </mat-menu>
+                </li>
                 <!-- <li class="single-option">
                     <img src="assets/icons/chat-plane-icon.svg" title="Chat" [routerLink]="'/' + globalVars.RouteNames.INBOX_PREFIX" />
                 </li>

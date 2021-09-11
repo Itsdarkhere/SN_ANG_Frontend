@@ -10,21 +10,21 @@ import { GlobalVarsService } from "../global-vars.service";
     trigger("leftBarAnimation", [
       transition(":enter", [
         style({ transform: "scale(0)" }),
-        animate("250ms ease", style({ transform: "scale(1)" })),
+        animate("1ms ease", style({ transform: "scale(1)" })),
       ]),
       transition(":leave", [
         style({ transform: "scale(1)" }),
-        animate("250ms ease", style({ transform: "scale(0)" })),
+        animate("1ms ease", style({ transform: "scale(0)" })),
       ]),
     ]),
     trigger("translucentBackgroundAnimation", [
       transition(":enter", [
         style({ "background-color": "rgba(0, 0, 0, 0)" }),
-        animate("250ms ease", style({ "background-color": "rgba(0, 0, 0, 0.4)" })),
+        animate("1ms ease", style({ "background-color": "rgba(0, 0, 0, 0)" })),
       ]),
       transition(":leave", [
-        style({ "background-color": "rgba(0, 0, 0, 0.4)" }),
-        animate("250ms ease", style({ "background-color": "rgba(0, 0, 0, 0)" })),
+        style({ "background-color": "rgba(0, 0, 0, 0)" }),
+        animate("1ms ease", style({ "background-color": "rgba(0, 0, 0, 0)" })),
       ]),
     ]),
   ],

@@ -4351,6 +4351,7 @@ option {
     margin: 21px 0 20px 0;
     box-shadow: 1px 1.52px 7.62px rgba(0, 0, 0, 0.11);
     border-radius: 14.2827px;
+    position: relative;
     .formbg {
         background: transparent !important;
         .textarea {
@@ -4368,12 +4369,85 @@ option {
         background-size: cover;
     }
     .post_btn {
-        background-color: transparent !important;
-        border: 2px solid #000000;
-        color: #000000;
+        background-color: #000 !important;
+        border: 2px solid #000;
+        color: #fff;
         border-radius: 4.68267px;
         padding: 7px 23px;
         width: auto !important;
         height: auto !important;
+        &.disabled {
+            opacity: 1;
+            border-color: #5C5C5C !important;
+            background-color: #fff!important;
+            color: #5C5C5C !important;
+        }
+    }
+}
+
+.media_ico {
+    width: 58px;
+}
+
+.embed_wrp {
+    position: absolute;
+    left: 0;
+    bottom: 15px;
+    width: calc(100% - 99px);
+    @media screen and (max-width: 767px) {
+        bottom: auto;
+        width: calc(100% - 89px);
+        z-index: 9;
+        margin: 12px 0 0 0;
+    }
+    input {
+        padding: 5px 30px 5px 10px;
+        background-color: #fff;
+        font-size: 14px;
+    }
+    .feed-post_delete {
+        position: absolute;
+        right: 22px;
+        top: 3px;
+        cursor: pointer;
+        z-index: 1;
+    }
+}
+
+.create_post_mmnenu {
+    position: fixed;
+    bottom: 0;
+    width: calc(100% - 8px);
+    left: 3px;
+    max-width: 100% !important;
+    border-radius: 3px 3px 0 0 !important;
+    box-shadow: none !important;
+    &::before {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        top: 0;
+        content: '';
+        background: rgb(0 0 0 / 50%);
+        height: 100%;
+        z-index: -1;
+    }
+    .mat-menu-content {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    .create-menu-cover {
+        position: relative !important;
+        z-index: 1 !important;
+        background: #fff;
+        min-height: 125px;
+        box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+        .mat-menu-item {
+            padding: 10px 15px;
+            height: auto;
+            &.mntbtn {
+                border-bottom: 1px solid #eee;
+            }
+        }
     }
 }

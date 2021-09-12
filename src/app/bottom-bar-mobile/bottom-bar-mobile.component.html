@@ -25,24 +25,24 @@
     </bottom-bar-mobile-tab> -->
 
         <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button>
-        <mat-menu #createMenu="matMenu">
+        <mat-menu #createMenu="matMenu" class="create_post_mmnenu">
             <div class="create-menu-cover">
-
-                <button mat-menu-item (click)="createPostUploadMint()" *ngIf="globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified">
+                <button mat-menu-item class="mntbtn" (click)="createPostUploadMint()" *ngIf="globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified">
                     <div class="icon-cover">
                         <img src="assets/icons/mint-icon.svg" alt="NFT">
                     </div>
                     Mint an NFT
                 </button>
                 <!-- <button mat-menu-item (click)="createPost()" [routerLink]="'/' + globalVars.RouteNames.CREATE_POST" queryParamsHandling="merge"></button> -->
-                <button mat-menu-item (click)="createPost()">
+                <button mat-menu-item [routerLink]="'/' + globalVars.RouteNames.CREATE_POST">
                     <div class="icon-cover">
-                        <img src="assets/icons/create-post-icon.svg" alt="Post">
+                        <img src="assets/icons/create_post.svg" alt="Post">
                     </div>
                     Create a Post
                 </button>
             </div>
         </mat-menu>
+
 
         <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser" [link]="'/' + globalVars.RouteNames.NOTIFICATIONS">
             <div class="icon-cover">

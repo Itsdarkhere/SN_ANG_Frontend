@@ -33,7 +33,8 @@
         </div>
     </div>
 </div>
-<div class="flex-fill px-15px br-10px" [ngClass]="{ 'pt-10px': parentPost }" *ngIf="showEmbedURL">
+<div class="flex-fill px-15px br-10px embed_wrp" [ngClass]="{ 'pt-10px': parentPost }" *ngIf="showEmbedURL">
+    <i class="feed-post_delete" (click)="showEmbedURL = !showEmbedURL"><img src="assets/icons/close_round.svg" alt=""></i>
     <input class="br-3px" type="url" [(ngModel)]="embedURL" (ngModelChange)="setEmbedURL()" placeholder="Embed Youtube, Vimeo, TikTok, Giphy, Spotify or SoundCloud" />
 </div>
 <div class="flex-fill px-15px br-10px" [ngClass]="{ 'pt-10px': parentPost }" *ngIf="showImageLink">
@@ -49,9 +50,9 @@
     }">
     {{ postInput.length }} / {{ GlobalVarsService.MAX_POST_LENGTH }}
   </span>
-    <i class="fas fa-code fa-lg text-grey8A cursor-pointer fs-18px" [ngClass]="{'pr-15px': !isComment}" (click)="showEmbedURL = !showEmbedURL"></i>
+    <i class="text-grey8A cursor-pointer fs-18px" [ngClass]="{'pr-15px': !isComment}" (click)="showEmbedURL = !showEmbedURL"><img src="assets/icons/media_btn.svg" class="media_ico" alt=""> </i>
     <ng-container *ngIf="!isComment">
-        <i class="fas fa-external-link-alt fa-lg text-grey8A cursor-pointer pr-15px fs-18px" (click)="showImageLink = !showImageLink"></i>
+        <!-- <i class="fas fa-external-link-alt fa-lg text-grey8A cursor-pointer pr-15px fs-18px" (click)="showImageLink = !showImageLink"></i> -->
         <input #imageInput class="d-none" type="file" accept="image/*" (change)="_handleFilesInput($event.target.files)" />
         <i class="text-grey8A cursor-pointer feed-create-post__image-icon" (click)="imageInput.click()"><img src="assets/icons/img_ico.svg" alt=""> </i>
     </ng-container>

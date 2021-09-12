@@ -24,23 +24,23 @@
       <i class="icon-up-arrow fs-25px"></i>
     </bottom-bar-mobile-tab> -->
 
-        <button class="btn btn-create clout" (click)="createPost()" *ngIf="globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified">Create</button>
+        <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button>
         <mat-menu #createMenu="matMenu">
             <div class="create-menu-cover">
-                <!-- 
-                <button mat-menu-item (click)="mintYourNFT()">
+
+                <button mat-menu-item (click)="createPostUploadMint()" *ngIf="globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified">
                     <div class="icon-cover">
                         <img src="assets/icons/mint-icon.svg" alt="NFT">
                     </div>
                     Mint an NFT
                 </button>
-                <button mat-menu-item *ngIf="globalVars.loggedInUser && showPostButton" (click)="createPost()" 
-                    [routerLink]="'/' + globalVars.RouteNames.CREATE_POST" queryParamsHandling="merge">
+                <!-- <button mat-menu-item (click)="createPost()" [routerLink]="'/' + globalVars.RouteNames.CREATE_POST" queryParamsHandling="merge"></button> -->
+                <button mat-menu-item (click)="createPost()">
                     <div class="icon-cover">
                         <img src="assets/icons/create-post-icon.svg" alt="Post">
                     </div>
                     Create a Post
-                </button> -->
+                </button>
             </div>
         </mat-menu>
 

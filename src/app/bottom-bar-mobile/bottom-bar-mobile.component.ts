@@ -6,6 +6,7 @@ import { CreateYourNftComponent } from "../create-your-nft/create-your-nft.compo
 import { MintYourNftComponent } from "../mint-your-nft/mint-your-nft.component";
 import { MatDialog } from "@angular/material/dialog";
 import { PlaceABidComponent } from "../place-a-bid/place-a-bid.component";
+import { CreatePostComponent } from "../create-post/create-post.component";
 
 @Component({
   selector: "bottom-bar-mobile",
@@ -19,8 +20,14 @@ export class BottomBarMobileComponent implements OnInit {
 
   constructor(public globalVars: GlobalVarsService, public dialog: MatDialog) { }
 
+  // createPost(): void {
+  //   const dialogRef = this.dialog.open(CreatePostUploadMintComponent, {
+  //     width: '620px',
+  //     panelClass: 'popup-modal'
+  //   });
+  // }
   createPost(): void {
-    const dialogRef = this.dialog.open(CreatePostUploadMintComponent, {
+    const dialogRef = this.dialog.open(CreatePostComponent, {
       width: '620px',
       panelClass: 'popup-modal'
     });

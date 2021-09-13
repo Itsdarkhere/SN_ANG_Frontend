@@ -4389,6 +4389,10 @@ option {
     width: 58px;
 }
 
+.create-menu-cover .mat-menu-item {
+    text-overflow: initial !important;
+}
+
 .embed_wrp {
     position: absolute;
     left: 0;

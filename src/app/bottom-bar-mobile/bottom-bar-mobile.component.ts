@@ -26,6 +26,15 @@ export class BottomBarMobileComponent implements OnInit {
   //     panelClass: 'popup-modal'
   //   });
   // }
+
+
+  createPostUploadMint(): void {
+    const dialogRef = this.dialog.open(CreatePostUploadMintComponent, {
+      width: '620px',
+      panelClass: 'popup-modal'
+    });
+  }
+
   createPost(): void {
     const dialogRef = this.dialog.open(CreatePostComponent, {
       width: '620px',

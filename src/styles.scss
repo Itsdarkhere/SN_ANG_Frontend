@@ -2661,7 +2661,7 @@ input {
     }
 }
 
-::placeholder {
+ ::placeholder {
     color: $placeholder-color;
 }
 
@@ -4448,6 +4448,32 @@ option {
             &.mntbtn {
                 border-bottom: 1px solid #eee;
             }
+        }
+    }
+}
+
+.nft-upload_img {
+    @media screen and (max-width: 767px) {
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+    .col {
+        @media screen and (max-width: 767px) {
+            width: 100% !important;
+            max-width: 100%;
+        }
+    }
+}
+
+.nft_btn_wrow {
+    @media screen and (max-width: 767px) {
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+    .col {
+        @media screen and (max-width: 767px) {
+            width: 100% !important;
+            max-width: 100%;
         }
     }
 }

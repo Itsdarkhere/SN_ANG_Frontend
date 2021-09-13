@@ -33,7 +33,7 @@
                     </div>
                     Mint an NFT
                 </button>
-                <!-- <button mat-menu-item (click)="createPost()" [routerLink]="'/' + globalVars.RouteNames.CREATE_POST" queryParamsHandling="merge"></button> -->
+                <!--  (click)="createPostUploadMint()" *ngIf="globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified" <button mat-menu-item (click)="createPost()" [routerLink]="'/' + globalVars.RouteNames.CREATE_POST" queryParamsHandling="merge"></button> -->
                 <button mat-menu-item [routerLink]="'/' + globalVars.RouteNames.CREATE_POST">
                     <div class="icon-cover">
                         <img src="assets/icons/create_post.svg" alt="Post">

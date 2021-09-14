@@ -20,11 +20,11 @@ import { GlobalVarsService } from "../global-vars.service";
     trigger("translucentBackgroundAnimation", [
       transition(":enter", [
         style({ "background-color": "rgba(0, 0, 0, 0)" }),
-        animate("400ms ease", style({ "background-color": "rgba(0, 0, 0, 0)" })),
+        animate("10ms ease", style({ "background-color": "rgba(0, 0, 0, 0)" })),
       ]),
       transition(":leave", [
         style({ "background-color": "rgba(0, 0, 0, 0)" }),
-        animate("400ms ease", style({ "background-color": "rgba(0, 0, 0, 0)" })),
+        animate("10ms ease", style({ "background-color": "rgba(0, 0, 0, 0)" })),
       ]),
     ]),
   ],

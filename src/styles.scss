@@ -4393,6 +4393,30 @@ option {
     text-overflow: initial !important;
 }
 
+.post-locable-content-wrap {
+    position: absolute;
+    width: 320px;
+    right: -40px;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 1px 1px 5px rgb(0 0 0 / 15%);
+    padding: 20px;
+    top: 36px;
+    color: var(--textalt);
+    font-size: 14px;
+    display: block;
+}
+
+.post-locable-content-wrap.hidden {
+    display: none;
+}
+
+.arweave_icon img {
+    width: 97px;
+    height: 19px;
+}
+
 .embed_wrp {
     position: absolute;
     left: 0;

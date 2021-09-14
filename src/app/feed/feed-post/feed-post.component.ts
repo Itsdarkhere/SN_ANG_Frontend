@@ -142,6 +142,7 @@ export class FeedPostComponent implements OnInit {
   serialNumbersDisplay: string;
   nftEntryResponses: NFTEntryResponse[];
   decryptableNFTEntryResponses: NFTEntryResponse[];
+  isLockablePopup: boolean = false;
 
   unlockableTooltip =
     "This NFT will come with content that's encrypted and only unlockable by the winning bidder. Note that if an NFT is being resold, it is not guaranteed that the new unlockable will be the same original unlockable.";
@@ -609,6 +610,13 @@ export class FeedPostComponent implements OnInit {
   showmOfNNFTTooltip = false;
   toggleShowMOfNNFTTooltip(): void {
     this.showmOfNNFTTooltip = !this.showmOfNNFTTooltip;
+  }
+  toggleLockablePopup(){
+    this.isLockablePopup = !this.isLockablePopup;
+  }
+  clickOutside(){
+    this.isLockablePopup = false;
+    this.showUnlockableContent = false;
   }
   compareBit(minBid, maxBid, showPlaceABid): string {
     if (!showPlaceABid && !!this.nftEntryResponses) {

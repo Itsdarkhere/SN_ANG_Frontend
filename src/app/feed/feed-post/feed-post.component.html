@@ -113,14 +113,26 @@
                             </div>
                             <div class="nft-detail-lock-info-wrap ml-auto" *ngIf="isNFTDetail">
                                 <ng-container *ngIf="showNFTDetails && postContent.IsNFT">
-                                    <span *ngIf="postContent.HasUnlockable" class="cursor-pointer d-lg-inline-block d-block mt-5px" (click)="tooltip.toggle(); toggleShowUnlockableContent()" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size too-nft-detail" [matTooltip]="unlockableTooltip"
-                                        #tooltip="matTooltip">
+                                    <span (clickOutside)="clickOutside()" *ngIf="postContent.HasUnlockable" class="cursor-pointer d-lg-inline-block d-block mt-5px" (mouseenter)="$event.stopImmediatePropagation()" (mouseleave)="$event.stopImmediatePropagation()" (click)="toggleLockablePopup();toggleShowUnlockableContent()">
                                         <i class="fas" [ngClass]="{
                                                 'fa-lock': !decryptableNFTEntryResponses?.length || showUnlockableContent,
                                                 'fa-unlock-alt': decryptableNFTEntryResponses?.length && !showUnlockableContent
                                             }"
                                         ></i>
                                     </span>
+                                    <div class="post-locable-content-wrap" [class.hidden]="!isLockablePopup">
+                                        <div class="post-locable-content-inner">
+                                            <div *ngIf="showUnlockableContent">
+                                                <div *ngFor="let nftEntry of decryptableNFTEntryResponses" class="d-flex flex-row">
+                                                    <div>#{{ nftEntry.SerialNumber }}:&nbsp;</div>
+                                                    <div [innerHTML]="nftEntry.DecryptedUnlockableText | sanitizeAndAutoLink"></div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="!showUnlockableContent">
+                                                {{unlockableTooltip}}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </ng-container>
                             </div>
                             <!-- Desktop follow button-->
@@ -317,12 +329,12 @@
     <ng-container *ngIf="isNFTDetail">
         <div *ngIf="showNFTDetails && postContent.IsNFT" class="fs-15px w-100 nft_place_bid_sec" [ngStyle]="{ 'border-radius': setBorder || cardStyle ? '0 0 18px 18px' : '' }" [ngClass]="{ 'feed-post__blue-border': showLeftSelectedBorder }">
 
-            <div *ngIf="showUnlockableContent">
+            <!-- <div *ngIf="showUnlockableContent">
                 <div *ngFor="let nftEntry of decryptableNFTEntryResponses" class="d-flex flex-row">
                     <div>#{{ nftEntry.SerialNumber }}:&nbsp;</div>
                     <div [innerHTML]="nftEntry.DecryptedUnlockableText | sanitizeAndAutoLink"></div>
                 </div>
-            </div>
+            </div> -->
             <div></div>
 
             <div *ngIf="showExpandedNFTDetails" class="d-flex nft_current_bid_tpwrapper">

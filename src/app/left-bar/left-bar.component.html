@@ -78,7 +78,7 @@
 
             <div class="p-15px"></div>
 
-            <a href="https://xxplfwbep9k.typeform.com/to/sv1kaUT2" target="_blank" class="become_creator">Become a creator</a>
+            <a *ngIf="!globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified" href="https://xxplfwbep9k.typeform.com/to/sv1kaUT2" target="_blank" class="become_creator">Become a creator</a>
 
             <!-- <div class="apply_to_crt" *ngIf="applycreator">
                 <i class="fas fa-times fa-md" (click)="hidecreator()" aria-hidden="true"></i>

@@ -1,23 +1,26 @@
 <div class="d-flex flex-column">
-    <!-- Top Bar -->
-    <!-- <div *ngIf="!isMobile" class="global__top-bar d-flex align-items-center px-15px fs-18px font-weight-bold fc-default justify-content-between border-bottom border-color-grey">
+  <!-- Top Bar -->
+  <!-- <div *ngIf="!isMobile" class="global__top-bar d-flex align-items-center px-15px fs-18px font-weight-bold fc-default justify-content-between border-bottom border-color-grey">
         <div class="d-flex align-items-center">
             <top-bar-mobile-navigation-control class="mr-15px d-lg-none d-inline-block"></top-bar-mobile-navigation-control>
             Home
         </div>
     </div> -->
 
-    <!-- <div class="global__top-bar__height"></div> -->
-    <div *ngIf="!isMobile">
-        <div class="border-bottom border-color-grey formbg create_post_wrapper">
-            <feed-create-post [numberOfRowsInTextArea]="2" [postRefreshFunc]="prependPostToFeed.bind(this)"></feed-create-post>
-        </div>
-
-        <!-- <div class="w-100 border-bottom border-color-grey light-grey-divider" style="min-height: 10px"></div> -->
+  <!-- <div class="global__top-bar__height"></div> -->
+  <div *ngIf="!isMobile">
+    <div class="border-bottom border-color-grey formbg create_post_wrapper">
+      <feed-create-post
+        [numberOfRowsInTextArea]="2"
+        [postRefreshFunc]="prependPostToFeed.bind(this)"
+      ></feed-create-post>
     </div>
 
-    <!-- Mobile BitClout Price -->
-    <!-- <div *ngIf="isMobile" class="d-flex border-bottom border-color-grey background-color-light-grey py-5px px-15px fs-12px justify-content-between">
+    <!-- <div class="w-100 border-bottom border-color-grey light-grey-divider" style="min-height: 10px"></div> -->
+  </div>
+
+  <!-- Mobile BitClout Price -->
+  <!-- <div *ngIf="isMobile" class="d-flex border-bottom border-color-grey background-color-light-grey py-5px px-15px fs-12px justify-content-between">
         <div>
             CLOUT in wallet {{ globalVars.nanosToBitClout(globalVars.loggedInUser.BalanceNanos) }}
             <span class="text-muted" *ngIf="globalVars.satoshisPerBitCloutExchangeRate">
@@ -29,61 +32,113 @@
         </div>
     </div> -->
 
-    <!-- <div *ngIf="isMobile && globalVars.loggedInUser && !globalVars.loggedInUser.JumioVerified" class="border-bottom border-color-grey background-color-light-grey py-5px px-15px fs-12px">
+  <!-- <div *ngIf="isMobile && globalVars.loggedInUser && !globalVars.loggedInUser.JumioVerified" class="border-bottom border-color-grey background-color-light-grey py-5px px-15px fs-12px">
         <jumio-status></jumio-status>
     </div> -->
 
-    <!-- Tab Selector -->
-    <div *ngIf="isMobile" class="global__top-bar__height"></div>
-    <tab-selector class="feed_tabs" [tabs]="feedTabs" [activeTab]="activeTab" (tabClick)="_handleTabClick($event)"></tab-selector>
+  <!-- Tab Selector -->
+  <div *ngIf="isMobile" class="global__top-bar__height"></div>
+  <tab-selector
+    class="feed_tabs"
+    [tabs]="feedTabs"
+    [activeTab]="activeTab"
+    (tabClick)="_handleTabClick($event)"
+  ></tab-selector>
 
-    <countdown-timer *ngIf="nextNFTShowcaseTime" [timerText]="'The next NFT showcase drops in...'" [fontWeight]="500" [timerEnd]="nextNFTShowcaseTime"></countdown-timer>
+  <countdown-timer
+    *ngIf="nextNFTShowcaseTime"
+    [timerText]="'The next NFT showcase drops in...'"
+    [fontWeight]="500"
+    [timerEnd]="nextNFTShowcaseTime"
+  ></countdown-timer>
 
-    <div [id]="getPullToRefreshMarkerId()"></div>
-    <button type="button" class="recent_post_btn" (click)="showRecent()">Show recent</button>
-    <!-- Posts -->
-    <div class="feed_mobile_gap" *ngIf="showGlobalOrFollowingPosts()">
-        <div *ngFor="let post of postsToShow()">
-            <div *ngIf="post.ProfileEntryResponse">
-                <!--
+  <div [id]="getPullToRefreshMarkerId()"></div>
+  <button type="button" class="recent_post_btn" (click)="showRecent()">Show recent</button>
+  <!-- Posts -->
+  <div class="feed_mobile_gap" *ngIf="showGlobalOrFollowingPosts()">
+    <div *ngFor="let post of postsToShow()">
+      <div *ngIf="post.ProfileEntryResponse">
+        <!--
             The post.parentPost stuff is a hack to make it so that a new comment shows up
             in the feed with the "replying to @[parentPost.Username]" content diplayed.
             post.parentPost is set in appendCommentAfterParentPost
           -->
-                <ng-container *ngIf="post?.IsNFT || post?.RecloutedPostEntryResponse?.IsNFT">
-                    <app-nft-card *ngIf="!post.IsHidden" [post]="post" [includePaddingOnPost]="true" [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)" [afterRecloutCreatedCallback]="prependPostToFeed.bind(this)" [showReplyingToContent]="!!post.parentPost"
-                        [parentPost]="post.parentPost" [contentShouldLinkToThread]="true" [showLeftSelectedBorder]="post.IsPinned" [blocked]="globalVars.hasUserBlockedCreator(post.PosterPublicKeyBase58Check)" [cardStyle]="true" [showNFTDetails]="true" (postDeleted)="onPostHidden($event)"
-                        (userBlocked)="userBlocked()" [fromFeed]="true" [profileFeed]="true"></app-nft-card>
-                </ng-container>
-                <ng-container *ngIf="!(post?.IsNFT || post?.RecloutedPostEntryResponse?.IsNFT)">
-                    <feed-post *ngIf="!post.IsHidden" [post]="post" [includePaddingOnPost]="true" [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)" [afterRecloutCreatedCallback]="prependPostToFeed.bind(this)" [showReplyingToContent]="!!post.parentPost"
-                        [parentPost]="post.parentPost" [contentShouldLinkToThread]="true" [showLeftSelectedBorder]="post.IsPinned" [blocked]="globalVars.hasUserBlockedCreator(post.PosterPublicKeyBase58Check)" [cardStyle]="true" [showNFTDetails]="true" (postDeleted)="onPostHidden($event)"
-                        (userBlocked)="userBlocked()"></feed-post>
-                </ng-container>
-            </div>
-        </div>
-
-        <div *ngIf="showMoreButton()" class="w-100 py-15px d-flex align-items-center justify-content-center cursor-pointer creator-leaderboard__load-more" (click)="loadMorePosts()">
-            <div *ngIf="!activeTabReadyForDisplay()" class="fs-15px">Load More</div>
-            <div *ngIf="activeTabReadyForDisplay()" class="fs-15px">Loading...</div>
-        </div>
+        <ng-container *ngIf="post?.IsNFT || post?.RecloutedPostEntryResponse?.IsNFT">
+          <app-nft-card
+            *ngIf="!post.IsHidden"
+            [post]="post"
+            [includePaddingOnPost]="true"
+            [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+            [afterRecloutCreatedCallback]="prependPostToFeed.bind(this)"
+            [showReplyingToContent]="!!post.parentPost"
+            [parentPost]="post.parentPost"
+            [contentShouldLinkToThread]="true"
+            [showLeftSelectedBorder]="post.IsPinned"
+            [blocked]="globalVars.hasUserBlockedCreator(post.PosterPublicKeyBase58Check)"
+            [cardStyle]="true"
+            [showNFTDetails]="true"
+            (postDeleted)="onPostHidden($event)"
+            (userBlocked)="userBlocked()"
+            [fromFeed]="true"
+            [profileFeed]="true"
+          ></app-nft-card>
+        </ng-container>
+        <ng-container *ngIf="!(post?.IsNFT || post?.RecloutedPostEntryResponse?.IsNFT)">
+          <feed-post
+            *ngIf="!post.IsHidden"
+            [post]="post"
+            [includePaddingOnPost]="true"
+            [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+            [afterRecloutCreatedCallback]="prependPostToFeed.bind(this)"
+            [showReplyingToContent]="!!post.parentPost"
+            [parentPost]="post.parentPost"
+            [contentShouldLinkToThread]="true"
+            [showLeftSelectedBorder]="post.IsPinned"
+            [blocked]="globalVars.hasUserBlockedCreator(post.PosterPublicKeyBase58Check)"
+            [cardStyle]="true"
+            [showNFTDetails]="true"
+            (postDeleted)="onPostHidden($event)"
+            (userBlocked)="userBlocked()"
+          ></feed-post>
+        </ng-container>
+      </div>
     </div>
 
-    <div *ngIf="activeTab === FeedComponent.SHOWCASE_TAB">
-        <nft-showcase></nft-showcase>
+    <div
+      *ngIf="showMoreButton()"
+      class="w-100 py-15px d-flex align-items-center justify-content-center cursor-pointer creator-leaderboard__load-more"
+      (click)="loadMorePosts()"
+    >
+      <div *ngIf="!activeTabReadyForDisplay()" class="fs-15px">Load More</div>
+      <div *ngIf="activeTabReadyForDisplay()" class="fs-15px">Loading...</div>
     </div>
+  </div>
 
-    <div *ngIf="showNoPostsFound()" class="d-flex flex-column align-items-center justify-content-center fc-muted fs-15px p-15px text-center" style="height: 400px">
-        <div>No posts yet</div>
+  <div *ngIf="activeTab === FeedComponent.SHOWCASE_TAB">
+    <nft-showcase></nft-showcase>
+  </div>
 
-        <div class="mt-10px">
-            <a class="" [routerLink]="['/' + globalVars.RouteNames.BROWSE]" [queryParams]="{ feedTab: FeedComponent.GLOBAL_TAB }" queryParamsHandling="merge">
+  <div
+    *ngIf="showNoPostsFound()"
+    class="d-flex flex-column align-items-center justify-content-center fc-muted fs-15px p-15px text-center"
+    style="height: 400px"
+  >
+    <div>No posts yet</div>
+
+    <div class="mt-10px">
+      <a
+        class=""
+        [routerLink]="['/' + globalVars.RouteNames.BROWSE]"
+        [queryParams]="{ feedTab: FeedComponent.GLOBAL_TAB }"
+        queryParamsHandling="merge"
+      >
         View the global feed
-      </a> to find more people to follow
-        </div>
+      </a>
+      to find more people to follow
     </div>
-    <simple-center-loader *ngIf="showLoadingSpinner()"></simple-center-loader>
-    <!-- SPACER FOR BOTTOM BAR ON MOBILE -->
-    <div class="global__bottom-bar-mobile-height"></div>
-    <div class="global__bottom-bar-mobile-height"></div>
+  </div>
+  <simple-center-loader *ngIf="showLoadingSpinner()"></simple-center-loader>
+  <!-- SPACER FOR BOTTOM BAR ON MOBILE -->
+  <div class="global__bottom-bar-mobile-height"></div>
+  <div class="global__bottom-bar-mobile-height"></div>
 </div>

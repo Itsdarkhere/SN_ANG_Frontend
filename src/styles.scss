@@ -1277,7 +1277,18 @@ input.bs-timepicker-field {
         width: 100%;
     }
 }
+@media (min-width: 1000px) {
+    .settings-width-max {
+        max-width: 700px;
+    }
+    .settings-padding-right-0 {
+        padding-right: 0;
+    }
+    .width-100-important {
+        width: 100% !important;
+    }
 
+}
 .global__top-bar {
     position: fixed;
     background: var(--background);

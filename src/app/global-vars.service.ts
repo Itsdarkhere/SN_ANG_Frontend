@@ -107,6 +107,7 @@ export class GlobalVarsService {
   feeRateBitCloutPerKB = 0.0;
   postsToShow = [];
   followFeedPosts = [];
+  bitcloutFeedPosts = [];
   messageResponse = null;
   messageMeta = {
     // <public_key || tstamp> -> messageObj

@@ -8,6 +8,7 @@ import * as _ from "lodash";
 import PullToRefresh from "pulltorefreshjs";
 import { Title } from "@angular/platform-browser";
 import { NftPostComponent } from "../nft-post-page/nft-post/nft-post.component";
+import { read } from "fs";
 
 @Component({
   selector: "feed",
@@ -18,7 +19,13 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   static GLOBAL_TAB = "Supernovas Feed";
   static FOLLOWING_TAB = "Following";
   static SHOWCASE_TAB = "⚡ NFT Showcase ⚡";
-  static TABS = [FeedComponent.GLOBAL_TAB, FeedComponent.FOLLOWING_TAB, FeedComponent.SHOWCASE_TAB];
+  static BITCLOUT_TAB = "Bitclout Global";
+  static TABS = [
+    FeedComponent.GLOBAL_TAB,
+    FeedComponent.FOLLOWING_TAB,
+    FeedComponent.SHOWCASE_TAB,
+    FeedComponent.BITCLOUT_TAB,
+  ];
   static NUM_TO_FETCH = 50;
   static MIN_FOLLOWING_TO_SHOW_FOLLOW_FEED_BY_DEFAULT = 10;
   static PULL_TO_REFRESH_MARKER_ID = "pull-to-refresh-marker";
@@ -41,6 +48,9 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   // We load the first batch of global feed posts on page load
   loadingFirstBatchOfGlobalFeedPosts = false;
 
+  // loading first batch of bitclout posts
+  loadingFirstBatchOfBitcloutPosts = false;
+
   // We load the user's following on page load. This boolean tracks whether we're currently loading
   // or whether we've finished.
   isLoadingFollowingOnPageLoad;
@@ -48,8 +58,10 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   globalVars: GlobalVarsService;
   serverHasMoreFollowFeedPosts = true;
   serverHasMoreGlobalFeedPosts = true;
+  serverHasMoreBitcloutFeedPosts = true;
   loadingMoreFollowFeedPosts = false;
   loadingMoreGlobalFeedPosts = false;
+  loadingMoreBitcloutFeedPosts = false;
 
   pullToRefreshHandler;
 
@@ -145,6 +157,11 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.loadingFirstBatchOfFollowFeedPosts = true;
     return this._loadFollowFeedPosts();
   }
+  _reloadBitcloutFeed() {
+    this.globalVars.bitcloutFeedPosts = [];
+    this.loadingFirstBatchOfBitcloutPosts = true;
+    return this._loadBitcloutPosts();
+  }
 
   _initializeFeeds() {
     if (this.globalVars.postsToShow.length === 0) {
@@ -160,6 +177,11 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     if (this.globalVars.followFeedPosts.length === 0) {
       this.loadingFirstBatchOfFollowFeedPosts = true;
       this._reloadFollowFeed();
+    }
+    // This initializes bitclout feed.
+    if (this.globalVars.bitcloutFeedPosts.length === 0) {
+      this.loadingFirstBatchOfBitcloutPosts = true;
+      this._reloadBitcloutFeed();
     }
 
     // The activeTab is set after we load the following based on whether the user is
@@ -212,8 +234,10 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     if (this.activeTab === FeedComponent.FOLLOWING_TAB) {
       // No need to delay on the Following tab. It handles the "slow switching" issue itself.
       return this.globalVars.followFeedPosts;
-    } else {
+    } else if (this.activeTab === this.FeedComponent.GLOBAL_TAB) {
       return this.globalVars.postsToShow;
+    } else {
+      return this.globalVars.bitcloutFeedPosts;
     }
   }
 
@@ -226,8 +250,10 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     if (this.activeTab === FeedComponent.FOLLOWING_TAB) {
       // No need to delay on the Following tab. It handles the "slow switching" issue itself.
       return this.loadingMoreFollowFeedPosts;
-    } else {
+    } else if (this.activeTab === FeedComponent.GLOBAL_TAB) {
       return this.loadingMoreGlobalFeedPosts;
+    } else {
+      return this.loadingMoreBitcloutFeedPosts;
     }
   }
 
@@ -241,15 +267,19 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   loadingFirstBatchOfActiveTabPosts() {
     if (this.activeTab === FeedComponent.FOLLOWING_TAB) {
       return this.loadingFirstBatchOfFollowFeedPosts;
-    } else {
+    } else if (this.activeTab === FeedComponent.GLOBAL_TAB) {
       return this.loadingFirstBatchOfGlobalFeedPosts;
+    } else {
+      return this.loadingFirstBatchOfBitcloutPosts;
     }
   }
 
   showGlobalOrFollowingPosts() {
     return (
       this.postsToShow().length > 0 &&
-      (this.activeTab === FeedComponent.GLOBAL_TAB || this.activeTab === FeedComponent.FOLLOWING_TAB)
+      (this.activeTab === FeedComponent.GLOBAL_TAB ||
+        this.activeTab === FeedComponent.FOLLOWING_TAB ||
+        this.activeTab === FeedComponent.BITCLOUT_TAB)
     );
   }
 
@@ -257,7 +287,9 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     // activeTab == FeedComponent.GLOBAL_TAB && globalVars.postsToShow.length == 0 && !loadingPosts
     return (
       this.postsToShow().length === 0 &&
-      (this.activeTab === FeedComponent.GLOBAL_TAB || this.activeTab === FeedComponent.FOLLOWING_TAB) &&
+      (this.activeTab === FeedComponent.GLOBAL_TAB ||
+        this.activeTab === FeedComponent.FOLLOWING_TAB ||
+        this.activeTab === FeedComponent.BITCLOUT_TAB) &&
       !this.loadingFirstBatchOfActiveTabPosts()
     );
   }
@@ -265,8 +297,10 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   loadMorePosts() {
     if (this.activeTab === FeedComponent.FOLLOWING_TAB) {
       this._loadFollowFeedPosts();
-    } else {
+    } else if (this.activeTab === FeedComponent.GLOBAL_TAB) {
       this._loadPosts();
+    } else {
+      this._loadBitcloutPosts();
     }
   }
 
@@ -277,8 +311,10 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
 
     if (this.activeTab === FeedComponent.FOLLOWING_TAB) {
       return this.serverHasMoreFollowFeedPosts;
-    } else {
+    } else if (this.activeTab === FeedComponent.GLOBAL_TAB) {
       return this.serverHasMoreGlobalFeedPosts;
+    } else {
+      return this.serverHasMoreBitcloutFeedPosts;
     }
   }
 
@@ -298,7 +334,6 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     if (this.globalVars.loggedInUser) {
       readerPubKey = this.globalVars.loggedInUser.PublicKeyBase58Check;
     }
-
     // Get the last post hash in case this is a "load more" request.
     let lastPostHash = "";
     if (this.globalVars.postsToShow.length > 0 && !reload) {
@@ -370,7 +405,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
         (response) => {
           this.followedPublicKeyToProfileEntry = response.PublicKeyToProfileEntry;
         },
-        (error) => { }
+        (error) => {}
       )
       .add(() => {
         this._afterLoadingFollowingOnPageLoad();
@@ -385,7 +420,6 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     if (this.globalVars.loggedInUser) {
       readerPubKey = this.globalVars.loggedInUser.PublicKeyBase58Check;
     }
-
     // Get the last post hash in case this is a "load more" request.
     let lastPostHash = "";
     if (this.globalVars.followFeedPosts.length > 0 && !reload) {
@@ -444,6 +478,90 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
       )
       .toPromise();
   }
+  // This is essentially the same as the other load functions, small tweaks but you get the point
+  _loadBitcloutPosts(reload: boolean = false, scrolltop: boolean = false) {
+    this.loadingMoreBitcloutFeedPosts = true;
+
+    let readerPubKey = "";
+    if (this.globalVars.loggedInUser) {
+      readerPubKey = this.globalVars.loggedInUser.PublicKeyBase58Check;
+    }
+    let lastPostHash = "";
+    if (this.globalVars.bitcloutFeedPosts.length > 0 && !reload) {
+      lastPostHash = this.globalVars.bitcloutFeedPosts[this.globalVars.bitcloutFeedPosts.length - 1].PostHashHex;
+    }
+    this.backendApi
+      .GetPostsStateless(
+        this.globalVars.localNode,
+        lastPostHash,
+        readerPubKey,
+        "",
+        parseInt(this.globalVars.filterType),
+        "",
+        FeedComponent.NUM_TO_FETCH,
+        false,
+        false,
+        false,
+        false,
+        false,
+        0,
+        true
+      )
+      .pipe(
+        tap(
+          (res) => {
+            if (lastPostHash !== "") {
+              res.PostsFound.shift();
+              this.globalVars.bitcloutFeedPosts = this.globalVars.bitcloutFeedPosts.concat(res.PostsFound);
+            } else {
+              this.globalVars.bitcloutFeedPosts = res.PostsFound;
+            }
+            if (res.PostsFound.length < FeedComponent.NUM_TO_FETCH - 1) {
+              // I'm not sure what the expected behavior is for the global feed. It may sometimes
+              // return less than NUM_TO_FETCH while there are still posts available (e.g. if posts
+              // are deleted. I'm not sure so just commenting out for now.
+              // We'll move to infinite scroll soon, so not sure this is worth fixing rn.
+              // this.serverHasMoreGlobalFeedPosts = true
+            }
+            if (scrolltop) {
+              document.body.scrollTop = 0; // For Safari
+              document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+            }
+          },
+          (err) => {
+            console.error(err);
+            this.globalVars._alertError("Error loading posts: " + this.backendApi.stringifyError(err));
+          }
+        ),
+        finalize(() => {
+          this.loadingFirstBatchOfBitcloutPosts = false;
+          this.loadingMoreBitcloutFeedPosts = false;
+        }),
+        first()
+      )
+      .toPromise();
+    /*.subscribe(
+        (res) => {
+          if (lastPostHash != "") {
+            this.globalVars.bitcloutFeedPosts = this.globalVars.bitcloutFeedPosts.concat(res.PostsFound);
+          } else {
+            this.globalVars.bitcloutFeedPosts = res.PostsFound;
+          }
+          if (scrolltop) {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+          }
+        },
+        (err) => {
+          console.log(err);
+          this.globalVars._alertError("Error loading bitclout posts: " + this.backendApi.stringifyError(err));
+        }
+      )
+      .add(() => {
+        this.loadingMoreBitcloutFeedPosts = false;
+      });
+      */
+  }
 
   _afterLoadingFollowingOnPageLoad() {
     this.isLoadingFollowingOnPageLoad = false;
@@ -458,7 +576,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
       defaultActiveTab = FeedComponent.GLOBAL_TAB;
     }
 
-    this.feedTabs = [FeedComponent.GLOBAL_TAB, FeedComponent.FOLLOWING_TAB];
+    this.feedTabs = [FeedComponent.GLOBAL_TAB, FeedComponent.FOLLOWING_TAB, FeedComponent.BITCLOUT_TAB];
 
     if (!this.activeTab) {
       this.activeTab = defaultActiveTab;

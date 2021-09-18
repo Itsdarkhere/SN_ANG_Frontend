@@ -19,7 +19,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   static GLOBAL_TAB = "Supernovas Feed";
   static FOLLOWING_TAB = "Following";
   static SHOWCASE_TAB = "⚡ NFT Showcase ⚡";
-  static BITCLOUT_TAB = "Global";
+  static BITCLOUT_TAB = "Recent";
   static TABS = [
     FeedComponent.GLOBAL_TAB,
     FeedComponent.FOLLOWING_TAB,

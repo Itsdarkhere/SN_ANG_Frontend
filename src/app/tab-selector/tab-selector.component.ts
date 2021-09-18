@@ -17,7 +17,7 @@ export class TabSelectorComponent {
     this.activeTab = tab;
   }
   _isGlobal(tab: string) {
-    if (tab === "Global") {
+    if (tab === "Recent") {
       return true;
     }
     return false;

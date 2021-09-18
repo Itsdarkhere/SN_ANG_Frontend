@@ -150,7 +150,6 @@ export class FeedPostComponent implements OnInit {
     "Each NFT can have multiple editions, each of which has its own unique serial number. This shows how many editions are currently on sale and how many there are in total. Generally, editions with lower serial numbers are more valuable.";
 
   getNFTEntries() {
-    console.log(this.reclouterProfile[0] + "vittuperkelelelelle");
     this.backendApi
       .GetNFTEntriesForNFTPost(
         this.globalVars.localNode,
@@ -209,7 +208,6 @@ export class FeedPostComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.reclouterProfile[0] + "vittuperkelelelelle");
     if (this.globalVars.loggedInUser) {
       this.loggedInUserStakeAmount = this._getLoggedInUserStakeAmount();
       this.loggedInUserNextStakePayout = this._getLoggedInUserNextStakePayout();

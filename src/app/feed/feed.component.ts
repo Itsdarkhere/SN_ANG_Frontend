@@ -26,7 +26,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     FeedComponent.SHOWCASE_TAB,
     FeedComponent.BITCLOUT_TAB,
   ];
-  static NUM_TO_FETCH = 50;
+  static NUM_TO_FETCH = 30;
   static MIN_FOLLOWING_TO_SHOW_FOLLOW_FEED_BY_DEFAULT = 10;
   static PULL_TO_REFRESH_MARKER_ID = "pull-to-refresh-marker";
 

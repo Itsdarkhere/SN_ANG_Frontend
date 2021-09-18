@@ -60,7 +60,7 @@ export class FeedPostComponent implements OnInit {
     private router: Router,
     private modalService: BsModalService,
     private sanitizer: DomSanitizer
-  ) { }
+  ) {}
 
   // Got this from https://code.habd.as/jhabdas/xanthippe/src/branch/master/lib/xanthippe.js#L8
   // Other regexes:
@@ -150,6 +150,7 @@ export class FeedPostComponent implements OnInit {
     "Each NFT can have multiple editions, each of which has its own unique serial number. This shows how many editions are currently on sale and how many there are in total. Generally, editions with lower serial numbers are more valuable.";
 
   getNFTEntries() {
+    console.log(this.reclouterProfile[0] + "vittuperkelelelelle");
     this.backendApi
       .GetNFTEntriesForNFTPost(
         this.globalVars.localNode,
@@ -197,17 +198,18 @@ export class FeedPostComponent implements OnInit {
         this.highBid = _.maxBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
         this.lowBid = _.minBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
         this.minBid = _.maxBy(this.availableSerialNumbers, "MinBidAmountNanos")?.MinBidAmountNanos || 0;
-        if(!this.showPlaceABid){
-          if(this.nftEntryResponses[0].LastAcceptedBidAmountNanos > 0){
-            this.lastSalePrice = this.nftEntryResponses[0]['LastAcceptedBidAmountNanos'];
+        if (!this.showPlaceABid) {
+          if (this.nftEntryResponses[0].LastAcceptedBidAmountNanos > 0) {
+            this.lastSalePrice = this.nftEntryResponses[0]["LastAcceptedBidAmountNanos"];
           } else {
-            this.lastSalePrice = this.nftEntryResponses[0]['MinBidAmountNanos'];
+            this.lastSalePrice = this.nftEntryResponses[0]["MinBidAmountNanos"];
           }
         }
       });
   }
 
   ngOnInit() {
+    console.log(this.reclouterProfile[0] + "vittuperkelelelelle");
     if (this.globalVars.loggedInUser) {
       this.loggedInUserStakeAmount = this._getLoggedInUserStakeAmount();
       this.loggedInUserNextStakePayout = this._getLoggedInUserNextStakePayout();
@@ -611,21 +613,21 @@ export class FeedPostComponent implements OnInit {
   toggleShowMOfNNFTTooltip(): void {
     this.showmOfNNFTTooltip = !this.showmOfNNFTTooltip;
   }
-  toggleLockablePopup(){
+  toggleLockablePopup() {
     this.isLockablePopup = !this.isLockablePopup;
   }
-  clickOutside(){
+  clickOutside() {
     this.isLockablePopup = false;
     this.showUnlockableContent = false;
   }
   compareBit(minBid, maxBid, showPlaceABid): string {
     if (!showPlaceABid && !!this.nftEntryResponses) {
-      return this.nftEntryResponses[0].IsForSale === false ? 'Sold for' : 'Minimum Bid';
+      return this.nftEntryResponses[0].IsForSale === false ? "Sold for" : "Minimum Bid";
     } else {
       if (Number(maxBid) > 0) {
-        return 'Highest Bid';
+        return "Highest Bid";
       } else if (Number(maxBid) === 0) {
-        return 'Minimum Bid';
+        return "Minimum Bid";
       }
     }
   }

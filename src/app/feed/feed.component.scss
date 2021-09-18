@@ -1,11 +1,8 @@
 :host ::ng-deep {
     .feed_tabs {
         .tabs_column_list {
-            width: 30% !important;
+            width: 33.33% !important;
             align-items: flex-start !important;
-            @media screen and (max-width: 767px) {
-                width: 33% !important;
-            }
             .tabs_column_list_inner {
                 font-size: 16px !important;
                 font-weight: 600;

@@ -26,9 +26,13 @@ html {
     // removes 300ms click delay on mobile browsers
     touch-action: manipulation;
 }
+.bg {
+    background-color: red !important;
+    color: blue !important;
+}
 .space-between {
     display: flex !important;
-    justify-content: space-between !important;
+    justify-content: flex-start !important;
 }
 .bitclout-com {
     background-color: rgb(232, 232, 232) !important;
@@ -45,6 +49,9 @@ html {
     }
     .bitclout-com {
         font-size: 8px !important;
+    }
+    .space-between {
+        justify-content: start !important;
     }
 }
 html,

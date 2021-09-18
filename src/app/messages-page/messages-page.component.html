@@ -32,7 +32,7 @@
 <!--
   MOBILE
   -->
-<div class="global__mobile flex-column" *ngIf="globalVars.isMobile()">
+<div class="global__mobile flex-column pdt" *ngIf="globalVars.isMobile()">
   <left-bar-mobile></left-bar-mobile>
 
   <div class="d-flex flex-column flex-grow-1 vh-100">
@@ -65,12 +65,6 @@
       Messages
 
       <!-- Settings -->
-      <div class="d-flex w-100 justify-content-end align-items-right pr-10px">
-        <i
-          (click)="_toggleSettingsTray()"
-          class="fas fa-sliders-h cursor-pointer messages-header-icon-row__icon pt-2px"
-        ></i>
-      </div>
     </div>
 
     <!-- Thread View Header -->

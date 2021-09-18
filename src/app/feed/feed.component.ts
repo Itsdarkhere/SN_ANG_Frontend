@@ -19,7 +19,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   static GLOBAL_TAB = "Supernovas Feed";
   static FOLLOWING_TAB = "Following";
   static SHOWCASE_TAB = "⚡ NFT Showcase ⚡";
-  static BITCLOUT_TAB = "Bitclout Global";
+  static BITCLOUT_TAB = "Global";
   static TABS = [
     FeedComponent.GLOBAL_TAB,
     FeedComponent.FOLLOWING_TAB,
@@ -576,7 +576,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
       defaultActiveTab = FeedComponent.GLOBAL_TAB;
     }
 
-    this.feedTabs = [FeedComponent.GLOBAL_TAB, FeedComponent.FOLLOWING_TAB, FeedComponent.BITCLOUT_TAB];
+    this.feedTabs = [FeedComponent.GLOBAL_TAB, FeedComponent.BITCLOUT_TAB, FeedComponent.FOLLOWING_TAB];
 
     if (!this.activeTab) {
       this.activeTab = defaultActiveTab;

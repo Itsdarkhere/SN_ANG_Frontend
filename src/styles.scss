@@ -26,7 +26,27 @@ html {
     // removes 300ms click delay on mobile browsers
     touch-action: manipulation;
 }
-
+.space-between {
+    display: flex !important;
+    justify-content: space-between !important;
+}
+.bitclout-com {
+    background-color: rgb(232, 232, 232) !important;
+    font-size: 10px !important;
+    border-radius: 10px !important;
+    padding-left: 3% !important;
+    padding-right: 3% !important;
+    color: rgb(135, 135, 135) !important;
+    margin-left: 5px !important;
+}
+@media (max-width: 1000px) {
+    .padding-left {
+        padding-left: 15px;
+    }
+    .bitclout-com {
+        font-size: 8px !important;
+    }
+}
 html,
 body {
     font-family: "Poppins", sans-serif;

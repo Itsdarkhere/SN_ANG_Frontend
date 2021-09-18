@@ -792,13 +792,13 @@ export class GlobalVarsService {
 
     if (!this.localNode) {
       const hostname = (window as any).location.hostname;
-      
+
       if (environment.production) {
         this.localNode = hostname;
       } else {
         this.localNode = `api.love4src.com`;
       }
-      
+
       this.backendApi.SetStorage(this.backendApi.LastLocalNodeKey, this.localNode);
     }
 

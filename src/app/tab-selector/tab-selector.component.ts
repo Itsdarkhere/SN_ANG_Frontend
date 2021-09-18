@@ -16,4 +16,10 @@ export class TabSelectorComponent {
     this.tabClick.emit(tab);
     this.activeTab = tab;
   }
+  _isGlobal(tab: string) {
+    if (tab === "Global") {
+      return true;
+    }
+    return false;
+  }
 }

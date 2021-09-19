@@ -1251,8 +1251,6 @@ input.bs-timepicker-field {
 
 .global__nav__inner {
     width: $global__nav__width;
-    overflow-y: auto;
-    overflow-x: hidden;
     height: calc(100vh - 77px);
     padding: 10px 10px 10px 0px;
     @media (max-width: 767px) {

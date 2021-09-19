@@ -1,58 +1,60 @@
 <div class="page-bottom-bar-mobile">
-    <div class="bottom-bar-list border-color-grey">
-        <bottom-bar-mobile-tab [link]="'/' + globalVars.RouteNames.BROWSE">
-            <div class="icon-cover">
-                <img src="assets/icons/feed-icon.svg" alt="">
-            </div>
-            <h6>Feed</h6>
-        </bottom-bar-mobile-tab>
+  <div class="bottom-bar-list border-color-grey">
+    <bottom-bar-mobile-tab [link]="'/' + globalVars.RouteNames.BROWSE">
+      <div class="icon-cover">
+        <img src="assets/icons/feed-icon.svg" alt="" />
+      </div>
+      <h6>Feed</h6>
+    </bottom-bar-mobile-tab>
 
-        <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser" [link]="'/' + globalVars.RouteNames.TRENDS" [buttonLabel]="'Marketplace'">
-            <div class="icon-cover">
-                <img src="assets/icons/marketplace-icon.svg" alt="">
-            </div>
-            <h6>Marketplace</h6>
-        </bottom-bar-mobile-tab>
+    <bottom-bar-mobile-tab
+      *ngIf="globalVars.loggedInUser"
+      [link]="'/' + globalVars.RouteNames.TRENDS"
+      [buttonLabel]="'Marketplace'"
+    >
+      <div class="icon-cover">
+        <img src="assets/icons/marketplace-icon.svg" alt="" />
+      </div>
+      <h6>Marketplace</h6>
+    </bottom-bar-mobile-tab>
 
-        <!-- <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser"
+    <!-- <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser"
     [link]="'/' + globalVars.RouteNames.WALLET">
     <img src="assets/icons/wallet-icon.svg" alt="">
     <h6>Marketplace</h6>
     </bottom-bar-mobile-tab> -->
 
-        <!-- <bottom-bar-mobile-tab [link]="'/' + globalVars.RouteNames.TRENDS">
+    <!-- <bottom-bar-mobile-tab [link]="'/' + globalVars.RouteNames.TRENDS">
       <i class="icon-up-arrow fs-25px"></i>
     </bottom-bar-mobile-tab> -->
 
-        <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button>
-        <mat-menu #createMenu="matMenu" class="create_post_mmnenu">
-            <div class="create-menu-cover">
-                <!-- <button mat-menu-item class="mntbtn" (click)="createPostUploadMint()" *ngIf="globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified">
+    <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button>
+    <mat-menu #createMenu="matMenu" class="create_post_mmnenu">
+      <div class="create-menu-cover">
+        <!-- <button mat-menu-item class="mntbtn" (click)="createPostUploadMint()" *ngIf="globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified">
                     <div class="icon-cover">
                         <img src="assets/icons/mint-icon.svg" alt="NFT">
                     </div>
                     Mint an NFT
                 </button> -->
-                <!--  (click)="createPostUploadMint()" *ngIf="globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified" <button mat-menu-item (click)="createPost()" [routerLink]="'/' + globalVars.RouteNames.CREATE_POST" queryParamsHandling="merge"></button> -->
-                <button mat-menu-item [routerLink]="'/' + globalVars.RouteNames.CREATE_POST">
-                    <div class="icon-cover">
-                        <img src="assets/icons/create_post.svg" alt="Post">
-                    </div>
-                    Create a Post
-                </button>
-            </div>
-        </mat-menu>
+        <!--  (click)="createPostUploadMint()" *ngIf="globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified" <button mat-menu-item (click)="createPost()" [routerLink]="'/' + globalVars.RouteNames.CREATE_POST" queryParamsHandling="merge"></button> -->
+        <button mat-menu-item [routerLink]="'/' + globalVars.RouteNames.CREATE_POST">
+          <div class="icon-cover">
+            <img src="assets/icons/create_post.svg" alt="Post" />
+          </div>
+          Create a Post
+        </button>
+      </div>
+    </mat-menu>
 
+    <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser" [link]="'/' + globalVars.RouteNames.NOTIFICATIONS">
+      <div class="icon-cover">
+        <img class="noti-img" src="assets/icons/notification-icon.svg" alt="" />
+      </div>
+      <h6>Notifications</h6>
+    </bottom-bar-mobile-tab>
 
-        <bottom-bar-mobile-tab *ngIf="globalVars.loggedInUser" [link]="'/' + globalVars.RouteNames.NOTIFICATIONS">
-            <div class="icon-cover">
-                <img class="noti-img" src="assets/icons/notification-icon.svg" alt="">
-            </div>
-            <h6>Notifications</h6>
-        </bottom-bar-mobile-tab>
-
-
-        <!-- <i class="icon-messages fs-25px">
+    <!-- <i class="icon-messages fs-25px">
         <div *ngIf="globalVars.messageResponse && globalVars.messageResponse.NumberOfUnreadThreads != 0"
           class="bottom-bar__message-notifications-bubble roboto-mono">
           {{
@@ -62,19 +64,16 @@
           }}
         </div>
       </i> -->
-        <div class="bottom-bar-nav">
-            <div class="icon-cover" (click)="globalVars.isLeftBarMobileOpen = true">
-                <img src="assets/icons/hamburger-icon.svg" class="clout" alt="">
-            </div>
-            <h6>Menu</h6>
-        </div>
-
-
+    <div class="bottom-bar-nav">
+      <div class="icon-cover" (click)="globalVars.isLeftBarMobileOpen = true">
+        <img src="assets/icons/hamburger-icon.svg" class="clout" alt="" />
+      </div>
+      <h6>Menu</h6>
     </div>
+  </div>
 
-    <!-- TODO: on mobile, if you click this, should it prompt you to log in?-->
-    <!-- <a *ngIf="globalVars.loggedInUser && showPostButton" class="bottom-bar-mobile__create-post-circle rounded-circle link--unstyled bg-primary text-white" [routerLink]="'/' + globalVars.RouteNames.CREATE_POST" queryParamsHandling="merge">
+  <!-- TODO: on mobile, if you click this, should it prompt you to log in?-->
+  <!-- <a *ngIf="globalVars.loggedInUser && showPostButton" class="bottom-bar-mobile__create-post-circle rounded-circle link--unstyled bg-primary text-white" [routerLink]="'/' + globalVars.RouteNames.CREATE_POST" queryParamsHandling="merge">
     +
   </a> -->
-
 </div>

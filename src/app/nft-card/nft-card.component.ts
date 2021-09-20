@@ -17,9 +17,9 @@ import { SharedDialogs } from "../../lib/shared-dialogs";
 import { FeedPostImageModalComponent } from "../feed/feed-post-image-modal/feed-post-image-modal.component";
 
 @Component({
-  selector: 'app-nft-card',
-  templateUrl: './nft-card.component.html',
-  styleUrls: ['./nft-card.component.scss']
+  selector: "app-nft-card",
+  templateUrl: "./nft-card.component.html",
+  styleUrls: ["./nft-card.component.scss"],
 })
 export class NftCardComponent implements OnInit {
   @Input()
@@ -195,14 +195,14 @@ export class NftCardComponent implements OnInit {
         );
         this.showPlaceABid = !!(this.availableSerialNumbers.length - this.myAvailableSerialNumbers.length);
         this.highBid = _.maxBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
-        
+
         this.lowBid = _.minBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
         this.minBid = _.maxBy(this.availableSerialNumbers, "MinBidAmountNanos")?.MinBidAmountNanos || 0;
-        if(!this.showPlaceABid){
-          if(this.nftEntryResponses[0].LastAcceptedBidAmountNanos > 0){
-            this.lastSalePrice = this.nftEntryResponses[0]['LastAcceptedBidAmountNanos'];
+        if (!this.showPlaceABid) {
+          if (this.nftEntryResponses[0].LastAcceptedBidAmountNanos > 0) {
+            this.lastSalePrice = this.nftEntryResponses[0]["LastAcceptedBidAmountNanos"];
           } else {
-            this.lastSalePrice = this.nftEntryResponses[0]['MinBidAmountNanos'];
+            this.lastSalePrice = this.nftEntryResponses[0]["MinBidAmountNanos"];
           }
         }
       });
@@ -612,14 +612,14 @@ export class NftCardComponent implements OnInit {
   toggleShowMOfNNFTTooltip(): void {
     this.showmOfNNFTTooltip = !this.showmOfNNFTTooltip;
   }
-  compareBit(minBid, maxBid, showPlaceABid):string{
+  compareBit(minBid, maxBid, showPlaceABid): string {
     if (!showPlaceABid && !!this.nftEntryResponses) {
-      return this.nftEntryResponses[0].IsForSale === false ? 'Sold for' : 'Minimum Bid';
+      return this.nftEntryResponses[0].IsForSale === false ? "Sold for" : "Minimum Bid";
     } else {
-      if(Number(maxBid) > 0){
-        return 'Highest Bid';
-      } else if(Number(maxBid) === 0){
-        return 'Minimum Bid';
+      if (Number(maxBid) > 0) {
+        return "Highest Bid";
+      } else if (Number(maxBid) === 0) {
+        return "Minimum Bid";
       }
     }
   }

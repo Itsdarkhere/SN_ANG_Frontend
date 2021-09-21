@@ -1,9 +1,10 @@
 <!-- Top Bar -->
 <div
-  class="global__top-bar global__top-bar__height d-flex align-items-center pl-15px fs-18px font-weight-bold border-bottom border-color-grey"
+  class="global__top-bar global__top-bar__height d-flex align-items-center pl-15px fs-18px border-bottom border-color-grey"
 >
   <top-bar-mobile-navigation-control class="mr-15px d-lg-none d-inline-block"></top-bar-mobile-navigation-control>
-  Update Profile
+  <p class="font-weight-bold" *ngIf="!globalVars.loggedInUser.ProfileEntryResponse?.Username">Create Your Profile</p>
+  <p class="font-weight-bold" *ngIf="globalVars.loggedInUser.ProfileEntryResponse?.Username">Update Profile</p>
 </div>
 
 <div class="global__top-bar__height"></div>
@@ -17,7 +18,8 @@
       <div
         *ngIf="
           !globalVars.loggedInUser?.ProfileEntryResponse &&
-          ((!globalVars.loggedInUser?.HasPhoneNumber && !globalVars.loggedInUser?.JumioVerified) || !globalVars.isCompProfileCreation) &&
+          ((!globalVars.loggedInUser?.HasPhoneNumber && !globalVars.loggedInUser?.JumioVerified) ||
+            !globalVars.isCompProfileCreation) &&
           globalVars.createProfileFeeNanos > 0
         "
         class="p-15px bg-warning"
@@ -123,7 +125,10 @@
                   #tooltip="matTooltip"
                 ></i>
               </div>
-              <div *ngIf="this.globalVars.loggedInUser.UsersWhoHODLYouCount === 0" class="fc-muted font-italic fs-13px pt-5px">
+              <div
+                *ngIf="this.globalVars.loggedInUser.UsersWhoHODLYouCount === 0"
+                class="fc-muted font-italic fs-13px pt-5px"
+              >
                 * You must purchase your own coin before lowering your founder reward.
               </div>
               <div
@@ -134,7 +139,6 @@
                 Please set a founder reward between 0-100.
               </div>
             </div>
-
           </div>
 
           <div class="w-100 my-30px">

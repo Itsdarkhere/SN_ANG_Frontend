@@ -11,7 +11,7 @@ import { IdentityService } from "../identity.service";
 })
 export class LeftBarComponent {
   MessagesInboxComponent = MessagesInboxComponent;
- 
+
   applycreator = true;
 
   @HostBinding("class") get classes() {
@@ -51,8 +51,7 @@ export class LeftBarComponent {
     this.globalVars.logEvent("help : click");
   }
 
-hidecreator(){
-  this.applycreator = false;
-}
-
+  hidecreator() {
+    this.applycreator = false;
+  }
 }

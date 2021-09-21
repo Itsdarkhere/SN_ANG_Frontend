@@ -149,13 +149,13 @@ export class GlobalVarsService {
   isTestnet = false;
 
   // Whether or not to show the Verify phone number flow.
-  showPhoneNumberVerification = false;
+  showPhoneNumberVerification = true;
 
   // Whether or not to show the Buy BitClout with USD flow.
   showBuyWithUSD = false;
 
   // Whether or not to show the Jumio verification flow.
-  showJumio = false;
+  showJumio = true;
 
   // Whether or not this node comps profile creation.
   isCompProfileCreation = false;

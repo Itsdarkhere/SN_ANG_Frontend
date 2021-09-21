@@ -1,7 +1,19 @@
 <div>
-    <div *ngIf="globalVars.isLeftBarMobileOpen" [@leftBarAnimation] class="left-bar-mobile__flyout-div">
-        <left-bar [isMobile]="true" (closeMobile)="_closeMenu()"></left-bar>
-    </div>
-    <div *ngIf="globalVars.isLeftBarMobileOpen" [@translucentBackgroundAnimation] (click)="_closeMenu()" class="left-bar-mobile__translucent-background"></div>
-    <div *ngIf="globalVars.isLeftBarMobileOpen" [@translucentBackgroundAnimation] (click)="_closeMenu()" class="nav_close"><img src="assets/img/close_square.svg" alt=""></div>
+  <div *ngIf="globalVars.isLeftBarMobileOpen" [@leftBarAnimation] class="left-bar-mobile__flyout-div">
+    <left-bar [isMobile]="true" (closeMobile)="_closeMenu()"></left-bar>
+  </div>
+  <div
+    *ngIf="globalVars.isLeftBarMobileOpen"
+    [@translucentBackgroundAnimation]
+    (click)="_closeMenu()"
+    class="left-bar-mobile__translucent-background"
+  ></div>
+  <div
+    *ngIf="globalVars.isLeftBarMobileOpen"
+    [@translucentBackgroundAnimation]
+    (click)="_closeMenu()"
+    class="nav_close"
+  >
+    <img src="assets/img/close_square.svg" alt="" />
+  </div>
 </div>

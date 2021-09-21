@@ -65,9 +65,17 @@
       ></left-bar-button>
 
       <left-bar-button
+        [forDesktop]="true"
         [link]="'/' + globalVars.RouteNames.WALLET"
         [buttonLabel]="'Wallet'"
         [imgSrc]="'assets/icons/wallet-icon.svg'"
+      ></left-bar-button>
+
+      <left-bar-button
+        *ngIf="globalVars.loggedInUser && !globalVars.loggedInUser.ProfileEntryResponse?.Username"
+        [link]="'/' + this.globalVars.RouteNames.UPDATE_PROFILE"
+        [buttonLabel]="'Create profile'"
+        [imgSrc]="'assets/icons/profile-icon.svg'"
       ></left-bar-button>
 
       <!-- <div class="p-15px" *ngIf="globalVars.loggedInUser?.ProfileEntryResponse"></div> -->

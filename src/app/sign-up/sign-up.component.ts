@@ -59,11 +59,14 @@ export class SignUpComponent {
 
   nextPage() {
     this.stepNum += 1;
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { stepNum: this.stepNum },
-      queryParamsHandling: "merge",
-    });
+    if (this.stepNum != 5) {
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { stepNum: this.stepNum },
+        queryParamsHandling: "merge",
+      });
+    }
+    this.router.navigate(["/" + this.globalVars.RouteNames.UPDATE_PROFILE]);
   }
 
   prevPage() {

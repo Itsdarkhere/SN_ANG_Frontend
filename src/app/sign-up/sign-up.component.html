@@ -49,7 +49,7 @@
         Continue
       </button>
       <div class="signup-skip-button">
-        <a class="signup-skip-link" (click)="notificationsStepSkipped()">
+        <a class="signup-skip-link" [routerLink]="'/' + this.globalVars.RouteNames.UPDATE_PROFILE">
           <img class="chevron" [src]="'assets/icons/chevron_right.svg'" />
           Skip
         </a>

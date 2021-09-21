@@ -3230,7 +3230,12 @@ option {
     background-color: var(--background) !important;
     color: var(--text);
 }
-
+.creator-coin-button {
+    background: linear-gradient(45deg, #f3a83c 0%, #ec5454 20%, #f51ac1 35%, #2749f0 74%, #593eb7 99%) !important;
+    line-height: 1.4;
+    outline: none;
+    border: none;
+}
 //
 // Bootstrap switch custom styling
 //

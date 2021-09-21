@@ -236,18 +236,19 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     if (comp.globalVars.loggedInUser.UsersWhoHODLYouCount === 0) {
       SwalHelper.fire({
         target: comp.globalVars.getTargetComponentSelector(),
-        icon: "success",
-        title: "Buy your creator coin",
+        title: "You´re all setup!",
         showConfirmButton: true,
         focusConfirm: true,
         customClass: {
-          confirmButton: "btn btn-light",
+          confirmButton: "creator-coin-button",
         },
-        confirmButtonText: "Buy Your Coin",
+        showContent: true,
+        text: `On Supernovas, everyone has their own Creator Coin. By investing first in your own coin, others can invest to it as well.`,
+        confirmButtonText: "Go to you profile",
       }).then((res) => {
         if (res.isConfirmed) {
           comp.router.navigate([
-            AppRoutingModule.buyCreatorPath(comp.globalVars.loggedInUser.ProfileEntryResponse.Username),
+            AppRoutingModule.profilePath(comp.globalVars.loggedInUser.ProfileEntryResponse.Username),
           ]);
         }
       });

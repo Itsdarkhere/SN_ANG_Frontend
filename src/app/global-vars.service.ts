@@ -50,6 +50,8 @@ export class GlobalVarsService {
   // loading spinner until we get a correct value. That said, I'm not going to fix that
   // right now, I'm just moving this magic number into a constant.
   static DEFAULT_NANOS_PER_USD_EXCHANGE_RATE = 1e9;
+  static NANOS_PER_UNIT = 1e9;
+  static WEI_PER_ETH = 1e18;
 
   constructor(
     private backendApi: BackendApiService,
@@ -162,6 +164,9 @@ export class GlobalVarsService {
   // Whether or not to show the Buy BitClout with USD flow.
   showBuyWithUSD = false;
 
+  // Buy Bitclout with ETH
+  showBuyWithETH = false;
+
   // Whether or not to show the Jumio verification flow.
   showJumio = false;
 
@@ -174,11 +179,17 @@ export class GlobalVarsService {
   // Support email for this node (renders Help in the left bar nav)
   supportEmail: string = null;
 
+  // ETH exchange rates
+  usdPerETHExchangeRate: number;
+  nanosPerETHExchangeRate: number;
+
+  // BTC exchange rates
   satoshisPerBitCloutExchangeRate: number;
-  nanosPerUSDExchangeRate: number;
-  // This is the USD to Bitcoin exchange rate according to external
-  // sources.
   usdPerBitcoinExchangeRate: number;
+
+  // USD exchange rates
+  nanosPerUSDExchangeRate: number;
+
   defaultFeeRateNanosPerKB: number;
 
   NanosSold: number;
@@ -202,6 +213,8 @@ export class GlobalVarsService {
   profileUpdateTimestamp: number;
 
   jumioBitCloutNanos = 0;
+
+  referralUSDCents: number = 0;
 
   SetupMessages() {
     // If there's no loggedInUser, we set the notification count to zero
@@ -302,6 +315,16 @@ export class GlobalVarsService {
 
     this.loggedInUser = user;
 
+    // Fetch referralLinks for the userList before completing the load.
+    this.backendApi.GetReferralInfoForUser(this.localNode, this.loggedInUser.PublicKeyBase58Check).subscribe(
+      (res: any) => {
+        this.loggedInUser.ReferralInfoResponses = res.ReferralInfoResponses;
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
+
     // If Jumio callback hasn't returned yet, we need to poll to update the user metadata.
     if (user && user?.JumioFinishedTime > 0 && !user?.JumioReturned) {
       this.pollLoggedInUserForJumio(user.PublicKeyBase58Check);
@@ -330,6 +353,10 @@ export class GlobalVarsService {
     }
 
     this._notifyLoggedInUserObservers(user, isSameUserAsBefore);
+    this.navigateToCurrentStepInTutorial(user);
+  }
+
+  navigateToCurrentStepInTutorial(user: User): Promise<boolean> {
     if (this.userInTutorial(user)) {
       // drop user at correct point in tutorial.
       let route = [];
@@ -359,8 +386,12 @@ export class GlobalVarsService {
           break;
         }
       }
-      this.router.navigate(route);
+      return this.router.navigate(route);
     }
+  }
+
+  getLinkForReferralHash(referralHash: string) {
+    return "https://bitclout.com?r=" + referralHash;
   }
 
   hasUserBlockedCreator(publicKeyBase58Check): boolean {
@@ -792,7 +823,10 @@ export class GlobalVarsService {
   launchGetFreeCLOUTFlow() {
     this.logEvent("identity : jumio : launch");
     this.identityService
-      .launch(`/get-free-clout?public_key=${this.loggedInUser?.PublicKeyBase58Check}`)
+      .launch("/get-free-clout", {
+        public_key: this.loggedInUser?.PublicKeyBase58Check,
+        referralCode: localStorage.getItem("referralCode"),
+      })
       .subscribe(() => {
         this.logEvent("identity : jumio : success");
         this.updateEverything();
@@ -801,7 +835,7 @@ export class GlobalVarsService {
 
   launchIdentityFlow(event: string): void {
     this.logEvent(`account : ${event} : launch`);
-    this.identityService.launch("/log-in?accessLevelRequest=4").subscribe((res) => {
+    this.identityService.launch("/log-in?accessLevelRequest=4", { referralCode: localStorage.getItem("referralCode") }).subscribe((res) => {
       this.logEvent(`account : ${event} : success`);
       this.backendApi.setIdentityServiceUsers(res.users, res.publicKeyAdded);
       this.updateEverything().add(() => {
@@ -834,6 +868,15 @@ export class GlobalVarsService {
     this._setUpLoggedInUserObservable();
     this._setUpFollowChangeObservable();
 
+    route.queryParams.subscribe((queryParams) => {
+      if (queryParams.r) {
+        localStorage.setItem("referralCode", queryParams.r);
+        this.router.navigate([], { queryParams: { r: undefined }, queryParamsHandling: "merge" });
+        this.getReferralUSDCents();
+      }
+    });
+
+    this.getReferralUSDCents();
     this.userList = userList;
     this.satoshisPerBitCloutExchangeRate = 0;
     this.nanosPerUSDExchangeRate = GlobalVarsService.DEFAULT_NANOS_PER_USD_EXCHANGE_RATE;
@@ -946,18 +989,23 @@ export class GlobalVarsService {
   _updateBitCloutExchangeRate() {
     this.backendApi.GetExchangeRate(this.localNode).subscribe(
       (res: any) => {
+        // BTC
         this.satoshisPerBitCloutExchangeRate = res.SatoshisPerBitCloutExchangeRate;
-
-        this.NanosSold = res.NanosSold;
         this.ProtocolUSDCentsPerBitcoinExchangeRate = res.USDCentsPerBitcoinExchangeRate;
+        this.usdPerBitcoinExchangeRate = res.USDCentsPerBitcoinExchangeRate / 100;
 
+        // ETH
+        this.usdPerETHExchangeRate = res.USDCentsPerETHExchangeRate / 100;
+        this.nanosPerETHExchangeRate = res.NanosPerETHExchangeRate;
+
+        // CLOUT
+        this.NanosSold = res.NanosSold;
         this.ExchangeUSDCentsPerBitClout = res.USDCentsPerBitCloutExchangeRate;
         this.USDCentsPerBitCloutReservePrice = res.USDCentsPerBitCloutReserveExchangeRate;
         this.BuyBitCloutFeeBasisPoints = res.BuyBitCloutFeeBasisPoints;
 
-        const nanosPerUnit = 1e9;
+        const nanosPerUnit = GlobalVarsService.NANOS_PER_UNIT;
         this.nanosPerUSDExchangeRate = nanosPerUnit / (this.ExchangeUSDCentsPerBitClout / 100);
-        this.usdPerBitcoinExchangeRate = res.USDCentsPerBitcoinExchangeRate / 100;
         this.bitcloutToUSDExchangeRateToDisplay = this.nanosToUSD(nanosPerUnit, null);
         this.bitcloutToUSDExchangeRateToDisplay = this.nanosToUSD(nanosPerUnit, 2);
       },
@@ -1025,14 +1073,14 @@ export class GlobalVarsService {
     Swal.fire({
       target: this.getTargetComponentSelector(),
       icon: "warning",
-      title: "Skip Tutorial?",
+      title: "Exit Tutorial?",
       html: "Are you sure?",
       showConfirmButton: true,
       customClass: {
         confirmButton: "btn btn-light",
       },
       reverseButtons: true,
-      confirmButtonText: "Skip",
+      confirmButtonText: "Yes",
     }).then((res) => {
       if (res.isConfirmed) {
         this.backendApi.StartOrSkipTutorial(this.localNode, this.loggedInUser?.PublicKeyBase58Check, true).subscribe(
@@ -1083,6 +1131,7 @@ export class GlobalVarsService {
               if (user) {
                 this.setLoggedInUser(user);
               }
+              localStorage.setItem("referralCode", undefined);
               this.celebrate();
               if (user.TutorialStatus === TutorialStatus.EMPTY) {
                 this.startTutorialAlert();
@@ -1101,5 +1150,28 @@ export class GlobalVarsService {
         )
         .add(() => attempts++);
     }, timeoutMillis);
+  }
+
+  getFreeCloutMessage(): string {
+    return this.referralUSDCents
+      ? this.formatUSD(this.referralUSDCents / 100, 0)
+      : this.nanosToUSD(this.jumioBitCloutNanos, 0);
+  }
+
+  getReferralUSDCents(): void {
+    const referralHash = localStorage.getItem("referralCode");
+    if (referralHash) {
+      this.backendApi
+        .GetReferralInfoForReferralHash(environment.jumioEndpointHostname, referralHash)
+        .subscribe((res) => {
+          const referralInfo = res.ReferralInfoResponse.Info;
+          if (
+            res.ReferralInfoResponse.IsActive &&
+            (referralInfo.TotalReferrals < referralInfo.MaxReferrals || referralInfo.MaxReferrals == 0)
+          ) {
+            this.referralUSDCents = referralInfo.RefereeAmountUSDCents;
+          }
+        });
+    }
   }
 }

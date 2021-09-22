@@ -27,8 +27,8 @@
   <!-- Mobile DeSo Price -->
   <div *ngIf="isMobile" class="d-flex border-bottom border-color-grey background-color-light-grey py-5px px-15px fs-12px justify-content-between">
     <div>
-      DeSo in wallet {{ globalVars.nanosToBitClout(globalVars.loggedInUser.BalanceNanos) }}
-      <span class="text-muted" *ngIf="globalVars.satoshisPerBitCloutExchangeRate">
+      DeSo in wallet {{ globalVars.nanosToDeSo(globalVars.loggedInUser.BalanceNanos) }}
+      <span class="text-muted" *ngIf="globalVars.satoshisPerDeSoExchangeRate">
           ≈{{ globalVars.nanosToUSD(globalVars.loggedInUser.BalanceNanos, 2) }}&nbsp;USD
         </span>
     </div>

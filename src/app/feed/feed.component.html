@@ -24,16 +24,16 @@
     <div class="w-100 border-bottom border-color-grey light-grey-divider" style="min-height: 10px"></div>
   </div>
 
-  <!-- Mobile BitClout Price -->
+  <!-- Mobile DeSo Price -->
   <div *ngIf="isMobile" class="d-flex border-bottom border-color-grey background-color-light-grey py-5px px-15px fs-12px justify-content-between">
     <div>
-      CLOUT in wallet {{ globalVars.nanosToBitClout(globalVars.loggedInUser.BalanceNanos) }}
+      DeSo in wallet {{ globalVars.nanosToBitClout(globalVars.loggedInUser.BalanceNanos) }}
       <span class="text-muted" *ngIf="globalVars.satoshisPerBitCloutExchangeRate">
           ≈{{ globalVars.nanosToUSD(globalVars.loggedInUser.BalanceNanos, 2) }}&nbsp;USD
         </span>
     </div>
     <div>
-      CLOUT Price ~{{ globalVars.bitcloutToUSDExchangeRateToDisplay }}&nbsp;USD
+      DeSo Price ~{{ globalVars.desoToUSDExchangeRateToDisplay }}&nbsp;USD
     </div>
   </div>
 
@@ -77,7 +77,7 @@
           [post]="post"
           [includePaddingOnPost]="true"
           [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-          [afterRecloutCreatedCallback]="prependPostToFeed.bind(this)"
+          [afterRepostCreatedCallback]="prependPostToFeed.bind(this)"
           [showReplyingToContent]="!!post.parentPost"
           [parentPost]="post.parentPost"
           [contentShouldLinkToThread]="true"

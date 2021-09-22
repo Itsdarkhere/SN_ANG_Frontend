@@ -1141,11 +1141,11 @@ input.bs-timepicker-field {
   }
 }
 
-/* reclout hover animation */
+/* repost hover animation */
 .feed-post-icon-row__icon.icon-repost {
   &:hover {
-    background-color: $reclout-hover;
-    color: $reclout-color;
+    background-color: $repost-hover;
+    color: $repost-color;
   }
 }
 /* like button hover animation */
@@ -1317,7 +1317,7 @@ input.bs-timepicker-field {
   text-overflow: ellipsis;
 }
 
-.buy-bitclout__copy-button {
+.buy-deso__copy-button {
   display: flex;
   align-items: center;
   justify-content: middle;
@@ -1328,21 +1328,21 @@ input.bs-timepicker-field {
   padding: 5px;
 }
 
-.buy-bitclout__copy-button:hover {
+.buy-deso__copy-button:hover {
   background-color: $buy-button-blue;
   color: white;
 }
 
-.buy-bitclout__title-holder {
+.buy-deso__title-holder {
   position: relative;
   top: 20px;
 }
 
-.buy-bitclout__amount-background {
+.buy-deso__amount-background {
   background-color: var(--background);
 }
 
-.buy-bitclout__box-label-adjustment {
+.buy-deso__box-label-adjustment {
   position: relative;
   width: fit-content;
   background-color: var(--background) !important;
@@ -1791,7 +1791,7 @@ input.bs-timepicker-field {
 
 
 //
-// Simple profile card (for likes, reclouts, diamonds modal)
+// Simple profile card (for likes, reposts, diamonds modal)
 //
 
 .simple-profile-card__avatar {
@@ -2057,7 +2057,7 @@ em {
   }
 }
 
-/*Begin BitClout config*/
+/*Begin DeSo config*/
 .flex-center {
   display: flex;
   align-items: center;
@@ -2167,7 +2167,7 @@ input {
   color: var(--text) !important;
 }
 
-.clout {
+.deso {
   filter: var(--filter);
 }
 
@@ -2304,7 +2304,7 @@ input {
   border-top-right-radius: calc(.3rem - 1px);
 }
 
-.likes-modal-container, .quote-reclouts-modal-container, .reclouts-modal-container, .diamonds-modal-container {
+.likes-modal-container, .quote-reposts-modal-container, .reposts-modal-container, .diamonds-modal-container {
   background-color: var(--background);
   color: var(--text);
   border: var(--mborder);

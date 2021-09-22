@@ -1,4 +1,4 @@
-![BitClout Logo](https://bitclout.com/assets/img/camelcase_logo.svg)
+![DeSo Logo](src/assets/img/camelcase_logo.svg)
 
 # Clone the repo and get yourself started?
 ```
@@ -94,15 +94,17 @@ ng serve --disable-host-check
 
 # About BitClout
 BitClout is a blockchain built from the ground up to support a fully-featured
+=======
+# About DeSo
+DeSo is a blockchain built from the ground up to support a fully-featured
+>>>>>>> 80ecaf1da0b57a2cfecd27beec036c9d46e9019b
 social network. Its architecture is similar to Bitcoin, only it supports complex
 social network data like profiles, posts, follows, creator coin transactions, and
 more.
 
-[Read about the vision](https://docs.bitclout.com/the-vision)
+[Read about the vision](https://docs.deso.org/#the-ultimate-vision)
 
-# About The Reference Repo - https://github.com/bitclout/frontend
-Documentation for this repo lives on docs.bitclout.com. Specifically, the following
-docs should give you everything you need to get started:
-* [BitClout Code Walkthrough](https://docs.bitclout.com/code/walkthrough)
-* [Setting Up Your Dev Environment](https://docs.bitclout.com/code/dev-setup)
-* [Making Your First Changes](https://docs.bitclout.com/code/making-your-first-changes)
+Docs should give you everything you need to get started:
+* [DeSo Code Walkthrough](https://docs.deso.org/code/walkthrough)
+* [Setting Up Your Dev Environment](https://docs.deso.org/code/dev-setup)
+* [Making Your First Changes](https://docs.deso.org/code/making-your-first-changes)

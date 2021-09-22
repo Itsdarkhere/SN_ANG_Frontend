@@ -21,11 +21,6 @@ job "l4s-frontend" {
       source = "frontend"
     }
 
-    logs {
-      max_files     = 5
-      max_file_size = 15
-    }
-
     task "l4s-bclt-frontend" {
       driver = "docker"
       config {

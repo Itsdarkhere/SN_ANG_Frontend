@@ -536,11 +536,11 @@
       <div></div>
       <div *ngIf="showExpandedNFTDetails && (highBid || lowBid)" [ngClass]="{ 'pt-15px': globalVars.isMobile() }">
         <div *ngIf="highBid != null">
-          Highest: {{ globalVars.nanosToBitClout(highBid, 5) }} CLOUT
+          Highest: {{ globalVars.nanosToBitClout(highBid, 5) }} DESO
           <span class="text-grey7">(~{{ globalVars.nanosToUSD(highBid, 2) }})</span>
         </div>
         <div *ngIf="lowBid != null">
-          From: {{ globalVars.nanosToBitClout(lowBid, 5) }} CLOUT
+          From: {{ globalVars.nanosToBitClout(lowBid, 5) }} DESO
           <span class="text-grey7">(~{{ globalVars.nanosToUSD(lowBid, 2) }})</span>
         </div>
       </div>
@@ -572,10 +572,10 @@
             {{ highBid === 0 ? globalVars.nanosToUSD(minBid, 2) : globalVars.nanosToUSD(highBid, 2) }}
           </div>
           <div class="val_st" *ngIf="showPlaceABid">
-            {{ highBid === 0 ? globalVars.nanosToBitClout(minBid, 5) : globalVars.nanosToBitClout(highBid, 5) }} CLOUT
+            {{ highBid === 0 ? globalVars.nanosToBitClout(minBid, 5) : globalVars.nanosToBitClout(highBid, 5) }} DESO
           </div>
           <div class="val" *ngIf="!showPlaceABid">{{ globalVars.nanosToUSD(lastSalePrice, 2) }}</div>
-          <div class="val_st" *ngIf="!showPlaceABid">{{ globalVars.nanosToBitClout(lastSalePrice, 5) }} CLOUT</div>
+          <div class="val_st" *ngIf="!showPlaceABid">{{ globalVars.nanosToBitClout(lastSalePrice, 5) }} DESO</div>
         </div>
         <div
           class="nft_done_by"

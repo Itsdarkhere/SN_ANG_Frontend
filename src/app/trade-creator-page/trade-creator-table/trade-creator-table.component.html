@@ -1,6 +1,9 @@
 <div *ngIf="creatorCoinTrade.isCreatorCoinTransfer(); else elseBlock">
   <!-- Amount you're transferring -->
-  <div *ngIf="!displayForCreatorForm" class="py-3 border-bottom d-flex justify-content-between flex-wrap align-items-center">
+  <div
+    *ngIf="!displayForCreatorForm"
+    class="py-3 border-bottom d-flex justify-content-between flex-wrap align-items-center"
+  >
     <span [ngClass]="{ 'font-weight-bold': !displayForCreatorForm }">Recipient</span>
 
     <div class="d-inline-block" style="max-width: 70%; overflow-wrap: anywhere">

@@ -23,7 +23,7 @@
           <div
             class="d-flex align-items-center justify-content-between fs-18px font-weight-bold p-15px holdings__divider border-bottom border-color-grey"
           >
-            <div>$CLOUT</div>
+            <div>$DESO</div>
             <div class="fs-15px" style="margin-top: 2px">
               <a
                 *ngIf="globalVars.loggedInUser"
@@ -31,7 +31,7 @@
                 href="https://bitclout.com/buy-bitclout?tab=posts"
                 class=""
               >
-                Buy $CLOUT
+                Buy $DESO
               </a>
               <span class="px-5px">·</span>
               <a [routerLink]="'/' + globalVars.RouteNames.SEND_BITCLOUT" queryParamsHandling="merge" class="">Send</a>
@@ -89,7 +89,7 @@
               <span class="font-weight-bold" style="font-size: 13px">
                 ≈ {{ globalVars.nanosToBitClout(totalValue(), 4) }}
               </span>
-              $CLOUT
+              $DESO
             </div>
           </div>
 

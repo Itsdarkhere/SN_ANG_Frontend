@@ -1,26 +1,20 @@
 <div class="w-100 d-flex flex-column justify-content-start px-15px fs-15px">
   <div class="d-flex container border-bottom border-color-grey font-weight-bold pl-0px py-15px justify-content-between">
     <div>
-      Diamonds&nbsp;<select
+      Diamonds&nbsp;
+      <select
         [ngModel]="activeTab"
         (ngModelChange)="onChange($event)"
         style="border: none; background: none; outline: none; border-bottom: solid 1px"
         class="font-weight-bold ddropdown"
       >
-        <option
-          [value]="CreatorDiamondsComponent.RECEIVED"
-          class="font-weight-bold"
-        >
-          received
-        </option>
-        <option [value]="CreatorDiamondsComponent.GIVEN" class="font-weight-bold">
-          given
-        </option>
+        <option [value]="CreatorDiamondsComponent.RECEIVED" class="font-weight-bold">received</option>
+        <option [value]="CreatorDiamondsComponent.GIVEN" class="font-weight-bold">given</option>
       </select>
       by&nbsp;@{{ profile.Username }}
     </div>
     <div>
-      {{ totalDiamonds }} 
+      {{ totalDiamonds }}
       <span class="text-muted">≈{{ globalVars.abbreviateNumber(valueOfAllDiamonds(), 2, true) }}&nbsp;USD</span>
     </div>
   </div>
@@ -103,14 +97,10 @@
             </div>
           </div>
           <div *ngIf="row.anonDiamondsRow">
-            <div
-              class="link--unstyled"
-            >
+            <div class="link--unstyled">
               <div class="row no-gutters py-10px border-bottom mb-0">
                 <div class="col-5 d-flex align-items-left mb-0">
-                  <div
-                    class="d-flex align-items-center link--unstyled"
-                  >
+                  <div class="d-flex align-items-center link--unstyled">
                     <div
                       class="creator-profile-details__hodler-avatar mr-10px"
                       style="background-image: url('/assets/img/default_profile_pic.png')"

@@ -1,36 +1,57 @@
 <div *ngIf="!loading">
-    <button type="button" class="recent_post_btn" (click)="showRecent()">Show recent</button>
-    <!-- <div #uiScroll *uiScroll="let nftCollection of datasource">
+  <button type="button" class="recent_post_btn" (click)="showRecent()">Show recent</button>
+  <!-- <div #uiScroll *uiScroll="let nftCollection of datasource">
         <div class="br-12px m-15px">
             <feed-post [post]="nftCollection.PostEntryResponse" [includePaddingOnPost]="true" [showReplyingToContent]="nftCollection.PostEntryResponse.parentPost" [parentPost]="nftCollection.PostEntryResponse.parentPost" [contentShouldLinkToThread]="true" [showNFTDetails]="true"
                 [showExpandedNFTDetails]="true" [setBorder]="true" [nftCollectionHighBid]="nftCollection.HighestBidAmountNanos" [nftCollectionLowBid]="nftCollection.LowestBidAmountNanos"></feed-post>
         </div>
     </div> -->
-    <div class="search-results" infiniteScroll [infiniteScrollDistance]="5" [infiniteScrollThrottle]="150" (scrolled)="onScroll()">
-        <div class="nfts-card-list">
-            <div class="mobile_mrk_head">Marketplace</div>
-            <div class="nft-col-wrap" *ngFor="let nftCollection of dataToShow">
-                <!-- <code>{{nftCollection | json}}</code> -->
-                <app-nft-card [post]="nftCollection.PostEntryResponse" [includePaddingOnPost]="true" [showReplyingToContent]="nftCollection.PostEntryResponse.parentPost" [parentPost]="nftCollection.PostEntryResponse.parentPost" [contentShouldLinkToThread]="true" [showNFTDetails]="true"
-                    [showExpandedNFTDetails]="true" [setBorder]="true" [nftCollectionHighBid]="nftCollection.HighestBidAmountNanos" [nftCollectionLowBid]="nftCollection.LowestBidAmountNanos"></app-nft-card>
-            </div>
-        </div>
+  <div
+    class="search-results"
+    infiniteScroll
+    [infiniteScrollDistance]="5"
+    [infiniteScrollThrottle]="150"
+    (scrolled)="onScroll()"
+  >
+    <div class="nfts-card-list">
+      <div class="mobile_mrk_head">Marketplace</div>
+      <div class="nft-col-wrap" *ngFor="let nftCollection of dataToShow">
+        <!-- <code>{{nftCollection | json}}</code> -->
+        <app-nft-card
+          [post]="nftCollection.PostEntryResponse"
+          [includePaddingOnPost]="true"
+          [showReplyingToContent]="nftCollection.PostEntryResponse.parentPost"
+          [parentPost]="nftCollection.PostEntryResponse.parentPost"
+          [contentShouldLinkToThread]="true"
+          [showNFTDetails]="true"
+          [showExpandedNFTDetails]="true"
+          [setBorder]="true"
+          [nftCollectionHighBid]="nftCollection.HighestBidAmountNanos"
+          [nftCollectionLowBid]="nftCollection.LowestBidAmountNanos"
+        ></app-nft-card>
+      </div>
     </div>
+  </div>
 </div>
 
-<div *ngIf="!loading && !nftCollections && !nftCollections.length" class="d-flex align-items-center justify-content-center">
+<div
+  *ngIf="!loading && !nftCollections && !nftCollections.length"
+  class="d-flex align-items-center justify-content-center"
+>
+  <div
+    class="d-flex flex-column align-items-center justify-content-center fc-muted fs-15px p-15px text-center"
+    style="height: 400px"
+  >
+    <div>The NFT Showcase is coming soon!</div>
 
-    <div class="d-flex flex-column align-items-center justify-content-center fc-muted fs-15px p-15px text-center" style="height: 400px;">
-        <div>The NFT Showcase is coming soon!</div>
+    <div class="mt-15px">Want a chance to be in the showcase?</div>
 
-        <div class="mt-15px">
-            Want a chance to be in the showcase?
-        </div>
-
-        <div class="mt-15px">
-            Just create an NFT and share it on Twitter or Instagram with <b>#CLOUTNFT</b>!
-        </div>
+    <div class="mt-15px">
+      Just create an NFT and share it on Twitter or Instagram with
+      <b>#CLOUTNFT</b>
+      !
     </div>
+  </div>
 </div>
 
 <simple-center-loader *ngIf="loading"></simple-center-loader>

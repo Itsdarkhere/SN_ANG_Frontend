@@ -1,6 +1,6 @@
 <div>
   <div class="fs-15px font-weight-bold mt-15px mb-15px px-15px">
-    Set Jumio Starter $CLOUT amount (in nanos):
+    Set Jumio Starter $DESI amount (in nanos):
     <div class="d-flex mt-5px">
       <input
         [(ngModel)]="jumioBitCloutNanos"
@@ -9,12 +9,14 @@
         placeholder="Enter an amount"
         type="number"
       />
-      <button *ngIf="!updatingJumioBitCloutNanos" (click)="updateJumioBitCloutNanos()" class="btn btn-outline-primary fs-15px ml-5px">
+      <button
+        *ngIf="!updatingJumioBitCloutNanos"
+        (click)="updateJumioBitCloutNanos()"
+        class="btn btn-outline-primary fs-15px ml-5px"
+      >
         Update
       </button>
-      <button *ngIf="updatingJumioBitCloutNanos" class="btn btn-primary fs-15px ml-5px" disabled>
-        Working...
-      </button>
+      <button *ngIf="updatingJumioBitCloutNanos" class="btn btn-primary fs-15px ml-5px" disabled>Working...</button>
     </div>
   </div>
   <div class="fs-15px font-weight-bold mt-15px mb-15px px-15px">
@@ -29,9 +31,7 @@
       <button *ngIf="!resettingJumio" (click)="_resetJumio()" class="btn btn-outline-primary fs-15px ml-5px">
         Reset
       </button>
-      <button *ngIf="resettingJumio" class="btn btn-primary fs-15px ml-5px" disabled>
-        Working...
-      </button>
+      <button *ngIf="resettingJumio" class="btn btn-primary fs-15px ml-5px" disabled>Working...</button>
     </div>
   </div>
 </div>

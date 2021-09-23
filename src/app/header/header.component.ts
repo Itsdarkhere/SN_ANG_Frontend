@@ -7,6 +7,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { MintYourNftComponent } from "../mint-your-nft/mint-your-nft.component";
 import { CreateYourNftComponent } from "../create-your-nft/create-your-nft.component";
 import { PlaceABidComponent } from "../place-a-bid/place-a-bid.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-header",
@@ -21,7 +22,7 @@ export class HeaderComponent implements OnInit {
 
   AppRoutingModule = AppRoutingModule;
 
-  constructor(public globalVars: GlobalVarsService, public dialog: MatDialog) {}
+  constructor(public globalVars: GlobalVarsService, public dialog: MatDialog, private router: Router) {}
 
   createPostUploadMint(): void {
     const dialogRef = this.dialog.open(CreatePostUploadMintComponent, {
@@ -83,5 +84,12 @@ export class HeaderComponent implements OnInit {
   }
   clickOutside() {
     this.isNotificationOpen = false;
+  }
+  hasProfile() {
+    if (this.globalVars?.loggedInUser?.ProfileEntryResponse?.Username) {
+      this.router.navigate(["/u/" + this.globalVars?.loggedInUser?.ProfileEntryResponse.Username]);
+    } else {
+      this.router.navigate(["/update-profile"]);
+    }
   }
 }

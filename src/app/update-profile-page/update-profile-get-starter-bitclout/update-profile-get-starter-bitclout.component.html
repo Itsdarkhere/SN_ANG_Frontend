@@ -18,8 +18,7 @@
     <h3 class="card-profile-header">Verify your phone number</h3>
     <p class="card-profile-desc">Get around ~$0.1 worth of $DESO for free by verifying it through Twilio.</p>
   </a>
-  
-  <a class="card-profile-update" href="" [routerLink]="'/' + globalVars.RouteNames.BUY_BITCLOUT">
+  <a class="card-profile-update" (click)="globalVars.launchGetFreeCLOUTFlow()">
     <div class="background-profile background-jumio">
       <img [src]="'assets/icons/jumio.svg'" class="profile-icon" />
     </div>

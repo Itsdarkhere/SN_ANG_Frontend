@@ -19,13 +19,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   static GLOBAL_TAB = "Supernovas Feed";
   static FOLLOWING_TAB = "Following";
   static SHOWCASE_TAB = "⚡ NFT Showcase ⚡";
-  static BITCLOUT_TAB = "Recent";
-  static TABS = [
-    FeedComponent.GLOBAL_TAB,
-    FeedComponent.FOLLOWING_TAB,
-    FeedComponent.SHOWCASE_TAB,
-    FeedComponent.BITCLOUT_TAB,
-  ];
+  static TABS = [FeedComponent.GLOBAL_TAB, FeedComponent.FOLLOWING_TAB];
   static NUM_TO_FETCH = 30;
   static MIN_FOLLOWING_TO_SHOW_FOLLOW_FEED_BY_DEFAULT = 10;
   static PULL_TO_REFRESH_MARKER_ID = "pull-to-refresh-marker";
@@ -85,8 +79,8 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
 
     this.route.queryParams.subscribe((queryParams) => {
       if (queryParams.feedTab) {
-        if (queryParams.feedTab === "Showcase") {
-          this.activeTab = FeedComponent.SHOWCASE_TAB;
+        if (queryParams.feedTab === FeedComponent.SHOWCASE_TAB) {
+          this.activeTab = "Showcase";
         } else {
           this.activeTab = queryParams.feedTab;
         }
@@ -157,12 +151,13 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.loadingFirstBatchOfFollowFeedPosts = true;
     return this._loadFollowFeedPosts();
   }
+  /*
   _reloadBitcloutFeed() {
     this.globalVars.bitcloutFeedPosts = [];
     this.loadingFirstBatchOfBitcloutPosts = true;
     return this._loadBitcloutPosts();
   }
-
+  */
   _initializeFeeds() {
     if (this.globalVars.postsToShow.length === 0) {
       // Get some posts to show the user.
@@ -179,10 +174,11 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
       this._reloadFollowFeed();
     }
     // This initializes bitclout feed.
+    /*
     if (this.globalVars.bitcloutFeedPosts.length === 0) {
       this.loadingFirstBatchOfBitcloutPosts = true;
       this._reloadBitcloutFeed();
-    }
+    }*/
 
     // The activeTab is set after we load the following based on whether the user is
     // already following anybody
@@ -277,9 +273,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   showGlobalOrFollowingPosts() {
     return (
       this.postsToShow().length > 0 &&
-      (this.activeTab === FeedComponent.GLOBAL_TAB ||
-        this.activeTab === FeedComponent.FOLLOWING_TAB ||
-        this.activeTab === FeedComponent.BITCLOUT_TAB)
+      (this.activeTab === FeedComponent.GLOBAL_TAB || this.activeTab === FeedComponent.FOLLOWING_TAB)
     );
   }
 
@@ -287,9 +281,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     // activeTab == FeedComponent.GLOBAL_TAB && globalVars.postsToShow.length == 0 && !loadingPosts
     return (
       this.postsToShow().length === 0 &&
-      (this.activeTab === FeedComponent.GLOBAL_TAB ||
-        this.activeTab === FeedComponent.FOLLOWING_TAB ||
-        this.activeTab === FeedComponent.BITCLOUT_TAB) &&
+      (this.activeTab === FeedComponent.GLOBAL_TAB || this.activeTab === FeedComponent.FOLLOWING_TAB) &&
       !this.loadingFirstBatchOfActiveTabPosts()
     );
   }
@@ -297,10 +289,8 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   loadMorePosts() {
     if (this.activeTab === FeedComponent.FOLLOWING_TAB) {
       this._loadFollowFeedPosts();
-    } else if (this.activeTab === FeedComponent.GLOBAL_TAB) {
-      this._loadPosts();
     } else {
-      this._loadBitcloutPosts();
+      this._loadPosts();
     }
   }
 
@@ -478,6 +468,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
       )
       .toPromise();
   }
+  /*
   // This is essentially the same as the other load functions, small tweaks but you get the point
   _loadBitcloutPosts(reload: boolean = false, scrolltop: boolean = false) {
     this.loadingMoreBitcloutFeedPosts = true;
@@ -560,9 +551,9 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
       .add(() => {
         this.loadingMoreBitcloutFeedPosts = false;
       });
-      */
+      
   }
-
+  */
   _afterLoadingFollowingOnPageLoad() {
     this.isLoadingFollowingOnPageLoad = false;
 
@@ -576,7 +567,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
       defaultActiveTab = FeedComponent.GLOBAL_TAB;
     }
 
-    this.feedTabs = [FeedComponent.GLOBAL_TAB, FeedComponent.BITCLOUT_TAB, FeedComponent.FOLLOWING_TAB];
+    this.feedTabs = [FeedComponent.GLOBAL_TAB, FeedComponent.FOLLOWING_TAB];
 
     if (!this.activeTab) {
       this.activeTab = defaultActiveTab;

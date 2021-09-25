@@ -78,7 +78,7 @@ export class FeedCreatePostComponent implements OnInit {
     "Everything alters me, but I keep growing.",
     "Its either easy or impossible. Do both.",
     "Online time is too short to remain unnoticed.",
-    "God made a human, and human made the BitClout.",
+    "God made a human, and human made the DeSo.",
     "Everything that is contradictory creates hype.",
     "Start gazing. Start thinking. Start doing.",
     "Am I so brief, or have I already finished?",

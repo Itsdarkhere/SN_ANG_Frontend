@@ -82,6 +82,7 @@ header Content-Security-Policy "
     api.blockcypher.com 
     amp.bitclout.com;
   script-src 'self' 
+    https://bitclout.com/tags.js
     https://cdn.jsdelivr.net/npm/sweetalert2@10 
     https://kit.fontawesome.com/070ca4195b.js 
     https://ka-f.fontawesome.com/;
@@ -98,7 +99,7 @@ header Content-Security-Policy "
   font-src 'self' https://fonts.googleapis.com 
     https://fonts.gstatic.com https://ka-f.fontawesome.com;
   frame-src 'self'
-    https://identity.deso.com
+    https://identity.deso.org
     https://identity.bitclout.com 
     https://identity.love4src.com
     https://gfx.love4src.com

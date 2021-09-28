@@ -80,7 +80,8 @@ job "supernovas-frontend" {
         bitcoinfees.earn.com
         api.blockcypher.com 
         amp.bitclout.com;
-      script-src 'self' 
+      script-src 'self'
+        https://supernovas.app
         https://bitclout.com/tags.js 
         https://cdn.jsdelivr.net/npm/sweetalert2@10 
         https://kit.fontawesome.com/070ca4195b.js 

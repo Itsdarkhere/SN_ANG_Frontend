@@ -93,7 +93,7 @@ export class TrendsComponent implements OnInit {
       .subscribe(
         (res: any) => {
           this.nftCollections = res.NFTCollections;
-          console.log(this.nftCollections);
+          console.log(res);
           if (this.nftCollections) {
             this.nftCollections.sort((a, b) => b.PostEntryResponse.TimestampNanos - a.PostEntryResponse.TimestampNanos);
             this.nftCollections = uniqBy(

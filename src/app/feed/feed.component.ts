@@ -268,7 +268,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   showGlobalOrFollowingPosts() {
     return (
-      this.postsToShow().length > 0 &&
+      this.postsToShow()?.length > 0 &&
       (this.activeTab === FeedComponent.GLOBAL_TAB || this.activeTab === FeedComponent.FOLLOWING_TAB)
     );
   }
@@ -276,14 +276,13 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   showNoPostsFound() {
     // activeTab == FeedComponent.GLOBAL_TAB && globalVars.postsToShow.length == 0 && !loadingPosts
     return (
-      this.postsToShow().length === 0 &&
+      this.postsToShow()?.length === 0 &&
       (this.activeTab === FeedComponent.GLOBAL_TAB || this.activeTab === FeedComponent.FOLLOWING_TAB) &&
       !this.loadingFirstBatchOfActiveTabPosts()
     );
   }
 
   loadMorePosts() {
-    console.log("LOADING");
     if (this.activeTab === FeedComponent.FOLLOWING_TAB) {
       this._loadFollowFeedPosts();
     } else {

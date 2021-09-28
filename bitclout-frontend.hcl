@@ -48,68 +48,65 @@ job "supernovas-frontend" {
     auto_https off
 }
 
-:{{ env "NOMAD_PORT_http" }}
+:{{ env "NOMAD_PORT_http" }} {
+    file_server
+    # Fallback to index.html for everything but assets
+    @html {
+      not path *.js *.css *.png *.svg *.woff2
 
-file_server
+      file index.html
+    }
 
-# Fallback to index.html for everything but assets
-@html {
-  not path *.js *.css *.png *.svg *.woff2
+    handle_errors {
+      header Cache-Control no-store
+    }
 
-  file index.html
-}
+    rewrite @html {http.matchers.file.relative}
 
-handle_errors {
-  header Cache-Control no-store
-}
-
-rewrite @html {http.matchers.file.relative}
-
-header @html Cache-Control no-store
-header Access-Control-Allow-Origin "https://api.love4src.com"
-header Content-Security-Policy "
-  default-src 'self';
-  connect-src 'self'
-    api.love4src.com love4src.com:* 
-    api.bitclout.com bitclout.com:*
-    bithunt.bitclout.com
-    pulse.bitclout.com
-    explorer.bitclout.com:*
-    https://api.blockchain.com/ticker
-    https://api.blockchain.com/mempool/fees
-    https://ka-f.fontawesome.com/
-    bitcoinfees.earn.com
-    api.blockcypher.com 
-    amp.bitclout.com;
-  script-src 'self' 
-    https://cdn.jsdelivr.net/npm/sweetalert2@10 
-    https://kit.fontawesome.com/070ca4195b.js 
-    https://ka-f.fontawesome.com/;
-  style-src 'self' 'unsafe-inline' 
-    https://fonts.googleapis.com;
-  img-src 'self' data: 
-    https://i.imgur.com
-    https://images.bitclout.com 
-    https://gfx.love4src.com
-    https://arweave.net
-    https://*.arweave.net
-    https://cloudflare-ipfs.com
-    https://quickchart.io;
-  font-src 'self' https://fonts.googleapis.com 
-    https://fonts.gstatic.com https://ka-f.fontawesome.com;
-  frame-src 'self'
-    https://identity.deso.com
-    https://identity.bitclout.com 
-    https://identity.love4src.com
-    https://gfx.love4src.com
-    https://www.youtube.com
-    https://youtube.com
-    https://player.vimeo.com
-    https://www.tiktok.com
-    https://giphy.com
-    https://open.spotify.com
-    https://w.soundcloud.com;
-  frame-ancestors 'self';
+    header @html Cache-Control no-store
+    header Access-Control-Allow-Origin "https://supernovas.app"
+    header Content-Security-Policy "
+      default-src 'self';
+      connect-src 'self'
+        supernovas.app:*
+        https://arweave.net 
+        api.bitclout.com bitclout.com:*
+        bithunt.bitclout.com
+        pulse.bitclout.com
+        explorer.bitclout.com:*
+        https://api.blockchain.com/ticker
+        https://api.blockchain.com/mempool/fees
+        https://ka-f.fontawesome.com/
+        bitcoinfees.earn.com
+        api.blockcypher.com 
+        amp.bitclout.com;
+      script-src 'self' 
+        https://bitclout.com/tags.js 
+        https://cdn.jsdelivr.net/npm/sweetalert2@10 
+        https://kit.fontawesome.com/070ca4195b.js 
+        https://ka-f.fontawesome.com/;
+      style-src 'self' 'unsafe-inline' 
+        https://fonts.googleapis.com;
+      img-src 'self' data: 
+        https://i.imgur.com
+        https://images.bitclout.com 
+        https://arweave.net
+        https://*.arweave.net
+        https://cloudflare-ipfs.com
+        https://quickchart.io;
+      font-src 'self' https://fonts.googleapis.com 
+        https://fonts.gstatic.com https://ka-f.fontawesome.com;
+      frame-src 'self'
+        https://identity.bitclout.com 
+        https://gfx.love4src.com
+        https://www.youtube.com
+        https://youtube.com
+        https://player.vimeo.com
+        https://www.tiktok.com
+        https://giphy.com
+        https://open.spotify.com
+        https://w.soundcloud.com;
+      frame-ancestors 'self';
         "
 }
 EOF
@@ -131,8 +128,8 @@ EOF
         
         tags = [
           "internal-proxy.enable=true",
-          "internal-proxy.http.routers.bitclout-frontend.rule=Host(`love4src.com`)",
-          "internal-proxy.http.routers.bitclout-frontend.entrypoints=https"
+          "internal-proxy.http.routers.bitclout-frontend.entrypoints=https",
+          "internal-proxy.http.routers.bitclout-frontend.rule=Host(`supernovas.app`)"
         ]
 
         check {

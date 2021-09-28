@@ -582,7 +582,7 @@
       <div *ngIf="showExpandedNFTDetails" class="d-flex nft_current_bid_tpwrapper">
         <div class="nft_current_bid" [ngClass]="{ 'pt-15px': globalVars.isMobile() }">
           <span class="hq">
-            {{ compareBit(globalVars.nanosToDeSo(minBid, 5), globalVars.nanosToDeso(highBid, 5), showPlaceABid) }}
+            {{ compareBit(globalVars.nanosToDeSo(minBid, 5), globalVars.nanosToDeSo(highBid, 5), showPlaceABid) }}
           </span>
           <div class="val" *ngIf="showPlaceABid">
             {{ highBid === 0 ? globalVars.nanosToUSD(minBid, 2) : globalVars.nanosToUSD(highBid, 2) }}

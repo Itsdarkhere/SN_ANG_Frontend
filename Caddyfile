@@ -29,6 +29,7 @@ header @html Content-Security-Policy "
   default-src 'self';
   connect-src 'self'
     bitclout.com:*
+    https://supernovas.app
     https://supernovas.app*
     api.bitclout.com
     bithunt.bitclout.com

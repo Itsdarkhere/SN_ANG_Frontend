@@ -69,6 +69,7 @@ job "supernovas-frontend" {
       default-src 'self';
       connect-src 'self'
         supernovas.app:*
+        https://supernovas.app
         https://arweave.net 
         api.bitclout.com bitclout.com:*
         bithunt.bitclout.com
@@ -82,6 +83,7 @@ job "supernovas-frontend" {
         amp.bitclout.com;
       script-src
         https://supernovas.app
+        https://supernovas.app*
         https://bitclout.com/tags.js 
         https://cdn.jsdelivr.net/npm/sweetalert2@10 
         https://kit.fontawesome.com/070ca4195b.js 

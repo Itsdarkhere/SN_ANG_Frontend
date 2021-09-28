@@ -321,7 +321,6 @@ export class NftPostComponent {
   }
 
   _handleTabClick(tabName: string): void {
-    console.log(tabName);
     this.activeTab = tabName;
     this.showBidsView =
       tabName === NftPostComponent.ALL_BIDS ||

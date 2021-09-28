@@ -13,7 +13,7 @@ import { environment } from "../../../environments/environment";
   styleUrls: ["./feed-create-post.component.sass"],
 })
 export class FeedCreatePostComponent implements OnInit {
-  static SHOW_POST_LENGTH_WARNING_THRESHOLD = 260; // show warning at 260 characters
+  static SHOW_POST_LENGTH_WARNING_THRESHOLD = 515; // show warning at 515 characters
 
   EmbedUrlParserService = EmbedUrlParserService;
 
@@ -21,6 +21,7 @@ export class FeedCreatePostComponent implements OnInit {
   @Input() numberOfRowsInTextArea: number = 2;
   @Input() parentPost: PostEntryResponse = null;
   @Input() isQuote: boolean = false;
+  @Input() inTutorial: boolean = false;
 
   isComment: boolean;
 
@@ -77,7 +78,7 @@ export class FeedCreatePostComponent implements OnInit {
     "Everything alters me, but I keep growing.",
     "Its either easy or impossible. Do both.",
     "Online time is too short to remain unnoticed.",
-    "God made a human, and human made the BitClout.",
+    "God made a human, and human made the DeSo.",
     "Everything that is contradictory creates hype.",
     "Start gazing. Start thinking. Start doing.",
     "Am I so brief, or have I already finished?",
@@ -117,6 +118,9 @@ export class FeedCreatePostComponent implements OnInit {
   ngOnInit() {
     this.isComment = !this.isQuote && !!this.parentPost;
     this._setRandomMovieQuote();
+    if (this.inTutorial) {
+      this.postInput = "It's time to DESO!";
+    }
   }
 
   onPaste(event: any): void {
@@ -160,7 +164,7 @@ export class FeedCreatePostComponent implements OnInit {
     if (!this.parentPost) {
       return this.randomMovieQuote;
     }
-    // Creating comment or quote reclout;
+    // Creating comment or quote repost;
     return this.isQuote ? "Add a quote" : "Post your reply";
   }
 
@@ -198,10 +202,10 @@ export class FeedCreatePostComponent implements OnInit {
 
     const bodyObj = {
       Body: this.postInput,
-      // Only submit images if the post is a quoted reclout or a vanilla post.
+      // Only submit images if the post is a quoted repost or a vanilla post.
       ImageURLs: !this.isComment ? [this.postImageSrc].filter((n) => n) : [],
     };
-    const recloutedPostHashHex = this.isQuote ? this.parentPost.PostHashHex : "";
+    const repostedPostHashHex = this.isQuote ? this.parentPost.PostHashHex : "";
     this.submittingPost = true;
     const postType = this.isQuote ? "quote" : this.isComment ? "reply" : "create";
 
@@ -213,13 +217,14 @@ export class FeedCreatePostComponent implements OnInit {
         this.isComment ? this.parentPost.PostHashHex : "" /*ParentPostHashHex*/,
         "" /*Title*/,
         bodyObj /*BodyObj*/,
-        recloutedPostHashHex,
+        repostedPostHashHex,
         postExtraData,
         "" /*Sub*/,
         // TODO: Should we have different values for creator basis points and stake multiple?
         // TODO: Also, it may not be reasonable to allow stake multiple to be set in the FE.
         false /*IsHidden*/,
-        this.globalVars.defaultFeeRateNanosPerKB /*MinFeeRateNanosPerKB*/
+        this.globalVars.defaultFeeRateNanosPerKB /*MinFeeRateNanosPerKB*/,
+        this.inTutorial,
       )
       .subscribe(
         (response) => {

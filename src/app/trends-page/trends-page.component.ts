@@ -10,6 +10,6 @@ export class TrendsPageComponent implements OnInit {
   constructor(private titleService: Title) {}
 
   ngOnInit() {
-    this.titleService.setTitle("Marketplace - BitClout");
+    this.titleService.setTitle("Explore - Pinkstar");
   }
 }

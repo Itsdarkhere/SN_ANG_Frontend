@@ -7,8 +7,6 @@ import { tap, finalize, first } from "rxjs/operators";
 import * as _ from "lodash";
 import PullToRefresh from "pulltorefreshjs";
 import { Title } from "@angular/platform-browser";
-import { NftPostComponent } from "../nft-post-page/nft-post/nft-post.component";
-import { read } from "fs";
 
 @Component({
   selector: "feed",
@@ -43,7 +41,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   loadingFirstBatchOfGlobalFeedPosts = false;
 
   // loading first batch of bitclout posts
-  loadingFirstBatchOfBitcloutPosts = false;
+  loadingFirstBatchOfDeSoPosts = false;
 
   // We load the user's following on page load. This boolean tracks whether we're currently loading
   // or whether we've finished.
@@ -52,10 +50,10 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   globalVars: GlobalVarsService;
   serverHasMoreFollowFeedPosts = true;
   serverHasMoreGlobalFeedPosts = true;
-  serverHasMoreBitcloutFeedPosts = true;
+  serverHasMoreDeSoFeedPosts = true;
   loadingMoreFollowFeedPosts = false;
   loadingMoreGlobalFeedPosts = false;
-  loadingMoreBitcloutFeedPosts = false;
+  loadingMoreDeSoFeedPosts = false;
 
   pullToRefreshHandler;
 
@@ -232,8 +230,6 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
       return this.globalVars.followFeedPosts;
     } else if (this.activeTab === this.FeedComponent.GLOBAL_TAB) {
       return this.globalVars.postsToShow;
-    } else {
-      return this.globalVars.bitcloutFeedPosts;
     }
   }
 
@@ -249,7 +245,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     } else if (this.activeTab === FeedComponent.GLOBAL_TAB) {
       return this.loadingMoreGlobalFeedPosts;
     } else {
-      return this.loadingMoreBitcloutFeedPosts;
+      return this.loadingMoreDeSoFeedPosts;
     }
   }
 
@@ -266,7 +262,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     } else if (this.activeTab === FeedComponent.GLOBAL_TAB) {
       return this.loadingFirstBatchOfGlobalFeedPosts;
     } else {
-      return this.loadingFirstBatchOfBitcloutPosts;
+      return this.loadingFirstBatchOfDeSoPosts;
     }
   }
 
@@ -287,6 +283,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   loadMorePosts() {
+    console.log("LOADING");
     if (this.activeTab === FeedComponent.FOLLOWING_TAB) {
       this._loadFollowFeedPosts();
     } else {
@@ -304,7 +301,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     } else if (this.activeTab === FeedComponent.GLOBAL_TAB) {
       return this.serverHasMoreGlobalFeedPosts;
     } else {
-      return this.serverHasMoreBitcloutFeedPosts;
+      return this.serverHasMoreDeSoFeedPosts;
     }
   }
 
@@ -329,7 +326,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     if (this.globalVars.postsToShow.length > 0 && !reload) {
       lastPostHash = this.globalVars.postsToShow[this.globalVars.postsToShow.length - 1].PostHashHex;
     }
-
+    console.log("LOADING");
     return this.backendApi
       .GetPostsStateless(
         this.globalVars.localNode,
@@ -597,7 +594,6 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     });
 
     if (postIndex === -1) {
-      // TODO: rollbar
       console.error(`Problem finding postEntryResponse in postsToShow in onPostHidden`, {
         postEntryResponse,
         postsToShow,

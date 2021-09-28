@@ -1813,8 +1813,8 @@ input.bs-timepicker-field {
 
 .feed-post-icon-row__icon.icon-repost {
     &:hover {
-        background-color: $reclout-hover;
-        color: $reclout-color;
+        background-color: var(--text);
+        color: var(--text);
     }
 }
 

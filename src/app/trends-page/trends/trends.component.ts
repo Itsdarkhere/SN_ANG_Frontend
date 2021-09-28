@@ -23,6 +23,10 @@ export class TrendsComponent implements OnInit {
   startIndex = 0;
   endIndex = 20;
   dataToShow: NFTCollectionResponse[];
+  selectedOptionWidth: string;
+  pagedRequestsByTab = {};
+  lastPageByTab = {};
+  loadingNextPage = false;
 
   infiniteScroller: InfiniteScroller = new InfiniteScroller(
     TrendsComponent.PAGE_SIZE,
@@ -34,15 +38,19 @@ export class TrendsComponent implements OnInit {
 
   datasource: IDatasource<IAdapter<any>> = this.infiniteScroller.getDatasource();
 
-  constructor(private _globalVars: GlobalVarsService, private backendApi: BackendApiService,
-    private router: Router, private route: ActivatedRoute) {
+  constructor(
+    private _globalVars: GlobalVarsService,
+    private backendApi: BackendApiService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.globalVars = _globalVars;
   }
 
   ngOnInit(): void {
     // code to remove extra query param if not required
     // this.router.navigate(
-    //   ['.'], 
+    //   ['.'],
     //   { relativeTo: this.route, queryParams: { } }
     // );
     // this.router.events.subscribe(resp=>{
@@ -54,9 +62,6 @@ export class TrendsComponent implements OnInit {
   }
 
   getPage(page: number) {
-    if (this.lastPage != null && page > this.lastPage) {
-      return [];
-    }
     const startIdx = page * TrendsComponent.PAGE_SIZE;
     const endIdx = (page + 1) * TrendsComponent.PAGE_SIZE;
 
@@ -64,18 +69,21 @@ export class TrendsComponent implements OnInit {
       resolve(this.nftCollections.slice(startIdx, Math.min(endIdx, this.nftCollections.length)));
     });
   }
-  onScroll(){
-    console.log('scrolling..!!');
-    if(this.endIndex <= this.nftCollections.length -1 ){
+
+  onScroll() {
+    console.log("scrolling..!!");
+    if (this.endIndex <= this.nftCollections.length - 1) {
       this.startIndex = this.endIndex;
-      this.endIndex +=20;
-      this.dataToShow = [...this.dataToShow,...this.nftCollections.slice(this.startIndex, this.endIndex)];
+      this.endIndex += 20;
+      this.dataToShow = [...this.dataToShow, ...this.nftCollections.slice(this.startIndex, this.endIndex)];
     }
   }
-  loadData(showmore: boolean = false){
-    if(!showmore){
+
+  loadData(showmore: boolean = false) {
+    if (!showmore) {
       this.loading = true;
     }
+    console.log(this.nftCollections);
     this.backendApi
       .GetNFTShowcase(
         this.globalVars.localNode,
@@ -85,6 +93,7 @@ export class TrendsComponent implements OnInit {
       .subscribe(
         (res: any) => {
           this.nftCollections = res.NFTCollections;
+          console.log(this.nftCollections);
           if (this.nftCollections) {
             this.nftCollections.sort((a, b) => b.PostEntryResponse.TimestampNanos - a.PostEntryResponse.TimestampNanos);
             this.nftCollections = uniqBy(
@@ -93,6 +102,7 @@ export class TrendsComponent implements OnInit {
             );
           }
           this.dataToShow = this.nftCollections.slice(this.startIndex, this.endIndex);
+          console.log(this.dataToShow);
           this.lastPage = Math.floor(this.nftCollections.length / TrendsComponent.PAGE_SIZE);
           if (showmore) {
             document.body.scrollTop = 0; // For Safari
@@ -107,7 +117,7 @@ export class TrendsComponent implements OnInit {
         this.loading = false;
       });
   }
-  showRecent(){
+  showRecent() {
     this.loadData(true);
   }
 }

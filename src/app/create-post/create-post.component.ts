@@ -9,9 +9,9 @@ import { environment } from "../../environments/environment";
 import { MatDialogRef } from "@angular/material/dialog";
 
 @Component({
-  selector: 'app-create-post',
-  templateUrl: './create-post.component.html',
-  styleUrls: ['./create-post.component.scss']
+  selector: "app-create-post",
+  templateUrl: "./create-post.component.html",
+  styleUrls: ["./create-post.component.scss"],
 })
 export class CreatePostComponent implements OnInit {
   static SHOW_POST_LENGTH_WARNING_THRESHOLD = 260; // show warning at 260 characters
@@ -88,7 +88,7 @@ export class CreatePostComponent implements OnInit {
     "Fly by night, laugh, and shout: BitCloooout!",
     "Let's build the catatonic choo-choo!",
     "Fasten your seatbelts! GodSpeed!",
-    "Ain't nothing wrong with being practical."
+    "Ain't nothing wrong with being practical.",
   ];
 
   submittingPost = false;
@@ -204,7 +204,7 @@ export class CreatePostComponent implements OnInit {
       // Only submit images if the post is a quoted reclout or a vanilla post.
       ImageURLs: !this.isComment ? [this.postImageSrc].filter((n) => n) : [],
     };
-    const recloutedPostHashHex = this.isQuote ? this.parentPost.PostHashHex : "";
+    const repostedPostHashHex = this.isQuote ? this.parentPost.PostHashHex : "";
     this.submittingPost = true;
     const postType = this.isQuote ? "quote" : this.isComment ? "reply" : "create";
 
@@ -216,7 +216,7 @@ export class CreatePostComponent implements OnInit {
         this.isComment ? this.parentPost.PostHashHex : "" /*ParentPostHashHex*/,
         "" /*Title*/,
         bodyObj /*BodyObj*/,
-        recloutedPostHashHex,
+        repostedPostHashHex,
         postExtraData,
         "" /*Sub*/,
         // TODO: Should we have different values for creator basis points and stake multiple?

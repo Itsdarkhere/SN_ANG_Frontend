@@ -6,8 +6,8 @@ import { Router } from "@angular/router";
 import { SwalHelper } from "../../lib/helpers/swal-helper";
 import { DiamondsModalComponent } from "../diamonds-modal/diamonds-modal.component";
 import { LikesModalComponent } from "../likes-modal/likes-modal.component";
-import { RecloutsModalComponent } from "../reclouts-modal/reclouts-modal.component";
-import { QuoteRecloutsModalComponent } from "../quote-reclouts-modal/quote-reclouts-modal.component";
+import { RepostsModalComponent } from "../reposts-modal/reposts-modal.component";
+import { QuoteRepostsModalComponent } from "../quote-reposts-modal/quote-reposts-modal.component";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { DomSanitizer } from "@angular/platform-browser";
 import * as _ from "lodash";
@@ -27,19 +27,16 @@ export class NftCardComponent implements OnInit {
     return this._post;
   }
   set post(post: PostEntryResponse) {
-    // When setting the post, we need to consider reclout behavior.
-    // If a post is a reclouting another post (without a quote), then use the reclouted post as the post content.
-    // If a post is quoting another post, then we use the quoted post as the quoted content.
     this._post = post;
-    if (this.isReclout(post)) {
-      this.postContent = post.RecloutedPostEntryResponse;
-      this.reclouterProfile = post.ProfileEntryResponse;
-      if (this.isQuotedClout(post.RecloutedPostEntryResponse)) {
-        this.quotedContent = this.postContent.RecloutedPostEntryResponse;
+    if (this.isRepost(post)) {
+      this.postContent = post.RepostedPostEntryResponse;
+      this.reposterProfile = post.ProfileEntryResponse;
+      if (this.isQuotedClout(post.RepostedPostEntryResponse)) {
+        this.quotedContent = this.postContent.RepostedPostEntryResponse;
       }
     } else if (this.isQuotedClout(post)) {
       this.postContent = post;
-      this.quotedContent = post.RecloutedPostEntryResponse;
+      this.quotedContent = post.RepostedPostEntryResponse;
     } else {
       this.postContent = post;
     }
@@ -73,7 +70,7 @@ export class NftCardComponent implements OnInit {
   @Input() contentShouldLinkToThread: boolean;
 
   @Input() afterCommentCreatedCallback: any = null;
-  @Input() afterRecloutCreatedCallback: any = null;
+  @Input() afterRepostCreatedCallback: any = null;
   @Input() showReplyingToContent: any = null;
   @Input() parentPost;
   @Input() isParentPostInThread = false;
@@ -121,9 +118,9 @@ export class NftCardComponent implements OnInit {
   loggedInUserStakeAmount = 0;
   loggedInUserNextStakePayout = -1;
   addingPostToGlobalFeed = false;
-  reclout: any;
+  repost: any;
   postContent: any;
-  reclouterProfile: any;
+  reposterProfile: any;
   _post: any;
   pinningPost = false;
   hidingPost = false;
@@ -209,12 +206,12 @@ export class NftCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.globalVars.loggedInUser) {
+    /*if (this.globalVars.loggedInUser) {
       this.loggedInUserStakeAmount = this._getLoggedInUserStakeAmount();
       this.loggedInUserNextStakePayout = this._getLoggedInUserNextStakePayout();
-    }
-    if (!this.post.RecloutCount) {
-      this.post.RecloutCount = 0;
+    }*/
+    if (!this.post.RepostCount) {
+      this.post.RepostCount = 0;
     }
     this.setEmbedURLForPostContent();
     if (this.showNFTDetails && this.postContent.IsNFT && !this.nftEntryResponses?.length) {
@@ -263,16 +260,16 @@ export class NftCardComponent implements OnInit {
     });
   }
 
-  isReclout(post: any): boolean {
-    return post.Body === "" && (!post.ImageURLs || post.ImageURLs?.length === 0) && post.RecloutedPostEntryResponse;
+  isRepost(post: any): boolean {
+    return post.Body === "" && (!post.ImageURLs || post.ImageURLs?.length === 0) && post.RepostedPostEntryResponse;
   }
 
   isQuotedClout(post: any): boolean {
-    return (post.Body !== "" || post.ImageURLs?.length > 0) && post.RecloutedPostEntryResponse;
+    return (post.Body !== "" || post.ImageURLs?.length > 0) && post.RepostedPostEntryResponse;
   }
 
   isRegularPost(post: any): boolean {
-    return !this.isReclout(post) && !this.isQuotedClout(post);
+    return !this.isRepost(post) && !this.isQuotedClout(post);
   }
 
   openImgModal(event, imageURL) {
@@ -305,15 +302,15 @@ export class NftCardComponent implements OnInit {
     }
   }
 
-  openRecloutsModal(event): void {
-    if (this.postContent.RecloutCount) {
-      this.openInteractionModal(event, RecloutsModalComponent);
+  openRepostsModal(event): void {
+    if (this.postContent.RepostCount) {
+      this.openInteractionModal(event, RepostsModalComponent);
     }
   }
 
-  openQuoteRecloutsModal(event): void {
-    if (this.postContent.QuoteRecloutCount) {
-      this.openInteractionModal(event, QuoteRecloutsModalComponent);
+  openQuoteRepostsModal(event): void {
+    if (this.postContent.QuoteRepostCount) {
+      this.openInteractionModal(event, QuoteRepostsModalComponent);
     }
   }
 
@@ -348,11 +345,11 @@ export class NftCardComponent implements OnInit {
             "" /*ParentPostHashHex*/,
             "" /*Title*/,
             { Body: this._post.Body, ImageURLs: this._post.ImageURLs } /*BodyObj*/,
-            this._post.RecloutedPostEntryResponse?.PostHashHex || "",
+            this._post.RepostedPostEntryResponse?.PostHashHex || "",
             {},
             "" /*Sub*/,
             true /*IsHidden*/,
-            this.globalVars.feeRateBitCloutPerKB * 1e9 /*feeRateNanosPerKB*/
+            this.globalVars.feeRateDeSoPerKB * 1e9 /*feeRateNanosPerKB*/
           )
           .subscribe(
             (response) => {
@@ -444,7 +441,7 @@ export class NftCardComponent implements OnInit {
     }
   }
 
-  _getLoggedInUserStakeAmount() {
+  /*_getLoggedInUserStakeAmount() {
     if (this.post?.StakeEntry?.StakeList.length === 0) {
       return 0;
     }
@@ -485,7 +482,7 @@ export class NftCardComponent implements OnInit {
 
     return -1;
   }
-
+  */
   _addPostToGlobalFeed(event: any) {
     // Prevent the post from navigating.
     event.stopPropagation();

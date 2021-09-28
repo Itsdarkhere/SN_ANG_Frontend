@@ -19,7 +19,7 @@
           </div>
           <input
             [(ngModel)]="minBidAmountUSD"
-            (ngModelChange)="updateMinBidAmountCLOUT($event)"
+            (ngModelChange)="updateMinBidAmountDESO($event)"
             [ngStyle]="{ 'max-width': !globalVars.isMobile() ? '200px' : 'none' }"
             aria-describedby="usd-label"
             class="form-control fs-15px text-right d-inline-block"
@@ -34,7 +34,7 @@
             <span class="input-group-text fs-15px">DESO</span>
           </div>
           <input
-            [(ngModel)]="minBidAmountCLOUT"
+            [(ngModel)]="minBidAmountDESO"
             (ngModelChange)="updateMinBidAmountUSD($event)"
             aria-describedby="clout-label"
             class="form-control fs-15px text-right d-inline-block"

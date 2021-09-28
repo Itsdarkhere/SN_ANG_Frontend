@@ -320,7 +320,7 @@ export class PostThreadComponent implements OnInit {
         }
         // Set current post
         this.currentPost = res.PostFound;
-        this.titleService.setTitle(this.currentPost.ProfileEntryResponse.Username + " on BitClout");
+        this.titleService.setTitle(this.currentPost.ProfileEntryResponse.Username + " on DeSo");
       },
       (err) => {
         // TODO: post threads: rollbar
@@ -358,7 +358,7 @@ export class PostThreadComponent implements OnInit {
     //   this.datasource.adapter.reset();
     // }, 30000);
   }
-  openRecloutsModal(event, isQuote: boolean = false): void {
+  openRepostsModal(event, isQuote: boolean = false): void {
     // Prevent the post navigation click from occurring.
     event.stopPropagation();
 
@@ -385,7 +385,6 @@ export class PostThreadComponent implements OnInit {
       });
     }
   }
-  
   // prependPostToFeed(postEntryResponse) {
   //   NftPostComponent.prependPostToFeed(this.refreshPosts(), postEntryResponse);
   // }

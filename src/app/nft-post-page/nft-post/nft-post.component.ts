@@ -19,7 +19,7 @@ import { CloseNftAuctionModalComponent } from "../../close-nft-auction-modal/clo
 import { Subscription } from "rxjs";
 import { AddUnlockableModalComponent } from "../../add-unlockable-modal/add-unlockable-modal.component";
 import { FeedPostComponent } from "../../feed/feed-post/feed-post.component";
-import { RecloutsModalComponent } from "src/app/reclouts-modal/reclouts-modal.component";
+import { RepostsModalComponent } from "src/app/reposts-modal/reposts-modal.component";
 import { SharedDialogs } from "src/lib/shared-dialogs";
 import { CommentModalComponent } from "src/app/comment-modal/comment-modal.component";
 
@@ -66,12 +66,7 @@ export class NftPostComponent {
   //   NftPostComponent.MY_AUCTIONS,
   //   NftPostComponent.OWNERS,
   // ];
-  tabs = [
-    NftPostComponent.THREAD,
-    NftPostComponent.MY_BIDS,
-    NftPostComponent.MY_AUCTIONS,
-    NftPostComponent.OWNERS,
-  ];
+  tabs = [NftPostComponent.THREAD, NftPostComponent.MY_BIDS, NftPostComponent.MY_AUCTIONS, NftPostComponent.OWNERS];
 
   constructor(
     private route: ActivatedRoute,
@@ -142,7 +137,7 @@ export class NftPostComponent {
         }
         // Set current post
         this.nftPost = res.PostFound;
-        this.titleService.setTitle(this.nftPost.ProfileEntryResponse.Username + " on BitClout");
+        this.titleService.setTitle(this.nftPost.ProfileEntryResponse.Username + " on DeSo");
         this.refreshBidData();
       },
       (err) => {
@@ -295,6 +290,7 @@ export class NftPostComponent {
   }
 
   selectBidEntry(bidEntry: NFTBidEntryResponse): void {
+    this.bids.forEach((bidEntry) => (bidEntry.selected = false));
     bidEntry.selected = true;
     this.sellNFTDisabled = false;
   }
@@ -506,7 +502,7 @@ export class NftPostComponent {
     setTimeout(() => (this.reloadingThread = true));
     setTimeout(() => (this.reloadingThread = false));
   }
-  openRecloutsModal(event, isQuote: boolean = false): void {
+  openRepostsModal(event, isQuote: boolean = false): void {
     // Prevent the post navigation click from occurring.
     event.stopPropagation();
 
@@ -533,7 +529,6 @@ export class NftPostComponent {
       });
     }
   }
-  
   // prependPostToFeed(postEntryResponse) {
   //   NftPostComponent.prependPostToFeed(this.refreshPosts(), postEntryResponse);
   // }

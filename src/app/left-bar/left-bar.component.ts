@@ -1,8 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostBinding } from "@angular/core";
+import { Component, EventEmitter, HostBinding, Input, Output } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
-import { AppRoutingModule } from "../app-routing.module";
+import { AppRoutingModule, RouteNames } from "../app-routing.module";
 import { MessagesInboxComponent } from "../messages-page/messages-inbox/messages-inbox.component";
 import { IdentityService } from "../identity.service";
+import { BackendApiService, TutorialStatus } from "../backend-api.service";
+import { Router } from "@angular/router";
+import { SwalHelper } from "../../lib/helpers/swal-helper";
 
 @Component({
   selector: "left-bar",
@@ -19,21 +22,29 @@ export class LeftBarComponent {
   }
 
   @Input() isMobile = false;
+  @Input() inTutorial: boolean = false;
   @Output() closeMobile = new EventEmitter<boolean>();
   currentRoute: string;
 
   AppRoutingModule = AppRoutingModule;
 
-  constructor(public globalVars: GlobalVarsService, private identityService: IdentityService) {}
+  constructor(
+    public globalVars: GlobalVarsService,
+    private identityService: IdentityService,
+    private backendApi: BackendApiService,
+    private router: Router
+  ) {}
 
   // send logged out users to the landing page
   // send logged in users to browse
-  homeLink(): string {
+  homeLink(): string | string[] {
+    if (this.inTutorial) {
+      return [];
+    }
     if (this.globalVars.showLandingPage()) {
       return "/" + this.globalVars.RouteNames.LANDING;
-    } else {
-      return "/" + this.globalVars.RouteNames.BROWSE;
     }
+    return "/" + this.globalVars.RouteNames.BROWSE;
   }
 
   getHelpMailToAttr(): string {

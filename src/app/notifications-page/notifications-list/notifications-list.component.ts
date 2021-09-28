@@ -152,16 +152,33 @@ export class NotificationsListComponent implements OnInit {
     };
 
     if (txnMeta.TxnType === "BASIC_TRANSFER") {
-      let txnAmountNanos = 0;
-      for (let ii = 0; ii < notification.TxnOutputResponses.length; ii++) {
-        if (notification.TxnOutputResponses[ii].PublicKeyBase58Check === userPublicKeyBase58Check) {
-          txnAmountNanos += notification.TxnOutputResponses[ii].AmountNanos;
-        }
+      const basicTransferMeta = txnMeta.BasicTransferTxindexMetadata;
+      if (!basicTransferMeta) {
+        return null;
       }
-      result.icon = "fas fa-money-bill-wave-alt fc-green";
-      result.action =
-        `${actorName} sent you ${this.globalVars.nanosToBitClout(txnAmountNanos)} ` +
-        `$CLOUT!</b> (~${this.globalVars.nanosToUSD(txnAmountNanos, 2)})`;
+      if (basicTransferMeta.DiamondLevel) {
+        result.icon = "icon-diamond fc-blue";
+        let postText = "";
+        if (basicTransferMeta.PostHashHex) {
+          const truncatedPost = this.truncatePost(basicTransferMeta.PostHashHex);
+          postText = `<i class="text-grey7">${truncatedPost}</i>`;
+          result.link = AppRoutingModule.postPath(basicTransferMeta.PostHashHex);
+        }
+        result.action = `${actorName} gave <b>${basicTransferMeta.DiamondLevel.toString()} diamond${
+          basicTransferMeta.DiamondLevel > 1 ? "s" : ""
+        }</b> (~${this.globalVars.getUSDForDiamond(basicTransferMeta.DiamondLevel)}) ${postText}`;
+      } else {
+        let txnAmountNanos = 0;
+        for (let ii = 0; ii < notification.TxnOutputResponses.length; ii++) {
+          if (notification.TxnOutputResponses[ii].PublicKeyBase58Check === userPublicKeyBase58Check) {
+            txnAmountNanos += notification.TxnOutputResponses[ii].AmountNanos;
+          }
+        }
+        result.icon = "fas fa-money-bill-wave-alt fc-green";
+        result.action =
+          `${actorName} sent you ${this.globalVars.nanosToDeSo(txnAmountNanos)} ` +
+          `$DESO!</b> (~${this.globalVars.nanosToUSD(txnAmountNanos, 2)})`;
+      }
       return result;
     } else if (txnMeta.TxnType === "CREATOR_COIN") {
       // If we don't have the corresponding metadata then return null.
@@ -174,15 +191,15 @@ export class NotificationsListComponent implements OnInit {
 
       if (ccMeta.OperationType === "buy") {
         result.action = `${actorName} bought <b>~${this.globalVars.nanosToUSD(
-          ccMeta.BitCloutToSellNanos,
+          ccMeta.DeSoToSellNanos,
           2
         )}</b> worth of <b>$${userProfile.Username}</b>!`;
         return result;
       } else if (ccMeta.OperationType === "sell") {
-        // TODO: We cannot compute the USD value of the sale without saving the amount of BitClout
+        // TODO: We cannot compute the USD value of the sale without saving the amount of DeSo
         // that was used to complete the transaction in the backend, which we are too lazy to do.
         // So for now we just tell the user the amount of their coin that was sold.
-        result.action = `${actorName} sold <b>${this.globalVars.nanosToBitClout(ccMeta.CreatorCoinToSellNanos)} $${
+        result.action = `${actorName} sold <b>${this.globalVars.nanosToDeSo(ccMeta.CreatorCoinToSellNanos)} $${
           userProfile.Username
         }.</b>`;
         return result;
@@ -206,7 +223,7 @@ export class NotificationsListComponent implements OnInit {
         }</b> (~${this.globalVars.getUSDForDiamond(cctMeta.DiamondLevel)}) ${postText}`;
       } else {
         result.icon = "fas fa-paper-plane fc-blue";
-        result.action = `${actorName} sent you <b>${this.globalVars.nanosToBitClout(
+        result.action = `${actorName} sent you <b>${this.globalVars.nanosToDeSo(
           cctMeta.CreatorCoinToTransferNanos,
           6
         )} ${cctMeta.CreatorUsername} coins`;
@@ -245,7 +262,7 @@ export class NotificationsListComponent implements OnInit {
           }
 
           return result;
-        } else if (currentPkObj.Metadata === "RecloutedPublicKeyBase58Check") {
+        } else if (currentPkObj.Metadata === "RepostedPublicKeyBase58Check") {
           result.post = this.postMap[postHash];
           if (result.post === null) {
             return;
@@ -298,10 +315,10 @@ export class NotificationsListComponent implements OnInit {
       const actorName = actor.Username !== "anonymous" ? actor.Username : txnMeta.TransactorPublicKeyBase58Check;
       result.post = this.postMap[postHash];
       result.action = nftBidMeta.BidAmountNanos
-        ? `${actorName} bid ${this.globalVars.nanosToBitClout(
+        ? `${actorName} bid ${this.globalVars.nanosToDeSo(
             nftBidMeta.BidAmountNanos,
             2
-          )} CLOUT (~${this.globalVars.nanosToUSD(nftBidMeta.BidAmountNanos, 2)}) for serial number ${
+          )} DESO (~${this.globalVars.nanosToUSD(nftBidMeta.BidAmountNanos, 2)}) for serial number ${
             nftBidMeta.SerialNumber
           }`
         : `${actorName} cancelled their bid on serial number ${nftBidMeta.SerialNumber}`;
@@ -317,7 +334,7 @@ export class NotificationsListComponent implements OnInit {
       const postHash = acceptNFTBidMeta.NFTPostHashHex;
 
       result.post = this.postMap[postHash];
-      result.action = `${actor.Username} accepted your bid of ${this.globalVars.nanosToBitClout(
+      result.action = `${actor.Username} accepted your bid of ${this.globalVars.nanosToDeSo(
         acceptNFTBidMeta.BidAmountNanos,
         2
       )} for serial number ${acceptNFTBidMeta.SerialNumber}`;

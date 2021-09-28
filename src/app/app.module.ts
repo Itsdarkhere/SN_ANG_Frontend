@@ -29,7 +29,7 @@ import { FeedPostDropdownComponent } from "./feed/feed-post-dropdown/feed-post-d
 import { FeedPostIconRowComponent } from "./feed/feed-post-icon-row/feed-post-icon-row.component";
 import { CreatorsLeaderboardPageComponent } from "./creators-leaderboard/creators-leaderboard-page/creators-leaderboard-page.component";
 import { CreatorsLeaderboardComponent } from "./creators-leaderboard/creators-leaderboard/creators-leaderboard.component";
-import { BuyBitcloutPageComponent } from "./buy-bitclout-page/buy-bitclout-page.component";
+import { BuyDeSoPageComponent } from "./buy-deso-page/buy-deso-page.component";
 import { MessagesPageComponent } from "./messages-page/messages-page.component";
 import { SettingsPageComponent } from "./settings-page/settings-page.component";
 import { CreatorProfilePageComponent } from "./creator-profile-page/creator-profile-page.component";
@@ -41,8 +41,8 @@ import { CreatorProfileTopCardComponent } from "./creator-profile-page/creator-p
 import { LeftBarButtonComponent } from "./left-bar/left-bar-button/left-bar-button.component";
 import { TradeCreatorPageComponent } from "./trade-creator-page/trade-creator-page.component";
 import { TradeCreatorComponent } from "./trade-creator-page/trade-creator/trade-creator.component";
-import { BuyBitcloutComponent } from "./buy-bitclout-page/buy-bitclout/buy-bitclout.component";
-import { BuyBitcloutUSDComponent } from "./buy-bitclout-page/buy-bitclout-usd/buy-bitclout-usd.component";
+import { BuyDeSoComponent } from "./buy-deso-page/buy-deso/buy-deso.component";
+import { BuyDeSoUSDComponent } from "./buy-deso-page/buy-deso-usd/buy-deso-usd.component";
 import { TradeCreatorFormComponent } from "./trade-creator-page/trade-creator-form/trade-creator-form.component";
 import { TradeCreatorPreviewComponent } from "./trade-creator-page/trade-creator-preview/trade-creator-preview.component";
 import { TradeCreatorCompleteComponent } from "./trade-creator-page/trade-creator-complete/trade-creator-complete.component";
@@ -59,10 +59,10 @@ import { UpdateProfileComponent } from "./update-profile-page/update-profile/upd
 import { RightBarCreatorsLeaderboardComponent } from "./right-bar-creators/right-bar-creators-leaderboard/right-bar-creators-leaderboard.component";
 import { BottomBarMobileComponent } from "./bottom-bar-mobile/bottom-bar-mobile.component";
 import { LeftBarMobileComponent } from "./left-bar-mobile/left-bar-mobile.component";
-import { TransferBitcloutPageComponent } from "./transfer-bitclout-page/transfer-bitclout-page.component";
-import { TransferBitcloutComponent } from "./transfer-bitclout/transfer-bitclout.component";
-import { BuyBitcloutLoggedOutComponent } from "./buy-bitclout-page/buy-bitclout-logged-out/buy-bitclout-logged-out.component";
-import { BuyBitcloutCompleteComponent } from "./buy-bitclout-page/buy-bitclout-complete/buy-bitclout-complete.component";
+import { TransferDeSoPageComponent } from "./transfer-deso-page/transfer-deso-page.component";
+import { TransferDeSoComponent } from "./transfer-deso/transfer-deso.component";
+import { BuyDeSoLoggedOutComponent } from "./buy-deso-page/buy-deso-logged-out/buy-deso-logged-out.component";
+import { BuyDeSoCompleteComponent } from "./buy-deso-page/buy-deso-complete/buy-deso-complete.component";
 import { MessagesInboxComponent } from "./messages-page/messages-inbox/messages-inbox.component";
 import { MessagesThreadComponent } from "./messages-page/messages-thread/messages-thread.component";
 import { MessageComponent } from "./messages-page/message/message.component";
@@ -99,10 +99,10 @@ import { TimepickerModule } from "ngx-bootstrap/timepicker";
 import { CollapseModule } from "ngx-bootstrap/collapse";
 import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { AnimateOnScrollModule } from "ng2-animate-on-scroll";
-import { SignUpGetStarterBitcloutComponent } from "./sign-up/sign-up-get-starter-bitclout/sign-up-get-starter-bitclout.component";
-import { UpdateProfileGetStarterBitcloutComponent } from "./update-profile-page/update-profile-get-starter-bitclout/update-profile-get-starter-bitclout.component";
-import { GetStarterBitcloutPageComponent } from "./get-starter-bitclout-page/get-starter-bitclout-page.component";
-import { GetStarterBitcloutComponent } from "./get-starter-bitclout-page/get-starter-bitclout/get-starter-bitclout.component";
+import { SignUpGetStarterDeSoComponent } from "./sign-up/sign-up-get-starter-deso/sign-up-get-starter-deso.component";
+import { UpdateProfileGetStarterDeSoComponent } from "./update-profile-page/update-profile-get-starter-deso/update-profile-get-starter-deso.component";
+import { GetStarterDeSoPageComponent } from "./get-starter-deso-page/get-starter-deso-page.component";
+import { GetStarterDeSoComponent } from "./get-starter-deso-page/get-starter-deso/get-starter-deso.component";
 import { CommentModalComponent } from "./comment-modal/comment-modal.component";
 import { WalletComponent } from "./wallet/wallet.component";
 import { Toast, ToastrModule } from "ngx-toastr";
@@ -110,8 +110,8 @@ import { SignUpComponent } from "./sign-up/sign-up.component";
 import { WalletActionsDropdownComponent } from "./wallet/wallet-actions-dropdown/wallet-actions-dropdown.component";
 import { PickACoinPageComponent } from "./pick-a-coin-page/pick-a-coin-page.component";
 import { DiamondsModalComponent } from "./diamonds-modal/diamonds-modal.component";
-import { RecloutsModalComponent } from "./reclouts-modal/reclouts-modal.component";
-import { QuoteRecloutsModalComponent } from "./quote-reclouts-modal/quote-reclouts-modal.component";
+import { RepostsModalComponent } from "./reposts-modal/reposts-modal.component";
+import { QuoteRepostsModalComponent } from "./quote-reposts-modal/quote-reposts-modal.component";
 import { LikesModalComponent } from "./likes-modal/likes-modal.component";
 import { SimpleProfileCardComponent } from "./simple-profile-card/simple-profile-card.component";
 import { CreatorDiamondsComponent } from "./creator-profile-page/creator-diamonds/creator-diamonds.component";
@@ -142,11 +142,25 @@ import { VerifyEmailComponent } from "./verify-email/verify-email.component";
 import { AdminJumioComponent } from "./admin/admin-jumio/admin-jumio.component";
 import { JumioStatusComponent } from "./jumio-status/jumio-status.component";
 import { MatMenuModule } from "@angular/material/menu";
+import { AdminTutorialComponent } from "./admin/admin-tutorial/admin-tutorial.component";
+import { CreateProfileTutorialPageComponent } from "./tutorial/create-profile-tutorial-page/create-profile-tutorial-page.component";
+import { BuyCreatorCoinsTutorialComponent } from "./tutorial/buy-creator-coins-tutorial-page/buy-creator-coins-tutorial/buy-creator-coins-tutorial.component";
+import { BuyCreatorCoinsTutorialPageComponent } from "./tutorial/buy-creator-coins-tutorial-page/buy-creator-coins-tutorial-page.component";
+import { BuyCreatorCoinsConfirmTutorialComponent } from "./tutorial/buy-creator-coins-tutorial-page/buy-creator-coins-confirm-tutorial/buy-creator-coins-confirm-tutorial.component";
+import { WalletPageComponent } from "./wallet/wallet-page/wallet-page.component";
+import { WalletTutorialPageComponent } from "./tutorial/wallet-tutorial-page/wallet-tutorial-page.component";
+import { SellCreatorCoinsTutorialComponent } from "./tutorial/sell-creator-coins-tutorial-page/sell-creator-coins-tutorial/sell-creator-coins-tutorial.component";
+import { DiamondTutorialPageComponent } from "./tutorial/diamond-tutorial-page/diamond-tutorial-page.component";
+import { DiamondTutorialComponent } from "./tutorial/diamond-tutorial-page/diamond-tutorial/diamond-tutorial.component";
+import { CreatePostTutorialPageComponent } from "./tutorial/create-post-tutorial-page/create-post-tutorial-page.component";
+import { DragDropModule } from "@angular/cdk/drag-drop";
+import { ReferralProgramMgrComponent } from "./referral-program-mgr/referral-program-mgr.component";
+import { ReferralsComponent } from "./referrals/referrals.component";
+import { BuyDeSoEthComponent } from "./buy-deso-page/buy-deso-eth/buy-deso-eth.component";
 
-// Modular Themes for BitClout by Carsen Klock @carsenk
+// Modular Themes for DeSo by Carsen Klock @carsenk
 import { ThemeModule } from "./theme/theme.module";
 import { Theme } from "./theme/symbols";
-import { DragDropModule } from "@angular/cdk/drag-drop";
 import { HeaderComponent } from "./header/header.component";
 import { NftCardComponent } from "./nft-card/nft-card.component";
 import { CreatePostComponent } from "./create-post/create-post.component";
@@ -163,14 +177,6 @@ const legendsTheme: Theme = { key: "light", name: "Legends Theme" };
 const cakeTheme: Theme = { key: "light", name: "Cake Theme" };
 const greenishTheme: Theme = { key: "light", name: "Green Theme" };
 const coderTheme: Theme = { key: "light", name: "Coder Theme" };
-
-// const lightTheme: Theme = { key: "light", name: "Light Theme" };
-// const darkTheme: Theme = { key: "dark", name: "Dark Theme" };
-// const icydarkTheme: Theme = { key: "icydark", name: "Icy Dark Theme" };
-// const legendsTheme: Theme = { key: "legends", name: "Legends Theme" };
-// const cakeTheme: Theme = { key: "cake", name: "Cake Theme" };
-// const greenishTheme: Theme = { key: "greenish", name: "Green Theme" };
-// const coderTheme: Theme = { key: "coder", name: "Coder Theme" };
 
 @NgModule({
   declarations: [
@@ -195,7 +201,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     FeedPostIconRowComponent,
     CreatorsLeaderboardPageComponent,
     CreatorsLeaderboardComponent,
-    BuyBitcloutPageComponent,
+    BuyDeSoPageComponent,
     WalletComponent,
     MessagesPageComponent,
     SettingsPageComponent,
@@ -208,8 +214,8 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     LeftBarButtonComponent,
     TradeCreatorPageComponent,
     TradeCreatorComponent,
-    BuyBitcloutComponent,
-    BuyBitcloutUSDComponent,
+    BuyDeSoComponent,
+    BuyDeSoUSDComponent,
     TradeCreatorFormComponent,
     TradeCreatorPreviewComponent,
     TradeCreatorCompleteComponent,
@@ -226,10 +232,10 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     RightBarCreatorsLeaderboardComponent,
     BottomBarMobileComponent,
     LeftBarMobileComponent,
-    TransferBitcloutPageComponent,
-    TransferBitcloutComponent,
-    BuyBitcloutLoggedOutComponent,
-    BuyBitcloutCompleteComponent,
+    TransferDeSoPageComponent,
+    TransferDeSoComponent,
+    BuyDeSoLoggedOutComponent,
+    BuyDeSoCompleteComponent,
     MessagesInboxComponent,
     MessagesThreadComponent,
     MessageComponent,
@@ -255,17 +261,17 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     PageComponent,
     LandingPageComponent,
     SignUpComponent,
-    SignUpGetStarterBitcloutComponent,
-    UpdateProfileGetStarterBitcloutComponent,
-    GetStarterBitcloutPageComponent,
-    GetStarterBitcloutComponent,
+    SignUpGetStarterDeSoComponent,
+    UpdateProfileGetStarterDeSoComponent,
+    GetStarterDeSoPageComponent,
+    GetStarterDeSoComponent,
     CommentModalComponent,
     WalletActionsDropdownComponent,
     PickACoinPageComponent,
     CreatorDiamondsComponent,
     DiamondsModalComponent,
-    RecloutsModalComponent,
-    QuoteRecloutsModalComponent,
+    RepostsModalComponent,
+    QuoteRepostsModalComponent,
     LikesModalComponent,
     SimpleProfileCardComponent,
     MessagesFilterMenuComponent,
@@ -300,6 +306,20 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     MintYourNftComponent,
     PlaceABidComponent,
     ClickoutsideDirective,
+    ReferralProgramMgrComponent,
+    ReferralsComponent,
+    AdminTutorialComponent,
+    CreateProfileTutorialPageComponent,
+    BuyCreatorCoinsTutorialComponent,
+    BuyCreatorCoinsConfirmTutorialComponent,
+    BuyCreatorCoinsTutorialPageComponent,
+    WalletPageComponent,
+    WalletTutorialPageComponent,
+    SellCreatorCoinsTutorialComponent,
+    DiamondTutorialPageComponent,
+    DiamondTutorialComponent,
+    CreatePostTutorialPageComponent,
+    BuyDeSoEthComponent,
   ],
   imports: [
     BrowserModule,

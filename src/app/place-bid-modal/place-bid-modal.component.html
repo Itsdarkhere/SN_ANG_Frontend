@@ -21,11 +21,11 @@
         <div class="fs-15px" *ngIf="!loading">
           <div *ngIf="highBid != null && lowBid != null" class="pb-15px">
             <span class="d-lg-inline-block d-block">
-              Highest bid {{ globalVars.nanosToBitClout(highBid) }} DESO&nbsp;
+              Highest bid {{ globalVars.nanosToDeSo(highBid) }} DESO&nbsp;
             </span>
             <span class="text-grey7 d-lg-inline-block d-block">(~{{ globalVars.nanosToUSD(highBid, 2) }})</span>
             <span class="d-lg-inline-block d-none">&nbsp;|&nbsp;</span>
-            <span class="d-lg-inline-block d-block">From {{ globalVars.nanosToBitClout(lowBid) }} CLOUT&nbsp;</span>
+            <span class="d-lg-inline-block d-block">From {{ globalVars.nanosToDeSo(lowBid) }} CLOUT&nbsp;</span>
             <span class="text-grey7 d-lg-inline-block d-block">(~{{ globalVars.nanosToUSD(lowBid, 2) }})</span>
           </div>
           <div class="pb-15px">
@@ -131,7 +131,7 @@
           <div class="popup-body">
             <h5>You must bid at least</h5>
             <h5 class="font-weight-bold">
-              {{ highBid > 0 ? globalVars.nanosToBitClout(highBid) : globalVars.nanosToBitClout(minBid) }} DESO
+              {{ highBid > 0 ? globalVars.nanosToDeSo(highBid) : globalVars.nanosToDeSo(minBid) }} DESO
             </h5>
             <br />
             <div class="input-with-button">
@@ -187,7 +187,7 @@
             <div class="col-4 mb-0px d-flex justify-content-around align-items-center">
               <div class="d-flex justify-content-around flex-wrap align-items-center">
                 <div class="d-lg-inline-block txt d-block text-center w-100">
-                  {{ globalVars.nanosToBitClout(nft.HighestBidAmountNanos) }} DESO
+                  {{ globalVars.nanosToDeSo(nft.HighestBidAmountNanos) }} DESO
                 </div>
                 <div class="text-grey7 txt text-center bd d-lg-inline-block d-block w-100">
                   (~{{ globalVars.nanosToUSD(nft.HighestBidAmountNanos, 2) }})
@@ -197,7 +197,7 @@
             <div class="col-5 mb-0px d-flex justify-content-around align-items-center">
               <div class="d-flex justify-content-around flex-wrap text-right">
                 <div class="d-lg-inline-block txt d-block w-100">
-                  {{ globalVars.nanosToBitClout(nft.MinBidAmountNanos) }} DESO
+                  {{ globalVars.nanosToDeSo(nft.MinBidAmountNanos) }} DESO
                 </div>
                 <div class="text-grey7 txt bd d-lg-inline-block d-block w-100">
                   (~{{ globalVars.nanosToUSD(nft.MinBidAmountNanos, 2) }})

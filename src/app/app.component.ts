@@ -1,12 +1,12 @@
 import { ChangeDetectorRef, Component, HostListener, OnInit } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { BackendApiService, User } from "./backend-api.service";
+import { BackendApiService, TutorialStatus, User } from "./backend-api.service";
 import { GlobalVarsService } from "./global-vars.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { IdentityService } from "./identity.service";
 import * as _ from "lodash";
 import { environment } from "../environments/environment";
 import { ThemeService } from "./theme/theme.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-root",
@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
 
   showUsernameTooltip = false;
 
-  bitcloutToUSDExchangeRateToDisplay = "fetching...";
+  desoToUSDExchangeRateToDisplay = "fetching...";
 
   // Throttle the calls to update the top-level data so they only happen after a
   // previous call has finished.
@@ -91,12 +91,13 @@ export class AppComponent implements OnInit {
     const userCopy = JSON.parse(JSON.stringify(user));
   }
 
-  _updateTopLevelData() {
+  _updateTopLevelData(): Subscription {
     if (this.callingUpdateTopLevelData) {
-      return;
+      return new Subscription();
     }
 
     const publicKeys = Object.keys(this.identityService.identityServiceUsers);
+
     let loggedInUserPublicKey =
       this.globalVars.loggedInUser?.PublicKeyBase58Check ||
       this.backendApi.GetStorage(this.backendApi.LastLoggedInUserKey) ||
@@ -109,23 +110,29 @@ export class AppComponent implements OnInit {
     }
 
     this.callingUpdateTopLevelData = true;
-    const observable = this.backendApi.GetUsersStateless(this.globalVars.localNode, publicKeys, false);
 
-    observable.subscribe(
+    return this.backendApi.GetUsersStateless(this.globalVars.localNode, [loggedInUserPublicKey], false).subscribe(
       (res: any) => {
         this.problemWithNodeConnection = false;
         this.callingUpdateTopLevelData = false;
 
-        // Only update if things have changed to avoid unnecessary DOM manipulation
-        if (!_.isEqual(this.globalVars.userList, res.UserList)) {
-          this.globalVars.userList = res.UserList || [];
+        const loggedInUser: User = res.UserList[0];
+        let loggedInUserFound: boolean = false;
+        // Find the logged in user in the user list and replace it with the logged in user from this GetUsersStateless call.
+        this.globalVars.userList.forEach((user, index) => {
+          if (user.PublicKeyBase58Check === loggedInUser.PublicKeyBase58Check) {
+            loggedInUserFound = true;
+            this.globalVars.userList[index] = loggedInUser;
+            // This breaks out of the lodash foreach.
+            return false;
+          }
+        });
+        // If the logged-in user wasn't in the list, add it to the list.
+        if (!loggedInUserFound && loggedInUserPublicKey) {
+          this.globalVars.userList.push(loggedInUser);
         }
-
-        // Find the loggedInUser in our results
-        const loggedInUser: User = _.find(res.UserList, { PublicKeyBase58Check: loggedInUserPublicKey });
-
-        // Only update if things have changed to avoid unnecessary DOM manipulation
-        if (!_.isEqual(this.globalVars.loggedInUser, loggedInUser)) {
+        // Only call setLoggedInUser if logged in user has changed.
+        if (!_.isEqual(this.globalVars.loggedInUser, loggedInUser) && loggedInUserPublicKey) {
           this.globalVars.setLoggedInUser(loggedInUser);
         }
 
@@ -144,6 +151,7 @@ export class AppComponent implements OnInit {
           this.globalVars.defaultFeeRateNanosPerKB = res.DefaultFeeRateNanosPerKB;
         }
         this.globalVars.globoMods = res.GloboMods;
+
         this.ref.detectChanges();
         this.globalVars.loadingInitialAppState = false;
       },
@@ -154,12 +162,10 @@ export class AppComponent implements OnInit {
         console.error(error);
       }
     );
-
-    return observable;
   }
 
-  _updateBitCloutExchangeRate() {
-    this.globalVars._updateBitCloutExchangeRate();
+  _updateDeSoExchangeRate() {
+    this.globalVars._updateDeSoExchangeRate();
   }
 
   _updateAppState() {
@@ -170,8 +176,9 @@ export class AppComponent implements OnInit {
         this.globalVars.diamondLevelMap = res.DiamondLevelMap;
         this.globalVars.showProcessingSpinners = res.ShowProcessingSpinners;
         this.globalVars.showBuyWithUSD = res.HasWyreIntegration;
+        this.globalVars.showBuyWithETH = res.BuyWithETH;
         this.globalVars.showJumio = res.HasJumioIntegration;
-        this.globalVars.jumioBitCloutNanos = res.JumioBitCloutNanos;
+        this.globalVars.jumioDeSoNanos = res.JumioDeSoNanos;
         // Setup amplitude on first run
         if (!this.globalVars.amplitude && res.AmplitudeKey) {
           this.globalVars.amplitude = require("amplitude-js");
@@ -188,7 +195,7 @@ export class AppComponent implements OnInit {
         this.globalVars.isTestnet = res.IsTestnet;
         this.identityService.isTestnet = res.IsTestnet;
         this.globalVars.supportEmail = res.SupportEmail;
-        this.globalVars.showPhoneNumberVerification = res.HasTwilioAPIKey && res.HasStarterBitCloutSeed;
+        this.globalVars.showPhoneNumberVerification = res.HasTwilioAPIKey && res.HasStarterDeSoSeed;
         this.globalVars.createProfileFeeNanos = res.CreateProfileFeeNanos;
         this.globalVars.isCompProfileCreation = this.globalVars.showPhoneNumberVerification && res.CompProfileCreation;
       });
@@ -229,12 +236,14 @@ export class AppComponent implements OnInit {
                 return;
               }
 
-              this._updateTopLevelData();
-              this._updateBitCloutExchangeRate();
+              this._updateDeSoExchangeRate();
               this._updateAppState();
 
-              clearInterval(interval);
-              successCallback(comp);
+              this._updateTopLevelData().add(() => {
+                // We make sure the logged in user is updated before the success callback triggers
+                successCallback(comp);
+                clearInterval(interval);
+              });
             },
             (error) => {
               clearInterval(interval);
@@ -247,7 +256,7 @@ export class AppComponent implements OnInit {
       if (this.globalVars.pausePolling) {
         return;
       }
-      this._updateBitCloutExchangeRate();
+      this._updateDeSoExchangeRate();
       this._updateAppState();
       return this._updateTopLevelData();
     }
@@ -259,13 +268,13 @@ export class AppComponent implements OnInit {
     // Update the BitClout <-> Bitcoin exchange rate every five minutes. This prevents
     // a stale price from showing in a tab that's been open for a while
     setInterval(() => {
-      this._updateBitCloutExchangeRate();
+      this._updateDeSoExchangeRate();
     }, 5 * 60 * 1000);
 
     this.globalVars.updateEverything = this._updateEverything;
 
     // We need to fetch this data before we start an import. Can remove once import code is gone.
-    this._updateBitCloutExchangeRate();
+    this._updateDeSoExchangeRate();
     this._updateAppState();
 
     this.identityService.info().subscribe((res) => {
@@ -300,7 +309,12 @@ export class AppComponent implements OnInit {
     }
     this.backendApi.SetStorage(this.backendApi.IdentityUsersKey, this.identityService.identityServiceUsers);
 
-    this.globalVars.updateEverything();
+    this.backendApi.GetUsersStateless(this.globalVars.localNode, publicKeys, true).subscribe((res) => {
+      if (!_.isEqual(this.globalVars.userList, res.UserList)) {
+        this.globalVars.userList = res.UserList || [];
+      }
+      this.globalVars.updateEverything();
+    });
 
     // Clean up legacy seedinfo storage. only called when a user visits the site again after a successful import
     this.backendApi.DeleteIdentities(this.globalVars.localNode).subscribe();

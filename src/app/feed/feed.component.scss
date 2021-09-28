@@ -13,3 +13,18 @@
         }
     }
 }
+.node-update {
+    background-color: var(--text);
+    min-height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    color: var(--background);
+    padding: 10px;
+}
+@media (max-width: 1000px) {
+    .node-update {
+        margin-top: 20px;
+    }
+}

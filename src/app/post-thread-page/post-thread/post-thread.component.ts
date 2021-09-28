@@ -393,7 +393,7 @@ export class PostThreadComponent implements OnInit {
   //   this.refreshPosts();
   // }
   static prependPostToFeed(postsToShow, postEntryResponse) {
-    if(postsToShow){
+    if (postsToShow) {
       postsToShow.unshift(postEntryResponse);
     }
   }

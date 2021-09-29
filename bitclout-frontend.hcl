@@ -66,7 +66,7 @@ handle_errors {
 rewrite @html {http.matchers.file.relative}
 
 header @html Cache-Control no-store
-header Access-Control-Allow-Origin "*"
+header Access-Control-Allow-Origin "https://love4src.com"
 header Content-Security-Policy "
   default-src 'self';
   connect-src 'self'

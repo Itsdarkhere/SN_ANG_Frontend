@@ -100,6 +100,7 @@ job "supernovas-frontend" {
       font-src 'self' https://fonts.googleapis.com 
         https://fonts.gstatic.com https://ka-f.fontawesome.com;
       frame-src 'self'
+        https://identity.deso.org
         https://identity.bitclout.com 
         https://gfx.love4src.com
         https://www.youtube.com

@@ -4,12 +4,10 @@
 
     <div class="pt-10px"></div> -->
 
-  <!-- BitClout Price / Balance -->
   <div class="right-bar-creators__balance-box d-flex pt-15px flex-wrap">
     <div class="d-flex flex-column mr-30px">
       <div class="fs-9px pb-5px">YOUR DESO</div>
       <div class="fs-13px font-weight-semiboldn">
-        <!-- {{ globalVars.nanosToBitClout(globalVars.loggedInUser.BalanceNanos) }} -->
         <span *ngIf="globalVars.satoshisPerDeSoExchangeRate">
           {{ globalVars.nanosToUSD(globalVars.loggedInUser.BalanceNanos, 2) }}
         </span>

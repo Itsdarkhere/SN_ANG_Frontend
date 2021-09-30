@@ -21,7 +21,7 @@
     <search-bar
       [showCloutavista]="false"
       [startingSearchText]="startingSearchText"
-      [isSearchForUsersToSendClout]="true"
+      [isSearchForUsersToSendDeSo]="true"
       (creatorToMessage)="_handleCreatorSelectedInSearch($event)"
     ></search-bar>
   </div>
@@ -35,14 +35,14 @@
     ></simple-profile-card>
   </div>
 
-  <div class="fs-15px font-weight-bold mt-15px px-15px">Amount of $CLOUT to send:</div>
+  <div class="fs-15px font-weight-bold mt-15px px-15px">Amount of $DESO to send:</div>
   <div class="d-flex align-items-center px-15px mt-5px">
     <input type="number" class="form-control w-100 fs-15px lh-15px" placeholder="0" [(ngModel)]="transferAmount" />
     <button
       *ngIf="!loadingMax"
       class="btn btn-primary font-weight-bold fs-15px ml-5px py-10px white-button button-hover-css"
       style="line-height: 15px; border-radius: 3px"
-      (click)="_clickMaxBitClout()"
+      (click)="_clickMaxDeSo()"
     >
       Max
     </button>
@@ -61,7 +61,7 @@
     class="d-flex align-items-center fs-15px lh-15px pl-15px mt-5px ml-15px mr-15px border border-color-grey background-color-light-grey"
     style="height: 40px; border-radius: 3px"
   >
-    {{ globalVars.nanosToBitClout(networkFee * 1e9) }} (≈ {{ globalVars.nanosToUSD(networkFee * 1e9) }} USD)
+    {{ globalVars.nanosToDeSo(networkFee * 1e9) }} (≈ {{ globalVars.nanosToUSD(networkFee * 1e9) }} USD)
   </div>
 
   <div class="fs-15px font-weight-bold mt-15px px-15px">Total:</div>
@@ -73,21 +73,21 @@
     {{ globalVars.nanosToUSD((transferAmount + networkFee) * 1e9) }} USD)
   </div>
 
-  <div *ngIf="transferBitCloutError != ''" class="fs-15px fc-red ml-15px pb-15px">
+  <div *ngIf="transferDeSoError != ''" class="fs-15px fc-red ml-15px pb-15px">
     {{ transferDeSoError }}
   </div>
 
   <button
-    *ngIf="!sendingBitClout"
+    *ngIf="!sendingDeSo"
     class="btn btn-primary font-weight-bold fs-15px ml-15px py-10px mt-5px background-gradient round-button button-hover-css"
     style="line-height: 15px; border-radius: 3px"
-    (click)="_clickSendBitClout()"
+    (click)="_clickSendDeSo()"
   >
     Send DESO
   </button>
 
   <button
-    *ngIf="sendingBitClout"
+    *ngIf="sendingDeSo"
     class="btn btn-primary font-weight-bold fs-15px ml-15px py-10px mt-5px"
     style="line-height: 15px; border-radius: 3px"
     disabled
@@ -99,6 +99,6 @@
 </div>
 
 <div *ngIf="qrOnly" class="p-15px d-flex flex-column align-items-center">
-  <p class="p-15px">Scan QR code to send {{ globalVars.loggedInUser.ProfileEntryResponse?.Username }} $CLOUT</p>
-  <img [src]="sendBitCloutQRCode | sanitizeQRCode" />
+  <p class="p-15px">Scan QR code to send {{ globalVars.loggedInUser.ProfileEntryResponse?.Username }} $DESO</p>
+  <img [src]="sendDeSoQRCode | sanitizeQRCode" />
 </div>

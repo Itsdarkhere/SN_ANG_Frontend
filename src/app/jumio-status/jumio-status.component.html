@@ -17,7 +17,7 @@
   <!-- User hasn't tried jumio flow -->
   <div
     *ngIf="!globalVars.loggedInUser.JumioFinishedTime"
-    (click)="globalVars.launchGetFreeCLOUTFlow()"
+    (click)="globalVars.launchGetFreeDESOFlow()"
     class="d-flex align-items-center font-weight-normal justify-content-between"
   >
     <div class="fs-20px">💰</div>
@@ -32,7 +32,7 @@
   <!-- User tried Jumio but verification failed-->
   <div
     *ngIf="globalVars.loggedInUser.JumioFinishedTime && globalVars.loggedInUser.JumioReturned"
-    (click)="globalVars.launchGetFreeCLOUTFlow()"
+    (click)="globalVars.launchGetFreeDESOFlow()"
     class="d-flex align-items-center font-weight-normal justify-content-between"
   >
     <div class="fs-20px">😢</div>

@@ -149,13 +149,6 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.loadingFirstBatchOfFollowFeedPosts = true;
     return this._loadFollowFeedPosts();
   }
-  /*
-  _reloadBitcloutFeed() {
-    this.globalVars.bitcloutFeedPosts = [];
-    this.loadingFirstBatchOfBitcloutPosts = true;
-    return this._loadBitcloutPosts();
-  }
-  */
   _initializeFeeds() {
     if (this.globalVars.postsToShow.length === 0) {
       // Get some posts to show the user.
@@ -171,12 +164,6 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.loadingFirstBatchOfFollowFeedPosts = true;
       this._reloadFollowFeed();
     }
-    // This initializes bitclout feed.
-    /*
-    if (this.globalVars.bitcloutFeedPosts.length === 0) {
-      this.loadingFirstBatchOfBitcloutPosts = true;
-      this._reloadBitcloutFeed();
-    }*/
 
     // The activeTab is set after we load the following based on whether the user is
     // already following anybody

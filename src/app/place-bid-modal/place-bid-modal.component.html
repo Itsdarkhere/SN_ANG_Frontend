@@ -21,7 +21,7 @@
         <div class="fs-15px" *ngIf="!loading">
           <div *ngIf="highBid != null && lowBid != null" class="pb-15px">
             <span class="d-lg-inline-block d-block">
-              Highest bid {{ globalVars.nanosToDeSo(highBid) }} DESO&nbsp;
+              Highest bid {{ globalVars.nanosToDESO(highBid) }} DESO&nbsp;
             </span>
             <span class="text-grey7 d-lg-inline-block d-block">(~{{ globalVars.nanosToUSD(highBid, 2) }})</span>
             <span class="d-lg-inline-block d-none">&nbsp;|&nbsp;</span>
@@ -82,7 +82,7 @@
                 </div>
                 <input
                   [(ngModel)]="bidAmountUSD"
-                  (ngModelChange)="updateBidAmountCLOUT($event)"
+                  (ngModelChange)="updateBidAmountDESO($event)"
                   class="form-control fs-15px text-right d-inline-block"
                   aria-describedby="usd-label"
                   type="number"
@@ -96,7 +96,7 @@
                   <span class="input-group-text fs-15px">DESO</span>
                 </div>
                 <input
-                  [(ngModel)]="bidAmountCLOUT"
+                  [(ngModel)]="bidAmountDESO"
                   (ngModelChange)="updateBidAmountUSD($event)"
                   class="form-control fs-15px text-right d-inline-block"
                   type="number"
@@ -120,7 +120,7 @@
           >
             {{ placingBids ? "Placing Bids" : "Place Bid" }}
           </button>
-          <div class="fs-15px ml-30px cursor-pointer text-grey7" (click)="navigateToBuyCLOUT()">Buy $DESO</div>
+          <div class="fs-15px ml-30px cursor-pointer text-grey7" (click)="navigateToBuyDESO()">Buy $DESO</div>
         </div>
       </div>
     </ng-container>
@@ -137,7 +137,7 @@
             <div class="input-with-button">
               <input
                 matInput
-                [(ngModel)]="bidAmountCLOUT"
+                [(ngModel)]="bidAmountDESO"
                 (ngModelChange)="updateBidAmountUSD($event)"
                 type="number"
                 min="0"

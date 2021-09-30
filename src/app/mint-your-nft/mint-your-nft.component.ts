@@ -25,7 +25,7 @@ export class MintYourNftComponent {
   numCopies: number = 1;
   putOnSale: boolean = true;
   minBidAmountUSD: string = "0";
-  minBidAmountCLOUT: number = 0;
+  minBidAmountDESO: number = 0;
   creatorRoyaltyPercent: any = 5;
   coinRoyaltyPercent: any = 10;
   includeUnlockable: boolean = false;
@@ -79,16 +79,16 @@ export class MintYourNftComponent {
   }
 
   hasUnreasonableMinBidAmount() {
-    return parseFloat(this.minBidAmountUSD) < 0 || this.minBidAmountCLOUT < 0;
+    return parseFloat(this.minBidAmountUSD) < 0 || this.minBidAmountDESO < 0;
     // return parseFloat(this.minBidAmountUSD) < 0;
   }
 
-  updateMinBidAmountUSD(cloutAmount) {
-    this.minBidAmountUSD = this.globalVars.nanosToUSDNumber(cloutAmount * 1e9).toFixed(2);
+  updateMinBidAmountUSD(desoAmount) {
+    this.minBidAmountUSD = this.globalVars.nanosToUSDNumber(desoAmount * 1e9).toFixed(2);
   }
 
-  updateMinBidAmountCLOUT(usdAmount) {
-    this.minBidAmountCLOUT = Math.trunc(this.globalVars.usdToNanosNumber(usdAmount)) / 1e9;
+  updateMinBidAmountDESO(usdAmount) {
+    this.minBidAmountDESO = Math.trunc(this.globalVars.usdToNanosNumber(usdAmount)) / 1e9;
   }
 
   // TODO: Compute service fee based on number of copies.
@@ -124,7 +124,7 @@ export class MintYourNftComponent {
         coinRoyaltyBasisPoints,
         this.includeUnlockable,
         this.putOnSale,
-        Math.trunc(this.minBidAmountCLOUT * 1e9),
+        Math.trunc(this.minBidAmountDESO * 1e9),
         this.globalVars.defaultFeeRateNanosPerKB
       )
       .subscribe(

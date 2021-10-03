@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSelectModule } from "@angular/material/select";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { TextFieldModule } from "@angular/cdk/text-field";
@@ -157,6 +158,7 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
 import { ReferralProgramMgrComponent } from "./referral-program-mgr/referral-program-mgr.component";
 import { ReferralsComponent } from "./referrals/referrals.component";
 import { BuyDeSoEthComponent } from "./buy-deso-page/buy-deso-eth/buy-deso-eth.component";
+import { SanitizeVideoUrlPipe } from "../lib/pipes/sanitize-video-url-pipe";
 
 // Modular Themes for DeSo by Carsen Klock @carsenk
 import { ThemeModule } from "./theme/theme.module";
@@ -320,6 +322,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     DiamondTutorialComponent,
     CreatePostTutorialPageComponent,
     BuyDeSoEthComponent,
+    SanitizeVideoUrlPipe,
   ],
   imports: [
     BrowserModule,
@@ -330,6 +333,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     MatDialogModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatProgressBarModule,
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,

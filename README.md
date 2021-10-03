@@ -92,12 +92,8 @@ npm install
 ng serve --disable-host-check
 ```
 
-# About BitClout
-BitClout is a blockchain built from the ground up to support a fully-featured
-=======
 # About DeSo
 DeSo is a blockchain built from the ground up to support a fully-featured
->>>>>>> 80ecaf1da0b57a2cfecd27beec036c9d46e9019b
 social network. Its architecture is similar to Bitcoin, only it supports complex
 social network data like profiles, posts, follows, creator coin transactions, and
 more.

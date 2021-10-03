@@ -7,6 +7,7 @@ import { Observable, of, throwError } from "rxjs";
 import { map, mergeMap, switchMap, catchError, mapTo } from "rxjs/operators";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { IdentityService } from "./identity.service";
+import { serializeNodes } from "@angular/compiler/src/i18n/digest";
 
 export class BackendRoutes {
   static ExchangeRateRoute = "/api/v0/get-exchange-rate";
@@ -63,6 +64,10 @@ export class BackendRoutes {
   static RoutePathCompleteTutorial = "/api/v0/complete-tutorial";
   static RoutePathGetTutorialCreators = "/api/v0/get-tutorial-creators";
 
+  // Media
+  static RoutePathUploadVideo = "/api/v0/upload-video";
+  static RoutePathGetVideoStatus = "/api/v0/get-video-status";
+
   // NFT routes.
   static RoutePathCreateNft = "/api/v0/create-nft";
   static RoutePathUpdateNFT = "/api/v0/update-nft";
@@ -75,6 +80,9 @@ export class BackendRoutes {
   static RoutePathGetNextNFTShowcase = "/api/v0/get-next-nft-showcase";
   static RoutePathGetNFTCollectionSummary = "/api/v0/get-nft-collection-summary";
   static RoutePathGetNFTEntriesForPostHash = "/api/v0/get-nft-entries-for-nft-post";
+  static RoutePathTransferNFT = "/api/v0/transfer-nft";
+  static RoutePathAcceptNFTTransfer = "/api/v0/accept-nft-transfer";
+  static RoutePathBurnNFT = "/api/v0/burn-nft";
 
   // ETH
   static RoutePathCreateETHTx = "/api/v0/create-eth-tx";
@@ -226,6 +234,7 @@ export class PostEntryResponse {
   Body: string;
   RepostedPostHashHex: string;
   ImageURLs: string[];
+  VideoURLs: string[];
   RepostPost: PostEntryResponse;
   CreatorBasisPoints: number;
   StakeMultipleBasisPoints: number;
@@ -278,6 +287,12 @@ export class PostEntryReaderState {
 
   // Level of diamond the user gave this post.
   DiamondLevelBestowed?: number;
+}
+
+export class PostTxnBody {
+  Body?: string;
+  ImageURLs?: string[];
+  VideoURLs?: string[];
 }
 
 export class BalanceEntryResponse {
@@ -766,6 +781,25 @@ export class BackendApiService {
       catchError(this._handleError)
     );
   }
+  TransferNFT(
+    endpoint: string,
+    SenderPublicKeyBase58Check: string,
+    ReceiverPublicKeyBase58Check: string,
+    NFTPostHashHex: string,
+    SerialNumber: number,
+    EncryptedUnlockableText: string,
+    MinFeeRateNanosPerKB: number
+  ): Observable<any> {
+    const request = this.post(endpoint, BackendRoutes.RoutePathTransferNFT, {
+      SenderPublicKeyBase58Check,
+      ReceiverPublicKeyBase58Check,
+      NFTPostHashHex,
+      SerialNumber,
+      EncryptedUnlockableText,
+      MinFeeRateNanosPerKB,
+    });
+    return this.signAndSubmitTransaction(endpoint, request, SenderPublicKeyBase58Check);
+  }
 
   UploadImage(endpoint: string, UserPublicKeyBase58Check: string, file: File): Observable<any> {
     const request = this.identityService.jwt({
@@ -983,7 +1017,7 @@ export class BackendApiService {
     PostHashHexToModify: string,
     ParentStakeID: string,
     Title: string,
-    BodyObj: any,
+    BodyObj: PostTxnBody,
     RepostedPostHashHex: string,
     PostExtraData: any,
     Sub: string,
@@ -1590,7 +1624,7 @@ export class BackendApiService {
 
   GetVerifiedUsers(endpoint: string, PublicKey: string): Observable<any> {
     return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminGetVerifiedUsers, PublicKey, {
-      PublicKey
+      PublicKey,
     });
   }
 
@@ -2129,6 +2163,10 @@ export class BackendApiService {
     return this.jwtPost(endpoint, BackendRoutes.RoutePathCompleteTutorial, PublicKeyBase58Check, {
       PublicKeyBase58Check,
     });
+  }
+
+  GetVideoStatus(endpoint: string, videoId: string): Observable<any> {
+    return this.get(endpoint, `${BackendRoutes.RoutePathGetVideoStatus}/${videoId}`);
   }
 
   // Error parsing

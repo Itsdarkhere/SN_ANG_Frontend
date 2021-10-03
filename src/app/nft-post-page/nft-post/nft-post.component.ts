@@ -59,13 +59,6 @@ export class NftPostComponent {
   static OWNERS = "Owners";
   static THREAD = "Comments";
 
-  // tabs = [
-  //   NftPostComponent.THREAD,
-  //   NftPostComponent.ALL_BIDS,
-  //   NftPostComponent.MY_BIDS,
-  //   NftPostComponent.MY_AUCTIONS,
-  //   NftPostComponent.OWNERS,
-  // ];
   tabs = [NftPostComponent.THREAD, NftPostComponent.MY_BIDS, NftPostComponent.MY_AUCTIONS, NftPostComponent.OWNERS];
 
   constructor(
@@ -534,5 +527,28 @@ export class NftPostComponent {
 
   prependPostToFeed(postEntryResponse) {
     this.refreshPosts();
+  }
+  transfer() {
+    this.backendApi
+      .TransferNFT(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser?.PublicKeyBase58Check,
+        "BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w",
+        this.nftPostHashHex,
+        1,
+        "text",
+        this.globalVars.defaultFeeRateNanosPerKB
+      )
+      .subscribe(
+        (res: any) => {
+          console.log(res);
+        },
+        (error) => {
+          this.globalVars._alertError(error.error.error);
+        }
+      )
+      .add(() => {
+        this.loading = false;
+      });
   }
 }

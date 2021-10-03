@@ -7,12 +7,11 @@ import { Router } from "@angular/router";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 
 @Component({
-  selector: 'app-mint-your-nft',
-  templateUrl: './mint-your-nft.component.html',
-  styleUrls: ['./mint-your-nft.component.scss']
+  selector: "app-mint-your-nft",
+  templateUrl: "./mint-your-nft.component.html",
+  styleUrls: ["./mint-your-nft.component.scss"],
 })
 export class MintYourNftComponent {
-
   IS_SINGLE_COPY = "isSingleCopy";
   IS_MULTIPLE_COPIES = "isMultipleCopies";
   @Input() post: any;
@@ -71,7 +70,7 @@ export class MintYourNftComponent {
       Number(this.coinRoyaltyPercent) < 0 ||
       Number(this.coinRoyaltyPercent) > 100;
     let isSumUnreasonable = Number(this.creatorRoyaltyPercent) + Number(this.coinRoyaltyPercent) > 100;
-    return isEitherUnreasonable || isSumUnreasonable;;
+    return isEitherUnreasonable || isSumUnreasonable;
   }
 
   hasUnreasonableNumCopies() {

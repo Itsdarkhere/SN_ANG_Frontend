@@ -20,9 +20,7 @@
         <!-- Availability metadata -->
         <div class="fs-15px" *ngIf="!loading">
           <div *ngIf="highBid != null && lowBid != null" class="pb-15px">
-            <span class="d-lg-inline-block d-block">
-              Highest bid {{ globalVars.nanosToDESO(highBid) }} DESO&nbsp;
-            </span>
+            <span class="d-lg-inline-block d-block">Highest bid {{ globalVars.nanosToDESO(highBid) }} DESO&nbsp;</span>
             <span class="text-grey7 d-lg-inline-block d-block">(~{{ globalVars.nanosToUSD(highBid, 2) }})</span>
             <span class="d-lg-inline-block d-none">&nbsp;|&nbsp;</span>
             <span class="d-lg-inline-block d-block">From {{ globalVars.nanosToDeSo(lowBid) }} CLOUT&nbsp;</span>

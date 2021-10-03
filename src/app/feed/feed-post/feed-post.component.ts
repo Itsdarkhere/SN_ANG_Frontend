@@ -7,6 +7,7 @@ import { SwalHelper } from "../../../lib/helpers/swal-helper";
 import { FeedPostImageModalComponent } from "../feed-post-image-modal/feed-post-image-modal.component";
 import { DiamondsModalComponent } from "../../diamonds-modal/diamonds-modal.component";
 import { LikesModalComponent } from "../../likes-modal/likes-modal.component";
+import { TransferModalComponent } from "src/app/transfer-modal/transfer-modal.component";
 import { RepostsModalComponent } from "../../reposts-modal/reposts-modal.component";
 import { QuoteRepostsModalComponent } from "../../quote-reposts-modal/quote-reposts-modal.component";
 import { BsModalService } from "ngx-bootstrap/modal";
@@ -291,6 +292,9 @@ export class FeedPostComponent implements OnInit {
       class: "modal-dialog-centered",
       initialState: { postHashHex: this.post.PostHashHex },
     });
+  }
+  openTransferModal(event): void {
+    this.openInteractionModal(event, TransferModalComponent);
   }
 
   openDiamondsModal(event): void {

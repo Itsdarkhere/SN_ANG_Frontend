@@ -1,4 +1,16 @@
-import { Component, OnInit, Renderer2, ViewChild, ElementRef, Input, Output, EventEmitter, OnChanges, AfterViewInit, AfterContentChecked } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Renderer2,
+  ViewChild,
+  ElementRef,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  AfterViewInit,
+  AfterContentChecked,
+} from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { BackendApiService, ProfileEntryResponse } from "../backend-api.service";
@@ -40,18 +52,18 @@ export class SearchBarComponent implements OnInit, OnChanges {
     this.selectedCreatorIndex = -1; // -1 represents no creator being selected.
     this._setUpClickOutListener();
     this.debouncedSearchFunction = _.debounce(this._searchUsernamePrefix.bind(this), DEBOUNCE_TIME_MS);
-    console.log('on init')
+    console.log("on init");
   }
   ngOnInit() {
-    console.log('on init')
+    console.log("on init");
     if (this.startingSearchText) {
       this.searchText = this.startingSearchText;
       this._searchUsernamePrefix().add(() => (this.startingSearchText = ""));
     }
   }
-  ngOnChanges(){
-    if(this.focusSearchInput){
-      this.searchInput.nativeElement.focus(); 
+  ngOnChanges() {
+    if (this.focusSearchInput) {
+      this.searchInput.nativeElement.focus();
     }
   }
 

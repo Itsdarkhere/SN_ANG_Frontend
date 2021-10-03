@@ -1,0 +1,14 @@
+<div class="modal-container">
+  <nft-modal-header [header]="'Transfer your NFT'" [bsModalRef]="bsModalRef"></nft-modal-header>
+  <div class="fs-15px font-weight-bold mt-15px px-15px">
+    Public key or username to transfer to:
+    <!-- Search Bar -->
+    <search-bar
+      [showCloutavista]="false"
+      [startingSearchText]="startingSearchText"
+      [isSearchForUsersToSendDESO]="true"
+      (creatorToMessage)="_handleCreatorSelectedInSearch($event)"
+    ></search-bar>
+  </div>
+  <button (click)="transfer()">Transfer</button>
+</div>

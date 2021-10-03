@@ -171,6 +171,7 @@ import { MintYourNftComponent } from "./mint-your-nft/mint-your-nft.component";
 import { PlaceABidComponent } from "./place-a-bid/place-a-bid.component";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { ClickoutsideDirective } from "./directives/clickoutside.directive";
+import { TransferModalComponent } from "./transfer-modal/transfer-modal.component";
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -323,6 +324,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     CreatePostTutorialPageComponent,
     BuyDeSoEthComponent,
     SanitizeVideoUrlPipe,
+    TransferModalComponent,
   ],
   imports: [
     BrowserModule,

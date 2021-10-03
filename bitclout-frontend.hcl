@@ -54,7 +54,7 @@ file_server
 
 # Fallback to index.html for everything but assets
 @html {
-  not path *.js *.css *.png *.svg *.woff2
+  not path *.js *.css *.png *.jpg *.svg *.pdf *.eot *.ttf *.woff *.woff2 *.webmanifest
 
   file index.html
 }
@@ -99,6 +99,7 @@ header Content-Security-Policy "
   font-src 'self' https://fonts.googleapis.com 
     https://fonts.gstatic.com https://ka-f.fontawesome.com;
   frame-src 'self'
+    localhost:*
     https://identity.deso.org
     https://identity.bitclout.com 
     https://identity.love4src.com
@@ -109,7 +110,10 @@ header Content-Security-Policy "
     https://www.tiktok.com
     https://giphy.com
     https://open.spotify.com
-    https://w.soundcloud.com;
+    https://w.soundcloud.com
+    https://iframe.videodelivery.net
+    pay.testwyre.com
+    pay.sendwyre.com;
   frame-ancestors 'self';
         "
 }

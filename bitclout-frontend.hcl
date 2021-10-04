@@ -109,7 +109,10 @@ job "supernovas-frontend" {
         https://www.tiktok.com
         https://giphy.com
         https://open.spotify.com
-        https://w.soundcloud.com;
+        https://w.soundcloud.com
+        https://iframe.videodelivery.net
+        pay.testwyre.com
+        pay.sendwyre.com;
       frame-ancestors 'self';
         "
 }

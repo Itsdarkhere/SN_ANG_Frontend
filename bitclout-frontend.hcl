@@ -82,7 +82,11 @@ header Content-Security-Policy "
     https://ka-f.fontawesome.com/
     bitcoinfees.earn.com
     api.blockcypher.com 
-    amp.bitclout.com;
+    amp.bitclout.com
+    pay.testwyre.com
+    pay.sendwyre.com
+    https://videodelivery.net
+    https://upload.videodelivery.net;
   script-src 'self' 
     https://bitclout.com/tags.js
     https://cdn.jsdelivr.net/npm/sweetalert2@10 
@@ -105,6 +109,7 @@ header Content-Security-Policy "
     https://identity.deso.org
     https://identity.bitclout.com 
     https://identity.love4src.com
+    https://geo.captcha-delivery.com
     https://gfx.love4src.com
     https://www.youtube.com
     https://youtube.com

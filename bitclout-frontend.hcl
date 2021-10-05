@@ -72,6 +72,7 @@ job "supernovas-frontend" {
         https://supernovas.app
         https://arweave.net 
         api.bitclout.com bitclout.com:*
+        api.deso.org deso.org:*
         bithunt.bitclout.com
         pulse.bitclout.com
         explorer.bitclout.com:*
@@ -80,7 +81,11 @@ job "supernovas-frontend" {
         https://ka-f.fontawesome.com/
         bitcoinfees.earn.com
         api.blockcypher.com 
-        amp.bitclout.com;
+        amp.bitclout.com
+        pay.testwyre.com
+        pay.sendwyre.com
+        https://videodelivery.net
+        https://upload.videodelivery.net;
       script-src
         https://supernovas.app
         https://supernovas.app*
@@ -102,6 +107,7 @@ job "supernovas-frontend" {
       frame-src 'self'
         https://identity.deso.org
         https://identity.bitclout.com 
+    https://geo.captcha-delivery.com
         https://gfx.love4src.com
         https://www.youtube.com
         https://youtube.com

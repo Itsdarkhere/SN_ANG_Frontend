@@ -72,6 +72,7 @@ header Content-Security-Policy "
   connect-src 'self'
     api.love4src.com love4src.com:* 
     api.bitclout.com bitclout.com:*
+    api.deso.org deso.org:*
     bithunt.bitclout.com
     pulse.bitclout.com
     explorer.bitclout.com:*

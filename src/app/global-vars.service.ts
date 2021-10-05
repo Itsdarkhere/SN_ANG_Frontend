@@ -61,7 +61,7 @@ export class GlobalVarsService {
     private httpClient: HttpClient
   ) {}
 
-  static MAX_POST_LENGTH = 1024;
+  static MAX_POST_LENGTH = 560;
 
   static FOUNDER_REWARD_BASIS_POINTS_WARNING_THRESHOLD = 50 * 100;
 
@@ -885,19 +885,18 @@ export class GlobalVarsService {
 
     if (!this.localNode) {
       const hostname = (window as any).location.hostname;
-      
       if (environment.production) {
         this.localNode = hostname;
       } else {
         this.localNode = `api.love4src.com`;
       }
-      
+
       this.backendApi.SetStorage(this.backendApi.LastLocalNodeKey, this.localNode);
     }
 
     let identityServiceURL = this.backendApi.GetStorage(this.backendApi.LastIdentityServiceKey);
     if (!identityServiceURL) {
-      identityServiceURL = "https://identity.love4src.com";
+      identityServiceURL = environment.identityURL;
       this.backendApi.SetStorage(this.backendApi.LastIdentityServiceKey, identityServiceURL);
     }
     this.identityService.identityServiceURL = identityServiceURL;

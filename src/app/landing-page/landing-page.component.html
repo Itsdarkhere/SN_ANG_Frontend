@@ -1,5 +1,4 @@
 <script src="../../environments/environment.prod.ts"></script>
-
 <div class="w-100 border-bottom px-10px">
   <div class="container-lg landing__header">
     <div class="row">
@@ -11,6 +10,7 @@
     </div>
   </div>
 </div>
+
 
 <div class="container-lg border-top border-left border-right landing__platform">
 
@@ -29,14 +29,26 @@
           <br/><br/>
         <p>Bitcoin is decentralizing <b>money,</b>
           <br/><br/>
-          <p>BitClout is decentralizing <b>social media,</b>
+          <p>DeSo is decentralizing <b>social media,</b>
         <br/><br/>
         <p>Love4src is decentralizing <b>development.</b>
           <br/>
-        <p><a class="btn btn-sm btn-outline-primary landing__btn-cta" href="https://docs.bitclout.com/" target="_blank">
+        <p><a class="btn btn-sm btn-outline-primary landing__btn-cta" href="https://docs.deso.org/" target="_blank">
           Learn More
         </a>
       </div>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center invisible" animateOnScroll animationName="slide-up-3">
+    <div class="row d-flex justify-content-center">
+      <a
+        class="btn btn-sm btn-outline-primary landing__btn-cta"
+        [routerLink]="'/' + globalVars.RouteNames.CREATORS"
+        queryParamsHandling="merge"
+      >
+        Find creators to follow
+      </a>
     </div>
   </div>
 
@@ -50,7 +62,7 @@
         You can own a piece by buying the DeSo coin $DESO.
         <br />
         <br />
-        <a href="https://docs.deso.org/https://docs.deso.org/#the-ultimate-vision" target="_blank">Learn More</a>
+        <a href="https://docs.deso.org/#the-ultimate-vision" target="_blank">Learn More</a>
       </p>
       <div class="row d-flex justify-content-center">
         <div class="col-sm-10 col-xs-12 mb-0 landing__example">

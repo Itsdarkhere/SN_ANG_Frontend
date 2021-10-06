@@ -40,6 +40,19 @@
   </div>
 </div>
 <div
+  *ngIf="
+    !showProfileAsReserved && !isLoading && !nftResponse?.length && activeTab === CreatorProfileNftsComponent.TRANSFERS
+  "
+  class="pt-15px"
+>
+  <div class="background-color-grey p-35px br-12px d-flex flex-row align-items-center" style="text-align: center">
+    <span *ngIf="profileBelongsToLoggedInUser(); else elseMissingPostBlock">There is no pending transfers</span>
+    <ng-template #elseMissingPostBlock>
+      <span>@{{ profile.Username }} does not have pending transfers</span>
+    </ng-template>
+  </div>
+</div>
+<div
   *ngIf="!showProfileAsReserved && !isLoading && !myBids?.length && activeTab === CreatorProfileNftsComponent.MY_BIDS"
   class="pt-15px creator_post_wrap"
 >
@@ -58,6 +71,9 @@
     </div>
     <div *ngIf="activeTab === CreatorProfileNftsComponent.FOR_SALE && nftResponse?.length">
       NFTs that @{{ profile.Username }} is currently selling
+    </div>
+    <div *ngIf="activeTab === CreatorProfileNftsComponent.TRANSFERS && nftResponse?.length">
+      NFTs transferred to @{{ profile.Username }}
     </div>
   </div>
   <div
@@ -140,13 +156,39 @@
           </div>
         </div>
       </div>
-
-      <div class="nfts-card-list nft_creator_list" *ngIf="activeTab !== CreatorProfileNftsComponent.MY_BIDS">
+      <div class="nfts-card-list nft_creator_list" *ngIf="activeTab === CreatorProfileNftsComponent.TRANSFERS">
         <div class="nft-col-wrap" *ngFor="let nftEntry of nftResponse">
           <app-nft-card
             *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
             [contentShouldLinkToThread]="true"
             [includePaddingOnPost]="true"
+            [pending]="true"
+            [owns]="true"
+            [post]="nftEntry.PostEntryResponse"
+            [afterCommentCreatedCallback]="_prependComment.bind(this, nftEntry.PostEntryResponse, index)"
+            [blocked]="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)"
+            [showNFTDetails]="true"
+            [showExpandedNFTDetails]="false"
+            [setBorder]="true"
+            [showAvailableSerialNumbers]="true"
+            [cardStyle]="true"
+            [profilePublicKeyBase58Check]="profile.PublicKeyBase58Check"
+            [isForSaleOnly]="activeTab === CreatorProfileNftsComponent.FOR_SALE"
+            (userBlocked)="userBlocked()"
+          ></app-nft-card>
+        </div>
+      </div>
+      <div
+        class="nfts-card-list nft_creator_list"
+        *ngIf="activeTab !== CreatorProfileNftsComponent.MY_BIDS && activeTab !== CreatorProfileNftsComponent.TRANSFERS"
+      >
+        <div class="nft-col-wrap" *ngFor="let nftEntry of nftResponse">
+          <app-nft-card
+            *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse && !nftEntry.NFTEntryResponses[0]['IsPending']"
+            [contentShouldLinkToThread]="true"
+            [includePaddingOnPost]="true"
+            [pending]="false"
+            [owns]="true"
             [post]="nftEntry.PostEntryResponse"
             [afterCommentCreatedCallback]="_prependComment.bind(this, nftEntry.PostEntryResponse, index)"
             [blocked]="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)"
@@ -162,18 +204,5 @@
         </div>
       </div>
     </div>
-    <!-- <div #uiScroll *uiScroll="let nftEntry of datasource; let index = index" [ngClass]="{
-      'br-12px': activeTab === CreatorProfileNftsComponent.MY_BIDS,
-      'p-10px': activeTab === CreatorProfileNftsComponent.MY_BIDS,
-      'background-color-grey': activeTab === CreatorProfileNftsComponent.MY_BIDS,
-      'm-15px': activeTab === CreatorProfileNftsComponent.MY_BIDS,
-      'border': activeTab === CreatorProfileNftsComponent.MY_BIDS
-      }">
-
-            
-            <div *ngIf="activeTab === CreatorProfileNftsComponent.MY_BIDS && nftEntry.PostEntryResponse">
-
-            </div>
-        </div> -->
   </div>
 </div>

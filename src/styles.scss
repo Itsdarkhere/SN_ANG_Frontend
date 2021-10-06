@@ -527,7 +527,12 @@ $green-font-color: #19b028;
 .pt-35px {
     padding-top: 35px;
 }
-
+.pt-20px {
+    padding-top: 20px;
+}
+.pb-20px {
+    padding-bottom: 20px;
+}
 .pr-35px {
     padding-right: 35px;
 }
@@ -1644,7 +1649,9 @@ input.bs-timepicker-field {
     border-color: var(--border);
     border-right-color: rgba(0, 0, 0, 0);
 }
-
+.br-30px {
+    border-radius: 30px;
+}
 .search-bar__results-dropdown {
     box-shadow: rgba(101, 119, 134, 0.2) 0px 0px 15px, rgba(101, 119, 134, 0.15) 0px 0px 3px 1px;
     border-radius: 0px 0px 3px 3px;
@@ -2910,6 +2917,7 @@ em {
 
 .flex-center {
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 

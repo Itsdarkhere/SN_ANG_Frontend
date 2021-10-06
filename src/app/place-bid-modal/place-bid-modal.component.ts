@@ -12,7 +12,7 @@ import { IAdapter, IDatasource } from "ngx-ui-scroll";
 @Component({
   selector: "place-bid-modal",
   templateUrl: "./place-bid-modal.component.html",
-  styleUrls: ['./place-bid-modal.component.scss']
+  styleUrls: ["./place-bid-modal.component.scss"],
 })
 export class PlaceBidModalComponent implements OnInit {
   static PAGE_SIZE = 50;

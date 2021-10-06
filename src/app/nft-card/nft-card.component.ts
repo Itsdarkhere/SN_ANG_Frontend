@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, AfterViewInit } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
-import { BackendApiService, NFTEntryResponse, PostEntryResponse } from "../backend-api.service";
+import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../backend-api.service";
 import { AppRoutingModule } from "../app-routing.module";
 import { Router } from "@angular/router";
 import { SwalHelper } from "../../lib/helpers/swal-helper";
@@ -15,6 +15,7 @@ import { PlaceBidModalComponent } from "../place-bid-modal/place-bid-modal.compo
 import { EmbedUrlParserService } from "../../lib/services/embed-url-parser-service/embed-url-parser-service";
 import { SharedDialogs } from "../../lib/shared-dialogs";
 import { FeedPostImageModalComponent } from "../feed/feed-post-image-modal/feed-post-image-modal.component";
+import { TransferModalComponent } from "../transfer-modal/transfer-modal.component";
 
 @Component({
   selector: "app-nft-card",
@@ -68,7 +69,8 @@ export class NftCardComponent implements OnInit {
   @Input() showIconRow = true;
   @Input() showAdminRow = false;
   @Input() contentShouldLinkToThread: boolean;
-
+  @Input() pending: boolean;
+  @Input() owns: boolean;
   @Input() afterCommentCreatedCallback: any = null;
   @Input() afterRepostCreatedCallback: any = null;
   @Input() showReplyingToContent: any = null;
@@ -78,7 +80,6 @@ export class NftCardComponent implements OnInit {
   @Input() showLeftSelectedBorder = false;
   @Input() showInteractionDetails = false;
   @Input() isQuotedContent: boolean = false;
-
   @Input() showDropdown = true;
   @Input() hideFollowLink = false;
 
@@ -154,7 +155,6 @@ export class NftCardComponent implements OnInit {
       )
       .subscribe((res) => {
         this.nftEntryResponses = res.NFTEntryResponses;
-        // console.log(this.nftEntryResponses);
         this.nftEntryResponses.sort((a, b) => a.SerialNumber - b.SerialNumber);
         this.decryptableNFTEntryResponses = this.nftEntryResponses.filter(
           (sn) =>
@@ -196,7 +196,7 @@ export class NftCardComponent implements OnInit {
         this.lowBid = _.minBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
         this.minBid = _.maxBy(this.availableSerialNumbers, "MinBidAmountNanos")?.MinBidAmountNanos || 0;
         if (!this.showPlaceABid) {
-          if (this.nftEntryResponses[0].LastAcceptedBidAmountNanos > 0) {
+          if (this.nftEntryResponses[0]?.LastAcceptedBidAmountNanos > 0) {
             this.lastSalePrice = this.nftEntryResponses[0]["LastAcceptedBidAmountNanos"];
           } else {
             this.lastSalePrice = this.nftEntryResponses[0]["MinBidAmountNanos"];
@@ -206,10 +206,6 @@ export class NftCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*if (this.globalVars.loggedInUser) {
-      this.loggedInUserStakeAmount = this._getLoggedInUserStakeAmount();
-      this.loggedInUserNextStakePayout = this._getLoggedInUserNextStakePayout();
-    }*/
     if (!this.post.RepostCount) {
       this.post.RepostCount = 0;
     }
@@ -441,48 +437,6 @@ export class NftCardComponent implements OnInit {
     }
   }
 
-  /*_getLoggedInUserStakeAmount() {
-    if (this.post?.StakeEntry?.StakeList.length === 0) {
-      return 0;
-    }
-    let totalStake = 0;
-    for (let ii = 0; ii < this.post.StakeEntry?.StakeList?.length; ii++) {
-      if (
-        this.post.StakeEntry.StakeList[ii].StakerPublicKeyBase58Check ==
-        this.globalVars.loggedInUser.PublicKeyBase58Check
-      ) {
-        totalStake += this.post?.StakeEntry?.StakeList[ii]?.InitialStakeNanos;
-      }
-    }
-    return totalStake / 1e9;
-  }
-
-  // Returns -1 if the user is not expecting another payout.
-  _getLoggedInUserNextStakePayout() {
-    if (this.post?.StakeEntry?.StakeList.length == 0) {
-      return -1;
-    }
-    // Start with the current amount staked.
-    let payoutStakeAmount = this.post?.StakeEntryStats?.TotalStakeNanos;
-
-    const loggedInUserPK = this.globalVars.loggedInUser.PublicKeyBase58Check;
-    for (let ii = 0; ii < this.post?.StakeEntry?.StakeList.length; ii++) {
-      const stakerPK = this.post?.StakeEntry?.StakeList[ii]?.StakerPublicKeyBase58Check;
-
-      // If we find a stake that isn't the current user, add the remaining stake owed.
-      if (stakerPK != loggedInUserPK && this.post?.StakeEntry?.StakeList[ii].RemainingStakeOwedNanos > 0) {
-        payoutStakeAmount += this.post?.StakeEntry?.StakeList[ii].RemainingStakeOwedNanos;
-      }
-
-      // If we find a stake that *is* the current user and is unpaid, we are at the payoutStakeAmount and can return.
-      else if (stakerPK == loggedInUserPK && this.post?.StakeEntry?.StakeList[ii].RemainingStakeOwedNanos > 0) {
-        return payoutStakeAmount / 1e9;
-      }
-    }
-
-    return -1;
-  }
-  */
   _addPostToGlobalFeed(event: any) {
     // Prevent the post from navigating.
     event.stopPropagation();
@@ -619,5 +573,38 @@ export class NftCardComponent implements OnInit {
         return "Minimum Bid";
       }
     }
+  }
+  UserOwnsSerialNumbers() {
+    const loggedInPubKey = this.globalVars.loggedInUser.PublicKeyBase58Check;
+    let serialList = this.nftEntryResponses.filter(
+      (NFTEntryResponse) => NFTEntryResponse.OwnerPublicKeyBase58Check === loggedInPubKey && !NFTEntryResponse.IsPending
+    );
+    return serialList;
+  }
+  usersPendingSerialNumbers() {
+    const loggedInPubKey = this.globalVars.loggedInUser.PublicKeyBase58Check;
+    let serialList = this.nftEntryResponses.filter(
+      (NFTEntryResponse) => NFTEntryResponse.OwnerPublicKeyBase58Check === loggedInPubKey && NFTEntryResponse.IsPending
+    );
+    return serialList;
+  }
+
+  openInteractionModalAccept(event, component): void {
+    event.stopPropagation();
+    this.modalService.show(component, {
+      class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
+      initialState: {
+        postHashHex: this.post.PostHashHex,
+        encryptedText: this.nftEntryResponses[0].EncryptedUnlockableText,
+        serialNumbers: this.usersPendingSerialNumbers(),
+        acceptModal: true,
+        transferModal: false,
+        burnModal: false,
+      },
+    });
+  }
+
+  openAcceptModal(event): void {
+    this.openInteractionModalAccept(event, TransferModalComponent);
   }
 }

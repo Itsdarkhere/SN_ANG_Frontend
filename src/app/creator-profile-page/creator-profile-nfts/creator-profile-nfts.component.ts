@@ -31,6 +31,7 @@ export class CreatorProfileNftsComponent implements OnInit {
   @Input() showProfileAsReserved: boolean;
 
   nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
+  responseHolder: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
   myBids: NFTBidEntryResponse[];
 
   lastPage = null;
@@ -39,6 +40,7 @@ export class CreatorProfileNftsComponent implements OnInit {
   static FOR_SALE = "For Sale";
   static MY_BIDS = "My Bids";
   static MY_GALLERY = "Gallery";
+  static TRANSFERS = "Transfers";
   tabs = [CreatorProfileNftsComponent.FOR_SALE, CreatorProfileNftsComponent.MY_GALLERY];
   activeTab: string;
 
@@ -46,12 +48,14 @@ export class CreatorProfileNftsComponent implements OnInit {
     my_bids: CreatorProfileNftsComponent.MY_BIDS,
     for_sale: CreatorProfileNftsComponent.FOR_SALE,
     my_gallery: CreatorProfileNftsComponent.MY_GALLERY,
+    transfers: CreatorProfileNftsComponent.TRANSFERS,
   };
 
   nftTabInverseMap = {
     [CreatorProfileNftsComponent.FOR_SALE]: "for_sale",
     [CreatorProfileNftsComponent.MY_BIDS]: "my_bids",
     [CreatorProfileNftsComponent.MY_GALLERY]: "my_gallery",
+    [CreatorProfileNftsComponent.TRANSFERS]: "transfers",
   };
 
   CreatorProfileNftsComponent = CreatorProfileNftsComponent;
@@ -70,6 +74,7 @@ export class CreatorProfileNftsComponent implements OnInit {
   ngOnInit(): void {
     if (this.globalVars.loggedInUser?.PublicKeyBase58Check === this.profile.PublicKeyBase58Check) {
       this.tabs.push(CreatorProfileNftsComponent.MY_BIDS);
+      this.tabs.push(CreatorProfileNftsComponent.TRANSFERS);
     }
     this.route.queryParams.subscribe((queryParams) => {
       if (queryParams.nftTab && queryParams.nftTab in this.nftTabMap) {
@@ -149,6 +154,38 @@ export class CreatorProfileNftsComponent implements OnInit {
         }
       );
   }
+  // This is a remake of the above function, with an if to get only pending ones
+  getPendingNftTransfers(isForSale: boolean | null = null): Subscription {
+    return this.backendApi
+      .GetNFTsForUser(
+        this.globalVars.localNode,
+        this.profile.PublicKeyBase58Check,
+        this.globalVars.loggedInUser?.PublicKeyBase58Check,
+        isForSale
+      )
+      .subscribe(
+        (res: {
+          NFTsMap: { [k: string]: { PostEntryResponse: PostEntryResponse; NFTEntryResponses: NFTEntryResponse[] } };
+        }) => {
+          this.nftResponse = [];
+          for (const k in res.NFTsMap) {
+            const responseElement = res.NFTsMap[k];
+            if (
+              (this.activeTab === CreatorProfileNftsComponent.MY_GALLERY &&
+                responseElement.PostEntryResponse.PosterPublicKeyBase58Check !== this.profile.PublicKeyBase58Check) ||
+              this.activeTab === CreatorProfileNftsComponent.FOR_SALE ||
+              this.activeTab === CreatorProfileNftsComponent.TRANSFERS
+            ) {
+              if (responseElement.NFTEntryResponses[0]["IsPending"]) {
+                this.nftResponse.push(responseElement);
+              }
+            }
+          }
+          this.lastPage = Math.floor(this.nftResponse.length / CreatorProfileNftsComponent.PAGE_SIZE);
+          return this.nftResponse;
+        }
+      );
+  }
 
   getPage(page: number) {
     if (this.lastPage != null && page > this.lastPage) {
@@ -217,8 +254,15 @@ export class CreatorProfileNftsComponent implements OnInit {
         return this.getNFTBids().add(() => {
           this.resetDatasource(event);
         });
-      } else {
+      } else if (
+        this.activeTab === CreatorProfileNftsComponent.MY_GALLERY ||
+        this.activeTab === CreatorProfileNftsComponent.FOR_SALE
+      ) {
         return this.getNFTs(this.getIsForSaleValue()).add(() => {
+          this.resetDatasource(event);
+        });
+      } else {
+        return this.getPendingNftTransfers(this.getIsForSaleValue()).add(() => {
           this.resetDatasource(event);
         });
       }
@@ -290,9 +334,12 @@ export class CreatorProfileNftsComponent implements OnInit {
   }
 
   getIsForSaleValue(): boolean | null {
-    return this.activeTab === CreatorProfileNftsComponent.MY_GALLERY ? null : true;
+    return this.activeTab === CreatorProfileNftsComponent.MY_GALLERY ||
+      this.activeTab === CreatorProfileNftsComponent.TRANSFERS
+      ? null
+      : true;
   }
-  onScroll(){
-    console.log('scrolling');
+  onScroll() {
+    console.log("scrolling");
   }
 }

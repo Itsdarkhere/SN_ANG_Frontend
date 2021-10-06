@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule, Router, Scroll } from "@angular/router";
-
 import { ManageFollowsPageComponent } from "./manage-follows-page/manage-follows-page.component";
 import { NotFoundPageComponent } from "./not-found-page/not-found-page.component";
 import { BrowsePageComponent } from "./browse-page/browse-page.component";
@@ -76,6 +75,7 @@ class RouteNames {
   public static TRENDS = "Marketplace ";
   public static REFERRALS = "referrals";
   public static NFT = "nft";
+  public static TRANSFERS = "transfers";
   public static VERIFY_EMAIL = "verify-email";
 
   public static TUTORIAL = "tutorial";

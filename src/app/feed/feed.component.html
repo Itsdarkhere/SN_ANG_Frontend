@@ -40,6 +40,7 @@
           <app-nft-card
             *ngIf="!post.IsHidden"
             [post]="post"
+            [pending]="false"
             [includePaddingOnPost]="true"
             [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
             [afterRepostCreatedCallback]="prependPostToFeed.bind(this)"

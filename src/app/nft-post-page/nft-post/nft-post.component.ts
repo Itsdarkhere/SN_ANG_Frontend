@@ -8,7 +8,6 @@ import {
   NFTEntryResponse,
   PostEntryResponse,
 } from "../../backend-api.service";
-import { TransferModalComponent } from "src/app/transfer-modal/transfer-modal.component";
 import { Title } from "@angular/platform-browser";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { SwalHelper } from "../../../lib/helpers/swal-helper";
@@ -20,7 +19,6 @@ import { CloseNftAuctionModalComponent } from "../../close-nft-auction-modal/clo
 import { Subscription } from "rxjs";
 import { AddUnlockableModalComponent } from "../../add-unlockable-modal/add-unlockable-modal.component";
 import { FeedPostComponent } from "../../feed/feed-post/feed-post.component";
-import { RepostsModalComponent } from "src/app/reposts-modal/reposts-modal.component";
 import { SharedDialogs } from "src/lib/shared-dialogs";
 import { CommentModalComponent } from "src/app/comment-modal/comment-modal.component";
 
@@ -203,12 +201,6 @@ export class NftPostComponent {
       // get the username of the target user (user whose followers / following we're obtaining)
       this.nftPostHashHex = route.snapshot.params.postHashHex;
 
-      // it's important that we call this here and not in ngOnInit. Angular does not reload components when only a param changes.
-      // We are responsible for refreshing the components.
-      // if the user is on a thread page and clicks on a comment, the nftPostHashHex will change, but angular won't "load a new
-      // page" and re-render the whole component using the new post hash. instead, angular will
-      // continue using the current component and merely change the URL. so we need to explictly
-      // refresh the posts every time the route changes.
       this.loading = true;
       this.refreshPosts();
     }
@@ -312,6 +304,22 @@ export class NftPostComponent {
       (nftEntryResponse) =>
         nftEntryResponse.SerialNumber === serialNumber && nftEntryResponse.OwnerPublicKeyBase58Check === loggedInPubKey
     ).length;
+  }
+
+  UserOwnsSerialNumbers() {
+    const loggedInPubKey = this.globalVars.loggedInUser.PublicKeyBase58Check;
+    let serialList = this.nftBidData.NFTEntryResponses.filter(
+      (NFTEntryResponse) => NFTEntryResponse.OwnerPublicKeyBase58Check === loggedInPubKey && !NFTEntryResponse.IsPending
+    );
+    return serialList;
+  }
+
+  usersPendingSerialNumbers() {
+    const loggedInPubKey = this.globalVars.loggedInUser.PublicKeyBase58Check;
+    let serialList = this.nftBidData.NFTEntryResponses.filter(
+      (NFTEntryResponse) => NFTEntryResponse.OwnerPublicKeyBase58Check === loggedInPubKey && NFTEntryResponse.IsPending
+    );
+    return serialList;
   }
 
   _handleTabClick(tabName: string): void {
@@ -529,14 +537,10 @@ export class NftPostComponent {
   prependPostToFeed(postEntryResponse) {
     this.refreshPosts();
   }
-  openInteractionModal(event, component): void {
-    event.stopPropagation();
-    this.modalService.show(component, {
-      class: "modal-dialog-centered",
-      initialState: { postHashHex: this.nftPostHashHex },
-    });
-  }
-  openTransferModal(event): void {
-    this.openInteractionModal(event, TransferModalComponent);
+  getEncryptedText() {
+    const list = this.nftBidData.NFTEntryResponses.filter(
+      (nftEntryResponse) => nftEntryResponse.EncryptedUnlockableText
+    );
+    return list[0]?.EncryptedUnlockableText ? list[0]?.EncryptedUnlockableText : "";
   }
 }

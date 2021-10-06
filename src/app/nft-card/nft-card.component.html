@@ -1,81 +1,3 @@
-<!-- <code>{{postContent | json}}</code> -->
-<!-- <div class="single-card">
-    <div class="card-header">
-      <div class="profile-img">
-        <img src="assets/img/default_profile_pic.png" alt="Profile Image">
-      </div>
-      <h6>UserName &nbsp; <i class="fas fa-check-circle fa-md text-primary"></i></h6>
-      <div class="value-buy-cover">
-        ~$0.01 &nbsp; Buy
-      </div>
-    </div>
-    <div class="card-body">
-      <div class="img-cover">
-        <img src="assets/img/default-nft.svg" alt="">
-      </div>
-      <div class="caption-cover">
-        <p>This is the caption of NFT.</p>
-      </div>
-      <div class="bid-cover">
-        <div class="d-flex">
-          <div class="bid-col">
-            <p>Current Bid</p>
-            <p class="font-weight-bold">4.1 CLOUT</p>
-          </div>
-          <div class="bid-col">
-            <p>Edition</p>
-            <p class="font-weight-bold">1 of 1</p>
-          </div>
-        </div>
-        <button class="btn btn-place-a-bid">Place a Bid</button>
-      </div>
-    </div>
-    <div class="card-footer">
-      <div class="row-1">
-        <h6><span>0</span> Reclouts</h6>
-        <h6><span>0</span> Quote Reclouts</h6>
-        <h6><span>0</span> Likes</h6>
-        <h6><span>0</span> Diamonds</h6>
-      </div>
-      <div class="row-2">
-        <div class="icon-cover">
-          <i class="icon-reply"></i>
-          <span>3</span>
-        </div>
-        <div class="icon-cover">
-          <i class="icon-repost"></i>
-          <span>3</span>
-        </div>
-        <div class="icon-cover">
-          <i class="icon-heart"></i>
-          <span>3</span>
-        </div>
-        <div class="icon-cover">
-          <i class="icon-diamond"></i>&nbsp;
-          <span>3</span>
-        </div>
-        <div class="icon-cover">
-          <i class="icon-link"></i>
-          <span>3m</span>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
-<!-- PLEASE READ: this component is used in multiple places. Plese be careful about
-     adding padding to the outer div that will break other UIs.
-
-     Be careful when modifying this. It's used in multiple places. You should prob QA all
-     of them if you modify. Some places it's used:
-
-     - feed
-
-     - post-thread component (i.e. single post thread view... note that there's a different
-       treatment for parents vs comments, based on the isParentPostInThread variable)
-
-     - feed-create-comment-form component (i.e. create comment view)
-
-     - market-feed component -->
 <div
   class="single-card"
   [ngClass]="{
@@ -163,7 +85,9 @@
             *ngIf="showDropdown"
             class="ml-auto"
             [post]="post"
+            [owns]="this.owns"
             [postContent]="postContent"
+            [pending]="this.pending"
             [nftEntryResponses]="nftEntryResponses"
             (postHidden)="hidePost()"
             (userBlocked)="blockUser()"
@@ -229,6 +153,8 @@
             *ngIf="showDropdown && !reposterProfile"
             class="ml-auto"
             [post]="post"
+            [pending]="this.pending"
+            [owns]="this.owns"
             [postContent]="postContent"
             [nftEntryResponses]="nftEntryResponses"
             (postHidden)="hidePost()"
@@ -274,6 +200,7 @@
               *ngIf="quotedContent && showQuotedContent"
               [post]="quotedContent"
               [isQuotedContent]="true"
+              [pending]="false"
               [includePaddingOnPost]="true"
               [showIconRow]="false"
               [showDropdown]="false"
@@ -303,30 +230,7 @@
           <div class="caption-cover" *ngIf="!(quotedContent?.IsNFT && profileFeed)">
             <p>{{ postContent.Body }}</p>
           </div>
-          <div class="bid-cover flex-wrap" *ngIf="showNFTDetails && postContent.IsNFT">
-            <!-- <div class="bid-row">
-                            <p><span *ngIf="showAvailableSerialNumbers">{{ serialNumbersDisplay }}&nbsp;</span>
-                                <span *ngIf="!showAvailableSerialNumbers" class="cursor-pointer" (click)="NFTMOfNTooltip.toggle(); toggleShowMOfNNFTTooltip()" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="mOfNNFTTooltip" #NFTMOfNTooltip="matTooltip"><b>{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} available&nbsp;</b></span>
-                                <span *ngIf="postContent.HasUnlockable" class="d-lg-inline-block d-none">|&nbsp;</span>
-                                <span *ngIf="postContent.HasUnlockable" class="cursor-pointer d-lg-inline-block d-block mt-5px" (click)="tooltip.toggle(); toggleShowUnlockableContent()" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="unlockableTooltip"
-                                    #tooltip="matTooltip">
-                                    <i
-                                      class="fas"
-                                      [ngClass]="{
-                                        'fa-lock': !decryptableNFTEntryResponses?.length || showUnlockableContent,
-                                        'fa-unlock-alt': decryptableNFTEntryResponses?.length && !showUnlockableContent
-                                      }"
-                                    ></i>
-                                    {{
-                                      decryptableNFTEntryResponses?.length
-                                        ? showUnlockableContent
-                                          ? "Hide Unlockable"
-                                          : "Show Unlockable"
-                                        : "Unlockable Content"
-                                    }}      
-                                </span>
-                            </p>
-                        </div> -->
+          <div class="bid-cover flex-wrap" *ngIf="showNFTDetails && postContent.IsNFT && !pending">
             <div class="bid-row">
               <div class="d-flex bid_inner_row">
                 <ng-container>
@@ -372,6 +276,22 @@
               </button>
             </div>
           </div>
+          <div class="bid-cover flex-row justify-content-around" *ngIf="showNFTDetails && postContent.IsNFT && pending">
+            <ng-container>
+              <div
+                class="bid-col"
+                (click)="NFTMOfNTooltip.toggle(); toggleShowMOfNNFTTooltip()"
+                matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
+                [matTooltip]="mOfNNFTTooltip"
+                #NFTMOfNTooltip="matTooltip"
+              >
+                <p class="color-white">Edition</p>
+                <!-- <p class="font-weight-bold">{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} </p> -->
+                <p class="font-weight-bold color-white">{{ postContent.NumNFTCopies }}</p>
+              </div>
+            </ng-container>
+            <button class="accept-transfer" (click)="openAcceptModal($event)">Accept transfer</button>
+          </div>
         </div>
         <div class="card-footer">
           <div class="row-1">
@@ -402,33 +322,6 @@
               [afterCommentCreatedCallback]="afterCommentCreatedCallback"
               [afterRepostCreatedCallback]="afterRepostCreatedCallback"
             ></feed-post-icon-row>
-
-            <!-- Admin Buttons -->
-            <!-- <div *ngIf="showAdminRow" class="pt-10px fs-15px d-flex align-items-center">
-                          <div *ngIf="!postContent.InGlobalFeed && !addingPostToGlobalFeed" (click)="_addPostToGlobalFeed($event)" class="py-5px px-10px admin__add-to-feed-button">
-                              <i class="fas fa-folder-plus"></i> Add to global feed
-                          </div>
-                          <div *ngIf="!postContent.InGlobalFeed && addingPostToGlobalFeed" class="py-5px px-10px admin__add-to-feed-button">
-                              <i class="fas fa-folder-plus"></i> Adding...
-                          </div>
-                          <div *ngIf="postContent.InGlobalFeed && !addingPostToGlobalFeed" (click)="_addPostToGlobalFeed($event)" class="py-5px px-10px admin__remove-from-feed-button">
-                              <i class="fas fa-check"></i> On global feed
-                          </div>
-                          <div *ngIf="postContent.InGlobalFeed && addingPostToGlobalFeed" class="py-5px px-10px admin__remove-from-feed-button">
-                              <i class="fas fa-check"></i> Removing...
-                          </div>
-
-                          <div>
-                              &nbsp;&middot;
-                              <a [routerLink]="['/' + globalVars.RouteNames.POSTS, postContent.PostHashHex]" queryParamsHandling="merge">
-              View
-              </a>
-                          </div>
-
-                          <div class="text-grey8A">
-                              &nbsp;&middot;&nbsp;{{ globalVars.convertTstampToDaysOrHours(postContent.TimestampNanos) }}
-                          </div>
-                      </div> -->
           </div>
         </div>
       </a>

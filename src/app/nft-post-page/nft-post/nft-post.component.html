@@ -50,36 +50,6 @@
     <div class="nft_bx linebx">
       <h3 class="hdb">All Bids</h3>
       <simple-center-loader *ngIf="refreshingBids"></simple-center-loader>
-      <!-- <div class="bids_list_sec">
-                <div class="bids_ls_inner">
-                    <figure class="bids_avatar"></figure>
-                    <div class="bids_lt">
-                        <span class="hq">@maensivu</span>
-                        <p>Bids for <span>10 $CLOUT</span></p>
-                    </div>
-                </div>
-                <div class="bids_ls_inner">
-                    <figure class="bids_avatar"></figure>
-                    <div class="bids_lt">
-                        <span class="hq">@maensivu</span>
-                        <p>Bids for <span>10 $CLOUT</span></p>
-                    </div>
-                </div>
-                <div class="bids_ls_inner">
-                    <figure class="bids_avatar"></figure>
-                    <div class="bids_lt">
-                        <span class="hq">@maensivu</span>
-                        <p>Bids for <span>10 $CLOUT</span></p>
-                    </div>
-                </div>
-                <div class="bids_ls_inner">
-                    <figure class="bids_avatar"></figure>
-                    <div class="bids_lt">
-                        <span class="hq">@maensivu</span>
-                        <p>Bids for <span>10 $CLOUT</span></p>
-                    </div>
-                </div>
-            </div> -->
       <div *ngIf="!loading && !bids?.length" class="fs-15px p-15px pb-0 d-flex justify-content-center">
         There are no bids yet.
       </div>
@@ -197,9 +167,6 @@
                       <i class="fas fa-check-circle fa-md align-middle"></i>
                     </span>
                   </div>
-                  <!-- <div class="text-grey9" *ngIf="bidEntry.ProfileEntryResponse">
-                                        {{ globalVars.nanosToUSD(bidEntry.ProfileEntryResponse.CoinPriceBitCloutNanos, 2) }}
-                                    </div> -->
                 </div>
               </div>
               <!-- <div class="col-2 d-flex align-items-center justify-content-center mb-0 p-0" *ngIf="nftPost.NumNFTCopies > 1">{{ bidEntry.SerialNumber > 0 && "#" + bidEntry.SerialNumber.toString() }}</div> -->
@@ -531,17 +498,6 @@
         Comment
       </button>
     </div>
-    <button (click)="openTransferModal($event)">Transfer</button>
   </div>
-
-  <!-- 
-    <div class="global__top-bar d-flex align-items-center justify-content-between fs-18px font-weight-bold px-15px border-bottom border-color-grey">
-        <div class="d-flex align-items-center">
-            <top-bar-mobile-navigation-control class="mr-15px d-lg-none d-inline-block"></top-bar-mobile-navigation-control>
-            <div>{{ nftPost.ProfileEntryResponse.Username }}'s NFT 1</div>
-        </div>
-    </div> -->
-
-  <!-- SPACER FOR BOTTOM BAR ON MOBILE -->
   <div class="global__bottom-bar-mobile-height"></div>
 </div>

@@ -20,6 +20,7 @@
         <app-nft-card
           [post]="nftCollection.PostEntryResponse"
           [includePaddingOnPost]="true"
+          [pending]="false"
           [showReplyingToContent]="nftCollection.PostEntryResponse.parentPost"
           [parentPost]="nftCollection.PostEntryResponse.parentPost"
           [contentShouldLinkToThread]="true"

@@ -173,3 +173,19 @@
         }
     }
 }
+.color-white {
+    color: white;
+}
+.accept-transfer {
+    color: var(--background);
+    border: 4px solid var(--background);
+    font-size: 13px;
+    font-weight: bold;
+    background: #000000;
+    width: 50%;
+    border-radius: 10px;
+    &:hover {
+        transform: scale(1.025);
+        transition-duration: 0.3s;
+    }
+}

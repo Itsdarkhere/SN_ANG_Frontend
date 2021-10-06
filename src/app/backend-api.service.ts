@@ -317,6 +317,7 @@ export class NFTEntryResponse {
   ProfileEntryResponse: ProfileEntryResponse | undefined;
   PostEntryResponse: PostEntryResponse | undefined;
   SerialNumber: number;
+  IsPending: boolean;
   IsForSale: boolean;
   MinBidAmountNanos: number;
   LastAcceptedBidAmountNanos: number;
@@ -781,6 +782,40 @@ export class BackendApiService {
       catchError(this._handleError)
     );
   }
+  AcceptNFTTransfer(
+    endpoint: string,
+    UpdaterPublicKeyBase58Check: string,
+    NFTPostHashHex: string,
+    SerialNumber: number,
+    MinFeeRateNanosPerKB: number
+  ): Observable<any> {
+    const request = this.post(endpoint, BackendRoutes.RoutePathAcceptNFTTransfer, {
+      UpdaterPublicKeyBase58Check,
+      NFTPostHashHex,
+      SerialNumber,
+      MinFeeRateNanosPerKB,
+    });
+
+    return this.signAndSubmitTransaction(endpoint, request, UpdaterPublicKeyBase58Check);
+  }
+
+  BurnNFT(
+    endpoint: string,
+    UpdaterPublicKeyBase58Check: string,
+    NFTPostHashHex: string,
+    SerialNumber: number,
+    MinFeeRateNanosPerKB: number
+  ) {
+    const request = this.post(endpoint, BackendRoutes.RoutePathBurnNFT, {
+      UpdaterPublicKeyBase58Check,
+      NFTPostHashHex,
+      SerialNumber,
+      MinFeeRateNanosPerKB,
+    });
+
+    return this.signAndSubmitTransaction(endpoint, request, UpdaterPublicKeyBase58Check);
+  }
+
   TransferNFT(
     endpoint: string,
     SenderPublicKeyBase58Check: string,
@@ -790,7 +825,31 @@ export class BackendApiService {
     EncryptedUnlockableText: string,
     MinFeeRateNanosPerKB: number
   ): Observable<any> {
-    const request = this.post(endpoint, BackendRoutes.RoutePathTransferNFT, {
+    let req = this.identityService
+      .encrypt({
+        ...this.identityService.identityServiceParamsForKey(SenderPublicKeyBase58Check),
+        recipientPublicKey: ReceiverPublicKeyBase58Check,
+        message: EncryptedUnlockableText,
+      })
+      .pipe(
+        switchMap((encrypted) => {
+          const EncryptedUnlockableText = encrypted.encryptedMessage;
+          return this.post(endpoint, BackendRoutes.RoutePathTransferNFT, {
+            SenderPublicKeyBase58Check,
+            ReceiverPublicKeyBase58Check,
+            NFTPostHashHex,
+            SerialNumber,
+            EncryptedUnlockableText,
+            MinFeeRateNanosPerKB,
+          }).pipe(
+            map((request) => {
+              return { ...request };
+            })
+          );
+        })
+      );
+    return this.signAndSubmitTransaction(endpoint, req, SenderPublicKeyBase58Check);
+    /*const request = this.post(endpoint, BackendRoutes.RoutePathTransferNFT, {
       SenderPublicKeyBase58Check,
       ReceiverPublicKeyBase58Check,
       NFTPostHashHex,
@@ -798,7 +857,7 @@ export class BackendApiService {
       EncryptedUnlockableText,
       MinFeeRateNanosPerKB,
     });
-    return this.signAndSubmitTransaction(endpoint, request, SenderPublicKeyBase58Check);
+    return this.signAndSubmitTransaction(endpoint, request, SenderPublicKeyBase58Check);*/
   }
 
   UploadImage(endpoint: string, UserPublicKeyBase58Check: string, file: File): Observable<any> {

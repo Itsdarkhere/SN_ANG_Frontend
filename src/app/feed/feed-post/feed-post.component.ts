@@ -219,7 +219,6 @@ export class FeedPostComponent implements OnInit {
       this.getNFTEntries();
     }
   }
-
   onPostClicked(event) {
     if (this.inTutorial) {
       return;

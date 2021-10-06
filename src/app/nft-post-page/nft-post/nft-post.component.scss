@@ -6,3 +6,25 @@
     align-items: center;
     padding: 30px 0;
 }
+.nft-post-burn-button {
+    border-radius: 5px;
+    border: 2px solid red;
+    color: red;
+    font-weight: bold;
+    background-color: transparent;
+}
+.nft-post-transfer-button  {
+    border-radius: 5px;
+    border: 2px solid var(--text);
+    color: var(--text);
+    font-weight: bold;
+    background-color: transparent;
+}
+.nft-post-accept-button  {
+    border-radius: 5px;
+    border: 2px solid green;
+    color: green;
+    font-weight: bold;
+    background-color: transparent;
+
+}

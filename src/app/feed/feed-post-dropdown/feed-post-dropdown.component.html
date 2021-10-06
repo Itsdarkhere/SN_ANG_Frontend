@@ -35,11 +35,25 @@
       Mint NFT
     </a>
     <a
-      *ngIf="showCreateNFTAuction()"
+      *ngIf="showCreateNFTAuction() && !pending"
       class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item text-success"
       (click)="openCreateNFTAuctionModal($event)"
     >
       Put On Sale
+    </a>
+    <a
+      *ngIf="!pending && owns"
+      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item text-success"
+      (click)="openTransferModal($event)"
+    >
+      Transfer
+    </a>
+    <a
+      *ngIf="showCreateNFTAuction() && owns"
+      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item text-danger"
+      (click)="openBurnModal($event)"
+    >
+      Burn
     </a>
     <a
       *ngIf="post.IsNFT && globalVars.showAdminTools()"

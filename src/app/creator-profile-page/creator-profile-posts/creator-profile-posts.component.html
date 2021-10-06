@@ -20,6 +20,7 @@
         <app-nft-card
           *ngIf="post.ProfileEntryResponse"
           [contentShouldLinkToThread]="true"
+          [pending]="false"
           [includePaddingOnPost]="true"
           [post]="post"
           [afterCommentCreatedCallback]="_prependComment.bind(this, post, index)"

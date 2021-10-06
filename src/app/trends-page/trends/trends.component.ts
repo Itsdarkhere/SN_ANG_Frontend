@@ -93,7 +93,6 @@ export class TrendsComponent implements OnInit {
       .subscribe(
         (res: any) => {
           this.nftCollections = res.NFTCollections;
-          console.log(res);
           if (this.nftCollections) {
             this.nftCollections.sort((a, b) => b.PostEntryResponse.TimestampNanos - a.PostEntryResponse.TimestampNanos);
             this.nftCollections = uniqBy(
@@ -102,7 +101,6 @@ export class TrendsComponent implements OnInit {
             );
           }
           this.dataToShow = this.nftCollections.slice(this.startIndex, this.endIndex);
-          console.log(this.dataToShow);
           this.lastPage = Math.floor(this.nftCollections.length / TrendsComponent.PAGE_SIZE);
           if (showmore) {
             document.body.scrollTop = 0; // For Safari

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { GlobalVarsService } from "../../global-vars.service";
-import { NFTEntryResponse, PostEntryResponse } from "../../backend-api.service";
+import { NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../../backend-api.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { PlatformLocation } from "@angular/common";
 import { BsModalService } from "ngx-bootstrap/modal";
@@ -12,6 +12,7 @@ import { MintNftModalComponent } from "../../mint-nft-modal/mint-nft-modal.compo
 import { CreateNftAuctionModalComponent } from "../../create-nft-auction-modal/create-nft-auction-modal.component";
 import { MatDialog } from "@angular/material/dialog";
 import { MintYourNftComponent } from "src/app/mint-your-nft/mint-your-nft.component";
+import { TransferModalComponent } from "src/app/transfer-modal/transfer-modal.component";
 
 @Component({
   selector: "feed-post-dropdown",
@@ -22,7 +23,6 @@ export class FeedPostDropdownComponent {
   @Input() post: PostEntryResponse;
   @Input() postContent: PostEntryResponse;
   @Input() nftEntryResponses: NFTEntryResponse[];
-
   @Output() postHidden = new EventEmitter();
   @Output() userBlocked = new EventEmitter();
   @Output() toggleGlobalFeed = new EventEmitter();
@@ -37,8 +37,12 @@ export class FeedPostDropdownComponent {
     private router: Router,
     private modalService: BsModalService,
     private platformLocation: PlatformLocation,
-    public matdialog: MatDialog 
+    public matdialog: MatDialog
   ) {}
+  @Input() pending: boolean;
+  @Input() owns: boolean;
+  @Input() serialnumbers: boolean;
+  @Input() decryptableNFTEntryResponses: NFTEntryResponse[];
 
   reportPost(): void {
     this.globalVars.logEvent("post : report-content");
@@ -46,7 +50,6 @@ export class FeedPostDropdownComponent {
       `https://report.bitclout.com?ReporterPublicKey=${this.globalVars.loggedInUser?.PublicKeyBase58Check}&PostHash=${this.post.PostHashHex}`
     );
   }
-
   dropNFT() {
     // Get the latest drop so that we can update it.
     this.backendApi
@@ -225,10 +228,58 @@ export class FeedPostDropdownComponent {
     });
   }
 
+  UserOwnsSerialNumbers() {
+    const loggedInPubKey = this.globalVars.loggedInUser.PublicKeyBase58Check;
+    let serialList = this.nftEntryResponses.filter(
+      (NFTEntryResponse) => NFTEntryResponse.OwnerPublicKeyBase58Check === loggedInPubKey && !NFTEntryResponse.IsPending
+    );
+    return serialList;
+  }
+
   openCreateNFTAuctionModal(event): void {
     this.modalService.show(CreateNftAuctionModalComponent, {
       class: "modal-dialog-centered",
       initialState: { post: this.post, nftEntryResponses: this.nftEntryResponses },
     });
+  }
+
+  // Content of the modal is decided by the last 3 values, very much not DRY but eh
+  openInteractionModalTransfer(event, component): void {
+    event.stopPropagation();
+    this.modalService.show(component, {
+      class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
+      initialState: {
+        post: this.post,
+        postHashHex: this.post.PostHashHex,
+        encryptedText: this.nftEntryResponses[0].DecryptedUnlockableText,
+        decryptable: this.decryptableNFTEntryResponses,
+        serialNumbers: this.UserOwnsSerialNumbers(),
+        acceptModal: false,
+        transferModal: true,
+        burnModal: false,
+      },
+    });
+  }
+
+  openInteractionModalBurn(event, component): void {
+    event.stopPropagation();
+    this.modalService.show(component, {
+      class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
+      initialState: {
+        postHashHex: this.post.PostHashHex,
+        decryptable: this.decryptableNFTEntryResponses,
+        serialNumbers: this.UserOwnsSerialNumbers(),
+        acceptModal: false,
+        transferModal: false,
+        burnModal: true,
+      },
+    });
+  }
+
+  openTransferModal(event): void {
+    this.openInteractionModalTransfer(event, TransferModalComponent);
+  }
+  openBurnModal(event): void {
+    this.openInteractionModalBurn(event, TransferModalComponent);
   }
 }

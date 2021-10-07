@@ -28,10 +28,11 @@ header @html Cache-Control no-store
 header @html Content-Security-Policy "
   default-src 'self';
   connect-src 'self'
-    bitclout.com:*
     https://supernovas.app
-    https://supernovas.app*
-    api.bitclout.com
+    https://supernovas.app:*
+    api.bitclout.com bitclout.com:*
+    pay.testwyre.com
+    pay.sendwyre.com
     bithunt.bitclout.com
     pulse.bitclout.com
     api.bitpop.dev
@@ -42,7 +43,6 @@ header @html Content-Security-Policy "
     https://ka-f.fontawesome.com/
     bitcoinfees.earn.com
     api.blockcypher.com
-    amp.bitclout.com api.bitclout.green api.bitclout.blue
     api.bitclout.navy
     api.testwyre.com
     api.sendwyre.com
@@ -56,6 +56,7 @@ header @html Content-Security-Policy "
     https://cdn.jsdelivr.net/npm/sweetalert2@10 
     https://kit.fontawesome.com/070ca4195b.js 
     https://ka-f.fontawesome.com/;
+    https://www.googletagmanager.com/gtag/js
   style-src 'self'
     'unsafe-inline'
     https://fonts.googleapis.com

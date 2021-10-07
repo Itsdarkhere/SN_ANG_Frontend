@@ -146,7 +146,9 @@ export class CreatorProfileNftsComponent implements OnInit {
                 responseElement.PostEntryResponse.PosterPublicKeyBase58Check !== this.profile.PublicKeyBase58Check) ||
               this.activeTab === CreatorProfileNftsComponent.FOR_SALE
             ) {
-              this.nftResponse.push(responseElement);
+              if (!responseElement.NFTEntryResponses[0]["IsPending"]) {
+                this.nftResponse.push(responseElement);
+              }
             }
           }
           this.lastPage = Math.floor(this.nftResponse.length / CreatorProfileNftsComponent.PAGE_SIZE);
@@ -250,6 +252,7 @@ export class CreatorProfileNftsComponent implements OnInit {
       this.loadingNewSelection = true;
       this.isLoading = true;
       this.infiniteScroller.reset();
+
       if (this.activeTab === CreatorProfileNftsComponent.MY_BIDS) {
         return this.getNFTBids().add(() => {
           this.resetDatasource(event);

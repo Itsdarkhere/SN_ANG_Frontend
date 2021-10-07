@@ -184,7 +184,7 @@
       >
         <div class="nft-col-wrap" *ngFor="let nftEntry of nftResponse">
           <app-nft-card
-            *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse && !nftEntry.NFTEntryResponses[0]['IsPending']"
+            *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
             [contentShouldLinkToThread]="true"
             [includePaddingOnPost]="true"
             [pending]="false"

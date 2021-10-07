@@ -83,7 +83,6 @@ export class TrendsComponent implements OnInit {
     if (!showmore) {
       this.loading = true;
     }
-    console.log(this.nftCollections);
     this.backendApi
       .GetNFTShowcase(
         this.globalVars.localNode,

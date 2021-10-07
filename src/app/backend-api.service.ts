@@ -7,7 +7,7 @@ import { Observable, of, throwError } from "rxjs";
 import { map, mergeMap, switchMap, catchError, mapTo } from "rxjs/operators";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { IdentityService } from "./identity.service";
-import { serializeNodes } from "@angular/compiler/src/i18n/digest";
+import { environment } from "src/environments/environment";
 
 export class BackendRoutes {
   static ExchangeRateRoute = "/api/v0/get-exchange-rate";
@@ -2239,7 +2239,7 @@ export class BackendApiService {
 
   parsePostError(err): string {
     if (err.status === 0) {
-      return "DeSo is experiencing heavy load. Please try again in one minute.";
+      return `${environment.node.name} is experiencing heavy load. Please try again in one minute.`;
     }
 
     let errorMessage = JSON.stringify(err);
@@ -2260,7 +2260,7 @@ export class BackendApiService {
 
   parseProfileError(err): string {
     if (err.status === 0) {
-      return "DeSo is experiencing heavy load. Please try again in one minute.";
+      return `${environment.node.name} is experiencing heavy load. Please try again in one minute.`;
     }
 
     let errorMessage = JSON.stringify(err);
@@ -2300,7 +2300,7 @@ export class BackendApiService {
 
   parseMessageError(err): string {
     if (err.status === 0) {
-      return "DeSo is experiencing heavy load. Please try again in one minute.";
+      return `${environment.node.name} is experiencing heavy load. Please try again in one minute.`;
     }
 
     let errorMessage = JSON.stringify(err);

@@ -19,9 +19,9 @@ import { CloseNftAuctionModalComponent } from "../../close-nft-auction-modal/clo
 import { Subscription } from "rxjs";
 import { AddUnlockableModalComponent } from "../../add-unlockable-modal/add-unlockable-modal.component";
 import { FeedPostComponent } from "../../feed/feed-post/feed-post.component";
+import { environment } from "src/environments/environment";
 import { SharedDialogs } from "src/lib/shared-dialogs";
 import { CommentModalComponent } from "src/app/comment-modal/comment-modal.component";
-
 @Component({
   selector: "nft-post",
   templateUrl: "./nft-post.component.html",
@@ -129,7 +129,7 @@ export class NftPostComponent {
         }
         // Set current post
         this.nftPost = res.PostFound;
-        this.titleService.setTitle(this.nftPost.ProfileEntryResponse.Username + " on DeSo");
+        this.titleService.setTitle(this.nftPost.ProfileEntryResponse.Username + ` on ${environment.node.name}`);
         this.refreshBidData();
       },
       (err) => {

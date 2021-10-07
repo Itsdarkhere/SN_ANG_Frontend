@@ -7,6 +7,8 @@ import { tap, finalize, first } from "rxjs/operators";
 import * as _ from "lodash";
 import PullToRefresh from "pulltorefreshjs";
 import { Title } from "@angular/platform-browser";
+import { NftPostComponent } from "../nft-post-page/nft-post/nft-post.component";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "feed",

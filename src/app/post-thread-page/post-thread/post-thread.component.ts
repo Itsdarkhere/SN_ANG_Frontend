@@ -6,6 +6,7 @@ import { FeedComponent } from "../../feed/feed.component";
 import { Datasource, IDatasource, IAdapter } from "ngx-ui-scroll";
 import { ToastrService } from "ngx-toastr";
 import { Title } from "@angular/platform-browser";
+import { environment } from "src/environments/environment";
 
 import * as _ from "lodash";
 import { SharedDialogs } from "src/lib/shared-dialogs";
@@ -320,7 +321,7 @@ export class PostThreadComponent implements OnInit {
         }
         // Set current post
         this.currentPost = res.PostFound;
-        this.titleService.setTitle(this.currentPost.ProfileEntryResponse.Username + " on DeSo");
+        this.titleService.setTitle(this.currentPost.ProfileEntryResponse.Username + ` on ${environment.node.name}`);
       },
       (err) => {
         // TODO: post threads: rollbar

@@ -1,8 +1,7 @@
 <!-- Top Bar -->
 <div
-  class="global__top-bar global__top-bar__height d-flex align-items-center pl-15px fs-18px border-bottom border-color-grey"
+  class="global__top-bar global__top-bar__height topbar-update-profile d-flex align-items-center pl-15px fs-18px border-bottom border-color-grey"
 >
-  <top-bar-mobile-navigation-control class="mr-15px d-lg-none d-inline-block"></top-bar-mobile-navigation-control>
   <p class="font-weight-bold" *ngIf="!globalVars.loggedInUser.ProfileEntryResponse?.Username">Create Your Profile</p>
   <p class="font-weight-bold" *ngIf="globalVars.loggedInUser.ProfileEntryResponse?.Username">Update Profile</p>
 </div>

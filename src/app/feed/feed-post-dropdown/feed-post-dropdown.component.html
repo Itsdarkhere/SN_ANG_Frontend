@@ -42,7 +42,7 @@
       Put On Sale
     </a>
     <a
-      *ngIf="!pending && owns"
+      *ngIf="!pending && owns && showCreateNFTAuction()"
       class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item text-success"
       (click)="openTransferModal($event)"
     >

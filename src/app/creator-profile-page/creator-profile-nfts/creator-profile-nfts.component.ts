@@ -142,13 +142,11 @@ export class CreatorProfileNftsComponent implements OnInit {
           for (const k in res.NFTsMap) {
             const responseElement = res.NFTsMap[k];
             if (
-              (this.activeTab === CreatorProfileNftsComponent.MY_GALLERY &&
-                responseElement.PostEntryResponse.PosterPublicKeyBase58Check !== this.profile.PublicKeyBase58Check) ||
-              this.activeTab === CreatorProfileNftsComponent.FOR_SALE
+              (this.activeTab === CreatorProfileNftsComponent.MY_GALLERY ||
+                this.activeTab === CreatorProfileNftsComponent.FOR_SALE) &&
+              !responseElement.NFTEntryResponses[0]["IsPending"]
             ) {
-              if (!responseElement.NFTEntryResponses[0]["IsPending"]) {
-                this.nftResponse.push(responseElement);
-              }
+              this.nftResponse.push(responseElement);
             }
           }
           this.lastPage = Math.floor(this.nftResponse.length / CreatorProfileNftsComponent.PAGE_SIZE);
@@ -156,7 +154,9 @@ export class CreatorProfileNftsComponent implements OnInit {
         }
       );
   }
+
   // This is a remake of the above function, with an if to get only pending ones
+  // IMPROVE
   getPendingNftTransfers(isForSale: boolean | null = null): Subscription {
     return this.backendApi
       .GetNFTsForUser(
@@ -173,8 +173,7 @@ export class CreatorProfileNftsComponent implements OnInit {
           for (const k in res.NFTsMap) {
             const responseElement = res.NFTsMap[k];
             if (
-              (this.activeTab === CreatorProfileNftsComponent.MY_GALLERY &&
-                responseElement.PostEntryResponse.PosterPublicKeyBase58Check !== this.profile.PublicKeyBase58Check) ||
+              this.activeTab === CreatorProfileNftsComponent.MY_GALLERY ||
               this.activeTab === CreatorProfileNftsComponent.FOR_SALE ||
               this.activeTab === CreatorProfileNftsComponent.TRANSFERS
             ) {
@@ -339,7 +338,7 @@ export class CreatorProfileNftsComponent implements OnInit {
   getIsForSaleValue(): boolean | null {
     return this.activeTab === CreatorProfileNftsComponent.MY_GALLERY ||
       this.activeTab === CreatorProfileNftsComponent.TRANSFERS
-      ? null
+      ? false
       : true;
   }
   onScroll() {

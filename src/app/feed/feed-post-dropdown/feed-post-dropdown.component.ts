@@ -244,6 +244,7 @@ export class FeedPostDropdownComponent {
   }
 
   // Content of the modal is decided by the last 3 values, very much not DRY but eh
+  // IMPROVE
   openInteractionModalTransfer(event, component): void {
     event.stopPropagation();
     this.modalService.show(component, {

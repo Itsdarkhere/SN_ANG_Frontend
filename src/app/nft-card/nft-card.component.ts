@@ -162,6 +162,7 @@ export class NftCardComponent implements OnInit {
             sn.EncryptedUnlockableText &&
             sn.LastOwnerPublicKeyBase58Check
         );
+
         if (this.decryptableNFTEntryResponses.length) {
           this.backendApi
             .DecryptUnlockableTexts(
@@ -170,17 +171,20 @@ export class NftCardComponent implements OnInit {
             )
             .subscribe((res) => (this.decryptableNFTEntryResponses = res));
         }
+
         this.availableSerialNumbers = this.nftEntryResponses.filter((nftEntryResponse) => nftEntryResponse.IsForSale);
         const profileSerialNumbers = this.nftEntryResponses.filter(
           (serialNumber) =>
             serialNumber.OwnerPublicKeyBase58Check === this.profilePublicKeyBase58Check &&
             (!this.isForSaleOnly || serialNumber.IsForSale)
         );
+
         this.serialNumbersDisplay =
           profileSerialNumbers
             .map((serialNumber) => `#${serialNumber.SerialNumber}`)
             .slice(0, 5)
             .join(", ") + (profileSerialNumbers.length > 5 ? "..." : "");
+
         this.mySerialNumbersNotForSale = this.nftEntryResponses.filter(
           (nftEntryResponse) =>
             !nftEntryResponse.IsForSale &&

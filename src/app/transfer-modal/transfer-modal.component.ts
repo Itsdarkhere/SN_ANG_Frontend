@@ -42,14 +42,17 @@ export class TransferModalComponent implements OnInit {
     public backendApi: BackendApiService,
     public globalVars: GlobalVarsService
   ) {}
+
   // Get default ser
   ngOnInit(): void {
     this.getNFTEntries();
+    // IMPROVE
     for (let x of this.serialNumbers) {
       this.serialNumberToSend = x["SerialNumber"];
       break;
     }
   }
+
   stepTwo() {
     if (this.transferModal && !this.transferToCreator) {
       this.showDangerText = true;
@@ -59,9 +62,11 @@ export class TransferModalComponent implements OnInit {
       this.step = 2;
     }
   }
+
   stepThree() {
     this.step = 3;
   }
+
   getNFTEntries() {
     this.backendApi
       .GetNFTEntriesForNFTPost(
@@ -88,12 +93,14 @@ export class TransferModalComponent implements OnInit {
         }
       });
   }
+
   // Sets ser from select
   setSer(serialNumber) {
     this.serialNumberToSend = parseInt(serialNumber);
     this.getUnlockableBySer(this.serialNumberToSend);
     this.unlockableText = "";
   }
+
   // Handles getting the creator from searchbar
   _handleCreatorSelectedInSearch(creator: ProfileEntryResponse) {
     this.transferToCreator = creator;
@@ -104,8 +111,9 @@ export class TransferModalComponent implements OnInit {
 
   getUnlockableBySer(serialnumber) {
     let list = this.decryptableNFTEntryResponses.filter((ser) => ser.SerialNumber === serialnumber);
-    if (list[0].DecryptedUnlockableText != "") {
-      return list[0].DecryptedUnlockableText;
+    console.log(list);
+    if (list[0]?.DecryptedUnlockableText != "") {
+      return list[0]?.DecryptedUnlockableText;
     }
     return "";
   }
@@ -119,13 +127,21 @@ export class TransferModalComponent implements OnInit {
       if (this.unlockableText) {
         // Already have decrypted unlockable text
         this.transferNftUnlockableText = this.unlockableText;
-        this.transfer();
+        if (this.step === 2) {
+          this.transfer();
+        } else {
+          this.stepTwo();
+        }
       } else {
         // Entry requires unlockable text, but we don't have any
         this.showInput = true;
       }
     } else {
-      this.transfer();
+      if (this.step === 2) {
+        this.transfer();
+      } else {
+        this.stepTwo();
+      }
     }
   }
   hideAndRefresh() {

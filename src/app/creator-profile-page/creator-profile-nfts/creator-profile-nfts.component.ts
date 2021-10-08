@@ -139,6 +139,7 @@ export class CreatorProfileNftsComponent implements OnInit {
           NFTsMap: { [k: string]: { PostEntryResponse: PostEntryResponse; NFTEntryResponses: NFTEntryResponse[] } };
         }) => {
           this.nftResponse = [];
+          console.log(isForSale);
           for (const k in res.NFTsMap) {
             const responseElement = res.NFTsMap[k];
             if (
@@ -336,10 +337,16 @@ export class CreatorProfileNftsComponent implements OnInit {
   }
 
   getIsForSaleValue(): boolean | null {
-    return this.activeTab === CreatorProfileNftsComponent.MY_GALLERY ||
+    if (
+      this.activeTab === CreatorProfileNftsComponent.MY_GALLERY ||
       this.activeTab === CreatorProfileNftsComponent.TRANSFERS
-      ? false
-      : true;
+    ) {
+      return false;
+    } else if (this.activeTab === CreatorProfileNftsComponent.MY_BIDS) {
+      return null;
+    } else {
+      return true;
+    }
   }
   onScroll() {
     console.log("scrolling");

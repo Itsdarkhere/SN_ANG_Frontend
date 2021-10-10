@@ -9,14 +9,32 @@
   <div
     class="search-results"
     infiniteScroll
-    [infiniteScrollDistance]="5"
+    [infiniteScrollDistance]="2"
     [infiniteScrollThrottle]="150"
     (scrolled)="onScroll()"
   >
     <div class="nfts-card-list">
       <div class="mobile_mrk_head">Marketplace</div>
-      <div class="nft-col-wrap" *ngFor="let nftCollection of dataToShow">
-        <!-- <code>{{nftCollection | json}}</code> -->
+      <div class="nft-col-wrap" *ngFor="let nftEntry of nftResponse">
+        <app-nft-card
+          *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
+          [contentShouldLinkToThread]="true"
+          [includePaddingOnPost]="true"
+          [pending]="false"
+          [owns]="true"
+          [post]="nftEntry.PostEntryResponse"
+          [blocked]="globalVars.hasUserBlockedCreator(globalVars.loggedInUser?.PublicKeyBase58Check)"
+          [showNFTDetails]="true"
+          [showExpandedNFTDetails]="false"
+          [setBorder]="true"
+          [showAvailableSerialNumbers]="true"
+          [cardStyle]="true"
+          [profilePublicKeyBase58Check]="globalVars.loggedInUser?.PublicKeyBase58Check"
+          (userBlocked)="userBlocked()"
+        ></app-nft-card>
+      </div>
+      <!--<div class="nft-col-wrap" *ngFor="let nftCollection of dataToShow">
+        COMMENTED LINE <code>{{nftCollection | json}}</code>
         <app-nft-card
           [post]="nftCollection.PostEntryResponse"
           [includePaddingOnPost]="true"
@@ -30,7 +48,7 @@
           [nftCollectionHighBid]="nftCollection.HighestBidAmountNanos"
           [nftCollectionLowBid]="nftCollection.LowestBidAmountNanos"
         ></app-nft-card>
-      </div>
+      </div>-->
     </div>
   </div>
 </div>
@@ -46,7 +64,7 @@
     <div>The NFT Showcase is coming soon!</div>
 
     <div class="mt-15px">Want a chance to be in the showcase?</div>
-
+    <button (click)="loadNext()">click</button>
     <div class="mt-15px">
       Just create an NFT and share it on Twitter or Instagram with
       <b>#CLOUTNFT</b>

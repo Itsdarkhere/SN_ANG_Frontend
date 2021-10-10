@@ -35,7 +35,7 @@
     "confetti-js": "github:deso-protocol/confetti-js",
     "core-js": "^2.5.4",
     "currency-symbol-map": "^5.0.1",
-    "fs": "0.0.1-security",
+    "file-system": "^2.2.2",
     "google-libphonenumber": "^3.2.16",
     "hash-base": "^3.0.4",
     "intl-tel-input": "^17.0.3",

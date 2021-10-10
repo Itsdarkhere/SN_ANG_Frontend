@@ -1,6 +1,8 @@
 <div>
-  <div *ngIf="globalVars.isLeftBarMobileOpen" [@leftBarAnimation] class="left-bar-mobile__flyout-div">
-    <left-bar [isMobile]="true" [inTutorial]="inTutorial" (closeMobile)="_closeMenu()"></left-bar>
+  <div [@leftBarAnimation] class="background-gradient" *ngIf="globalVars.isLeftBarMobileOpen">
+    <div class="left-bar-mobile__flyout-div">
+      <left-bar [isMobile]="true" [inTutorial]="inTutorial" (closeMobile)="_closeMenu()"></left-bar>
+    </div>
   </div>
   <div
     *ngIf="globalVars.isLeftBarMobileOpen"

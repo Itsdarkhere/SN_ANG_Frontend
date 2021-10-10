@@ -1266,7 +1266,7 @@ input.bs-timepicker-field {
 .global__nav__fixed {
     top: 77px;
     position: fixed;
-    @media (max-width: 767px) {
+    @media (max-width: 900px) {
         top: 0;
         position: relative;
         padding: 10px 15px 0;
@@ -1381,9 +1381,18 @@ input.bs-timepicker-field {
     top: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0);
+    animation: shade 0.4s forwards;
 }
-
+// In the class of this thing there is a function doing the exit fade animation
+@keyframes shade {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.35);
+    }
+    
+}
 .nav_close {
     position: fixed;
     right: 39px;
@@ -1392,27 +1401,32 @@ input.bs-timepicker-field {
     height: 45px;
     z-index: 999;
 }
-
-.left-bar-mobile__flyout-div {
+.background-gradient {
     z-index: 100; // Needs to be higher than the bottom bar and staked posts.
     position: fixed;
-    top: 150px;
-    right: -30px;
-    width: 75vw;
-    max-width: 280px;
-    min-width: 245px;
-    padding: 120px 50px 0 110px;
-    height: 100vh;
-    background: url(assets/img/menu_bg.svg) no-repeat;
-    background-size: 100% auto;
-    transform-origin: right bottom;
-    @media (max-width: 992px) {
-        width: 92vw;
-        max-width: 100%;
-    }
-    @media (max-width: 676px) {
-        padding: 100px 30px 0 110px;
-    }
+    height: 65vh;
+    min-height: 600px;
+    bottom: 10px;
+    width: 95%;
+    max-width: 500px;
+    right: 2.5%;
+    transform-origin: bottom;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    background: linear-gradient(125deg, #f3a83c 0%, #ec5454 20%, #f51ac1 35%, #265eeb 74%, #593eb7 99%) !important;;
+}
+.left-bar-mobile__flyout-div {
+    border-radius: 25px;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    background-color: #ffffff;
+    padding-top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    border: 1px solid red;
 }
 
 .right-bar-select-box {
@@ -1573,7 +1587,7 @@ input.bs-timepicker-field {
     border-radius: 6px;
     padding-bottom: 15px;
     border: 1px solid var(--border);
-    @media (max-width: 676px) {
+    @media (max-width: 900px) {
         border: 0;
         padding-top: 0;
         padding-left: 0;

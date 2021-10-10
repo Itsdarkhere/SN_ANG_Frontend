@@ -9,22 +9,18 @@ import { GlobalVarsService } from "../global-vars.service";
   animations: [
     trigger("leftBarAnimation", [
       transition(":enter", [
-        style({ transform: "scale(0)" }),
-        animate("400ms ease", style({ transform: "scale(1)" })),
+        style({ transform: "translateY(100%)" }),
+        animate("400ms ease", style({ transform: "translateY(0%)" })),
       ]),
       transition(":leave", [
-        style({ transform: "scale(1)" }),
-        animate("400ms ease", style({ transform: "scale(0)" })),
+        style({ transform: "translateY(0%)" }),
+        animate("400ms ease", style({ transform: "translateY(100%)" })),
       ]),
     ]),
     trigger("translucentBackgroundAnimation", [
-      transition(":enter", [
-        style({ "background-color": "rgba(0, 0, 0, 0)" }),
-        animate("10ms ease", style({ "background-color": "rgba(0, 0, 0, 0)" })),
-      ]),
       transition(":leave", [
-        style({ "background-color": "rgba(0, 0, 0, 0)" }),
-        animate("10ms ease", style({ "background-color": "rgba(0, 0, 0, 0)" })),
+        style({ "background-color": "rgba(0, 0, 0, 0.35)" }),
+        animate("0.4s ease-out", style({ "background-color": "rgba(0, 0, 0, 0)" })),
       ]),
     ]),
   ],

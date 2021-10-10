@@ -4288,7 +4288,8 @@ option {
     background: linear-gradient( 45deg, #ec5454 -4%, #f51ac1 4%, #2749f0 94%, #593eb7 69%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    word-break: break-all;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .bio-cover {

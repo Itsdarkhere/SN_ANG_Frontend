@@ -303,7 +303,6 @@ export class TrendsComponent implements OnInit {
         (res: {
           NFTsMap: { [k: string]: { PostEntryResponse: PostEntryResponse; NFTEntryResponses: NFTEntryResponse[] } };
         }) => {
-          console.log(res.NFTsMap);
           for (const k in res.NFTsMap) {
             responseSize++;
             const responseElement = res.NFTsMap[k];
@@ -315,7 +314,6 @@ export class TrendsComponent implements OnInit {
               }
             }
           }
-          console.log(this.nftResponse.length);
         },
         (error) => {
           this.globalVars._alertError(error.error.error);

@@ -4186,7 +4186,30 @@ option {
         }
     }
 }
-
+.cta-button-gradient {
+    &.btn {
+        background-image: url("/assets/img/popup-btnbg.png");
+        background-size: cover;
+        background-position: center;
+        width: 350px;
+        padding: 10px 15px;
+        font-size: 12px;
+        max-width: 100%;
+        margin: 0 auto 20px;
+        margin-top: 30px;
+        border: none;
+        color: var(--background);
+        font-weight: 600;
+        box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease-in-out;
+    }
+    &:hover {
+        transform: scale(1.03);
+    }
+}
+.overwrite-min-height-450 {
+    min-height: 450px !important;
+}
 .nft_placebid_modal_bx {
     width: 480px;
     max-width: calc(100% - 18px);

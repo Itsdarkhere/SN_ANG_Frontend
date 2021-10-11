@@ -86,7 +86,8 @@ export class SellNftModalComponent implements OnInit {
           // Hide this modal and open the next one.
           this.bsModalRef.hide();
           this.modalService.show(NftSoldModalComponent, {
-            class: "modal-dialog-centered modal-sm",
+            class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
+            initialState: { post: this.post },
           });
           this.modalService.setDismissReason("nft sold");
         },
@@ -100,7 +101,6 @@ export class SellNftModalComponent implements OnInit {
         this.sellingNFT = false;
       });
   }
-
   remove(bidEntry: NFTBidEntryResponse): void {
     this.selectedBidEntries = this.selectedBidEntries.filter((selectedEntry) => selectedEntry !== bidEntry);
   }

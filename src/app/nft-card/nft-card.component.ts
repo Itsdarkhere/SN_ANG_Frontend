@@ -16,6 +16,7 @@ import { EmbedUrlParserService } from "../../lib/services/embed-url-parser-servi
 import { SharedDialogs } from "../../lib/shared-dialogs";
 import { FeedPostImageModalComponent } from "../feed/feed-post-image-modal/feed-post-image-modal.component";
 import { TransferModalComponent } from "../transfer-modal/transfer-modal.component";
+import { NftSoldModalComponent } from "../nft-sold-modal/nft-sold-modal.component";
 
 @Component({
   selector: "app-nft-card",

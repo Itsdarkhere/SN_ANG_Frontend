@@ -317,6 +317,7 @@ export class CreatorProfileNftsComponent implements OnInit {
           )
           .subscribe(
             () => {
+              window.location.reload();
               return this.datasource.adapter.remove({
                 predicate: ({ data }) => {
                   const currBidEntry = (data as any) as NFTBidEntryResponse;

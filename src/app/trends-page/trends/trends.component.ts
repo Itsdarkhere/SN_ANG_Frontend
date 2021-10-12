@@ -34,6 +34,14 @@ export class TrendsComponent implements OnInit {
   loadingNextPage = false;
   index = 0;
   PKList = [
+    "BC1YLh2U9osp9RKeCyojbwuFhwrHcAkM2J9Vg5HUNo1vvG95tHe6zNo",
+    "BC1YLggVsegfVZTDq7PBUXD4Qms1JVwEhFZCbCFjA54kN4viNqKzW6n",
+    "BC1YLiVEhWTDakuz5qE6qYWKc312eXxMVCgW5ArQvqgWSbQREifnqS1",
+    "BC1YLg5JusZ1L1NDQpZ4zzZF4gjiFroxdpyA3EK84xCnDnWanMLeNtP",
+    "BC1YLhtut56NZbYm2DVbn7srNWcxUzDXYcFaKGutQLBAvtbQzX4BWQM",
+    "BC1YLjCFMF7TN8592grfcx3uf9t7TLtHhm2XToMgEoUurZ5wrsvXKnJ",
+    "BC1YLhp7CtWBghCzt78QCDUNwv1sMWP52FVo3GvyEhdUZKgn92xn9sK",
+    "BC1YLhLT1F4KFQtMCPPvWD8feE9YzFi4jZwwAvKHx8bhXBNkjeQJWWW",
     "BC1YLfgucuJF6n288pZNhfkTeXsFiWNEgfDoK6jw97jkdoGcKtEUDTW",
     "BC1YLhp5ybTTuKYVu3wucniDpU4h9vciLHqHZPazXgPMHcXHjTzh8bq",
     "BC1YLiJg3zmjxXJVxnmMXMDbJdWQwUstAWukeHcukv2ybUCxPVk1CEm",
@@ -99,7 +107,6 @@ export class TrendsComponent implements OnInit {
     "BC1YLi6x3nWAJjZ7JnsF35Bf2VSDnkZcBinWoARmau5vPshrrvgYbWU",
     "BC1YLjUVj2FFv2rrm1ajiUYNKrZrJnQ5pQd699xBLAPFQzMSA6jaqsc",
     "BC1YLhp9KcDoRpV8WfHm2vyyKRUgTLQs7EyCyxns43aHyyvjfY1kYin",
-    "BC1YLggVsegfVZTDq7PBUXD4Qms1JVwEhFZCbCFjA54kN4viNqKzW6n",
     "BC1YLfrLkPWRwkimKCtkXfGnfSpX7nHEbJQ1oQo3Ng2uTksRsKxtbkK",
     "BC1YLiQg4nEYG9UEpVt3JLoMgCSWrJaBWdx7Z7WpsoptucRJAJ3WPfp",
     "BC1YLjTWT4wYCKpyA4RBoyGoP2bYhNjGPH7yioHdyKsj6rDHy6yk554",
@@ -109,7 +116,6 @@ export class TrendsComponent implements OnInit {
     "BC1YLiC1ywGzRkEWBH9svqKckL6yiWgSFUrTewpf2xe2Dr1iBSESaZv",
     "BC1YLgxkpfMT5vjXRTmS11i4HUfjxryFxbkc9NGHXcmnVJf4FbveV3y",
     "BC1YLgnFFmJjz5uHE9pv8FjzX7FzNbLgpoXe5QThcnYZMCdMZpyBqLF",
-    "BC1YLh2U9osp9RKeCyojbwuFhwrHcAkM2J9Vg5HUNo1vvG95tHe6zNo",
     "BC1YLi7jfGV1z5Z3QmZeATNzwDrdfktKNBcp3NMijkAiP3S6xoiVtBB",
     "BC1YLiirPb2V6nLQsWfgazZvd7NF3JMC4vAq4SPsMRLHCX3j1MHR6wL",
     "BC1YLijQg1aGmqRDXBk294D7trnEaM6EKqvhsRCqrjWNcDap2Kh8JNw",
@@ -142,16 +148,13 @@ export class TrendsComponent implements OnInit {
     "BC1YLjFdNkifQLVGtReBYvHjCFAQ7MGdC2Y9H7SowmegeFcG7Lzi3uw",
     "BC1YLjDaa15HVjxMKdUs5XsvatUKfK4zsahDHEbPXwEfbUT1x2cyR69",
     "BC1YLgjv3G9pDh7Ri2z52aij8PspFmG79D1zBDV7xVWLdvtZ1AuYe7Q",
-    "BC1YLhtut56NZbYm2DVbn7srNWcxUzDXYcFaKGutQLBAvtbQzX4BWQM",
     "BC1YLhtLZAC67GJfBJjvXH9Dyi7sJixjWQ1PJT4VPLPyVTpGZxKars5",
     "BC1YLhrS1Fpscb6H7tWsHF8pt3mLWa19eGWq1U8JT47gtuFqEtS4hs9",
     "BC1YLh19z9wFZPaWpjdT3v8MnJDQeWgpfdJTKJXQP4ZesLpAKxetxEu",
     "BC1YLfqSXtxr8PsV8Fu6CmvoZdgZPrphkepxSoi1enBxgiXRVPJkcDi",
     "BC1YLiCh8n9aCPFTc8eFHVMcUqQBpCTQoMY8TsdqkYJYoyo5Vrkw2XX",
     "BC1YLhzAfjWiUnTHjGSAH9WiTwuTW2unRJEv8VNSv6VsvXPFoGLo6LB",
-    "BC1YLjCFMF7TN8592grfcx3uf9t7TLtHhm2XToMgEoUurZ5wrsvXKnJ",
     "BC1YLiu57SWqZ4ftWkq7mkSsrGMdpwfUfArz1fvMYf6fjaae4qEFten",
-    "BC1YLg5JusZ1L1NDQpZ4zzZF4gjiFroxdpyA3EK84xCnDnWanMLeNtP",
     "BC1YLgToU7dbhNYrkVgvxjUtw22zjoc3aF5XcBKktanyYkvWKxKUR71",
     "BC1YLiYGRp57vPVsXydYUHyXRwapZieuAxUBwcfaEfgNSsvcK7e9t2d",
     "BC1YLig3mdJwC6cFFWQ71tT32P29YewVUKxEBi8eqx2bsEdPHvoPr94",
@@ -182,7 +185,6 @@ export class TrendsComponent implements OnInit {
     "BC1YLh8ABTffGAn85oY1tuhXoxZXVdrgMbEYoJJFU4AtuV3jBjHusb7",
     "BC1YLh7EQSrnAUgbJfZQQpejP4QLvxbjNFCKzV2A7icAAkKxEHzBWhV",
     "BC1YLggbMp4ay4UpjVxGPLVCb6y7HsiSVbWH8wBkLMmwTTZzzC5JnyB",
-    "BC1YLhLT1F4KFQtMCPPvWD8feE9YzFi4jZwwAvKHx8bhXBNkjeQJWWW",
     "BC1YLh25iX9NcFyE8fi5xPGnsUUsdfVk6mJuzp6SefUy25S1rc6tD1Q",
     "BC1YLg2FuHf3sARUvqeWVjjRh6P7BP3Bsr6m7RdiSZpkKRvE8USx836",
     "BC1YLgamJchswezVD3oHP6j5GRGEtN4u1Dd2pz4kwTVHLJbJQDHVtxd",
@@ -195,7 +197,6 @@ export class TrendsComponent implements OnInit {
     "BC1YLjWtWztDRxoZJYjEahj89SjdqjzM5LASco9VsHNkR4tqzY9doP1",
     "BC1YLgVcAY39s7BK3MGrTWM1RzpJNMNS8L5uUVQc7dWLCrUqWddZb8K",
     "BC1YLgDnfUTyXk4JD6dnERiZFFJLXgUrWy5T1NLrRWPKedrzt6qXzxn",
-    "BC1YLhp7CtWBghCzt78QCDUNwv1sMWP52FVo3GvyEhdUZKgn92xn9sK",
     "BC1YLgmabmhDTrz2cnaAj3fM62KhnJbxTSRKJUnBUbL1speV621zj45",
     "BC1YLiwGmRPmTngqCkn3yPGB1dMfdVuz2tFm55PH2axr3KvzBdWPqos",
     "BC1YLiG3xMUyYv1ivRcDFakUA3tJKrXJg6jARSsUDVCAhoyFzc1a3DE",
@@ -241,6 +242,7 @@ export class TrendsComponent implements OnInit {
     //   }
     // })
     this.nftResponse = [];
+    this.loadNext();
     this.loadNext();
   }
 

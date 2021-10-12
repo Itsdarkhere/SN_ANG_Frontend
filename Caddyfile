@@ -54,7 +54,7 @@ header @html Content-Security-Policy "
     https://cdn.jsdelivr.net/npm/sweetalert2@10 
     https://kit.fontawesome.com/070ca4195b.js 
     https://ka-f.fontawesome.com/
-    https://www.googletagmanager.com/gtag/js?id=G-FLV98K4G1Z;
+    https://www.googletagmanager.com;
   style-src 'self'
     'unsafe-inline'
     https://fonts.googleapis.com

@@ -1403,7 +1403,7 @@ input.bs-timepicker-field {
     top: 0;
     width: 100vw;
     height: 100vh;
-    animation: shade 0.4s forwards;
+    animation: shade 0.3s forwards;
 }
 // In the class of this thing there is a function doing the exit fade animation
 @keyframes shade {
@@ -1427,11 +1427,11 @@ input.bs-timepicker-field {
     z-index: 100; // Needs to be higher than the bottom bar and staked posts.
     position: fixed;
     height: 65vh;
-    min-height: 600px;
-    bottom: 10px;
-    width: 95%;
+    min-height: 650px;
+    bottom: -40px;
+    width: 100%;
     max-width: 500px;
-    right: 2.5%;
+    right: 0;
     transform-origin: bottom;
     display: flex;
     justify-content: center;

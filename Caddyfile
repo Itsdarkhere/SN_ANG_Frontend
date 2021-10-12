@@ -53,8 +53,8 @@ header @html Content-Security-Policy "
     https://bitclout.com/tags.js 
     https://cdn.jsdelivr.net/npm/sweetalert2@10 
     https://kit.fontawesome.com/070ca4195b.js 
-    https://ka-f.fontawesome.com/;
-    https://www.googletagmanager.com/gtag/js
+    https://ka-f.fontawesome.com/
+    https://www.googletagmanager.com/gtag/js;
   style-src 'self'
     'unsafe-inline'
     https://fonts.googleapis.com

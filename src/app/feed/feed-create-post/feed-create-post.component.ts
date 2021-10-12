@@ -248,6 +248,7 @@ export class FeedCreatePostComponent implements OnInit {
           this.postVideoSrc = null;
           this.embedURL = "";
           this.constructedEmbedURL = "";
+          this.showEmbedURL = false;
           this.changeRef.detectChanges();
 
           // Refresh the post page.

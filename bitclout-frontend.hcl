@@ -81,7 +81,7 @@ job "supernovas-frontend" {
         https://ka-f.fontawesome.com/
         bitcoinfees.earn.com
         api.blockcypher.com 
-        amp.bitclout.com;
+        amp.bitclout.com
         pay.testwyre.com
         pay.sendwyre.com
         https://videodelivery.net

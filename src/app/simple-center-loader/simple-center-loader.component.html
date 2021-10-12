@@ -1,18 +1,9 @@
 <div class="d-flex flex-column align-items-center justify-content-center" [ngStyle]="{ height: getHeight() }">
-  <div class="lds-default"
-  >
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
+  <div class="loader">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
   <div
     [ngClass]="{
@@ -22,7 +13,7 @@
       'text-center': true
     }"
   >
-    <div class="text-grey-loading fs-24px">{{ titleLoadingText }}</div>
+    <div class="text-grey-loading fs-24px mt-20px">{{ titleLoadingText }}</div>
     <div *ngIf="subtitleLoadingText">
       <div class="text-grey-loading fs-15px text-center">{{ subtitleLoadingText }}</div>
     </div>

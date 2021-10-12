@@ -562,7 +562,8 @@
           class="btn btn-primary font-weight-bold br-8px fs-13px"
           [ngClass]="{ 'mt-15px': isQuotedContent }"
           (click)="openPlaceBidModal($event)"
-          *ngIf="showPlaceABid"|
+          *ngIf="showPlaceABid"
+          |
         >
           Place a bid
         </button>
@@ -607,13 +608,24 @@
       <div *ngIf="showExpandedNFTDetails" class="d-flex nft_current_bid_tpwrapper">
         <div class="nft_current_bid" [ngClass]="{ 'pt-15px': globalVars.isMobile() }">
           <span class="hq">
-            {{ compareBit(globalVars.nanosToDeSo(minBid, 5), globalVars.nanosToDeSo(highBid, 5), showPlaceABid) }}
+            {{
+              compareBit(
+                globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5),
+                globalVars.nanosToDeSo(highBid, 5),
+                showPlaceABid
+              )
+            }}
           </span>
           <div class="val" *ngIf="showPlaceABid">
-            {{ highBid === 0 ? globalVars.nanosToUSD(minBid, 2) : globalVars.nanosToUSD(highBid, 2) }}
+            {{
+              highBid === 0 ? globalVars.nanosToUSD(this.nftMinBidAmountNanos, 2) : globalVars.nanosToUSD(highBid, 2)
+            }}
           </div>
           <div class="val_st" *ngIf="showPlaceABid">
-            {{ highBid === 0 ? globalVars.nanosToDeSo(minBid, 5) : globalVars.nanosToDeSo(highBid, 5) }} DESO
+            {{
+              highBid === 0 ? globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5) : globalVars.nanosToDeSo(highBid, 5)
+            }}
+            DESO
           </div>
           <div class="val" *ngIf="!showPlaceABid">{{ globalVars.nanosToUSD(lastSalePrice, 2) }}</div>
           <div class="val_st" *ngIf="!showPlaceABid">{{ globalVars.nanosToDeSo(lastSalePrice, 5) }} DESO</div>
@@ -621,8 +633,11 @@
         <div
           class="nft_done_by"
           *ngIf="
-            compareBit(globalVars.nanosToDeSo(minBid, 5), globalVars.nanosToDeSo(highBid, 5), showPlaceABid) ==
-            'Highest Bid'
+            compareBit(
+              globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5),
+              globalVars.nanosToDeSo(highBid, 5),
+              showPlaceABid
+            ) == 'Highest Bid'
           "
         >
           <span class="hq">Done By</span>

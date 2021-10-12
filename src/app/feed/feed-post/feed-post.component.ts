@@ -139,7 +139,6 @@ export class FeedPostComponent implements OnInit {
   showPlaceABid: boolean;
   highBid: number = null;
   lowBid: number = null;
-  minBid: number = null;
   lastSalePrice: number = null;
   availableSerialNumbers: NFTEntryResponse[];
   myAvailableSerialNumbers: NFTEntryResponse[];

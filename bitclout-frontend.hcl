@@ -119,6 +119,8 @@ header Content-Security-Policy "
     https://open.spotify.com
     https://w.soundcloud.com
     https://iframe.videodelivery.net
+    https://player.twitch.tv
+    https://clips.twitch.tv
     pay.testwyre.com
     pay.sendwyre.com;
   frame-ancestors 'self';

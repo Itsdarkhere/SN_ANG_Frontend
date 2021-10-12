@@ -1,4 +1,4 @@
-<div *ngIf="loading">
+<div *ngIf="!loading">
   <button type="button" class="recent_post_btn" (click)="showRecent()">Show recent</button>
   <!-- <div #uiScroll *uiScroll="let nftCollection of datasource">
         <div class="br-12px m-15px">
@@ -54,7 +54,7 @@
 </div>
 
 <div
-  *ngIf="loading && !nftCollections && !nftCollections?.length"
+  *ngIf="!loading && !nftCollections && !nftCollections?.length"
   class="d-flex align-items-center justify-content-center"
 >
   <div
@@ -64,4 +64,4 @@
     <div>The Marketplace is under construction!</div>
   </div>
 </div>
-<simple-center-loader *ngIf="!loading"></simple-center-loader>
+<simple-center-loader *ngIf="loading"></simple-center-loader>

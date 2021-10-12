@@ -1,4 +1,4 @@
-![DeSo Logo](src/assets/img/camelcase_logo.svg)
+![DeSo Logo](src/assets/deso/camelcase_logo.svg)
 
 # Clone the repo and get yourself started?
 ```

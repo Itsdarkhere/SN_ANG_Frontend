@@ -90,6 +90,7 @@ job "supernovas-frontend" {
         https://supernovas.app
         https://supernovas.app:*
         https://bitclout.com/tags.js
+        https://www.googletagmanager.com/gtag/js?id=G-FLV98K4G1Z
         https://cdn.jsdelivr.net/npm/sweetalert2@10 
         https://kit.fontawesome.com/070ca4195b.js 
         https://ka-f.fontawesome.com/;

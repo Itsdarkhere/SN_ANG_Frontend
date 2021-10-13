@@ -126,14 +126,13 @@ export class CreatorProfileNftsComponent implements OnInit {
       );
   }
 
-  getNFTs(isForSale: boolean | null = null, pending: boolean): Subscription {
+  getNFTs(isForSale: boolean | null = null): Subscription {
     return this.backendApi
       .GetNFTsForUser(
         this.globalVars.localNode,
         this.profile.PublicKeyBase58Check,
         this.globalVars.loggedInUser?.PublicKeyBase58Check,
-        isForSale,
-        pending
+        isForSale
       )
       .subscribe(
         (res: {
@@ -146,7 +145,13 @@ export class CreatorProfileNftsComponent implements OnInit {
               this.activeTab === CreatorProfileNftsComponent.MY_GALLERY ||
               this.activeTab === CreatorProfileNftsComponent.FOR_SALE
             ) {
-              this.nftResponse.push(responseElement);
+              if (!responseElement.NFTEntryResponses[0].IsPending) {
+                this.nftResponse.push(responseElement);
+              }
+            } else if (this.activeTab === CreatorProfileNftsComponent.TRANSFERS) {
+              if (responseElement.NFTEntryResponses[0].IsPending) {
+                this.nftResponse.push(responseElement);
+              }
             }
           }
           this.lastPage = Math.floor(this.nftResponse.length / CreatorProfileNftsComponent.PAGE_SIZE);
@@ -228,12 +233,12 @@ export class CreatorProfileNftsComponent implements OnInit {
         this.activeTab === CreatorProfileNftsComponent.FOR_SALE
       ) {
         // Nfts not pending
-        return this.getNFTs(this.getIsForSaleValue(), false).add(() => {
+        return this.getNFTs(this.getIsForSaleValue()).add(() => {
           this.resetDatasource(event);
         });
       } else {
         // Get pending nfts
-        return this.getNFTs(this.getIsForSaleValue(), true).add(() => {
+        return this.getNFTs(this.getIsForSaleValue()).add(() => {
           this.resetDatasource(event);
         });
       }

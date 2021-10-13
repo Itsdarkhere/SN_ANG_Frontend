@@ -164,6 +164,20 @@
         align-items: flex-start;
     }
 }
+.social-link-div {
+    width: 32px;
+    height: 32px;
+    padding-top: 1px;
+    margin-top: 10px;
+    text-align: center;
+    background: #ffffff;
+    border: 2.2857143878936768px solid #ffffff;
+    border-radius: 50%;
+    box-shadow: 0.7604753971099854px 0.7604753971099854px 3.8023767471313477px rgba(0, 0, 0, 0.25);
+}
+.profile-button-icon {
+    transform: scale(.9);
+}
 .followers_inline_row {
     width: 90%;
     display: flex;

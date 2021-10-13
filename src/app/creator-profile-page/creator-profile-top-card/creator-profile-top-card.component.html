@@ -2,8 +2,14 @@
   <div class="profile-top-card-box-1">
     <div class="profile-img-cover" [avatar]="profile.PublicKeyBase58Check"></div>
     <div>
-      <button class="br-30px m-10px pt-5px pb-5px pl-10px pr-10px top-card-button">Message</button>
-      <button class="br-30px m-10px pt-5px pb-5px pl-10px pr-10px top-card-button">Share</button>
+      <button class="br-30px m-10px pt-5px pb-5px pl-10px pr-10px top-card-button">
+        <img src="./assets/icons/profile-email.png" class="profile-button-icon" />
+        Message
+      </button>
+      <button class="br-30px m-10px pt-5px pb-5px pl-10px pr-10px top-card-button">
+        <img src="./assets/icons/profile-share.png" class="profile-button-icon" />
+        Share
+      </button>
     </div>
   </div>
   <div class="user-info">
@@ -127,12 +133,19 @@
         <h6 class="founder-reward-text">FOUNDER REWARD {{ getFoundersRewardPercent() | number: "0.0-9" }}%</h6>
       </div>
     </div>
-    <div class="flex-center flex-column w-10">
-      <p>p</p>
-      <p>e</p>
-      <p>n</p>
-      <p>i</p>
-      <p>s</p>
+    <div class="flex-center flex-column w-10 mt-30px">
+      <div class="social-link-div">
+        <img src="/assets/icons/profile-world-icon.svg" />
+      </div>
+      <div class="social-link-div">
+        <img src="assets/icons/profile-twitter-icon.svg" />
+      </div>
+      <div class="social-link-div">
+        <img src="assets/icons/profile-instagram-icon.svg" />
+      </div>
+      <div class="social-link-div">
+        <img src="assets/icons/profile-discord-icon.svg" />
+      </div>
     </div>
   </div>
   <div class="bio-cover">

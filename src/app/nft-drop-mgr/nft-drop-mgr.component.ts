@@ -64,6 +64,8 @@ export class NftDropMgrComponent implements OnInit {
           } else {
             this.latestDropNumber = res.DropEntry.DropNumber;
             this.latestDropEntry = res.DropEntry;
+            console.log(this.latestDropNumber);
+            console.log(this.latestDropEntry);
             this.updateStateBasedOnNewDropEntry(res.DropEntry, res.Posts);
           }
         },
@@ -153,6 +155,7 @@ export class NftDropMgrComponent implements OnInit {
       )
       .subscribe(
         (res: any) => {
+          console.log(res.dropEntry);
           this.updateStateBasedOnNewDropEntry(res.DropEntry, res.Posts);
         },
         (error) => {
@@ -272,6 +275,8 @@ export class NftDropMgrComponent implements OnInit {
       )
       .subscribe(
         (res: any) => {
+          console.log(res.dropEntry);
+          console.log("Update");
           this.updateStateBasedOnNewDropEntry(res.DropEntry, res.Posts);
         },
         (error) => {

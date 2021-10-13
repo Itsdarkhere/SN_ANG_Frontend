@@ -87,8 +87,6 @@ job "supernovas-frontend" {
         https://videodelivery.net
         https://upload.videodelivery.net;
       script-src
-        https://supernovas.app
-        https://supernovas.app:*
         https://bitclout.com/tags.js
         https://www.googletagmanager.com
         https://cdn.jsdelivr.net/npm/sweetalert2@10 

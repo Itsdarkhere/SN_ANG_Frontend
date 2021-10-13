@@ -63,7 +63,7 @@ export class BottomBarMobileComponent implements OnInit {
   }
   ngOnInit() {
     let handle = null;
-    document.onscroll = () => {
+    /*document.onscroll = () => {
       var st = window.pageYOffset || document.documentElement.scrollTop;
       if (st > this.lastScrollTop) {
         // scroll down
@@ -92,6 +92,6 @@ export class BottomBarMobileComponent implements OnInit {
           document.querySelector(".global__bottom-bar-mobile").classList.add("scrolled");
         }
       }, 200); // default 200 ms
-    };
+    };*/
   }
 }

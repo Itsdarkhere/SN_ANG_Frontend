@@ -2,6 +2,9 @@
   <div [@leftBarAnimation] class="background-gradient" *ngIf="globalVars.isLeftBarMobileOpen">
     <div class="left-bar-mobile__flyout-div">
       <left-bar [isMobile]="true" [inTutorial]="inTutorial" (closeMobile)="_closeMenu()"></left-bar>
+      <div *ngIf="globalVars.isLeftBarMobileOpen" (click)="_closeMenu()" class="nav_close">
+        <img src="assets/img/close_square.svg" alt="" />
+      </div>
     </div>
   </div>
   <div
@@ -10,12 +13,4 @@
     (click)="_closeMenu()"
     class="left-bar-mobile__translucent-background"
   ></div>
-  <div
-    *ngIf="globalVars.isLeftBarMobileOpen"
-    [@translucentBackgroundAnimation]
-    (click)="_closeMenu()"
-    class="nav_close"
-  >
-    <img src="assets/img/close_square.svg" alt="" />
-  </div>
 </div>

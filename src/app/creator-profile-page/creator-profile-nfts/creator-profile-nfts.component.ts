@@ -126,13 +126,14 @@ export class CreatorProfileNftsComponent implements OnInit {
       );
   }
 
-  getNFTs(isForSale: boolean | null = null): Subscription {
+  getNFTs(isForSale: boolean | null = null, pending: boolean): Subscription {
     return this.backendApi
       .GetNFTsForUser(
         this.globalVars.localNode,
         this.profile.PublicKeyBase58Check,
         this.globalVars.loggedInUser?.PublicKeyBase58Check,
-        isForSale
+        isForSale,
+        pending
       )
       .subscribe(
         (res: {
@@ -142,9 +143,8 @@ export class CreatorProfileNftsComponent implements OnInit {
           for (const k in res.NFTsMap) {
             const responseElement = res.NFTsMap[k];
             if (
-              (this.activeTab === CreatorProfileNftsComponent.MY_GALLERY ||
-                this.activeTab === CreatorProfileNftsComponent.FOR_SALE) &&
-              !responseElement.NFTEntryResponses[0]["IsPending"]
+              this.activeTab === CreatorProfileNftsComponent.MY_GALLERY ||
+              this.activeTab === CreatorProfileNftsComponent.FOR_SALE
             ) {
               this.nftResponse.push(responseElement);
             }
@@ -260,11 +260,13 @@ export class CreatorProfileNftsComponent implements OnInit {
         this.activeTab === CreatorProfileNftsComponent.MY_GALLERY ||
         this.activeTab === CreatorProfileNftsComponent.FOR_SALE
       ) {
-        return this.getNFTs(this.getIsForSaleValue()).add(() => {
+        // Nfts not pending
+        return this.getNFTs(this.getIsForSaleValue(), false).add(() => {
           this.resetDatasource(event);
         });
       } else {
-        return this.getPendingNftTransfers(this.getIsForSaleValue()).add(() => {
+        // Get pending nfts
+        return this.getNFTs(this.getIsForSaleValue(), true).add(() => {
           this.resetDatasource(event);
         });
       }

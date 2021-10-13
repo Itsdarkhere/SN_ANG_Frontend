@@ -1031,12 +1031,14 @@ export class BackendApiService {
     endpoint: string,
     UserPublicKeyBase58Check: string,
     ReaderPublicKeyBase58Check: string,
-    IsForSale: boolean | null = null
+    IsForSale: boolean | null = null,
+    pending: boolean | null = null
   ): Observable<any> {
     return this.post(endpoint, BackendRoutes.RoutePathGetNFTsForUser, {
       UserPublicKeyBase58Check,
       ReaderPublicKeyBase58Check,
       IsForSale,
+      pending,
     });
   }
 

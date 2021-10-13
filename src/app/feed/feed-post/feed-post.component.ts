@@ -93,8 +93,6 @@ export class FeedPostComponent implements OnInit {
   @Input() cardStyle: boolean = false;
 
   @Input() showReplyingTo = false;
-  @Input() nftCollectionHighBid = 0;
-  @Input() nftCollectionLowBid = 0;
   @Input() isForSaleOnly: boolean = false;
   nftLastAcceptedBidAmountNanos: number;
   nftMinBidAmountNanos: number;
@@ -198,7 +196,6 @@ export class FeedPostComponent implements OnInit {
         );
         this.showPlaceABid = !!(this.availableSerialNumbers.length - this.myAvailableSerialNumbers.length);
         this.highBid = _.maxBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
-        console.log(this.showPlaceABid);
         this.lowBid = _.minBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
         if (this.nftEntryResponses.length === 1) {
           this.nftLastAcceptedBidAmountNanos = this.nftEntryResponses[0].LastAcceptedBidAmountNanos;

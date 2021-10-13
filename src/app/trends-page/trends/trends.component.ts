@@ -299,7 +299,8 @@ export class TrendsComponent implements OnInit {
         this.globalVars.localNode,
         this.PKList[this.index],
         this.globalVars.loggedInUser?.PublicKeyBase58Check,
-        true
+        true,
+        false
       )
       .subscribe(
         (res: {
@@ -308,12 +309,10 @@ export class TrendsComponent implements OnInit {
           for (const k in res.NFTsMap) {
             responseSize++;
             const responseElement = res.NFTsMap[k];
-            if (!responseElement.NFTEntryResponses[0]["IsPending"]) {
-              this.nftResponse.push(responseElement);
-              // dont load more than 20 per creator to not overflow the marketplace
-              if (responseSize > 25) {
-                break;
-              }
+            this.nftResponse.push(responseElement);
+            // dont load more than 20 per creator to not overflow the marketplace
+            if (responseSize > 25) {
+              break;
             }
           }
         },

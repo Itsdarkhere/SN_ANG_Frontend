@@ -155,39 +155,6 @@ export class CreatorProfileNftsComponent implements OnInit {
       );
   }
 
-  // This is a remake of the above function, with an if to get only pending ones
-  // IMPROVE
-  getPendingNftTransfers(isForSale: boolean | null = null): Subscription {
-    return this.backendApi
-      .GetNFTsForUser(
-        this.globalVars.localNode,
-        this.profile.PublicKeyBase58Check,
-        this.globalVars.loggedInUser?.PublicKeyBase58Check,
-        isForSale
-      )
-      .subscribe(
-        (res: {
-          NFTsMap: { [k: string]: { PostEntryResponse: PostEntryResponse; NFTEntryResponses: NFTEntryResponse[] } };
-        }) => {
-          this.nftResponse = [];
-          for (const k in res.NFTsMap) {
-            const responseElement = res.NFTsMap[k];
-            if (
-              this.activeTab === CreatorProfileNftsComponent.MY_GALLERY ||
-              this.activeTab === CreatorProfileNftsComponent.FOR_SALE ||
-              this.activeTab === CreatorProfileNftsComponent.TRANSFERS
-            ) {
-              if (responseElement.NFTEntryResponses[0]["IsPending"]) {
-                this.nftResponse.push(responseElement);
-              }
-            }
-          }
-          this.lastPage = Math.floor(this.nftResponse.length / CreatorProfileNftsComponent.PAGE_SIZE);
-          return this.nftResponse;
-        }
-      );
-  }
-
   getPage(page: number) {
     if (this.lastPage != null && page > this.lastPage) {
       return [];

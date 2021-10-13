@@ -196,12 +196,16 @@ export class FeedPostComponent implements OnInit {
         );
         this.showPlaceABid = !!(this.availableSerialNumbers.length - this.myAvailableSerialNumbers.length);
         this.highBid = _.maxBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
+        console.log(this.highBid);
         this.lowBid = _.minBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
+        console.log(this.nftEntryResponses);
         if (this.nftEntryResponses.length === 1) {
           this.nftLastAcceptedBidAmountNanos = this.nftEntryResponses[0].LastAcceptedBidAmountNanos;
           if (this.nftEntryResponses[0].MinBidAmountNanos > 0) {
             this.nftMinBidAmountNanos = this.nftEntryResponses[0].MinBidAmountNanos;
           }
+        } else {
+          this.nftMinBidAmountNanos = this.nftEntryResponses[0]?.MinBidAmountNanos;
         }
       });
   }

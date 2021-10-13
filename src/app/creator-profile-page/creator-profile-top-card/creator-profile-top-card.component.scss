@@ -2,9 +2,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    padding: 20px 0;
     flex-direction: column;
-    max-width: 702px;
     @media (max-width: 767px) {
         padding: 90px 20px 20px 20px;
         flex-wrap: wrap;
@@ -18,7 +16,6 @@
         box-shadow: 0px 3px 10px 3px rgba(0, 0, 0, 0.1);
         background-repeat: no-repeat;
         background-size: cover;
-        margin-bottom: 20px;
         @media (max-width: 767px) {
             width: 90px;
             height: 90px;
@@ -33,6 +30,8 @@
     }
     .user-info {
         width: 100%;
+        display: flex;
+        flex-direction: row;
         padding: 0;
         @media (max-width: 767px) {
             width: 100%;
@@ -139,9 +138,33 @@
         }
     }
 }
-
-.followers_inline_row {
+.profile-top-card-box-1 {
+    width: 100%;
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -42px;
+    @media (max-width: 767px) {
+        margin-top: -45px;
+    }
+}
+.top-card-button {
+    border: none;
+    background: #fcfcfc;
+    box-shadow: 0.9203247427940369px 0.9203247427940369px 1.8406494855880737px rgba(0, 0, 0, 0.25);
+}
+.name-stats-profile {
+    display: flex;
+    height: 70%;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.followers_inline_row {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
     align-items: flex-start;
     @media (max-width: 767px) {
         flex-direction: column;

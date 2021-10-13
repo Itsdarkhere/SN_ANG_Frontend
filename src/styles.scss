@@ -3756,9 +3756,6 @@ option {
 .creator_post_wrap {
     width: 668px;
     max-width: 100%;
-    @media screen and (max-width: 676px) {
-        padding: 0 12px;
-    }
 }
 
 .nfts-card-list {
@@ -3770,7 +3767,7 @@ option {
     padding: 0px;
     list-style-type: none;
     @media screen and (max-width: 676px) {
-        padding: 47px 15px 0 15px;
+        padding: 47px 0px 0 0px;
     }
     &.nft_creator_list {
         @media screen and (max-width: 676px) {

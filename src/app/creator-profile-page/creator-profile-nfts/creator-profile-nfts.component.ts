@@ -139,7 +139,6 @@ export class CreatorProfileNftsComponent implements OnInit {
           NFTsMap: { [k: string]: { PostEntryResponse: PostEntryResponse; NFTEntryResponses: NFTEntryResponse[] } };
         }) => {
           this.nftResponse = [];
-          console.log(isForSale);
           for (const k in res.NFTsMap) {
             const responseElement = res.NFTsMap[k];
             if (

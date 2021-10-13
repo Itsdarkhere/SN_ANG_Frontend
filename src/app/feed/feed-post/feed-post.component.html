@@ -627,8 +627,10 @@
             }}
             DESO
           </div>
-          <div class="val" *ngIf="!showPlaceABid">{{ globalVars.nanosToUSD(lastSalePrice, 2) }}</div>
-          <div class="val_st" *ngIf="!showPlaceABid">{{ globalVars.nanosToDeSo(lastSalePrice, 5) }} DESO</div>
+          <div class="val" *ngIf="!showPlaceABid">{{ globalVars.nanosToUSD(nftLastAcceptedBidAmountNanos, 2) }}</div>
+          <div class="val_st" *ngIf="!showPlaceABid">
+            {{ globalVars.nanosToDeSo(nftLastAcceptedBidAmountNanos, 5) }} DESO
+          </div>
         </div>
         <div
           class="nft_done_by"

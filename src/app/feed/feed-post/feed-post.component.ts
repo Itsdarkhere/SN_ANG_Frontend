@@ -139,7 +139,6 @@ export class FeedPostComponent implements OnInit {
   showPlaceABid: boolean;
   highBid: number = null;
   lowBid: number = null;
-  lastSalePrice: number = null;
   availableSerialNumbers: NFTEntryResponse[];
   myAvailableSerialNumbers: NFTEntryResponse[];
   mySerialNumbersNotForSale: NFTEntryResponse[];
@@ -199,6 +198,7 @@ export class FeedPostComponent implements OnInit {
         );
         this.showPlaceABid = !!(this.availableSerialNumbers.length - this.myAvailableSerialNumbers.length);
         this.highBid = _.maxBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
+        console.log(this.showPlaceABid);
         this.lowBid = _.minBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
         if (this.nftEntryResponses.length === 1) {
           this.nftLastAcceptedBidAmountNanos = this.nftEntryResponses[0].LastAcceptedBidAmountNanos;

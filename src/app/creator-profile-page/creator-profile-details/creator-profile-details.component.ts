@@ -201,7 +201,7 @@ export class CreatorProfileDetailsComponent implements OnInit {
   }
 
   showProfileAsReserved() {
-    return this.profile.IsReserved && !this.profile.IsVerified;
+    return this.profile.IsReserved && this.profile.IsVerified;
   }
 
   isPubKeyBalanceless(): boolean {

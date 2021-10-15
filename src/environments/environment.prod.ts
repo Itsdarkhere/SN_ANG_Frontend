@@ -10,6 +10,12 @@ export const environment = {
     ajaxListenerPath: "supernovas.app/api",
     endpoint: "https://supernovas.app/js/",
   },
+  firebase: {
+    apiKey: "AIzaSyBQFO5_DQqG8U36M3yqqyUlC4SFCjVW4VY",
+    authDomain: "supernovas-v1.firebaseapp.com",
+    storageBucket: "supernovas-v1.appspot.com",
+    projectId: "supernovas-v1",
+  },
   node: {
     name: "Supernovas",
     url: "https://deso.org",

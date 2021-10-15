@@ -6,6 +6,10 @@ import { SwalHelper } from "../../../lib/helpers/swal-helper";
 import { AppRoutingModule, RouteNames } from "../../app-routing.module";
 import { Title } from "@angular/platform-browser";
 import { environment } from "src/environments/environment";
+import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from "@angular/fire/storage";
+import { AngularFirestore } from "@angular/fire/firestore";
+import { Observable } from "rxjs";
+import { map, finalize } from "rxjs/operators";
 
 export type ProfileUpdates = {
   usernameUpdate: string;
@@ -29,12 +33,28 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
   @Input() loggedInUser: any;
   @Input() inTutorial: boolean = false;
 
+  // Firebase
+  ref: AngularFireStorageReference;
+  task: AngularFireUploadTask;
+
+  // Used for storing firebase response
+  profileData: any;
+  // Used for storing input value changes
+  twitter: string = "";
+  discord: string = "";
+  website: string = "";
+  instagram: string = "";
+  name: string = "";
+  photoLocation: string = "";
+
   updateProfileBeingCalled: boolean = false;
   usernameInput: string;
   descriptionInput: string;
   profilePicInput: string;
   founderRewardInput: number = 100;
   loggedInUserPublicKey = "";
+  profileCardUrl: any = "";
+  uploadProgress: Observable<number>;
   profileUpdates: ProfileUpdates = {
     usernameUpdate: "",
     descriptionUpdate: "",
@@ -50,6 +70,8 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
 
   constructor(
     public globalVars: GlobalVarsService,
+    private firestore: AngularFirestore,
+    private afStorage: AngularFireStorage,
     private route: ActivatedRoute,
     private backendApi: BackendApiService,
     private router: Router,
@@ -59,6 +81,8 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
   ngOnInit() {
     this._updateFormBasedOnLoggedInUser();
     this.titleService.setTitle(`Update Profile - ${environment.node.name}`);
+    this.getOnlyProfileSocials();
+    this.getProfileSocials().then((res) => console.log(res));
   }
 
   // This is used to handle any changes to the loggedInUser elegantly.
@@ -188,6 +212,9 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     // browsers may do this.
     this.usernameInput = this.usernameInput.trim();
 
+    // update socials
+    this.updateSocials();
+
     const hasErrors = this._setProfileErrors();
     if (hasErrors) {
       this.globalVars.logEvent("profile : update : has-errors", this.profileUpdateErrors);
@@ -280,6 +307,51 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     this._readImageFileToProfilePicInput(fileToUpload);
   }
 
+  _handleFileInput2(files: FileList) {
+    let fileToUpload = files.item(0);
+    if (!fileToUpload.type || !fileToUpload.type.startsWith("image/")) {
+      this.globalVars._alertError("File selected does not have an image file type.");
+      return;
+    }
+    if (fileToUpload.size > 5 * 1024 * 1024) {
+      this.globalVars._alertError("Please upload an image that is smaller than 5MB.");
+      return;
+    }
+
+    this.photoLocation = (Math.random() + 1).toString(36).substring(7);
+
+    this.updateSocials();
+
+    this.ref = this.afStorage.ref(this.globalVars.loggedInUser?.PublicKeyBase58Check).child(this.photoLocation);
+    // child((Math.random() + 1).toString(36).substring(7))
+    this.task = this.ref.put(fileToUpload);
+    //this.getProfileSocials().then((res) => console.log(res));
+  }
+
+  getOnlyProfileSocials() {
+    return this.firestore
+      .collection("profile-details")
+      .doc(this.globalVars.loggedInUser?.PublicKeyBase58Check)
+      .valueChanges()
+      .subscribe((res) => (this.profileData = res));
+  }
+
+  async getProfileSocials() {
+    return this.firestore
+      .collection("profile-details")
+      .doc(this.loggedInUser?.PublicKeyBase58Check)
+      .valueChanges()
+      .subscribe((res) =>
+        this.afStorage
+          .ref(this.loggedInUser?.PublicKeyBase58Check)
+          .child(res["photoLocation"])
+          .getDownloadURL()
+          .toPromise()
+          .then((res) => (this.profileCardUrl = res))
+          .catch((err) => console.log(err))
+      );
+  }
+
   _readImageFileToProfilePicInput(file: Blob | File) {
     const reader = new FileReader();
     reader.readAsBinaryString(file);
@@ -289,6 +361,45 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     };
   }
 
+  updateSocials() {
+    if (this.profileData) {
+      return new Promise<any>((resolve, reject) => {
+        this.firestore
+          .collection("profile-details")
+          .doc(this.globalVars.loggedInUser?.PublicKeyBase58Check)
+          .set({
+            twitter: this.profileData.twitter ? this.profileData.twitter : this.twitter,
+            website: this.profileData.website ? this.profileData.website : this.website,
+            discord: this.profileData.discord ? this.profileData.discord : this.discord,
+            instagram: this.profileData.instagram ? this.profileData.instagram : this.instagram,
+            name: this.profileData.name ? this.profileData.name : this.name,
+            photoLocation: this.photoLocation != "" ? this.photoLocation : this.profileData.photoLocation,
+          })
+          .then(
+            (res) => {},
+            (err) => reject(err)
+          );
+      });
+    }
+    // This should only happen on the very first update of profile
+    return new Promise<any>((resolve, reject) => {
+      this.firestore
+        .collection("profile-details")
+        .doc(this.globalVars.loggedInUser?.PublicKeyBase58Check)
+        .set({
+          twitter: this.twitter,
+          website: this.website,
+          discord: this.discord,
+          instagram: this.instagram,
+          name: this.name,
+          photoLocation: this.photoLocation,
+        })
+        .then(
+          (res) => {},
+          (err) => reject(err)
+        );
+    });
+  }
   _resetImage() {
     this.profilePicInput = "";
   }

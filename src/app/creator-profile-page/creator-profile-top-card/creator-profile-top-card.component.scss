@@ -137,8 +137,27 @@
         }
     }
 }
+.socials-column {
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+.secondary-name {
+    margin-top: 10px;
+    color: #7E7878;
+}
+.hover-color {
+    transition: 0.3s linear;
+    &:hover {
+        filter: brightness(95%);
+        transform: filter;
+    }
+}
 .profile-top-card-box-1 {
     width: 100%;
+    z-index: 2;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -153,9 +172,12 @@
     background: #fcfcfc;
     box-shadow: 0.9203247427940369px 0.9203247427940369px 1.8406494855880737px rgba(0, 0, 0, 0.25);
 }
+.pr-2px {
+    padding-right: 2px;
+}
 .name-stats-profile {
     display: flex;
-    height: 70%;
+    height: 60%;
     width: 100%;
     justify-content: space-between;
     align-items: center;

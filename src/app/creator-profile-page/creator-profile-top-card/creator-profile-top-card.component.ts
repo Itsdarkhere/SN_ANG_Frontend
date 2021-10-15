@@ -7,6 +7,9 @@ import { FollowChangeObservableResult } from "../../../lib/observable-results/fo
 import { AppRoutingModule } from "../../app-routing.module";
 import { FollowButtonComponent } from "../../follow-button/follow-button.component";
 import { Router } from "@angular/router";
+import { BsModalService } from "ngx-bootstrap/modal";
+import { AngularFirestore } from "@angular/fire/firestore";
+
 @Component({
   selector: "creator-profile-top-card",
   templateUrl: "./creator-profile-top-card.component.html",
@@ -30,8 +33,15 @@ export class CreatorProfileTopCardComponent implements OnInit, OnDestroy {
   followingCount: number = null;
   refreshFollowingBeingCalled = false;
   publicKeyIsCopied = false;
+  profileData: any;
 
-  constructor(private _globalVars: GlobalVarsService, private backendApi: BackendApiService, private router: Router) {
+  constructor(
+    private firestore: AngularFirestore,
+    private _globalVars: GlobalVarsService,
+    private backendApi: BackendApiService,
+    private router: Router,
+    private modalService: BsModalService
+  ) {
     this.globalVars = _globalVars;
 
     // If the user follows/unfollows this user, update the follower count
@@ -53,6 +63,7 @@ export class CreatorProfileTopCardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._refreshFollowing();
+    this.getProfileSocials();
   }
 
   unblock() {
@@ -62,14 +73,19 @@ export class CreatorProfileTopCardComponent implements OnInit, OnDestroy {
   block() {
     this.userBlocked.emit(this.profile.PublicKeyBase58Check);
   }
-
+  getProfileSocials() {
+    return this.firestore
+      .collection("profile-details")
+      .doc(this.profile.PublicKeyBase58Check)
+      .valueChanges()
+      .subscribe((res) => (this.profileData = res));
+  }
   reportUser(): void {
     this.globalVars.logEvent("post : report-user");
     window.open(
       `https://report.bitclout.com/account?ReporterPublicKey=${this.globalVars.loggedInUser?.PublicKeyBase58Check}&ReportedAccountPublicKey=${this.profile.PublicKeyBase58Check}`
     );
   }
-
   updateWellKnownCreatorsList(): void {
     this.updateCreatorFeaturedTutorialList(true, this.profile.IsFeaturedTutorialWellKnownCreator);
   }
@@ -211,5 +227,8 @@ export class CreatorProfileTopCardComponent implements OnInit, OnDestroy {
 
   getFoundersRewardPercent() {
     return this.profile.CoinEntry.CreatorBasisPoints / 100;
+  }
+  copyURL() {
+    navigator.clipboard.writeText(window.location.href);
   }
 }

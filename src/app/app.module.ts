@@ -174,6 +174,9 @@ import { PlaceABidComponent } from "./place-a-bid/place-a-bid.component";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { ClickoutsideDirective } from "./directives/clickoutside.directive";
 import { TransferModalComponent } from "./transfer-modal/transfer-modal.component";
+import { AngularFireModule } from "@angular/fire";
+import { AngularFireStorageModule } from "@angular/fire/storage";
+import { environment } from "src/environments/environment.prod";
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -332,6 +335,8 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
     DragDropModule,
     AppRoutingModule,
     FormsModule,

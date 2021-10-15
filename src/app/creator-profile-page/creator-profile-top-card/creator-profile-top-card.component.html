@@ -2,11 +2,15 @@
   <div class="profile-top-card-box-1">
     <div class="profile-img-cover" [avatar]="profile.PublicKeyBase58Check"></div>
     <div>
-      <button class="br-30px m-10px pt-5px pb-5px pl-10px pr-10px top-card-button">
+      <button
+        *ngIf="globalVars.loggedInUser?.PublicKeyBase58Check != profile.PublicKeyBase58Check"
+        class="br-30px m-10px pt-5px pb-5px pl-10px pr-10px top-card-button hover-color"
+        (click)="messageUser()"
+      >
         <img src="./assets/icons/profile-email.png" class="profile-button-icon" />
         Message
       </button>
-      <button class="br-30px m-10px pt-5px pb-5px pl-10px pr-10px top-card-button">
+      <button class="br-30px m-10px pt-5px pb-5px pl-10px pr-10px top-card-button hover-color" (click)="copyURL()">
         <img src="./assets/icons/profile-share.png" class="profile-button-icon" />
         Share
       </button>
@@ -15,27 +19,30 @@
   <div class="user-info">
     <div class="followers_inline_row flex-column">
       <div class="name-stats-profile">
-        <h5 class="bold usr_nm">
-          @{{ profile.Username }} &nbsp;
-          <ng-container
-            *ngIf="profile.IsReserved && !profile.IsVerified"
-            (click)="tooltip.toggle()"
-            matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
-            [matTooltip]="'This profile is reserved'"
-            #tooltip="matTooltip"
-          >
-            <i class="far fa-clock"></i>
-          </ng-container>
-          <ng-container
-            *ngIf="profile.IsVerified"
-            (click)="tooltip.toggle()"
-            matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
-            [matTooltip]="'This account is verified'"
-            #tooltip="matTooltip"
-          >
-            <i class="fas fa-check-circle text-primary"></i>
-          </ng-container>
-        </h5>
+        <div class="mt-20px">
+          <h5 *ngIf="profileData?.name">{{ profileData?.name }}</h5>
+          <h5 class="bold usr_nm" [ngClass]="profileData?.name ? 'secondary-name' : ''">
+            @{{ profile.Username }} &nbsp;
+            <ng-container
+              *ngIf="profile.IsReserved && !profile.IsVerified"
+              (click)="tooltip.toggle()"
+              matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
+              [matTooltip]="'This profile is reserved'"
+              #tooltip="matTooltip"
+            >
+              <i class="far fa-clock"></i>
+            </ng-container>
+            <ng-container
+              *ngIf="profile.IsVerified"
+              (click)="tooltip.toggle()"
+              matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
+              [matTooltip]="'This account is verified'"
+              #tooltip="matTooltip"
+            >
+              <i class="fas fa-check-circle text-primary"></i>
+            </ng-container>
+          </h5>
+        </div>
         <div class="followers-row">
           <div
             class="cursor-pointer"
@@ -61,41 +68,8 @@
           </div>
         </div>
       </div>
-      <div class="btn_cover_sec">
+      <div class="btn_cover_sec mt-10px">
         <div class="btn-cover">
-          <div
-            *ngIf="!profileBelongsToLoggedInUser() && globalVars.loggedInUser"
-            class="fs-15px pr-15px follow_ellips"
-            dropdown
-            container="body"
-          >
-            <a class="link--unstyled text-grey9 link--unstyled text-grey9" dropdownToggle>
-              <i class="fas fa-ellipsis-h"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right p-0 border background-color-light-grey fs-15px" *dropdownMenu>
-              <a
-                class="dropdown-menu-item d-block link--unstyled p-10px feed-post__dropdown-menu-item"
-                (click)="reportUser()"
-              >
-                <i class="fas fa-flag"></i>
-                Report User
-              </a>
-              <a
-                class="dropdown-menu-item d-block link--unstyled p-10px feed-post__dropdown-menu-item"
-                (click)="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check) ? unblock() : block()"
-              >
-                <i class="fas fa-ban"></i>
-                {{ globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check) ? "Unblock" : "Block" }} User
-              </a>
-              <a
-                class="dropdown-menu-item d-block link--unstyled p-10px feed-post__dropdown-menu-item"
-                (click)="messageUser()"
-              >
-                <i class="fas fa-envelope"></i>
-                Message User
-              </a>
-            </div>
-          </div>
           <button
             class="btn btn-buy"
             [routerLink]="AppRoutingModule.buyCreatorPath(profile.Username)"
@@ -133,23 +107,75 @@
         <h6 class="founder-reward-text">FOUNDER REWARD {{ getFoundersRewardPercent() | number: "0.0-9" }}%</h6>
       </div>
     </div>
-    <div class="flex-center flex-column w-10 mt-30px">
-      <div class="social-link-div">
+    <div class="socials-column w-10">
+      <div
+        *ngIf="!profileBelongsToLoggedInUser() && globalVars.loggedInUser"
+        class="fs-15px pr-15px follow_ellips"
+        dropdown
+        container="body"
+      >
+        <a class="link--unstyled text-grey9 link--unstyled text-grey9" dropdownToggle>
+          <i class="fas fa-ellipsis-h"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right p-0 border background-color-light-grey fs-15px" *dropdownMenu>
+          <a
+            class="dropdown-menu-item d-block link--unstyled p-10px feed-post__dropdown-menu-item"
+            (click)="reportUser()"
+          >
+            <i class="fas fa-flag"></i>
+            Report User
+          </a>
+          <a
+            class="dropdown-menu-item d-block link--unstyled p-10px feed-post__dropdown-menu-item"
+            (click)="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check) ? unblock() : block()"
+          >
+            <i class="fas fa-ban"></i>
+            {{ globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check) ? "Unblock" : "Block" }} User
+          </a>
+          <a
+            class="dropdown-menu-item d-block link--unstyled p-10px feed-post__dropdown-menu-item"
+            (click)="messageUser()"
+          >
+            <i class="fas fa-envelope"></i>
+            Message User
+          </a>
+        </div>
+      </div>
+      <a
+        *ngIf="profileData?.website"
+        href="https://discord.gg/{{ profileData.world }}"
+        target="_blank"
+        class="social-link-div pr-2px hover-color"
+      >
         <img src="/assets/icons/profile-world-icon.svg" />
-      </div>
-      <div class="social-link-div">
+      </a>
+      <a
+        *ngIf="profileData?.twitter"
+        href="https://www.twitter.com/{{ profileData.twitter }}"
+        target="_blank"
+        class="social-link-div hover-color"
+      >
         <img src="assets/icons/profile-twitter-icon.svg" />
-      </div>
-      <div class="social-link-div">
+      </a>
+      <a
+        *ngIf="profileData?.instagram"
+        href="https://www.instagram.com/{{ profileData.instagram }}"
+        target="_blank"
+        class="social-link-div hover-color"
+      >
         <img src="assets/icons/profile-instagram-icon.svg" />
-      </div>
-      <div class="social-link-div">
+      </a>
+      <a
+        *ngIf="profileData?.discord"
+        href="https://www.discord.gg/{{ profileData.dicord }}"
+        target="_blank"
+        class="social-link-div hover-color"
+      >
         <img src="assets/icons/profile-discord-icon.svg" />
-      </div>
+      </a>
     </div>
   </div>
   <div class="bio-cover">
-    <h6>BIO</h6>
     <p [innerHTML]="profile.Description | sanitizeAndAutoLink"></p>
   </div>
 </div>

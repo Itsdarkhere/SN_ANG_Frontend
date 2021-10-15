@@ -5,7 +5,6 @@ import { BidPlacedModalComponent } from "../bid-placed-modal/bid-placed-modal.co
 import { BackendApiService, NFTEntryResponse, PostEntryResponse } from "../backend-api.service";
 import * as _ from "lodash";
 import { Router } from "@angular/router";
-import { filter, take } from "rxjs/operators";
 import { InfiniteScroller } from "../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
 

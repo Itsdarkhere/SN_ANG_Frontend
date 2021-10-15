@@ -3,9 +3,14 @@
 <!--Profile not found-->
 <not-found *ngIf="!profile && !loading"></not-found>
 
-<div *ngIf="profile && !loading" class="flex-grow-1">
-  <!-- Top Card With Creator Info -->
-  <div class="profile-cover-image"></div>
+<div *ngIf="profile && !loading" class="flex-grow-1 creator-profile-details-container">
+  <!-- Top Card With Creator Info [ngClass]="profileCardUrl ? '' : 'default-image'" *ngFor="profileCardUrl; let url"-->
+  <div class="profile-cover-image">
+    <div>
+      <img *ngIf="this.profileCardUrl" [src]="profileCardUrl" class="firebase-cover-image" />
+      <img *ngIf="!this.profileCardUrl" src="/assets/img/cover-image.png" class="firebase-cover-image" />
+    </div>
+  </div>
   <div class="profile-content-container">
     <creator-profile-top-card
       *ngIf="profile && !loading"

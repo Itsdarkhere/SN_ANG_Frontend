@@ -1,11 +1,27 @@
+.creator-profile-details-container {
+    max-width: 915px;
+}
 .profile-cover-image {
+    position: relative;
     width: 100%;
-    background-image: url("/assets/img/cover-image.png");
+    z-index: 0;
     background-size: cover;
     margin-top: 20px;
     height: 250px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.default-image {
+    background-image: url("/assets/img/cover-image.png");
+}
+.firebase-cover-image {
+    object-fit: cover;
+    min-width: 100%;
+    min-height: 250px;
 }
 .profile-content-container {
     width: 95%;

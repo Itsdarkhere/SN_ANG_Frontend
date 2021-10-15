@@ -7,6 +7,10 @@ import { SwalHelper } from "../../../lib/helpers/swal-helper";
 import { CreatorProfileTopCardComponent } from "../creator-profile-top-card/creator-profile-top-card.component";
 import { Title } from "@angular/platform-browser";
 import { environment } from "src/environments/environment";
+import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from "@angular/fire/storage";
+import { Observable } from "rxjs";
+import { AngularFirestore } from "@angular/fire/firestore";
+import { map, finalize } from "rxjs/operators";
 
 @Component({
   selector: "creator-profile-details",
@@ -30,26 +34,38 @@ export class CreatorProfileDetailsComponent implements OnInit {
     Diamonds: "diamonds",
     NFTs: "nfts",
   };
+
   appData: GlobalVarsService;
   userName: string;
   profile: ProfileEntryResponse;
   activeTab: string;
   loading: boolean;
+  profileCardUrl: any = "";
+  showDefaultImage: boolean = false;
+  // Firebase
+  ref: AngularFireStorageReference;
+  task: AngularFireUploadTask;
+  uploadProgress: Observable<number>;
+  profileData: any;
 
   // emits the UserUnblocked event
   @Output() userUnblocked = new EventEmitter();
 
   constructor(
+    private afStorage: AngularFireStorage,
     private globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private router: Router,
     private location: Location,
-    private titleService: Title
+    private titleService: Title,
+    private firestore: AngularFirestore
   ) {
     this.route.params.subscribe((params) => {
       this.userName = params.username;
+      this.titleService.setTitle(this.userName + ` on ${environment.node.name}`);
+      this.profileCardUrl = "";
       this._refreshContent();
     });
     this.route.queryParams.subscribe((params) => {
@@ -61,6 +77,7 @@ export class CreatorProfileDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.profileCardUrl = "";
     this.titleService.setTitle(this.userName + ` on ${environment.node.name}`);
   }
 
@@ -158,6 +175,7 @@ export class CreatorProfileDetailsComponent implements OnInit {
 
   _refreshContent() {
     if (this.loading) {
+      console.log("loading");
       return;
     }
 
@@ -175,7 +193,12 @@ export class CreatorProfileDetailsComponent implements OnInit {
           return;
         }
         this.profile = res.Profile;
-        this.loading = false;
+        // Load profile until request has gone trough
+        try {
+          this.getProfileSocials().catch(() => (this.loading = false));
+        } catch (error) {
+          this.loading = false;
+        }
       },
       (_) => {
         this.loading = false;
@@ -183,6 +206,28 @@ export class CreatorProfileDetailsComponent implements OnInit {
     );
   }
 
+  // first get photo ID from db, then get photo from storage
+  async getProfileSocials() {
+    try {
+      this.firestore
+        .collection("profile-details")
+        .doc(this.profile?.PublicKeyBase58Check)
+        .valueChanges()
+        .subscribe((res) =>
+          this.afStorage
+            .ref(this.profile?.PublicKeyBase58Check)
+            .child(res["photoLocation"])
+            .getDownloadURL()
+            .toPromise()
+            .then((res) => (this.profileCardUrl = res))
+            .then(() => (this.loading = false))
+            .catch(() => (this.loading = false))
+        );
+    } catch (error) {
+      console.log("Error");
+    }
+    this.loading = false;
+  }
   _handleTabClick(tabName: string) {
     this.activeTab = tabName;
     // Update query params to reflect current tab

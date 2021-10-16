@@ -4,8 +4,12 @@
 <not-found *ngIf="!profile && !loading"></not-found>
 
 <div *ngIf="profile && !loading" class="flex-grow-1 creator-profile-details-container">
-  <img *ngIf="profileCardUrl" id="banner-image" [src]="profileCardUrl" class="firebase-cover-image" />
-  <img *ngIf="!profileCardUrl" src="./assets/img/default-banner.webp" class="firebase-cover-image" />
+  <img
+    id="banner-image"
+    [src]="profileCardUrl"
+    class="firebase-cover-image"
+    onerror="this.src='./assets/img/default-banner.webp'"
+  />
 
   <div class="profile-content-container">
     <creator-profile-top-card

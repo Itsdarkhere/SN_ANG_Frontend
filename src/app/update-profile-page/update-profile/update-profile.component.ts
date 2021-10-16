@@ -350,7 +350,6 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
             "https://ik.imagekit.io/s93qwyistj0/banner-image/tr:w-915,h-250" + cacheBust
           );
           document.getElementById("banner-image").setAttribute("src", url);
-          this.profileCardUrl = url;
         });
     } catch (error) {
       console.log("Error");

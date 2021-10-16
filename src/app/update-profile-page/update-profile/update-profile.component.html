@@ -182,8 +182,13 @@
             915px / 250px is the recommended size. ( The image below is slightly slimmer )
           </label>
           <div>
-            <img *ngIf="profileCardUrl" id="banner-image" src="./assets/img/default-banner.webp" class="banner-image" />
-            <img *ngIf="!profileCardUrl" src="./assets/img/default-banner.webp" class="banner-image" />
+            <img
+              id="banner-image"
+              [src]="profileCardUrl"
+              class="firebase-cover-image"
+              onerror="this.src='./assets/img/default-banner.webp'"
+            />
+
             <div class="mt-10px" style="position: relative">
               <input
                 class="file-upload-button"

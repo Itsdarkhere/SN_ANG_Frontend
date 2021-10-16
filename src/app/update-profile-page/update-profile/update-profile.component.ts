@@ -40,11 +40,11 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
   // Used for storing firebase response
   profileData: any;
   // Used for storing input value changes
-  twitter: string = "";
-  discord: string = "";
-  website: string = "";
-  instagram: string = "";
-  name: string = "";
+  twitter: string;
+  discord: string;
+  website: string;
+  instagram: string;
+  name: string;
   photoLocation: string = "";
 
   updateProfileBeingCalled: boolean = false;
@@ -82,7 +82,7 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     this._updateFormBasedOnLoggedInUser();
     this.titleService.setTitle(`Update Profile - ${environment.node.name}`);
     this.getOnlyProfileSocials();
-    this.getProfileSocials().then((res) => console.log(res));
+    this.getProfileSocials2().then((res) => console.log(res));
   }
 
   // This is used to handle any changes to the loggedInUser elegantly.
@@ -307,7 +307,7 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     this._readImageFileToProfilePicInput(fileToUpload);
   }
 
-  _handleFileInput2(files: FileList) {
+  _uploadBannerImage(files: FileList) {
     let fileToUpload = files.item(0);
     if (!fileToUpload.type || !fileToUpload.type.startsWith("image/")) {
       this.globalVars._alertError("File selected does not have an image file type.");
@@ -317,15 +317,15 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
       this.globalVars._alertError("Please upload an image that is smaller than 5MB.");
       return;
     }
-
+    // Random key for image, for cache busting
     this.photoLocation = (Math.random() + 1).toString(36).substring(7);
 
+    // Store image location into db
     this.updateSocials();
-
-    this.ref = this.afStorage.ref(this.globalVars.loggedInUser?.PublicKeyBase58Check).child(this.photoLocation);
-    // child((Math.random() + 1).toString(36).substring(7))
+    // .child(this.photoLocation)
+    // Here store the image itself
+    this.ref = this.afStorage.ref(this.globalVars.loggedInUser?.PublicKeyBase58Check);
     this.task = this.ref.put(fileToUpload);
-    //this.getProfileSocials().then((res) => console.log(res));
   }
 
   getOnlyProfileSocials() {
@@ -334,6 +334,24 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
       .doc(this.globalVars.loggedInUser?.PublicKeyBase58Check)
       .valueChanges()
       .subscribe((res) => (this.profileData = res));
+  }
+  async getProfileSocials2() {
+    try {
+      this.afStorage
+        .ref(this.loggedInUser?.PublicKeyBase58Check)
+        .getDownloadURL()
+        .toPromise()
+        .then(function (url) {
+          url = url.replace(
+            "https://firebasestorage.googleapis.com",
+            "https://ik.imagekit.io/s93qwyistj0/banner-image/tr:w-915,h-250"
+          );
+          document.getElementById("banner-image").setAttribute("src", url);
+          //this.profileCardUrl = url;
+        });
+    } catch (error) {
+      console.log("Error");
+    }
   }
 
   async getProfileSocials() {
@@ -360,7 +378,6 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
       this.profilePicInput = `data:${file.type};base64,${base64Image}`;
     };
   }
-
   updateSocials() {
     if (this.profileData) {
       return new Promise<any>((resolve, reject) => {
@@ -368,11 +385,11 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
           .collection("profile-details")
           .doc(this.globalVars.loggedInUser?.PublicKeyBase58Check)
           .set({
-            twitter: this.profileData.twitter ? this.profileData.twitter : this.twitter,
-            website: this.profileData.website ? this.profileData.website : this.website,
-            discord: this.profileData.discord ? this.profileData.discord : this.discord,
-            instagram: this.profileData.instagram ? this.profileData.instagram : this.instagram,
-            name: this.profileData.name ? this.profileData.name : this.name,
+            twitter: typeof this.twitter === "undefined" ? this.profileData.twitter : this.twitter,
+            website: typeof this.website === "undefined" ? this.profileData.website : this.website,
+            discord: typeof this.discord === "undefined" ? this.profileData.discord : this.discord,
+            instagram: typeof this.instagram === "undefined" ? this.profileData.instagram : this.instagram,
+            name: typeof this.name === "undefined" ? this.profileData.name : this.name,
             photoLocation: this.photoLocation != "" ? this.photoLocation : this.profileData.photoLocation,
           })
           .then(
@@ -387,11 +404,11 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
         .collection("profile-details")
         .doc(this.globalVars.loggedInUser?.PublicKeyBase58Check)
         .set({
-          twitter: this.twitter,
-          website: this.website,
-          discord: this.discord,
-          instagram: this.instagram,
-          name: this.name,
+          twitter: typeof this.twitter === "undefined" ? "" : this.twitter,
+          website: typeof this.website === "undefined" ? "" : this.website,
+          discord: typeof this.discord === "undefined" ? "" : this.discord,
+          instagram: typeof this.instagram === "undefined" ? "" : this.instagram,
+          name: typeof this.name === "undefined" ? "" : this.name,
           photoLocation: this.photoLocation,
         })
         .then(

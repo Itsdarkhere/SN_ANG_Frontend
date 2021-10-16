@@ -15,9 +15,6 @@
     align-items: center;
     overflow: hidden;
 }
-.default-image {
-    background-image: url("/assets/img/cover-image.png");
-}
 .firebase-cover-image {
     object-fit: cover;
     min-width: 100%;

@@ -3949,7 +3949,11 @@ option {
     box-shadow: none !important;
     border-radius: 12px !important;
 }
-
+.default-banner-image {
+    width: 100%;
+    height: 100%;
+    background-color: #f6f6f6;
+}
 .social_links {
     display: none;
     padding: 0;

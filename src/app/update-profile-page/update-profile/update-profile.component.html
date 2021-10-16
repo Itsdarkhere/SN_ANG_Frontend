@@ -65,7 +65,7 @@
             maxlength="30"
             placeholder="Your full name or artist name, which will be visible on your profile. ( Optional )"
             value="{{ this.profileData?.name ? this.profileData?.name : '' }}"
-            [(ngModel)]="this.profileData?.name ? this.profileData.name : this.name"
+            [(ngModel)]="this.name"
             class="form-control fs-15px lh-18px p-10px"
           />
         </div>
@@ -97,7 +97,7 @@
             type="text"
             placeholder="Your Twitter username without the '@'' sign"
             value="{{ this.profileData?.twitter ? this.profileData?.twitter : '' }}"
-            [(ngModel)]="this.profileData?.twitter ? this.profileData.twitter : this.twitter"
+            [(ngModel)]="this.twitter"
           />
         </div>
         <div class="social-input">
@@ -108,7 +108,7 @@
             type="text"
             placeholder="Your instagram username without the '@'' sign"
             value="{{ this.profileData?.instagram ? this.profileData?.instagram : '' }}"
-            [(ngModel)]="this.profileData?.instagram ? this.profileData.instagram : this.instagram"
+            [(ngModel)]="this.instagram"
           />
         </div>
         <div class="social-input">
@@ -119,7 +119,7 @@
             type="text"
             placeholder="The ID in your Discord server invite link"
             value="{{ this.profileData?.discord ? this.profileData?.discord : '' }}"
-            [(ngModel)]="this.profileData?.discord ? this.profileData.discord : this.discord"
+            [(ngModel)]="this.discord"
           />
         </div>
         <div class="social-input">
@@ -130,7 +130,7 @@
             type="text"
             placeholder="Your website URL"
             value="{{ this.profileData?.website ? this.profileData?.website : '' }}"
-            [(ngModel)]="this.profileData?.website ? this.profileData.website : this.website"
+            [(ngModel)]="this.website"
           />
         </div>
         <div class="mt-30px font-weight-bold">Avatar</div>
@@ -172,8 +172,9 @@
           <div>
             <div class="banner-image-container">
               <div>
-                <img [src]="profileCardUrl" class="banner-image" />
+                <img [src]="profileCardUrl" id="banner-image" class="banner-image" />
               </div>
+              <div *ngIf="!profileCardUrl" class="default-banner-image"></div>
             </div>
 
             <div class="mt-10px" style="position: relative">
@@ -182,7 +183,7 @@
                 type="file"
                 accept="image/png, image/jpeg, image/webp"
                 id="file"
-                (change)="_handleFileInput2($event.target.files)"
+                (change)="_uploadBannerImage($event.target.files)"
                 style="
                   position: absolute;
                   left: 0;

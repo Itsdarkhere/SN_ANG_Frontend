@@ -192,10 +192,11 @@ export class CreatorProfileDetailsComponent implements OnInit {
           this.router.navigateByUrl("/" + this.appData.RouteNames.NOT_FOUND, { skipLocationChange: true });
           return;
         }
+        console.log(res);
         this.profile = res.Profile;
         // Load profile until request has gone trough
         try {
-          this.getProfileSocials().catch(() => (this.loading = false));
+          this.getProfileSocials2().catch(() => (this.loading = false));
         } catch (error) {
           this.loading = false;
         }
@@ -207,6 +208,29 @@ export class CreatorProfileDetailsComponent implements OnInit {
   }
 
   // first get photo ID from db, then get photo from storage
+  async getProfileSocials2() {
+    try {
+      this.afStorage
+        .ref(this.profile?.PublicKeyBase58Check)
+        .getDownloadURL()
+        .toPromise()
+        .then(function (url) {
+          url = url.replace(
+            "https://firebasestorage.googleapis.com",
+            "https://ik.imagekit.io/s93qwyistj0/banner-image/tr:w-915,h-250"
+          );
+          document.getElementById("banner-image").setAttribute("src", url);
+          //this.profileCardUrl = url;
+        })
+        //.then((res) => (this.profileCardUrl = res))
+        .then(() => (this.loading = false))
+        .catch(() => (this.loading = false));
+    } catch (error) {
+      console.log("Error");
+    }
+    this.loading = false;
+  }
+
   async getProfileSocials() {
     try {
       this.firestore
@@ -219,7 +243,15 @@ export class CreatorProfileDetailsComponent implements OnInit {
             .child(res["photoLocation"])
             .getDownloadURL()
             .toPromise()
-            .then((res) => (this.profileCardUrl = res))
+            .then(function (url) {
+              url = url.replace(
+                "https://firebasestorage.googleapis.com",
+                "https://ik.imagekit.io/s93qwyistj0/banner-image/tr:w-915,h-250"
+              );
+              document.getElementById("banner-image").setAttribute("src", url);
+              //this.profileCardUrl = url;
+            })
+            //.then((res) => (this.profileCardUrl = res))
             .then(() => (this.loading = false))
             .catch(() => (this.loading = false))
         );

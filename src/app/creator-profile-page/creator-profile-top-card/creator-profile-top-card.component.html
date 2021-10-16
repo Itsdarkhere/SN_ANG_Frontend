@@ -20,7 +20,7 @@
     <div class="followers_inline_row flex-column">
       <div class="name-stats-profile">
         <div class="mt-20px">
-          <h5 *ngIf="profileData?.name">{{ profileData?.name }}</h5>
+          <h5 class="bold usr_nm" *ngIf="profileData?.name">{{ profileData?.name }}</h5>
           <h5 class="bold usr_nm" [ngClass]="profileData?.name ? 'secondary-name' : ''">
             @{{ profile.Username }} &nbsp;
             <ng-container
@@ -143,7 +143,7 @@
       </div>
       <a
         *ngIf="profileData?.website"
-        href="https://discord.gg/{{ profileData.world }}"
+        href="{{ profileData.world }}"
         target="_blank"
         class="social-link-div pr-2px hover-color"
       >

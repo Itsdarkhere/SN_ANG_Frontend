@@ -230,5 +230,6 @@ export class CreatorProfileTopCardComponent implements OnInit, OnDestroy {
   }
   copyURL() {
     navigator.clipboard.writeText(window.location.href);
+    this.globalVars._alertSuccess("URL copied!");
   }
 }

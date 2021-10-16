@@ -1,15 +1,17 @@
 .creator-profile-details-container {
     max-width: 915px;
+    margin-top: 20px;
+    @media (max-width: 900px) {
+        margin-top: 65px;
+    }
 }
 .firebase-cover-image {
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     max-width: 100%;
     max-height: 250px;
-    margin-top: 20px;
     @media (max-width: 900px) {
         border-radius: 0;
-        margin-top: 65px;
     }
 }
 .profile-content-container {

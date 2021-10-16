@@ -90,7 +90,10 @@
         </div>
         <div class="mt-30px font-weight-bold">Social links</div>
         <div class="social-input">
-          <label class="social-label">twitter.com/</label>
+          <label class="social-label">
+            <img src="assets/icons/profile-twitter-icon.svg" class="pr-5px" />
+            twitter.com/
+          </label>
           <input
             maxlength="30"
             class="social-input-inner"
@@ -101,7 +104,10 @@
           />
         </div>
         <div class="social-input">
-          <label class="social-label">instagram.com/</label>
+          <label class="social-label">
+            <img src="assets/icons/profile-instagram-icon.svg" class="pr-5px" />
+            instagram.com/
+          </label>
           <input
             maxlength="30"
             class="social-input-inner"
@@ -112,7 +118,10 @@
           />
         </div>
         <div class="social-input">
-          <label class="social-label">discord.gg/</label>
+          <label class="social-label">
+            <img src="assets/icons/profile-discord-icon.svg" class="pr-5px" />
+            discord.gg/
+          </label>
           <input
             maxlength="30"
             class="social-input-inner"
@@ -123,7 +132,10 @@
           />
         </div>
         <div class="social-input">
-          <label class="social-label">Website</label>
+          <label class="social-label">
+            <img src="assets/icons/profile-world-icon.svg" class="pr-5px minus-margin" />
+            Website
+          </label>
           <input
             maxlength="30"
             class="social-input-inner"
@@ -170,11 +182,10 @@
             915px / 250px is the recommended size. ( The image below is slightly slimmer )
           </label>
           <div>
-            <div class="banner-image-container">
+            <div class="banner-image-container default-banner-color">
               <div>
                 <img [src]="profileCardUrl" id="banner-image" class="banner-image" />
               </div>
-              <div *ngIf="!profileCardUrl" class="default-banner-image"></div>
             </div>
 
             <div class="mt-10px" style="position: relative">

@@ -82,7 +82,7 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     this._updateFormBasedOnLoggedInUser();
     this.titleService.setTitle(`Update Profile - ${environment.node.name}`);
     this.getOnlyProfileSocials();
-    this.getProfileSocials2().then((res) => console.log(res));
+    this.loadBannerImage();
   }
 
   // This is used to handle any changes to the loggedInUser elegantly.
@@ -318,14 +318,17 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
       return;
     }
     // Random key for image, for cache busting
-    this.photoLocation = (Math.random() + 1).toString(36).substring(7);
+    //this.photoLocation = (Math.random() + 1).toString(36).substring(7);
 
     // Store image location into db
-    this.updateSocials();
-    // .child(this.photoLocation)
+    //this.updateSocials();
+
     // Here store the image itself
     this.ref = this.afStorage.ref(this.globalVars.loggedInUser?.PublicKeyBase58Check);
     this.task = this.ref.put(fileToUpload);
+
+    // load image again
+    this.loadBannerImage("buster23445");
   }
 
   getOnlyProfileSocials() {
@@ -335,7 +338,7 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
       .valueChanges()
       .subscribe((res) => (this.profileData = res));
   }
-  async getProfileSocials2() {
+  async loadBannerImage(cacheBust: string = "") {
     try {
       this.afStorage
         .ref(this.loggedInUser?.PublicKeyBase58Check)
@@ -344,7 +347,7 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
         .then(function (url) {
           url = url.replace(
             "https://firebasestorage.googleapis.com",
-            "https://ik.imagekit.io/s93qwyistj0/banner-image/tr:w-915,h-250"
+            "https://ik.imagekit.io/s93qwyistj0/banner-image/tr:w-915,h-250" + cacheBust
           );
           document.getElementById("banner-image").setAttribute("src", url);
           //this.profileCardUrl = url;
@@ -378,6 +381,7 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
       this.profilePicInput = `data:${file.type};base64,${base64Image}`;
     };
   }
+
   updateSocials() {
     if (this.profileData) {
       return new Promise<any>((resolve, reject) => {
@@ -398,6 +402,7 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
           );
       });
     }
+
     // This should only happen on the very first update of profile
     return new Promise<any>((resolve, reject) => {
       this.firestore

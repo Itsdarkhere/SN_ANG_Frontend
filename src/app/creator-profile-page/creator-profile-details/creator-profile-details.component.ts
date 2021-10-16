@@ -192,7 +192,6 @@ export class CreatorProfileDetailsComponent implements OnInit {
           this.router.navigateByUrl("/" + this.appData.RouteNames.NOT_FOUND, { skipLocationChange: true });
           return;
         }
-        console.log(res);
         this.profile = res.Profile;
         // Load profile until request has gone trough
         try {
@@ -208,6 +207,7 @@ export class CreatorProfileDetailsComponent implements OnInit {
   }
 
   // first get photo ID from db, then get photo from storage
+  // This version gets it straight from user publickey, so dont need to make an extra roundtrip to db
   async getProfileSocials2() {
     try {
       this.afStorage
@@ -219,6 +219,7 @@ export class CreatorProfileDetailsComponent implements OnInit {
             "https://firebasestorage.googleapis.com",
             "https://ik.imagekit.io/s93qwyistj0/banner-image/tr:w-915,h-250"
           );
+
           document.getElementById("banner-image").setAttribute("src", url);
           //this.profileCardUrl = url;
         })
@@ -231,6 +232,7 @@ export class CreatorProfileDetailsComponent implements OnInit {
     this.loading = false;
   }
 
+  // This version would get stuff from db, making it slower / but would bust the cache
   async getProfileSocials() {
     try {
       this.firestore

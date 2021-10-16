@@ -4,7 +4,7 @@
     <div>
       <button
         *ngIf="globalVars.loggedInUser?.PublicKeyBase58Check != profile.PublicKeyBase58Check"
-        class="br-30px m-10px pt-5px pb-5px pl-10px pr-10px top-card-button hover-color"
+        class="br-30px m-10px pt-5px pb-5px pl-10px pr-10px top-card-button hover-color top-card-button-message"
         (click)="messageUser()"
       >
         <img src="./assets/icons/profile-email.png" class="profile-button-icon" />
@@ -104,7 +104,6 @@
             <span>Unblock</span>
           </a>
         </div>
-        <h6 class="founder-reward-text">FOUNDER REWARD {{ getFoundersRewardPercent() | number: "0.0-9" }}%</h6>
       </div>
     </div>
     <div class="socials-column w-10">
@@ -143,7 +142,7 @@
       </div>
       <a
         *ngIf="profileData?.website"
-        href="{{ profileData.world }}"
+        href="{{ profileData.website }}"
         target="_blank"
         class="social-link-div pr-2px hover-color"
       >

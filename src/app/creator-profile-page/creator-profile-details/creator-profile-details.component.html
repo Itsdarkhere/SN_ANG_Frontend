@@ -4,12 +4,10 @@
 <not-found *ngIf="!profile && !loading"></not-found>
 
 <div *ngIf="profile && !loading" class="flex-grow-1 creator-profile-details-container">
-  <!-- Top Card With Creator Info [ngClass]="profileCardUrl ? '' : 'default-image'" *ngFor="profileCardUrl; let url"-->
-  <div class="profile-cover-image">
+  <div class="profile-cover-image default-banner-color">
     <div>
       <img id="banner-image" [src]="profileCardUrl" class="firebase-cover-image" />
     </div>
-    <!--<div *ngIf="!this.profileCardUrl" class="default-banner-image"></div>-->
   </div>
   <div class="profile-content-container">
     <creator-profile-top-card

@@ -79,6 +79,8 @@ job "supernovas-frontend" {
         https://api.blockchain.com/ticker
         https://api.blockchain.com/mempool/fees
         https://ka-f.fontawesome.com/
+        https://firestore.googleapis.com
+        https://firebasestorage.googleapis.com
         bitcoinfees.earn.com
         api.blockcypher.com 
         amp.bitclout.com
@@ -90,6 +92,8 @@ job "supernovas-frontend" {
         https://supernovas.app
         https://supernovas.app:*
         https://bitclout.com/tags.js
+        https://firestore.googleapis.com
+        https://firebasestorage.googleapis.com
         https://www.googletagmanager.com
         https://cdn.jsdelivr.net/npm/sweetalert2@10 
         https://kit.fontawesome.com/070ca4195b.js 
@@ -97,7 +101,7 @@ job "supernovas-frontend" {
       style-src 'self' 'unsafe-inline' 
         https://fonts.googleapis.com;
       img-src 'self' data: 
-        ik.imagekit.io
+        https://ik.imagekit.io
         https://i.imgur.com
         https://images.bitclout.com 
         https://arweave.net
@@ -119,6 +123,8 @@ job "supernovas-frontend" {
         https://open.spotify.com
         https://w.soundcloud.com
         https://iframe.videodelivery.net
+        https://firestore.googleapis.com
+        https://firebasestorage.googleapis.com
         pay.testwyre.com
         pay.sendwyre.com;
       frame-ancestors 'self';

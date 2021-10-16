@@ -97,6 +97,7 @@ job "supernovas-frontend" {
       style-src 'self' 'unsafe-inline' 
         https://fonts.googleapis.com;
       img-src 'self' data: 
+        ik.imagekit.io
         https://i.imgur.com
         https://images.bitclout.com 
         https://arweave.net

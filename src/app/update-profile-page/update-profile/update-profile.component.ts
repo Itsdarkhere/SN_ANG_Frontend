@@ -330,7 +330,9 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     // load image again
     this.loadBannerImage("buster23445");
   }
-
+  onImgError(event) {
+    event.target.src = "./assets/img/default-banner.webp";
+  }
   getOnlyProfileSocials() {
     return this.firestore
       .collection("profile-details")
@@ -350,6 +352,7 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
             "https://ik.imagekit.io/s93qwyistj0/banner-image/tr:w-915,h-250" + cacheBust
           );
           document.getElementById("banner-image").setAttribute("src", url);
+          this.profileCardUrl = url;
         });
     } catch (error) {
       console.log("Error");

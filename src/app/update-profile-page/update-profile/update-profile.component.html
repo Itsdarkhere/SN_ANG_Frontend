@@ -185,8 +185,9 @@
             <img
               id="banner-image"
               [src]="profileCardUrl"
-              class="firebase-cover-image"
-              onerror="this.src='./assets/img/default-banner.webp'"
+              (error)="onImgError($event)"
+              class="banner-image"
+              (error)="onImgError($event)"
             />
 
             <div class="mt-10px" style="position: relative">

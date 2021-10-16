@@ -183,12 +183,7 @@
           </label>
           <div>
             <img *ngIf="profileCardUrl" id="banner-image" src="./assets/img/default-banner.webp" class="banner-image" />
-            <img
-              *ngIf="!profileCardUrl"
-              id="banner-image"
-              src="./assets/img/default-banner.webp"
-              class="banner-image"
-            />
+            <img *ngIf="!profileCardUrl" src="./assets/img/default-banner.webp" class="banner-image" />
             <div class="mt-10px" style="position: relative">
               <input
                 class="file-upload-button"

@@ -330,9 +330,6 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     // load image again
     this.loadBannerImage("buster23445");
   }
-  onImgError(event) {
-    event.target.src = "./assets/img/default-banner.webp";
-  }
   getOnlyProfileSocials() {
     return this.firestore
       .collection("profile-details")

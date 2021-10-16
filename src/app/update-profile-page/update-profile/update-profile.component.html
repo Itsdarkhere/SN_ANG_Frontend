@@ -182,11 +182,12 @@
             915px / 250px is the recommended size. ( The image below is slightly slimmer )
           </label>
           <div>
-            <div class="banner-image-container default-banner-color">
-              <div>
-                <img [src]="profileCardUrl" id="banner-image" class="banner-image" />
-              </div>
-            </div>
+            <img
+              [src]="profileCardUrl"
+              id="banner-image"
+              class="banner-image"
+              this.onerror="src='/assets/img/default-banner.webp'"
+            />
 
             <div class="mt-10px" style="position: relative">
               <input

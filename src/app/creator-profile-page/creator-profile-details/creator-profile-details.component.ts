@@ -195,9 +195,9 @@ export class CreatorProfileDetailsComponent implements OnInit {
         this.profile = res.Profile;
         // Load profile until request has gone trough
         try {
-          this.getProfileSocials2().catch(() => (this.loading = false));
+          this.getBannerImage().catch(() => console.log("Error"));
         } catch (error) {
-          this.loading = false;
+          console.log("Error");
         }
       },
       (_) => {
@@ -208,7 +208,7 @@ export class CreatorProfileDetailsComponent implements OnInit {
 
   // first get photo ID from db, then get photo from storage
   // This version gets it straight from user publickey, so dont need to make an extra roundtrip to db
-  async getProfileSocials2() {
+  async getBannerImage() {
     try {
       this.afStorage
         .ref(this.profile?.PublicKeyBase58Check)
@@ -223,9 +223,9 @@ export class CreatorProfileDetailsComponent implements OnInit {
           document.getElementById("banner-image").setAttribute("src", url);
           //this.profileCardUrl = url;
         })
+        .catch(() => (this.loading = false))
         //.then((res) => (this.profileCardUrl = res))
-        .then(() => (this.loading = false))
-        .catch(() => (this.loading = false));
+        .then(() => (this.loading = false));
     } catch (error) {
       console.log("Error");
     }

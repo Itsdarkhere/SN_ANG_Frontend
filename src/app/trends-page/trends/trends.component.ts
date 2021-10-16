@@ -299,8 +299,7 @@ export class TrendsComponent implements OnInit {
         this.globalVars.localNode,
         this.PKList[this.index],
         this.globalVars.loggedInUser?.PublicKeyBase58Check,
-        true,
-        false
+        true
       )
       .subscribe(
         (res: {

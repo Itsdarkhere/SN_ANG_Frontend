@@ -5,7 +5,7 @@
 
 <div *ngIf="profile && !loading" class="flex-grow-1 creator-profile-details-container">
   <img *ngIf="profileCardUrl" id="banner-image" [src]="profileCardUrl" class="firebase-cover-image" />
-  <img *ngIf="!profileCardUrl" src="/src/assets/img/default-banner.webp" class="firebase-cover-image" />
+  <img *ngIf="!profileCardUrl" src="./assets/img/default-banner.webp" class="firebase-cover-image" />
 
   <div class="profile-content-container">
     <creator-profile-top-card

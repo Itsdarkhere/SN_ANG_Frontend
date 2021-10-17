@@ -346,7 +346,8 @@
           <ul class="mb-5px">
             <li>
               <span *ngIf="usernameMap[item.key]" class="font-weight-bold fc-blue">{{ usernameMap[item.key] }}:</span>
-              {{ item.key.slice(0, 15) }}...
+              {{ item.key }}
+              {{ item.username }}
               <ul>
                 <li>
                   RemoveEverywhere:
@@ -359,6 +360,10 @@
                 <li>
                   GrantlistPosts:
                   <span class="fc-blue">{{ item.value.WhitelistPosts }}</span>
+                </li>
+                <li>
+                  JumioVerified:
+                  <span class="fc-blue">{{ item.value.JumioVerified }}</span>
                 </li>
               </ul>
             </li>

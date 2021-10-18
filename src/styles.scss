@@ -504,6 +504,9 @@ $green-font-color: #19b028;
 .background-color-grey {
     background-color: var(--border);
 } // mocks call this G4
+.background-color-message-selected {
+    background: #eff3ff;
+}
 .background-color-light-grey {
     background-color: var(--secondary);
 }
@@ -1049,7 +1052,9 @@ $green-font-color: #19b028;
 .br-12px {
     border-radius: $feed-border-radius;
 }
-
+.vh-80 {
+    height: 80vh !important;
+}
 .vh-100 {
     height: 100vh !important;
 }
@@ -2136,16 +2141,10 @@ input.bs-timepicker-field {
         background-color: var(--secondary);
     }
 }
-
 .messages-inbox__desktop-column {
     width: 100%;
     max-width: 380px;
-    border-left: solid 1px var(--border);
-    border-right: solid 1px var(--border);
-}
-
-.messages-inbox__selected-thread {
-    border-right: solid 3px $buy-button-blue;
+    //border-right: solid 1px var(--border);
 }
 
 .messages-inbox__threads {
@@ -2158,23 +2157,39 @@ input.bs-timepicker-field {
     margin: 0;
     float: left;
 }
-
+.messages-top-bar-height {
+    height: 40px !important;
+    min-height: 40px !important;
+}
+.background-messages-light {
+    background-color: #FCFCFC;
+}
 .messages-thread__avatar {
-    height: 45px;
-    width: 45px;
-    min-width: 45px;
-    border-radius: 12px;
+    height: 27px;
+    width: 27px;
+    min-width: 27px;
+    border-radius: 30px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 }
-
+.messages-thread__avatar_send_message {
+    height: 27px;
+    width: 27px;
+    min-width: 27px;
+    border-radius: 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 .messages-thread__desktop-column {
     width: 100%;
-    max-width: 600px;
-    border-right: solid 1px var(--secondary);
 }
-
+.messages_container {
+    position: relative;
+    border: 3.6670053005218506px solid #ebebeb;
+    border-radius: 24.446701049804688px;
+}
 .messages-thread__border-radius {
     border-radius: 12px;
 }
@@ -2191,24 +2206,24 @@ input.bs-timepicker-field {
 }
 
 .message__avatar {
-    height: 40px;
-    width: 40px;
-    min-width: 40px;
-    border-radius: 12px;
+    height: 27px;
+    width: 27px;
+    min-width: 27px;
+    border-radius: 30px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .message__avatar-placeholder {
-    width: 40px;
-    min-width: 40px;
+    width: 27px;
+    min-width: 27px;
     border-radius: 12px;
 }
 
 .message__sender-bubble-color {
-    background-color: #005bff;
-    color: white;
+    background-color: #eeeded;
+    color: var(--text);
 }
 
 .message__non-sender-bubble-color {

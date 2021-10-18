@@ -1,0 +1,15 @@
+<app-header></app-header>
+<div [class]="mobile ? 'global__mobile' : 'global__desktop'">
+  <div class="m_inner_wrapper">
+    <left-bar-mobile *ngIf="mobile"></left-bar-mobile>
+
+    <div class="global__content__flex">
+      <ng-content></ng-content>
+      <bottom-bar-mobile
+        *ngIf="mobile"
+        class="global__bottom-bar-mobile scrolled"
+        [showPostButton]="showPostButton"
+      ></bottom-bar-mobile>
+    </div>
+  </div>
+</div>

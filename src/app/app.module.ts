@@ -177,6 +177,7 @@ import { TransferModalComponent } from "./transfer-modal/transfer-modal.componen
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireStorageModule } from "@angular/fire/storage";
 import { environment } from "src/environments/environment.prod";
+import { PageSmallNavComponent } from './page-small-nav/page-small-nav.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -332,6 +333,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     TransferModalComponent,
     AdminNodeFeesComponent,
     AdminNodeAddFeesComponent,
+    PageSmallNavComponent,
   ],
   imports: [
     BrowserModule,

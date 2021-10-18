@@ -394,7 +394,9 @@ export class GlobalVarsService {
   }
 
   getLinkForReferralHash(referralHash: string) {
-    return `${window.location.origin}?r=${referralHash}`;
+    // FIXME: Generalize this once there are referral programs running
+    // on other nodes.
+    return `https://diamondapp.com?r=${referralHash}`;
   }
 
   hasUserBlockedCreator(publicKeyBase58Check): boolean {
@@ -836,7 +838,7 @@ export class GlobalVarsService {
 
   launchIdentityFlow(event: string): void {
     this.logEvent(`account : ${event} : launch`);
-    this.identityService.launch("/log-in?accessLevelRequest=4", { referralCode: localStorage.getItem("referralCode") }).subscribe((res) => {
+    this.identityService.launch("/log-in", { accessLevelRequest: 4, referralCode: localStorage.getItem("referralCode") }).subscribe((res) => {
       this.logEvent(`account : ${event} : success`);
       this.backendApi.setIdentityServiceUsers(res.users, res.publicKeyAdded);
       this.updateEverything().add(() => {
@@ -891,7 +893,7 @@ export class GlobalVarsService {
       if (environment.production) {
         this.localNode = hostname;
       } else {
-        this.localNode = `api.love4src.com`;
+        this.localNode = `${hostname}:17001`;
       }
 
       this.backendApi.SetStorage(this.backendApi.LastLocalNodeKey, this.localNode);

@@ -21,6 +21,7 @@ export class MessagesPageComponent {
   selectedThreadProfilePic = "";
   showThreadView = false;
   AppRoutingModule = AppRoutingModule;
+  isSearchOpen: boolean = false;
 
   constructor(
     public globalVars: GlobalVarsService,
@@ -57,7 +58,12 @@ export class MessagesPageComponent {
   _settingsTrayBeOpen() {
     return this.globalVars.openSettingsTray;
   }
-
+  showSearchBar() {
+    //debugger
+    this.isSearchOpen = !this.isSearchOpen;
+    // document.getElementById('mb-inp-searchbar').focus();
+    //console.log(document.getElementById('mb-inp-searchbar'));
+  }
   // This marks all messages as read and relays this request to the server.
   _markAllMessagesReadMobile() {
     for (let thread of this.globalVars.messageResponse.OrderedContactsWithMessages) {

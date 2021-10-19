@@ -4,37 +4,60 @@
   class="w-100 messages-top-bar-height global__top-bar__height border-bottom border-color-grey d-flex align-items-center pl-15px fs-22px font-weight-bold"
 >
   <!-- Clear Inbox -->
-
-  CHAT
+  <img src="/assets/icons/chat-plane-icon.svg" class="mr-10px" />
+  Messages
 
   <!-- Settings -->
-  <div class="d-flex w-100 justify-content-end align-items-right pr-10px">
-    <button (click)="_toggleSettingsTray()" class="chat-settings">Settings</button>
+  <div class="d-flex w-100 h-100 justify-content-end align-items-center pr-10px">
+    <div class="h-100 flex-center mr-10px">
+      <img
+        src="assets/icons/search-icon-mobile.svg"
+        class="messages-search-icon"
+        alt=""
+        (click)="showSearchBar()"
+        *ngIf="!isSearchOpen"
+      />
+      <i class="icon-close" *ngIf="isSearchOpen" (click)="showSearchBar()" title="Close search"></i>
+    </div>
+    <button class="chat-new-message" (click)="showSearchBar()">
+      <img src="/assets/icons/new-message.svg" class="pr-5px" />
+      New
+    </button>
   </div>
-</div>
-
-<div *ngIf="_settingsTrayIsOpen()">
-  <messages-filter-menu></messages-filter-menu>
 </div>
 
 <div *ngIf="messageThreads" class="messages-inbox__threads vh-100 disable-scrollbars">
   <!-- Search -->
-  <div class="search-bar-messages">
-    <search-bar
+  <div class="search-bar-messages border-bottom border-color-grey">
+    <!--<search-bar
       [showCloutavista]="false"
       [isSearchForUsersToMessage]="true"
       [startingSearchText]="startingSearchText"
       (creatorToMessage)="_handleCreatorSelectedInSearch($event)"
       class="pb-15px"
-    ></search-bar>
+    ></search-bar>-->
+    <select
+      *ngIf="!isSearchOpen"
+      #selectElem
+      class="inbox-select search-bar-cover global__top-bar__height br-30px"
+      (change)="_handleTabClick(selectElem.value)"
+    >
+      <option class="inbox-select-option" selected="{{ activeTab === 'All messages' }}">All messages</option>
+      <option class="inbox-select-option" selected="{{ activeTab === 'My holders' }}">My holders</option>
+      <option class="inbox-select-option" selected="{{ activeTab === 'Custom' }}">Custom</option>
+    </select>
+    <div class="search-bar-cover">
+      <search-bar
+        *ngIf="isSearchOpen"
+        [showCloutavista]="false"
+        [isSearchForUsersToMessage]="true"
+        [startingSearchText]="Search"
+        placeHolder="Search your messages..."
+        (creatorToMessage)="_handleCreatorSelectedInSearch($event)"
+        class="pb-15px"
+      ></search-bar>
+    </div>
   </div>
-
-  <!-- Tabs -->
-  <tab-selector
-    [tabs]="['All', 'My Holders', 'Custom']"
-    [activeTab]="activeTab"
-    (tabClick)="_handleTabClick($event)"
-  ></tab-selector>
 
   <!-- NOTE: We add any newMessageThread to the front of our messageThread array. -->
   <!-- This is used to handle the creation of new message threads. -->

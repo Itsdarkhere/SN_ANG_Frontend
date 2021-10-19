@@ -13,13 +13,13 @@ export class MessagesInboxComponent implements OnInit, OnChanges {
   static CONTACT_US_USERNAME = "clippy";
 
   static QUERYTOTAB = {
-    all: "All",
-    "my-holders": "My Holders",
+    "all-messages": "All messages",
+    "my-holders": "My holders",
     custom: "Custom",
   };
   static TABTOQUERY = {
-    All: "all",
-    "My Holders": "my-holders",
+    "All messages": "all-messages",
+    "My holders": "my-holders",
     Custom: "custom",
   };
 
@@ -31,6 +31,7 @@ export class MessagesInboxComponent implements OnInit, OnChanges {
   fetchingMoreMessages: boolean = false;
   activeTab: string;
   startingSearchText: string;
+  isSearchOpen: boolean = false;
 
   // The contact to select by default, passed in via query param. Note: if the current user
   // doesn't have a conversation with the contact, these parameters do nothing.
@@ -53,7 +54,7 @@ export class MessagesInboxComponent implements OnInit, OnChanges {
 
       // Set the default active tab if there's nothing saved in local storage
       if (this.activeTab === null) {
-        this.activeTab = "My Holders";
+        this.activeTab = "My holders";
       }
 
       // Handle the tab click if the stored messages are from a different tab
@@ -160,24 +161,32 @@ export class MessagesInboxComponent implements OnInit, OnChanges {
         this.fetchingMoreMessages = false;
       });
   }
+  showSearchBar() {
+    //debugger
+    this.isSearchOpen = !this.isSearchOpen;
+    // document.getElementById('mb-inp-searchbar').focus();
+    //console.log(document.getElementById('mb-inp-searchbar'));
+  }
 
-  _handleTabClick(tabName: any) {
+  _handleTabClick(value) {
     // Clear the current messages
     this.globalVars.messageResponse = null;
 
     // Make sure the tab is set in the url
-    this.activeTab = tabName;
+    this.activeTab = value;
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { messagesTab: MessagesInboxComponent.TABTOQUERY[tabName] },
+      queryParams: { messagesTab: MessagesInboxComponent.TABTOQUERY[value] },
       queryParamsHandling: "merge",
     });
-
     // Set the most recent tab in local storage
-    this.backendApi.SetStorage("mostRecentMessagesTab", tabName);
+    this.backendApi.SetStorage("mostRecentMessagesTab", value);
+
 
     // Fetch initial messages for the new tab
     this.globalVars.SetupMessages();
+
+    return value;
   }
 
   _toggleSettingsTray() {

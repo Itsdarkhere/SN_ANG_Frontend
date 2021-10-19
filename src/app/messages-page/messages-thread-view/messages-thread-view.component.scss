@@ -31,16 +31,20 @@
     height: 44px !important;
 }
 .btn-send-message {
-    border: 2px solid #4a4a4a;
-    border-radius: 3.8229804039001465px;
+    background: #252525;
+    border: 2.1423492431640625px solid #5f5f5f;
+    border-radius: 5.355873107910156px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 25px;
-    width: 32px;
+    height: 33px;
+    width: 42px;
     margin-right: 10px;
     transition: 0.3s linear;
     &:hover {
         transform: scale(1.05);
     }
+}
+.fa-spin {
+    color: white !important;
 }

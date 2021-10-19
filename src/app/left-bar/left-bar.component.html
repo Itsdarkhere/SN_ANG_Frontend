@@ -23,13 +23,6 @@
       ></left-bar-button>
 
       <left-bar-button
-        [forMobile]="true"
-        [link]="'/' + globalVars.RouteNames.INBOX_PREFIX"
-        [buttonLabel]="'Messages'"
-        [imgSrc]="'assets/icons/message_nv.svg'"
-      ></left-bar-button>
-
-      <left-bar-button
         [forDesktop]="true"
         [imgSrc]="'assets/icons/feed-icon.svg'"
         [link]="homeLink()"
@@ -48,6 +41,13 @@
         [queryParams]="{ nftTab: 'my_bids', tab: 'nfts' }"
         [buttonLabel]="'Active bids'"
         [imgSrc]="'assets/icons/bid-icon.svg'"
+        *ngIf="globalVars.loggedInUser?.ProfileEntryResponse"
+      ></left-bar-button>
+
+      <left-bar-button
+        [link]="'/' + globalVars.RouteNames.INBOX_PREFIX"
+        [buttonLabel]="'Messages'"
+        [imgSrc]="'assets/icons/chat-plane-icon.svg'"
         *ngIf="globalVars.loggedInUser?.ProfileEntryResponse"
       ></left-bar-button>
 

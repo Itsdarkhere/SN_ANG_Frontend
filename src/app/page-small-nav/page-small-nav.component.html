@@ -1,7 +1,8 @@
 <app-header></app-header>
-<div [class]="mobile ? 'global__mobile' : 'global__desktop'">
+<div [class]="mobile ? 'global__mobile' : 'global__desktop'" class="position-relative">
   <div class="m_inner_wrapper">
     <left-bar-mobile *ngIf="mobile"></left-bar-mobile>
+    <app-small-left-bar *ngIf="!mobile"></app-small-left-bar>
 
     <div class="global__content__flex">
       <ng-content></ng-content>

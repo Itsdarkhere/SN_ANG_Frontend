@@ -232,7 +232,7 @@ export class GlobalVarsService {
 
     let storedTab = this.backendApi.GetStorage("mostRecentMessagesTab");
     if (storedTab === null) {
-      storedTab = "My Holders";
+      storedTab = "My holders";
       this.backendApi.SetStorage("mostRecentMessagesTab", storedTab);
     }
 
@@ -245,7 +245,7 @@ export class GlobalVarsService {
     // Set the request parameters if it's a known tab.
     // Custom is set in the filter menu component and saved in local storage.
     if (tabName !== "Custom") {
-      this.messagesRequestsHoldersOnly = tabName === "My Holders";
+      this.messagesRequestsHoldersOnly = tabName === "My holders";
       this.messagesRequestsHoldingsOnly = false;
       this.messagesRequestsFollowersOnly = false;
       this.messagesRequestsFollowedOnly = false;

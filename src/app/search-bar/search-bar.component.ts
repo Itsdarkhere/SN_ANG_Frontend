@@ -31,6 +31,7 @@ export class SearchBarComponent implements OnInit, OnChanges {
   @Input() showCloutavista: boolean = true;
   @Input() isSearchForUsersToSendDESO: boolean;
   @Input() startingSearchText: string;
+  @Input() placeHolder: string;
   @Output() creatorToMessage = new EventEmitter<any>();
   searchText: string;
   creators: ProfileEntryResponse[] = [];

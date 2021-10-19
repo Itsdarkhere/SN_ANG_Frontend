@@ -2,7 +2,7 @@
   DESKTOP
   -->
 <app-page-small-nav>
-  <div class="global__content__width vh-80 d-flex mt-20px messages_container" *ngIf="!globalVars.isMobile()">
+  <div class="d-flex mt-20px messages_container" *ngIf="!globalVars.isMobile()">
     <messages-inbox
       class="messages-inbox__desktop-column"
       (selectedThreadEmitter)="selectedThread = $event"
@@ -23,30 +23,41 @@
   <!--
   MOBILE
   -->
-  <div class="global__mobile flex-column pdt" *ngIf="globalVars.isMobile()">
+  <div class="messages_container_mobile" *ngIf="globalVars.isMobile()">
     <left-bar-mobile></left-bar-mobile>
 
     <div class="d-flex flex-column flex-grow-1 vh-100">
       <!-- Inbox Header -->
       <div
         *ngIf="!showThreadView"
-        class="global__top-bar__height d-flex align-items-center fs-18px font-weight-bold pl-15px"
+        class="messages-top-bar-height d-flex align-items-center fs-18px font-weight-bold pl-15px"
       >
-        Chat
+        <img src="/assets/icons/chat-plane-icon.svg" class="mr-10px" />
+        Messages
 
         <!-- Settings -->
         <div class="d-flex w-100 justify-content-end align-items-right pr-10px">
-          <i
-            (click)="_toggleSettingsTray()"
-            class="fas fa-sliders-h cursor-pointer messages-header-icon-row__icon pt-2px"
-          ></i>
+          <div class="h-100 flex-center mr-10px">
+            <img
+              src="assets/icons/search-icon-mobile.svg"
+              class="messages-search-icon"
+              alt=""
+              (click)="showSearchBar()"
+              *ngIf="!isSearchOpen"
+            />
+            <i class="icon-close" *ngIf="isSearchOpen" (click)="showSearchBar()" title="Close search"></i>
+          </div>
+          <button class="chat-new-message">
+            <img src="/assets/icons/new-message.svg" class="pr-5px" />
+            New
+          </button>
         </div>
       </div>
 
       <!-- Thread View Header -->
       <div
         *ngIf="showThreadView"
-        class="global__top-bar__height d-flex align-items-center fs-18px font-weight-bold pl-15px"
+        class="messages-top-bar-height d-flex align-items-center fs-18px font-weight-bold pl-15px"
       >
         <div class="cursor-pointer color-grey7 mr-15px">
           <a class="link--unstyled" style="text-align: center" (click)="navigateToInbox()" queryParamsHandling="merge">
@@ -78,7 +89,7 @@
       </div>
 
       <!-- Scrollable Content -->
-      <div class="global__mobile-scrollable-section">
+      <div class="messages-mobile-scrollable-section">
         <messages-inbox
           *ngIf="!showThreadView"
           class="global__mobile-scrollable-section"

@@ -25,7 +25,7 @@
   </div>
 </div>
 
-<div *ngIf="messageThreads" class="messages-inbox__threads vh-100 disable-scrollbars">
+<div *ngIf="messageThreads" class="messages-inbox__threads h-100 disable-scrollbars">
   <!-- Search -->
   <div class="inbox-search-container border-bottom border-color-grey">
     <select
@@ -73,7 +73,15 @@
     <div *ngIf="!fetchingMoreMessages" class="fs-15px">Load More</div>
     <div *ngIf="fetchingMoreMessages" class="fs-15px">Loading...</div>
   </div>
-
-  <div class="global__bottom-bar-mobile-height"></div>
+  <div *ngIf="isMobile">
+    <div class="global__bottom-bar-mobile-height"></div>
+    <div class="global__bottom-bar-mobile-height"></div>
+    <div class="global__bottom-bar-mobile-height"></div>
+  </div>
   <div class="global__bottom-bar-mobile-height"></div>
 </div>
+<bottom-bar-mobile
+  *ngIf="isMobile"
+  class="global__bottom-bar-mobile scrolled"
+  [showPostButton]="showPostButton"
+></bottom-bar-mobile>

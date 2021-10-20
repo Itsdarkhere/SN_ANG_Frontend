@@ -1059,7 +1059,7 @@ $green-font-color: #19b028;
     max-height: calc(800px - 60px);
 }
 .messages_scroll_height_mobile {
-    height: calc(100vh - 186px) !important;
+    height: calc(100vh - 126px) !important;
 }
 .vh-100 {
     height: 100vh !important;
@@ -2169,7 +2169,6 @@ input.bs-timepicker-field {
 .messages-inbox__desktop-column {
     width: 100%;
     max-width: 380px;
-    //border-right: solid 1px var(--border);
 }
 
 .messages-inbox__threads {
@@ -2233,7 +2232,16 @@ input.bs-timepicker-field {
     position: relative;
     border: 3.6670053005218506px solid #ebebeb;
     border-radius: 24.446701049804688px;
-    max-height: calc(100vh - 140px);
+    max-height: calc(100vh - 80px);
+    overflow: hidden;
+    width: 100% !important;
+}
+.messages_container_mobile_with_bottom {
+    margin-top: 70px;
+    position: relative;
+    border: 3.6670053005218506px solid #ebebeb;
+    border-radius: 24.446701049804688px;
+    max-height: calc(100vh - 145px);
     overflow: hidden;
     width: 100% !important;
 }

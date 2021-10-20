@@ -23,7 +23,10 @@
   <!--
   MOBILE
   -->
-  <div class="messages_container_mobile" *ngIf="globalVars.isMobile()">
+  <div
+    [ngClass]="!showThreadView ? 'messages_container_mobile_with_bottom' : 'messages_container_mobile'"
+    *ngIf="globalVars.isMobile()"
+  >
     <left-bar-mobile></left-bar-mobile>
 
     <div class="d-flex flex-column flex-grow-1 vh-100 max-w-100vw">

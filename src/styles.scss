@@ -928,7 +928,6 @@ $green-font-color: #19b028;
 .mr-15px {
     margin-right: 15px;
 }
-
 .mb-15px {
     margin-bottom: 15px;
 }
@@ -1056,10 +1055,17 @@ $green-font-color: #19b028;
     border-radius: $feed-border-radius;
 }
 .messages_scroll_height {
-    height: calc(83vh - 126px) !important;
+    height: calc(83vh - 46px) !important;
+    max-height: calc(800px - 60px);
+}
+.messages_scroll_height_mobile {
+    height: calc(100vh - 186px) !important;
 }
 .vh-100 {
     height: 100vh !important;
+}
+.max-w-100vw {
+    max-width: 100vw;
 }
 
 .position-fixed {
@@ -1696,7 +1702,7 @@ input.bs-timepicker-field {
     border-right-color: rgba(0, 0, 0, 0);
 }
 .br-30px {
-    border-radius: 30px;
+    border-radius: 30px !important;
 }
 .search-bar__results-dropdown {
     box-shadow: rgba(101, 119, 134, 0.2) 0px 0px 15px, rgba(101, 119, 134, 0.15) 0px 0px 3px 1px;
@@ -2140,7 +2146,13 @@ input.bs-timepicker-field {
     background-color: var(--background) !important;
     top: -13px;
 }
-
+.mobile-messages-thread-name-avatar {
+    width: 100%;
+    margin-right: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .messages-header-icon-row__icon {
     font-size: 20px;
     border-radius: 25%;
@@ -2148,6 +2160,11 @@ input.bs-timepicker-field {
     &:hover {
         background-color: var(--secondary);
     }
+}
+.messages-thread-view {
+    //height: 100%;
+    height: calc(83vh - 46px);
+    max-height: 800px;
 }
 .messages-inbox__desktop-column {
     width: 100%;
@@ -2157,6 +2174,7 @@ input.bs-timepicker-field {
 
 .messages-inbox__threads {
     overflow-y: scroll;
+    border-right: 1px solid var(--border);
     // Subtract the height of the search and header
     height: calc(100% - 160px);
 }
@@ -2190,12 +2208,21 @@ input.bs-timepicker-field {
     background-repeat: no-repeat;
     background-position: center;
 }
+.avatar-box-send-message {
+    position: absolute;
+    top: 9px;
+    left: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
 .messages-thread__desktop-column {
     width: 100%;
 }
 .messages_container {
     position: relative;
     height: 83vh;
+    max-height: 800px;
     overflow: hidden;
     border: 3.6670053005218506px solid #ebebeb;
     border-radius: 24.446701049804688px;
@@ -2227,21 +2254,24 @@ input.bs-timepicker-field {
         transform: scale(1.05);
     }
 }
-.search-bar-messages {
-    height: 80px !important;
-    text-align: center;
-}
 .inbox-select {
+    //margin: 20px 20px 15px 15px;
     padding-left: 10px;
-    margin: 20px 20px 15px 15px;
     height: 36.5px;
     width: calc(100% - 30px);
     border: 0.9287535548210144px solid var(--border);
     //background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right rgb(255, 255, 255);
-    background: url("/assets/icons/chevron_right.svg") no-repeat right rgb(255, 255, 255);
-    background-size: 20px;
+    background: url("/assets/icons/chevron-down.svg") no-repeat right rgb(255, 255, 255);
+    background-size: 12px;
     -webkit-appearance: none;
     background-position-x: calc(100% - 10px);
+}
+.inbox-search-cover {
+    height: 36.5px;
+    width: 100%;
+    .form-control {
+        border-radius: 30px;
+    }
 }
 .inbox-search-bar-container {
     width: calc(100% - 40px) !important;
@@ -2251,14 +2281,24 @@ input.bs-timepicker-field {
 }
 
 .messages-thread__ellipsis-restriction {
+    color: var(--textalt);
     display: block;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-
+.messages-thread__ellipsis-restriction-username {
+    color: var(--text);
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.messages-search-icon {
+    transform: scale(0.8) !important;
+}
 .message__min-height {
-    min-height: 40px;
+    min-height: 30px;
 }
 
 .message__avatar {
@@ -2776,7 +2816,12 @@ input.bs-timepicker-field {
     -moz-appearance: none;
     appearance: none;
 }
-
+.message-search-cover {
+    width: 100%;
+    .form-control {
+        border-radius: 30px;
+    }
+}
 .search-bar-cover {
     .form-control {
         border-radius: 30px;
@@ -3157,14 +3202,17 @@ input {
 }
 
 .notification {
-    border-radius: 3px;
-    background-color: var(--background);
-    color: #fe3537;
-    border: 1px #fe3537 solid;
-    text-align: center;
-    line-height: 18px;
+    margin-left: 10px;
+    width: auto;
+    padding-left: 5px;
+    padding-right: 5px;
     height: 20px;
-    padding: 0px 5px;
+    font-size: 12px;
+    color: #ffffff;
+    background: #f5685f;
+    border: 1.2572486400604248px solid #ffffff;
+    border-radius: 20px;
+    box-shadow: 0px 1.625px 8.125px rgba(0, 0, 0, 0.1);
 }
 
 .bg-light {

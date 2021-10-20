@@ -177,8 +177,8 @@ import { TransferModalComponent } from "./transfer-modal/transfer-modal.componen
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireStorageModule } from "@angular/fire/storage";
 import { environment } from "src/environments/environment.prod";
-import { PageSmallNavComponent } from './page-small-nav/page-small-nav.component';
-import { SmallLeftBarComponent } from './small-left-bar/small-left-bar.component';
+import { PageSmallNavComponent } from "./page-small-nav/page-small-nav.component";
+import { SmallLeftBarComponent } from "./small-left-bar/small-left-bar.component";
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };

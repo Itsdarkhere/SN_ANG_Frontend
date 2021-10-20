@@ -15,12 +15,10 @@ export class MessagesInboxComponent implements OnInit, OnChanges {
   static QUERYTOTAB = {
     "all-messages": "All messages",
     "my-holders": "My holders",
-    custom: "Custom",
   };
   static TABTOQUERY = {
     "All messages": "all-messages",
     "My holders": "my-holders",
-    Custom: "custom",
   };
 
   @Input() messageThreads: any;
@@ -54,9 +52,8 @@ export class MessagesInboxComponent implements OnInit, OnChanges {
 
       // Set the default active tab if there's nothing saved in local storage
       if (this.activeTab === null) {
-        this.activeTab = "My holders";
+        this.activeTab = "All messages";
       }
-
       // Handle the tab click if the stored messages are from a different tab
       if (this.activeTab !== storedTab) {
         this._handleTabClick(this.activeTab);
@@ -174,6 +171,7 @@ export class MessagesInboxComponent implements OnInit, OnChanges {
 
     // Make sure the tab is set in the url
     this.activeTab = value;
+    console.log(value);
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { messagesTab: MessagesInboxComponent.TABTOQUERY[value] },
@@ -181,7 +179,6 @@ export class MessagesInboxComponent implements OnInit, OnChanges {
     });
     // Set the most recent tab in local storage
     this.backendApi.SetStorage("mostRecentMessagesTab", value);
-
 
     // Fetch initial messages for the new tab
     this.globalVars.SetupMessages();

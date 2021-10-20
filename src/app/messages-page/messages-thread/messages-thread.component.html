@@ -16,7 +16,7 @@
   <div class="flex-grow-1 fs-15px ml-15px" style="overflow: hidden">
     <div class="d-flex align-items-center" style="overflow: hidden; white-space: pre">
       <div class="flex-grow-1 d-flex align-items-center" style="overflow: hidden">
-        <div class="messages-thread__ellipsis-restriction">
+        <div class="messages-thread__ellipsis-restriction-username">
           @{{
             thread.ProfileEntryResponse && thread.ProfileEntryResponse.Username
               ? thread.ProfileEntryResponse.Username
@@ -33,7 +33,10 @@
     </div>
     <div *ngIf="thread.Messages.length > 0">
       <!-- If we are the sender, we need to bank on the decryptedMessageMap having the decrypted text. -->
-      <div *ngIf="thread.Messages[thread.Messages.length - 1].IsSender" class="messages-thread__ellipsis-restriction">
+      <div
+        *ngIf="thread.Messages[thread.Messages.length - 1].IsSender"
+        class="messages-thread__ellipsis-restriction w-90"
+      >
         {{
           globalVars.messageMeta.decryptedMessgesMap[
             thread.Messages[thread.Messages.length - 1].SenderPublicKeyBase58Check +
@@ -49,7 +52,10 @@
         }}
       </div>
       <!-- If we are not the sender, we have the decrypted text so we show that. -->
-      <div *ngIf="!thread.Messages[thread.Messages.length - 1].IsSender" class="messages-thread__ellipsis-restriction">
+      <div
+        *ngIf="!thread.Messages[thread.Messages.length - 1].IsSender"
+        class="messages-thread__ellipsis-restriction w-90"
+      >
         {{ thread.Messages[thread.Messages.length - 1].DecryptedText }}
       </div>
     </div>

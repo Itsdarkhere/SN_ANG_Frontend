@@ -26,66 +26,40 @@
   <div class="messages_container_mobile" *ngIf="globalVars.isMobile()">
     <left-bar-mobile></left-bar-mobile>
 
-    <div class="d-flex flex-column flex-grow-1 vh-100">
-      <!-- Inbox Header -->
-      <div
-        *ngIf="!showThreadView"
-        class="messages-top-bar-height d-flex align-items-center fs-18px font-weight-bold pl-15px"
-      >
-        <img src="/assets/icons/chat-plane-icon.svg" class="mr-10px" />
-        Messages
-
-        <!-- Settings -->
-        <div class="d-flex w-100 justify-content-end align-items-right pr-10px">
-          <div class="h-100 flex-center mr-10px">
-            <img
-              src="assets/icons/search-icon-mobile.svg"
-              class="messages-search-icon"
-              alt=""
-              (click)="showSearchBar()"
-              *ngIf="!isSearchOpen"
-            />
-            <i class="icon-close" *ngIf="isSearchOpen" (click)="showSearchBar()" title="Close search"></i>
-          </div>
-          <button class="chat-new-message">
-            <img src="/assets/icons/new-message.svg" class="pr-5px" />
-            New
-          </button>
-        </div>
-      </div>
-
+    <div class="d-flex flex-column flex-grow-1 vh-100 max-w-100vw">
       <!-- Thread View Header -->
       <div
         *ngIf="showThreadView"
-        class="messages-top-bar-height d-flex align-items-center fs-18px font-weight-bold pl-15px"
+        class="messages-top-bar-height d-flex align-items-center fs-18px font-weight-bold pl-15px border-bottom border-color-grey"
       >
         <div class="cursor-pointer color-grey7 mr-15px">
           <a class="link--unstyled" style="text-align: center" (click)="navigateToInbox()" queryParamsHandling="merge">
-            <i class="fa fa-angle-left"></i>
+            <img src="/assets/icons/arrow-left.svg" />
           </a>
         </div>
-
-        <div
-          class="messages-thread__avatar mr-15px"
-          [avatar]="selectedThread.PublicKeyBase58Check"
-          [ngClass]="{ 'cursor-auto': !selectedThread.ProfileEntryResponse }"
-          [routerLink]="
-            selectedThread.ProfileEntryResponse ? AppRoutingModule.profilePath(selectedThreadDisplayName) : []
-          "
-          queryParamsHandling="merge"
-        ></div>
-        <a
-          class="link--unstyled"
-          [routerLink]="
-            selectedThread.ProfileEntryResponse ? AppRoutingModule.profilePath(selectedThreadDisplayName) : []
-          "
-          queryParamsHandling="merge"
-        >
-          {{ selectedThreadDisplayName }}
-        </a>
-        <span *ngIf="selectedThread.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">
-          <i class="fas fa-check-circle fa-md align-middle"></i>
-        </span>
+        <div class="mobile-messages-thread-name-avatar">
+          <div
+            class="messages-thread__avatar mr-15px"
+            [avatar]="selectedThread.PublicKeyBase58Check"
+            [ngClass]="{ 'cursor-auto': !selectedThread.ProfileEntryResponse }"
+            [routerLink]="
+              selectedThread.ProfileEntryResponse ? AppRoutingModule.profilePath(selectedThreadDisplayName) : []
+            "
+            queryParamsHandling="merge"
+          ></div>
+          <a
+            class="link--unstyled"
+            [routerLink]="
+              selectedThread.ProfileEntryResponse ? AppRoutingModule.profilePath(selectedThreadDisplayName) : []
+            "
+            queryParamsHandling="merge"
+          >
+            {{ selectedThreadDisplayName }}
+          </a>
+          <span *ngIf="selectedThread.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">
+            <i class="fas fa-check-circle fa-md align-middle"></i>
+          </span>
+        </div>
       </div>
 
       <!-- Scrollable Content -->
@@ -111,6 +85,5 @@
         ></messages-thread-view>
       </div>
     </div>
-    <bottom-bar-mobile *ngIf="!showThreadView" class="global__bottom-bar-mobile"></bottom-bar-mobile>
   </div>
 </app-page-small-nav>

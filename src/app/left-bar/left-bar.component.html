@@ -46,6 +46,7 @@
 
       <left-bar-button
         [link]="'/' + globalVars.RouteNames.INBOX_PREFIX"
+        [hasNotifications]="true"
         [buttonLabel]="'Messages'"
         [imgSrc]="'assets/icons/chat-plane-icon.svg'"
         *ngIf="globalVars.loggedInUser?.ProfileEntryResponse"

@@ -1,11 +1,9 @@
-<div
-  class="w-100 global__top-bar__height"
-  [ngClass]="{ 'px-15px': isSearchForUsersToMessage }"
-  #searchBarRoot
-  id="searchBarRoot"
->
+<div class="w-100" [ngClass]="{ 'px-15px': isSearchForUsersToMessage }" #searchBarRoot id="searchBarRoot">
   <!-- Input -->
-  <div class="d-flex align-items-center w-100 text-grey8A fs-15px global__top-bar__height">
+  <div
+    class="d-flex align-items-center w-100 text-grey8A fs-15px"
+    [ngClass]="{ 'global__top-bar__height': !isSearchForUsersToMessage }"
+  >
     <div class="input-group">
       <div class="input-group-prepend">
         <span class="input-group-text search-bar__icon">

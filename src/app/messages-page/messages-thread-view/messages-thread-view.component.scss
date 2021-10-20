@@ -1,6 +1,6 @@
 .fake-textarea-container {
-    width: 100%;
     display: flex;
+    position: relative;
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -8,9 +8,17 @@
     border-radius: 12px;
     border: 2.4446702003479004px solid #7b7b7b;
     box-shadow: 1.2223351001739502px 1.8579493761062622px 9.314193725585938px rgba(0, 0, 0, 0.11);
+    margin-bottom: 20px;
     &:focus-within {
         box-shadow: 0 0 10px #719ECE;
     }
+}
+.send-message-thread-container {
+    position: absolute;
+    right: 5px !important;
+    left: 5px;
+    background-color: #FCFCFC !important;
+    bottom: 0px;
 }
 .top-bar-messages-thread {
     box-shadow: 0px 2.4446702003479004px 6.111675262451172px rgba(0, 0, 0, 0.05);
@@ -23,12 +31,19 @@
     border: none !important;
     outline: none !important;
     resize: none;
+    box-sizing: border-box;
     font-size: 15px;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    padding-top: 10px;
-    height: 44px !important;
+    margin-left: 40px;
+    margin-right: 56px;
+    min-height: 29px !important;
+    max-height: 200px;
+    overflow-y: auto;
+    word-wrap:break-word;
+    padding-top: 15px !important;
+    padding-bottom: 10px !important;
 }
 .btn-send-message {
     background: #252525;
@@ -37,10 +52,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 33px;
+    height: 32px;
     width: 42px;
     margin-right: 10px;
     transition: 0.3s linear;
+    position: absolute;
+    right: 10px;
+    bottom: 9px;
     &:hover {
         transform: scale(1.05);
     }

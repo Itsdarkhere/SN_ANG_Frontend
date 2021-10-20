@@ -16,6 +16,10 @@
 }
 .unread-message-balloon {
     .messages-thread__ellipsis-restriction {
+        color: var(--text);
+        font-weight: bold;
+    }
+    .messages-thread__ellipsis-restriction-username {
         font-weight: bold;
     }
 }

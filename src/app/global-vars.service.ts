@@ -232,7 +232,7 @@ export class GlobalVarsService {
 
     let storedTab = this.backendApi.GetStorage("mostRecentMessagesTab");
     if (storedTab === null) {
-      storedTab = "My holders";
+      storedTab = "All messages";
       this.backendApi.SetStorage("mostRecentMessagesTab", storedTab);
     }
 

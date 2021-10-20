@@ -55,7 +55,7 @@ export class MessagesThreadViewComponent {
     if (event.shiftKey) {
       return;
     }
-    if (event.key === "Enter") {
+    if (event.keyCode == 13) {
       this._sendMessage();
     }
   }

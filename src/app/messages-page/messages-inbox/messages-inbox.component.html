@@ -1,6 +1,5 @@
 <!-- Top Bar -->
 <div
-  *ngIf="!isMobile"
   class="w-100 messages-top-bar-height global__top-bar__height border-bottom border-color-grey d-flex align-items-center pl-15px fs-22px font-weight-bold"
 >
   <!-- Clear Inbox -->
@@ -28,37 +27,29 @@
 
 <div *ngIf="messageThreads" class="messages-inbox__threads vh-100 disable-scrollbars">
   <!-- Search -->
-  <div class="search-bar-messages border-bottom border-color-grey">
-    <!--<search-bar
-      [showCloutavista]="false"
-      [isSearchForUsersToMessage]="true"
-      [startingSearchText]="startingSearchText"
-      (creatorToMessage)="_handleCreatorSelectedInSearch($event)"
-      class="pb-15px"
-    ></search-bar>-->
+  <div class="inbox-search-container border-bottom border-color-grey">
     <select
       *ngIf="!isSearchOpen"
       #selectElem
-      class="inbox-select search-bar-cover global__top-bar__height br-30px"
+      id="message-inbox-select"
+      class="inbox-select br-30px mt-15px mb-15px"
       (change)="_handleTabClick(selectElem.value)"
     >
-      <option class="inbox-select-option" selected="{{ activeTab === 'All messages' }}">All messages</option>
-      <option class="inbox-select-option" selected="{{ activeTab === 'My holders' }}">My holders</option>
-      <option class="inbox-select-option" selected="{{ activeTab === 'Custom' }}">Custom</option>
+      <option [selected]="this.activeTab === 'All messages'">All messages</option>
+      <option [selected]="this.activeTab === 'My holders'">My holders</option>
     </select>
-    <div class="search-bar-cover">
+    <div *ngIf="isSearchOpen" class="inbox-search-cover mt-15px mb-15px">
       <search-bar
-        *ngIf="isSearchOpen"
         [showCloutavista]="false"
         [isSearchForUsersToMessage]="true"
         [startingSearchText]="Search"
         placeHolder="Search your messages..."
+        [messages]="true"
         (creatorToMessage)="_handleCreatorSelectedInSearch($event)"
-        class="pb-15px"
+        [nopads]="true"
       ></search-bar>
     </div>
   </div>
-
   <!-- NOTE: We add any newMessageThread to the front of our messageThread array. -->
   <!-- This is used to handle the creation of new message threads. -->
   <div *ngFor="let thread of messageThreads; let ii = index">

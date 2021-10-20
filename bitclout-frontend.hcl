@@ -4,7 +4,7 @@ job "l4s-frontend" {
 
 
   group "l4s-bclt-front" {
-    count = 4
+    count = 2
 
     update {
       max_parallel = 1
@@ -144,8 +144,8 @@ EOF
         
         tags = [
           "internal-proxy.enable=true",
-          "internal-proxy.http.routers.bitclout-frontend.rule=Host(`love4src.com`)",
-          "internal-proxy.http.routers.bitclout-frontend.entrypoints=https"
+          "internal-proxy.http.routers.l4s-frontend.rule=Host(`love4src.com`)",
+          "internal-proxy.http.routers.l4s-frontend.entrypoints=https"
         ]
 
         check {

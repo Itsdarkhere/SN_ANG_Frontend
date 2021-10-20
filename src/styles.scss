@@ -1710,7 +1710,7 @@ input.bs-timepicker-field {
     cursor: pointer;
     background-color: var(--background);
     position: relative;
-    top: -22px;
+    top: 0px;
     border: solid 1px var(--border);
     z-index: 5; // the input has a z-index of 3 at one point.
     max-height: 600px;

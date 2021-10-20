@@ -15,7 +15,7 @@
     <div *ngIf="message.IsSender" class="d-flex align-items-end">
       <!--<div class="message__avatar-placeholder"></div>-->
       <p class="message-username">@{{ globalVars.loggedInUser.ProfileEntryResponse.Username }}</p>
-      <div *ngIf="nextMessage ? message.IsSender != nextMessage.IsSender : true" class="fs-12px fc-muted">
+      <div class="fs-12px fc-muted">
         <span *ngIf="message.TstampNanos">{{ globalVars.convertTstampToDateOrTime(message.TstampNanos) }}</span>
         <span *ngIf="!message.TstampNanos">Sending...</span>
       </div>
@@ -61,8 +61,9 @@
   <div class="message-time-column">
     <div *ngIf="!message.IsSender" class="message-name-stamp">
       <!--<div class="message__avatar-placeholder"></div>-->
+      <!--nextMessage ? message.IsSender != nextMessage.IsSender : true-->
       <p class="message-username">@{{ counterpartyName }}</p>
-      <div *ngIf="nextMessage ? message.IsSender != nextMessage.IsSender : true" class="fs-12px fc-muted">
+      <div class="fs-12px fc-muted">
         {{ globalVars.convertTstampToDateOrTime(message.TstampNanos) }}
       </div>
     </div>

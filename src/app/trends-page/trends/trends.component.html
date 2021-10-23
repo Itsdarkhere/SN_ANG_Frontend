@@ -15,26 +15,7 @@
   >
     <div class="nfts-card-list">
       <div class="mobile_mrk_head">Marketplace</div>
-      <div class="nft-col-wrap" *ngFor="let nftEntry of nftResponse">
-        <app-nft-card
-          *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
-          [contentShouldLinkToThread]="true"
-          [includePaddingOnPost]="true"
-          [pending]="false"
-          [owns]="true"
-          [post]="nftEntry.PostEntryResponse"
-          [blocked]="globalVars.hasUserBlockedCreator(globalVars.loggedInUser?.PublicKeyBase58Check)"
-          [showNFTDetails]="true"
-          [showExpandedNFTDetails]="false"
-          [setBorder]="true"
-          [showAvailableSerialNumbers]="true"
-          [cardStyle]="true"
-          [profilePublicKeyBase58Check]="globalVars.loggedInUser?.PublicKeyBase58Check"
-          (userBlocked)="userBlocked()"
-        ></app-nft-card>
-      </div>
-      <!--<div class="nft-col-wrap" *ngFor="let nftCollection of dataToShow">
-        COMMENTED LINE <code>{{nftCollection | json}}</code>
+      <div class="nft-col-wrap" *ngFor="let nftCollection of dataToShow">
         <app-nft-card
           [post]="nftCollection.PostEntryResponse"
           [includePaddingOnPost]="true"
@@ -48,7 +29,7 @@
           [nftCollectionHighBid]="nftCollection.HighestBidAmountNanos"
           [nftCollectionLowBid]="nftCollection.LowestBidAmountNanos"
         ></app-nft-card>
-      </div>-->
+      </div>
     </div>
   </div>
 </div>

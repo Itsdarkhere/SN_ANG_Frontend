@@ -21,7 +21,7 @@ export class TrendsComponent implements OnInit {
   loading: boolean = false;
   nftCollections: NFTCollectionResponse[];
   lastPage: number;
-  static PAGE_SIZE = 50;
+  static PAGE_SIZE = 40;
   static WINDOW_VIEWPORT = true;
   static BUFFER_SIZE = 20;
   static PADDING = 0.5;
@@ -102,7 +102,6 @@ export class TrendsComponent implements OnInit {
       .subscribe(
         (res: any) => {
           this.nftCollections = res.NFTCollections;
-          console.log(this.nftCollections);
           if (this.nftCollections) {
             this.nftCollections.sort((a, b) => b.PostEntryResponse.TimestampNanos - a.PostEntryResponse.TimestampNanos);
             this.nftCollections = uniqBy(

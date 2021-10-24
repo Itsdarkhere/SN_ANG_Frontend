@@ -91,6 +91,7 @@ job "supernovas-frontend" {
       script-src
         https://supernovas.app
         https://supernovas.app:*
+        https://diffuser-cdn.app-us1.com/diffuser/diffuser.js
         https://bitclout.com/tags.js
         https://firestore.googleapis.com
         https://firebasestorage.googleapis.com

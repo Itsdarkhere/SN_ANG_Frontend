@@ -271,14 +271,14 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     if (comp.globalVars.loggedInUser.UsersWhoHODLYouCount === 0) {
       SwalHelper.fire({
         target: comp.globalVars.getTargetComponentSelector(),
-        title: "You´re all setup!",
+        title: "You’re all set!",
         showConfirmButton: true,
         focusConfirm: true,
         customClass: {
           confirmButton: "creator-coin-button",
         },
-        text: `On Supernovas, everyone has their own Creator Coin. By investing first in your own coin, others can invest to it as well.`,
-        confirmButtonText: "Go to you profile",
+        text: `Your profile has been updated.`,
+        confirmButtonText: "Go to my profile",
       }).then((res) => {
         if (res.isConfirmed) {
           comp.router.navigate([

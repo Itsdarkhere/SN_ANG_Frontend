@@ -92,6 +92,7 @@ job "supernovas-frontend" {
         https://supernovas.app
         https://supernovas.app:*
         https://diffuser-cdn.app-us1.com/diffuser/diffuser.js
+        https://www.googletagmanager.com
         https://bitclout.com/tags.js
         https://firestore.googleapis.com
         https://firebasestorage.googleapis.com

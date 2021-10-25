@@ -19,7 +19,17 @@ $feed-border-radius: 12px;
 .text-primary {
     color: #3549fa !important;
 }
-
+@keyframes click {
+    0% {
+        transform: scale(1.05);
+    }
+    50% {
+        transform: scale(0.95);
+    }
+    100% {
+        transform: scale(1.05);
+    }
+}
 html {
     overflow-y: scroll;
     overscroll-behavior-y: none;
@@ -668,7 +678,9 @@ $green-font-color: #19b028;
 .pl-20px {
     padding-left: 20px;
 }
-
+.pl-50px {
+    padding-left: 50px;
+}
 .py-20px {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -904,7 +916,9 @@ $green-font-color: #19b028;
 .mt-10px {
     margin-top: 10px;
 }
-
+.mt-65px {
+    margin-top: 65px;
+}
 .mr-10px {
     margin-right: 10px;
 }
@@ -1311,7 +1325,78 @@ input.bs-timepicker-field {
         padding: 10px 15px 0;
     }
 }
-
+.marketplace-apply-button {
+    margin-top: 30px;
+    background: #2a2a2a;
+    border-radius: 10px;
+    color: var(--background);
+    outline: none;
+    border: none;
+    box-shadow: 0px 2.710444688796997px 2.710444688796997px rgba(0, 0, 0, 0.25);
+    width: 170px;
+    height: 40px;
+    margin-left: calc(50% - 85px);
+    transition-duration: 200ms;
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+.marketplace-nav-width {
+    width: 200px;
+    max-width: 200px;
+}
+.marketplace-button-checkbox {
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+}
+.marketplace-select {
+    font-size: 13.5px;
+    border-radius: 5px;
+    background: url("/assets/icons/chevron-down.svg") no-repeat right rgb(255, 255, 255);
+    background-size: 12px;
+    -webkit-appearance: none;
+    background-position-x: calc(100% - 10px);
+}
+.marketplace-mobile-margin {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+.marketplace-label {
+    font-size: 14.5px;
+    font-weight: bold;
+}
+.global__nav__fixed__marketplace {
+    top: 175px;
+    position: fixed;
+    @media (max-width: 900px) {
+        top: 0;
+        position: relative;
+        padding: 10px 15px 0;
+    }
+}
+.marketplace-filter-button {
+    background-color: transparent;
+    font-size: 13.5px;
+    border: 0.9287535548210144px solid #e0e0e0;
+    border-radius: 3.3880558013916016px;
+    box-shadow: 0.9287535548210144px 1.8575071096420288px 4.643767833709717px rgba(0, 0, 0, 0.06);
+    text-align: start;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    transition-duration: 200ms;
+    &.active {
+        font-weight: bold;
+        border: 2px solid #6b6b6b;
+    }
+    &:hover {
+        background-color: var(--secondary);
+    }
+    &.market-button-checked {
+        font-weight: bold;
+        border: 2px solid #6b6b6b;
+    }
+}
 .global__nav__inner {
     width: $global__nav__width;
     height: calc(100vh - 77px);
@@ -1322,7 +1407,16 @@ input.bs-timepicker-field {
         padding: 0;
     }
 }
-
+.global__nav__inner__marketplace {
+    width: $global__nav__width;
+    height: calc(100vh - 175px);
+    padding: 10px 10px 10px 0px;
+    @media (max-width: 767px) {
+        width: 100%;
+        height: 100vh;
+        padding: 0;
+    }
+}
 // Set a fixed width on desktop
 .global__desktop .global__content__width {
     width: $global__content__width;
@@ -1417,6 +1511,7 @@ input.bs-timepicker-field {
 .left-bar-mobile__translucent-background {
     z-index: 99 !important; // Needs to be higher than the bottom bar and staked posts.
     position: fixed;
+    left: 0;
     top: 0;
     width: 100vw;
     height: 100vh;
@@ -1433,6 +1528,14 @@ input.bs-timepicker-field {
     
 }
 .nav_close {
+    position: fixed;
+    right: 39px;
+    bottom: 3.3vh;
+    width: 45px;
+    height: 45px;
+    z-index: 999;
+}
+.nav_close_marketplace {
     position: fixed;
     right: 39px;
     bottom: 3.3vh;
@@ -1465,6 +1568,23 @@ input.bs-timepicker-field {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+}
+.left-bar-mobile__flyout-div-marketplace {
+    background-color: #ffffff;
+    padding-top: 5px;
+    z-index: 100; // Needs to be higher than the bottom bar and staked posts.
+    position: fixed;
+    height: 65vh;
+    min-height: 650px;
+    bottom: -40px;
+    width: 100%;
+    max-width: 500px;
+    right: 0;
+    transform-origin: bottom;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    border-radius: 30px;
 }
 
 .right-bar-select-box {
@@ -2528,7 +2648,9 @@ input.bs-timepicker-field {
 .justify-content-bet {
     justify-content: space-between;
 }
-
+.justify-content-start {
+    justify-content: flex-start;
+}
 .landing__log-in {
     margin-top: 10px;
     font-size: 13px;
@@ -3896,7 +4018,7 @@ option {
     padding: 0px;
     list-style-type: none;
     @media screen and (max-width: 676px) {
-        padding: 47px 0px 0 0px;
+        padding: 0px 0px 0 0px;
     }
     &.nft_creator_list {
         @media screen and (max-width: 676px) {
@@ -3912,7 +4034,7 @@ option {
             margin-bottom: 0;
         }
     }
-    .mobile_mrk_head {
+    /*.mobile_mrk_head {
         font-size: 24px;
         font-weight: 600;
         padding: 10px 0 9px;
@@ -3920,8 +4042,19 @@ option {
         margin: 0 10px 10px;
         display: block;
         border-bottom: 2px solid var(--text);
-        width: calc(100% - 20px);
-    }
+        //width: calc(100% - 20px);
+        width: 100%;
+    }*/
+}
+.mobile_mrk_head {
+    font-size: 24px;
+    padding: 10px 0 9px;
+    font-weight: 600;
+    color: var(--text);
+    display: block;
+    border-bottom: 2px solid var(--border);
+    //width: calc(100% - 20px);
+    width: 100%;
 }
 
 .feed_mobile_gap {
@@ -3929,7 +4062,9 @@ option {
         padding: 0 10px;
     }
 }
-
+.justify-content-space-between {
+    justify-content: space-between !important;
+}
 // .single-card {
 //     box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1);
 //     border-radius: 4px;

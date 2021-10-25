@@ -1,15 +1,13 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  BackendApiService,
-  NFTCollectionResponse,
-  NFTEntryResponse,
-  PostEntryResponse,
-} from "../../backend-api.service";
+import { Location } from "@angular/common";
+import { ActivatedRoute, Router } from "@angular/router";
+import { BackendApiService, NFTCollectionResponse } from "../../backend-api.service";
 import { GlobalVarsService } from "../../global-vars.service";
 import { InfiniteScroller } from "../../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { uniqBy } from "lodash";
-import { Router, NavigationEnd, ActivatedRoute } from "@angular/router";
+import { filter, switchMap } from "rxjs/operators";
+import { FunctionPassService } from "src/app/function-pass.service";
 
 @Component({
   selector: "trends",
@@ -20,6 +18,7 @@ export class TrendsComponent implements OnInit {
   globalVars: GlobalVarsService;
   loading: boolean = false;
   nftCollections: NFTCollectionResponse[];
+  filteredCollection: NFTCollectionResponse[];
   lastPage: number;
   static PAGE_SIZE = 40;
   static WINDOW_VIEWPORT = true;
@@ -45,25 +44,18 @@ export class TrendsComponent implements OnInit {
   datasource: IDatasource<IAdapter<any>> = this.infiniteScroller.getDatasource();
 
   constructor(
-    private _globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
-    private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _globalVars: GlobalVarsService,
+    private functionPass: FunctionPassService
   ) {
     this.globalVars = _globalVars;
+    this.functionPass.listen().subscribe((m: any) => {
+      this.getParamsAndSort();
+    });
   }
 
   ngOnInit(): void {
-    // code to remove extra query param if not required
-    // this.router.navigate(
-    //   ['.'],
-    //   { relativeTo: this.route, queryParams: { } }
-    // );
-    // this.router.events.subscribe(resp=>{
-    //   if(resp instanceof NavigationEnd){
-    //     this.loadData();
-    //   }
-    // })
     this.loadData();
   }
 
@@ -76,16 +68,103 @@ export class TrendsComponent implements OnInit {
     const endIdx = (page + 1) * TrendsComponent.PAGE_SIZE;
 
     return new Promise((resolve, reject) => {
-      resolve(this.nftCollections.slice(startIdx, Math.min(endIdx, this.nftCollections.length)));
+      resolve(this.filteredCollection.slice(startIdx, Math.min(endIdx, this.nftCollections.length)));
     });
   }
 
+  getParamsAndSort() {
+    this.route.queryParams
+      .subscribe((params) => {
+        let filters = {
+          sort: params.sort || "",
+          status: params.status || "",
+          primary: params.primary || "false",
+          secondary: params.secondary || "false",
+        };
+        this.applySorting(filters);
+      })
+      .unsubscribe();
+  }
+
+  applySorting(filters) {
+    // Filter based on status
+    let status = filters.status;
+    let primary = filters.primary;
+    let secondary = filters.secondary;
+    let sort = filters.sort;
+
+    // Reset start and endIndex
+    this.startIndex = 0;
+    this.endIndex = 20;
+
+    // Order
+    switch (sort) {
+      case "most_recent":
+        // Keep all
+        this.nftCollections.sort((a, b) => b.PostEntryResponse.TimestampNanos - a.PostEntryResponse.TimestampNanos);
+        break;
+      case "oldest_first":
+        this.nftCollections.sort((a, b) => a.PostEntryResponse.TimestampNanos - b.PostEntryResponse.TimestampNanos);
+        break;
+      case "highest_price":
+        this.nftCollections.sort((a, b) => b.NFTEntryResponse.MinBidAmountNanos - a.NFTEntryResponse.MinBidAmountNanos);
+        break;
+      case "lowest_price":
+        this.nftCollections.sort((a, b) => a.NFTEntryResponse.MinBidAmountNanos - b.NFTEntryResponse.MinBidAmountNanos);
+        break;
+      case "":
+        this.nftCollections.sort((a, b) => b.PostEntryResponse.TimestampNanos - a.PostEntryResponse.TimestampNanos);
+        break;
+    }
+    // Only use nftCollections in first filter
+    switch (status) {
+      case "all":
+        // Keep all
+        this.filteredCollection = this.nftCollections;
+        break;
+      case "has-bids":
+        this.filteredCollection = this.nftCollections.filter(
+          (nft) => nft.HighestBidAmountNanos != 0 && nft.NFTEntryResponse.IsForSale
+        );
+        break;
+      case "no-bids":
+        this.filteredCollection = this.nftCollections.filter(
+          (nft) => nft.NFTEntryResponse.HighestBidAmountNanos === 0 && nft.NFTEntryResponse.IsForSale
+        );
+        break;
+      case "sold":
+        this.filteredCollection = this.nftCollections.filter((nft) => !nft.NFTEntryResponse.IsForSale);
+        break;
+      case "":
+        this.filteredCollection = this.nftCollections;
+        break;
+    }
+    if (primary === "true" && secondary === "true") {
+      // Keep all
+      this.dataToShow = this.filteredCollection.slice(this.startIndex, this.endIndex);
+    } else if (primary === "true") {
+      this.filteredCollection = this.filteredCollection.filter(
+        (nft) => nft.NFTEntryResponse.OwnerPublicKeyBase58Check === nft.PostEntryResponse.PosterPublicKeyBase58Check
+      );
+      this.dataToShow = this.filteredCollection.slice(this.startIndex, this.endIndex);
+    } else if (secondary === "true") {
+      this.filteredCollection = this.filteredCollection.filter(
+        (nft) => nft.NFTEntryResponse.OwnerPublicKeyBase58Check !== nft.PostEntryResponse.PosterPublicKeyBase58Check
+      );
+      this.dataToShow = this.filteredCollection.slice(this.startIndex, this.endIndex);
+    } else {
+      // Keep all
+      this.dataToShow = this.filteredCollection.slice(this.startIndex, this.endIndex);
+    }
+    this.lastPage = Math.floor(this.filteredCollection.length / TrendsComponent.PAGE_SIZE);
+    this.loading = false;
+  }
+
   onScroll() {
-    console.log("scrolling..!!");
-    if (this.endIndex <= this.nftCollections.length - 1) {
+    if (this.endIndex <= this.filteredCollection.length - 1) {
       this.startIndex = this.endIndex;
       this.endIndex += 20;
-      this.dataToShow = [...this.dataToShow, ...this.nftCollections.slice(this.startIndex, this.endIndex)];
+      this.dataToShow = [...this.dataToShow, ...this.filteredCollection.slice(this.startIndex, this.endIndex)];
     }
   }
 
@@ -94,7 +173,7 @@ export class TrendsComponent implements OnInit {
       this.loading = true;
     }
     this.backendApi
-      .GetNFTShowcase(
+      .GetNFTShowcaseSupernovas(
         this.globalVars.localNode,
         this.globalVars.loggedInUser?.PublicKeyBase58Check,
         this.globalVars.loggedInUser?.PublicKeyBase58Check
@@ -103,14 +182,12 @@ export class TrendsComponent implements OnInit {
         (res: any) => {
           this.nftCollections = res.NFTCollections;
           if (this.nftCollections) {
-            this.nftCollections.sort((a, b) => b.PostEntryResponse.TimestampNanos - a.PostEntryResponse.TimestampNanos);
             this.nftCollections = uniqBy(
               this.nftCollections,
               (nftCollection) => nftCollection.PostEntryResponse.PostHashHex
             );
           }
-          this.dataToShow = this.nftCollections.slice(this.startIndex, this.endIndex);
-          this.lastPage = Math.floor(this.nftCollections.length / TrendsComponent.PAGE_SIZE);
+          this.getParamsAndSort();
           if (showmore) {
             document.body.scrollTop = 0; // For Safari
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
@@ -119,12 +196,6 @@ export class TrendsComponent implements OnInit {
         (error) => {
           this.globalVars._alertError(error.error.error);
         }
-      )
-      .add(() => {
-        this.loading = false;
-      });
-  }
-  showRecent() {
-    //this.loadData(true);
+      );
   }
 }

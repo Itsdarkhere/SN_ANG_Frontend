@@ -179,6 +179,8 @@ import { AngularFireStorageModule } from "@angular/fire/storage";
 import { environment } from "src/environments/environment.prod";
 import { PageSmallNavComponent } from "./page-small-nav/page-small-nav.component";
 import { SmallLeftBarComponent } from "./small-left-bar/small-left-bar.component";
+import { MarketplaceLeftBarComponent } from './marketplace-left-bar/marketplace-left-bar.component';
+import { MarketplaceLeftBarMobileComponent } from './marketplace-left-bar-mobile/marketplace-left-bar-mobile.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -336,6 +338,8 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     AdminNodeAddFeesComponent,
     PageSmallNavComponent,
     SmallLeftBarComponent,
+    MarketplaceLeftBarComponent,
+    MarketplaceLeftBarMobileComponent,
   ],
   imports: [
     BrowserModule,

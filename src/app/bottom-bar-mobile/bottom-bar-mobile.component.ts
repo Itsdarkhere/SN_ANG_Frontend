@@ -63,35 +63,5 @@ export class BottomBarMobileComponent implements OnInit {
   }
   ngOnInit() {
     let handle = null;
-    /*document.onscroll = () => {
-      var st = window.pageYOffset || document.documentElement.scrollTop;
-      if (st > this.lastScrollTop) {
-        // scroll down
-        if (
-          document.querySelector(".global__bottom-bar-mobile") &&
-          document.querySelector(".global__bottom-bar-mobile").classList.contains("scrolled")
-        ) {
-          document.querySelector(".global__bottom-bar-mobile").classList.remove("scrolled");
-        }
-      } else {
-        // scroll up
-        if (
-          document.querySelector(".global__bottom-bar-mobile") &&
-          !document.querySelector(".global__bottom-bar-mobile").classList.contains("scrolled")
-        ) {
-          document.querySelector(".global__bottom-bar-mobile").classList.add("scrolled");
-        }
-      }
-      this.lastScrollTop = st <= 0 ? 0 : st;
-      if (handle) {
-        clearTimeout(handle);
-      }
-      handle = setTimeout(() => {
-        // callback when user stops scroll
-        if (document.querySelector(".global__bottom-bar-mobile")) {
-          document.querySelector(".global__bottom-bar-mobile").classList.add("scrolled");
-        }
-      }, 200); // default 200 ms
-    };*/
   }
 }

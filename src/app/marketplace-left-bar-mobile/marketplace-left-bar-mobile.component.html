@@ -1,0 +1,18 @@
+<div>
+  <div
+    class="left-bar-mobile__flyout-div-marketplace"
+    [@leftBarAnimation]
+    *ngIf="globalVars.isMarketplaceLeftBarMobileOpen"
+  >
+    <app-marketplace-left-bar></app-marketplace-left-bar>
+    <div *ngIf="globalVars.isMarketplaceLeftBarMobileOpen" (click)="_closeMenu()" class="nav_close_marketplace">
+      <img src="assets/img/close_square.svg" alt="" />
+    </div>
+  </div>
+  <div
+    *ngIf="globalVars.isMarketplaceLeftBarMobileOpen"
+    [@translucentBackgroundAnimation]
+    (click)="_closeMenu()"
+    class="left-bar-mobile__translucent-background"
+  ></div>
+</div>

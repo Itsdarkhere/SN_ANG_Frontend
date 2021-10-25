@@ -10,6 +10,7 @@ export class PageSmallNavComponent implements OnInit {
   @Input() hideSidebar: string;
   @Input() showPostButton = false;
   @Input() inTutorial: boolean = false;
+  @Input() marketplace: boolean = false;
   mobile = false;
 
   @HostListener("window:resize") onResize() {
@@ -24,5 +25,8 @@ export class PageSmallNavComponent implements OnInit {
 
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
+  }
+  openMarketplaceMobileFiltering() {
+    this.globalVars.isMarketplaceLeftBarMobileOpen = true;
   }
 }

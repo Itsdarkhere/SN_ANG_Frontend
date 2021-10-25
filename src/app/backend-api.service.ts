@@ -77,6 +77,7 @@ export class BackendRoutes {
   static RoutePathGetNFTsForUser = "/api/v0/get-nfts-for-user";
   static RoutePathGetNFTBidsForUser = "/api/v0/get-nft-bids-for-user";
   static RoutePathGetNFTShowcase = "/api/v0/get-nft-showcase";
+  static RoutePathGetNFTShowcaseSupernovas = "/api/v0/get-nft-showcase-supernovas";
   static RoutePathGetNextNFTShowcase = "/api/v0/get-next-nft-showcase";
   static RoutePathGetNFTCollectionSummary = "/api/v0/get-nft-collection-summary";
   static RoutePathGetNFTEntriesForPostHash = "/api/v0/get-nft-entries-for-nft-post";
@@ -356,6 +357,7 @@ export class NFTBidEntryResponse {
 
 export class NFTCollectionResponse {
   AvailableSerialNumbers: number[];
+  NFTEntryResponse: NFTEntryResponse;
   PostEntryResponse: PostEntryResponse;
   ProfileEntryResponse: ProfileEntryResponse;
   NumCopiesForSale: number;
@@ -1061,7 +1063,17 @@ export class BackendApiService {
       ReaderPublicKeyBase58Check,
     });
   }
-
+  // This is the one that has been modded on the backend
+  GetNFTShowcaseSupernovas(
+    endpoint: string,
+    UserPublicKeyBase58Check: string,
+    ReaderPublicKeyBase58Check: string
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetNFTShowcaseSupernovas, {
+      UserPublicKeyBase58Check,
+      ReaderPublicKeyBase58Check,
+    });
+  }
   GetNextNFTShowcase(endpoint: string, UserPublicKeyBase58Check: string): Observable<any> {
     return this.post(endpoint, BackendRoutes.RoutePathGetNextNFTShowcase, {
       UserPublicKeyBase58Check,

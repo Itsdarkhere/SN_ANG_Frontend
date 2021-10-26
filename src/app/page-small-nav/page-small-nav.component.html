@@ -18,4 +18,6 @@
   </div>
 </div>
 <app-marketplace-left-bar-mobile></app-marketplace-left-bar-mobile>
-<button *ngIf="mobile" class="mobile-filter-button" (click)="openMarketplaceMobileFiltering()">Filter</button>
+<button *ngIf="mobile && marketplace" class="mobile-filter-button" (click)="openMarketplaceMobileFiltering()">
+  Filter
+</button>

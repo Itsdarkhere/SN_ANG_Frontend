@@ -40,3 +40,8 @@
   </div>
 </div>
 <simple-center-loader *ngIf="loading"></simple-center-loader>
+<bottom-bar-mobile
+  *ngIf="mobile"
+  class="global__bottom-bar-mobile scrolled"
+  [showPostButton]="showPostButton"
+></bottom-bar-mobile>

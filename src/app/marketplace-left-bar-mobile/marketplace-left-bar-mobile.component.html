@@ -4,9 +4,11 @@
     [@leftBarAnimation]
     *ngIf="globalVars.isMarketplaceLeftBarMobileOpen"
   >
-    <app-marketplace-left-bar></app-marketplace-left-bar>
-    <div *ngIf="globalVars.isMarketplaceLeftBarMobileOpen" (click)="_closeMenu()" class="nav_close_marketplace">
-      <img src="assets/img/close_square.svg" alt="" />
+    <div class="w-100 h-100 position-relative d-flex flex-center align-items-start">
+      <app-marketplace-left-bar></app-marketplace-left-bar>
+      <div *ngIf="globalVars.isMarketplaceLeftBarMobileOpen" (click)="_closeMenu()" class="nav_close_marketplace">
+        <img src="assets/img/close_square.svg" alt="" />
+      </div>
     </div>
   </div>
   <div

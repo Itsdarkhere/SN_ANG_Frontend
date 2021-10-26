@@ -32,6 +32,7 @@ export class TrendsComponent implements OnInit {
   lastPageByTab = {};
   loadingNextPage = false;
   index = 0;
+  mobile = false;
 
   infiniteScroller: InfiniteScroller = new InfiniteScroller(
     TrendsComponent.PAGE_SIZE,
@@ -57,6 +58,11 @@ export class TrendsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
+    this.setMobileBasedOnViewport();
+  }
+
+  setMobileBasedOnViewport() {
+    this.mobile = this.globalVars.isMobile();
   }
 
   getPage(page: number) {

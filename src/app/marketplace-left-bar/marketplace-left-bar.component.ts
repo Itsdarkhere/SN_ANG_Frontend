@@ -22,6 +22,8 @@ export class MarketplaceLeftBarComponent implements OnInit {
   static LOWEST_PRICE = "Lowest price first";
   // Trendscomponent = Marketplace
   trends: any;
+  // Fake loading animation
+  loading = false;
 
   constructor(
     public globalVars: GlobalVarsService,
@@ -61,10 +63,14 @@ export class MarketplaceLeftBarComponent implements OnInit {
 
   // Functionpass service is made to pass this argument
   apply() {
+    this.loading = true;
     this.onFilter.emit("");
     this.functionPass.filter("");
-    // Close mobile filtering
-    this.globalVars.isMarketplaceLeftBarMobileOpen = false;
+    // Close mobile filtering and stop button loading icon, this is just an illusion of loading
+    setTimeout(() => {
+      this.loading = false;
+      this.globalVars.isMarketplaceLeftBarMobileOpen = false;
+    }, 500);
   }
   togglePrimary() {
     this.primary = !this.primary;

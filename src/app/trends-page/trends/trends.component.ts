@@ -128,12 +128,14 @@ export class TrendsComponent implements OnInit {
         // Keep all
         this.filteredCollection = this.nftCollections;
         break;
-      case "has-bids":
+      case "has_bids":
+        console.log("has bids");
         this.filteredCollection = this.nftCollections.filter(
           (nft) => nft.HighestBidAmountNanos != 0 && nft.NFTEntryResponse.IsForSale
         );
         break;
-      case "no-bids":
+      case "no_bids":
+        console.log("no bids");
         this.filteredCollection = this.nftCollections.filter(
           (nft) => nft.NFTEntryResponse.HighestBidAmountNanos === 0 && nft.NFTEntryResponse.IsForSale
         );

@@ -11,45 +11,29 @@
       <label class="w-100 mt-20px pl-10px marketplace-label">Status</label>
       <button
         class="w-100 marketplace-filter-button pl-10px"
-        [routerLink]="[]"
-        [queryParams]="{
-          status: 'all'
-        }"
-        queryParamsHandling="merge"
-        [routerLinkActive]="['active']"
+        [ngClass]="status === 'All' ? 'market-button-active' : ''"
+        (click)="changeStatus('All')"
       >
         All
       </button>
       <button
         class="w-100 mt-5px marketplace-filter-button pl-10px"
-        [routerLink]="[]"
-        [queryParams]="{
-          status: 'has-bids'
-        }"
-        queryParamsHandling="merge"
-        [routerLinkActive]="['active']"
+        [ngClass]="status === 'Has bids' ? 'market-button-active' : ''"
+        (click)="changeStatus('Has bids')"
       >
         Has bids
       </button>
       <button
         class="w-100 mt-5px marketplace-filter-button pl-10px"
-        [routerLink]="[]"
-        [queryParams]="{
-          status: 'no-bids'
-        }"
-        queryParamsHandling="merge"
-        [routerLinkActive]="['active']"
+        [ngClass]="status === 'No bids yet' ? 'market-button-active' : ''"
+        (click)="changeStatus('No bids yet')"
       >
-        No bid yet
+        No bids yet
       </button>
       <button
         class="w-100 mt-5px marketplace-filter-button pl-10px"
-        [routerLink]="[]"
-        [queryParams]="{
-          status: 'sold'
-        }"
-        queryParamsHandling="merge"
-        [routerLinkActive]="['active']"
+        [ngClass]="status === 'Sold' ? 'market-button-active' : ''"
+        (click)="changeStatus('Sold')"
       >
         Sold
       </button>

@@ -84,6 +84,7 @@ header Content-Security-Policy "
     amp.bitclout.com
     pay.testwyre.com
     pay.sendwyre.com
+    https://altumbase.com
     https://videodelivery.net
     https://upload.videodelivery.net;
   script-src 'self' 

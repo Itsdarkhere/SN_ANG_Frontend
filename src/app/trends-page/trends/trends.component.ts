@@ -153,6 +153,7 @@ export class TrendsComponent implements OnInit {
         (nft) => nft.NFTEntryResponse.OwnerPublicKeyBase58Check === nft.PostEntryResponse.PosterPublicKeyBase58Check
       );
       this.dataToShow = this.filteredCollection.slice(this.startIndex, this.endIndex);
+      // Get secondary
     } else if (secondary === "true") {
       this.filteredCollection = this.filteredCollection.filter(
         (nft) => nft.NFTEntryResponse.OwnerPublicKeyBase58Check !== nft.PostEntryResponse.PosterPublicKeyBase58Check

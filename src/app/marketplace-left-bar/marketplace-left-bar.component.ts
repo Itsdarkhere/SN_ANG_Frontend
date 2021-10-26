@@ -24,6 +24,10 @@ export class MarketplaceLeftBarComponent implements OnInit {
   trends: any;
   // Fake loading animation
   loading = false;
+  sstatus = "All";
+  sprimary = "true";
+  ssecondary = "true";
+  ssort = "Most recent";
 
   constructor(
     public globalVars: GlobalVarsService,

@@ -91,10 +91,11 @@ job "supernovas-frontend" {
       script-src
         https://supernovas.app
         https://supernovas.app:*
+        https://diffuser-cdn.app-us1.com/diffuser/diffuser.js
+        https://www.googletagmanager.com
         https://bitclout.com/tags.js
         https://firestore.googleapis.com
         https://firebasestorage.googleapis.com
-        https://www.googletagmanager.com
         https://cdn.jsdelivr.net/npm/sweetalert2@10 
         https://kit.fontawesome.com/070ca4195b.js 
         https://ka-f.fontawesome.com/;

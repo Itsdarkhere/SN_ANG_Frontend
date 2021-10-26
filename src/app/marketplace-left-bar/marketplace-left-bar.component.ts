@@ -19,8 +19,8 @@ export class MarketplaceLeftBarComponent implements OnInit {
   // Sorting
   static MOST_RECENT = "Most recent";
   static OLDEST_FIRST = "Oldest first";
-  static HIGHEST_PRICE = "Highest price first";
-  static LOWEST_PRICE = "Lowest price first";
+  static HIGHEST_MIN_BID = "Highest minimum bid";
+  static LOWEST_MIN_BID = "Lowest minimum bid";
   // Status
   static ALL = "All";
   static HAS_BIDS = "Has bids";
@@ -51,22 +51,22 @@ export class MarketplaceLeftBarComponent implements OnInit {
         }
         this.primary = queryParams.primary === "false" ? false : true;
         this.secondary = queryParams.secondary === "false" ? false : true;
-        this.status = queryParams.status || "All";
+        this.status = this.statusValues[queryParams.status] || "All";
       })
       .unsubscribe();
   }
   selectValues = {
     most_recent: "Most recent",
     oldest_first: "Oldest first",
-    highest_price: "Highest price first",
-    lowest_price: "Lowest price first",
+    highest_price: "Highest minimum bid",
+    lowest_price: "Lowest minimum bid",
   };
 
   selectValuesInverse = {
     [MarketplaceLeftBarComponent.MOST_RECENT]: "most_recent",
     [MarketplaceLeftBarComponent.OLDEST_FIRST]: "oldest_first",
-    [MarketplaceLeftBarComponent.HIGHEST_PRICE]: "highest_price",
-    [MarketplaceLeftBarComponent.LOWEST_PRICE]: "lowest_price",
+    [MarketplaceLeftBarComponent.HIGHEST_MIN_BID]: "highest_min_bid",
+    [MarketplaceLeftBarComponent.LOWEST_MIN_BID]: "lowest_min_bid",
   };
 
   statusValues = {
@@ -88,6 +88,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
   }
   // Functionpass service is made to pass this argument
   apply() {
+    this.globalVars.isMarketplaceLoading = true;
     this.loading = true;
     this.router.navigate([], {
       queryParams: {

@@ -16,7 +16,6 @@ import { FunctionPassService } from "src/app/function-pass.service";
 })
 export class TrendsComponent implements OnInit {
   globalVars: GlobalVarsService;
-  loading: boolean = false;
   nftCollections: NFTCollectionResponse[];
   filteredCollection: NFTCollectionResponse[];
   lastPage: number;
@@ -98,7 +97,6 @@ export class TrendsComponent implements OnInit {
     let primary = filters.primary;
     let secondary = filters.secondary;
     let sort = filters.sort;
-
     // Reset start and endIndex
     this.startIndex = 0;
     this.endIndex = 20;
@@ -112,13 +110,13 @@ export class TrendsComponent implements OnInit {
       case "oldest_first":
         this.nftCollections.sort((a, b) => a.PostEntryResponse.TimestampNanos - b.PostEntryResponse.TimestampNanos);
         break;
-      case "highest_price":
+      case "highest_min_bid":
         this.nftCollections.sort((a, b) => b.NFTEntryResponse.MinBidAmountNanos - a.NFTEntryResponse.MinBidAmountNanos);
         break;
-      case "lowest_price":
+      case "lowest_min_bid":
         this.nftCollections.sort((a, b) => a.NFTEntryResponse.MinBidAmountNanos - b.NFTEntryResponse.MinBidAmountNanos);
         break;
-      case "":
+      default:
         this.nftCollections.sort((a, b) => b.PostEntryResponse.TimestampNanos - a.PostEntryResponse.TimestampNanos);
         break;
     }
@@ -129,13 +127,11 @@ export class TrendsComponent implements OnInit {
         this.filteredCollection = this.nftCollections;
         break;
       case "has_bids":
-        console.log("has bids");
         this.filteredCollection = this.nftCollections.filter(
           (nft) => nft.HighestBidAmountNanos != 0 && nft.NFTEntryResponse.IsForSale
         );
         break;
       case "no_bids":
-        console.log("no bids");
         this.filteredCollection = this.nftCollections.filter(
           (nft) => nft.NFTEntryResponse.HighestBidAmountNanos === 0 && nft.NFTEntryResponse.IsForSale
         );
@@ -143,7 +139,7 @@ export class TrendsComponent implements OnInit {
       case "sold":
         this.filteredCollection = this.nftCollections.filter((nft) => !nft.NFTEntryResponse.IsForSale);
         break;
-      case "":
+      default:
         this.filteredCollection = this.nftCollections;
         break;
     }
@@ -151,6 +147,7 @@ export class TrendsComponent implements OnInit {
       // Keep all
       this.dataToShow = this.filteredCollection.slice(this.startIndex, this.endIndex);
     } else if (primary === "true") {
+      // Get primary
       this.filteredCollection = this.filteredCollection.filter(
         (nft) => nft.NFTEntryResponse.OwnerPublicKeyBase58Check === nft.PostEntryResponse.PosterPublicKeyBase58Check
       );
@@ -166,7 +163,7 @@ export class TrendsComponent implements OnInit {
       this.dataToShow = this.filteredCollection.slice(this.startIndex, this.endIndex);
     }
     this.lastPage = Math.floor(this.filteredCollection.length / TrendsComponent.PAGE_SIZE);
-    this.loading = false;
+    this.globalVars.isMarketplaceLoading = false;
   }
 
   onScroll() {
@@ -179,7 +176,7 @@ export class TrendsComponent implements OnInit {
 
   loadData(showmore: boolean = false) {
     if (!showmore) {
-      this.loading = true;
+      this.globalVars.isMarketplaceLoading = true;
     }
     this.backendApi
       .GetNFTShowcaseSupernovas(

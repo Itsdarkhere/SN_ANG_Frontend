@@ -77,6 +77,9 @@ export class GlobalVarsService {
   // Track if the user is dragging the diamond selector. If so, need to disable text selection in the app.
   userIsDragging = false;
 
+  // Marketplace is loading / filtering
+  isMarketplaceLoading = false;
+
   RouteNames = RouteNames;
 
   pausePolling = false; // TODO: Monkey patch for when polling conflicts with other calls.

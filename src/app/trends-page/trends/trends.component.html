@@ -1,5 +1,5 @@
 <!--MARKETPLACE CONTENT-->
-<div *ngIf="!loading">
+<div *ngIf="!globalVars.isMarketplaceLoading">
   <button type="button" class="recent_post_btn" (click)="showRecent()">Show recent</button>
   <div
     class="search-results"
@@ -29,17 +29,17 @@
 </div>
 
 <div
-  *ngIf="!loading && !nftCollections && !nftCollections?.length"
+  *ngIf="!globalVars.isMarketplaceLoading && !nftCollections && !nftCollections?.length"
   class="d-flex align-items-center justify-content-center"
 >
   <div
     class="d-flex flex-column align-items-center justify-content-center fc-muted fs-15px p-15px text-center"
     style="height: 400px"
   >
-    <div>The Marketplace is under construction!</div>
+    <div>Oops... It seems to be empty</div>
   </div>
 </div>
-<simple-center-loader *ngIf="loading"></simple-center-loader>
+<simple-center-loader *ngIf="globalVars.isMarketplaceLoading"></simple-center-loader>
 <bottom-bar-mobile
   *ngIf="mobile"
   class="global__bottom-bar-mobile scrolled"

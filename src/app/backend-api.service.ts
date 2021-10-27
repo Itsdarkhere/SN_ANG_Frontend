@@ -117,6 +117,10 @@ export class BackendRoutes {
   static RoutePathGetWyreWalletOrdersForPublicKey = "/api/v0/admin/get-wyre-wallet-orders-for-public-key";
   static RoutePathAdminGetNFTDrop = "/api/v0/admin/get-nft-drop";
   static RoutePathAdminUpdateNFTDrop = "/api/v0/admin/update-nft-drop";
+  // Same as the two above but for supernovas uses
+  static RoutePathGetMarketplaceRefSupernovas = "/api/v0/get-marketplace-ref-supernovas";
+  static RoutePathAddToMarketplaceSupernovas = "/api/v0/add-to-marketplace-supernovas";
+  // Admin continues
   static RoutePathAdminResetJumioForPublicKey = "/api/v0/admin/reset-jumio-for-public-key";
   static RoutePathAdminUpdateJumioDeSo = "/api/v0/admin/update-jumio-deso";
   static RoutePathAdminUpdateTutorialCreators = "/api/v0/admin/update-tutorial-creators";
@@ -2016,6 +2020,37 @@ export class BackendApiService {
       NFTHashHexToAdd,
       NFTHashHexToRemove,
       AdminPublicKey: UpdaterPublicKeyBase58Check,
+    });
+  }
+  // This and the one below are for custom supernovas backend functions
+  // Main difference is that they can be accessed by others than admins and nobody can delete anything
+  GetMarketplaceRefSupernovas(
+    endpoint: string,
+    UpdaterPublicKeyBase58Check: string,
+    DropNumber: number
+  ): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathGetMarketplaceRefSupernovas, UpdaterPublicKeyBase58Check, {
+      DropNumber,
+      AdminPublicKey: UpdaterPublicKeyBase58Check, // Says adminpk but it does not matter
+    });
+  }
+
+  AddToMarketplaceSupernovas(
+    endpoint: string,
+    UpdaterPublicKeyBase58Check: string,
+    DropNumber: number,
+    DropTstampNanos: number,
+    IsActive: boolean,
+    NFTHashHexToAdd: string,
+    NFTHashHexToRemove: string
+  ): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathAddToMarketplaceSupernovas, UpdaterPublicKeyBase58Check, {
+      DropNumber,
+      DropTstampNanos,
+      IsActive,
+      NFTHashHexToAdd,
+      NFTHashHexToRemove,
+      AdminPublicKey: UpdaterPublicKeyBase58Check, // Says adminpk but it does not matter
     });
   }
 

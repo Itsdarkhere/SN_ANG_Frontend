@@ -128,6 +128,7 @@ export class MintYourNftComponent {
       )
       .subscribe(
         (res) => {
+          this.dropNFT();
           this.globalVars.updateEverything(res.TxnHashHex, this._mintNFTSuccess, this._mintNFTFailure, this);
         },
         (err) => {
@@ -140,12 +141,59 @@ export class MintYourNftComponent {
   _mintNFTSuccess(comp: MintYourNftComponent) {
     comp.minting = false;
     comp.router.navigate(["/" + comp.globalVars.RouteNames.NFT + "/" + comp.data.post.PostHashHex]);
-    // comp.bsModalRef.hide();
+    //comp.bsModalRef.hide();
     comp.diaref.close();
   }
 
   _mintNFTFailure(comp: MintYourNftComponent) {
     comp.minting = false;
     comp.globalVars._alertError("Transaction broadcast successfully but read node timeout exceeded. Please refresh.");
+  }
+
+  // These two below are for adding straight to marketplace once minted, backend has been modified to fit this need
+  dropNFT() {
+    // Get the latest drop so that we can update it.
+    this.backendApi
+      .GetMarketplaceRefSupernovas(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        -1 /*DropNumber*/
+      )
+      .subscribe(
+        (res: any) => {
+          if (res.DropEntry.DropTstampNanos == 0) {
+            this.globalVars._alertError(
+              "NFT Minted but adding to marketplace failed, contact Supernovas team for assistance."
+            );
+            return;
+          }
+
+          this.addNFTToLatestDrop(res.DropEntry, this.data.post.PostHashHex);
+        },
+        (error) => {
+          this.globalVars._alertError(error.error.error);
+        }
+      );
+  }
+
+  addNFTToLatestDrop(latestDrop: any, postHash: string) {
+    this.backendApi
+      .AddToMarketplaceSupernovas(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        latestDrop.DropNumber,
+        latestDrop.DropTstampNanos,
+        latestDrop.IsActive /*IsActive*/,
+        postHash /*NFTHashHexToAdd*/,
+        "" /*This is not actually needed it does nothing*/
+      )
+      .subscribe(
+        (res: any) => {
+          console.log("Added to marketplace!");
+        },
+        (error) => {
+          this.globalVars._alertError(error.error.error);
+        }
+      );
   }
 }

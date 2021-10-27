@@ -53,7 +53,11 @@ export class FeedPostDropdownComponent {
   dropNFT() {
     // Get the latest drop so that we can update it.
     this.backendApi
-      .AdminGetNFTDrop(this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check, -1 /*DropNumber*/)
+      .GetMarketplaceRefSupernovas(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        -1 /*DropNumber*/
+      )
       .subscribe(
         (res: any) => {
           if (res.DropEntry.DropTstampNanos == 0) {
@@ -96,7 +100,7 @@ export class FeedPostDropdownComponent {
 
   addNFTToLatestDrop(latestDrop: any, postHash: string) {
     this.backendApi
-      .AdminUpdateNFTDrop(
+      .AddToMarketplaceSupernovas(
         this.globalVars.localNode,
         this.globalVars.loggedInUser.PublicKeyBase58Check,
         latestDrop.DropNumber,

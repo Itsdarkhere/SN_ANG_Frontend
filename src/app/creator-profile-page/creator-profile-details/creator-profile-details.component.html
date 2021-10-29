@@ -16,7 +16,7 @@
 
     <!-- Feed Selector -->
     <tab-selector
-      [tabs]="['NFTs', 'Posts', 'Creator Coin', 'Diamonds']"
+      [tabs]="['Created', 'Collected', 'Posts', 'Creator Coin']"
       [activeTab]="activeTab"
       (tabClick)="_handleTabClick($event)"
     ></tab-selector>
@@ -80,19 +80,23 @@
       <div class="w-100 p-35px"></div>
     </div>
 
-    <!-- Diamonds -->
-    <div class="w-100 d-flex flex-column" *ngIf="activeTab == 'Diamonds' && !loading">
-      <creator-diamonds [profile]="profile"></creator-diamonds>
-      <div class="w-100 p-35px"></div>
-    </div>
-
-    <!-- NFTs -->
-    <div class="w-100 d-flex flex-column" *ngIf="activeTab == 'NFTs' && !loading">
-      <creator-profile-nfts
+    <!-- Collected -->
+    <div class="w-100 d-flex flex-column" *ngIf="activeTab == 'Collected' && !loading">
+      <app-creator-profile-collected
         [profile]="profile"
         [showProfileAsReserved]="showProfileAsReserved()"
         (blockUser)="userBlocked()"
-      ></creator-profile-nfts>
+      ></app-creator-profile-collected>
+      <div class="w-100 p-35px"></div>
+    </div>
+
+    <!-- Created -->
+    <div class="w-100 d-flex flex-column" *ngIf="activeTab == 'Created' && !loading">
+      <app-creator-profile-created
+        [profile]="profile"
+        [showProfileAsReserved]="showProfileAsReserved()"
+        (blockUser)="userBlocked()"
+      ></app-creator-profile-created>
       <div class="w-100 p-35px"></div>
     </div>
   </div>

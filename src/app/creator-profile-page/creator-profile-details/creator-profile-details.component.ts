@@ -25,14 +25,14 @@ export class CreatorProfileDetailsComponent implements OnInit {
     // Leaving this one in so old links will direct to the Coin Purchasers tab.
     "creator-coin": "Creator Coin",
     "coin-purchasers": "Creator Coin",
-    diamonds: "Diamonds",
-    nfts: "NFTs",
+    collected: "Collected",
+    created: "Created",
   };
   static TABS_LOOKUP = {
     Posts: "posts",
     "Creator Coin": "creator-coin",
-    Diamonds: "diamonds",
-    NFTs: "nfts",
+    Collected: "collected",
+    Created: "created",
   };
 
   appData: GlobalVarsService;

@@ -24,15 +24,11 @@
       </a>
     </li>
     <li class="small-nav-li" *ngIf="globalVars.loggedInUser?.ProfileEntryResponse">
-      <a
-        [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser.ProfileEntryResponse?.Username)"
-        [queryParams]="{ nftTab: 'my_bids', tab: 'nfts' }"
-        [routerLinkActive]="['active']"
-      >
+      <a [routerLink]="'/' + globalVars.RouteNames.ACTIVITY" [routerLinkActive]="['active']">
         <div class="small-nav-icon-container">
           <img src="assets/icons/bid-icon.svg" class="small-nav-icon" />
         </div>
-        <span class="nav-text">Active bids</span>
+        <span class="nav-text">Activity</span>
       </a>
     </li>
     <li class="small-nav-li">

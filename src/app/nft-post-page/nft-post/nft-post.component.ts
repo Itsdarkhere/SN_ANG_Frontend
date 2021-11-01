@@ -140,7 +140,6 @@ export class NftPostComponent {
       }
     );
   }
-
   refreshBidData(): Subscription {
     this.refreshingBids = true;
     return this.backendApi

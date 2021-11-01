@@ -193,6 +193,7 @@ export class TrendsComponent implements OnInit {
               (nftCollection) => nftCollection.PostEntryResponse.PostHashHex
             );
           }
+          console.log(this.nftCollections);
           this.getParamsAndSort();
           if (showmore) {
             document.body.scrollTop = 0; // For Safari

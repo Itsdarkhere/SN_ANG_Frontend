@@ -46,6 +46,7 @@ export class PlaceBidModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.post);
     this.backendApi
       .GetNFTCollectionSummary(
         this.globalVars.localNode,
@@ -61,6 +62,7 @@ export class PlaceBidModalComponent implements OnInit {
           (nftEntryResponse) =>
             nftEntryResponse.OwnerPublicKeyBase58Check !== this.globalVars.loggedInUser.PublicKeyBase58Check
         );
+        console.log(this.biddableSerialNumbers);
       })
       .add(() => (this.loading = false));
   }

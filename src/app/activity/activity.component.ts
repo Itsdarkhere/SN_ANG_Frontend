@@ -6,6 +6,9 @@ import {
   PostEntryResponse,
   ProfileEntryResponse,
 } from "../backend-api.service";
+import { BsModalService } from "ngx-bootstrap/modal";
+import { SharedDialogs } from "src/lib/shared-dialogs";
+import { PlaceBidModalComponent } from "../place-bid-modal/place-bid-modal.component";
 import { GlobalVarsService } from "../global-vars.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
@@ -14,6 +17,7 @@ import * as _ from "lodash";
 import { InfiniteScroller } from "../infinite-scroller";
 import { Subscription } from "rxjs";
 import { SwalHelper } from "../../lib/helpers/swal-helper";
+import { FeedPostImageModalComponent } from "../feed/feed-post-image-modal/feed-post-image-modal.component";
 
 @Component({
   selector: "app-activity",
@@ -33,9 +37,9 @@ export class ActivityComponent implements OnInit {
   lastPage = null;
   isLoading = true;
   loadingNewSelection = false;
-  static ACTIVE_BIDS = "Active Bids";
+  static BIDS_MADE = "Bids Made";
   static TRANSFERS = "Transfers";
-  tabs = [ActivityComponent.ACTIVE_BIDS, ActivityComponent.TRANSFERS];
+  tabs = [ActivityComponent.BIDS_MADE, ActivityComponent.TRANSFERS];
   activeTab: string;
   mobile = false;
 
@@ -45,11 +49,11 @@ export class ActivityComponent implements OnInit {
 
   static TABS = {
     transfers: "Transfers",
-    active_bids: "Active Bids",
+    active_bids: "Bids Made",
   };
   static TABS_LOOKUP = {
     Transfers: "transfers",
-    ACTIVE_BIDS: "active_bids",
+    BIDS_MADE: "bids_made",
   };
 
   constructor(
@@ -58,18 +62,68 @@ export class ActivityComponent implements OnInit {
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private modalService: BsModalService
   ) {
     this.route.queryParams.subscribe((params) => {
       this.activeTab =
-        params.tab && params.tab in ActivityComponent.TABS ? ActivityComponent.TABS[params.tab] : "Active Bids";
+        params.tab && params.tab in ActivityComponent.TABS ? ActivityComponent.TABS[params.tab] : "Bids Made";
     });
+  }
+  afterUserBlocked(blockedPubKey: any) {
+    this.globalVars.loggedInUser.BlockedPubKeys[blockedPubKey] = {};
+  }
+
+  afterNftBidPlaced() {
+    this.getNFTBids();
   }
 
   ngOnInit(): void {
     this.setMobileBasedOnViewport();
+    this.route.queryParams.subscribe((queryParams) => {
+      let tab = queryParams.tab || "bids_made";
+      console.log(tab);
+      if (tab === "transfers") {
+        this.getNFTs(this.getIsForSaleValue()).add();
+      } else {
+        // Get BIDS
+        this.getNFTBids();
+      }
+    });
   }
-
+  openPlaceBidModal(event: any, postEntryResponse) {
+    if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
+      this.globalVars._alertError("Create profile to perform this action...");
+      return;
+    }
+    event.stopPropagation();
+    const modalDetails = this.modalService.show(PlaceBidModalComponent, {
+      class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
+      initialState: { post: postEntryResponse },
+    });
+    // post: this.postContent
+    const onHideEvent = modalDetails.onHide;
+    onHideEvent.subscribe((response) => {
+      if (response === "bid placed") {
+        this.getNFTBids();
+      }
+    });
+  }
+  openImgModal(event, imageURL) {
+    event.stopPropagation();
+    this.modalService.show(FeedPostImageModalComponent, {
+      class: "modal-dialog-centered modal-lg",
+      initialState: {
+        imageURL,
+      },
+    });
+  }
+  mapImageURLs(imgURL: string): string {
+    if (imgURL.startsWith("https://i.imgur.com")) {
+      return imgURL.replace("https://i.imgur.com", "https://images.bitclout.com/i.imgur.com");
+    }
+    return imgURL;
+  }
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
   }
@@ -136,7 +190,7 @@ export class ActivityComponent implements OnInit {
 
     return new Promise((resolve, reject) => {
       resolve(
-        this.activeTab === ActivityComponent.ACTIVE_BIDS
+        this.activeTab === ActivityComponent.BIDS_MADE
           ? this.myBids.slice(startIdx, Math.min(endIdx, this.myBids.length))
           : this.nftResponse.slice(startIdx, Math.min(endIdx, this.nftResponse.length))
       );
@@ -147,7 +201,7 @@ export class ActivityComponent implements OnInit {
     this.activeTab = tabName;
     // Update query params to reflect current tab
     const urlTree = this.router.createUrlTree([], {
-      queryParams: { tab: ActivityComponent.TABS_LOOKUP[tabName] || "active_bids" },
+      queryParams: { tab: ActivityComponent.TABS_LOOKUP[tabName] || "bids_made" },
       queryParamsHandling: "merge",
       preserveFragment: true,
     });
@@ -174,6 +228,7 @@ export class ActivityComponent implements OnInit {
   }
 
   getNFTBids(): Subscription {
+    this.isLoading = true;
     return this.backendApi
       .GetNFTBidsForUser(
         this.globalVars.localNode,
@@ -195,13 +250,18 @@ export class ActivityComponent implements OnInit {
             bidEntry.PostEntryResponse = res.PostHashHexToPostEntryResponse[bidEntry.PostHashHex];
             return bidEntry;
           });
+          this.myBids = this.myBids.sort(
+            (a, b) => a.PostEntryResponse.TimestampNanos - b.PostEntryResponse.TimestampNanos
+          );
           this.lastPage = Math.floor(this.myBids.length / ActivityComponent.PAGE_SIZE);
+          this.isLoading = false;
           return this.myBids;
         }
       );
   }
 
   getNFTs(isForSale: boolean | null = null): Subscription {
+    this.isLoading = true;
     return this.backendApi
       .GetNFTsForUser(
         this.globalVars.localNode,
@@ -223,6 +283,7 @@ export class ActivityComponent implements OnInit {
             }
           }
           this.lastPage = Math.floor(this.nftResponse.length / ActivityComponent.PAGE_SIZE);
+          this.isLoading = false;
           return this.nftResponse;
         }
       );
@@ -250,7 +311,7 @@ export class ActivityComponent implements OnInit {
   getIsForSaleValue(): boolean | null {
     if (this.activeTab === ActivityComponent.TRANSFERS) {
       return false;
-    } else if (this.activeTab === ActivityComponent.ACTIVE_BIDS) {
+    } else if (this.activeTab === ActivityComponent.BIDS_MADE) {
       return null;
     }
   }

@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, View
 import {
   BackendApiService,
   NFTBidEntryResponse,
+  NFTCollectionResponse,
   NFTEntryResponse,
   PostEntryResponse,
   ProfileEntryResponse,
@@ -13,6 +14,7 @@ import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import * as _ from "lodash";
 import { InfiniteScroller } from "../../infinite-scroller";
 import { of, Subscription } from "rxjs";
+import { uniqBy } from "lodash";
 
 @Component({
   selector: "app-creator-profile-created",
@@ -29,8 +31,11 @@ export class CreatorProfileCreatedComponent implements OnInit {
   @Input() afterCommentCreatedCallback: any = null;
   @Input() showProfileAsReserved: boolean;
 
+  nftCollections: NFTCollectionResponse[];
+
   nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
-  dataToShow: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
+  //dataToShow: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
+  dataToShow: NFTCollectionResponse[];
   responseHolder: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
   myBids: NFTBidEntryResponse[];
 
@@ -104,6 +109,30 @@ export class CreatorProfileCreatedComponent implements OnInit {
   getNFTs(isForSale: boolean | null = null): Subscription {
     this.isLoading = true;
     return this.backendApi
+      .GetNFTShowcaseProfile(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser?.PublicKeyBase58Check,
+        this.profile.PublicKeyBase58Check
+      )
+      .subscribe(
+        (res: any) => {
+          this.nftCollections = res.NFTCollections;
+          if (this.nftCollections) {
+            this.nftCollections = uniqBy(
+              this.nftCollections,
+              (nftCollection) => nftCollection.PostEntryResponse.PostHashHex
+            );
+            this.nftCollections.sort((a, b) => b.PostEntryResponse.TimestampNanos - a.PostEntryResponse.TimestampNanos);
+            this.dataToShow = this.nftCollections.slice(this.startIndex, this.endIndex);
+          }
+          this.isLoading = false;
+        },
+        (error) => {
+          this.globalVars._alertError(error.error.error);
+          this.isLoading = false;
+        }
+      );
+    /*return this.backendApi
       .GetNFTsForUser(
         this.globalVars.localNode,
         this.profile.PublicKeyBase58Check,
@@ -126,13 +155,13 @@ export class CreatorProfileCreatedComponent implements OnInit {
           this.isLoading = false;
           return this.nftResponse;
         }
-      );
+      );*/
   }
   onScroll() {
-    if (this.endIndex <= this.nftResponse.length - 1) {
+    if (this.endIndex <= this.nftCollections.length - 1) {
       this.startIndex = this.endIndex;
       this.endIndex += 20;
-      this.dataToShow = [...this.dataToShow, ...this.nftResponse.slice(this.startIndex, this.endIndex)];
+      this.dataToShow = [...this.dataToShow, ...this.nftCollections.slice(this.startIndex, this.endIndex)];
     }
   }
 }

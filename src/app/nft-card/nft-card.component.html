@@ -85,9 +85,7 @@
             *ngIf="showDropdown"
             class="ml-auto"
             [post]="post"
-            [owns]="this.owns"
             [postContent]="postContent"
-            [pending]="this.pending"
             [nftEntryResponses]="nftEntryResponses"
             (postHidden)="hidePost()"
             (userBlocked)="blockUser()"
@@ -153,8 +151,6 @@
             *ngIf="showDropdown && !reposterProfile"
             class="ml-auto"
             [post]="post"
-            [pending]="this.pending"
-            [owns]="this.owns"
             [postContent]="postContent"
             [nftEntryResponses]="nftEntryResponses"
             (postHidden)="hidePost()"
@@ -191,10 +187,6 @@
               />
             </div>
           </ng-container>
-
-          <!-- <div class="img-cover" *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID" [ngClass]="{'for-feed': fromFeed}">
-                        <img (click)="openImgModal($event, postContent.ImageURLs[0])" data-toggle="modal" src="{{ mapImageURLs(postContent.ImageURLs[0]) }}" />
-                    </div> -->
           <ng-container *ngIf="quotedContent?.IsNFT && profileFeed">
             <app-nft-card
               *ngIf="quotedContent && showQuotedContent"

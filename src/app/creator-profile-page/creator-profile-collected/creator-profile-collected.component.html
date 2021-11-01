@@ -28,8 +28,6 @@
             *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
             [contentShouldLinkToThread]="true"
             [includePaddingOnPost]="true"
-            [pending]="false"
-            [owns]="true"
             [post]="nftEntry.PostEntryResponse"
             [afterCommentCreatedCallback]="_prependComment.bind(this, nftEntry.PostEntryResponse, index)"
             [blocked]="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)"

@@ -39,8 +39,6 @@ export class FeedPostDropdownComponent {
     private platformLocation: PlatformLocation,
     public matdialog: MatDialog
   ) {}
-  @Input() pending: boolean;
-  @Input() owns: boolean;
   @Input() serialnumbers: boolean;
   @Input() decryptableNFTEntryResponses: NFTEntryResponse[];
 
@@ -235,7 +233,7 @@ export class FeedPostDropdownComponent {
   UserOwnsSerialNumbers() {
     const loggedInPubKey = this.globalVars.loggedInUser.PublicKeyBase58Check;
     let serialList = this.nftEntryResponses.filter(
-      (NFTEntryResponse) => NFTEntryResponse.OwnerPublicKeyBase58Check === loggedInPubKey && !NFTEntryResponse.IsPending
+      (NFTEntryResponse) => NFTEntryResponse.OwnerPublicKeyBase58Check === loggedInPubKey
     );
     return serialList;
   }
@@ -265,7 +263,6 @@ export class FeedPostDropdownComponent {
       },
     });
   }
-
   openInteractionModalBurn(event, component): void {
     event.stopPropagation();
     this.modalService.show(component, {

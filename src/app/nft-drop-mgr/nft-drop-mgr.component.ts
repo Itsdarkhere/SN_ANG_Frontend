@@ -275,8 +275,6 @@ export class NftDropMgrComponent implements OnInit {
       )
       .subscribe(
         (res: any) => {
-          console.log(res.dropEntry);
-          console.log("Update");
           this.updateStateBasedOnNewDropEntry(res.DropEntry, res.Posts);
         },
         (error) => {

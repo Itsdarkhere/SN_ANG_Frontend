@@ -103,12 +103,14 @@ export class CreatorProfileCollectedComponent implements OnInit {
       );
     });
   }
+
   profileBelongsToLoggedInUser(): boolean {
     return (
       this.globalVars.loggedInUser?.ProfileEntryResponse &&
       this.globalVars.loggedInUser.ProfileEntryResponse.PublicKeyBase58Check === this.profile.PublicKeyBase58Check
     );
   }
+
   getNFTs(isForSale: boolean | null = null): Subscription {
     this.isLoading = true;
     return this.backendApi
@@ -125,7 +127,10 @@ export class CreatorProfileCollectedComponent implements OnInit {
           this.nftResponse = [];
           for (const k in res.NFTsMap) {
             const responseElement = res.NFTsMap[k];
-            if (res.NFTsMap[k].PostEntryResponse.PosterPublicKeyBase58Check != this.profile.PublicKeyBase58Check) {
+            if (
+              res.NFTsMap[k].PostEntryResponse.PosterPublicKeyBase58Check != this.profile.PublicKeyBase58Check &&
+              !responseElement.NFTEntryResponses[0].IsPending
+            ) {
               this.nftResponse.push(responseElement);
             }
           }
@@ -136,6 +141,7 @@ export class CreatorProfileCollectedComponent implements OnInit {
         }
       );
   }
+
   onScroll() {
     if (this.endIndex <= this.nftResponse.length - 1) {
       this.startIndex = this.endIndex;

@@ -88,7 +88,9 @@ export class CreatorProfileDetailsComponent implements OnInit {
   unblockUser() {
     this.unblock();
   }
-
+  click() {
+    console.log(this.profile);
+  }
   unblock() {
     SwalHelper.fire({
       target: this.globalVars.getTargetComponentSelector(),

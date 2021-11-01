@@ -16,11 +16,11 @@
 
     <!-- Feed Selector -->
     <tab-selector
-      [tabs]="['Created', 'Collected', 'Posts', 'Creator Coin']"
+      [tabs]="['Collected', 'Posts', 'Creator Coin']"
+      [extraTab]="profile.IsVerified ? 'Created' : ''"
       [activeTab]="activeTab"
       (tabClick)="_handleTabClick($event)"
     ></tab-selector>
-
     <!-- Reserved -->
     <div *ngIf="showProfileAsReserved() && activeTab === 'Posts'" class="p-15px">
       <div class="background-color-grey p-35px br-12px d-flex flex-row align-items-center">

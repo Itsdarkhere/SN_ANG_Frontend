@@ -5,12 +5,20 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
   templateUrl: "./tab-selector.component.html",
   styleUrls: ["./tab-selector.component.scss"],
 })
-export class TabSelectorComponent {
+export class TabSelectorComponent implements OnInit {
   @Output() tabClick = new EventEmitter<string>();
   @Input() tabs: any; // Should be a list of strings with tab names.
+  @Input() extraTab: string;
   @Input() activeTab: string;
 
   constructor() {}
+
+  ngOnInit(): void {
+    console.log(this.extraTab);
+    if (this.extraTab) {
+      this.tabs.unshift(this.extraTab);
+    }
+  }
 
   _tabClicked(tab: string) {
     this.tabClick.emit(tab);
@@ -23,3 +31,7 @@ export class TabSelectorComponent {
     return false;
   }
 }
+function ngOnInit() {
+  throw new Error("Function not implemented.");
+}
+

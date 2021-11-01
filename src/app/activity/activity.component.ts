@@ -82,7 +82,6 @@ export class ActivityComponent implements OnInit {
     this.setMobileBasedOnViewport();
     this.route.queryParams.subscribe((queryParams) => {
       let tab = queryParams.tab || "bids_made";
-      console.log(tab);
       if (tab === "transfers") {
         this.getNFTs(this.getIsForSaleValue()).add();
       } else {

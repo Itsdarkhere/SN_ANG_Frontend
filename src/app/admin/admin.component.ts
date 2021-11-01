@@ -415,7 +415,6 @@ export class AdminComponent implements OnInit {
             this.adminPosts = res.PostsFound;
           }
           if (this.activePostTab === this.POSTS_TAB) {
-            console.log(this.adminPosts);
             this.activePosts = this.adminPosts;
           }
           /*

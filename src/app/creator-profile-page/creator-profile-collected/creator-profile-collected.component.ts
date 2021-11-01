@@ -27,7 +27,7 @@ export class CreatorProfileCollectedComponent implements OnInit {
   static PADDING = 0.5;
 
   startIndex = 0;
-  endIndex = 20;
+  endIndex = 10;
 
   @Input() profile: ProfileEntryResponse;
   @Input() afterCommentCreatedCallback: any = null;

@@ -34,13 +34,12 @@ export class CreatorProfileCreatedComponent implements OnInit {
   nftCollections: NFTCollectionResponse[];
 
   nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
-  //dataToShow: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
   dataToShow: NFTCollectionResponse[];
   responseHolder: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
   myBids: NFTBidEntryResponse[];
 
   startIndex = 0;
-  endIndex = 20;
+  endIndex = 10;
 
   lastPage = null;
   isLoading = true;
@@ -106,6 +105,7 @@ export class CreatorProfileCreatedComponent implements OnInit {
       this.globalVars.loggedInUser.ProfileEntryResponse.PublicKeyBase58Check === this.profile.PublicKeyBase58Check
     );
   }
+
   getNFTs(isForSale: boolean | null = null): Subscription {
     this.isLoading = true;
     return this.backendApi

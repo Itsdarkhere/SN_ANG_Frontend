@@ -20,7 +20,6 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { IdentityService } from "./identity.service";
 import { BithuntService, CommunityProject } from "../lib/services/bithunt/bithunt-service";
 import { LeaderboardResponse, PulseService } from "../lib/services/pulse/pulse-service";
-import { AltumbaseResponse, AltumbaseService } from "../lib/services/altumbase/altumbase-service";
 import { RightBarCreatorsLeaderboardComponent } from "./right-bar-creators/right-bar-creators-leaderboard/right-bar-creators-leaderboard.component";
 import { HttpClient } from "@angular/common/http";
 import { FeedComponent } from "./feed/feed.component";
@@ -216,6 +215,8 @@ export class GlobalVarsService {
   referralUSDCents: number = 0;
 
   transactionFeeMap: { [k: string]: TransactionFee[] };
+  transactionFeeMax: number = 0;
+  transactionFeeInfo: string;
 
   buyETHAddress: string = "";
 
@@ -848,7 +849,7 @@ export class GlobalVarsService {
 
   launchIdentityFlow(event: string): void {
     this.logEvent(`account : ${event} : launch`);
-    this.identityService.launch("/log-in?accessLevelRequest=4", { referralCode: this.referralCode() }).subscribe((res) => {
+    this.identityService.launch("/log-in?accessLevelRequest=4", { referralCode: this.referralCode(), hideJumio: true }).subscribe((res) => {
       this.logEvent(`account : ${event} : success`);
       this.backendApi.setIdentityServiceUsers(res.users, res.publicKeyAdded);
       this.updateEverything().add(() => {
@@ -907,7 +908,7 @@ export class GlobalVarsService {
       if (environment.production) {
         this.localNode = hostname;
       } else {
-        this.localNode = `api.love4src.com`;
+        this.localNode = `${hostname}:17001`;
       }
 
       this.backendApi.SetStorage(this.backendApi.LastLocalNodeKey, this.localNode);
@@ -938,10 +939,8 @@ export class GlobalVarsService {
     if (this.topGainerLeaderboard.length === 0 || forceRefresh) {
       pulseService.getDeSoLockedLeaderboard().subscribe((res) => (this.topGainerLeaderboard = res));
     }
-
-    const altumbaseService = new AltumbaseService(this.httpClient, this.backendApi, this);
     if (this.topDiamondedLeaderboard.length === 0 || forceRefresh) {
-      altumbaseService.getDiamondsReceivedLeaderboard().subscribe((res) => (this.topDiamondedLeaderboard = res));
+      pulseService.getDiamondsReceivedLeaderboard().subscribe((res) => (this.topDiamondedLeaderboard = res));
     }
 
     if (this.topCommunityProjectsLeaderboard.length === 0 || forceRefresh) {
@@ -1149,7 +1148,6 @@ export class GlobalVarsService {
               if (user) {
                 this.setLoggedInUser(user);
               }
-              localStorage.setItem("referralCode", undefined);
               this.celebrate();
               if (user.TutorialStatus === TutorialStatus.EMPTY) {
                 this.startTutorialAlert();

@@ -7,7 +7,7 @@
   <!-- DeSo Price / Balance -->
   <div class="right-bar-creators__balance-box br-12px p-15px mb-30px fs-13px text-grey5 font-weight-bold">
     <div class="d-flex justify-content-between">
-      <div>Your $DeSo</div>
+      <div>Your $DESO</div>
       <div>
         {{ globalVars.nanosToDeSo(globalVars.loggedInUser.BalanceNanos) }}
           <span class="text-muted" *ngIf="globalVars.satoshisPerDeSoExchangeRate">
@@ -16,12 +16,27 @@
       </div>
     </div>
     <div *ngIf="globalVars.loggedInUser" class="d-flex justify-content-between pt-10px">
-      <div class="d-flex" style="min-width: 150px">$DeSo price</div>
+      <div class="d-flex" style="min-width: 150px">$DESO price</div>
       <div class="d-flex flex-column justify-content-end flex-wrap" style="align-items: flex-end">
         <div>
           <span>~{{ globalVars.desoToUSDExchangeRateToDisplay }}</span>
           <span class="text-muted">&nbsp;USD per coin</span>  
         </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between pt-10px" *ngIf="globalVars.transactionFeeMax > 0">
+      <div>Transaction fee:</div>
+      <div>
+        {{ globalVars.nanosToUSD(globalVars.transactionFeeMax, 4) }} Max
+        <span
+              (click)="tooltip.toggle()"
+              class="ml-1 mb-1 cursor-pointer text-primary"
+              matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
+              [matTooltip]="globalVars.transactionFeeInfo"
+              #tooltip="matTooltip"
+            >
+            <i class="fas fa-info-circle fa-md align-middle"></i>
+          </span>
       </div>
     </div>
     <div class="mt-3">

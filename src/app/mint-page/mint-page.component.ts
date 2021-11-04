@@ -304,7 +304,7 @@ export class MintPageComponent implements OnInit {
   }
   isPostReady() {
     return (
-      (this.isUploading || this.isUploaded) && this.postImageSrc.length > 0 && this.isDescribed() && this.isPriced()
+      (this.isUploading || this.postImageSrc?.length > 0) && this.postImageSrc.length > 0 && this.isDescribed() && this.isPriced()
     );
   }
   appendExtraData(TxnHashHex) {

@@ -7,12 +7,11 @@ import { ArweaveJsService } from "../arweave-js.service";
 import { MatDialogRef } from "@angular/material/dialog";
 
 @Component({
-  selector: 'app-create-post-upload-mint',
-  templateUrl: './create-post-upload-mint.component.html',
-  styleUrls: ['./create-post-upload-mint.component.scss']
+  selector: "app-create-post-upload-mint",
+  templateUrl: "./create-post-upload-mint.component.html",
+  styleUrls: ["./create-post-upload-mint.component.scss"],
 })
 export class CreatePostUploadMintComponent implements OnInit {
-  
   @Output() postCreated = new EventEmitter();
 
   globalVars: GlobalVarsService;
@@ -36,7 +35,7 @@ export class CreatePostUploadMintComponent implements OnInit {
   postHashHex = "";
 
   private arweave: ArweaveJsService;
-  
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -49,11 +48,9 @@ export class CreatePostUploadMintComponent implements OnInit {
     this.arweave = new ArweaveJsService(this.globalVars);
   }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
-  mintNFT() {    
+  mintNFT() {
     this.backendApi
       .CreateNft(
         this.globalVars.localNode,
@@ -100,11 +97,19 @@ export class CreatePostUploadMintComponent implements OnInit {
       Body: this.postDescription,
       ImageURLs: [this.postImageSrc].filter((n) => n),
     };
-    
+
     this.backendApi
       .SubmitPost(
-        this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check,
-        "", "", "" /*Title*/, bodyObj /*BodyObj*/, "", {}, "", false /*IsHidden*/,
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        "",
+        "",
+        "" /*Title*/,
+        bodyObj /*BodyObj*/,
+        "",
+        {},
+        "",
+        false /*IsHidden*/,
         this.globalVars.defaultFeeRateNanosPerKB /*MinFeeRateNanosPerKB*/
       )
       .subscribe(
@@ -171,57 +176,61 @@ export class CreatePostUploadMintComponent implements OnInit {
 
     this.isUploading = true;
 
-    this.arweave
-      .UploadImage(file)
-      .subscribe(
-        (res) => {
-          let url = "https://arweave.net/" + res;
-          this.postImageSrc = url;
-          this.isUploading = false;
-          this.isUploaded = (this.postImageSrc.length > 0);
-          this.arweave.ConfirmTransaction(res).subscribe(
-            (res) => {
-              this.isUploadConfirmed = res;
-            },
-            (err) => {
-              this.isUploadConfirmed = false;
-            }
-          );
-        },
-        (err) => {
-          this.isUploading = false;
-          this.isUploaded = false;
-          this.globalVars._alertError("Failed to upload image to arweave: " + err.message);
-        }
-      );
+    this.arweave.UploadImage(file).subscribe(
+      (res) => {
+        let url = "https://arweave.net/" + res;
+        this.postImageSrc = url;
+        this.isUploading = false;
+        this.isUploaded = this.postImageSrc.length > 0;
+        this.arweave.ConfirmTransaction(res).subscribe(
+          (res) => {
+            this.isUploadConfirmed = res;
+          },
+          (err) => {
+            this.isUploadConfirmed = false;
+          }
+        );
+      },
+      (err) => {
+        this.isUploading = false;
+        this.isUploaded = false;
+        this.globalVars._alertError("Failed to upload image to arweave: " + err.message);
+      }
+    );
   }
 
   isPostReady() {
-    return ((this.isUploading || this.isUploaded) && (this.postImageSrc.length > 0) && this.isDescribed() && this.isPriced());
+    return (
+      (this.isUploading || this.isUploaded) && this.postImageSrc.length > 0 && this.isDescribed() && this.isPriced()
+    );
   }
 
   isDescribed() {
-    return ((this.postDescription.length > 0) && (this.postDescription.length <= GlobalVarsService.MAX_POST_LENGTH));
+    return this.postDescription.length > 0 && this.postDescription.length <= GlobalVarsService.MAX_POST_LENGTH;
   }
 
   isPriced() {
-    return (this.isPostMinPriceCorrect() && this.isPostRoyaltyCorrect());
+    return this.isPostMinPriceCorrect() && this.isPostRoyaltyCorrect();
   }
 
   isPostMinPriceCorrect() {
-    return (this.isNumber(this.postMinPrice) && this.postMinPrice >= 0);
+    return this.isNumber(this.postMinPrice) && this.postMinPrice >= 0;
   }
 
   isPostRoyaltyCorrect() {
-    return (this.isPostCreatorRoyaltyCorrect() && this.isPostHoldersRoyaltyCorrect() && ((parseFloat(String(this.postCreatorRoyalty)) + parseFloat(String(this.postHoldersRoyalty))) <= 100));
+    return (
+      this.isPostCreatorRoyaltyCorrect() &&
+      this.isPostHoldersRoyaltyCorrect() &&
+      parseFloat(String(this.postCreatorRoyalty)) + parseFloat(String(this.postHoldersRoyalty)) <= 100
+    );
   }
 
   isPostCreatorRoyaltyCorrect() {
-    return (this.isNumber(this.postCreatorRoyalty) && (this.postCreatorRoyalty >= 0) && (this.postCreatorRoyalty <= 100));
+    return this.isNumber(this.postCreatorRoyalty) && this.postCreatorRoyalty >= 0 && this.postCreatorRoyalty <= 100;
   }
 
   isPostHoldersRoyaltyCorrect() {
-    return (this.isNumber(this.postHoldersRoyalty) && (this.postHoldersRoyalty >= 0) && (this.postHoldersRoyalty <= 100));
+    return this.isNumber(this.postHoldersRoyalty) && this.postHoldersRoyalty >= 0 && this.postHoldersRoyalty <= 100;
   }
 
   isNumber(n: string | number): boolean {

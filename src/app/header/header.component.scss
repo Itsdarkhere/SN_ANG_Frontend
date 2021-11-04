@@ -148,7 +148,29 @@ header {
         }
     }
 }
-
+.header-create-button-gradient {
+    width: 80px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(249,52,62);
+    background: -moz-linear-gradient(43deg, rgba(249,52,62,1) 5%, rgba(241,103,109,1) 20%, rgba(245,197,25,1) 35%, rgba(60,225,149,1) 50%, rgba(24,191,192,1) 65%, rgba(72,109,239,1) 80%, rgba(142,73,248,1) 95%);
+    background: -webkit-linear-gradient(43deg, rgba(249,52,62,1) 5%, rgba(241,103,109,1) 20%, rgba(245,197,25,1) 35%, rgba(60,225,149,1) 50%, rgba(24,191,192,1) 65%, rgba(72,109,239,1) 80%, rgba(142,73,248,1) 95%);
+    background: linear-gradient(43deg, rgba(249,52,62,1) 5%, rgba(241,103,109,1) 20%, rgba(245,197,25,1) 35%, rgba(60,225,149,1) 50%, rgba(24,191,192,1) 65%, rgba(72,109,239,1) 80%, rgba(142,73,248,1) 95%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f9343e",endColorstr="#8e49f8",GradientType=1);
+    border-radius: 16px;
+    border: none;
+}
+.create-button-div {
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    border-radius: 12px;
+    background: var(--background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .notification-icon-cover {
     position: relative;
     z-index: 1;

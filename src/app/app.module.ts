@@ -92,7 +92,7 @@ import { UiScrollModule } from "ngx-ui-scroll";
 import { PageComponent } from "./page/page.component";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
-import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { MatDialog, MatDialogModule, MatDialogRef } from "@angular/material/dialog";
 import { PopoverModule } from "ngx-bootstrap/popover";
 import { RatingModule } from "ngx-bootstrap/rating";
 import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
@@ -179,11 +179,12 @@ import { AngularFireStorageModule } from "@angular/fire/storage";
 import { environment } from "src/environments/environment.prod";
 import { PageSmallNavComponent } from "./page-small-nav/page-small-nav.component";
 import { SmallLeftBarComponent } from "./small-left-bar/small-left-bar.component";
-import { MarketplaceLeftBarComponent } from './marketplace-left-bar/marketplace-left-bar.component';
-import { MarketplaceLeftBarMobileComponent } from './marketplace-left-bar-mobile/marketplace-left-bar-mobile.component';
-import { CreatorProfileCollectedComponent } from './creator-profile-page/creator-profile-collected/creator-profile-collected.component';
-import { CreatorProfileCreatedComponent } from './creator-profile-page/creator-profile-created/creator-profile-created.component';
-import { ActivityComponent } from './activity/activity.component';
+import { MarketplaceLeftBarComponent } from "./marketplace-left-bar/marketplace-left-bar.component";
+import { MarketplaceLeftBarMobileComponent } from "./marketplace-left-bar-mobile/marketplace-left-bar-mobile.component";
+import { CreatorProfileCollectedComponent } from "./creator-profile-page/creator-profile-collected/creator-profile-collected.component";
+import { CreatorProfileCreatedComponent } from "./creator-profile-page/creator-profile-created/creator-profile-created.component";
+import { ActivityComponent } from "./activity/activity.component";
+import { MintPageComponent } from "./mint-page/mint-page.component";
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -346,6 +347,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     CreatorProfileCollectedComponent,
     CreatorProfileCreatedComponent,
     ActivityComponent,
+    MintPageComponent,
   ],
   imports: [
     BrowserModule,

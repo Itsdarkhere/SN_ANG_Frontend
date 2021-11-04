@@ -36,6 +36,7 @@ import { SellCreatorCoinsTutorialComponent } from "./tutorial/sell-creator-coins
 import { DiamondTutorialPageComponent } from "./tutorial/diamond-tutorial-page/diamond-tutorial-page.component";
 import { CreatePostTutorialPageComponent } from "./tutorial/create-post-tutorial-page/create-post-tutorial-page.component";
 import { ActivityComponent } from "./activity/activity.component";
+import { MintPageComponent } from "./mint-page/mint-page.component";
 
 class RouteNames {
   // Not sure if we should have a smarter schema for this, e.g. what happens if we have
@@ -50,6 +51,7 @@ class RouteNames {
   public static FOLLOWERS = "followers";
 
   public static ACTIVITY = "activity";
+  public static MINT_PAGE = "mint";
   public static BROWSE = "browse";
   public static CREATORS = "creators";
   public static BUY_DESO = "buy-deso";
@@ -88,6 +90,7 @@ class RouteNames {
 const routes: Routes = [
   { path: "", component: LandingPageComponent, pathMatch: "full" },
   { path: RouteNames.ACTIVITY, component: ActivityComponent, pathMatch: "full" },
+  { path: RouteNames.MINT_PAGE, component: MintPageComponent, pathMatch: "full" },
   { path: RouteNames.BROWSE, component: BrowsePageComponent, pathMatch: "full" },
   { path: RouteNames.CREATORS, component: CreatorsLeaderboardPageComponent, pathMatch: "full" },
   { path: RouteNames.USER_PREFIX + "/:username", component: CreatorProfilePageComponent, pathMatch: "full" },

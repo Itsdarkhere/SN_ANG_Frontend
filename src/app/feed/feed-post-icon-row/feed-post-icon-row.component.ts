@@ -370,7 +370,7 @@ export class FeedPostIconRowComponent {
         afterCommentCreatedCallback: isQuote ? this.afterRepostCreatedCallback : this.afterCommentCreatedCallback,
         isQuote,
       };
-
+      console.log(this.afterCommentCreatedCallback);
       // If the user has an account and a profile, open the modal so they can comment.
       this.modalService.show(CommentModalComponent, {
         class: "modal-dialog-centered",
@@ -563,9 +563,9 @@ export class FeedPostIconRowComponent {
         target: this.globalVars.getTargetComponentSelector(),
         icon: "info",
         title: `Sending ${this.diamondSelected} diamonds to @${this.postContent.ProfileEntryResponse?.Username}`,
-        html: `Clicking confirm will send ${this.globalVars.getUSDForDiamond(
-          this.diamondSelected
-        )} to @${this.postContent.ProfileEntryResponse?.Username}`,
+        html: `Clicking confirm will send ${this.globalVars.getUSDForDiamond(this.diamondSelected)} to @${
+          this.postContent.ProfileEntryResponse?.Username
+        }`,
         showCancelButton: true,
         showConfirmButton: true,
         focusConfirm: true,

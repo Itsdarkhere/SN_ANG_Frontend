@@ -86,6 +86,9 @@ export class BackendRoutes {
   static RoutePathAcceptNFTTransfer = "/api/v0/accept-nft-transfer";
   static RoutePathBurnNFT = "/api/v0/burn-nft";
 
+  // ExtraData
+  static RoutePathAppendExtraData = "/api/v0/append-extra-data";
+
   // ETH
   static RoutePathCreateETHTx = "/api/v0/create-eth-tx";
   static RoutePathSubmitETHTx = "/api/v0/submit-eth-tx";
@@ -1038,7 +1041,7 @@ export class BackendApiService {
     endpoint: string,
     UserPublicKeyBase58Check: string,
     ReaderPublicKeyBase58Check: string,
-    IsForSale: boolean | null = null,
+    IsForSale: boolean | null = null
   ): Observable<any> {
     return this.post(endpoint, BackendRoutes.RoutePathGetNFTsForUser, {
       UserPublicKeyBase58Check,
@@ -1731,7 +1734,14 @@ export class BackendApiService {
       PublicKeyBase58Check,
     });
   }
+  AppendExtraData(endpoint: string, TransactionHex: string, ExtraData: {}): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathAppendExtraData, {
+      TransactionHex,
+      ExtraData,
+    });
 
+    //return this.signAndSubmitTransaction(endpoint, request);
+  }
   ExchangeETH(endpoint: string, PublicKeyBase58Check: string, Address: string, Amount: number): Observable<any> {
     let req = this.CreateETHTx(endpoint, Address, Amount);
 

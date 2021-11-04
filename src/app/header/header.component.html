@@ -1,24 +1,4 @@
 <header [class.bg_notification]="isNotificationOpen">
-  <script type="text/javascript">
-    (function (e, t, o, n, p, r, i) {
-      e.visitorGlobalObjectAlias = n;
-      e[e.visitorGlobalObjectAlias] =
-        e[e.visitorGlobalObjectAlias] ||
-        function () {
-          (e[e.visitorGlobalObjectAlias].q = e[e.visitorGlobalObjectAlias].q || []).push(arguments);
-        };
-      e[e.visitorGlobalObjectAlias].l = new Date().getTime();
-      r = t.createElement("script");
-      r.src = o;
-      r.async = true;
-      i = t.getElementsByTagName("script")[0];
-      i.parentNode.insertBefore(r, i);
-    })(window, document, "https://diffuser-cdn.app-us1.com/diffuser/diffuser.js", "vgo");
-    vgo("setAccount", "27178800");
-    vgo("setTrackByDefault", true);
-
-    vgo("process");
-  </script>
   <div class="header_golal_wrapper">
     <div class="logo-cover global__tooltip-icon" [routerLink]="homeLink()">
       <img src="assets/img/l4s_logo.svg" class="clout" alt="" />
@@ -38,7 +18,7 @@
           />
           <i class="icon-close" *ngIf="isSearchOpen" (click)="showSearchBar()" title="Close search"></i>
         </li>
-        <!-- <li class="single-option">
+        <!--<li class="single-option">
                     <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button>
                     <mat-menu #createMenu="matMenu" xPosition="before">
                         <div class="create-menu-cover">
@@ -57,7 +37,7 @@
                         </button>
                         </div>
                     </mat-menu>
-                </li> -->
+                </li>-->
         <!-- <li class="single-option">
                     <img src="assets/icons/chat-plane-icon.svg" title="Chat" [routerLink]="'/' + globalVars.RouteNames.INBOX_PREFIX" />
                 </li>
@@ -66,38 +46,13 @@
                 </li> -->
       </ul>
       <ul class="right-side-options menu-options-list">
-        <li class="single-option">
-          <!-- <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button> -->
-          <!-- <button class="btn btn-create clout" (click)="createPostUploadMint()" *ngIf="globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified">Create</button> -->
-          <!-- <button class="btn btn-create clout" (click)="createPost()">Create</button> -->
-          <mat-menu #createMenu="matMenu" xPosition="before">
-            <div class="create-menu-cover">
-              <button mat-menu-item (click)="mintYourNFT()">
-                <div class="icon-cover">
-                  <img src="assets/icons/mint-icon.svg" class="clout" alt="Mint NFT" />
-                </div>
-                Mint an NFT
-              </button>
-              <button mat-menu-item (click)="createYourNFT()">
-                <div class="icon-cover">
-                  <img src="assets/icons/mint-icon.svg" class="clout" alt="Create NFT" />
-                </div>
-                Create your NFT
-              </button>
-              <button mat-menu-item (click)="createPost()">
-                <div class="icon-cover">
-                  <img src="assets/icons/create-post-icon.svg" class="clout" alt="Post" />
-                </div>
-                Create a Post
-              </button>
-              <button mat-menu-item (click)="placeBid()">
-                <div class="icon-cover">
-                  <img src="assets/icons/create-post-icon.svg" class="clout" alt="Place Bid" />
-                </div>
-                Place a Bid
-              </button>
-            </div>
-          </mat-menu>
+        <li class="single-option" *ngIf="globalVars.loggedInUser.ProfileEntryResponse.IsVerified">
+          <a
+            class="header-create-button-gradient p-0px hover-scale"
+            [routerLink]="'/' + globalVars.RouteNames.MINT_PAGE"
+          >
+            <div class="mb-0px create-button-div fs-14px">CREATE</div>
+          </a>
         </li>
         <li class="notification-icon-cover single-option" (clickOutside)="clickOutside()">
           <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />

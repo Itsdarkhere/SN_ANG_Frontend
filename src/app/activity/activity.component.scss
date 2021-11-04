@@ -178,9 +178,3 @@
     border: 3px solid #000000;
     border-radius: 5.55222225189209px;
 }
-.hover-scale {
-    transition-duration: 200ms;
-    &:hover {
-    transform: scale(1.05);
-    }
-}

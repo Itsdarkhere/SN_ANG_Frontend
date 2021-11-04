@@ -7,7 +7,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { MintYourNftComponent } from "../mint-your-nft/mint-your-nft.component";
 import { CreateYourNftComponent } from "../create-your-nft/create-your-nft.component";
 import { PlaceABidComponent } from "../place-a-bid/place-a-bid.component";
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-header",

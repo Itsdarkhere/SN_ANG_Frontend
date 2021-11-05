@@ -203,7 +203,6 @@ export class NftCardComponent implements OnInit {
           if (this.nftEntryResponses[0]?.LastAcceptedBidAmountNanos >= 0) {
             this.lastSalePrice = this.nftEntryResponses[0]?.LastAcceptedBidAmountNanos;
           } else {
-            console.log(this.nftEntryResponses[0]);
             this.lastSalePrice = this.nftEntryResponses[0]?.MinBidAmountNanos;
           }
         }
@@ -218,6 +217,9 @@ export class NftCardComponent implements OnInit {
     if (this.showNFTDetails && this.postContent.IsNFT && !this.nftEntryResponses?.length) {
       this.getNFTEntries();
     }
+  }
+  allCopiesBurned() {
+    return this.post.NumNFTCopiesBurned === this.post.NumNFTCopies;
   }
 
   onPostClicked(event) {

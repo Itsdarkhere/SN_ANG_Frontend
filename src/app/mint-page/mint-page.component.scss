@@ -12,7 +12,7 @@
     width: 40%;
     border-radius: 30px;
     left: 30%;
-    border: 0.5px solid #cecece;
+    border: 0.5px solid var(--border);
     overflow: hidden;
     background: rgb(249,52,62);
     background: -moz-linear-gradient(43deg, rgba(249,52,62,1) 5%, rgba(241,103,109,1) 20%, rgba(245,197,25,1) 35%, rgba(60,225,149,1) 50%, rgba(24,191,192,1) 65%, rgba(72,109,239,1) 80%, rgba(142,73,248,1) 95%);
@@ -246,6 +246,7 @@ input[type="file"] {
 .kv-container {
     display: flex;
     flex-direction: row;
+    min-height: max-content;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;

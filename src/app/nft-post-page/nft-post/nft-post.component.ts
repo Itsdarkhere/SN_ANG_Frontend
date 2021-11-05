@@ -186,7 +186,6 @@ export class NftPostComponent {
             this.tabs = this.tabs.filter((t) => t !== NftPostComponent.MY_BIDS);
             this.activeTab = this.activeTab === NftPostComponent.MY_BIDS ? this.tabs[0] : this.activeTab;
           }
-          console.log(this.nftPost);
           if (this.nftPost.PostExtraData?.properties) {
             if (!Array.isArray(JSON.parse(this.nftPost.PostExtraData?.properties))) {
               this.tabs = this.tabs.filter((t) => t !== NftPostComponent.DETAILS);

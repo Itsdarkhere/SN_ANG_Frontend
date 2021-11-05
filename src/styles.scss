@@ -69,7 +69,7 @@ html {
 }
 .nft-post-property-box {
     width: calc(50% - 5px);
-    height: 75px;
+    min-height: 75px;
     background-color: var(--secondary);
     border: 1px solid #cacaca;
     border-radius: 7.037036895751953px;

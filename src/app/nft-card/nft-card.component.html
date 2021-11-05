@@ -1,5 +1,6 @@
 <div
   class="single-card"
+  *ngIf="!allCopiesBurned()"
   [ngClass]="{
     'br-12px': fromFeed || profileFeed,
     'm-15px': fromFeed || profileFeed,
@@ -220,7 +221,10 @@
           </ng-container>
 
           <div class="caption-cover" *ngIf="!(quotedContent?.IsNFT && profileFeed)">
-            <p>{{ postContent.PostExtraData?.name ? postContent.PostExtraData?.name : postContent.Body }}</p>
+            <p *ngIf="postContent.PostExtraData?.name" class="font-weight-bold fs-20px-im">
+              {{ postContent.PostExtraData?.name }}
+            </p>
+            <p *ngIf="!postContent.PostExtraData?.name">{{ postContent.Body }}</p>
           </div>
           <div class="bid-cover flex-wrap" *ngIf="showNFTDetails && postContent.IsNFT && !pending">
             <div class="bid-row">

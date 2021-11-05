@@ -334,7 +334,7 @@ export class MintPageComponent implements OnInit {
         Math.trunc(parseFloat(String(this.COIN_ROYALTY)) * 100),
         this.UNLOCKABLE_CONTENT, // include unlockable
         this.PUT_FOR_SALE, // put on sale
-        Math.trunc(parseFloat(String(this.MIN_PRICE)) * 1e9),
+        Math.trunc(this.MIN_PRICE * 1e9),
         this.globalVars.defaultFeeRateNanosPerKB
       )
       .subscribe(

@@ -62,6 +62,8 @@ export class MintPageComponent implements OnInit {
   postHashHex = "";
   isSubmitPress = false;
 
+  isLoaded = false;
+
   isUploading = false;
   isUploaded = false;
   isUploadConfirmed = false;

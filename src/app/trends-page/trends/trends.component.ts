@@ -136,6 +136,9 @@ export class TrendsComponent implements OnInit {
           (nft) => nft.NFTEntryResponse.HighestBidAmountNanos === 0 && nft.NFTEntryResponse.IsForSale
         );
         break;
+      case "for_sale":
+        this.filteredCollection = this.nftCollections.filter((nft) => nft.NFTEntryResponse.IsForSale);
+        break;
       case "sold":
         this.filteredCollection = this.nftCollections.filter((nft) => !nft.NFTEntryResponse.IsForSale);
         break;

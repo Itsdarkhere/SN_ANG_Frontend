@@ -25,6 +25,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
   static ALL = "All";
   static HAS_BIDS = "Has bids";
   static NO_BIDS = "No bids yet";
+  static FOR_SALE = "For sale";
   static SOLD = "Sold";
 
   // Trendscomponent = Marketplace
@@ -73,6 +74,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
     all: "All",
     has_bids: "Has bids",
     no_bids: "No bids yet",
+    for_sale: "For sale",
     sold: "Sold",
   };
 
@@ -80,6 +82,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
     [MarketplaceLeftBarComponent.ALL]: "all",
     [MarketplaceLeftBarComponent.HAS_BIDS]: "has_bids",
     [MarketplaceLeftBarComponent.NO_BIDS]: "no_bids",
+    [MarketplaceLeftBarComponent.FOR_SALE]: "for_sale",
     [MarketplaceLeftBarComponent.SOLD]: "sold",
   };
 

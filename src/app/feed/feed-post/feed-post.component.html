@@ -269,7 +269,11 @@
               </a>
             </div>
             <!-- Content -->
-            <label *ngIf="showName" class="feed-post-PED-name fs-20px">{{ postContent.PostExtraData?.name }}</label>
+            <div
+              *ngIf="showName"
+              class="feed-post-PED-name fs-20px"
+              [innerHTML]="postContent.PostExtraData?.name | sanitizeAndAutoLink"
+            ></div>
             <div
               class="roboto-regular mt-1 feed-text-wrap"
               [ngClass]="{ 'pb-10px': quotedContent && showQuotedContent, nft_para: isNFTDetail }"

@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="nft_bx nft_feed_post_wt_design">
-      <div *ngIf="nftPost && nftBidData">
+      <div *ngIf="nftPost && nftBidData" class="position-relative">
         <feed-post
           [post]="nftPost"
           [includePaddingOnPost]="true"
@@ -34,6 +34,7 @@
           [showLeftSelectedBorder]="true"
           [showInteractionDetails]="true"
           [blocked]="isPostBlocked(nftPost)"
+          [showName]="true"
           [showNFTDetails]="true"
           [showExpandedNFTDetails]="true"
           [contentShouldLinkToThread]="true"
@@ -479,8 +480,8 @@
         <label class="mt-30px font-weight-bold">Properties</label>
         <div class="nft-post-property-container">
           <div *ngFor="let property of properties" class="d-flex flex-column flex-center nft-post-property-box mt-10px">
-            <label class="mb-0px fs-14px">{{ property[0] }}</label>
-            <label class="mb-0px font-weight-bold fs-16px">{{ property[1] }}</label>
+            <label class="mb-0px fs-14px">{{ property[0].toUpperCase() }}</label>
+            <label class="mb-0px font-weight-bold fs-16px">{{ property[1].toUpperCase() }}</label>
           </div>
         </div>
       </div>

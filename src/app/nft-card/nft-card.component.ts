@@ -200,10 +200,11 @@ export class NftCardComponent implements OnInit {
         this.lowBid = _.minBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
         this.minBid = _.maxBy(this.availableSerialNumbers, "MinBidAmountNanos")?.MinBidAmountNanos || 0;
         if (!this.showPlaceABid) {
-          if (this.nftEntryResponses[0]?.LastAcceptedBidAmountNanos > 0) {
-            this.lastSalePrice = this.nftEntryResponses[0]["LastAcceptedBidAmountNanos"];
+          if (this.nftEntryResponses[0]?.LastAcceptedBidAmountNanos >= 0) {
+            this.lastSalePrice = this.nftEntryResponses[0]?.LastAcceptedBidAmountNanos;
           } else {
-            this.lastSalePrice = this.nftEntryResponses[0]["MinBidAmountNanos"];
+            console.log(this.nftEntryResponses[0]);
+            this.lastSalePrice = this.nftEntryResponses[0]?.MinBidAmountNanos;
           }
         }
       });

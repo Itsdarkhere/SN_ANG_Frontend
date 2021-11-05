@@ -73,6 +73,9 @@ export class FeedPostComponent implements OnInit {
   @Input() showAdminRow = false;
   @Input() contentShouldLinkToThread: boolean;
 
+  // Controls showing PED name
+  @Input() showName: boolean;
+
   @Input() afterCommentCreatedCallback: any = null;
   @Input() afterRepostCreatedCallback: any = null;
   @Input() showReplyingToContent: any = null;
@@ -199,6 +202,7 @@ export class FeedPostComponent implements OnInit {
         this.lowBid = _.minBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
         if (this.nftEntryResponses.length === 1) {
           this.nftLastAcceptedBidAmountNanos = this.nftEntryResponses[0].LastAcceptedBidAmountNanos;
+          console.log(this.nftEntryResponses);
           if (this.nftEntryResponses[0].MinBidAmountNanos > 0) {
             this.nftMinBidAmountNanos = this.nftEntryResponses[0].MinBidAmountNanos;
           }
@@ -622,7 +626,7 @@ export class FeedPostComponent implements OnInit {
   }
   compareBit(minBid, maxBid, showPlaceABid): string {
     if (!showPlaceABid && !!this.nftEntryResponses) {
-      return this.nftEntryResponses[0].IsForSale === false ? "Sold for" : "Minimum Bid";
+      return this.nftEntryResponses[0]?.IsForSale === false ? "Sold for" : "Minimum Bid";
     } else {
       if (Number(maxBid) > 0) {
         return "Highest Bid";

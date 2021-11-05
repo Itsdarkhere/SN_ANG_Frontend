@@ -162,14 +162,14 @@ export class NftPostComponent {
           if (!this.nftBidData.BidEntryResponses) {
             this.nftBidData.BidEntryResponses = [];
           }
-          this.availableSerialNumbers = this.nftBidData.NFTEntryResponses.filter(
-            (nftEntryResponse) => nftEntryResponse.IsForSale
+          this.availableSerialNumbers = this.nftBidData.NFTEntryResponses?.filter(
+            (nftEntryResponse) => nftEntryResponse?.IsForSale
           );
-          this.myAvailableSerialNumbers = this.availableSerialNumbers.filter(
+          this.myAvailableSerialNumbers = this.availableSerialNumbers?.filter(
             (nftEntryResponse) =>
               nftEntryResponse.OwnerPublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
           );
-          if (!this.myAvailableSerialNumbers.length) {
+          if (!this.myAvailableSerialNumbers?.length) {
             this.tabs = this.tabs.filter((t) => t !== NftPostComponent.MY_AUCTIONS);
             this.activeTab = this.activeTab === NftPostComponent.MY_AUCTIONS ? this.tabs[0] : this.activeTab;
           }
@@ -186,20 +186,26 @@ export class NftPostComponent {
             this.tabs = this.tabs.filter((t) => t !== NftPostComponent.MY_BIDS);
             this.activeTab = this.activeTab === NftPostComponent.MY_BIDS ? this.tabs[0] : this.activeTab;
           }
-          if (!this.nftPost.PostExtraData?.properties) {
+          console.log(this.nftPost);
+          if (this.nftPost.PostExtraData?.properties) {
+            if (!Array.isArray(JSON.parse(this.nftPost.PostExtraData?.properties))) {
+              this.tabs = this.tabs.filter((t) => t !== NftPostComponent.DETAILS);
+              this.activeTab = this.activeTab === NftPostComponent.DETAILS ? this.tabs[0] : this.activeTab;
+            } else {
+              // If it has properties
+              let propertiesList = JSON.parse(this.nftPost.PostExtraData?.properties);
+              // Make sure its an Array
+              if (Array.isArray(propertiesList)) {
+                this.properties = propertiesList;
+              }
+            }
+          } else {
             this.tabs = this.tabs.filter((t) => t !== NftPostComponent.DETAILS);
             this.activeTab = this.activeTab === NftPostComponent.DETAILS ? this.tabs[0] : this.activeTab;
-          } else {
-            // If it has properties
-            let propertiesList = JSON.parse(this.nftPost.PostExtraData?.properties);
-            // Make sure its an Array
-            if (Array.isArray(propertiesList)) {
-              this.properties = propertiesList;
-            }
           }
-          this.showPlaceABid = !!(this.availableSerialNumbers.length - this.myAvailableSerialNumbers.length);
-          this.highBid = _.maxBy(this.nftBidData.NFTEntryResponses, "HighestBidAmountNanos").HighestBidAmountNanos;
-          this.lowBid = _.minBy(this.nftBidData.NFTEntryResponses, "LowestBidAmountNanos").LowestBidAmountNanos;
+          this.showPlaceABid = !!(this.availableSerialNumbers?.length - this.myAvailableSerialNumbers?.length);
+          this.highBid = _.maxBy(this.nftBidData.NFTEntryResponses, "HighestBidAmountNanos")?.HighestBidAmountNanos;
+          this.lowBid = _.minBy(this.nftBidData.NFTEntryResponses, "LowestBidAmountNanos")?.LowestBidAmountNanos;
           this.owners = this.nftBidData.NFTEntryResponses;
         },
         (err) => {

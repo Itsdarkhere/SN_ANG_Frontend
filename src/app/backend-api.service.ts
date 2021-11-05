@@ -274,6 +274,7 @@ export class PostEntryResponse {
   CommentCount: number;
   // A list of parent posts for this post (ordered: root -> closest parent post).
   ParentPosts: PostEntryResponse[];
+  PostExtraData: any;
   InMempool: boolean;
   IsPinned: boolean;
   DiamondsFromSender?: number;

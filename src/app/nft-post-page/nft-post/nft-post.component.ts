@@ -51,14 +51,22 @@ export class NftPostComponent {
   NftPostComponent = NftPostComponent;
 
   activeTab = NftPostComponent.THREAD;
+  properties: any;
 
   static ALL_BIDS = "All Bids";
   static MY_BIDS = "My Bids";
   static MY_AUCTIONS = "My Auctions";
   static OWNERS = "Owners";
   static THREAD = "Comments";
+  static DETAILS = "Details";
 
-  tabs = [NftPostComponent.THREAD, NftPostComponent.MY_BIDS, NftPostComponent.MY_AUCTIONS, NftPostComponent.OWNERS];
+  tabs = [
+    NftPostComponent.THREAD,
+    NftPostComponent.MY_BIDS,
+    NftPostComponent.MY_AUCTIONS,
+    NftPostComponent.OWNERS,
+    NftPostComponent.DETAILS,
+  ];
 
   constructor(
     private route: ActivatedRoute,
@@ -177,6 +185,17 @@ export class NftPostComponent {
           if (!this.myBids.length) {
             this.tabs = this.tabs.filter((t) => t !== NftPostComponent.MY_BIDS);
             this.activeTab = this.activeTab === NftPostComponent.MY_BIDS ? this.tabs[0] : this.activeTab;
+          }
+          if (!this.nftPost.PostExtraData?.properties) {
+            this.tabs = this.tabs.filter((t) => t !== NftPostComponent.DETAILS);
+            this.activeTab = this.activeTab === NftPostComponent.DETAILS ? this.tabs[0] : this.activeTab;
+          } else {
+            // If it has properties
+            let propertiesList = JSON.parse(this.nftPost.PostExtraData?.properties);
+            // Make sure its an Array
+            if (Array.isArray(propertiesList)) {
+              this.properties = propertiesList;
+            }
           }
           this.showPlaceABid = !!(this.availableSerialNumbers.length - this.myAvailableSerialNumbers.length);
           this.highBid = _.maxBy(this.nftBidData.NFTEntryResponses, "HighestBidAmountNanos").HighestBidAmountNanos;

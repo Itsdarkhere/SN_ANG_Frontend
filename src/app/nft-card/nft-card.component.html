@@ -220,7 +220,7 @@
           </ng-container>
 
           <div class="caption-cover" *ngIf="!(quotedContent?.IsNFT && profileFeed)">
-            <p>{{ postContent.Body }}</p>
+            <p>{{ postContent.PostExtraData?.name ? postContent.PostExtraData?.name : postContent.Body }}</p>
           </div>
           <div class="bid-cover flex-wrap" *ngIf="showNFTDetails && postContent.IsNFT && !pending">
             <div class="bid-row">

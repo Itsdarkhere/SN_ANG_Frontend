@@ -152,7 +152,7 @@
                           : []
                       "
                     >
-                      {{ bidEntry.ProfileEntryResponse?.Username || bidEntry.PublicKeyBase58Check }}  
+                      {{ bidEntry.ProfileEntryResponse?.Username || bidEntry.PublicKeyBase58Check }}
                     </div>
                     <span
                       *ngIf="bidEntry.ProfileEntryResponse?.IsVerified"
@@ -475,6 +475,15 @@
           </div>
         </div>
       </div>
+      <div *ngIf="activeTab === NftPostComponent.DETAILS">
+        <label class="mt-30px font-weight-bold">Properties</label>
+        <div class="nft-post-property-container">
+          <div *ngFor="let property of properties" class="d-flex flex-column flex-center nft-post-property-box mt-10px">
+            <label class="mb-0px fs-14px">{{ property[0] }}</label>
+            <label class="mb-0px font-weight-bold fs-16px">{{ property[1] }}</label>
+          </div>
+        </div>
+      </div>
       <div *ngIf="!loading && activeTab === NftPostComponent.THREAD && !reloadingThread">
         <div *ngIf="!nftPost.CommentCount && !nftPost.ParentStakeID" class="p-15px d-flex justify-content-center">
           There are no comments on this NFT yet.
@@ -485,16 +494,16 @@
           [hideCurrentPost]="!nftPost.ParentStakeID"
           *ngIf="nftPost.CommentCount || nftPost.ParentStakeID"
         ></post-thread>
+        <button
+          type="button"
+          class="add_comment_btn"
+          (click)="openRepostsModal($event)"
+          *ngIf="!(nftPost.CommentCount || nftPost.ParentStakeID)"
+        >
+          <i>+</i>
+          Comment
+        </button>
       </div>
-      <button
-        type="button"
-        class="add_comment_btn"
-        (click)="openRepostsModal($event)"
-        *ngIf="!(nftPost.CommentCount || nftPost.ParentStakeID)"
-      >
-        <i>+</i>
-        Comment
-      </button>
     </div>
   </div>
   <div class="global__bottom-bar-mobile-height"></div>

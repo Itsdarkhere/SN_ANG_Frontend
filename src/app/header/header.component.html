@@ -46,14 +46,14 @@
                 </li> -->
       </ul>
       <ul class="right-side-options menu-options-list">
-        <!--<li class="single-option" *ngIf="globalVars.loggedInUser.ProfileEntryResponse.IsVerified">
+        <li class="single-option" *ngIf="globalVars.loggedInUser.ProfileEntryResponse.IsVerified">
           <a
             class="header-create-button-gradient p-0px hover-scale"
             [routerLink]="'/' + globalVars.RouteNames.MINT_PAGE"
           >
             <div class="mb-0px create-button-div fs-14px">CREATE</div>
           </a>
-        </li>-->
+        </li>
         <li class="notification-icon-cover single-option" (clickOutside)="clickOutside()">
           <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />
           <div class="notification-list-cover" *ngIf="isNotificationOpen">

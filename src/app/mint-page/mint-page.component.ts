@@ -324,14 +324,24 @@ export class MintPageComponent implements OnInit {
   }
 
   mintNFT() {
+    let creatorRoyaltyBasisPoints = 0;
+    if (this.CREATOR_ROYALTY) {
+      creatorRoyaltyBasisPoints = this.CREATOR_ROYALTY * 100;
+    }
+
+    let coinRoyaltyBasisPoints = 0;
+    if (this.COIN_ROYALTY) {
+      coinRoyaltyBasisPoints = this.COIN_ROYALTY * 100;
+    }
+
     this.backendApi
       .CreateNft(
         this.globalVars.localNode,
         this.globalVars.loggedInUser?.PublicKeyBase58Check,
         this.postHashHex,
         1, // number of copies
-        Math.trunc(parseFloat(String(this.CREATOR_ROYALTY)) * 100),
-        Math.trunc(parseFloat(String(this.COIN_ROYALTY)) * 100),
+        creatorRoyaltyBasisPoints,
+        coinRoyaltyBasisPoints,
         this.UNLOCKABLE_CONTENT, // include unlockable
         this.PUT_FOR_SALE, // put on sale
         Math.trunc(this.MIN_PRICE * 1e9),
@@ -339,7 +349,7 @@ export class MintPageComponent implements OnInit {
       )
       .subscribe(
         (res) => {
-          this.dropNFT();
+          //this.dropNFT();
           this.globalVars.updateEverything(res.TxnHashHex, this.mintNFTSuccess, this.mintNFTFailure, this);
         },
         (err) => {
@@ -431,7 +441,7 @@ export class MintPageComponent implements OnInit {
         {
           name: this.NAME_OF_PIECE,
           category: this.CATEGORY,
-          properties: JSON.stringify(this.mapToObj(this.KVMap)),
+          properties: JSON.stringify(Array.from(this.KVMap)),
         },
         "",
         false /*IsHidden*/,

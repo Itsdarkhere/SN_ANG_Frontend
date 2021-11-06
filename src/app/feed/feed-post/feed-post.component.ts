@@ -202,7 +202,6 @@ export class FeedPostComponent implements OnInit {
         this.lowBid = _.minBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
         if (this.nftEntryResponses.length === 1) {
           this.nftLastAcceptedBidAmountNanos = this.nftEntryResponses[0].LastAcceptedBidAmountNanos;
-          console.log(this.nftEntryResponses);
           if (this.nftEntryResponses[0].MinBidAmountNanos > 0) {
             this.nftMinBidAmountNanos = this.nftEntryResponses[0].MinBidAmountNanos;
           }

@@ -4,6 +4,7 @@ export const environment = {
   jumioEndpointHostname: "bitclout.com",
   uploadVideoHostname: "bitclout.com",
   identityURL: "https://identity.deso.org",
+  supportEmail: "",
   dd: {
     apiKey: "DCEB26AC8BF47F1D7B4D87440EDCA6",
     jsPath: "https://bitclout.com/tags.js",
@@ -15,6 +16,10 @@ export const environment = {
     authDomain: "supernovas-v1.firebaseapp.com",
     storageBucket: "supernovas-v1.appspot.com",
     projectId: "supernovas-v1",
+  },
+  amplitude: {
+    key: "",
+    domain: ""
   },
   node: {
     name: "Supernovas",

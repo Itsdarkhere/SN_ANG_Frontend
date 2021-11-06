@@ -20,6 +20,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { IdentityService } from "./identity.service";
 import { BithuntService, CommunityProject } from "../lib/services/bithunt/bithunt-service";
 import { LeaderboardResponse, PulseService } from "../lib/services/pulse/pulse-service";
+import { AltumbaseResponse, AltumbaseService } from "../lib/services/altumbase/altumbase-service";
 import { RightBarCreatorsLeaderboardComponent } from "./right-bar-creators/right-bar-creators-leaderboard/right-bar-creators-leaderboard.component";
 import { HttpClient } from "@angular/common/http";
 import { FeedComponent } from "./feed/feed.component";
@@ -182,9 +183,6 @@ export class GlobalVarsService {
   // Current fee to create a profile.
   createProfileFeeNanos: number;
 
-  // Support email for this node (renders Help in the left bar nav)
-  supportEmail: string = null;
-
   // ETH exchange rates
   usdPerETHExchangeRate: number;
   nanosPerETHExchangeRate: number;
@@ -223,6 +221,10 @@ export class GlobalVarsService {
   referralUSDCents: number = 0;
 
   transactionFeeMap: { [k: string]: TransactionFee[] };
+  transactionFeeMax: number = 0;
+  transactionFeeInfo: string;
+
+  buyETHAddress: string = "";
 
   SetupMessages() {
     // If there's no loggedInUser, we set the notification count to zero
@@ -399,7 +401,9 @@ export class GlobalVarsService {
   }
 
   getLinkForReferralHash(referralHash: string) {
-    return `${window.location.origin}?r=${referralHash}`;
+    // FIXME: Generalize this once there are referral programs running
+    // on other nodes.
+    return `https://diamondapp.com?r=${referralHash}`;
   }
 
   hasUserBlockedCreator(publicKeyBase58Check): boolean {
@@ -814,7 +818,7 @@ export class GlobalVarsService {
   // Use the data object to store extra event metadata. Don't use
   // the metadata to differentiate two events with the same name.
   // Instead, just create two (or more) events with better names.
-  logEvent(event: string, data?: any) {
+  logEvent(event: string, data: any = {}) {
     if (!this.amplitude) {
       return;
     }
@@ -822,6 +826,16 @@ export class GlobalVarsService {
     if (this.userInTutorial(this.loggedInUser)) {
       event = "tutorial : " + event;
     }
+
+    // Attach node name
+    data.node = environment.node.name;
+
+    // Attach referralCode
+    const referralCode = this.referralCode();
+    if (referralCode) {
+      data.referralCode = referralCode;
+    }
+
     this.amplitude.logEvent(event, data);
   }
 
@@ -831,7 +845,7 @@ export class GlobalVarsService {
     this.identityService
       .launch("/get-free-deso", {
         public_key: this.loggedInUser?.PublicKeyBase58Check,
-        referralCode: localStorage.getItem("referralCode"),
+        referralCode: this.referralCode(),
       })
       .subscribe(() => {
         this.logEvent("identity : jumio : success");
@@ -841,15 +855,13 @@ export class GlobalVarsService {
 
   launchIdentityFlow(event: string): void {
     this.logEvent(`account : ${event} : launch`);
-    this.identityService
-      .launch("/log-in?accessLevelRequest=4", { referralCode: localStorage.getItem("referralCode") })
-      .subscribe((res) => {
-        this.logEvent(`account : ${event} : success`);
-        this.backendApi.setIdentityServiceUsers(res.users, res.publicKeyAdded);
-        this.updateEverything().add(() => {
-          this.flowRedirect(res.signedUp);
-        });
+    this.identityService.launch("/log-in?accessLevelRequest=4", { referralCode: this.referralCode(), hideJumio: true }).subscribe((res) => {
+      this.logEvent(`account : ${event} : success`);
+      this.backendApi.setIdentityServiceUsers(res.users, res.publicKeyAdded);
+      this.updateEverything().add(() => {
+        this.flowRedirect(res.signedUp);
       });
+    });
   }
 
   launchLoginFlow() {
@@ -858,6 +870,10 @@ export class GlobalVarsService {
 
   launchSignupFlow() {
     this.launchIdentityFlow("create");
+  }
+
+  referralCode(): string {
+    return localStorage.getItem("referralCode");
   }
 
   flowRedirect(signedUp: boolean): void {
@@ -898,7 +914,7 @@ export class GlobalVarsService {
       if (environment.production) {
         this.localNode = hostname;
       } else {
-        this.localNode = `api.love4src.com`;
+        this.localNode = `${hostname}:17001`;
       }
 
       this.backendApi.SetStorage(this.backendApi.LastLocalNodeKey, this.localNode);
@@ -925,12 +941,13 @@ export class GlobalVarsService {
 
   updateLeaderboard(forceRefresh: boolean = false): void {
     const pulseService = new PulseService(this.httpClient, this.backendApi, this);
+    const altumbaseService = new AltumbaseService(this.httpClient, this.backendApi, this);
 
     if (this.topGainerLeaderboard.length === 0 || forceRefresh) {
       pulseService.getDeSoLockedLeaderboard().subscribe((res) => (this.topGainerLeaderboard = res));
     }
     if (this.topDiamondedLeaderboard.length === 0 || forceRefresh) {
-      pulseService.getDiamondsReceivedLeaderboard().subscribe((res) => (this.topDiamondedLeaderboard = res));
+      altumbaseService.getDiamondsReceivedLeaderboard().subscribe((res) => (this.topDiamondedLeaderboard = res));
     }
 
     if (this.topCommunityProjectsLeaderboard.length === 0 || forceRefresh) {
@@ -1138,7 +1155,6 @@ export class GlobalVarsService {
               if (user) {
                 this.setLoggedInUser(user);
               }
-              localStorage.setItem("referralCode", undefined);
               this.celebrate();
               if (user.TutorialStatus === TutorialStatus.EMPTY) {
                 this.startTutorialAlert();

@@ -187,10 +187,12 @@ export class MintPageComponent implements OnInit {
     this.KEY = "";
     this.VALUE = "";
   }
+
   updateBidAmountUSD(desoAmount) {
     this.PRICE_USD = this.globalVars.nanosToUSDNumber(desoAmount * 1e9).toFixed(2);
     //this.setErrors();
   }
+
   uploadImage(file: File) {
     if (file.size > 15 * (1024 * 1024)) {
       this.globalVars._alertError("File is too large. Please choose a file less than 15MB");
@@ -215,9 +217,11 @@ export class MintPageComponent implements OnInit {
         }
       );
   }
+
   imageUploaded() {
     return this.postImageSrc?.length > 0;
   }
+
   hasUnreasonableRoyalties() {
     let isEitherUnreasonable =
       Number(this.CREATOR_ROYALTY) < 0 ||
@@ -236,11 +240,14 @@ export class MintPageComponent implements OnInit {
     this.KVMap.delete(key);
   }
   nextStep() {
-    this.disableAnimation = false;
-    this.step++;
+    if (this.step + 1 < 5) {
+      this.step++;
+    }
   }
   previousStep() {
-    this.step--;
+    if (this.step - 1 > 0) {
+      this.step--;
+    }
   }
 
   pollForReadyToStream(): void {

@@ -21,7 +21,7 @@
       <i class="icon-link"></i>
       Link to Post
     </a>
-    <a
+    <!--<a
       *ngIf="
         globalVars.loggedInUser.PublicKeyBase58Check === post.PosterPublicKeyBase58Check &&
         !post.IsNFT &&
@@ -33,7 +33,7 @@
     >
       <i class="fas fa-stamp"></i>
       Mint NFT
-    </a>
+    </a>-->
     <a
       *ngIf="showCreateNFTAuction() && !nftEntryResponses[0].IsPending"
       class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item text-success"

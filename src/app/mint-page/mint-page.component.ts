@@ -22,7 +22,7 @@ import { CommentModalComponent } from "../comment-modal/comment-modal.component"
       ]),
       transition(":leave", [
         style({ transform: "translateX(0%)" }),
-        animate("300ms ease", style({ transform: "translateX(-100%)" })),
+        animate("500ms ease", style({ transform: "translateX(-100%)" })),
       ]),
     ]),
     trigger("swipeAppearAnimation", [
@@ -48,6 +48,7 @@ export class MintPageComponent implements OnInit {
   postImageSrc = null;
 
   post: any;
+  disableAnimation = true;
 
   postVideoSrc = null;
   videoUploadPercentage = null;
@@ -80,9 +81,10 @@ export class MintPageComponent implements OnInit {
   VALUE: string;
   KVMap = new Map();
   // Step 3
-  MIN_PRICE = 0;
-  CREATOR_ROYALTY = 5;
-  COIN_ROYALTY = 5;
+  MIN_PRICE: number;
+  PRICE_USD: any;
+  CREATOR_ROYALTY: number;
+  COIN_ROYALTY: number;
   UNLOCKABLE_CONTENT = false;
   PUT_FOR_SALE = true;
 
@@ -185,6 +187,10 @@ export class MintPageComponent implements OnInit {
     this.KEY = "";
     this.VALUE = "";
   }
+  updateBidAmountUSD(desoAmount) {
+    this.PRICE_USD = this.globalVars.nanosToUSDNumber(desoAmount * 1e9).toFixed(2);
+    //this.setErrors();
+  }
   uploadImage(file: File) {
     if (file.size > 15 * (1024 * 1024)) {
       this.globalVars._alertError("File is too large. Please choose a file less than 15MB");
@@ -230,6 +236,7 @@ export class MintPageComponent implements OnInit {
     this.KVMap.delete(key);
   }
   nextStep() {
+    this.disableAnimation = false;
     this.step++;
   }
   previousStep() {
@@ -302,6 +309,7 @@ export class MintPageComponent implements OnInit {
   isNumber(n: string | number): boolean {
     return !isNaN(parseFloat(String(n))) && isFinite(Number(n));
   }
+
   isPostReady() {
     return (
       (this.isUploading || this.postImageSrc?.length > 0) &&
@@ -310,6 +318,7 @@ export class MintPageComponent implements OnInit {
       this.isPriced()
     );
   }
+
   appendExtraData(TxnHashHex) {
     this.backendApi
       .AppendExtraData(this.globalVars.localNode, TxnHashHex, {
@@ -327,6 +336,9 @@ export class MintPageComponent implements OnInit {
   }
 
   mintNFT() {
+    if (!this.MIN_PRICE) {
+      this.MIN_PRICE = 0;
+    }
     let creatorRoyaltyBasisPoints = 0;
     if (this.CREATOR_ROYALTY) {
       creatorRoyaltyBasisPoints = this.CREATOR_ROYALTY * 100;
@@ -352,7 +364,7 @@ export class MintPageComponent implements OnInit {
       )
       .subscribe(
         (res) => {
-          //this.dropNFT();
+          this.dropNFT();
           this.globalVars.updateEverything(res.TxnHashHex, this.mintNFTSuccess, this.mintNFTFailure, this);
         },
         (err) => {

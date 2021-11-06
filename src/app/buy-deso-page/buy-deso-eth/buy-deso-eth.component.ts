@@ -244,8 +244,7 @@ export class BuyDeSoEthComponent implements OnInit {
       this.ethToExchange = Number(this.ethToExchange);
 
       // Update the other value
-      this.desoToBuy =
-        this.computeNanosToCreateGivenETHToBurn(this.ethToExchange) / GlobalVarsService.NANOS_PER_UNIT;
+      this.desoToBuy = this.computeNanosToCreateGivenETHToBurn(this.ethToExchange) / GlobalVarsService.NANOS_PER_UNIT;
     }
   }
 

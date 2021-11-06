@@ -1,9 +1,6 @@
 <!-- Step One Box -->
 <div class="w-100 border-top border-color-grey mt-20px">
-  <div
-    class="fs-15px buy-deso__box-label-adjustment pl-5px pr-5px ml-10px"
-    style="background-color: white"
-  >
+  <div class="fs-15px buy-deso__box-label-adjustment pl-5px pr-5px ml-10px" style="background-color: white">
     Step One
     <i
       (click)="tooltip1.toggle()"
@@ -33,9 +30,7 @@
     <div class="fs-18px mt-1 mb-1">
       <span>
         Minimum deposit is currently
-        <b>
-          {{ (ethFeeEstimate * 2).toFixed(4) }} ETH
-        </b>
+        <b>{{ (ethFeeEstimate * 2).toFixed(4) }} ETH</b>
         <i
           (click)="tooltip3.toggle()"
           class="fas fa-info-circle text-greyC fs-15px global__tooltip-icon ml-2"
@@ -91,12 +86,7 @@
 
             <span class="text-grey7">
               ≈
-              {{
-                globalVars.formatUSD(
-                  (ethBalance * globalVars.usdPerETHExchangeRate),
-                  2
-                )
-              }}
+              {{ globalVars.formatUSD(ethBalance * globalVars.usdPerETHExchangeRate, 2) }}
               USD
             </span>
           </div>
@@ -135,10 +125,7 @@
 
 <!-- Step Two Box -->
 <div class="w-100 border-top border-color-grey">
-  <div
-    class="fs-15px pl-5px pr-5px ml-10px buy-deso__box-label-adjustment"
-    style="background-color: white"
-  >
+  <div class="fs-15px pl-5px pr-5px ml-10px buy-deso__box-label-adjustment" style="background-color: white">
     Step Two
   </div>
 
@@ -198,9 +185,7 @@
         <div *ngIf="error == null || error === ''">
           {{ ethFeeEstimate.toFixed(8) }}
           ETH ≈
-          {{
-            globalVars.formatUSD(ethFeeEstimate * globalVars.usdPerETHExchangeRate, 2)
-          }}
+          {{ globalVars.formatUSD(ethFeeEstimate * globalVars.usdPerETHExchangeRate, 2) }}
           USD
         </div>
         <div *ngIf="error != null && error !== ''" style="margin-top: 0">
@@ -214,33 +199,21 @@
       Total ETH to swap
       <div class="mt-1 w-100 fs-15px">
         <div *ngIf="!error">
-          {{
-            ethToExchange.toFixed(8)
-          }}
+          {{ ethToExchange.toFixed(8) }}
           ETH ≈
-          {{
-            globalVars.formatUSD(ethToExchange * globalVars.usdPerETHExchangeRate, 2)
-          }}
+          {{ globalVars.formatUSD(ethToExchange * globalVars.usdPerETHExchangeRate, 2) }}
           USD
         </div>
-        <div *ngIf="error" style="margin-top: 0">
-          0.00000000 ETH ≈ {{ globalVars.formatUSD(0, 2) }} USD
-        </div>
+        <div *ngIf="error" style="margin-top: 0">0.00000000 ETH ≈ {{ globalVars.formatUSD(0, 2) }} USD</div>
       </div>
     </div>
 
-    <div
-      *ngIf="error != null && error !== ''"
-      class="w-100 fs-18px mt-15px"
-    >
+    <div *ngIf="error != null && error !== ''" class="w-100 fs-18px mt-15px">
       <div class="red">
         {{ error }}
       </div>
     </div>
-    <button
-      class="btn btn-primary font-weight-bold mt-25px mb-15px fs-15px btn-lg"
-      (click)="clickBuyDESO()"
-    >
+    <button class="btn btn-primary font-weight-bold mt-25px mb-15px fs-15px btn-lg" (click)="clickBuyDESO()">
       Buy $DESO
     </button>
   </div>

@@ -14,7 +14,6 @@ export class TabSelectorComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.extraTab);
     if (this.extraTab) {
       this.tabs.unshift(this.extraTab);
     }

@@ -53,10 +53,8 @@ export class SearchBarComponent implements OnInit, OnChanges {
     this.selectedCreatorIndex = -1; // -1 represents no creator being selected.
     this._setUpClickOutListener();
     this.debouncedSearchFunction = _.debounce(this._searchUsernamePrefix.bind(this), DEBOUNCE_TIME_MS);
-    console.log("on init");
   }
   ngOnInit() {
-    console.log("on init");
     if (this.startingSearchText) {
       this.searchText = this.startingSearchText;
       this._searchUsernamePrefix().add(() => (this.startingSearchText = ""));

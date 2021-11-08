@@ -37,6 +37,14 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
   ref: AngularFireStorageReference;
   task: AngularFireUploadTask;
 
+  // Email
+  emailAddress = "";
+  loading = false;
+  invalidEmailEntered = false;
+  updatingSettings = false;
+  showSuccessMessage = false;
+  successMessageTimeout: any;
+
   // Used for storing firebase response
   profileData: any;
   // Used for storing input value changes
@@ -83,8 +91,65 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     this.titleService.setTitle(`Update Profile - ${environment.node.name}`);
     this.getOnlyProfileSocials();
     this.loadBannerImage();
+    this._getUserMetadata();
   }
 
+  _getUserMetadata() {
+    this.loading = true;
+    this.backendApi
+      .GetUserGlobalMetadata(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check /*UpdaterPublicKeyBase58Check*/
+      )
+      .subscribe(
+        (res) => {
+          this.emailAddress = res.Email;
+        },
+        (err) => {
+          console.log(err);
+        }
+      )
+      .add(() => {
+        this.loading = false;
+      });
+  }
+
+  _validateEmail(email) {
+    if (email === "" || this.globalVars.emailRegExp.test(email)) {
+      this.invalidEmailEntered = false;
+    } else {
+      this.invalidEmailEntered = true;
+    }
+  }
+
+  _updateEmail() {
+    if (this.showSuccessMessage) {
+      this.showSuccessMessage = false;
+      clearTimeout(this.successMessageTimeout);
+    }
+
+    this.updatingSettings = true;
+    this.backendApi
+      .UpdateUserGlobalMetadata(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check /*UpdaterPublicKeyBase58Check*/,
+        this.emailAddress /*EmailAddress*/,
+        null /*MessageReadStateUpdatesByContact*/
+      )
+      .subscribe(
+        (res) => {},
+        (err) => {
+          this.globalVars._alertError("Error updating email...", err);
+        }
+      )
+      .add(() => {
+        this.showSuccessMessage = true;
+        this.updatingSettings = false;
+        this.successMessageTimeout = setTimeout(() => {
+          this.showSuccessMessage = false;
+        }, 500);
+      });
+  }
   // This is used to handle any changes to the loggedInUser elegantly.
   ngOnChanges(changes: any) {
     if (changes.loggedInUser) {
@@ -214,6 +279,9 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
 
     // update socials
     this.updateSocials();
+
+    // update Email
+    this._updateEmail();
 
     const hasErrors = this._setProfileErrors();
     if (hasErrors) {

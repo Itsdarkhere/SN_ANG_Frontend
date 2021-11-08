@@ -17,7 +17,7 @@ export const environment = {
   },
   amplitude: {
     key: "",
-    domain: ""
+    domain: "",
   },
   node: {
     name: "Supernovas",

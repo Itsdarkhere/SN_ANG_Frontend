@@ -1,6 +1,4 @@
-<div
-  class="single-card"
-  *ngIf="!allCopiesBurned()"
+<div class="single-card"
   [ngClass]="{
     'br-12px': fromFeed || profileFeed,
     'm-15px': fromFeed || profileFeed,
@@ -12,7 +10,7 @@
   <div class="w-100">
     <!-- <code>{{post | json}}</code> -->
     <div
-      *ngIf="post.IsHidden"
+      *ngIf="post.IsHidden || allCopiesBurned()"
       class="p-10px background-color-grey d-flex align-items-center justify-content-center fs-15px"
     >
       <a
@@ -22,6 +20,20 @@
         queryParamsHandling="merge"
       >
         This post was removed by the author.
+      </a>
+    </div>
+
+    <div
+      *ngIf="allCopiesBurned()"
+      class="p-15px background-color-grey d-flex align-items-center justify-content-center fs-15px"
+    >
+      <a
+        class="link--unstyled"
+        style="text-align: center"
+        [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, post.ProfileEntryResponse.Username]"
+        queryParamsHandling="merge"
+      >
+        All copies of the NFT have been burned...
       </a>
     </div>
 
@@ -41,7 +53,12 @@
     </div>
 
     <div
-      *ngIf="!post.IsHidden && !hidingPost && !globalVars.hasUserBlockedCreator(postContent.PosterPublicKeyBase58Check)"
+      *ngIf="
+        !post.IsHidden &&
+        !allCopiesBurned() &&
+        !hidingPost &&
+        !globalVars.hasUserBlockedCreator(postContent.PosterPublicKeyBase58Check)
+      "
       class="d-flex flex-column js-feed-post"
       [ngStyle]="{ 'border-radius': setBorder ? '18px 18px 0 0' : '' }"
     >
@@ -255,7 +272,7 @@
                   >
                     <p>Edition</p>
                     <!-- <p class="font-weight-bold">{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} </p> -->
-                    <p class="font-weight-bold">{{ postContent.NumNFTCopies }}</p>
+                    <p class="font-weight-bold">{{ postContent.NumNFTCopies - postContent.NumNFTCopiesBurned }}</p>
                   </div>
                 </ng-container>
                 <ng-container *ngIf="showUnlockableContent">

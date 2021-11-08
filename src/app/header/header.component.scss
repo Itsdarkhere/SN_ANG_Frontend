@@ -161,6 +161,9 @@ header {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f9343e",endColorstr="#8e49f8",GradientType=1);
     border-radius: 16px;
     border: none;
+    &:active {
+        transform: scale(.96);
+    }
 }
 .create-button-div {
     width: calc(100% - 8px);

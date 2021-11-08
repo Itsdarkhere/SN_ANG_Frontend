@@ -68,12 +68,62 @@ export class MessagesInboxComponent implements OnInit, OnChanges {
     if (!this.isMobile) {
       this._setSelectedThreadBasedOnDefaultThread();
     }
+    // If messages are loaded, check if we are targeting a specific user
+    // This is also used in ngOnChange
+    if (this.globalVars.messageResponse) {
+      this.route.queryParams
+        .subscribe((params) => {
+          let username = params.username;
+          //this.applySorting(filters);
+          if (username) {
+            this.targetUser(username);
+            // Remove queryparams
+            this.router.navigate([], {
+              queryParams: {
+                username: null,
+              },
+              queryParamsHandling: "merge",
+            });
+          }
+        })
+        .unsubscribe();
+    }
+  }
+  targetUser(Username) {
+    if (Username === "") {
+      return;
+    }
+    this.backendApi.GetSingleProfile(this.globalVars.localNode, "", Username).subscribe(
+      (res) => {
+        this._handleCreatorSelectedInSearch(res.Profile);
+      },
+      (error) => {
+        this.globalVars._alertError("Profile not found...:", error);
+      }
+    );
   }
 
   ngOnChanges(changes: any) {
     // If messageThreads were not loaded when the component initialized, we handle them here.
     if (changes.messageThreads.previousValue === null && changes.messageThreads.currentValue.length > 0) {
       this.updateReadMessagesForSelectedThread();
+      // Below kicks in if user clicked the message button on a user profile
+      this.route.queryParams
+        .subscribe((params) => {
+          let username = params.username;
+          //this.applySorting(filters);
+          if (username) {
+            this.targetUser(username);
+            // Remove queryparams
+            this.router.navigate([], {
+              queryParams: {
+                username: null,
+              },
+              queryParamsHandling: "merge",
+            });
+          }
+        })
+        .unsubscribe();
     }
   }
 
@@ -171,7 +221,6 @@ export class MessagesInboxComponent implements OnInit, OnChanges {
 
     // Make sure the tab is set in the url
     this.activeTab = value;
-    console.log(value);
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { messagesTab: MessagesInboxComponent.TABTOQUERY[value] },
@@ -284,7 +333,7 @@ export class MessagesInboxComponent implements OnInit, OnChanges {
       ProfileEntryResponse: creator,
       NumMessagesRead: 0,
     };
-    // This gets appeneded to the front of the ordered contacts list in the message inbox.
+    // This gets appended to the front of the ordered contacts list in the message inbox.
     this.messageThreads.unshift(newThread);
     // Make this the new selected thread.
     this._handleMessagesThreadClick(newThread);

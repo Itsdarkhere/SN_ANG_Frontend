@@ -37,7 +37,6 @@ export class HeaderComponent implements OnInit {
       panelClass: "popup-modal",
     });
   }
-
   mintYourNFT(): void {
     const dialogRef = this.dialog.open(MintYourNftComponent, {
       width: "620px",

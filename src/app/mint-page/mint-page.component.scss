@@ -146,6 +146,9 @@
             cursor: not-allowed;
         }
     }
+    &:active {
+        transform: scale(.96);
+    }
 }
 .mint-page-step-2-continue-normal {
     height: 50px;

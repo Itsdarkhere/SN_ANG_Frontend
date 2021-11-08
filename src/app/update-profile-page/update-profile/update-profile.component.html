@@ -88,6 +88,17 @@
             Description can only be 512 characters
           </div>
         </div>
+        <div class="mt-30px font-weight-bold">E-mail</div>
+        <div class="form-group pt-10px">
+          <input
+            type="email"
+            class="form-control fs-15px"
+            placeholder="Enter an email address."
+            [(ngModel)]="emailAddress"
+            (ngModelChange)="_validateEmail($event)"
+          />
+          <div class="fc-red fs-15px" *ngIf="invalidEmailEntered">Please enter a valid email address.</div>
+        </div>
         <div class="mt-30px font-weight-bold">Social links</div>
         <div class="social-input">
           <label class="social-label">

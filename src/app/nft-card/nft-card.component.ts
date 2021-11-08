@@ -219,6 +219,9 @@ export class NftCardComponent implements OnInit {
     }
   }
   allCopiesBurned() {
+    if (this.post.NumNFTCopies === 0 && this.post.NumNFTCopiesBurned === 0) {
+      return false;
+    }
     return this.post.NumNFTCopiesBurned === this.post.NumNFTCopies;
   }
 

@@ -45,6 +45,8 @@ export class BackendRoutes {
   static RoutePathSubmitPhoneNumberVerificationCode = "/api/v0/submit-phone-number-verification-code";
   static RoutePathBlockPublicKey = "/api/v0/block-public-key";
   static RoutePathGetBlockTemplate = "/api/v0/get-block-template";
+  static RoutePathGetUnreadNotificationsCount = "/api/v0/get-unread-notifications-count";
+  static RoutePathSetNotificationMetadata = "/api/v0/set-notification-metadata";
   static RoutePathGetTxn = "/api/v0/get-txn";
   static RoutePathDeleteIdentities = "/api/v0/delete-identities";
   static RoutePathSendDiamonds = "/api/v0/send-diamonds";
@@ -1643,6 +1645,27 @@ export class BackendApiService {
       PublicKeyBase58Check,
       BlockPublicKeyBase58Check,
       Unblock,
+    });
+  }
+
+  SetNotificationsMetadata(
+    endpoint: string,
+    PublicKeyBase58Check: string,
+    LastSeenIndex: number,
+    LastUnreadNotificationIndex: number,
+    UnreadNotifications: number
+  ): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathSetNotificationMetadata, PublicKeyBase58Check, {
+      PublicKeyBase58Check,
+      LastSeenIndex,
+      LastUnreadNotificationIndex,
+      UnreadNotifications,
+    });
+  }
+
+  GetUnreadNotificationsCount(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetUnreadNotificationsCount, {
+      PublicKeyBase58Check,
     });
   }
 

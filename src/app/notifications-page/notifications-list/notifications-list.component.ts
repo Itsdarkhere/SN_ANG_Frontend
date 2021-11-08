@@ -16,12 +16,14 @@ export class NotificationsListComponent implements OnInit {
   @Input() isNotificationBar = false;
   private BUFFER_SIZE = 10;
   private PAGE_SIZE = 50;
-  private  WINDOW_VIEWPORT = true;
+  private WINDOW_VIEWPORT = true;
   notificationArr: Array<any>[];
-  constructor(private globalVars: GlobalVarsService, private backendApi: BackendApiService, private router: Router,
-    private route: ActivatedRoute) {
-
-  }
+  constructor(
+    private globalVars: GlobalVarsService,
+    private backendApi: BackendApiService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   // stores a mapping of page number to notification index
   pagedIndexes = {
@@ -40,10 +42,10 @@ export class NotificationsListComponent implements OnInit {
   // null means we're loading items
   totalItems = null;
 
-  ngOnInit(){
+  ngOnInit() {
     // code to remove extra query param if not required
     // this.router.navigate(
-    //   ['.'], 
+    //   ['.'],
     //   { relativeTo: this.route, queryParams: { } }
     // );
     this.PAGE_SIZE = this.isNotificationBar ? 15 : 50;
@@ -54,9 +56,11 @@ export class NotificationsListComponent implements OnInit {
     //   }
     // })
     this.getPage(0);
+    // Set this here, rather than calling a whole updateEverything call
+    this.globalVars.unreadNotifications = 0;
   }
 
-  showRecent(){
+  showRecent() {
     this.getPage(0, true);
   }
   getPage(page: number, scrolltop: boolean = false) {
@@ -65,7 +69,7 @@ export class NotificationsListComponent implements OnInit {
     }
 
     this.loadingNextPage = true;
-    const fetchStartIndex = this.pagedIndexes[!this.isNotificationBar ? page: 0];
+    const fetchStartIndex = this.pagedIndexes[!this.isNotificationBar ? page : 0];
     return this.backendApi
       .GetNotifications(
         this.globalVars.localNode,
@@ -76,6 +80,21 @@ export class NotificationsListComponent implements OnInit {
       .toPromise()
       .then(
         (res) => {
+
+          // Only update the notifications metadata if loading the first page
+          // If we're reading the notifications, we set unread notifications to 0,
+          // and set the last unread notification index equal to the last read notification index
+          if (fetchStartIndex === -1) {
+            this.backendApi
+              .SetNotificationsMetadata(
+                this.globalVars.localNode,
+                this.globalVars.loggedInUser.PublicKeyBase58Check,
+                res.LastSeenIndex,
+                res.LastSeenIndex,
+                0
+              )
+              .toPromise();
+          }
           // add all profiles and posts to our cache maps
           Object.assign(this.profileMap, res.ProfilesByPublicKey);
           Object.assign(this.postMap, res.PostsByHash);
@@ -94,7 +113,8 @@ export class NotificationsListComponent implements OnInit {
           if (chunk.length < this.PAGE_SIZE || this.pagedIndexes[page + 1] === 0) {
             this.lastPage = page;
           }
-          if (scrolltop) { // shift page to top if required
+          if (scrolltop) {
+            // shift page to top if required
             document.body.scrollTop = 0; // For Safari
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
           }

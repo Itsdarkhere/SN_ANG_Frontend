@@ -630,7 +630,6 @@ export class FeedPostComponent implements OnInit {
         this.nftEntryResponses[0]?.LastAcceptedBidAmountNanos === 0 &&
         this.nftEntryResponses[0]?.OwnerPublicKeyBase58Check === this.postContent.PosterPublicKeyBase58Check
       ) {
-        console.log(this.postContent.PosterPublicKeyBase58Check);
         return "Auction closed by artist";
       }
       return this.nftEntryResponses[0]?.IsForSale === false ? "Sold for" : "Minimum Bid";

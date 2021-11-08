@@ -22,6 +22,12 @@
         font-size: 12px;
     }
 }
+.button-disabled {
+    &:disabled {
+        color: grey;
+        background-color: red;
+    }
+}
 .banner-image-container {
     width: 100%;
     z-index: 0;

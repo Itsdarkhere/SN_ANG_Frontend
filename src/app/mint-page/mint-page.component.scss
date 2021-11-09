@@ -57,6 +57,8 @@
 .mint-page-text-container-no-max {
     position: absolute;
     left: 0;
+    right: 0;
+    top: 0;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -64,31 +66,69 @@
     align-items: center;
 }
 .mint-page-edition-selection {
-    min-height: 200px;
-    max-height: 250px;
-    width: 45%;
+    height: 22vh;
+    width: 30vh;
+    max-width: 45%;
     border: 2px solid #efefef;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 1.0368170738220215px 1.0368170738220215px 20.736339569091797px rgba(0, 0, 0, 0.05);
     cursor: pointer;
 }
+.fs-11px {
+ font-size: 11px;
+}
+.fs-10-responsive {
+    font-size: 10px;
+    @media screen and (min-height: 800px) {
+        font-size: 12px;
+    }
+}
+.fs-12-responsive {
+    font-size: 12px;
+    @media screen and (min-height: 800px) {
+        font-size: 14px;
+    }
+}
+.fs-14-responsive {
+    font-size: 14px;
+    @media screen and (min-height: 800px) {
+        font-size: 16px;
+    }
+}
+.fs-18-responsive {
+    font-size: 18px;
+    @media screen and (min-height: 800px) {
+        font-size: 20px;
+    }
+}
+.fs-23-responsive {
+    font-size: 23px;
+    @media screen and (min-height: 800px) {
+        font-size: 25px;
+    }
+}
+.fs-13px {
+    font-size: 13px;
+}
+.fs-15px {
+    font-size: 15px;
+}
 .color-light {
     color: #666666;
 }
 .overflow-scroll {
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 .mint-page-auction-selection {
     border-radius: 10px;
+    height: 7vh;
     overflow: hidden;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    flex-grow: 1;
-    max-height: 60px;
-    min-height: 40px;
     border: 1.0368170738220215px solid #e9e9e9;
     box-shadow: 1.0368170738220215px 1.0368170738220215px 2.073634147644043px rgba(0, 0, 0, 0.03);
     transition-duration: 0.3s; 
@@ -102,32 +142,50 @@
 }
 .mint-page-step-1-continue {
     width: 98%;
+    max-width: 480px;
     height: 35px;
     border: 3px solid black;
     background-color: var(--background);
     border-radius: 10px;
 }
 .mint-page-inner-inner {
-    height: calc(100% - 50px);
-    width: 100%;
+    position: absolute;
+    top: 2.5%;
+    max-width: 480px;
+    height: calc(95% - 50px);
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: flex-start;
-    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.mint-page-inner-inner-inner {
+    height: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.max-width-480 {
+    max-width: 480px;
 }
 .mint-page-inner-inner-3 {
-    height: calc(100% - 50px);
+    height: calc(95% - 50px);
+    max-width: 480px;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .mint-page-step-2-continue {
     position: absolute;
-    bottom: 0;
+    bottom: 2.5%;
+    max-width: 480px;
     height: 50px;
     min-height: 50px;
     background-color: var(--text);
@@ -152,6 +210,7 @@
 }
 .mint-page-step-2-continue-normal {
     height: 50px;
+    max-width: 480px;
     min-height: 50px;
     background-color: var(--text);
     color: var(--background);
@@ -171,8 +230,6 @@
     }
 }
 .mint-custom-container {
-    height: calc(100% - 400px);
-    min-height: 200px;
     justify-content: center;
     align-items: flex-start;
 }
@@ -188,10 +245,15 @@
 }
 .mint-page-step-4-continue {
     height: 50px;
+    min-height: 50px;
+    max-width: 480px;
     background-color: transparent;
     color: var(--text);
     border-radius: 10.650794982910156px;
     border: 3px solid var(--text);
+}
+.padding-40px {
+    padding-top: 50px;
 }
 .background-secondary {
     background-color: var(--secondary);
@@ -232,7 +294,7 @@
 }
 .mint-page-textarea {
     resize: none;
-    height: calc(100% - 70px);
+    height: 6vh;
 }
 input[type="file"] {
     display: none;
@@ -251,7 +313,7 @@ input[type="file"] {
 .mint-page-custom-file-upload {
     border: 2px dotted #2b79f5;
     width: 100%;
-    height: 40px;
+    height: 8vh;
     border-radius: 6px;
     cursor: pointer;
 }
@@ -384,7 +446,7 @@ input[type="file"] {
 }
 .mint-page-checkbox-button {
     background-color: transparent;
-    height: 50px;
+    height: 7vh;
     min-height: 50px;
     width: 100%;
     overflow: hidden;
@@ -406,14 +468,14 @@ input[type="file"] {
 }
 .mint-page-royalty-element {
     min-height: 40px;
-    flex-grow: 1;
-    max-height: 55px;
+    height: 5vh;
 }
 .royalty-element-input {
     height: 100%;
     border: 2.5px solid black;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
+    font-size: 3vh;
     border-right: none;
 }
 input::-webkit-outer-spin-button,
@@ -421,7 +483,9 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
+.fs-16-vh {
+    font-size: 2vh;
+}
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
@@ -449,12 +513,10 @@ input[type=number] {
     pointer-events: none;
 }
 .mint-page-min-price {
-    min-height: 55px;
-    flex-grow: 1;
-    max-height: 70px;
+    height: 9vh;
     font-size: 30px;
 }
-.testss {
+.flex-column-start {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -486,7 +548,7 @@ input[type=number] {
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
     border: 3px solid #0E0F22;
-    font-size: 35px !important;
+    font-size: 7vh;
 }
 .mint-page-deso-logo {
     height: 25px;

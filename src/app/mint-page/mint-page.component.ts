@@ -41,7 +41,7 @@ import { CommentModalComponent } from "../comment-modal/comment-modal.component"
 export class MintPageComponent implements OnInit {
   @Output() postCreated = new EventEmitter();
 
-  step = 1;
+  step = 4;
   mobile = false;
   submittingPost = false;
   postInput = "";
@@ -231,7 +231,9 @@ export class MintPageComponent implements OnInit {
     let isSumUnreasonable = Number(this.CREATOR_ROYALTY) + Number(this.COIN_ROYALTY) > 100;
     return isEitherUnreasonable || isSumUnreasonable;
   }
-
+  uploadFile(event: any): void {
+    this._handleFilesInput(event[0]);
+  }
   hasUnreasonableMinBidAmount() {
     //return parseFloat(this.MIN_PRICE) < 0 || this.MIN_PRICE < 0;
     return this.MIN_PRICE < 0;

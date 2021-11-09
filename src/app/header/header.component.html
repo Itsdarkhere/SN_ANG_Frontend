@@ -33,8 +33,8 @@
           (clickOutside)="clickOutside()"
         >
           <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />
-          <div class="d-flex flex-row mt-5px">
-            <label class="mb-0px fs-10px">Notifications</label>
+          <div class="d-flex flex-row mt-5px" (click)="showNotification()">
+            <label class="mb-0px fs-10px cursor-pointer">NOTIFICATIONS</label>
             <label class="mb-0px fs-10px ml-5px notification-amount" *ngIf="globalVars.unreadNotifications > 0">
               {{ globalVars.unreadNotifications }}
             </label>
@@ -61,7 +61,7 @@
             (click)="hasProfile()"
             [avatar]="globalVars.loggedInUser.PublicKeyBase58Check"
           ></div>
-          <label class="mb-0px mt-5px fs-10px">Profile</label>
+          <label class="mb-0px mt-5px fs-10px cursor-pointer" (click)="hasProfile()">PROFILE</label>
         </li>
       </ul>
     </div>

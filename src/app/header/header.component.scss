@@ -81,7 +81,8 @@ header {
             padding-left: 0px;
             .single-option {
                 &:not(:first-child) {
-                    padding-left: 15px;
+                   // padding-left: 25px;
+                    margin-left: 25px;
                     @media screen and (max-width: 1024px) {
                         padding-left: 10px;
                     }

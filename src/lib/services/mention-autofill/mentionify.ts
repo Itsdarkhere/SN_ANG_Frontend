@@ -223,8 +223,19 @@ export class Mentionify<Type> {
 
       setTimeout(() => {
         this.active = 0;
-        this.left = scrollX + coords.left + left + this.ref.scrollLeft - modalLeft;
-        this.top = scrollY + coords.top + top + coords.height - this.ref.scrollTop - modalTop;
+        console.log(scrollX + " ScrollX");
+        console.log(coords.left + " coords.left");
+        console.log(left + " left");
+        console.log(this.ref.scrollLeft + " this.ref.scrollLeft");
+        console.log(modalLeft + " modallxeft");
+        console.log(coords.top + " coords.top");
+        console.log(top + " Top");
+        console.log(coords.height + " coords.height");
+        console.log(this.ref.scrollTop + " scrollTop");
+        console.log(modalTop + " modalTop");
+
+        this.left = scrollX + coords.left + this.ref.scrollLeft - modalLeft;
+        this.top = scrollY + coords.top + coords.height - this.ref.scrollTop - modalTop;
         this.triggerIdx = triggerIdx;
         this.renderMenu();
       }, 0);

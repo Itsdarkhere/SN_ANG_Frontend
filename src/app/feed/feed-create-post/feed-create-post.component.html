@@ -28,7 +28,7 @@
           'feed-create-comment__textarea': parentPost,
           'lh-18px': parentPost
         }"
-        class="form-control fs-18px m-5px p-0 border-0 feed-create-post__textarea position-relative"
+        class="form-control fs-18px m-5px p-0 border-0 feed-create-post__textarea"
         [placeholder]="getPlaceholderText()"
         id="textarea"
         (paste)="onPaste($event)"
@@ -116,12 +116,12 @@
   </span>
   <!-- areweave opt button -->
   <!--<i
-    class="arweave_icon pr-15px"
-    *ngIf="!isComment && globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified"
-    (click)="showImageLink = !showImageLink"
-  >
-    <img src="assets/icons/areweave.svg" alt="" />
-  </i>-->
+        class="arweave_icon pr-15px"
+        *ngIf="!isComment && globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified"
+        (click)="showImageLink = !showImageLink"
+      >
+        <img src="assets/icons/areweave.svg" alt="" />
+      </i>-->
   <!-- areweave opt button end  -->
   <i
     class="text-grey8A cursor-pointer fs-18px"
@@ -132,14 +132,14 @@
   </i>
   <ng-container *ngIf="!isComment">
     <!--<i
-      class="fas fa-external-link-alt fa-lg text-grey8A cursor-pointer pr-15px fs-18px"
-      (click)="showImageLink = !showImageLink"
-    ></i>
-    <input #videoInput class="d-none" type="file" accept="video/*" (change)="_handleFilesInput($event.target.files)" />
-    <i
-      class="fas fa-video fa-lg text-grey8A cursor-pointer pr-15px feed-create-post__image-icon"
-      (click)="videoInput.click()"
-    ></i>-->
+          class="fas fa-external-link-alt fa-lg text-grey8A cursor-pointer pr-15px fs-18px"
+          (click)="showImageLink = !showImageLink"
+        ></i>
+        <input #videoInput class="d-none" type="file" accept="video/*" (change)="_handleFilesInput($event.target.files)" />
+        <i
+          class="fas fa-video fa-lg text-grey8A cursor-pointer pr-15px feed-create-post__image-icon"
+          (click)="videoInput.click()"
+        ></i>-->
     <input #imageInput class="d-none" type="file" accept="image/*" (change)="_handleFilesInput($event.target.files)" />
     <i class="text-grey8A cursor-pointer feed-create-post__image-icon" (click)="imageInput.click()">
       <img src="assets/icons/img_ico.svg" alt="" />
@@ -158,5 +158,7 @@
   </button>
 </div>
 <!-- <div class="feed_approved">
-    <p>Only approved creatorscan mint NFTs 🌈</p>
-</div> -->
+        <p>Only approved creatorscan mint NFTs 🌈</p>
+    </div> -->
+<!-- Be careful when modifying this.
+         It's used by both the feed and that "create post page."-->

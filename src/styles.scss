@@ -1133,11 +1133,6 @@ $green-font-color: #19b028;
 .position-fixed {
     position: fixed;
 }
-
-.position-relative {
-    position: relative;
-}
-
 .global__container {
     min-height: 100vh;
     display: flex;
@@ -1279,7 +1274,7 @@ $green-font-color: #19b028;
     }
 }
 .menu {
-    background-color: var(--tile-bg);
+    background-color: var(--background);
     position: absolute;
     z-index: 100;
     border-radius: 10px;
@@ -1298,16 +1293,16 @@ $green-font-color: #19b028;
 .menu-item {
     cursor: default;
     padding: 1rem;
-    color: var(--text-muted);
+    color: var(--text);
 }
 
 .menu-item.selected {
-    background-color: var(--tile-secondary-bg);
+    background-color: var(--secondary);
     color: var(--text);
 }
 
 .menu-item:hover:not(.selected) {
-    background-color: var(--tile-bg);
+    background-color: var(--secondary);
 }
 .global__tooltip-icon {
     cursor: pointer;

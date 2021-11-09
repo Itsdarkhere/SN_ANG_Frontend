@@ -84,6 +84,12 @@
         font-size: 12px;
     }
 }
+.fs-11-responsive {
+    font-size: 11px;
+    @media screen and (min-height: 800px) {
+        font-size: 13px;
+    }
+}
 .fs-12-responsive {
     font-size: 12px;
     @media screen and (min-height: 800px) {
@@ -513,8 +519,7 @@ input[type=number] {
     pointer-events: none;
 }
 .mint-page-min-price {
-    height: 9vh;
-    font-size: 30px;
+    height: 7.5vh;
 }
 .flex-column-start {
     display: flex;
@@ -548,7 +553,7 @@ input[type=number] {
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
     border: 3px solid #0E0F22;
-    font-size: 7vh;
+    font-size: 6vh;
 }
 .mint-page-deso-logo {
     height: 25px;

@@ -4928,15 +4928,17 @@ option {
         background-size: cover;
     }
     .post_btn {
-        background-color: #000 !important;
-        border: 2px solid #000;
-        color: #fff;
+        //background-color: #000 !important;
+        //border: 2px solid #000;
+        //color: #fff;
         border-radius: 4.68267px;
         padding: 7px 23px;
         width: auto !important;
         height: auto !important;
         &.disabled {
             opacity: 1;
+            user-select: none;
+            border: 1px solid transparent;
             border-color: #5C5C5C !important;
             background-color: #fff!important;
             color: #5C5C5C !important;

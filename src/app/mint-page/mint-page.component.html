@@ -13,9 +13,8 @@
       class="mint-page-text-container flex-center"
       [ngClass]="mobile ? 'w-100' : 'w-50'"
     >
-      <div class="w-100 mint-page-inner-inner disable-scrollbars" [ngClass]="mobile ? 'w-90' : 'w-80'">
+      <div class="mint-page-inner-inner disable-scrollbars" [ngClass]="mobile ? 'w-90' : 'w-80'">
         <h2 class="font-weight-bold w-100 text-align-start ml-5px fs-23-responsive">Create your NFT</h2>
-
         <label
           class="mt-10px mint-page-sub-heading font-weight-bold w-100 mb-0px text-align-start fs-14-responsive ml-5px"
         >
@@ -267,10 +266,10 @@
     <div
       [@mintSwipeAnimation]
       *ngIf="step === 3"
-      class="mint-page-text-container-no-max border h-95"
+      class="mint-page-text-container-no-max h-95"
       [ngClass]="mobile ? 'w-100' : 'w-50'"
     >
-      <div class="w-100 mint-page-inner-inner disable-scrollbars" [ngClass]="mobile ? 'w-90' : 'w-80'">
+      <div class="mint-page-inner-inner disable-scrollbars" [ngClass]="mobile ? 'w-90' : 'w-80'">
         <button class="previous-step-button color-light" (click)="previousStep()">
           <img class="previous-step-arrow mr-5px" src="/assets/icons/arrow-left-lighter.svg" />
           Back
@@ -357,7 +356,7 @@
               <input type="checkbox" class="mint-page-button-input mr-10px" [checked]="UNLOCKABLE_CONTENT" />
               {{ UNLOCKABLE_CONTENT ? "YES" : "NO" }}
             </label>
-            <label class="w-80 h-100 cursor-pointer mb-0px pl-10px pr-10px mint-boolean-label fs-10-responsive">
+            <label class="w-80 h-100 cursor-pointer mb-0px pl-10px pr-10px mint-boolean-label fs-11-responsive">
               Include exclusive text, like a URL, encrypted for NFT purchases. Uploaded once you sell or transfer the
               NFT
             </label>
@@ -377,7 +376,7 @@
               <input type="checkbox" class="mint-page-button-input mr-10px" [checked]="PUT_FOR_SALE" />
               {{ PUT_FOR_SALE ? "YES" : "NO" }}
             </div>
-            <label class="w-80 h-100 cursor-pointer mb-0px pl-10px pr-10px mint-boolean-label fs-10-responsive">
+            <label class="w-80 h-100 cursor-pointer mb-0px pl-10px pr-10px mint-boolean-label fs-11-responsive">
               If you don't put the NFT for sale, no one is able to place bids on it.
             </label>
           </button>

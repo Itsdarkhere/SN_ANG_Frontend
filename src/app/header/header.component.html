@@ -21,10 +21,7 @@
       </ul>
       <ul class="right-side-options menu-options-list">
         <li class="single-option" *ngIf="globalVars.loggedInUser?.ProfileEntryResponse?.IsVerified">
-          <a
-            class="header-create-button-gradient p-0px hover-scale"
-            [routerLink]="'/' + globalVars.RouteNames.MINT_PAGE"
-          >
+          <a class="header-create-button-gradient grow" [routerLink]="'/' + globalVars.RouteNames.MINT_PAGE">
             <div class="mb-0px create-button-div fs-14px">CREATE</div>
           </a>
         </li>

@@ -165,7 +165,19 @@ header {
     &:active {
         transform: scale(.96);
     }
+    transition-duration: 0.2s;
+    &:hover {
+        transform: scale(1.05);
+    }
 }
+.grow { transition: all .2s ease-in-out;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+}
+.grow:hover { transform: scale(1.05); }
 .notification-amount {
     position: absolute;
     top: 10px;

@@ -87,7 +87,7 @@ header {
                     }
                 }
                 &:not(:last-child) {
-                    padding-right: 15px;
+                    //padding-right: 15px;
                     @media screen and (max-width: 1024px) {
                         padding-left: 10px;
                     }
@@ -105,8 +105,8 @@ header {
                     font-weight: bold;
                 }
                 .profile-img {
-                    width: 35px;
-                    height: 35px;
+                    width: 27px;
+                    height: 27px;
                     cursor: pointer;
                     overflow: hidden;
                     border-radius: 50%;
@@ -164,6 +164,19 @@ header {
     &:active {
         transform: scale(.96);
     }
+}
+.notification-amount {
+    position: absolute;
+    top: 2px;
+    right: 18px;
+    background-color: #2b79f5;
+    color: white;
+    border-radius: 50%;
+    min-width: 13px;
+    height: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .create-button-div {
     width: calc(100% - 8px);

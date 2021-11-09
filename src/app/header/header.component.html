@@ -3,7 +3,7 @@
     <div class="logo-cover global__tooltip-icon" [routerLink]="homeLink()">
       <img src="assets/img/l4s_logo.svg" class="clout" alt="" />
     </div>
-    <div class="search-bar-cover" [class.active-mobile]="isSearchOpen">
+    <div class="search-bar-cover w-50" [class.active-mobile]="isSearchOpen">
       <search-bar [focusSearchInput]="isSearchOpen"></search-bar>
     </div>
     <div class="right-portion">
@@ -18,32 +18,6 @@
           />
           <i class="icon-close" *ngIf="isSearchOpen" (click)="showSearchBar()" title="Close search"></i>
         </li>
-        <!--<li class="single-option">
-                    <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button>
-                    <mat-menu #createMenu="matMenu" xPosition="before">
-                        <div class="create-menu-cover">
-
-                            <button mat-menu-item (click)="createPostUploadMint()" *ngIf="globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified">
-                            <div class="icon-cover">
-                                <img src="assets/icons/mint-icon.svg" class="clout" alt="Mint NFT">
-                            </div>
-                            Mint an NFT
-                        </button>
-                            <button mat-menu-item (click)="createPost()">
-                            <div class="icon-cover">
-                                <img src="assets/icons/create-post-icon.svg" class="clout" alt="Post">
-                            </div>
-                            Create a Post
-                        </button>
-                        </div>
-                    </mat-menu>
-                </li>-->
-        <!-- <li class="single-option">
-                    <img src="assets/icons/chat-plane-icon.svg" title="Chat" [routerLink]="'/' + globalVars.RouteNames.INBOX_PREFIX" />
-                </li>
-                <li class="single-option" (click)="globalVars.isLeftBarMobileOpen = true">
-                    <img src="assets/icons/hamburger-icon.svg" class="clout" alt="">
-                </li> -->
       </ul>
       <ul class="right-side-options menu-options-list">
         <li class="single-option" *ngIf="globalVars.loggedInUser?.ProfileEntryResponse?.IsVerified">
@@ -54,8 +28,17 @@
             <div class="mb-0px create-button-div fs-14px">CREATE</div>
           </a>
         </li>
-        <li class="notification-icon-cover single-option" (clickOutside)="clickOutside()">
+        <li
+          class="notification-icon-cover single-option h-100 d-flex flex-center flex-column"
+          (clickOutside)="clickOutside()"
+        >
           <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />
+          <div class="d-flex flex-row mt-5px">
+            <label class="mb-0px fs-10px">Notifications</label>
+            <label class="mb-0px fs-10px ml-5px notification-amount" *ngIf="globalVars.unreadNotifications > 0">
+              {{ globalVars.unreadNotifications }}
+            </label>
+          </div>
           <div class="notification-list-cover" *ngIf="isNotificationOpen">
             <div class="triangle-up">▲</div>
             <div class="header_notification_list_inner">
@@ -71,13 +54,14 @@
           </div>
         </li>
 
-        <li class="single-option">
+        <li class="single-option h-100 d-flex flex-column flex-center">
           <div
             class="profile-img"
             title="My Profile"
             (click)="hasProfile()"
             [avatar]="globalVars.loggedInUser.PublicKeyBase58Check"
           ></div>
+          <label class="mb-0px mt-5px fs-10px">Profile</label>
         </li>
       </ul>
     </div>

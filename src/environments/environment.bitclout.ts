@@ -13,7 +13,7 @@ export const environment = {
   },
   amplitude: {
     key: "23345b239094949bc7f3402cebe9e5d2",
-    domain: "amp.bitclout.com"
+    domain: "amp.bitclout.com",
   },
   node: {
     name: "BitClout",

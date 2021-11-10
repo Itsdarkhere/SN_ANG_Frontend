@@ -41,7 +41,7 @@ import { CommentModalComponent } from "../comment-modal/comment-modal.component"
 export class MintPageComponent implements OnInit {
   @Output() postCreated = new EventEmitter();
 
-  step = 1;
+  step = 3;
   mobile = false;
   submittingPost = false;
   postInput = "";

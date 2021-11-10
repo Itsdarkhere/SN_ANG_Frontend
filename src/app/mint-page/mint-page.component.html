@@ -350,12 +350,16 @@
             [ngClass]="UNLOCKABLE_CONTENT ? 'electric-border' : ''"
             (click)="UNLOCKABLE_CONTENT = !UNLOCKABLE_CONTENT"
           >
-            <label
+            <div
               class="mb-0px cursor-pointer d-flex flex-row w-20 flex-center background-darker-light mint-page-position-absolute-label fs-14-responsive"
             >
-              <input type="checkbox" class="mint-page-button-input mr-10px" [checked]="UNLOCKABLE_CONTENT" />
-              {{ UNLOCKABLE_CONTENT ? "YES" : "NO" }}
-            </label>
+              <input
+                type="checkbox"
+                class="mint-page-button-input display-none mr-10px"
+                [checked]="UNLOCKABLE_CONTENT"
+              />
+              <p class="checkbox-input-text">{{ UNLOCKABLE_CONTENT ? "YES" : "NO" }}</p>
+            </div>
             <label class="w-80 h-100 cursor-pointer mb-0px pl-10px pr-10px mint-boolean-label fs-11-responsive">
               Include exclusive text, like a URL, encrypted for NFT purchases. Uploaded once you sell or transfer the
               NFT
@@ -373,8 +377,8 @@
             <div
               class="d-flex flex-row flex-center background-darker-light h-100 w-20 mint-page-position-absolute-label fs-14-responsive"
             >
-              <input type="checkbox" class="mint-page-button-input mr-10px" [checked]="PUT_FOR_SALE" />
-              {{ PUT_FOR_SALE ? "YES" : "NO" }}
+              <input type="checkbox" class="mint-page-button-input display-none mr-10px" [checked]="PUT_FOR_SALE" />
+              <p class="checkbox-input-text">{{ PUT_FOR_SALE ? "YES" : "NO" }}</p>
             </div>
             <label class="w-80 h-100 cursor-pointer mb-0px pl-10px pr-10px mint-boolean-label fs-11-responsive">
               If you don't put the NFT for sale, no one is able to place bids on it.

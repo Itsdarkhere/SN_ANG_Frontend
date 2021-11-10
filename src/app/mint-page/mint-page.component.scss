@@ -463,8 +463,32 @@ input[type="file"] {
     transition-duration: 0.2s;
 }
 .mint-page-button-input {
-    transition-duration: 0.2s;    
-    width: 12px;
+    transition-duration: 0.2s;  
+    height: 13px;  
+    width: 13px;
+}
+.checkbox-input-text {
+    padding-left: 20px;
+}
+.checkbox-input-text::before {
+    content: "";
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border-radius: 1.9134812355041504px;
+    box-shadow: 0px 0.6378270387649536px 3.1891350746154785px rgba(203, 210, 218, 0.8);
+    position: absolute;
+    top: calc(50% - 6.5px);
+    left: 20px;
+    background-color: #ffffff;
+    border: 1px solid var(--text);
+}
+.mint-page-button-input:checked + .checkbox-input-text::before {
+    content: "\2713";
+    background: #2b79f5;
+    color: #ffffff;
+    text-align: center;
+    line-height: 13px;
 }
 .cursor-pointer {
     cursor: pointer;

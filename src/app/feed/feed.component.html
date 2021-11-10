@@ -35,10 +35,29 @@
             The post.parentPost stuff is a hack to make it so that a new comment shows up
             in the feed with the "replying to @[parentPost.Username]" content diplayed.
             post.parentPost is set in appendCommentAfterParentPost
-            || post?.RepostedPostEntryResponse?.IsNFT
-             || post?.RepostedPostEntryResponse?.IsNFT
           -->
         <ng-container *ngIf="post?.IsNFT">
+          <new-nft-card
+            *ngIf="!post.IsHidden"
+            [post]="post"
+            [pending]="false"
+            [includePaddingOnPost]="true"
+            [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+            [afterRepostCreatedCallback]="prependPostToFeed.bind(this)"
+            [showReplyingToContent]="!!post.parentPost"
+            [parentPost]="post.parentPost"
+            [contentShouldLinkToThread]="true"
+            [showLeftSelectedBorder]="post.IsPinned"
+            [blocked]="globalVars.hasUserBlockedCreator(post.PosterPublicKeyBase58Check)"
+            [cardStyle]="true"
+            [showNFTDetails]="true"
+            (postDeleted)="onPostHidden($event)"
+            (userBlocked)="userBlocked()"
+            [fromFeed]="true"
+            [profileFeed]="true"
+          ></new-nft-card>
+        </ng-container>
+        <ng-container *ngIf="post?.RepostedPostEntryResponse?.IsNFT">
           <app-nft-card
             *ngIf="!post.IsHidden"
             [post]="post"
@@ -59,7 +78,7 @@
             [profileFeed]="true"
           ></app-nft-card>
         </ng-container>
-        <ng-container *ngIf="!(post?.IsNFT)">
+        <ng-container *ngIf="!(post?.IsNFT || post?.RepostedPostEntryResponse?.IsNFT)">
           <feed-post
             *ngIf="!post.IsHidden"
             [post]="post"

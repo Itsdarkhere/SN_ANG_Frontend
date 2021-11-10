@@ -10,7 +10,7 @@
   >
     <div class="nfts-card-list">
       <div class="nft-col-wrap" *ngFor="let nftCollection of dataToShow">
-        <app-nft-card
+        <new-nft-card
           [post]="nftCollection.PostEntryResponse"
           [includePaddingOnPost]="true"
           [pending]="false"
@@ -22,7 +22,7 @@
           [setBorder]="true"
           [nftCollectionHighBid]="nftCollection.HighestBidAmountNanos"
           [nftCollectionLowBid]="nftCollection.LowestBidAmountNanos"
-        ></app-nft-card>
+        ></new-nft-card>
       </div>
     </div>
   </div>

@@ -24,7 +24,7 @@
     >
       <div class="nfts-card-list nft_creator_list">
         <div class="nft-col-wrap" *ngFor="let nftEntry of dataToShow">
-          <app-nft-card
+          <new-nft-card
             *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
             [contentShouldLinkToThread]="true"
             [includePaddingOnPost]="true"
@@ -38,10 +38,9 @@
             [cardStyle]="true"
             [profilePublicKeyBase58Check]="profile.PublicKeyBase58Check"
             (userBlocked)="userBlocked()"
-          ></app-nft-card>
+          ></new-nft-card>
         </div>
       </div>
     </div>
   </div>
 </div>
-

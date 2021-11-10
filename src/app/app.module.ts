@@ -185,6 +185,7 @@ import { CreatorProfileCollectedComponent } from "./creator-profile-page/creator
 import { CreatorProfileCreatedComponent } from "./creator-profile-page/creator-profile-created/creator-profile-created.component";
 import { ActivityComponent } from "./activity/activity.component";
 import { MintPageComponent } from "./mint-page/mint-page.component";
+import { NewNftCardComponent } from "./new-nft-card/new-nft-card.component";
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -208,6 +209,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     MintYourNftComponent,
     CreateYourNftComponent,
     PlaceABidComponent,
+    NewNftCardComponent,
     FeedComponent,
     LeftBarComponent,
     RightBarCreatorsComponent,
@@ -348,6 +350,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     CreatorProfileCreatedComponent,
     ActivityComponent,
     MintPageComponent,
+    NewNftCardComponent,
   ],
   imports: [
     BrowserModule,

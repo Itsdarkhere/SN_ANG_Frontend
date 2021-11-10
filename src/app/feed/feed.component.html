@@ -35,8 +35,10 @@
             The post.parentPost stuff is a hack to make it so that a new comment shows up
             in the feed with the "replying to @[parentPost.Username]" content diplayed.
             post.parentPost is set in appendCommentAfterParentPost
+            || post?.RepostedPostEntryResponse?.IsNFT
+             || post?.RepostedPostEntryResponse?.IsNFT
           -->
-        <ng-container *ngIf="post?.IsNFT || post?.RepostedPostEntryResponse?.IsNFT">
+        <ng-container *ngIf="post?.IsNFT">
           <app-nft-card
             *ngIf="!post.IsHidden"
             [post]="post"
@@ -57,7 +59,7 @@
             [profileFeed]="true"
           ></app-nft-card>
         </ng-container>
-        <ng-container *ngIf="!(post?.IsNFT || post?.RepostedPostEntryResponse?.IsNFT)">
+        <ng-container *ngIf="!(post?.IsNFT)">
           <feed-post
             *ngIf="!post.IsHidden"
             [post]="post"

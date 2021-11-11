@@ -3,64 +3,67 @@
     <div class="logo-cover global__tooltip-icon" [routerLink]="homeLink()">
       <img src="assets/img/l4s_logo.svg" class="clout" alt="" />
     </div>
-    <div class="search-bar-cover w-50" [class.active-mobile]="isSearchOpen">
-      <search-bar [focusSearchInput]="isSearchOpen"></search-bar>
-    </div>
-    <div class="right-portion">
-      <ul class="right-side-options for-mobile">
-        <li class="single-option">
-          <img
-            src="assets/icons/search-icon-mobile.svg"
-            class="clout"
-            alt=""
-            (click)="showSearchBar()"
-            *ngIf="!isSearchOpen"
-          />
-          <i class="icon-close" *ngIf="isSearchOpen" (click)="showSearchBar()" title="Close search"></i>
-        </li>
-      </ul>
-      <ul class="right-side-options menu-options-list">
-        <li class="single-option" *ngIf="globalVars.loggedInUser?.ProfileEntryResponse?.IsVerified">
-          <a class="header-create-button-gradient grow" [routerLink]="'/' + globalVars.RouteNames.MINT_PAGE">
-            <div class="mb-0px create-button-div fs-14px">CREATE</div>
-          </a>
-        </li>
-        <li
-          class="notification-icon-cover single-option h-100 d-flex flex-center flex-column"
-          (clickOutside)="clickOutside()"
-        >
-          <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />
-          <div class="d-flex flex-row mt-5px" (click)="showNotification()">
-            <label class="mb-0px fs-10px cursor-pointer">NOTIFICATIONS</label>
-            <label class="mb-0px fs-10px ml-5px notification-amount" *ngIf="globalVars.unreadNotifications > 0">
-              {{ globalVars.unreadNotifications }}
-            </label>
-          </div>
-          <div class="notification-list-cover" *ngIf="isNotificationOpen">
-            <div class="triangle-up">▲</div>
-            <div class="header_notification_list_inner">
-              <app-notifications-list [isNotificationBar]="true"></app-notifications-list>
-            </div>
-            <a
-              [routerLink]="'/' + globalVars.RouteNames.NOTIFICATIONS"
-              class="view-all-text text-primary"
-              title="View All Notifications"
-            >
-              View All
+    <div class="header-search-right-container" [ngClass]="mobile ? 'justify-content-end' : ''">
+      <div class="search-bar-cover" [class.active-mobile]="isSearchOpen">
+        <search-bar [focusSearchInput]="isSearchOpen"></search-bar>
+      </div>
+      <div class="right-portion">
+        <ul class="right-side-options for-mobile">
+          <li class="single-option">
+            <img
+              src="assets/icons/search-icon-mobile.svg"
+              class="clout"
+              alt=""
+              (click)="showSearchBar()"
+              *ngIf="!isSearchOpen"
+            />
+            <i class="icon-close" *ngIf="isSearchOpen" (click)="showSearchBar()" title="Close search"></i>
+          </li>
+        </ul>
+        <ul class="right-side-options menu-options-list">
+          <li class="single-option" *ngIf="globalVars.loggedInUser?.ProfileEntryResponse?.IsVerified">
+            <a class="header-create-button-gradient grow" [routerLink]="'/' + globalVars.RouteNames.MINT_PAGE">
+              <div class="mb-0px create-button-div fs-14px">CREATE</div>
             </a>
-          </div>
-        </li>
+          </li>
+          <li
+            *ngIf="globalVars.loggedInUser != null"
+            class="notification-icon-cover single-option h-100 d-flex flex-center flex-column"
+            (clickOutside)="clickOutside()"
+          >
+            <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />
+            <div class="d-flex flex-row mt-5px" (click)="showNotification()">
+              <label class="mb-0px fs-10px cursor-pointer">NOTIFICATIONS</label>
+              <label class="mb-0px fs-10px ml-5px notification-amount" *ngIf="globalVars.unreadNotifications > 0">
+                {{ globalVars.unreadNotifications }}
+              </label>
+            </div>
+            <div class="notification-list-cover" *ngIf="isNotificationOpen">
+              <div class="triangle-up">▲</div>
+              <div class="header_notification_list_inner">
+                <app-notifications-list [isNotificationBar]="true"></app-notifications-list>
+              </div>
+              <a
+                [routerLink]="'/' + globalVars.RouteNames.NOTIFICATIONS"
+                class="view-all-text text-primary"
+                title="View All Notifications"
+              >
+                View All
+              </a>
+            </div>
+          </li>
 
-        <li class="single-option h-100 d-flex flex-column flex-center">
-          <div
-            class="profile-img"
-            title="My Profile"
-            (click)="hasProfile()"
-            [avatar]="globalVars.loggedInUser.PublicKeyBase58Check"
-          ></div>
-          <label class="mb-0px mt-5px fs-10px cursor-pointer" (click)="hasProfile()">PROFILE</label>
-        </li>
-      </ul>
+          <li *ngIf="globalVars.loggedInUser != null" class="single-option h-100 d-flex flex-column flex-center">
+            <div
+              class="profile-img"
+              title="My Profile"
+              (click)="hasProfile()"
+              [avatar]="globalVars.loggedInUser.PublicKeyBase58Check"
+            ></div>
+            <label class="mb-0px mt-5px fs-10px cursor-pointer" (click)="hasProfile()">PROFILE</label>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </header>

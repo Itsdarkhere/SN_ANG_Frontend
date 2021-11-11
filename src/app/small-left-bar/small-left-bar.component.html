@@ -31,7 +31,7 @@
         <span class="nav-text">Activity</span>
       </a>
     </li>
-    <li class="small-nav-li">
+    <li class="small-nav-li" *ngIf="globalVars.loggedInUser != null">
       <a [routerLink]="'/' + globalVars.RouteNames.INBOX_PREFIX" [routerLinkActive]="['active']">
         <div class="small-nav-icon-container">
           <img src="assets/icons/chat-plane-icon.svg" class="small-nav-icon" />
@@ -49,7 +49,7 @@
         </div>
       </a>
     </li>
-    <li class="small-nav-li">
+    <li class="small-nav-li" *ngIf="globalVars.loggedInUser != null">
       <a [routerLink]="'/' + globalVars.RouteNames.WALLET" [routerLinkActive]="['active']">
         <div class="small-nav-icon-container">
           <img src="assets/icons/wallet-icon.svg" class="small-nav-icon" />

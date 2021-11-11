@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, HostListener } from "@angular/core";
 import { AppRoutingModule } from "../app-routing.module";
 import { CreatePostComponent } from "../create-post/create-post.component";
 import { CreatePostUploadMintComponent } from "../create-post-upload-mint/create-post-upload-mint.component";
@@ -17,6 +17,7 @@ import { Router } from "@angular/router";
 export class HeaderComponent implements OnInit {
   @Input() imgSrc: string;
 
+  mobile = false;
   isNotificationOpen: boolean = false;
   isSearchOpen: boolean = false;
 
@@ -57,8 +58,18 @@ export class HeaderComponent implements OnInit {
       panelClass: "popup-modal",
     });
   }
+  setMobileBasedOnViewport() {
+    this.mobile = this.globalVars.isMobile();
+  }
 
-  ngOnInit(): void {}
+  @HostListener("window:resize")
+  onResize() {
+    this.setMobileBasedOnViewport();
+  }
+
+  ngOnInit() {
+    this.setMobileBasedOnViewport();
+  }
 
   showNotification() {
     this.isNotificationOpen = !this.isNotificationOpen;

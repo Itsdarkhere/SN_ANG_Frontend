@@ -144,7 +144,17 @@
       <div class="pt-15px"></div>
 
       <!-- Left Bar Buttons -->
-      <left-bar-button [link]="homeLink()" [buttonLabel]="'Feed'"></left-bar-button>
+      <left-bar-button
+        [link]="homeLink()"
+        [imgSrc]="'assets/icons/feed-icon.svg'"
+        [buttonLabel]="'Feed'"
+      ></left-bar-button>
+      <left-bar-button
+        [forDesktop]="true"
+        [link]="'/' + globalVars.RouteNames.TRENDS"
+        [buttonLabel]="'Marketplace'"
+        [imgSrc]="'assets/icons/marketplace-icon.svg'"
+      ></left-bar-button>
     </div>
   </div>
 </div>

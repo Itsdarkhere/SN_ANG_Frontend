@@ -88,7 +88,7 @@ class RouteNames {
 }
 
 const routes: Routes = [
-  { path: "", component: LandingPageComponent, pathMatch: "full" },
+  { path: "", component: BrowsePageComponent, pathMatch: "full" },
   { path: RouteNames.ACTIVITY, component: ActivityComponent, pathMatch: "full" },
   { path: RouteNames.MINT_PAGE, component: MintPageComponent, pathMatch: "full" },
   { path: RouteNames.BROWSE, component: BrowsePageComponent, pathMatch: "full" },

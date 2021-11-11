@@ -4,6 +4,13 @@
     position: relative;
     border-radius: 30px !important;
     transition: transform 0.2s ease;
+    &:hover {
+        .colors-not-sold {
+            filter: brightness(150%);
+            transition-property: -moz-filter, -ms-filter, -o-filter, -webkit-filter, filter;
+            transition-duration: 1s;
+        }
+    }
     .card-header {
         display: flex;
         align-items: center;
@@ -134,6 +141,7 @@
                         font-size: 16px;
                         &:first-child {
                             margin-bottom: 5px;
+                            margin-right: 5px;
                         }
                     }
                     .p-lighter {
@@ -182,8 +190,18 @@
         }
     }
 }
+.overflow-ellipsis-price {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.ml-5px {
+    margin-left: 5px;
+}
 .colors-not-sold {
     background: #171717;
+    transition: filter 1s linear;
     .p-lighter {
         color: #BFBFBF !important;
     }

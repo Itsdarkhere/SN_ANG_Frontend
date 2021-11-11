@@ -270,13 +270,18 @@
                         compareBit(globalVars.nanosToDeSo(minBid, 5), globalVars.nanosToDeSo(highBid, 5), showPlaceABid)
                       }}
                     </p>
-                    <p class="font-weight-semiboldn" *ngIf="showPlaceABid">
-                      {{ highBid === 0 ? globalVars.nanosToDeSo(minBid, 5) : globalVars.nanosToDeSo(highBid, 5) }}
-                      DESO
-                    </p>
-                    <p class="font-weight-semiboldn" *ngIf="!showPlaceABid">
-                      {{ globalVars.nanosToDeSo(lastSalePrice, 5) }} DESO
-                    </p>
+                    <div class="d-flex flex-row" *ngIf="showPlaceABid">
+                      <p class="font-weight-semiboldn overflow-ellipsis-price">
+                        {{ highBid === 0 ? globalVars.nanosToDeSo(minBid, 5) : globalVars.nanosToDeSo(highBid, 5) }}
+                      </p>
+                      <p class="font-weight-semiboldn">DESO</p>
+                    </div>
+                    <div class="d-flex flex-row" *ngIf="!showPlaceABid">
+                      <p class="font-weight-semiboldn overflow-ellipsis-price">
+                        {{ globalVars.nanosToDeSo(lastSalePrice, 5) }}
+                      </p>
+                      <p class="font-weight-semiboldn">DESO</p>
+                    </div>
                   </div>
                 </ng-container>
                 <ng-container>
@@ -301,9 +306,6 @@
                   </div>
                 </ng-container>
               </div>
-              <!--<button class="btn btn-place-a-bid" (click)="openPlaceBidModal($event)" *ngIf="showPlaceABid">
-                Place a Bid
-              </button>-->
             </div>
           </div>
           <div

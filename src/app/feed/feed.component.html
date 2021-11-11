@@ -60,7 +60,7 @@
           </div>
         </ng-container>
         <ng-container *ngIf="post?.RepostedPostEntryResponse?.IsNFT">
-          <app-nft-card
+          <new-nft-card
             *ngIf="!post.IsHidden"
             [post]="post"
             [pending]="false"
@@ -78,7 +78,8 @@
             (userBlocked)="userBlocked()"
             [fromFeed]="true"
             [profileFeed]="true"
-          ></app-nft-card>
+            [hoverabled]="true"
+          ></new-nft-card>
         </ng-container>
         <ng-container *ngIf="!(post?.IsNFT || post?.RepostedPostEntryResponse?.IsNFT)">
           <feed-post

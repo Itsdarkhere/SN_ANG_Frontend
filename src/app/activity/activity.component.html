@@ -156,7 +156,7 @@
       </div>
       <div class="nfts-card-list nft_creator_list" *ngIf="activeTab === 'Transfers' && !isLoading">
         <div class="nft-col-wrap" *ngFor="let nftEntry of nftResponse">
-          <app-nft-card
+          <new-nft-card
             *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
             [contentShouldLinkToThread]="true"
             [includePaddingOnPost]="true"
@@ -173,7 +173,7 @@
             [profilePublicKeyBase58Check]="this.globalVars.loggedInUser?.PublicKeyBase58Check"
             [isForSaleOnly]="false"
             (userBlocked)="userBlocked()"
-          ></app-nft-card>
+          ></new-nft-card>
         </div>
       </div>
       <div class="global__bottom-bar-mobile-height"></div>

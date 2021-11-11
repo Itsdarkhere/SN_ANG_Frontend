@@ -548,4 +548,10 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
       this._loadPosts(true, true);
     }
   }
+  isRepost(post: any): boolean {
+    return post.Body === "" && (!post.ImageURLs || post.ImageURLs?.length === 0) && post.RepostedPostEntryResponse;
+  }
+  getRouterLink(val: any): any {
+    return val;
+  }
 }

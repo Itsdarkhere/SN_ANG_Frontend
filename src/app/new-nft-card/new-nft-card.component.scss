@@ -161,6 +161,7 @@
         background: transparent;
         border: none;
         padding: 5px 12px 8px;
+        position: relative;
         .row-1 {
             padding: 10px 0px;
             display: flex;
@@ -198,6 +199,12 @@
 }
 .ml-5px {
     margin-left: 5px;
+}
+.max-width-300 {
+    max-width: 300px;
+}
+.bg {
+    background-color: red !important;
 }
 .colors-not-sold {
     background: #171717;

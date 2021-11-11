@@ -1,0 +1,21 @@
+.max-width-300 {
+    max-width: 300px;
+}
+.card-post-header {
+    height: 50px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: 1px solid var(--border);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 10px;
+    a {
+        width: 25px;
+        height: 25px;
+    }
+}
+.single-card-post-container {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}

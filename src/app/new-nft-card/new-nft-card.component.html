@@ -3,7 +3,8 @@
   [ngClass]="{
     'm-15px': fromFeed || profileFeed,
     'hover-icons': !hoverable || reposterProfile,
-    'br-0px': post.IsHidden || allCopiesBurned()
+    'br-0px': post.IsHidden || allCopiesBurned(),
+    'max-width-300': isQuotedContent
   }"
 >
   <div class="w-100">
@@ -170,7 +171,215 @@
             <span class="buy_bg">Buy</span>
           </a>
         </ng-template>
-        <div class="card-body">
+        <div class="w-100 d-flex flex-center p-20px nft-background" *ngIf="reposterProfile">
+          <div class="card-body max-width-300">
+            <div class="caption-cover" [class.auto-h]="profileFeed" *ngIf="quotedContent?.IsNFT && profileFeed">
+              <p [ngClass]="quotedContent ? 'pt-10px' : ''" [innerHTML]="postContent.Body | sanitizeAndAutoLink"></p>
+            </div>
+            <ng-container *ngIf="profileFeed">
+              <div
+                class="img-cover"
+                *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID"
+                [ngClass]="{ 'for-feed': fromFeed }"
+              >
+                <img
+                  (click)="openImgModal($event, postContent.ImageURLs[0])"
+                  data-toggle="modal"
+                  src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
+                />
+              </div>
+            </ng-container>
+            <ng-container *ngIf="!profileFeed">
+              <div class="img-cover" [ngClass]="{ 'for-feed': fromFeed }">
+                <img
+                  *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID"
+                  (click)="openImgModal($event, postContent.ImageURLs[0])"
+                  data-toggle="modal"
+                  src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
+                />
+              </div>
+            </ng-container>
+            <ng-container *ngIf="quotedContent?.IsNFT && profileFeed">
+              <div class="w-100 d-flex flex-center">
+                <new-nft-card
+                  *ngIf="quotedContent && showQuotedContent"
+                  [post]="quotedContent"
+                  [isQuotedContent]="true"
+                  [pending]="false"
+                  [includePaddingOnPost]="true"
+                  [showIconRow]="false"
+                  [showDropdown]="false"
+                  [showQuotedContent]="false"
+                  [contentShouldLinkToThread]="contentShouldLinkToThread"
+                  [hoverable]="hoverable"
+                  [showNFTDetails]="true"
+                  [cardStyle]="true"
+                ></new-nft-card>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="!quotedContent?.IsNFT && profileFeed">
+              <feed-post
+                *ngIf="quotedContent && showQuotedContent"
+                [post]="quotedContent"
+                [isQuotedContent]="true"
+                [includePaddingOnPost]="true"
+                [showIconRow]="false"
+                [showDropdown]="false"
+                [showQuotedContent]="false"
+                [contentShouldLinkToThread]="contentShouldLinkToThread"
+                [hoverable]="hoverable"
+                [showNFTDetails]="true"
+                [cardStyle]="true"
+              ></feed-post>
+            </ng-container>
+            <div class="caption-cover" *ngIf="!(quotedContent?.IsNFT && profileFeed)">
+              <p *ngIf="postContent.PostExtraData?.name" class="font-weight-semibold fs-20px-im pt-5px">
+                {{ postContent.PostExtraData?.name }}
+              </p>
+              <p *ngIf="!postContent.PostExtraData?.name" class="pt-10px">{{ postContent.Body }}</p>
+              <div class="d-flex flex-row">
+                <div class="card-header p-0px" style="border-bottom: 0px">
+                  <div class="profile-img">
+                    <a
+                      [avatar]="postContent.ProfileEntryResponse.PublicKeyBase58Check"
+                      [routerLink]="[
+                        '/' + globalVars.RouteNames.USER_PREFIX,
+                        postContent.ProfileEntryResponse.Username
+                      ]"
+                      queryParamsHandling="merge"
+                    ></a>
+                    <div *ngIf="showThreadConnectionLine" class="feed-post__parent-thread-connector"></div>
+                  </div>
+                </div>
+                <div class="d-flex flex-column">
+                  <p class="creator-text-nft-card font-weight-bold">CREATOR</p>
+                  <div class="username-nft-card font-weight-bold">
+                    {{ postContent.ProfileEntryResponse.Username }}
+                    <i
+                      *ngIf="postContent.ProfileEntryResponse.IsVerified"
+                      class="fas fa-check-circle pl-5px fa-md text-primary"
+                    ></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bid-cover flex-wrap"
+              [ngClass]="showPlaceABid || forSale() ? 'colors-not-sold' : 'colors-sold'"
+              *ngIf="showNFTDetails && postContent.IsNFT && !pending"
+            >
+              <div class="bid-row">
+                <div class="d-flex bid_inner_row">
+                  <ng-container>
+                    <div class="bid-col">
+                      <p class="p-lighter">
+                        {{
+                          compareBit(
+                            globalVars.nanosToDeSo(minBid, 5),
+                            globalVars.nanosToDeSo(highBid, 5),
+                            showPlaceABid
+                          )
+                        }}
+                      </p>
+                      <div class="d-flex flex-row" *ngIf="showPlaceABid">
+                        <p class="font-weight-semiboldn overflow-ellipsis-price">
+                          {{ highBid === 0 ? globalVars.nanosToDeSo(minBid, 5) : globalVars.nanosToDeSo(highBid, 5) }}
+                        </p>
+                        <p class="font-weight-semiboldn">DESO</p>
+                      </div>
+                      <div class="d-flex flex-row" *ngIf="!showPlaceABid">
+                        <p class="font-weight-semiboldn overflow-ellipsis-price">
+                          {{ globalVars.nanosToDeSo(lastSalePrice, 5) }}
+                        </p>
+                        <p class="font-weight-semiboldn">DESO</p>
+                      </div>
+                    </div>
+                  </ng-container>
+                  <ng-container>
+                    <div
+                      class="ml-50px bid-col"
+                      (click)="NFTMOfNTooltip.toggle(); toggleShowMOfNNFTTooltip()"
+                      matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
+                      [matTooltip]="mOfNNFTTooltip"
+                      #NFTMOfNTooltip="matTooltip"
+                    >
+                      <p class="p-lighter">Edition of</p>
+                      <!-- <p class="font-weight-bold">{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} </p> -->
+                      <p class="font-weight-bold">{{ postContent.NumNFTCopies - postContent.NumNFTCopiesBurned }}</p>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="showUnlockableContent">
+                    <div *ngFor="let nftEntry of decryptableNFTEntryResponses" class="bid-col">
+                      <p>
+                        #{{ nftEntry.SerialNumber }}:&nbsp;
+                        <span [innerHTML]="nftEntry.DecryptedUnlockableText | sanitizeAndAutoLink"></span>
+                      </p>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bid-cover flex-row justify-content-around"
+              [ngClass]="showPlaceABid ? 'colors-not-sold' : 'colors-sold'"
+              *ngIf="showNFTDetails && postContent.IsNFT && pending"
+            >
+              <ng-container>
+                <div
+                  class="bid-col"
+                  (click)="NFTMOfNTooltip.toggle(); toggleShowMOfNNFTTooltip()"
+                  matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
+                  [matTooltip]="mOfNNFTTooltip"
+                  #NFTMOfNTooltip="matTooltip"
+                >
+                  <p class="color-white">Edition</p>
+                  <!-- <p class="font-weight-bold">{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} </p> -->
+                  <p class="font-weight-bold color-white">{{ postContent.NumNFTCopies }}</p>
+                </div>
+              </ng-container>
+              <button class="accept-transfer" (click)="openAcceptModal($event)">Accept transfer</button>
+            </div>
+            <div class="card-footer" *ngIf="!showInteractionDetails && !reposterProfile">
+              <!-- Like, Comment, Reclout, Share Buttons -->
+            </div>
+            <div class="w-80 footer-icons-container" *ngIf="!reposterProfile">
+              <feed-post-icon-row
+                *ngIf="showIconRow"
+                [post]="post"
+                [postContent]="postContent"
+                [parentPost]="parentPost"
+                [afterCommentCreatedCallback]="afterCommentCreatedCallback"
+                [afterRepostCreatedCallback]="afterRepostCreatedCallback"
+              ></feed-post-icon-row>
+            </div>
+            <div class="card-footer-2 d-flex flex-center" *ngIf="quotedContent">
+              <div *ngIf="!showInteractionDetails" class="w-80">
+                <!-- Like, Comment, Reclout, Share Buttons -->
+                <feed-post-icon-row
+                  *ngIf="showIconRow"
+                  [post]="post"
+                  [postContent]="postContent"
+                  [parentPost]="parentPost"
+                  [afterCommentCreatedCallback]="afterCommentCreatedCallback"
+                  [afterRepostCreatedCallback]="afterRepostCreatedCallback"
+                ></feed-post-icon-row>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="reposterProfile" class="card-footer-2 d-flex flex-center">
+          <div class="w-80">
+            <feed-post-icon-row
+              *ngIf="showIconRow"
+              [post]="post"
+              [postContent]="postContent"
+              [parentPost]="parentPost"
+              [afterCommentCreatedCallback]="afterCommentCreatedCallback"
+              [afterRepostCreatedCallback]="afterRepostCreatedCallback"
+            ></feed-post-icon-row>
+          </div>
+        </div>
+        <div *ngIf="!reposterProfile" class="card-body">
           <div class="caption-cover" [class.auto-h]="profileFeed" *ngIf="quotedContent?.IsNFT && profileFeed">
             <p [ngClass]="quotedContent ? 'pt-10px' : ''" [innerHTML]="postContent.Body | sanitizeAndAutoLink"></p>
           </div>
@@ -198,20 +407,22 @@
             </div>
           </ng-container>
           <ng-container *ngIf="quotedContent?.IsNFT && profileFeed">
-            <new-nft-card
-              *ngIf="quotedContent && showQuotedContent"
-              [post]="quotedContent"
-              [isQuotedContent]="true"
-              [pending]="false"
-              [includePaddingOnPost]="true"
-              [showIconRow]="false"
-              [showDropdown]="false"
-              [showQuotedContent]="false"
-              [contentShouldLinkToThread]="contentShouldLinkToThread"
-              [hoverable]="hoverable"
-              [showNFTDetails]="true"
-              [cardStyle]="true"
-            ></new-nft-card>
+            <div class="w-100 d-flex flex-center p-20px border nft-background">
+              <new-nft-card
+                *ngIf="quotedContent && showQuotedContent"
+                [post]="quotedContent"
+                [isQuotedContent]="true"
+                [pending]="false"
+                [includePaddingOnPost]="true"
+                [showIconRow]="false"
+                [showDropdown]="false"
+                [showQuotedContent]="false"
+                [contentShouldLinkToThread]="contentShouldLinkToThread"
+                [hoverable]="hoverable"
+                [showNFTDetails]="true"
+                [cardStyle]="true"
+              ></new-nft-card>
+            </div>
           </ng-container>
           <ng-container *ngIf="!quotedContent?.IsNFT && profileFeed">
             <feed-post
@@ -328,7 +539,7 @@
             </ng-container>
             <button class="accept-transfer" (click)="openAcceptModal($event)">Accept transfer</button>
           </div>
-          <div class="card-footer" *ngIf="!showInteractionDetails">
+          <div *ngIf="!showInteractionDetails" class="card-footer">
             <!-- Like, Comment, Reclout, Share Buttons -->
           </div>
           <div class="w-80 footer-icons-container">
@@ -341,9 +552,8 @@
               [afterRepostCreatedCallback]="afterRepostCreatedCallback"
             ></feed-post-icon-row>
           </div>
-          <div class="card-footer-2 d-flex flex-center" *ngIf="quotedContent">
-            <div *ngIf="!showInteractionDetails" class="w-80">
-              <!-- Like, Comment, Reclout, Share Buttons -->
+          <div *ngIf="false" class="card-footer-2">
+            <div class="w-80 footer-icons-container">
               <feed-post-icon-row
                 *ngIf="showIconRow"
                 [post]="post"

@@ -332,20 +332,22 @@
               ></iframe>
             </div>
             <ng-container *ngIf="quotedContent?.IsNFT">
-              <new-nft-card
-                *ngIf="quotedContent && showQuotedContent"
-                [post]="quotedContent"
-                [pending]="false"
-                [isQuotedContent]="true"
-                [includePaddingOnPost]="true"
-                [showIconRow]="false"
-                [showDropdown]="false"
-                [showQuotedContent]="false"
-                [contentShouldLinkToThread]="contentShouldLinkToThread"
-                [hoverable]="hoverable"
-                [showNFTDetails]="true"
-                [cardStyle]="true"
-              ></new-nft-card>
+              <div class="w-100 d-flex flex-center p-20px br-10px nft-background">
+                <new-nft-card
+                  *ngIf="quotedContent && showQuotedContent"
+                  [post]="quotedContent"
+                  [pending]="false"
+                  [isQuotedContent]="true"
+                  [includePaddingOnPost]="true"
+                  [showIconRow]="false"
+                  [showDropdown]="false"
+                  [showQuotedContent]="false"
+                  [contentShouldLinkToThread]="contentShouldLinkToThread"
+                  [hoverable]="hoverable"
+                  [showNFTDetails]="true"
+                  [cardStyle]="true"
+                ></new-nft-card>
+              </div>
             </ng-container>
             <ng-container *ngIf="!quotedContent?.IsNFT">
               <feed-post

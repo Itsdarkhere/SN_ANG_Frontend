@@ -114,4 +114,7 @@ export class CreatorProfilePostsComponent {
     CreatorProfilePostsComponent.PADDING
   );
   datasource: IDatasource<IAdapter<any>> = this.infiniteScroller.getDatasource();
+  getRouterLink(val: any): any {
+    return val;
+  }
 }

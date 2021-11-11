@@ -4568,7 +4568,11 @@ option {
         }
     }
 }
-
+.nft-background {
+    background-image: url("/assets/img/nft-background.png");
+    background-position: center;
+    background-size: cover;
+}
 .nft_place_bid_sec {
     background: var(--background);
     box-shadow: 1px 1px 5px rgb(0 0 0 / 15%);
@@ -4739,11 +4743,11 @@ option {
 }
 
 .single-card .single-card {
-    width: calc(100% - 80px) !important;
-    margin-left: 60px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-right: 20px;
+    //width: calc(100% - 80px) !important;
+    //margin-left: 60px;
+    //margin-top: 20px;
+    //margin-bottom: 20px;
+    //margin-right: 20px;
 }
 
 // @media screen and (min-width: 1240px) {

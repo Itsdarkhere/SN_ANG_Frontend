@@ -1,7 +1,6 @@
 <div
   class="single-card"
   [ngClass]="{
-    'm-15px': fromFeed || profileFeed,
     'hover-icons': !hoverable || reposterProfile,
     'br-0px': post.IsHidden || allCopiesBurned(),
     'max-width-300': isQuotedContent
@@ -24,7 +23,7 @@
     </div>
     <div
       *ngIf="allCopiesBurned()"
-      class="p-15px mt-20px background-color-grey d-flex align-items-center justify-content-center fs-15px"
+      class="p-15px background-color-grey d-flex align-items-center justify-content-center fs-15px"
     >
       <a
         class="link--unstyled"

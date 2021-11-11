@@ -94,7 +94,9 @@ export class CreatorProfilePostsComponent {
       },
     });
   }
-
+  isRepost(post: any): boolean {
+    return post.Body === "" && (!post.ImageURLs || post.ImageURLs?.length === 0) && post.RepostedPostEntryResponse;
+  }
   userBlocked() {
     this.blockUser.emit();
   }

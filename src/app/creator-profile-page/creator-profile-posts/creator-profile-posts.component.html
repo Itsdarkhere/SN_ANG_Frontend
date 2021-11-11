@@ -33,7 +33,7 @@
             <i class="fas fa-check-circle fa-md align-middle"></i>
           </span>
         </div>
-        <div class="mb-40px d-flex flex-center w-100 single-card-post-container border nft-background">
+        <div class="mb-40px d-flex flex-center w-100 p-20px single-card-post-container border nft-background">
           <div class="max-width-300">
             <new-nft-card
               *ngIf="post.ProfileEntryResponse"
@@ -53,7 +53,7 @@
           </div>
         </div>
       </ng-container>
-      <ng-container *ngIf="post?.RepostedPostEntryResponse?.IsNFT">
+      <ng-container *ngIf="isRepost(post) && post.RepostedPostEntryResponse.IsNFT">
         <div class="mb-40px">
           <new-nft-card
             *ngIf="post.ProfileEntryResponse"
@@ -71,6 +71,20 @@
             [hoverable]="true"
           ></new-nft-card>
         </div>
+      </ng-container>
+      <ng-container *ngIf="!isRepost(post) && post?.RepostedPostEntryResponse?.IsNFT">
+        <feed-post
+          *ngIf="post.ProfileEntryResponse"
+          [contentShouldLinkToThread]="true"
+          [includePaddingOnPost]="true"
+          [post]="post"
+          [afterCommentCreatedCallback]="_prependComment.bind(this, post, index)"
+          [blocked]="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)"
+          [cardStyle]="true"
+          [showNFTDetails]="true"
+          [profileFeed]="true"
+          (userBlocked)="userBlocked()"
+        ></feed-post>
       </ng-container>
       <ng-container *ngIf="!(post?.IsNFT || post?.RepostedPostEntryResponse?.IsNFT)">
         <feed-post

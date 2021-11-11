@@ -3,7 +3,9 @@
   [ngClass]="{
     'hover-icons': !hoverable || reposterProfile,
     'br-0px': post.IsHidden || allCopiesBurned(),
-    'max-width-300': isQuotedContent
+    'max-width-300': isQuotedContent,
+    'br-mr': reposterProfile,
+    'br-30px': !reposterProfile
   }"
 >
   <div class="w-100">
@@ -331,7 +333,7 @@
                   [matTooltip]="mOfNNFTTooltip"
                   #NFTMOfNTooltip="matTooltip"
                 >
-                  <p class="color-white">Edition</p>
+                  <p class="color-white">Edition of</p>
                   <!-- <p class="font-weight-bold">{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} </p> -->
                   <p class="font-weight-bold color-white">{{ postContent.NumNFTCopies }}</p>
                 </div>
@@ -519,8 +521,8 @@
             </div>
           </div>
           <div
-            class="bid-cover flex-row justify-content-around"
-            [ngClass]="showPlaceABid ? 'colors-not-sold' : 'colors-sold'"
+            class="bid-cover flex-row justify-content-space-between"
+            [ngClass]="!showPlaceABid || pending ? 'colors-sold' : 'colors-not-sold'"
             *ngIf="showNFTDetails && postContent.IsNFT && pending"
           >
             <ng-container>
@@ -531,9 +533,9 @@
                 [matTooltip]="mOfNNFTTooltip"
                 #NFTMOfNTooltip="matTooltip"
               >
-                <p class="color-white">Edition</p>
+                <p class="p-lighter fs-13px">Edition of</p>
                 <!-- <p class="font-weight-bold">{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} </p> -->
-                <p class="font-weight-bold color-white">{{ postContent.NumNFTCopies }}</p>
+                <p class="font-weight-semiboldn color-white">{{ postContent.NumNFTCopies }}</p>
               </div>
             </ng-container>
             <button class="accept-transfer" (click)="openAcceptModal($event)">Accept transfer</button>

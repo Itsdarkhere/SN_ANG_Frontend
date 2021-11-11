@@ -332,7 +332,10 @@
               ></iframe>
             </div>
             <ng-container *ngIf="quotedContent?.IsNFT">
-              <div class="w-100 d-flex flex-center p-20px br-10px nft-background">
+              <div
+                class="w-100 d-flex flex-center br-10px nft-background"
+                [ngClass]="{ 'p-20px': quotedContent && showQuotedContent }"
+              >
                 <new-nft-card
                   *ngIf="quotedContent && showQuotedContent"
                   [post]="quotedContent"

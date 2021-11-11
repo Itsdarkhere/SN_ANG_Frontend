@@ -54,12 +54,12 @@
         !hidingPost &&
         !globalVars.hasUserBlockedCreator(postContent.PosterPublicKeyBase58Check)
       "
-      class="d-flex flex-column js-feed-post"
+      class="d-flex flex-column js-feed-post position-relative"
       [ngStyle]="{ 'border-radius': setBorder ? '18px 18px 0 0' : '' }"
     >
       <a
         (click)="onPostClicked($event)"
-        Class="link--unstyled"
+        class="link--unstyled"
         [ngClass]="{ 'cursor-inherit': !contentShouldLinkToThread }"
       >
         <div
@@ -293,21 +293,21 @@
             </ng-container>
             <button class="accept-transfer" (click)="openAcceptModal($event)">Accept transfer</button>
           </div>
+          <div class="card-footer" *ngIf="!showInteractionDetails">
+            <!-- Like, Comment, Reclout, Share Buttons -->
+          </div>
+          <div class="w-80 footer-icons-container">
+            <feed-post-icon-row
+              *ngIf="showIconRow"
+              [post]="post"
+              [postContent]="postContent"
+              [parentPost]="parentPost"
+              [afterCommentCreatedCallback]="afterCommentCreatedCallback"
+              [afterRepostCreatedCallback]="afterRepostCreatedCallback"
+            ></feed-post-icon-row>
+          </div>
         </div>
       </a>
-      <div class="card-footer" *ngIf="!showInteractionDetails">
-        <!-- Like, Comment, Reclout, Share Buttons -->
-        <div class="w-80">
-          <feed-post-icon-row
-            *ngIf="showIconRow"
-            [post]="post"
-            [postContent]="postContent"
-            [parentPost]="parentPost"
-            [afterCommentCreatedCallback]="afterCommentCreatedCallback"
-            [afterRepostCreatedCallback]="afterRepostCreatedCallback"
-          ></feed-post-icon-row>
-        </div>
-      </div>
       <!--
       This HTML is used on the main post in a thread in order to show detailed info
       about the interactions with that thread.  TODO: We should probably break the

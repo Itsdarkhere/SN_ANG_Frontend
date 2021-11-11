@@ -1,7 +1,7 @@
 .single-card {
-    //box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1);
     transition: .2s;
-    //position: relative;
+    position: relative;
     border-radius: 30px !important;
     transition: transform 0.2s ease;
     .card-header {
@@ -163,30 +163,48 @@
 }
 .card-footer {
     //transition-delay: 0.3s;
+    position: absolute;
+    bottom: 0;
     transition-duration: 0.2s;
     padding: 5px 12px 8px;
-    padding-top: 35px;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1);
+    padding-top: 55px;
+   // box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1);
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
     width: 100%;
-    transform: translateY(-120%);
-    background-color: transparent;
+    background-color: var(--background);
     border: none;
+    border: 2px solid #c9c9c9;
     z-index: -1;
+}
+.footer-icons-container {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    bottom: 0;
 }
 .hover-icons {
     &:hover {
         transform: translateY(-2px);
-        //z-index: 10;
+        z-index: 10;
         .card-footer {
             //transition-delay: 0.5s;
             transition-duration: 0.2s;
-            transform: translateY(-45%);
-            z-index: 1;
+            transform: translateY(60%);
+            z-index: -1;
+        }
+        .footer-icons-container {
+            transition: 0.2s;
+            pointer-events: all;
+            opacity: 1;
+            left: 10%;
+            bottom: -30px;
+        }
+        .footer-icons-container {
+            z-index: 10;
         }
     }
 }

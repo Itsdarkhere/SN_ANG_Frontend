@@ -4197,9 +4197,10 @@ option {
         padding: 10px;
         width: calc(100% / 3);
         min-width: 300px;
+        margin-bottom: 35px;
         @media screen and (max-width: 676px) {
             width: 100%;
-            margin-bottom: 0;
+            margin-bottom: 35px;
         }
     }
     /*.mobile_mrk_head {

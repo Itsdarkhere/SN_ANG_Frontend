@@ -332,7 +332,7 @@
               ></iframe>
             </div>
             <ng-container *ngIf="quotedContent?.IsNFT">
-              <app-nft-card
+              <new-nft-card
                 *ngIf="quotedContent && showQuotedContent"
                 [post]="quotedContent"
                 [pending]="false"
@@ -345,7 +345,7 @@
                 [hoverable]="hoverable"
                 [showNFTDetails]="true"
                 [cardStyle]="true"
-              ></app-nft-card>
+              ></new-nft-card>
             </ng-container>
             <ng-container *ngIf="!quotedContent?.IsNFT">
               <feed-post

@@ -97,9 +97,7 @@
                 text-overflow: ellipsis;
                 overflow: hidden; 
                 white-space: nowrap;
-                display: flex;
-                justify-content: flex-start;
-                align-items: center;
+                vertical-align: middle;
             }
         }
         .bid-cover {
@@ -151,6 +149,38 @@
             }
         }
     }
+    .card-footer-2 {
+        background: transparent;
+        border: none;
+        padding: 5px 12px 8px;
+        .row-1 {
+            padding: 10px 0px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            //border-top: 1px solid var(--border);
+            //border-bottom: 1px solid var(--border);
+            h6 {
+                font-size: 12px;
+                span {
+                    font-weight: bold;
+                }
+            }
+        }
+        .row-2 {
+            padding-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            .icon-cover {
+                display: flex;
+                align-items: center;
+                span {
+                    font-size: 11px;
+                }
+            }
+        }
+    }
 }
 .colors-not-sold {
     background: #171717;
@@ -160,6 +190,9 @@
     p {
         color: var(--background) !important;
     }
+}
+.br-0px {
+    border-radius: 0px !important;
 }
 .card-footer {
     //transition-delay: 0.3s;

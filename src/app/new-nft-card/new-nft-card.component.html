@@ -2,13 +2,14 @@
   class="single-card"
   [ngClass]="{
     'm-15px': fromFeed || profileFeed,
-    'hover-icons': !hoverable
+    'hover-icons': !hoverable || reposterProfile,
+    'br-0px': post.IsHidden || allCopiesBurned()
   }"
 >
   <div class="w-100">
     <!-- <code>{{post | json}}</code> -->
     <div
-      *ngIf="post.IsHidden || allCopiesBurned()"
+      *ngIf="post.IsHidden"
       class="p-10px background-color-grey d-flex align-items-center justify-content-center fs-15px"
     >
       <a
@@ -22,7 +23,7 @@
     </div>
     <div
       *ngIf="allCopiesBurned()"
-      class="p-15px background-color-grey d-flex align-items-center justify-content-center fs-15px"
+      class="p-15px mt-20px background-color-grey d-flex align-items-center justify-content-center fs-15px"
     >
       <a
         class="link--unstyled"
@@ -104,6 +105,38 @@
             (toggleGlobalFeed)="_addPostToGlobalFeed()"
           ></feed-post-dropdown>
         </div>
+        <div class="card-header" *ngIf="!postContent.IsHidden && quotedContent">
+          <!-- Avatar -->
+          <div class="profile-img">
+            <a
+              [avatar]="postContent.ProfileEntryResponse.PublicKeyBase58Check"
+              [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, postContent.ProfileEntryResponse.Username]"
+              queryParamsHandling="merge"
+            ></a>
+            <div *ngIf="showThreadConnectionLine" class="feed-post__parent-thread-connector"></div>
+          </div>
+          <h6
+            [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, postContent.ProfileEntryResponse.Username]"
+            queryParamsHandling="merge"
+          >
+            {{ postContent.ProfileEntryResponse.Username }}
+            <i *ngIf="postContent.ProfileEntryResponse.IsVerified" class="fas fa-check-circle fa-md text-primary"></i>
+          </h6>
+          <div class="value-buy-cover">
+            <!-- <ng-container *ngTemplateOutlet="creatorCoinInfo"></ng-container> -->
+          </div>
+          <feed-post-dropdown
+            *ngIf="showDropdown && !reposterProfile"
+            class="ml-auto"
+            [post]="post"
+            [postContent]="postContent"
+            [nftEntryResponses]="nftEntryResponses"
+            (postHidden)="hidePost()"
+            (userBlocked)="blockUser()"
+            (toggleGlobalFeed)="_addPostToGlobalFeed($event)"
+            (togglePostPin)="_pinPostToGlobalFeed($event)"
+          ></feed-post-dropdown>
+        </div>
         <div
           *ngIf="postContent.IsHidden"
           class="p-10px background-color-grey d-flex align-items-center justify-content-center fs-15px"
@@ -139,7 +172,7 @@
         </ng-template>
         <div class="card-body">
           <div class="caption-cover" [class.auto-h]="profileFeed" *ngIf="quotedContent?.IsNFT && profileFeed">
-            <p [innerHTML]="postContent.Body | sanitizeAndAutoLink"></p>
+            <p [ngClass]="quotedContent ? 'pt-10px' : ''" [innerHTML]="postContent.Body | sanitizeAndAutoLink"></p>
           </div>
           <ng-container *ngIf="profileFeed">
             <div
@@ -165,7 +198,7 @@
             </div>
           </ng-container>
           <ng-container *ngIf="quotedContent?.IsNFT && profileFeed">
-            <app-nft-card
+            <new-nft-card
               *ngIf="quotedContent && showQuotedContent"
               [post]="quotedContent"
               [isQuotedContent]="true"
@@ -178,7 +211,7 @@
               [hoverable]="hoverable"
               [showNFTDetails]="true"
               [cardStyle]="true"
-            ></app-nft-card>
+            ></new-nft-card>
           </ng-container>
           <ng-container *ngIf="!quotedContent?.IsNFT && profileFeed">
             <feed-post
@@ -196,7 +229,7 @@
             ></feed-post>
           </ng-container>
           <div class="caption-cover" *ngIf="!(quotedContent?.IsNFT && profileFeed)">
-            <p *ngIf="postContent.PostExtraData?.name" class="font-weight-semibold fs-20px-im">
+            <p *ngIf="postContent.PostExtraData?.name" class="font-weight-semibold fs-20px-im pt-5px">
               {{ postContent.PostExtraData?.name }}
             </p>
             <p *ngIf="!postContent.PostExtraData?.name" class="pt-10px">{{ postContent.Body }}</p>
@@ -305,6 +338,19 @@
               [afterCommentCreatedCallback]="afterCommentCreatedCallback"
               [afterRepostCreatedCallback]="afterRepostCreatedCallback"
             ></feed-post-icon-row>
+          </div>
+          <div class="card-footer-2 d-flex flex-center" *ngIf="quotedContent">
+            <div *ngIf="!showInteractionDetails" class="w-80">
+              <!-- Like, Comment, Reclout, Share Buttons -->
+              <feed-post-icon-row
+                *ngIf="showIconRow"
+                [post]="post"
+                [postContent]="postContent"
+                [parentPost]="parentPost"
+                [afterCommentCreatedCallback]="afterCommentCreatedCallback"
+                [afterRepostCreatedCallback]="afterRepostCreatedCallback"
+              ></feed-post-icon-row>
+            </div>
           </div>
         </div>
       </a>

@@ -596,7 +596,8 @@ input[type=number] {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1);
-    border-radius: 5px 5px 10px 10px;
+    border-radius: 30px;
+    overflow: hidden;
 }
 .fake-card-header {
     display: flex;
@@ -636,11 +637,157 @@ input[type=number] {
     align-items: center;
     background: rgb(228, 228, 228);
     display: flex;
-    height: 216px;
+    height: 320px;
     justify-content: center;
     width: 100%;
 }
-
+.caption-cover {
+    padding: 0px 12px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    height: 80px;
+    padding-left: 25px;
+    background-color: var(--background);
+    z-index: 10;
+    &.auto-h {
+        height: auto;
+    }
+    p {
+        height: 50%;
+        font-size: 13px;
+        text-overflow: ellipsis;
+        overflow: hidden; 
+        white-space: nowrap;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+}
+.bid-cover {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 15px;
+    padding-left: 25px;
+    border-radius: 0px 0px 30px 30px;
+    justify-content: center;
+    z-index: 10;
+    .bid-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .bid_inner_row {
+            width: calc(100% - 100px);
+            .bid-col {
+                flex: none;
+                padding-right: 20px;
+            }
+        }
+        p {
+            font-size: 11px;
+            margin: 0 0 5px 0;
+            //color: #ffff;
+        }
+        .bid-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1 1 auto;
+            p {
+                //color: var(--background);
+                font-size: 16px;
+                &:first-child {
+                    margin-bottom: 5px;
+                }
+            }
+            .p-lighter {
+                font-size: 13px;
+            }
+        }
+    }
+    .btn-place-a-bid {
+        background: var(--background);
+        color: var(--button);
+        font-size: 12px;
+        font-weight: bold;
+    }
+}
+.colors-not-sold {
+    background: #171717;
+    .p-lighter {
+        color: #BFBFBF !important;
+    }
+    p {
+        color: var(--background) !important;
+    }
+}
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: transparent;
+    .profile-img {
+        width: 25px;
+        height: 25px;
+        margin-right: 10px;
+        a {
+            width: 25px;
+            height: 25px;
+            display: block;
+            background-position: center;
+            background-size: cover;
+            border-radius: 50%;
+        }
+    }
+    h6 {
+        display: block;
+        align-items: center;
+        font-size: 13px;
+        font-weight: 600;
+        max-width: 110px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .value-buy-cover {
+        display: inline-block;
+        padding: 1px 1px 1px 6px;
+        border-radius: 15px;
+        background: var(--secalt);
+        margin-left: 8px;
+        font-size: 10px;
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .buy_bg {
+                background-color: var(--background);
+                padding: 2px 8px;
+                border-radius: 0 12px 12px 0;
+                font-size: 11px;
+                margin-left: 5px;
+            }
+        }
+    }
+}
+.creator-text-nft-card {
+    font-size: 9px !important;
+    color: var(--textalt);
+}
+.username-nft-card {
+    font-size: 13px !important;
+    color: #525252;
+}
+.color-white {
+    color: white;
+}
+.fs-20px-im {
+    font-size: 20px !important;
+}
+.username-nft-card {
+    font-size: 13px !important;
+    color: #525252;
+}
 .previous-step-button {
     position: absolute;
     right: 0px;
@@ -674,8 +821,8 @@ input[type=number] {
 }
 .fake-card-image {
     height: auto;
-    max-height: 100%;
-    max-width: 100%;
+    min-height: 100%;
+    min-width: 100%;
     width: auto;
 }
 .fake-card-black-box {

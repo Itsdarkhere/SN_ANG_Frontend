@@ -454,8 +454,7 @@
     <!-- LEFT SIDE DESKTOP STEPS 3 - 4 -->
     <div *ngIf="!mobile && step >= 3" class="mint-page-image-container d-flex flex-center">
       <div [@cardAppearAnimation] class="fake-card">
-        <div class="fake-card-header w-100">
-          <!-- Avatar -->
+        <!--<div class="fake-card-header w-100">
           <div class="d-flex flex-row flex-center">
             <div class="fake-profile-img pointer-events-none">
               <a [avatar]="globalVars.loggedInUser.PublicKeyBase58Check"></a>
@@ -468,26 +467,61 @@
               ></i>
             </h6>
           </div>
-          <!--<i class="fas fa-ellipsis-h"></i>-->
-        </div>
+        </div>-->
         <div class="fake-card-image-box">
           <img class="fake-card-image" src="{{ postImageSrc }}" />
         </div>
-        <div class="fake-card-bio text-align-start font-weight-bold">
-          {{ NAME_OF_PIECE }}
-        </div>
-        <div class="fake-card-black-box">
-          <div class="fake-card-inner-row d-flex flex-row">
-            <div class="d-flex flex-column pr-20px">
-              <label class="mb-0px fs-12px mb-5px">Minimum Bid</label>
-              <label class="mb-0px fs-12px font-weight-bold">{{ MIN_PRICE }} DESO</label>
+        <div class="caption-cover w-100">
+          <p class="font-weight-semibold fs-20px-im">
+            {{ NAME_OF_PIECE }}
+          </p>
+          <div class="d-flex flex-row">
+            <div class="card-header p-0px" style="border-bottom: 0px">
+              <div class="profile-img">
+                <a [avatar]="globalVars.loggedInUser.ProfileEntryResponse.PublicKeyBase58Check"></a>
+              </div>
             </div>
-            <div class="d-flex flex-column pr-20px">
-              <label class="mb-0px fs-12px mb-5px">Edition</label>
-              <label class="mb-0px fs-12px font-weight-bold">1</label>
+            <div class="d-flex flex-column">
+              <p class="creator-text-nft-card font-weight-bold">CREATOR</p>
+              <div class="username-nft-card font-weight-bold">
+                {{ globalVars.loggedInUser.ProfileEntryResponse.Username }}
+                <i
+                  *ngIf="globalVars.loggedInUser.ProfileEntryResponse.IsVerified"
+                  class="fas fa-check-circle pl-5px fa-md text-primary"
+                ></i>
+              </div>
             </div>
           </div>
-          <!--<button class="btn fake-btn-place-a-bid">Place a Bid</button>-->
+        </div>
+        <div class="bid-cover flex-wrap colors-not-sold">
+          <div class="bid-row">
+            <div class="d-flex bid_inner_row">
+              <ng-container>
+                <div class="bid-col">
+                  <p class="p-lighter">Minimum bid</p>
+                  <p class="font-weight-semiboldn">
+                    {{ MIN_PRICE }}
+                    DESO
+                  </p>
+                </div>
+              </ng-container>
+              <ng-container>
+                <div
+                  class="ml-50px bid-col"
+                  matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
+                  [matTooltip]="mOfNNFTTooltip"
+                  #NFTMOfNTooltip="matTooltip"
+                >
+                  <p class="p-lighter">Edition of</p>
+                  <!-- <p class="font-weight-bold">{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} </p> -->
+                  <p class="font-weight-bold">1</p>
+                </div>
+              </ng-container>
+            </div>
+            <!--<button class="btn btn-place-a-bid" (click)="openPlaceBidModal($event)" *ngIf="showPlaceABid">
+            Place a Bid
+          </button>-->
+          </div>
         </div>
       </div>
     </div>

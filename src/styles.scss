@@ -4753,6 +4753,12 @@ option {
         width: 668px !important;
     }
 }
+.p-20px-under-450px {
+    padding: 10px;
+    @media (min-width: 450px) {
+        padding: 20px;
+    }
+}
 .max-width-300 {
     max-width: 300px;
 }

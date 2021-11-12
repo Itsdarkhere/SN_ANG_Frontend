@@ -2,7 +2,7 @@
   class="single-card"
   [ngClass]="{
     'hover-icons': (!hoverable || reposterProfile) && !mobile,
-    'mobile-icons-visible': (hoverable || !reposterProfile) && mobile,
+    'mobile-icons-visible': !hoverable && !reposterProfile && mobile,
     'br-0px': post.IsHidden || allCopiesBurned(),
     'max-width-300': isQuotedContent,
     'br-mr': reposterProfile || background,
@@ -277,7 +277,7 @@
               *ngIf="showNFTDetails && postContent.IsNFT && !pending"
             >
               <div class="bid-row">
-                <div class="d-flex bid_inner_row">
+                <div class="d-flex justify-content-space-between bid_inner_row">
                   <ng-container>
                     <div class="bid-col">
                       <p class="p-lighter">
@@ -394,7 +394,7 @@
             </div>
           </ng-container>
           <ng-container *ngIf="!profileFeed">
-            <div class="img-cover" [ngClass]="{ 'for-feed': fromFeed }">
+            <div class="img-cover" [ngClass]="{ 'change-height-img-cover': isQuotedCard }">
               <img
                 *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID"
                 (click)="openImgModal($event, postContent.ImageURLs[0])"
@@ -471,7 +471,7 @@
             *ngIf="showNFTDetails && postContent.IsNFT && !pending"
           >
             <div class="bid-row">
-              <div class="d-flex bid_inner_row">
+              <div class="d-flex justify-content-space-between bid_inner_row">
                 <ng-container>
                   <div class="bid-col">
                     <p class="p-lighter">
@@ -494,7 +494,7 @@
                   </div>
                 </ng-container>
                 <ng-container>
-                  <div class="ml-50px bid-col">
+                  <div class="bid-col">
                     <p class="p-lighter">Edition of</p>
                     <!-- <p class="font-weight-bold">{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} </p> -->
                     <p class="font-weight-bold">{{ postContent.NumNFTCopies - postContent.NumNFTCopiesBurned }}</p>
@@ -652,7 +652,7 @@
               *ngIf="showNFTDetails && postContent.IsNFT && !pending"
             >
               <div class="bid-row">
-                <div class="d-flex bid_inner_row">
+                <div class="d-flex justify-content-space-between bid_inner_row">
                   <ng-container>
                     <div class="bid-col">
                       <p class="p-lighter">

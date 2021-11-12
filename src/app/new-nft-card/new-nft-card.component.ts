@@ -92,6 +92,8 @@ export class NewNftCardComponent implements OnInit {
   @Input() setBorder = false;
   @Input() showAvailableSerialNumbers = false;
   @Input() profilePublicKeyBase58Check: string = "";
+  // If card is inside a feed post
+  @Input() isQuotedCard = false;
   // If the post is shown in a modal, this is used to hide the modal on post click.
   @Input() containerModalRef: any = null;
   @Input() fromFeed = false;

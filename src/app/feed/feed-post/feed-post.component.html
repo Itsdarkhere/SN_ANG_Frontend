@@ -333,7 +333,7 @@
             <ng-container *ngIf="quotedContent?.IsNFT">
               <div
                 class="w-100 d-flex flex-center br-10px position-relative overflow-hidden"
-                [ngClass]="{ 'p-20px': quotedContent && showQuotedContent }"
+                [ngClass]="{ 'p-20px-under-450px': quotedContent && showQuotedContent }"
               >
                 <object data="/assets/img/nft-background.svg" class="nft-background" type="image/svg+xml"></object>
                 <new-nft-card
@@ -349,6 +349,7 @@
                   [hoverable]="hoverable"
                   [showNFTDetails]="true"
                   [cardStyle]="true"
+                  [isQuotedCard]="true"
                 ></new-nft-card>
               </div>
             </ng-container>

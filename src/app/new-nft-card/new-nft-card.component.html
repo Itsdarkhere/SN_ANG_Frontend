@@ -1,7 +1,8 @@
 <div
   class="single-card"
   [ngClass]="{
-    'hover-icons': !hoverable || reposterProfile,
+    'hover-icons': (!hoverable || reposterProfile) && !mobile,
+    'mobile-icons-visible': (hoverable || !reposterProfile) && mobile,
     'br-0px': post.IsHidden || allCopiesBurned(),
     'max-width-300': isQuotedContent,
     'br-mr': reposterProfile || background,
@@ -174,7 +175,10 @@
           </a>
         </ng-template>
         <!--This is a repost card-->
-        <div class="w-100 d-flex flex-center p-20px position-relative overflow-hidden" *ngIf="reposterProfile && !background">
+        <div
+          class="w-100 d-flex flex-center p-20px position-relative overflow-hidden"
+          *ngIf="reposterProfile && !background"
+        >
           <object data="/assets/img/nft-background.svg" class="nft-background" type="image/svg+xml"></object>
           <div class="card-body max-width-300">
             <div class="caption-cover" [class.auto-h]="profileFeed" *ngIf="quotedContent?.IsNFT && profileFeed">
@@ -300,13 +304,7 @@
                     </div>
                   </ng-container>
                   <ng-container>
-                    <div
-                      class="ml-50px bid-col"
-                      (click)="NFTMOfNTooltip.toggle(); toggleShowMOfNNFTTooltip()"
-                      matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
-                      [matTooltip]="mOfNNFTTooltip"
-                      #NFTMOfNTooltip="matTooltip"
-                    >
+                    <div class="ml-50px bid-col">
                       <p class="p-lighter">Edition of</p>
                       <!-- <p class="font-weight-bold">{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} </p> -->
                       <p class="font-weight-bold">{{ postContent.NumNFTCopies - postContent.NumNFTCopiesBurned }}</p>
@@ -329,13 +327,7 @@
               *ngIf="showNFTDetails && postContent.IsNFT && pending"
             >
               <ng-container>
-                <div
-                  class="bid-col"
-                  (click)="NFTMOfNTooltip.toggle(); toggleShowMOfNNFTTooltip()"
-                  matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
-                  [matTooltip]="mOfNNFTTooltip"
-                  #NFTMOfNTooltip="matTooltip"
-                >
+                <div class="bid-col">
                   <p class="color-white">Edition of</p>
                   <!-- <p class="font-weight-bold">{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} </p> -->
                   <p class="font-weight-bold color-white">{{ postContent.NumNFTCopies }}</p>
@@ -502,13 +494,7 @@
                   </div>
                 </ng-container>
                 <ng-container>
-                  <div
-                    class="ml-50px bid-col"
-                    (click)="NFTMOfNTooltip.toggle(); toggleShowMOfNNFTTooltip()"
-                    matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
-                    [matTooltip]="mOfNNFTTooltip"
-                    #NFTMOfNTooltip="matTooltip"
-                  >
+                  <div class="ml-50px bid-col">
                     <p class="p-lighter">Edition of</p>
                     <!-- <p class="font-weight-bold">{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} </p> -->
                     <p class="font-weight-bold">{{ postContent.NumNFTCopies - postContent.NumNFTCopiesBurned }}</p>
@@ -531,13 +517,7 @@
             *ngIf="showNFTDetails && postContent.IsNFT && pending"
           >
             <ng-container>
-              <div
-                class="bid-col"
-                (click)="NFTMOfNTooltip.toggle(); toggleShowMOfNNFTTooltip()"
-                matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
-                [matTooltip]="mOfNNFTTooltip"
-                #NFTMOfNTooltip="matTooltip"
-              >
+              <div class="bid-col">
                 <p class="p-lighter fs-13px">Edition of</p>
                 <!-- <p class="font-weight-bold">{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} </p> -->
                 <p class="font-weight-semiboldn color-white">{{ postContent.NumNFTCopies }}</p>
@@ -699,13 +679,7 @@
                     </div>
                   </ng-container>
                   <ng-container>
-                    <div
-                      class="ml-50px bid-col"
-                      (click)="NFTMOfNTooltip.toggle(); toggleShowMOfNNFTTooltip()"
-                      matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
-                      [matTooltip]="mOfNNFTTooltip"
-                      #NFTMOfNTooltip="matTooltip"
-                    >
+                    <div class="ml-50px bid-col">
                       <p class="p-lighter">Edition of</p>
                       <!-- <p class="font-weight-bold">{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} </p> -->
                       <p class="font-weight-bold">{{ postContent.NumNFTCopies - postContent.NumNFTCopiesBurned }}</p>
@@ -728,13 +702,7 @@
               *ngIf="showNFTDetails && postContent.IsNFT && pending"
             >
               <ng-container>
-                <div
-                  class="bid-col"
-                  (click)="NFTMOfNTooltip.toggle(); toggleShowMOfNNFTTooltip()"
-                  matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
-                  [matTooltip]="mOfNNFTTooltip"
-                  #NFTMOfNTooltip="matTooltip"
-                >
+                <div class="bid-col">
                   <p class="p-lighter fs-13px">Edition of</p>
                   <!-- <p class="font-weight-bold">{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} </p> -->
                   <p class="font-weight-semiboldn color-white">{{ postContent.NumNFTCopies }}</p>

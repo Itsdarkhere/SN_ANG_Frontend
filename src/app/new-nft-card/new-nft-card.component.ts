@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, AfterViewInit } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, AfterViewInit, HostListener } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
 import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../backend-api.service";
 import { AppRoutingModule } from "../app-routing.module";
@@ -120,6 +120,7 @@ export class NewNftCardComponent implements OnInit {
   highBid: number = null;
   lowBid: number = null;
   minBid: number = null;
+  mobile = false;
   lastSalePrice: number = null;
   availableSerialNumbers: NFTEntryResponse[];
   myAvailableSerialNumbers: NFTEntryResponse[];
@@ -188,10 +189,19 @@ export class NewNftCardComponent implements OnInit {
         }
       });
   }
+  setMobileBasedOnViewport() {
+    this.mobile = this.globalVars.isMobile();
+  }
+
+  @HostListener("window:resize")
+  onResize() {
+    this.setMobileBasedOnViewport();
+  }
   ngOnInit() {
     if (!this.post.RepostCount) {
       this.post.RepostCount = 0;
     }
+    this.setMobileBasedOnViewport();
     this.setEmbedURLForPostContent();
     if (this.showNFTDetails && this.postContent.IsNFT && !this.nftEntryResponses?.length) {
       this.getNFTEntries();

@@ -4176,7 +4176,7 @@ option {
 
 .creator_post_wrap {
     width: 668px;
-    max-width: 100%;
+    max-width: calc(100vw - 20px);
 }
 
 .nfts-card-list {
@@ -4846,6 +4846,7 @@ option {
 }
 
 .mobile_feed_post {
+    margin: 15px;
     @media screen and (max-width: 767px) {
         margin: 10px 0 !important;
     }
@@ -4866,7 +4867,9 @@ option {
         min-height: 200px;
     }
 }
-
+.m-100px {
+    margin: 100px;
+}
 .add_comment_btn {
     border: 2px solid var(--button);
     background: var(--background);

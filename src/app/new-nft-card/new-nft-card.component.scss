@@ -3,10 +3,6 @@
     transition: .2s;
     position: relative;
     transition: transform 0.2s ease;
-    &:hover {
-        .colors-not-sold {
-        }
-    }
     .card-header {
         display: flex;
         align-items: center;
@@ -47,7 +43,7 @@
                 align-items: center;
                 justify-content: space-between;
                 .buy_bg {
-                    background-color: var(--background);
+                    background-color: #FFFFFF;
                     padding: 2px 8px;
                     border-radius: 0 12px 12px 0;
                     font-size: 11px;
@@ -58,7 +54,7 @@
     }
     .card-body {
         padding: 0px;
-        //box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1);
         border-radius: 30px;
         z-index: 1;
         .img-cover {
@@ -90,7 +86,7 @@
             height: 80px;
             padding-left: 25px;
             padding-right: 25px;
-            background-color: var(--background);
+            background-color: #FFFFFF;
             z-index: 1;
             &.auto-h {
                 height: auto;
@@ -148,7 +144,7 @@
                 }
             }
             .btn-place-a-bid {
-                background: var(--background);
+                background: #FFFFFF;
                 color: var(--button);
                 font-size: 12px;
                 font-weight: bold;
@@ -191,7 +187,6 @@
 }
 .br-mr {
     border-radius: 12px;
-    margin: 15px;
 }
 .br-30px {
     border-radius: 30px;
@@ -217,7 +212,7 @@
         color: #BFBFBF !important;
     }
     p {
-        color: var(--background) !important;
+        color: #FFFFFF !important;
     }
 }
 .br-0px {
@@ -232,15 +227,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 55px;
-   // box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1);
+    padding-top: 60px;
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
     width: 100%;
-    background-color: var(--background);
+    background-color: #FFFFFF;
     border: none;
-    //border: 1px solid #DDDDDD;
-    box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1);
+    //box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1);
+    border: 1.5px solid #DDDDDD;
     z-index: -1;
 }
 .footer-icons-container {
@@ -270,12 +264,34 @@
         }
     }
 }
+.mobile-icons-visible {
+    transform: translateY(-2px);
+    &:hover {
+        z-index: 10;
+    }
+    .card-footer {
+        transition-duration: 0.2s;
+        transform: translateY(60%);
+        border: 1.5px solid #DDDDDD;
+        z-index: -1;
+    }
+    .footer-icons-container {
+        transition: all 0.2s;
+        pointer-events: all;
+        opacity: 1;
+        left: 10%;
+        bottom: -32.5px;
+    }
+    .footer-icons-container {
+        z-index: 10;
+    }
+}
 .ml-50px {
     margin-left: 50px;
 }
 .colors-sold {
     border-top: 1px solid #e4e4e4;
-    background: #ffffff;
+    background: #FFFFFF;
     .p-lighter {
         color: #6A6A6A !important;
     }
@@ -298,8 +314,8 @@
     font-size: 20px !important;
 }
 .accept-transfer {
-    color: var(--background);
-    border: 4px solid var(--background);
+    color: #FFFFFF;
+    border: 4px solid #FFFFFF;
     font-size: 13px;
     font-weight: bold;
     background: #000000;

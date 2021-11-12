@@ -464,8 +464,11 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     } else {
       defaultActiveTab = FeedComponent.GLOBAL_TAB;
     }
-
-    this.feedTabs = [FeedComponent.GLOBAL_TAB, FeedComponent.FOLLOWING_TAB];
+    if (this.globalVars.loggedInUser?.ProfileEntryResponse?.PublicKeyBase58Check) {
+      this.feedTabs = [FeedComponent.GLOBAL_TAB, FeedComponent.FOLLOWING_TAB];
+    } else {
+      this.feedTabs = [FeedComponent.GLOBAL_TAB];
+    }
 
     if (!this.activeTab) {
       this.activeTab = defaultActiveTab;

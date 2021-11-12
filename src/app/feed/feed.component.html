@@ -46,7 +46,7 @@
               [post]="post"
               [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
               [blocked]="
-                globalVars.hasUserBlockedCreator(globalVars.loggedInUser.ProfileEntryResponse.PublicKeyBase58Check)
+                globalVars.hasUserBlockedCreator(globalVars.loggedInUser?.ProfileEntryResponse?.PublicKeyBase58Check)
               "
               [cardStyle]="true"
               [fromFeed]="true"
@@ -69,7 +69,7 @@
               [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
               [afterRepostCreatedCallback]="prependPostToFeed.bind(this)"
               [blocked]="
-                globalVars.hasUserBlockedCreator(globalVars.loggedInUser.ProfileEntryResponse.PublicKeyBase58Check)
+                globalVars.hasUserBlockedCreator(globalVars.loggedInUser?.ProfileEntryResponse?.PublicKeyBase58Check)
               "
               [cardStyle]="true"
               [fromFeed]="true"
@@ -89,7 +89,7 @@
             [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
             [afterRepostCreatedCallback]="prependPostToFeed.bind(this)"
             [blocked]="
-              globalVars.hasUserBlockedCreator(globalVars.loggedInUser.ProfileEntryResponse.PublicKeyBase58Check)
+              globalVars.hasUserBlockedCreator(globalVars.loggedInUser?.ProfileEntryResponse?.PublicKeyBase58Check)
             "
             [cardStyle]="true"
             [showNFTDetails]="true"
@@ -106,7 +106,7 @@
             [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
             [afterRepostCreatedCallback]="prependPostToFeed.bind(this)"
             [blocked]="
-              globalVars.hasUserBlockedCreator(globalVars.loggedInUser.ProfileEntryResponse.PublicKeyBase58Check)
+              globalVars.hasUserBlockedCreator(globalVars.loggedInUser?.ProfileEntryResponse?.PublicKeyBase58Check)
             "
             [cardStyle]="true"
             [showNFTDetails]="true"

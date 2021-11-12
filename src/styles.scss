@@ -1271,8 +1271,10 @@ $green-font-color: #19b028;
     display: flex;
     min-height: 60px;
     align-items: center;
+    z-index: 11;
     .page-bottom-bar-mobile {
         width: 100%;
+        z-index: 11;
     }
 }
 .menu {

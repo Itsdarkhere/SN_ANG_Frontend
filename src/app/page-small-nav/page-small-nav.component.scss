@@ -4,6 +4,7 @@
 }
 .mobile-filter-button {
     position: fixed;
+    z-index: 11;
     bottom: 75px !important;
     outline: none;
     color: var(--background);

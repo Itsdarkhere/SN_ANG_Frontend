@@ -24,21 +24,23 @@
     >
       <div class="nfts-card-list nft_creator_list">
         <div class="nft-col-wrap" *ngFor="let nftEntry of dataToShow">
-          <new-nft-card
-            *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
-            [contentShouldLinkToThread]="true"
-            [includePaddingOnPost]="true"
-            [post]="nftEntry.PostEntryResponse"
-            [afterCommentCreatedCallback]="_prependComment.bind(this, nftEntry.PostEntryResponse, index)"
-            [blocked]="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)"
-            [showNFTDetails]="true"
-            [showExpandedNFTDetails]="false"
-            [setBorder]="true"
-            [showAvailableSerialNumbers]="true"
-            [cardStyle]="true"
-            [profilePublicKeyBase58Check]="profile.PublicKeyBase58Check"
-            (userBlocked)="userBlocked()"
-          ></new-nft-card>
+          <div class="max-width-350">
+            <new-nft-card
+              *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
+              [contentShouldLinkToThread]="true"
+              [includePaddingOnPost]="true"
+              [post]="nftEntry.PostEntryResponse"
+              [afterCommentCreatedCallback]="_prependComment.bind(this, nftEntry.PostEntryResponse, index)"
+              [blocked]="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)"
+              [showNFTDetails]="true"
+              [showExpandedNFTDetails]="false"
+              [setBorder]="true"
+              [showAvailableSerialNumbers]="true"
+              [cardStyle]="true"
+              [profilePublicKeyBase58Check]="profile.PublicKeyBase58Check"
+              (userBlocked)="userBlocked()"
+            ></new-nft-card>
+          </div>
         </div>
       </div>
     </div>

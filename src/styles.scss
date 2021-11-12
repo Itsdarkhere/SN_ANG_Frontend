@@ -1550,7 +1550,7 @@ input.bs-timepicker-field {
 
 // Set a relative width on mobile
 .global__mobile .global__content__width {
-    width: 100vw;
+    width: 100%;
 }
 
 // Set a width, height, and border on desktop
@@ -4200,6 +4200,9 @@ option {
         width: calc(100% / 3);
         min-width: 300px;
         margin-bottom: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         @media screen and (max-width: 676px) {
             width: 100%;
             margin-bottom: 35px;
@@ -4569,9 +4572,16 @@ option {
     }
 }
 .nft-background {
-    background-image: url("/assets/img/nft-background.png");
-    background-position: center;
-    background-size: cover;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+.overflow-hidden {
+    overflow: hidden;
 }
 .nft_place_bid_sec {
     background: var(--background);
@@ -4743,7 +4753,10 @@ option {
 }
 .max-width-300 {
     max-width: 300px;
-    min-width: 300px;
+}
+.max-width-350 {
+    width: 100%;
+    max-width: 350px;
 }
 .card-post-header {
     height: 50px;

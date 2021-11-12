@@ -67,6 +67,7 @@ export class NewNftCardComponent implements OnInit {
   @Input() contentShouldLinkToThread: boolean;
   @Input() pending: boolean;
   @Input() owns: boolean;
+  @Input() background = false;
   @Input() afterCommentCreatedCallback: any = null;
   @Input() afterRepostCreatedCallback: any = null;
   @Input() showReplyingToContent: any = null;

@@ -156,24 +156,26 @@
       </div>
       <div class="nfts-card-list nft_creator_list" *ngIf="activeTab === 'Transfers' && !isLoading">
         <div class="nft-col-wrap" *ngFor="let nftEntry of nftResponse">
-          <new-nft-card
-            *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
-            [contentShouldLinkToThread]="true"
-            [includePaddingOnPost]="true"
-            [pending]="true"
-            [owns]="true"
-            [post]="nftEntry.PostEntryResponse"
-            [afterCommentCreatedCallback]="_prependComment.bind(this, nftEntry.PostEntryResponse, index)"
-            [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
-            [showNFTDetails]="true"
-            [showExpandedNFTDetails]="false"
-            [setBorder]="true"
-            [showAvailableSerialNumbers]="true"
-            [cardStyle]="true"
-            [profilePublicKeyBase58Check]="this.globalVars.loggedInUser?.PublicKeyBase58Check"
-            [isForSaleOnly]="false"
-            (userBlocked)="userBlocked()"
-          ></new-nft-card>
+          <div class="max-width-350">
+            <new-nft-card
+              *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
+              [contentShouldLinkToThread]="true"
+              [includePaddingOnPost]="true"
+              [pending]="true"
+              [owns]="true"
+              [post]="nftEntry.PostEntryResponse"
+              [afterCommentCreatedCallback]="_prependComment.bind(this, nftEntry.PostEntryResponse, index)"
+              [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+              [showNFTDetails]="true"
+              [showExpandedNFTDetails]="false"
+              [setBorder]="true"
+              [showAvailableSerialNumbers]="true"
+              [cardStyle]="true"
+              [profilePublicKeyBase58Check]="this.globalVars.loggedInUser?.PublicKeyBase58Check"
+              [isForSaleOnly]="false"
+              (userBlocked)="userBlocked()"
+            ></new-nft-card>
+          </div>
         </div>
       </div>
       <div class="global__bottom-bar-mobile-height"></div>

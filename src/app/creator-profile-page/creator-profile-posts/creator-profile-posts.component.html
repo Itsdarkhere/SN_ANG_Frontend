@@ -17,64 +17,38 @@
   <div *ngIf="!globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)">
     <div #uiScroll *uiScroll="let post of datasource; let index = index">
       <ng-container *ngIf="post?.IsNFT">
-        <div class="m-15px">
-          <div class="card-post-header w-100">
-            <div>
-              <a
-                class="feed-post__avatar"
-                [avatar]="post.ProfileEntryResponse.PublicKeyBase58Check"
-                [routerLink]="
-                  getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX, post.ProfileEntryResponse.Username])
-                "
-                queryParamsHandling="merge"
-              ></a>
-            </div>
-            <p class="fs-14px ml-10px font-weight-semiboldn">{{ post.ProfileEntryResponse.Username }}</p>
-            <span *ngIf="post.ProfileEntryResponse.IsVerified" class="ml-1 text-primary">
-              <i class="fas fa-check-circle fa-md align-middle"></i>
-            </span>
-          </div>
-          <div
-            *ngIf="post.ProfileEntryResponse"
-            class="mb-40px d-flex flex-center w-100 p-20px single-card-post-container border nft-background"
-          >
-            <div class="max-width-300">
-              <new-nft-card
-                [contentShouldLinkToThread]="true"
-                [pending]="false"
-                [includePaddingOnPost]="true"
-                [post]="post"
-                [afterCommentCreatedCallback]="_prependComment.bind(this, post, index)"
-                [blocked]="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)"
-                [cardStyle]="true"
-                [fromFeed]="true"
-                [showNFTDetails]="true"
-                [profileFeed]="true"
-                (userBlocked)="userBlocked()"
-                [hoverable]="true"
-              ></new-nft-card>
-            </div>
-          </div>
-        </div>
+        <new-nft-card
+          [contentShouldLinkToThread]="true"
+          [pending]="false"
+          [includePaddingOnPost]="true"
+          [post]="post"
+          [afterCommentCreatedCallback]="_prependComment.bind(this, post, index)"
+          [blocked]="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)"
+          [cardStyle]="true"
+          [fromFeed]="true"
+          [showNFTDetails]="true"
+          [profileFeed]="true"
+          (userBlocked)="userBlocked()"
+          [hoverable]="true"
+          [background]="true"
+        ></new-nft-card>
       </ng-container>
       <ng-container *ngIf="isRepost(post) && post.RepostedPostEntryResponse.IsNFT">
-        <div class="mb-40px">
-          <new-nft-card
-            *ngIf="post.ProfileEntryResponse"
-            [contentShouldLinkToThread]="true"
-            [pending]="false"
-            [includePaddingOnPost]="true"
-            [post]="post"
-            [afterCommentCreatedCallback]="_prependComment.bind(this, post, index)"
-            [blocked]="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)"
-            [cardStyle]="true"
-            [fromFeed]="true"
-            [showNFTDetails]="true"
-            [profileFeed]="true"
-            (userBlocked)="userBlocked()"
-            [hoverable]="true"
-          ></new-nft-card>
-        </div>
+        <new-nft-card
+          *ngIf="post.ProfileEntryResponse"
+          [contentShouldLinkToThread]="true"
+          [pending]="false"
+          [includePaddingOnPost]="true"
+          [post]="post"
+          [afterCommentCreatedCallback]="_prependComment.bind(this, post, index)"
+          [blocked]="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)"
+          [cardStyle]="true"
+          [fromFeed]="true"
+          [showNFTDetails]="true"
+          [profileFeed]="true"
+          (userBlocked)="userBlocked()"
+          [hoverable]="true"
+        ></new-nft-card>
       </ng-container>
       <ng-container *ngIf="!isRepost(post) && post?.RepostedPostEntryResponse?.IsNFT">
         <feed-post

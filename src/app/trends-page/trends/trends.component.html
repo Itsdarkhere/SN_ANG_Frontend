@@ -10,19 +10,21 @@
   >
     <div class="nfts-card-list">
       <div class="nft-col-wrap" *ngFor="let nftCollection of dataToShow">
-        <new-nft-card
-          [post]="nftCollection.PostEntryResponse"
-          [includePaddingOnPost]="true"
-          [pending]="false"
-          [showReplyingToContent]="nftCollection.PostEntryResponse.parentPost"
-          [parentPost]="nftCollection.PostEntryResponse.parentPost"
-          [contentShouldLinkToThread]="true"
-          [showNFTDetails]="true"
-          [showExpandedNFTDetails]="true"
-          [setBorder]="true"
-          [nftCollectionHighBid]="nftCollection.HighestBidAmountNanos"
-          [nftCollectionLowBid]="nftCollection.LowestBidAmountNanos"
-        ></new-nft-card>
+        <div class="max-width-350">
+          <new-nft-card
+            [post]="nftCollection.PostEntryResponse"
+            [includePaddingOnPost]="true"
+            [pending]="false"
+            [showReplyingToContent]="nftCollection.PostEntryResponse.parentPost"
+            [parentPost]="nftCollection.PostEntryResponse.parentPost"
+            [contentShouldLinkToThread]="true"
+            [showNFTDetails]="true"
+            [showExpandedNFTDetails]="true"
+            [setBorder]="true"
+            [nftCollectionHighBid]="nftCollection.HighestBidAmountNanos"
+            [nftCollectionLowBid]="nftCollection.LowestBidAmountNanos"
+          ></new-nft-card>
+        </div>
       </div>
     </div>
   </div>

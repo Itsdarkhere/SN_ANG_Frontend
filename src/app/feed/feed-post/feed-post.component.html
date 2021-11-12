@@ -333,9 +333,10 @@
             </div>
             <ng-container *ngIf="quotedContent?.IsNFT">
               <div
-                class="w-100 d-flex flex-center br-10px nft-background"
+                class="w-100 d-flex flex-center br-10px position-relative overflow-hidden"
                 [ngClass]="{ 'p-20px': quotedContent && showQuotedContent }"
               >
+                <object data="/assets/img/nft-background.svg" class="nft-background" type="image/svg+xml"></object>
                 <new-nft-card
                   *ngIf="quotedContent && showQuotedContent"
                   [post]="quotedContent"

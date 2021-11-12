@@ -524,7 +524,7 @@ export class NewNftCardComponent implements OnInit {
   }
   compareBit(minBid, maxBid, showPlaceABid): string {
     if (!showPlaceABid && !!this.nftEntryResponses) {
-      return this.nftEntryResponses[0]?.IsForSale === false ? "Sold for" : "Minimum Bid";
+      return this.nftEntryResponses[0]?.IsForSale === false ? "Last sold for" : "Minimum Bid";
     } else {
       if (Number(maxBid) > 0) {
         return "Highest Bid";
@@ -532,6 +532,12 @@ export class NewNftCardComponent implements OnInit {
         return "Minimum Bid";
       }
     }
+  }
+  neverBeenSold() {
+    let serialList = this.nftEntryResponses?.filter(
+      (NFTEntryResponse) => NFTEntryResponse.LastAcceptedBidAmountNanos != 0 || NFTEntryResponse.IsForSale
+    );
+    return serialList?.length === 0;
   }
   UserOwnsSerialNumbers() {
     const loggedInPubKey = this.globalVars.loggedInUser.PublicKeyBase58Check;

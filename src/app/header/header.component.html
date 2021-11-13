@@ -27,7 +27,7 @@
             </a>
           </li>
           <li
-            *ngIf="globalVars.loggedInUser != null"
+            *ngIf="globalVars.loggedInUser"
             class="notification-icon-cover single-option h-100 d-flex flex-center flex-column"
             (clickOutside)="clickOutside()"
           >
@@ -56,7 +56,7 @@
             </div>
           </li>
 
-          <li *ngIf="globalVars.loggedInUser != null" class="single-option h-100 d-flex flex-column flex-center">
+          <li *ngIf="globalVars.loggedInUser" class="single-option h-100 d-flex flex-column flex-center">
             <div
               class="profile-img"
               title="My Profile"

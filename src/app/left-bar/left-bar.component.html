@@ -96,29 +96,16 @@
     </div>
 
     <!-- Logged-out Left Bar -->
-    <div *ngIf="globalVars.loggedInUser == null && !inTutorial" class="global__nav__inner">
-      <div class="d-flex w-100 align-items-center fs-24px font-weight-bold" style="height: 80px">
-        <a
-          class="link--unstyled d-flex align-items-center"
-          (click)="globalVars.isLeftBarMobileOpen = false"
-          [routerLink]="homeLink()"
-          queryParamsHandling="merge"
-        >
-          <img
-            src="assets/img/l4s_logo.svg"
-            class="clout"
-            style="height: 36px; margin-left: 17px; margin-bottom: 3px"
-          />
-        </a>
-
-        <div *ngIf="isMobile" class="flex-grow-1 d-flex justify-content-end pl-30px">
+    <div *ngIf="!globalVars.loggedInUser" class="global__nav__inner">
+      <div *ngIf="isMobile" class="d-flex w-100 align-items-center fs-24px font-weight-bold" style="height: 80px">
+        <div class="flex-grow-1 d-flex justify-content-end pl-30px">
           <i class="fas fa-times fc-muted" (click)="closeMobile.emit()"></i>
         </div>
       </div>
 
       <div class="pt-10px"></div>
 
-      <div style="margin-left: 25px" class="mr-15px">
+      <div *ngIf="isMobile" style="margin-left: 25px" class="mr-15px">
         <change-account-selector></change-account-selector>
       </div>
 
@@ -126,7 +113,7 @@
 
       <!-- Left Bar Buttons -->
       <left-bar-button
-        [link]="homeLink()"
+        [link]="'/' + this.globalVars.RouteNames.BROWSE"
         [imgSrc]="'assets/icons/feed-icon.svg'"
         [buttonLabel]="'Feed'"
       ></left-bar-button>
@@ -136,6 +123,15 @@
         [buttonLabel]="'Marketplace'"
         [imgSrc]="'assets/icons/marketplace-icon.svg'"
       ></left-bar-button>
+      <div class="w-100 d-flex left-bar-button">
+        <!-- <a class="left-bar__dot-inactive" [href]="getHelpMailToAttr()" target="_blank">·</a> -->
+        <a class="cursor-pointer fs-15px text-grey5" href="https://intercom.help/supernovas/en" target="_blank">
+          <div class="icon-cover">
+            <img src="assets/icons/support-icon.svg" />
+          </div>
+          Support
+        </a>
+      </div>
     </div>
   </div>
 </div>

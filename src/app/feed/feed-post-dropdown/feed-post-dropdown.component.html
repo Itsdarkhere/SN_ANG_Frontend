@@ -13,51 +13,41 @@
   <a class="js-feed-post__dropdown-toggle link--unstyled text-grey9" role="button" dropdownToggle>
     <i class="fas fa-ellipsis-h"></i>
   </a>
-  <div class="dropdown-menu dropdown-menu-right p-0 border background-color-light-grey" *dropdownMenu>
+  <div class="dropdown-menu dropdown-menu-right p-0" *dropdownMenu>
     <a
-      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item"
+      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item font-weight-semiboldn"
       (click)="copyPostLinkToClipboard($event)"
     >
-      <i class="icon-link"></i>
+      <img src="./assets/icons/link-icon.svg" />
       Link to Post
     </a>
-    <!--<a
-      *ngIf="
-        globalVars.loggedInUser.PublicKeyBase58Check === post.PosterPublicKeyBase58Check &&
-        !post.IsNFT &&
-        !post.ParentStakeID &&
-        globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified
-      "
-      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item text-success"
-      (click)="openMintNftModal($event)"
-    >
-      <i class="fas fa-stamp"></i>
-      Mint NFT
-    </a>-->
     <a
       *ngIf="showCreateNFTAuction() && !nftEntryResponses[0].IsPending"
-      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item text-success"
+      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item font-weight-semiboldn"
       (click)="openCreateNFTAuctionModal($event)"
     >
+      <img src="./assets/icons/put_for_sale.svg" />
       Put On Sale
     </a>
     <a
       *ngIf="showCreateNFTAuction()"
-      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item text-success"
+      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item font-weight-semiboldn"
       (click)="openTransferModal($event)"
     >
+      <img src="./assets/icons/transfer-icon.svg" />
       Transfer
     </a>
     <a
       *ngIf="showCreateNFTAuction()"
-      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item text-danger"
+      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item font-weight-semiboldn"
       (click)="openBurnModal($event)"
     >
+      <img src="./assets/icons/hide-icon.svg" />
       Burn
     </a>
     <a
       *ngIf="post.IsNFT && globalVars.showAdminTools()"
-      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item text-success"
+      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item font-weight-semiboldn"
       (click)="dropNFT()"
     >
       <i class="fas fa-tint"></i>
@@ -65,38 +55,38 @@
     </a>
     <a
       *ngIf="post.InMempool"
-      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item"
+      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item font-weight-semiboldn"
       style="cursor: default"
     >
       <i class="fas fa-spinner"></i>
       Status: Mining...
     </a>
     <a
-      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item text-danger"
+      class="dropdown-menu-item border-top fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item font-weight-semiboldn feed-post__dropdown-menu-item-color-light"
       (click)="reportPost()"
     >
-      <i class="fas fa-flag"></i>
+      <img src="./assets/icons/report-icon.svg" />
       Report Content
     </a>
     <a
       *ngIf="showHidePostDropdownItem()"
-      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item text-danger"
+      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item font-weight-semiboldn feed-post__dropdown-menu-item-color-light"
       (click)="hidePost()"
     >
-      <i class="fas fa-trash"></i>
+      <img src="./assets/icons/hide-icon.svg" />
       Hide
     </a>
     <a
       *ngIf="showBlockUserDropdownItem()"
-      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item text-danger"
+      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item font-weight-semiboldn feed-post__dropdown-menu-item-color-light "
       (click)="blockUser()"
     >
-      <i class="fas fa-ban"></i>
+      <img src="./assets/icons/block-icon.svg" />
       Block User
     </a>
     <a
       *ngIf="showAddToGlobalFeedDropdownItem()"
-      class="dropdown-menu-item d-block link--unstyled p-10px feed-post__dropdown-menu-item text-success fs-12px"
+      class="dropdown-menu-item d-block link--unstyled p-10px feed-post__dropdown-menu-item font-weight-semiboldn fs-12px"
       (click)="_addPostToGlobalFeed($event)"
     >
       <i class="fas fa-folder-plus"></i>
@@ -104,7 +94,7 @@
     </a>
     <a
       *ngIf="showRemoveFromGlobalFeedDropdownItem()"
-      class="dropdown-menu-item d-block link--unstyled p-10px feed-post__dropdown-menu-item text-danger fs-12px"
+      class="dropdown-menu-item d-block link--unstyled p-10px feed-post__dropdown-menu-item font-weight-semiboldn fs-12px"
       (click)="_addPostToGlobalFeed($event)"
     >
       <i class="fas fa-folder-minus"></i>
@@ -112,7 +102,7 @@
     </a>
     <a
       *ngIf="showPinPostToGlobalFeedDropdownItem()"
-      class="dropdown-menu-item d-block link--unstyled p-10px feed-post__dropdown-menu-item text-success fs-12px"
+      class="dropdown-menu-item d-block link--unstyled p-10px feed-post__dropdown-menu-item font-weight-semiboldn fs-12px"
       (click)="_pinPostToGlobalFeed($event)"
     >
       <i class="fas fa-thumbtack"></i>
@@ -120,7 +110,7 @@
     </a>
     <a
       *ngIf="showUnpinPostFromGlobalFeedDropdownItem()"
-      class="dropdown-menu-item d-block link--unstyled p-10px feed-post__dropdown-menu-item text-danger fs-12px"
+      class="dropdown-menu-item d-block link--unstyled p-10px feed-post__dropdown-menu-item font-weight-semiboldn fs-12px"
       (click)="_pinPostToGlobalFeed($event)"
     >
       <i class="fas fa-undo"></i>

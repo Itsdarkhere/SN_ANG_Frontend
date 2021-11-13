@@ -29,7 +29,5 @@ export class LeftBarButtonComponent {
     }
     return { stepNum: null, adminTab: null, feedTab: null };
   }
-
-
 }
 

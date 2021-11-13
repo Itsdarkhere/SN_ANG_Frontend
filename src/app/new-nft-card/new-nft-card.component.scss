@@ -264,13 +264,25 @@
         .footer-icons-container {
             transition: all 0.2s;
             pointer-events: all;
-            opacity: 1;
-            left: 10%;
-            bottom: -32.5px;
-        }
-        .footer-icons-container {
+            animation: illusionOfUnderElement 0.2s forwards;
             z-index: 10;
+            left: 10%;
+            //bottom: -32.5px;
         }
+    }
+}
+@keyframes illusionOfUnderElement {
+    0% {
+        opacity: 0;
+        bottom: 0;
+    }
+    50% {
+        opacity: 0;
+        bottom: -20px;
+    }
+    100% {
+        opacity: 1;
+        bottom: -32.5px;
     }
 }
 .mobile-icons-visible {
@@ -287,12 +299,10 @@
     .footer-icons-container {
         transition: all 0.2s;
         pointer-events: all;
+        z-index: 10;
         opacity: 1;
         left: 10%;
         bottom: -32.5px;
-    }
-    .footer-icons-container {
-        z-index: 10;
     }
 }
 .ml-50px {

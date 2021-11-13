@@ -56,7 +56,10 @@ export class CreatorProfileTopCardComponent implements OnInit, OnDestroy {
       this.globalVars.loggedInUser.ProfileEntryResponse.PublicKeyBase58Check === this.profile.PublicKeyBase58Check
     );
   }
-
+  // Regex from https://stackoverflow.com/questions/8206269/how-to-remove-http-from-a-url-in-javascript
+  trimURL(url) {
+    return url.replace(/(^\w+:|^)\/\//, "");
+  }
   ngOnDestroy() {
     this.followChangeSubscription.unsubscribe();
   }

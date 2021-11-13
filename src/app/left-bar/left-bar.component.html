@@ -25,7 +25,7 @@
       <left-bar-button
         [forDesktop]="true"
         [imgSrc]="'assets/icons/feed-icon.svg'"
-        [link]="homeLink()"
+        [link]="'/' + this.globalVars.RouteNames.BROWSE"
         [buttonLabel]="'Feed'"
       ></left-bar-button>
 
@@ -76,11 +76,6 @@
           Support
         </a>
       </div>
-      <!--<left-bar-button
-        [link]="'/' + globalVars.RouteNames.SETTINGS"
-        [buttonLabel]="'Settings'"
-        [imgSrc]="'assets/icons/setting-icon.svg'"
-      ></left-bar-button>-->
 
       <div class="p-15px"></div>
 
@@ -93,25 +88,11 @@
         Become a creator
       </a>
 
-      <!-- <div class="apply_to_crt" *ngIf="applycreator">
-                <i class="fas fa-times fa-md" (click)="hidecreator()" aria-hidden="true"></i>
-                <h4><i class="fas fa-check-circle fa-md" aria-hidden="true"></i> Apply to be a creator </h4>
-                <p>You must be selected to mint NFT’s on Supernovas. Once accepted and verified, you receive a blue checkmark and NFT minting capabilities.</p>
-                <a href="https://xxplfwbep9k.typeform.com/to/sv1kaUT2" target="_blank">Apply here</a>
-            </div> -->
-
       <left-bar-button
         *ngIf="globalVars.showAdminTools()"
         [link]="'/' + globalVars.RouteNames.ADMIN"
         [buttonLabel]="'Admin'"
       ></left-bar-button>
-
-      <!-- <ul class="social_links">
-                <li><a href="https://twitter.com/withsupernovas" target="_blank">TWITTER</a></li>
-                <li><a href="https://www.instagram.com/withsupernovas/" target="_blank">INSTAGRAM</a></li>
-                <li><a href="https://supernovas-app.medium.com/" target="_blank">BLOG</a></li>
-                <li><a href="https://docs.google.com/document/d/13NCH0Y9PHfByDaKtHea-Q9Irb9TzgPzNrszLgcKAE3I/edit?usp=sharing" target="_blank">TERMS OF SERVICE</a></li>
-            </ul> -->
     </div>
 
     <!-- Logged-out Left Bar -->

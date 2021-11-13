@@ -1,4 +1,8 @@
 .left-bar-button {
+    &:active {
+       transform: scale(0.9);
+       transition: 0.2s;
+    }
     a {
         padding: 8px 10px;
         border-radius: 10px;
@@ -11,7 +15,7 @@
             padding: 8px 0;
         }
         &.active {
-            animation: click 0.2s forwards;
+            transform: scale(1.05);
             background-color: var(--secondary);
             font-weight: bolder !important;
             color: #121212;

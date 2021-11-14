@@ -38,7 +38,7 @@
                 class="mb-0px fs-10px ml-5px notification-amount cursor-pointer"
                 *ngIf="globalVars.unreadNotifications > 0"
               >
-                {{ globalVars.unreadNotifications }}
+                {{ globalVars.unreadNotifications > 99 ? "99+" : globalVars.unreadNotifications }}
               </label>
             </div>
             <div class="notification-list-cover" *ngIf="isNotificationOpen">

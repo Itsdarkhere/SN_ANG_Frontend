@@ -8,12 +8,13 @@
       <div class="global__center__width feed-cover">
         <feed></feed>
       </div>
-      <div class="global__sidebar__width" *ngIf="!mobile && !hideSidebar">
-        <!-- <right-bar-creators class="global__sidebar__fixed"></right-bar-creators> -->
+      <!--Not logged in, right bar-->
+      <div
+        class="global__sidebar__width not-loggedIn-right-box ml-10px mt-47_5px w-275px"
+        *ngIf="!mobile && !globalVars.loggedInUser"
+      >
+        <app-offline-info></app-offline-info>
       </div>
-      <!-- <div class="global__sidebar__width">
-            <right-bar-creators class="global__sidebar__fixed"></right-bar-creators>
-        </div> -->
     </div>
   </div>
 </div>
@@ -35,19 +36,9 @@
       </div>
       <search-bar class="pl-15px d-lg-none"></search-bar>
     </div>
-
-    <!-- Mobile login row-->
-    <div
-      *ngIf="!this.globalVars.loggedInUser"
-      class="d-lg-none p-5px background-color-light-grey border-color-grey font-weight-bold"
-    >
-      <a class="pl-10px" (click)="globalVars.launchLoginFlow()">Log in</a>
-      <a class="pl-15px" (click)="globalVars.launchSignupFlow()">Sign up</a>
-    </div>
   </div>
 
   <div style="flex-grow: 1">
-    <div *ngIf="!globalVars.loggedInUser" style="height: 30px"></div>
     <feed [isMobile]="true"></feed>
     <div class="global__bottom-bar-mobile-height">&nbsp;</div>
   </div>

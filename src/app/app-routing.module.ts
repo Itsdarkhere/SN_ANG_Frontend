@@ -88,7 +88,7 @@ class RouteNames {
 }
 
 const routes: Routes = [
-  { path: "", component: BrowsePageComponent, pathMatch: "full" },
+  { path: "", redirectTo: RouteNames.BROWSE, pathMatch: "full" },
   { path: RouteNames.ACTIVITY, component: ActivityComponent, pathMatch: "full" },
   { path: RouteNames.MINT_PAGE, component: MintPageComponent, pathMatch: "full" },
   { path: RouteNames.BROWSE, component: BrowsePageComponent, pathMatch: "full" },

@@ -14,7 +14,9 @@
       <h6>Marketplace</h6>
     </bottom-bar-mobile-tab>
 
-    <button *ngIf="globalVars.loggedInUser" class="btn btn-create clout" [matMenuTriggerFor]="createMenu">Create</button>
+    <button *ngIf="globalVars.loggedInUser" class="btn btn-create clout" [matMenuTriggerFor]="createMenu">
+      Create
+    </button>
     <mat-menu #createMenu="matMenu" class="create_post_mmnenu">
       <div class="create-menu-cover">
         <button mat-menu-item [routerLink]="'/' + globalVars.RouteNames.CREATE_POST">

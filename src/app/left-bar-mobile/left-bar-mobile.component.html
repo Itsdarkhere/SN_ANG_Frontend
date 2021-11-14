@@ -1,7 +1,15 @@
 <div>
   <div [@leftBarAnimation] class="background-gradient" *ngIf="globalVars.isLeftBarMobileOpen">
     <div class="left-bar-mobile__flyout-div">
-      <left-bar [isMobile]="true" [inTutorial]="inTutorial" (closeMobile)="_closeMenu()"></left-bar>
+      <left-bar
+        *ngIf="globalVars.loggedInUser"
+        [isMobile]="true"
+        [inTutorial]="inTutorial"
+        (closeMobile)="_closeMenu()"
+      ></left-bar>
+      <div *ngIf="!globalVars.loggedInUser" class="">
+        <app-offline-info></app-offline-info>
+      </div>
       <div *ngIf="globalVars.isLeftBarMobileOpen" (click)="_closeMenu()" class="nav_close">
         <img src="assets/img/close_square.svg" alt="" />
       </div>

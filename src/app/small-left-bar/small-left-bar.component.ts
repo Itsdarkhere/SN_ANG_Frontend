@@ -15,11 +15,4 @@ export class SmallLeftBarComponent implements OnInit {
 
   ngOnInit(): void {}
 
-
-  homeLink(): string | string[] {
-    if (this.globalVars.showLandingPage()) {
-      return "/" + this.globalVars.RouteNames.LANDING;
-    }
-    return "/" + this.globalVars.RouteNames.BROWSE;
-  }
 }

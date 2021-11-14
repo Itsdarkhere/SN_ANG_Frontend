@@ -1,6 +1,6 @@
 <header [class.bg_notification]="isNotificationOpen">
   <div class="header_golal_wrapper">
-    <div class="logo-cover global__tooltip-icon" [routerLink]="homeLink()">
+    <div class="logo-cover global__tooltip-icon" [routerLink]="'/' + this.globalVars.RouteNames.BROWSE">
       <img src="assets/img/l4s_logo.svg" class="clout" alt="" />
     </div>
     <div class="header-search-right-container" [ngClass]="mobile ? 'justify-content-end' : ''">
@@ -65,6 +65,20 @@
             ></div>
             <label class="mb-0px mt-5px fs-10px cursor-pointer" (click)="hasProfile()">PROFILE</label>
           </li>
+          <button
+            *ngIf="!globalVars.loggedInUser"
+            (click)="globalVars.launchSignupFlow()"
+            class="pl-10px pr-10px h-35px mr-10px black-rounded-button font-weight-bold fs-12px"
+          >
+            Create a profile
+          </button>
+          <button
+            *ngIf="!globalVars.loggedInUser"
+            (click)="globalVars.launchLoginFlow()"
+            class="pl-20px pr-20px h-35px white-rounded-button font-weight-bold fs-12px"
+          >
+            Log in
+          </button>
         </ul>
       </div>
     </div>

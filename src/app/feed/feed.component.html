@@ -1,6 +1,6 @@
 <div class="d-flex flex-column">
   <div *ngIf="!isMobile">
-    <div class="border-bottom border-color-grey formbg create_post_wrapper">
+    <div *ngIf="globalVars.loggedInUser" class="border-bottom border-color-grey formbg create_post_wrapper">
       <feed-create-post
         [numberOfRowsInTextArea]="2"
         [postRefreshFunc]="prependPostToFeed.bind(this)"

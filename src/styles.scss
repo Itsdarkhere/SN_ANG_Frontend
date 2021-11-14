@@ -342,7 +342,12 @@ $green-font-color: #19b028;
 .w-40 {
     width: 40%;
 }
-
+.w-45 {
+    width: 45%;
+}
+.w-47_5 {
+    width: 47.5%;
+}
 .w-50 {
     width: 50%;
 }
@@ -2723,7 +2728,17 @@ input.bs-timepicker-field {
     margin-left: 14px;
     font-size: 13px;
 }
-
+.black-rounded-button {
+    box-shadow: 2.8181443214416504px 2.8181443214416504px 7.045360565185547px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+    background: var(--text);
+    color: var(--background);
+}
+.white-rounded-button {
+    background: #ffffff;
+    border: 3.309523582458496px solid #3c3c3c;
+    border-radius: 30px;
+}
 .notifications__icon {
     margin-right: 14px;
     width: 20px;

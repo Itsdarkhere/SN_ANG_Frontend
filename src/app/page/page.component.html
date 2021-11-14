@@ -12,9 +12,6 @@
       <div [class]="mobile || hideSidebar ? 'global__content__width' : 'global__center__width'">
         <ng-content></ng-content>
       </div>
-      <!-- <div class="global__sidebar__width" *ngIf="!mobile && !hideSidebar">
-            <right-bar-creators class="global__sidebar__fixed"></right-bar-creators>
-        </div> -->
 
       <bottom-bar-mobile
         *ngIf="mobile"

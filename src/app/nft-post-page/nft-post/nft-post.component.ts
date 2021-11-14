@@ -22,6 +22,8 @@ import { FeedPostComponent } from "../../feed/feed-post/feed-post.component";
 import { environment } from "src/environments/environment";
 import { SharedDialogs } from "src/lib/shared-dialogs";
 import { CommentModalComponent } from "src/app/comment-modal/comment-modal.component";
+import { Meta } from "@angular/platform-browser";
+
 @Component({
   selector: "nft-post",
   templateUrl: "./nft-post.component.html",
@@ -67,8 +69,48 @@ export class NftPostComponent {
     NftPostComponent.OWNERS,
     NftPostComponent.DETAILS,
   ];
+  updateMetaTags() {
+    this.meta.updateTag({
+      name: "description",
+      content: this.nftPost.ProfileEntryResponse.Username + "'s NFT on Supernovas",
+    });
+    this.meta.updateTag({
+      property: "og:description",
+      content: this.nftPost.ProfileEntryResponse.Username + "'s NFT on Supernovas",
+    });
+    this.meta.updateTag({ property: "twitter:image", content: this.mapImageURLs(this.nftPost.ImageURLs[0]) });
+    this.meta.updateTag({ property: "og:image", content: this.mapImageURLs(this.nftPost.ImageURLs[0]) });
+    this.meta.updateTag({ property: "og:image:secure_url", content: this.mapImageURLs(this.nftPost.ImageURLs[0]) });
+    this.meta.updateTag({ property: "og:image:alt", content: this.nftPost.ProfileEntryResponse.Username + "'s NFT" });
+    this.meta.updateTag({
+      property: "og:title",
+      content: this.nftPost.ProfileEntryResponse.Username + "'s NFT on Supernovas",
+    });
+  }
+  ngOnDestroy() {
+    this.meta.updateTag({
+      name: "description",
+      content: "The decentralized social network for Web3. Buy and sell DeSo NFT's, invest in Creator Coins, and connect with others through feeds, posts, and direct messages.",
+    });
+    this.meta.updateTag({
+      property: "og:description",
+      content: "The decentralized social network for Web3. Buy and sell DeSo NFT's, invest in Creator Coins, and connect with others through feeds, posts, and direct messages.",
+    });
+    this.meta.updateTag({ property: "twitter:image", content: "https://supernovas.app/assets/img/twitter-meta.png" });
+    this.meta.updateTag({ property: "og:image", content: "https://supernovas.app/assets/img/supernovas-meta.png" });
+    this.meta.updateTag({
+      property: "og:image:secure_url",
+      content: "https://supernovas.app/assets/img/supernovas-meta.png",
+    });
+    this.meta.updateTag({ property: "og:image:alt", content: "Supernovas.app logo on White Background" });
+    this.meta.updateTag({
+      property: "og:title",
+      content: "Supernovas",
+    });
+  }
 
   constructor(
+    private meta: Meta,
     private route: ActivatedRoute,
     private router: Router,
     public globalVars: GlobalVarsService,
@@ -86,7 +128,12 @@ export class NftPostComponent {
       this._setStateFromActivatedRoute(route);
     });
   }
-
+  mapImageURLs(imgURL: string): string {
+    if (imgURL.startsWith("https://i.imgur.com")) {
+      return imgURL.replace("https://i.imgur.com", "https://images.bitclout.com/i.imgur.com");
+    }
+    return imgURL;
+  }
   getPost(fetchParents: boolean = true) {
     // Hit the Get Single Post endpoint with specific parameters
     let readerPubKey = "";
@@ -139,6 +186,8 @@ export class NftPostComponent {
         this.nftPost = res.PostFound;
         this.titleService.setTitle(this.nftPost.ProfileEntryResponse.Username + ` on ${environment.node.name}`);
         this.refreshBidData();
+        // Call here once content is loaded
+        this.updateMetaTags();
       },
       (err) => {
         // TODO: post threads: rollbar

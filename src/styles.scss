@@ -2062,13 +2062,15 @@ input.bs-timepicker-field {
     border: none;
     box-shadow: none;
 }
-
 .js-feed-post-hover:hover {
-    background-color: var(--secondary);
+    background-color: #FCFCFC;
+    .js-feed-post-hover {
+        background-color: #F8F8F8;
+    }
 }
 
 .feed-post__quoted-content:hover {
-    background-color: var(--secalt) !important;
+    background-color: #F5F5F5 !important;
 }
 
 .feed-post__dropdown-menu-item {
@@ -4986,7 +4988,7 @@ option {
     margin: 21px 0 20px 0;
     box-shadow: 1px 1.52px 7.62px rgba(0, 0, 0, 0.11);
     border-radius: 14.2827px;
-    position: relative;
+    //position: relative;
     .formbg {
         background: transparent !important;
         .textarea {

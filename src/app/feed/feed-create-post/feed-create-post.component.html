@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="d-flex flex-column w-100">
-      <div class="flex-fill autofill-container position-relative">
+      <div class="flex-fill autofill-container">
         <textarea
           [(ngModel)]="postInput"
           rows="{{ parentPost ? 3 : numberOfRowsInTextArea }}"
@@ -83,18 +83,7 @@
         <mat-progress-bar [value]="videoUploadPercentage" [mode]="'determinate'"></mat-progress-bar>
       </div>
     </div>
-    <div class="flex-fill px-15px br-10px embed_wrp" [ngClass]="{ 'pt-10px': parentPost }" *ngIf="showEmbedURL">
-      <i class="feed-post_delete" (click)="showEmbedURL = !showEmbedURL">
-        <img src="assets/icons/close_round.svg" alt="" />
-      </i>
-      <input
-        class="br-3px"
-        type="url"
-        [(ngModel)]="embedURL"
-        (ngModelChange)="setEmbedURL()"
-        placeholder="Embed Youtube, Vimeo, TikTok, Giphy, Spotify, SoundCloud or Twitch"
-      />
-    </div>
+
     <div class="flex-fill px-15px br-10px embed_wrp" [ngClass]="{ 'pt-10px': parentPost }" *ngIf="showImageLink">
       <i class="feed-post_delete" (click)="showImageLink = !showImageLink">
         <img src="assets/icons/close_round.svg" alt="" />
@@ -104,7 +93,7 @@
   </div>
 </div>
 <!-- Image Upload + Post Buttons -->
-<div class="d-flex justify-content-end align-items-center pr-15px pb-15px mt-10px">
+<div class="d-flex justify-content-end align-items-center pr-15px pb-15px mt-10px position-relative">
   <span
     class="mr-15px roboto-regular feed-create-post__character-counter fs-15px"
     [ngClass]="{
@@ -116,6 +105,18 @@
   >
     {{ postInput.length }} / {{ GlobalVarsService.MAX_POST_LENGTH }}
   </span>
+  <div class="flex-fill px-15px br-10px embed_wrp" [ngClass]="{ 'pt-10px': parentPost }" *ngIf="showEmbedURL">
+    <i class="feed-post_delete" (click)="showEmbedURL = !showEmbedURL">
+      <img src="assets/icons/close_round.svg" alt="" />
+    </i>
+    <input
+      class="br-3px"
+      type="url"
+      [(ngModel)]="embedURL"
+      (ngModelChange)="setEmbedURL()"
+      placeholder="Embed Youtube, Vimeo, TikTok, Giphy, Spotify, SoundCloud or Twitch"
+    />
+  </div>
   <!-- areweave opt button -->
   <!--<i
         class="arweave_icon pr-15px"

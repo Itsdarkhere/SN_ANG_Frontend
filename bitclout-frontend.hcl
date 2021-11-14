@@ -126,6 +126,8 @@ job "supernovas-frontend" {
         https://iframe.videodelivery.net
         https://firestore.googleapis.com
         https://firebasestorage.googleapis.com
+        https://player.twitch.tv
+        https://clips.twitch.tv
         pay.testwyre.com
         pay.sendwyre.com;
       frame-ancestors 'self';

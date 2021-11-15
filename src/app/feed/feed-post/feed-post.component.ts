@@ -598,7 +598,7 @@ export class FeedPostComponent implements OnInit {
     }
     event.stopPropagation();
     // Log event to google analytics
-    this.SendAddToCartEvent();
+    //this.SendAddToCartEvent();
     const modalDetails = this.modalService.show(PlaceBidModalComponent, {
       class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
       initialState: { post: this.postContent },

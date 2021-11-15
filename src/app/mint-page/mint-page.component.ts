@@ -378,7 +378,7 @@ export class MintPageComponent implements OnInit {
       .subscribe(
         (res) => {
           // Analytics
-          this.SendMintedEvent();
+          //this.SendMintedEvent();
 
           this.dropNFT();
           this.globalVars.updateEverything(res.TxnHashHex, this.mintNFTSuccess, this.mintNFTFailure, this);

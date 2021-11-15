@@ -326,7 +326,7 @@ export class FeedCreatePostComponent implements OnInit, AfterViewInit {
       .subscribe(
         (response) => {
           // Analytics
-          this.SendPostEvent();
+          //this.SendPostEvent();
           this.globalVars.logEvent(`post : ${postType}`);
 
           this.submittingPost = false;

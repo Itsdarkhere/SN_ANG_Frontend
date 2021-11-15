@@ -186,7 +186,7 @@ import { CreatorProfileCreatedComponent } from "./creator-profile-page/creator-p
 import { ActivityComponent } from "./activity/activity.component";
 import { MintPageComponent } from "./mint-page/mint-page.component";
 import { NewNftCardComponent } from "./new-nft-card/new-nft-card.component";
-import { OfflineInfoComponent } from './offline-info/offline-info.component';
+import { OfflineInfoComponent } from "./offline-info/offline-info.component";
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };

@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        gtag("config", "G-HT1WLS626C", {
+        (<any>window).gtag("config", "G-HT1WLS626C", {
           page_path: event.urlAfterRedirects,
         });
       }

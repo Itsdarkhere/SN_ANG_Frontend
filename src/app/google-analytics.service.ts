@@ -17,7 +17,7 @@ export class GoogleAnalyticsService {
     eventLabel: string = null,
     eventValue: number = null
   ) {
-    gtag("event", eventName, {
+    (<any>window).gtag("event", eventName, {
       eventCategory: eventCategory,
       eventLabel: eventLabel,
       eventAction: eventAction,

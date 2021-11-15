@@ -48,7 +48,7 @@ export class FollowButtonComponent implements OnInit, OnDestroy {
 
   unfollow(event) {
     // Analytics
-   // this.SendUnFollowEvent();
+    //this.SendUnFollowEvent();
 
     this._makeFollowTransaction(event, false);
   }

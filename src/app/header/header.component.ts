@@ -112,7 +112,7 @@ export class HeaderComponent implements OnInit {
     this.globalVars.launchLoginFlow();
   }
   signUp() {
-    this.SendSignUpEvent();
+    //this.SendSignUpEvent();
     this.globalVars.launchSignupFlow();
   }
   hasProfile() {

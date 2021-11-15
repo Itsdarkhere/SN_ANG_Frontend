@@ -92,10 +92,10 @@ job "supernovas-frontend" {
       script-src
         https://supernovas.app
         https://supernovas.app:*
-        https://www.google-analytics.com 
+        https://google-analytics.com 
         https://ssl.google-analytics.com
         https://diffuser-cdn.app-us1.com/diffuser/diffuser.js
-        https://www.googletagmanager.com
+        https://www.googletagmanager.com/gtm.js
         https://bitclout.com/tags.js
         https://firestore.googleapis.com
         https://firebasestorage.googleapis.com

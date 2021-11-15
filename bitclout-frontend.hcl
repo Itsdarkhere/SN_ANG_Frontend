@@ -71,7 +71,7 @@ job "supernovas-frontend" {
         supernovas.app:*
         https://supernovas.app
         https://arweave.net 
-        //www.google-analytics.com
+        https://google-analytics.com
         api.bitclout.com bitclout.com:*
         api.deso.org deso.org:*
         bithunt.bitclout.com
@@ -107,7 +107,7 @@ job "supernovas-frontend" {
       img-src 'self' data: 
         https://ik.imagekit.io
         https://i.imgur.com
-        //www.google-analytics.com
+        https://google-analytics.com
         https://images.bitclout.com 
         https://arweave.net
         https://*.arweave.net

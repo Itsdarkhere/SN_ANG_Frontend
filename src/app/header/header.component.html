@@ -67,14 +67,14 @@
           </li>
           <button
             *ngIf="!globalVars.loggedInUser"
-            (click)="globalVars.launchSignupFlow()"
+            (click)="signUp()"
             class="pl-10px pr-10px h-35px mr-10px black-rounded-button font-weight-bold fs-12px"
           >
             Create a profile
           </button>
           <button
             *ngIf="!globalVars.loggedInUser"
-            (click)="globalVars.launchLoginFlow()"
+            (click)="login()"
             class="pl-20px pr-20px h-35px white-rounded-button font-weight-bold fs-12px"
           >
             Log in

@@ -8,6 +8,7 @@ import { MintYourNftComponent } from "../mint-your-nft/mint-your-nft.component";
 import { CreateYourNftComponent } from "../create-your-nft/create-your-nft.component";
 import { PlaceABidComponent } from "../place-a-bid/place-a-bid.component";
 import { Router } from "@angular/router";
+import { GoogleAnalyticsService } from "../google-analytics.service";
 
 @Component({
   selector: "app-header",
@@ -23,7 +24,12 @@ export class HeaderComponent implements OnInit {
 
   AppRoutingModule = AppRoutingModule;
 
-  constructor(public globalVars: GlobalVarsService, public dialog: MatDialog, private router: Router) {}
+  constructor(
+    public globalVars: GlobalVarsService,
+    public dialog: MatDialog,
+    private router: Router,
+    private analyticsService: GoogleAnalyticsService
+  ) {}
 
   createPostUploadMint(): void {
     const dialogRef = this.dialog.open(CreatePostUploadMintComponent, {
@@ -94,6 +100,20 @@ export class HeaderComponent implements OnInit {
   }
   clickOutside() {
     this.isNotificationOpen = false;
+  }
+  SendLoginEvent() {
+    this.analyticsService.eventEmitter("login", "engagement", "conversion", "click", 10);
+  }
+  SendSignUpEvent() {
+    this.analyticsService.eventEmitter("sign_up", "engagement", "conversion", "click", 10);
+  }
+  login() {
+    this.SendLoginEvent();
+    this.globalVars.launchLoginFlow();
+  }
+  signUp() {
+    this.SendSignUpEvent();
+    this.globalVars.launchSignupFlow();
   }
   hasProfile() {
     if (this.globalVars?.loggedInUser?.ProfileEntryResponse?.Username) {

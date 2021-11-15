@@ -25,7 +25,6 @@ export class BrowsePageComponent implements OnInit {
   onResize() {
     this.setMobileBasedOnViewport();
   }
-
   ngOnInit() {
     this.setMobileBasedOnViewport();
   }

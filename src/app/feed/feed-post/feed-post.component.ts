@@ -16,6 +16,7 @@ import * as _ from "lodash";
 import { PlaceBidModalComponent } from "../../place-bid-modal/place-bid-modal.component";
 import { EmbedUrlParserService } from "../../../lib/services/embed-url-parser-service/embed-url-parser-service";
 import { SharedDialogs } from "../../../lib/shared-dialogs";
+import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 
 @Component({
   selector: "feed-post",
@@ -55,6 +56,7 @@ export class FeedPostComponent implements OnInit {
   }
 
   constructor(
+    private analyticsService: GoogleAnalyticsService,
     public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
     private ref: ChangeDetectorRef,
@@ -219,6 +221,9 @@ export class FeedPostComponent implements OnInit {
     if (this.showNFTDetails && this.postContent.IsNFT && !this.nftEntryResponses?.length) {
       this.getNFTEntries();
     }
+  }
+  SendAddToCartEvent() {
+    this.analyticsService.eventEmitter("place_a_bid", "transaction", "bid", "click", 10);
   }
   onPostClicked(event) {
     if (this.inTutorial) {
@@ -592,6 +597,8 @@ export class FeedPostComponent implements OnInit {
       return;
     }
     event.stopPropagation();
+    // Log event to google analytics
+    this.SendAddToCartEvent();
     const modalDetails = this.modalService.show(PlaceBidModalComponent, {
       class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
       initialState: { post: this.postContent },

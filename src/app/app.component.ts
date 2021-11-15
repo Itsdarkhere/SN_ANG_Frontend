@@ -1,17 +1,20 @@
 import { ChangeDetectorRef, Component, HostListener, OnInit } from "@angular/core";
 import { BackendApiService, TutorialStatus, User } from "./backend-api.service";
 import { GlobalVarsService } from "./global-vars.service";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
 import { IdentityService } from "./identity.service";
 import * as _ from "lodash";
 import { environment } from "../environments/environment";
 import { ThemeService } from "./theme/theme.service";
 import { Subscription } from "rxjs";
+import { GoogleAnalyticsService } from "./google-analytics.service";
 
+declare let gtag: Function;
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
+  providers: [GoogleAnalyticsService],
 })
 export class AppComponent implements OnInit {
   constructor(
@@ -28,6 +31,14 @@ export class AppComponent implements OnInit {
       [], // userList
       this.route // route
     );
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        gtag("config", "G-HT1WLS626C", {
+          page_path: event.urlAfterRedirects,
+        });
+      }
+    });
 
     // Nuke the referrer so we don't leak anything
     // We also have a meta tag in index.html that does this in a different way to make

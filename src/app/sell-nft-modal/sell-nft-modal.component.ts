@@ -8,6 +8,7 @@ import { concatMap, filter, last, map, take } from "rxjs/operators";
 import { NftSoldModalComponent } from "../nft-sold-modal/nft-sold-modal.component";
 import { AddUnlockableModalComponent } from "../add-unlockable-modal/add-unlockable-modal.component";
 import { Router } from "@angular/router";
+import { GoogleAnalyticsService } from "../google-analytics.service";
 
 @Component({
   selector: "sell-nft-modal",
@@ -29,6 +30,7 @@ export class SellNftModalComponent implements OnInit {
 
   constructor(
     public globalVars: GlobalVarsService,
+    private analyticsService: GoogleAnalyticsService,
     private modalService: BsModalService,
     private backendApi: BackendApiService,
     public bsModalRef: BsModalRef,
@@ -83,6 +85,7 @@ export class SellNftModalComponent implements OnInit {
       .pipe(last((res) => res))
       .subscribe(
         (res) => {
+          this.SendSoldEvent();
           // Hide this modal and open the next one.
           this.bsModalRef.hide();
           this.modalService.show(NftSoldModalComponent, {
@@ -100,6 +103,9 @@ export class SellNftModalComponent implements OnInit {
         this.sellNFTDisabled = false;
         this.sellingNFT = false;
       });
+  }
+  SendSoldEvent() {
+    this.analyticsService.eventEmitter("bid_accepted", "transaction", "sold", "click", 10);
   }
   remove(bidEntry: NFTBidEntryResponse): void {
     this.selectedBidEntries = this.selectedBidEntries.filter((selectedEntry) => selectedEntry !== bidEntry);

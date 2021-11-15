@@ -9,6 +9,7 @@ import Timer = NodeJS.Timer;
 import { CloudflareStreamService } from "../../lib/services/stream/cloudflare-stream-service";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { CommentModalComponent } from "../comment-modal/comment-modal.component";
+import { GoogleAnalyticsService } from "../google-analytics.service";
 
 @Component({
   selector: "app-mint-page",
@@ -93,6 +94,7 @@ export class MintPageComponent implements OnInit {
   }
 
   constructor(
+    private analyticsService: GoogleAnalyticsService,
     private router: Router,
     private globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
@@ -111,7 +113,9 @@ export class MintPageComponent implements OnInit {
     const fileToUpload = files.item(0);
     this._handleFileInput(fileToUpload);
   }
-
+  SendMintedEvent() {
+    this.analyticsService.eventEmitter("Mint", "engagement", "mint", "click", 10);
+  }
   _handleFileInput(file: File): void {
     if (!file) {
       return;
@@ -373,6 +377,9 @@ export class MintPageComponent implements OnInit {
       )
       .subscribe(
         (res) => {
+          // Analytics
+          this.SendMintedEvent();
+
           this.dropNFT();
           this.globalVars.updateEverything(res.TxnHashHex, this.mintNFTSuccess, this.mintNFTFailure, this);
         },

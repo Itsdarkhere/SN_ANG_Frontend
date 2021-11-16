@@ -73,8 +73,8 @@ header Content-Security-Policy "
     api.love4src.com love4src.com:*
     node.deso.org
     amp.deso.org
-    bithunt.deso.com
-    pulse.deso.com
+    bithunt.deso.org
+    pulse.deso.org
     explorer.bitclout.com:*
     https://api.blockchain.com/ticker
     https://api.blockchain.com/mempool/fees

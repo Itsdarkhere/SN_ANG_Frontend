@@ -75,6 +75,8 @@ header Content-Security-Policy "
     amp.deso.org
     bithunt.deso.org
     pulse.deso.org
+    bithunt.bitclout.com
+    pulse.bitclout.com
     explorer.bitclout.com:*
     https://api.blockchain.com/ticker
     https://api.blockchain.com/mempool/fees

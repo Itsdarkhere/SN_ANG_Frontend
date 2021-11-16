@@ -72,6 +72,7 @@ job "supernovas-frontend" {
         https://supernovas.app
         https://arweave.net 
         https://google-analytics.com
+        https://www.googletagmanager.com
         api.bitclout.com bitclout.com:*
         api.deso.org deso.org:*
         bithunt.bitclout.com
@@ -95,7 +96,7 @@ job "supernovas-frontend" {
         https://google-analytics.com 
         https://ssl.google-analytics.com
         https://diffuser-cdn.app-us1.com/diffuser/diffuser.js
-        https://www.googletagmanager.com/gtag/js?id=G-HT1WLS626C
+        https://www.googletagmanager.com
         https://bitclout.com/tags.js
         https://firestore.googleapis.com
         https://firebasestorage.googleapis.com

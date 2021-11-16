@@ -4,7 +4,7 @@ function loadAnalytics() {
     ga.async = true;
     ga.src = "https://www.googletagmanager.com/gtag/js?id=G-HT1WLS626C"
 
-    var s = document.createElementByTagName("script")[0];
+    var s = document.getElementsByTagName("script")[0];
     s.parentNode.insertBefore(ga, s);
 }
 

@@ -71,7 +71,7 @@ job "supernovas-frontend" {
         supernovas.app:*
         https://supernovas.app
         https://arweave.net 
-        https://google-analytics.com
+        https://www.google-analytics.com
         https://www.googletagmanager.com
         api.bitclout.com bitclout.com:*
         api.deso.org deso.org:*

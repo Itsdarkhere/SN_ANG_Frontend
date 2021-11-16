@@ -20,7 +20,6 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { IdentityService } from "./identity.service";
 import { BithuntService, CommunityProject } from "../lib/services/bithunt/bithunt-service";
 import { LeaderboardResponse, PulseService } from "../lib/services/pulse/pulse-service";
-import { AltumbaseResponse, AltumbaseService } from "../lib/services/altumbase/altumbase-service";
 import { RightBarCreatorsLeaderboardComponent } from "./right-bar-creators/right-bar-creators-leaderboard/right-bar-creators-leaderboard.component";
 import { HttpClient } from "@angular/common/http";
 import { FeedComponent } from "./feed/feed.component";
@@ -99,6 +98,7 @@ export class GlobalVarsService {
   messagesRequestsFollowedOnly = false;
 
   // Whether or not to show processing spinners in the UI for unmined transactions.
+  // TODO: Move into environment.ts
   showProcessingSpinners = false;
 
   rightBarLeaderboard = [];
@@ -936,13 +936,12 @@ export class GlobalVarsService {
 
   updateLeaderboard(forceRefresh: boolean = false): void {
     const pulseService = new PulseService(this.httpClient, this.backendApi, this);
-    const altumbaseService = new AltumbaseService(this.httpClient, this.backendApi, this);
 
     if (this.topGainerLeaderboard.length === 0 || forceRefresh) {
       pulseService.getDeSoLockedLeaderboard().subscribe((res) => (this.topGainerLeaderboard = res));
     }
     if (this.topDiamondedLeaderboard.length === 0 || forceRefresh) {
-      altumbaseService.getDiamondsReceivedLeaderboard().subscribe((res) => (this.topDiamondedLeaderboard = res));
+      pulseService.getDiamondsReceivedLeaderboard().subscribe((res) => (this.topDiamondedLeaderboard = res));
     }
 
     if (this.topCommunityProjectsLeaderboard.length === 0 || forceRefresh) {

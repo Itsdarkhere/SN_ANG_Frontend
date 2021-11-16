@@ -97,6 +97,7 @@ header Content-Security-Policy "
   img-src 'self' data: 
     https://i.imgur.com
     https://images.bitclout.com 
+    https://images.deso.org 
     https://gfx.love4src.com
     https://arweave.net
     https://*.arweave.net

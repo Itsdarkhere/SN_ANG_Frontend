@@ -945,7 +945,9 @@ $green-font-color: #19b028;
 .m-5px {
     margin: 5px;
 }
-
+.mt-4px {
+    margin-top: 4px;
+}
 .mt-5px {
     margin-top: 5px;
 }
@@ -1283,7 +1285,7 @@ $green-font-color: #19b028;
     }
 }
 .menu {
-    background-color: var(--background);
+    background-color: white;
     position: absolute;
     z-index: 100;
     border-radius: 10px;
@@ -1311,7 +1313,7 @@ $green-font-color: #19b028;
 }
 
 .menu-item:hover:not(.selected) {
-    background-color: var(--secondary);
+    background-color: white;
 }
 .global__tooltip-icon {
     cursor: pointer;
@@ -1509,11 +1511,7 @@ input.bs-timepicker-field {
     text-align: start;
     padding-top: 5px;
     padding-bottom: 5px;
-    transition-duration: 200ms;
-    /*&.active {
-        font-weight: bold;
-        border: 2px solid #6b6b6b;
-    }*/
+    transition-duration: 50ms;
     &:hover {
         background-color: var(--secondary);
     }
@@ -2036,7 +2034,9 @@ input.bs-timepicker-field {
     height: 50px;
     width: 50px;
     margin-right: 15px;
-    border-radius: $feed-border-radius;
+    border-radius: 50%;
+    border: 3px solid var(--background);
+    //box-shadow: 0px 4px 5px 3px rgb(0 0 0 / 10%);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -2732,6 +2732,7 @@ input.bs-timepicker-field {
 }
 .black-rounded-button {
     box-shadow: 2.8181443214416504px 2.8181443214416504px 7.045360565185547px rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--text);
     border-radius: 30px;
     background: var(--text);
     color: var(--background);
@@ -3897,7 +3898,7 @@ option {
                     top: -30px;
                     left: -2px;
                     position: relative;
-                    transition: color 0.3s;
+                    transition: color 0.1s;
                 }
                 .diamond-help {
                     color: var(--grey);
@@ -3948,7 +3949,7 @@ option {
                     transition: 1s opacity,
                     1s visibility;
                     // Delay appearance of pop up on mouse hover
-                    transition-delay: 1s;
+                    transition-delay: .1s;
                 }
             }
         }
@@ -5002,7 +5003,7 @@ option {
         overflow: hidden;
         border-radius: 50%;
         border: 3px solid var(--background);
-        box-shadow: 0px 4px 5px 3px rgb(0 0 0 / 10%);
+        //box-shadow: 0px 4px 5px 3px rgb(0 0 0 / 10%);
         background-size: cover;
     }
     .post_btn {

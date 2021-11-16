@@ -17,10 +17,10 @@ export class MarketplaceLeftBarComponent implements OnInit {
   selectValue: string;
   status: string;
   // Sorting
-  static MOST_RECENT = "Most recent";
+  static MOST_RECENT_FIRST = "Most recent first";
   static OLDEST_FIRST = "Oldest first";
-  static HIGHEST_MIN_BID = "Highest minimum bid";
-  static LOWEST_MIN_BID = "Lowest minimum bid";
+  static HIGHEST_PRICE_FIRST = "Highest price first";
+  static LOWEST_PRICE_FIRST = "Lowest price first";
   // Status
   static ALL = "All";
   static HAS_BIDS = "Has bids";
@@ -42,32 +42,29 @@ export class MarketplaceLeftBarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams
-      .subscribe((queryParams) => {
-        if (queryParams.sort in this.selectValues) {
-          this.onSelectChange(this.selectValues[queryParams.sort]);
-          //
-        } else if (!queryParams.sort) {
-          this.selectValue = "Most recent";
-        }
-        this.primary = queryParams.primary === "false" ? false : true;
-        this.secondary = queryParams.secondary === "false" ? false : true;
-        this.status = this.statusValues[queryParams.status] || "All";
-      })
-      .unsubscribe();
+    this.route.queryParams.subscribe((queryParams) => {
+      if (queryParams.sort in this.selectValues) {
+        this.onSelectChange(this.selectValues[queryParams.sort]);
+      } else if (!queryParams.sort) {
+        this.selectValue = "Most recent first";
+      }
+      this.primary = queryParams.primary === "false" ? false : true;
+      this.secondary = queryParams.secondary === "false" ? false : true;
+      this.status = this.statusValues[queryParams.status] || "All";
+    }).unsubscribe;
   }
   selectValues = {
-    most_recent: "Most recent",
+    most_recent_first: "Most recent first",
     oldest_first: "Oldest first",
-    highest_price: "Highest minimum bid",
-    lowest_price: "Lowest minimum bid",
+    highest_price_first: "Highest price first",
+    lowest_price_first: "Lowest price first",
   };
 
   selectValuesInverse = {
-    [MarketplaceLeftBarComponent.MOST_RECENT]: "most_recent",
+    [MarketplaceLeftBarComponent.MOST_RECENT_FIRST]: "most_recent_first",
     [MarketplaceLeftBarComponent.OLDEST_FIRST]: "oldest_first",
-    [MarketplaceLeftBarComponent.HIGHEST_MIN_BID]: "highest_min_bid",
-    [MarketplaceLeftBarComponent.LOWEST_MIN_BID]: "lowest_min_bid",
+    [MarketplaceLeftBarComponent.HIGHEST_PRICE_FIRST]: "highest_price_first",
+    [MarketplaceLeftBarComponent.LOWEST_PRICE_FIRST]: "lowest_price_first",
   };
 
   statusValues = {

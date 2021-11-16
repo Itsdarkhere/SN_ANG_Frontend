@@ -65,8 +65,13 @@
     justify-content: flex-start;
     align-items: center;
     padding: 8px 0px;
+    &:active {
+        transform: scale(0.9);
+        transition: 0.2s;
+     }
     &.active {
-        animation: click 0.2s forwards;
+        //animation: click 0.2s forwards;
+        transform: scale(1.05);
         background-color: var(--secondary);
         font-weight: bolder !important;
         border-radius: 10px;

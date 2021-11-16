@@ -3,10 +3,10 @@
     <div class="global__nav__inner__marketplace position-relative">
       <label class="w-100 pl-10px marketplace-label">Sort by</label>
       <select class="w-100 p-5px marketplace-select" (ngModelChange)="onSelectChange($event)" [ngModel]="selectValue">
-        <option value="Most recent">Most recent</option>
+        <option value="Most recent first">Most recent first</option>
         <option value="Oldest first">Oldest first</option>
-        <option value="Highest minimum bid">Highest minimum bid</option>
-        <option value="Lowest minimum bid">Lowest minimum bid</option>
+        <option value="Highest price first">Highest price first</option>
+        <option value="Lowest price first">Lowest price first</option>
       </select>
       <label class="w-100 mt-20px pl-10px marketplace-label">Status</label>
       <button
@@ -30,13 +30,13 @@
       >
         No bids yet
       </button>
-      <button
+      <!--<button
         class="w-100 mt-5px marketplace-filter-button pl-10px"
         [ngClass]="status === 'For sale' ? 'market-button-active' : ''"
         (click)="changeStatus('For sale')"
       >
         For sale
-      </button>
+      </button>-->
       <button
         class="w-100 mt-5px marketplace-filter-button pl-10px"
         [ngClass]="status === 'Sold' ? 'market-button-active' : ''"

@@ -103,17 +103,17 @@ export class TrendsComponent implements OnInit {
 
     // Order
     switch (sort) {
-      case "most_recent":
+      case "most_recent_first":
         // Keep all
         this.nftCollections.sort((a, b) => b.PostEntryResponse.TimestampNanos - a.PostEntryResponse.TimestampNanos);
         break;
       case "oldest_first":
         this.nftCollections.sort((a, b) => a.PostEntryResponse.TimestampNanos - b.PostEntryResponse.TimestampNanos);
         break;
-      case "highest_min_bid":
+      case "highest_price_first":
         this.nftCollections.sort((a, b) => b.NFTEntryResponse.MinBidAmountNanos - a.NFTEntryResponse.MinBidAmountNanos);
         break;
-      case "lowest_min_bid":
+      case "lowest_price_first":
         this.nftCollections.sort((a, b) => a.NFTEntryResponse.MinBidAmountNanos - b.NFTEntryResponse.MinBidAmountNanos);
         break;
       default:
@@ -140,7 +140,9 @@ export class TrendsComponent implements OnInit {
         this.filteredCollection = this.nftCollections.filter((nft) => nft.NFTEntryResponse.IsForSale);
         break;
       case "sold":
-        this.filteredCollection = this.nftCollections.filter((nft) => !nft.NFTEntryResponse.IsForSale);
+        this.filteredCollection = this.nftCollections.filter(
+          (nft) => !nft.NFTEntryResponse.IsForSale && nft.NFTEntryResponse.LastAcceptedBidAmountNanos > 0
+        );
         break;
       default:
         this.filteredCollection = this.nftCollections;
@@ -197,7 +199,6 @@ export class TrendsComponent implements OnInit {
             );
           }
           this.getParamsAndSort();
-          console.log(this.nftCollections);
           if (showmore) {
             document.body.scrollTop = 0; // For Safari
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera

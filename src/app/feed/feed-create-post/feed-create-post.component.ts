@@ -185,7 +185,7 @@ export class FeedCreatePostComponent implements OnInit, AfterViewInit {
     );
     div.innerHTML = `
       <div class="d-flex align-items-center">
-        <img src="${profPicURL}" height="30px" width="30px" style="border-radius: 10px" class="mr-5px">
+        <img src="${profPicURL}" height="30px" width="30px" style="border-radius: 50%; border: 3px solid var(--background);" class="mr-5px">
         <p>${_.escape(user.Username)}</p>
         ${user.IsVerified ? `<i class="fas fa-check-circle fa-md ml-5px fc-blue"></i>` : ""}
       </div>`;

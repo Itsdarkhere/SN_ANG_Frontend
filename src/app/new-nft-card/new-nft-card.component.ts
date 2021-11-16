@@ -31,7 +31,7 @@ import { EmbedUrlParserService } from "../../lib/services/embed-url-parser-servi
 import { SharedDialogs } from "../../lib/shared-dialogs";
 import { FeedPostImageModalComponent } from "../feed/feed-post-image-modal/feed-post-image-modal.component";
 import { TransferModalComponent } from "../transfer-modal/transfer-modal.component";
-import { NftSoldModalComponent } from "../nft-sold-modal/nft-sold-modal.component";
+import { GoogleAnalyticsService } from "../google-analytics.service";
 @Component({
   selector: "new-nft-card",
   templateUrl: "./new-nft-card.component.html",
@@ -65,6 +65,7 @@ export class NewNftCardComponent implements OnInit {
     return this._blocked;
   }
   constructor(
+    private analyticsService: GoogleAnalyticsService,
     public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
     private ref: ChangeDetectorRef,
@@ -293,6 +294,10 @@ export class NewNftCardComponent implements OnInit {
         imageURL,
       },
     });
+    this.SendImageOpenedEvent();
+  }
+  SendImageOpenedEvent() {
+    this.analyticsService.eventEmitter("image_opened", "usage", "activity", "click", 10);
   }
   openInteractionModal(event, component): void {
     event.stopPropagation();

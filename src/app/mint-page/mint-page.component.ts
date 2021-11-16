@@ -113,9 +113,6 @@ export class MintPageComponent implements OnInit {
     const fileToUpload = files.item(0);
     this._handleFileInput(fileToUpload);
   }
-  SendMintedEvent() {
-    this.analyticsService.eventEmitter("Mint", "engagement", "mint", "click", 10);
-  }
   _handleFileInput(file: File): void {
     if (!file) {
       return;
@@ -377,9 +374,6 @@ export class MintPageComponent implements OnInit {
       )
       .subscribe(
         (res) => {
-          // Analytics
-          //this.SendMintedEvent();
-
           this.dropNFT();
           this.globalVars.updateEverything(res.TxnHashHex, this.mintNFTSuccess, this.mintNFTFailure, this);
         },
@@ -429,11 +423,15 @@ export class MintPageComponent implements OnInit {
       .subscribe(
         (res: any) => {
           console.log("Added to marketplace!");
+          this.SendMintedEvent();
         },
         (error) => {
           this.globalVars._alertError(error.error.error);
         }
       );
+  }
+  SendMintedEvent() {
+    this.analyticsService.eventEmitter("nft_minted", "usage", "activity", "click", 10);
   }
   mintNFTSuccess(comp: MintPageComponent) {
     comp.nextStep();

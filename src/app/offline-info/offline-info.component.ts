@@ -19,11 +19,11 @@ export class OfflineInfoComponent implements OnInit {
     this.analyticsService.eventEmitter("sign_up", "engagement", "conversion", "click", 10);
   }
   login() {
-    //this.SendLoginEvent();
     this.globalVars.launchLoginFlow();
+    this.SendLoginEvent();
   }
   signUp() {
-    //this.SendSignUpEvent();
     this.globalVars.launchSignupFlow();
+    this.SendSignUpEvent();
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ViewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { GlobalVarsService } from "../../global-vars.service";
 import {
@@ -22,13 +22,14 @@ import { FeedPostComponent } from "../../feed/feed-post/feed-post.component";
 import { environment } from "src/environments/environment";
 import { SharedDialogs } from "src/lib/shared-dialogs";
 import { CommentModalComponent } from "src/app/comment-modal/comment-modal.component";
+import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 
 @Component({
   selector: "nft-post",
   templateUrl: "./nft-post.component.html",
   styleUrls: ["./nft-post.component.scss"],
 })
-export class NftPostComponent {
+export class NftPostComponent implements OnInit {
   @ViewChild(FeedPostComponent) feedPost: FeedPostComponent;
 
   nftPost: PostEntryResponse;
@@ -71,6 +72,7 @@ export class NftPostComponent {
 
   constructor(
     private route: ActivatedRoute,
+    private analyticsService: GoogleAnalyticsService,
     private router: Router,
     public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
@@ -86,6 +88,12 @@ export class NftPostComponent {
     this.route.params.subscribe((params) => {
       this._setStateFromActivatedRoute(route);
     });
+  }
+  ngOnInit() {
+    this.SendNFTPageOpenedEvent();
+  }
+  SendNFTPageOpenedEvent() {
+    this.analyticsService.eventEmitter("nft_page_opened", "usage", "activity", "event", 10);
   }
   mapImageURLs(imgURL: string): string {
     if (imgURL.startsWith("https://i.imgur.com")) {

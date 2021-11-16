@@ -80,6 +80,8 @@ export class BackendRoutes {
   static RoutePathGetNFTBidsForUser = "/api/v0/get-nft-bids-for-user";
   static RoutePathGetNFTShowcase = "/api/v0/get-nft-showcase";
   static RoutePathGetNFTShowcaseSupernovas = "/api/v0/get-nft-showcase-supernovas";
+  static RoutePathGetNFTShowcaseStripped = "/api/v0/get-nft-showcase-stripped";
+  static RoutePathGetNFTShowcasePaginated = "/api/v0/get-nft-showcase-paginated";
   static RoutePathGetNFTShowcaseProfile = "/api/v0/get-nft-showcase-profile";
   static RoutePathGetNextNFTShowcase = "/api/v0/get-next-nft-showcase";
   static RoutePathGetNFTCollectionSummary = "/api/v0/get-nft-collection-summary";
@@ -1083,6 +1085,30 @@ export class BackendApiService {
     return this.post(endpoint, BackendRoutes.RoutePathGetNFTShowcaseSupernovas, {
       UserPublicKeyBase58Check,
       ReaderPublicKeyBase58Check,
+    });
+  }
+  GetNFTShowcaseStripped(
+    endpoint: string,
+    UserPublicKeyBase58Check: string,
+    ReaderPublicKeyBase58Check: string
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetNFTShowcaseStripped, {
+      UserPublicKeyBase58Check,
+      ReaderPublicKeyBase58Check,
+    });
+  }
+  GetNFTShowcasePaginated(
+    endpoint: string,
+    UserPublicKeyBase58Check: string,
+    ReaderPublicKeyBase58Check: string,
+    PostHashHex: string,
+    NumToFetch: number
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetNFTShowcasePaginated, {
+      UserPublicKeyBase58Check,
+      ReaderPublicKeyBase58Check,
+      PostHashHex,
+      NumToFetch,
     });
   }
   GetNFTShowcaseProfile(

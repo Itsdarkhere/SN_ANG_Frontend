@@ -446,8 +446,11 @@
               <div class="card-header p-0px" style="border-bottom: 0px">
                 <div class="profile-img">
                   <a
-                    [avatar]="postContent.ProfileEntryResponse.PublicKeyBase58Check"
-                    [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, postContent.ProfileEntryResponse.Username]"
+                    [avatar]="postContent.PosterPublicKeyBase58Check"
+                    [routerLink]="[
+                      '/' + globalVars.RouteNames.USER_PREFIX,
+                      loadProfile ? this.creatorProfile?.Username : postContent.ProfileEntryResponse?.Username
+                    ]"
                     queryParamsHandling="merge"
                   ></a>
                   <div *ngIf="showThreadConnectionLine" class="feed-post__parent-thread-connector"></div>
@@ -456,11 +459,8 @@
               <div class="d-flex flex-column">
                 <p class="creator-text-nft-card font-weight-bold">CREATOR</p>
                 <div class="username-nft-card font-weight-bold">
-                  {{ postContent.ProfileEntryResponse.Username }}
-                  <i
-                    *ngIf="postContent.ProfileEntryResponse.IsVerified"
-                    class="fas fa-check-circle pl-5px fa-md text-primary"
-                  ></i>
+                  {{ loadProfile ? this.creatorProfile?.Username : postContent.ProfileEntryResponse?.Username }}
+                  <i *ngIf="true" class="fas fa-check-circle pl-5px fa-md text-primary"></i>
                 </div>
               </div>
             </div>

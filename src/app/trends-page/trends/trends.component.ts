@@ -128,7 +128,7 @@ export class TrendsComponent implements OnInit {
         break;
       case "has_bids":
         this.filteredCollection = this.nftCollections.filter(
-          (nft) => nft.HighestBidAmountNanos != 0 && nft.NFTEntryResponse.IsForSale
+          (nft) => nft.NFTEntryResponse.HighestBidAmountNanos != 0 && nft.NFTEntryResponse.IsForSale
         );
         break;
       case "no_bids":
@@ -182,7 +182,7 @@ export class TrendsComponent implements OnInit {
       this.globalVars.isMarketplaceLoading = true;
     }
     this.backendApi
-      .GetNFTShowcaseSupernovas(
+      .GetNFTShowcaseStripped(
         this.globalVars.localNode,
         this.globalVars.loggedInUser?.PublicKeyBase58Check,
         this.globalVars.loggedInUser?.PublicKeyBase58Check
@@ -197,6 +197,7 @@ export class TrendsComponent implements OnInit {
             );
           }
           this.getParamsAndSort();
+          console.log(this.nftCollections);
           if (showmore) {
             document.body.scrollTop = 0; // For Safari
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera

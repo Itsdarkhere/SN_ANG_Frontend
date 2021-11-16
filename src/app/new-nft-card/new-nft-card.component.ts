@@ -1,6 +1,21 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, AfterViewInit, HostListener } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectorRef,
+  AfterViewInit,
+  HostListener,
+} from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
-import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../backend-api.service";
+import {
+  BackendApiService,
+  NFTBidEntryResponse,
+  NFTEntryResponse,
+  PostEntryResponse,
+  ProfileEntryResponse,
+} from "../backend-api.service";
 import { AppRoutingModule } from "../app-routing.module";
 import { Router } from "@angular/router";
 import { SwalHelper } from "../../lib/helpers/swal-helper";
@@ -98,16 +113,20 @@ export class NewNftCardComponent implements OnInit {
   @Input() containerModalRef: any = null;
   @Input() fromFeed = false;
   @Input() profileFeed = false;
+  @Input() loadProfile = false;
   // emits the PostEntryResponse
   @Output() postDeleted = new EventEmitter();
   // emits the UserBlocked event
   @Output() userBlocked = new EventEmitter();
   // emits the nftBidPLaced event
   @Output() nftBidPlaced = new EventEmitter();
+
   AppRoutingModule = AppRoutingModule;
   stakeAmount = 1;
   loggedInUserStakeAmount = 0;
   loggedInUserNextStakePayout = -1;
+  // I stripped the showcase so now we need to get the profileEntryResponse here
+  creatorProfile = ProfileEntryResponse;
   addingPostToGlobalFeed = false;
   repost: any;
   postContent: any;
@@ -202,6 +221,14 @@ export class NewNftCardComponent implements OnInit {
   ngOnInit() {
     if (!this.post.RepostCount) {
       this.post.RepostCount = 0;
+    }
+    // If its the marketplace we need to load profile, since its not included
+    if (this.loadProfile) {
+      this.backendApi
+        .GetSingleProfile(this.globalVars.localNode, this.postContent.PosterPublicKeyBase58Check, "")
+        .subscribe((res) => {
+          this.creatorProfile = res.Profile;
+        });
     }
     this.setMobileBasedOnViewport();
     this.setEmbedURLForPostContent();

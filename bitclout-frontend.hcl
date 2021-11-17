@@ -109,6 +109,7 @@ job "supernovas-frontend" {
         https://ik.imagekit.io
         https://i.imgur.com
         https://google-analytics.com
+        https://images.deso.org 
         https://images.bitclout.com 
         https://arweave.net
         https://*.arweave.net

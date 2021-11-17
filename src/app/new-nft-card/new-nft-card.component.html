@@ -194,18 +194,13 @@
                 *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID"
                 [ngClass]="{ 'for-feed': fromFeed }"
               >
-                <img
-                  (click)="openImgModal($event, postContent.ImageURLs[0])"
-                  data-toggle="modal"
-                  src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
-                />
+                <img data-toggle="modal" src="{{ mapImageURLs(postContent.ImageURLs[0]) }}" />
               </div>
             </ng-container>
             <ng-container *ngIf="!profileFeed">
               <div class="img-cover" [ngClass]="{ 'for-feed': fromFeed }">
                 <img
                   *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID"
-                  (click)="openImgModal($event, postContent.ImageURLs[0])"
                   data-toggle="modal"
                   src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
                 />
@@ -394,7 +389,6 @@
               [ngClass]="{ 'for-feed': fromFeed }"
             >
               <img
-                (click)="openImgModal($event, postContent.ImageURLs[0])"
                 data-toggle="modal"
                 src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
               />
@@ -404,7 +398,6 @@
             <div class="img-cover" [ngClass]="{ 'change-height-img-cover': isQuotedCard }">
               <img
                 *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID"
-                (click)="openImgModal($event, postContent.ImageURLs[0])"
                 data-toggle="modal"
                 src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
               />
@@ -578,7 +571,6 @@
                 [ngClass]="{ 'for-feed': fromFeed }"
               >
                 <img
-                  (click)="openImgModal($event, postContent.ImageURLs[0])"
                   data-toggle="modal"
                   src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
                 />
@@ -588,7 +580,6 @@
               <div class="img-cover" [ngClass]="{ 'for-feed': fromFeed }">
                 <img
                   *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID"
-                  (click)="openImgModal($event, postContent.ImageURLs[0])"
                   data-toggle="modal"
                   src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
                 />

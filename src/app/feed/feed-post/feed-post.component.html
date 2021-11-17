@@ -626,7 +626,7 @@
               )
             }}
           </span>
-          <!--showPlaceAbid was here as 'if' but it didnt work for creator-->
+          <!--showPlaceAbid was here as 'if' but it didnt work for creator globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5) : globalVars.nanosToDeSo(highBid, 5)-->
           <div class="val" *ngIf="availableSerialNumbers?.length > 0">
             {{
               highBid === 0 ? globalVars.nanosToUSD(this.nftMinBidAmountNanos, 2) : globalVars.nanosToUSD(highBid, 2)

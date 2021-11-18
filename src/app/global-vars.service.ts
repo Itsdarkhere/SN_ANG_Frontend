@@ -166,7 +166,7 @@ export class GlobalVarsService {
   isTestnet = false;
 
   // Whether or not to show the Verify phone number flow.
-  showPhoneNumberVerification = false;
+  showPhoneNumberVerification = true;
 
   // Whether or not to show the Buy DeSo with USD flow.
   showBuyWithUSD = false;

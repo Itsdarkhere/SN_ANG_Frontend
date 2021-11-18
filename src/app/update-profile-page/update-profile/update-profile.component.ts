@@ -9,7 +9,6 @@ import { environment } from "src/environments/environment";
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from "@angular/fire/storage";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
-import { map, finalize } from "rxjs/operators";
 
 export type ProfileUpdates = {
   usernameUpdate: string;
@@ -45,6 +44,12 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
   showSuccessMessage = false;
   successMessageTimeout: any;
 
+  profilePicturePromtOpen = false;
+
+  // Expanding menus
+  contactsOpen = false;
+  socialsOpen = false;
+  verificationOpen = false;
   // Used for storing firebase response
   profileData: any;
   // Used for storing input value changes
@@ -166,7 +171,9 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
       }
     }
   }
-
+  toggleProfilePicturePrompt() {
+    this.profilePicturePromtOpen = !this.profilePicturePromtOpen;
+  }
   founderRewardTooltip() {
     return (
       "When someone purchases your coin, a percentage of that " +

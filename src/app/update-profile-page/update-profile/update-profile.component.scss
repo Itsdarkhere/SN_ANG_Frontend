@@ -75,13 +75,7 @@ input[type=number] {
 }
 .contactsAccordion.expanded {
     //height: 200px;
-    min-height: 200px;
-    overflow: auto;
-    transition: all .3s ease;
-}
-.contactsAccordion.expanded.tall {
-    //height: 200px;
-    min-height: 400px;
+    min-height: 150px;
     overflow: auto;
     transition: all .3s ease;
 }

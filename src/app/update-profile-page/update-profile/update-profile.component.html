@@ -208,7 +208,7 @@
         >
           <div class="d-flex h-100 flex-start-center flex-column">
             <label class="font-weight-semiboldn mb-5px fs-18px">Contact details</label>
-            <p style="color: #9e9e9e" class="fs-13px">Email & Phone</p>
+            <p style="color: #9e9e9e" class="fs-13px">Email</p>
           </div>
           <div class="h-100 d-flex flex-center">
             <img
@@ -219,12 +219,12 @@
           </div>
         </button>
         <div
-          class="px-15px contactsAccordion disable-scrollbars"
-          [ngClass]="{ expanded: contactsOpen, tall: globalVars.showPhoneNumberVerification }"
+          class="px-15px contactsAccordion d-flex flex-column flex-start-center disable-scrollbars"
+          [ngClass]="{ expanded: contactsOpen }"
         >
-          <label class="mt-10px mb-5px fs-18px font-weight-semiboldn">E-mail</label>
+          <label class="mt-10px mb-0px fs-18px font-weight-semiboldn">Email</label>
           <p style="color: #9e9e9e" class="fs-13px">Your email address. No spam, ever.</p>
-          <div class="form-group pt-10px">
+          <div class="form-group mt-10px w-100">
             <input
               type="email"
               class="update-profile-input update-profile-input-oneliner-height fs-15px"
@@ -233,9 +233,6 @@
               (ngModelChange)="_validateEmail($event)"
             />
             <div class="fc-red fs-15px" *ngIf="invalidEmailEntered">Please enter a valid email address.</div>
-          </div>
-          <div *ngIf="globalVars.showPhoneNumberVerification" class="mt-20px max-width-update-profile">
-            <app-mobile-verification></app-mobile-verification>
           </div>
         </div>
         <button

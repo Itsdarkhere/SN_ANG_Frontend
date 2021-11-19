@@ -48,4 +48,51 @@
   </form>
 
   <div class="fs-10px">By proceeding, you agree to receive text messages from bitclout.com (standard rates apply)</div>
+  <button
+    (click)="sendVerificationText()"
+    [ngClass]="{ disabled: !phoneForm.valid, 'btn-loading': sendingPhoneNumberVerificationText }"
+    class="primary-button ml-10px"
+    style="width: 80px"
+  >
+    Verify
+  </button>
+  <div class="fs-18px">
+    Enter the 6 digit code sent to
+    {{ this.phoneNumber }}
+
+    <div class="mt-5px">
+      <a href="" (click)="resendVerificationCode($event)">Resend</a>
+      <i *ngIf="resentVerificationCode" class="far fa-check-circle fc-blue"></i>
+    </div>
+
+    <div *ngIf="sendPhoneNumberVerificationTextServerErrors.maxSendAttemptsReached" class="mt-5px fc-red fs-15px">
+      You've requested too many verification codes. Please wait 10 minutes and try again.
+    </div>
+  </div>
+
+  <form #f="ngForm" [formGroup]="verificationCodeForm" class="form-group pt-10px">
+    <input
+      class="form-control br-12px"
+      name="verificationCode"
+      formControlName="verificationCode"
+      (ngModelChange)="onVerificationCodeInputChanged()"
+    />
+
+    <div class="fc-red fs-15px">
+      <div *ngIf="submitPhoneNumberVerificationCodeServerErrors.invalidCode" class="mt-10px">
+        The code you entered is invalid. Please try again.
+      </div>
+      <div *ngIf="submitPhoneNumberVerificationCodeServerErrors.maxCheckAttemptsReached" class="mt-10px">
+        You've checked too many codes and hit a rate limit. Please wait 10 minutes and try again.
+      </div>
+    </div>
+  </form>
+  <button
+    (click)="submitVerificationCode()"
+    [ngClass]="{ disabled: !verificationCodeForm.valid, 'btn-loading': submittingPhoneNumberVerificationCode }"
+    class="primary-button ml-10px"
+    style="width: 80px"
+  >
+    Verify
+  </button>
 </div>

@@ -152,6 +152,9 @@
             class="update-profile-input w-100 resize-none fs-15px p-10px"
             rows="4"
             maxlength="512"
+            cdkTextareaAutosize
+            #textarea
+            #autosize="cdkTextareaAutosize"
           ></textarea>
           <div
             *ngIf="profileUpdateErrors.descriptionError"

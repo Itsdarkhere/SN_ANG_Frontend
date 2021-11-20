@@ -402,7 +402,7 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     this.ref = this.afStorage.ref(this.globalVars.loggedInUser?.PublicKeyBase58Check);
     this.task = this.ref.put(fileToUpload);
 
-    // load image again
+    // This is for cache busting, but idk if it even works
     this.loadBannerImage("buster23445");
   }
   getOnlyProfileSocials() {
@@ -446,7 +446,6 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
           .catch((err) => console.log(err))
       );
   }
-
   _readImageFileToProfilePicInput(file: Blob | File) {
     const reader = new FileReader();
     reader.readAsBinaryString(file);

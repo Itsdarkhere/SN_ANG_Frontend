@@ -188,6 +188,7 @@ import { MintPageComponent } from "./mint-page/mint-page.component";
 import { NewNftCardComponent } from "./new-nft-card/new-nft-card.component";
 import { OfflineInfoComponent } from "./offline-info/offline-info.component";
 import { MobileVerificationComponent } from './mobile-verification/mobile-verification.component';
+import { SignupPageComponent } from './signup-page/signup-page.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -355,6 +356,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     NewNftCardComponent,
     OfflineInfoComponent,
     MobileVerificationComponent,
+    SignupPageComponent,
   ],
   imports: [
     BrowserModule,

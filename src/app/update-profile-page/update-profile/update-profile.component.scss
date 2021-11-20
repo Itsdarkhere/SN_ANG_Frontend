@@ -129,9 +129,6 @@ input[type=number] {
     max-width: 280px;
     height: 50px;
 }
-.background-color-secondary {
-    background-color: var(--secondary) !important;
-}
 .update-profile-avatar-image {
     position: absolute;
     bottom: -50px;
@@ -190,9 +187,6 @@ input[type=number] {
     opacity: 0;
     background-color: rgba(0, 0, 0, 0.35);
     transition: all 0.1s linear;
-}
-.color-white {
-    color: white;
 }
 .banner-image-button {
     border-top-left-radius: 20px;

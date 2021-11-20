@@ -264,9 +264,7 @@
 .background-secondary {
     background-color: var(--secondary);
 }
-.electric-border {
-    border: 2px solid #2b79f5 !important;
-}
+
 .illuminate-color {
     color: #D0D0D0;
 }
@@ -540,9 +538,6 @@ input[type=number] {
     border-bottom-right-radius: 8px;
     background-color: #ECECEC;
 }
-.pointer-events-none {
-    pointer-events: none;
-}
 .mint-page-min-price {
     height: 7.5vh;
 }
@@ -778,9 +773,6 @@ input[type=number] {
 .username-nft-card {
     font-size: 13px !important;
     color: #525252;
-}
-.color-white {
-    color: white;
 }
 .fs-20px-im {
     font-size: 20px !important;

@@ -35,7 +35,7 @@
             <div class="d-flex flex-row mt-5px" (click)="showNotification()">
               <label class="mb-0px fs-10px cursor-pointer">NOTIFICATIONS</label>
               <label
-                class="mb-0px fs-10px ml-5px notification-amount cursor-pointer"
+                class="mb-0px fs-10px ml-5px notification-amount pointer-events-none"
                 *ngIf="globalVars.unreadNotifications > 0"
               >
                 {{ globalVars.unreadNotifications > 99 ? "99+" : globalVars.unreadNotifications }}

@@ -375,6 +375,9 @@ $green-font-color: #19b028;
 .w-100 {
     width: 100%;
 }
+.h-40 {
+    height: 40%;
+}
 .h-100 {
     height: 100%;
 }
@@ -447,15 +450,18 @@ $green-font-color: #19b028;
 .fs-25px {
     font-size: 25px;
 }
-
+.fs-28px {
+    font-size: 28px;
+}
 .fs-24px {
     font-size: 24px;
 }
-
 .fs-22px {
     font-size: 22px;
 }
-
+.color-white {
+    color: white;
+}
 .fs-20px {
     font-size: 20px;
 }
@@ -465,11 +471,23 @@ $green-font-color: #19b028;
 .fs-18px {
     font-size: 18px;
 }
-
+.electric-border {
+    border: 2px solid #2b79f5 !important;
+}
+.thick-electric-border {
+    border: 3px solid #2b79f5 !important;
+}
+.background-color-secondary {
+    background-color: var(--secondary) !important;
+}
 .fs-16px {
     font-size: 16px;
 }
-
+.button-only-text {
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
 .fs-15px {
     font-size: 15px;
 }
@@ -2721,12 +2739,27 @@ input.bs-timepicker-field {
     margin-left: 14px;
     font-size: 13px;
 }
+.pointer-events-none {
+    pointer-events: none;
+}
+.post-locable-content-inner {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    outline: none;
+}
 .black-rounded-button {
     box-shadow: 2.8181443214416504px 2.8181443214416504px 7.045360565185547px rgba(0, 0, 0, 0.25);
     border: 1px solid var(--text);
     border-radius: 30px;
     background: var(--text);
     color: var(--background);
+    &:disabled {
+        background-color: grey;
+        cursor: not-allowed;
+        label {
+            cursor: not-allowed;
+        }
+    }
 }
 .white-rounded-button {
     background: #ffffff;

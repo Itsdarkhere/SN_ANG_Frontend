@@ -19,8 +19,8 @@ import { AdminPageComponent } from "./admin-page/admin-page.component";
 import { ViewportScroller } from "@angular/common";
 import { filter } from "rxjs/operators";
 import { LandingPageComponent } from "./landing-page/landing-page.component";
+import { SignupPageComponent } from "./signup-page/signup-page.component";
 import { GetStarterDeSoPageComponent } from "./get-starter-deso-page/get-starter-deso-page.component";
-import { SignUpComponent } from "./sign-up/sign-up.component";
 import { PickACoinPageComponent } from "./pick-a-coin-page/pick-a-coin-page.component";
 import { DiamondPostsPageComponent } from "./diamond-posts-page/diamond-posts-page.component";
 import { TrendsPageComponent } from "./trends-page/trends-page.component";
@@ -51,6 +51,7 @@ class RouteNames {
   public static FOLLOWERS = "followers";
 
   public static ACTIVITY = "activity";
+  public static SIGNUP = "signup";
   public static MINT_PAGE = "mint";
   public static BROWSE = "browse";
   public static CREATORS = "creators";
@@ -65,7 +66,6 @@ class RouteNames {
   public static SELL_CREATOR = "sell";
   public static UPDATE_PROFILE = "update-profile";
   public static NOTIFICATIONS = "notifications";
-  public static SIGN_UP = "sign-up";
   public static NOT_FOUND = "404";
   public static POSTS = "posts";
   public static SEND_DESO = "send-deso";
@@ -90,6 +90,7 @@ class RouteNames {
 const routes: Routes = [
   { path: "", redirectTo: RouteNames.BROWSE, pathMatch: "full" },
   { path: RouteNames.ACTIVITY, component: ActivityComponent, pathMatch: "full" },
+  { path: RouteNames.SIGNUP, component: SignupPageComponent, pathMatch: "full" },
   { path: RouteNames.MINT_PAGE, component: MintPageComponent, pathMatch: "full" },
   { path: RouteNames.BROWSE, component: BrowsePageComponent, pathMatch: "full" },
   { path: RouteNames.CREATORS, component: CreatorsLeaderboardPageComponent, pathMatch: "full" },
@@ -99,7 +100,6 @@ const routes: Routes = [
   { path: RouteNames.PICK_A_COIN, component: PickACoinPageComponent, pathMatch: "full" },
   { path: RouteNames.INBOX_PREFIX, component: MessagesPageComponent, pathMatch: "full" },
   { path: RouteNames.REFERRALS, component: ReferralsComponent, pathMatch: "full" },
-  { path: RouteNames.SIGN_UP, component: SignUpComponent, pathMatch: "full" },
   { path: RouteNames.WALLET, component: WalletPageComponent, pathMatch: "full" },
   { path: RouteNames.UPDATE_PROFILE, component: UpdateProfilePageComponent, pathMatch: "full" },
   { path: RouteNames.NOTIFICATIONS, component: NotificationsPageComponent, pathMatch: "full" },

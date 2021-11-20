@@ -909,8 +909,8 @@ export class GlobalVarsService {
   flowRedirect(signedUp: boolean): void {
     if (signedUp) {
       // If this node supports phone number verification, go to step 3, else proceed to step 4.
-      const stepNum = this.showPhoneNumberVerification ? 3 : 4;
-      this.router.navigate(["/" + this.RouteNames.SIGN_UP], {
+      const stepNum = 2;
+      this.router.navigate(["/" + this.RouteNames.SIGNUP], {
         queryParams: { stepNum },
       });
     } else {

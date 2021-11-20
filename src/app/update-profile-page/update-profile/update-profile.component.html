@@ -312,6 +312,7 @@
               [(ngModel)]="this.website"
             />
           </div>
+          <p>{{ this.profileData?.creator }}</p>
         </div>
         <button
           *ngIf="!globalVars.loggedInUser.JumioFinishedTime"

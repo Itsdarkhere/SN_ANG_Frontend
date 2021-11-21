@@ -69,6 +69,7 @@ job "supernovas-frontend" {
       default-src 'self';
       connect-src 'self'
         supernovas.app:*
+        node.deso.org
         https://supernovas.app
         https://arweave.net 
         https://www.google-analytics.com

@@ -1,9 +1,10 @@
 export const environment = {
   production: true,
-  uploadImageHostname: "bitclout.com",
-  jumioEndpointHostname: "bitclout.com",
-  uploadVideoHostname: "bitclout.com",
+  uploadImageHostname: "node.deso.org",
+  jumioEndpointHostname: "node.deso.org",
+  uploadVideoHostname: "node.deso.org",
   identityURL: "https://identity.deso.org",
+
   supportEmail: "",
   dd: {
     apiKey: "DCEB26AC8BF47F1D7B4D87440EDCA6",

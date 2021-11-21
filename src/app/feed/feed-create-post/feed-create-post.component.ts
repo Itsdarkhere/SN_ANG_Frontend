@@ -415,6 +415,7 @@ export class FeedCreatePostComponent implements OnInit, AfterViewInit {
   }
 
   uploadVideo(file: File): void {
+    console.log("videoUpload");
     if (file.size > 4 * (1024 * 1024 * 1024)) {
       this.globalVars._alertError("File is too large. Please choose a file less than 4GB");
       return;

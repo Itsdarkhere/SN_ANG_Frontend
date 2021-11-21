@@ -468,6 +468,8 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
             instagram: typeof this.instagram === "undefined" ? this.profileData.instagram : this.instagram,
             name: typeof this.name === "undefined" ? this.profileData.name : this.name,
             photoLocation: this.photoLocation != "" ? this.photoLocation : this.profileData.photoLocation,
+            collector: this.profileData?.collector ? this.profileData?.collector : "",
+            creator: this.profileData?.creator ? this.profileData?.creator : "",
           })
           .then(
             (res) => {},
@@ -488,6 +490,8 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
           instagram: typeof this.instagram === "undefined" ? "" : this.instagram,
           name: typeof this.name === "undefined" ? "" : this.name,
           photoLocation: this.photoLocation,
+          collector: this.profileData?.collector ? this.profileData?.collector : "",
+          creator: this.profileData?.creator ? this.profileData?.creator : "",
         })
         .then(
           (res) => {},

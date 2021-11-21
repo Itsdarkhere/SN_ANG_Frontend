@@ -170,7 +170,7 @@ export class SignupPageComponent implements OnInit {
     this.globalVars.launchSignupFlow();
   }
   nextStep() {
-    if (this.stepNum === 1) {
+    if (this.stepNum === 2) {
       this.SendStepTwoEvent();
     }
     if (this.stepNum === 2 && !this.invalidEmailEntered) {
@@ -181,12 +181,11 @@ export class SignupPageComponent implements OnInit {
       this.updateProfileType();
       if (!this.globalVars.mobileVerified) {
         this.router.navigate([RouteNames.BROWSE]);
+      } else {
+        this.SendStepFourEvent();
       }
     }
     this.stepNum++;
-    if (this.stepNum === 4) {
-      this.SendStepThreeEvent();
-    }
   }
   creatorSelected() {
     this.creator = true;

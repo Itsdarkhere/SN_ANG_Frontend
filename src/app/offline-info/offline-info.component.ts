@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
 import { GoogleAnalyticsService } from "../google-analytics.service";
+import { RouteNames } from "../app-routing.module";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-offline-info",
@@ -8,22 +10,19 @@ import { GoogleAnalyticsService } from "../google-analytics.service";
   styleUrls: ["./offline-info.component.scss"],
 })
 export class OfflineInfoComponent implements OnInit {
-  constructor(public globalVars: GlobalVarsService, private analyticsService: GoogleAnalyticsService) {}
+  RouteNames = RouteNames;
+  constructor(
+    public globalVars: GlobalVarsService,
+    private analyticsService: GoogleAnalyticsService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
-  SendLoginEvent() {
-    this.analyticsService.eventEmitter("login", "engagement", "conversion", "click", 10);
-  }
-  SendSignUpEvent() {
-    this.analyticsService.eventEmitter("sign_up", "engagement", "conversion", "click", 10);
-  }
   login() {
-    this.globalVars.launchLoginFlow();
-    this.SendLoginEvent();
+    this.router.navigate(["/" + this.RouteNames.SIGNUP]);
   }
   signUp() {
-    this.globalVars.launchSignupFlow();
-    this.SendSignUpEvent();
+    this.router.navigate(["/" + this.RouteNames.SIGNUP]);
   }
 }

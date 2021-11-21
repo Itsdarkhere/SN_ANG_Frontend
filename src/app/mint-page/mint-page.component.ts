@@ -383,6 +383,9 @@ export class MintPageComponent implements OnInit {
         }
       );
   }
+  SendFailEvent() {
+    this.analyticsService.eventEmitter("ATMF " + this.postHashHex, "engagement", "conversion", "click", 10);
+  }
   // These two below are for adding straight to marketplace once minted, backend has been modified to fit this need
   dropNFT() {
     // Get the latest drop so that we can update it.
@@ -395,10 +398,7 @@ export class MintPageComponent implements OnInit {
       .subscribe(
         (res: any) => {
           if (res.DropEntry.DropTstampNanos == 0) {
-            this.globalVars._alertError(
-              "NFT Minted but adding to marketplace failed, contact Supernovas team for assistance."
-            );
-            return;
+            this.SendFailEvent();
           }
 
           this.addNFTToLatestDrop(res.DropEntry, this.postHashHex);

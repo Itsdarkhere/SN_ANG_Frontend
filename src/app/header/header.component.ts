@@ -67,7 +67,12 @@ export class HeaderComponent implements OnInit {
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
   }
-
+  login() {
+    this.router.navigate(["/" + this.globalVars.RouteNames.SIGNUP]);
+  }
+  signUp() {
+    this.router.navigate(["/" + this.globalVars.RouteNames.SIGNUP]);
+  }
   @HostListener("window:resize")
   onResize() {
     this.setMobileBasedOnViewport();
@@ -100,20 +105,6 @@ export class HeaderComponent implements OnInit {
   }
   clickOutside() {
     this.isNotificationOpen = false;
-  }
-  SendLoginEvent() {
-    this.analyticsService.eventEmitter("login", "engagement", "conversion", "click", 10);
-  }
-  SendSignUpEvent() {
-    this.analyticsService.eventEmitter("sign_up", "engagement", "conversion", "click", 10);
-  }
-  login() {
-    this.globalVars.launchLoginFlow();
-    this.SendLoginEvent();
-  }
-  signUp() {
-    this.globalVars.launchSignupFlow();
-    this.SendSignUpEvent();
   }
   hasProfile() {
     if (this.globalVars?.loggedInUser?.ProfileEntryResponse?.Username) {

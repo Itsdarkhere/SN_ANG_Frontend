@@ -4,6 +4,7 @@ import { CountryISO } from "ngx-intl-tel-input";
 import { GlobalVarsService } from "../global-vars.service";
 import { BackendApiService } from "../backend-api.service";
 import { MessagesInboxComponent } from "../messages-page/messages-inbox/messages-inbox.component";
+import { animate, style, transition, trigger } from "@angular/animations";
 
 @Component({
   selector: "app-mobile-verification",
@@ -32,6 +33,7 @@ export class MobileVerificationComponent implements OnInit {
   CountryISO = CountryISO;
   sendingPhoneNumberVerificationText = false;
   submittingPhoneNumberVerificationCode = false;
+  verificationStep = false;
   screenToShow = null;
   //screenToShow = SignUpGetStarterDeSoComponent.SUBMIT_PHONE_NUMBER_VERIFICATION_SCREEN;
   SignUpGetStarterDeSoComponent = MobileVerificationComponent;
@@ -64,7 +66,6 @@ export class MobileVerificationComponent implements OnInit {
       clearInterval(interval);
     }, 50);
   }
-
   backToPreviousSignupStepOnClick() {
     this.backToPreviousSignupStepClicked.emit();
   }
@@ -77,11 +78,10 @@ export class MobileVerificationComponent implements OnInit {
     if (this.phoneForm.invalid) {
       return;
     }
-
+    this.verificationStep = true;
     this.globalVars.logEvent("account : create : send-verification-text");
     this._sendPhoneNumberVerificationText();
   }
-
   resendVerificationCode(event) {
     event.stopPropagation();
     event.preventDefault();
@@ -209,6 +209,7 @@ export class MobileVerificationComponent implements OnInit {
             this
           );
           this.globalVars.logEvent("account : create : submit-verification-code: success");
+          this.globalVars.mobileVerified = true;
         },
         (err) => {
           this._parseSubmitPhoneNumberVerificationCodeServerErrors(err);

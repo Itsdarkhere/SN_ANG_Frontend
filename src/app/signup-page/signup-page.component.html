@@ -10,13 +10,13 @@
       *ngIf="stepNum === 1 || !globalVars.loggedInUser?.PublicKeyBase58Check"
       class="singup-center d-flex flex-column flex-center"
     >
-      <label class="font-weight-semiboldn fs-32px text-align-center">Connect with Deso Identity</label>
-      <label style="color: #666666" class="fs-22px mt-20px max-width-445px text-align-center">
+      <label class="font-weight-semiboldn text-align-center header-font-rezising">Connect with Deso Identity</label>
+      <label style="color: #666666" class="subheading-font-resizing mt-20px max-width-445px text-align-center">
         You’ll be able to use your Deso Identity to interact with Supernovas.
       </label>
       <button
         (click)="signUp()"
-        class="signup-main-button d-flex flex-center flex-row fs-28px mt-30px font-weight-semibold"
+        class="signup-main-button d-flex flex-center flex-row subheading-font-resizing mt-30px font-weight-semibold"
       >
         <img class="logo-height-main-button mr-20px" src="assets/deso/logo-cropped.png" alt="deso logo" />
         <p class="color-white">Connect with Deso</p>
@@ -25,6 +25,47 @@
     <div
       *ngIf="
         stepNum === 2 &&
+        globalVars.loggedInUser?.PublicKeyBase58Check &&
+        !globalVars.loggedInUser?.ProfileEntryResponse?.Username
+      "
+      class="singup-center signup-center-height disable-scrollbars d-flex flex-column flex-center"
+    >
+      <div class="max-width-445px">
+        <label class="font-weight-semiboldn mb-0px mt-20px header-font-rezising text-align-center">
+          Set up your contact details
+        </label>
+        <div class="h-120px mt-20px">
+          <label class="fs-18px mb-0px font-weight-semiboldn">Email</label>
+          <p style="color: #969696" class="fs-13px font-weight-semibold">Your email address.</p>
+          <input
+            type="text"
+            class="signup-input mt-10px"
+            [(ngModel)]="emailAddress"
+            (ngModelChange)="_validateEmail($event)"
+            placeholder="Email"
+          />
+          <div class="fc-red mt-5px fs-15px" *ngIf="invalidEmailEntered">Please enter a valid email address.</div>
+        </div>
+        <label class="fs-18px mb-0px font-weight-semiboldn">Phone number</label>
+        <p style="color: #969696" class="fs-13px font-weight-semibold">
+          Verify your phone number and you will receive 0.01 $DESO for free!
+        </p>
+        <div class="mt-10px">
+          <app-mobile-verification></app-mobile-verification>
+        </div>
+        <div class="w-100 d-flex flex-center">
+          <button
+            (click)="nextStep()"
+            class="black-rounded-button mb-20px basic-button-size d-flex color-white flex-center flex-row fs-15px mt-30px font-weight-bold"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="
+        stepNum === 3 &&
         globalVars.loggedInUser?.PublicKeyBase58Check &&
         !globalVars.loggedInUser?.ProfileEntryResponse?.Username
       "
@@ -70,9 +111,12 @@
         Continue
       </button>
     </div>
+    <!--globalVars.loggedInUser?.PublicKeyBase58Check &&
+        (creator || collector) &&
+        !globalVars.loggedInUser?.ProfileEntryResponse?.Username-->
     <div
       *ngIf="
-        stepNum === 3 &&
+        stepNum === 4 &&
         globalVars.loggedInUser?.PublicKeyBase58Check &&
         (creator || collector) &&
         !globalVars.loggedInUser?.ProfileEntryResponse?.Username
@@ -80,54 +124,43 @@
       class="singup-center disable-scrollbars d-flex flex-column flex-center"
     >
       <div class="max-width-445px">
-        <h2 class="header-font-rezising w-100 text-align-center font-weight-semiboldn">Set up your profile</h2>
-        <label class="fs-18px mb-0px mt-20px font-weight-semiboldn">Username</label>
-        <p style="color: #969696" class="fs-13px font-weight-semibold">Please use only yada yada</p>
-        <input
-          type="text"
-          [(ngModel)]="usernameInput"
-          (ngModelChange)="_validateUsername($event)"
-          class="signup-input mt-10px"
-          placeholder="Username"
-        />
-        <div
-          *ngIf="profileUpdateErrors.usernameError"
-          [ngClass]="{ 'fc-red': profileUpdateErrors.usernameError }"
-          class="fs-13px font-italic mt-5px"
-        >
-          Please set a username
+        <h2 class="fs-32px h-120px text-align-center w-100 d-flex flex-center font-weight-semiboldn">
+          Complete your profile
+        </h2>
+        <div class="h-120px mt-20px">
+          <label class="fs-18px mb-10px font-weight-semiboldn">Username</label>
+          <p style="color: #969696" class="fs-13px font-weight-semibold">
+            Username must only use letters, numbers, or underscores
+          </p>
+          <input
+            type="text"
+            [(ngModel)]="usernameInput"
+            (ngModelChange)="_validateUsername($event)"
+            class="signup-input mt-10px"
+            placeholder="Username"
+          />
+          <div
+            *ngIf="profileUpdateErrors.usernameError"
+            [ngClass]="{ 'fc-red': profileUpdateErrors.usernameError }"
+            class="fs-13px font-italic mt-5px"
+          >
+            Please set a username
+          </div>
+          <div *ngIf="usernameValidationError" class="fc-error fs-13px ml-5px mt-5px">
+            {{ usernameValidationError }}
+          </div>
+          <div *ngIf="!usernameValidationError && usernameInput?.length > 0" class="fc-success fs-13px ml-5px mt-5px">
+            {{ usernameInput }} is available
+          </div>
         </div>
-        <div *ngIf="usernameValidationError" class="fc-error fs-13px ml-5px mt-5px">
-          {{ usernameValidationError }}
-        </div>
-        <div *ngIf="!usernameValidationError && usernameInput?.length > 0" class="fc-success fs-13px ml-5px mt-5px">
-          {{ usernameInput }} is available
-        </div>
-
-        <!--<label class="fs-18px mb-0px mt-20px font-weight-semiboldn">Email</label>
-        <p style="color: #969696" class="fs-13px font-weight-semibold">Your email address.</p>
-        <input type="text" class="signup-input mt-10px" placeholder="your_username" />-->
-        <label class="fs-18px mb-0px mt-20px font-weight-semiboldn">Phone number</label>
-        <p style="color: #969696" class="fs-13px font-weight-semibold">
-          Verify your phone number and you will receive 0.01 $DESO for free!
-        </p>
-        <div class="d-flex flex-center flex-row mt-10px">
-          <app-mobile-verification></app-mobile-verification>
-        </div>
-        <div class="w-100 d-flex flex-column flex-center">
+        <div class="w-100 mt-20px h-120px d-flex flex-column flex-center">
           <button
             (click)="_updateProfile()"
-            class="black-rounded-button basic-button-size d-flex color-white flex-center flex-row fs-15px mt-30px font-weight-bold"
+            [disabled]="usernameValidationError || usernameInput?.length === 0"
+            class="black-rounded-button basic-button-size d-flex color-white flex-center flex-row fs-15px font-weight-bold"
           >
             Create your profile
           </button>
-          <a
-            style="color: #969696"
-            class="mt-15px button-only-text"
-            [routerLink]="'/' + this.globalVars.RouteNames.BROWSE"
-          >
-            Finalize your profile later
-          </a>
         </div>
       </div>
     </div>

@@ -177,6 +177,9 @@ export class GlobalVarsService {
   // Whether or not to show the Jumio verification flow.
   showJumio = false;
 
+  // Weather or not to show Username insert in signup flow
+  mobileVerified = false;
+  
   // Whether or not this node comps profile creation.
   isCompProfileCreation = false;
 

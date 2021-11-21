@@ -1,9 +1,9 @@
-<div>
-  <form #f="ngForm" [formGroup]="phoneForm" class="form-group mt-10px">
-    <div class="d-flex flex-row">
+<div class="h-100px">
+  <form #f="ngForm" [formGroup]="phoneForm" class="form-group mt-5px">
+    <div class="mobile-verification-input-button">
       <ngx-intl-tel-input
         style="font-size: 15px !important"
-        [cssClass]="'form-control mobile-input sign-up__phone-input w-100'"
+        [cssClass]="'form-control mobile-input sign-up__phone-input'"
         [separateDialCode]="true"
         [enableAutoCountrySelect]="true"
         [enablePlaceholder]="true"
@@ -18,10 +18,11 @@
       ></ngx-intl-tel-input>
       <button
         (click)="sendVerificationText()"
-        [ngClass]="{ disabled: !phoneForm.valid, 'btn-loading': sendingPhoneNumberVerificationText }"
-        class="black-rounded-button small-button-size ml-10px fs-12px"
+        [ngClass]="{ disabled: !phoneForm.valid }"
+        class="white-rounded-button small-button-size ml-10px fs-12px"
       >
-        Verify phone
+        <label *ngIf="!sendingPhoneNumberVerificationText; else elseBlock" class="mb-0px pointer-events-none">Get verification code</label>
+        <ng-template #elseBlock><i class="fa fa-spinner fa-spin"></i></ng-template>
       </button>
     </div>
     <div class="fc-red fs-15px">
@@ -50,35 +51,29 @@
       </div>
     </div>
   </form>
-
-  <div class="fs-10px">By proceeding, you agree to receive text messages from bitclout.com (standard rates apply)</div>
-  <div class="fs-18px">
-    <!--<div class="mt-5px">
-      <a href="" (click)="resendVerificationCode($event)">Resend</a>
-      <i *ngIf="resentVerificationCode" class="far fa-check-circle fc-blue"></i>
-    </div>-->
-
-    <div *ngIf="sendPhoneNumberVerificationTextServerErrors.maxSendAttemptsReached" class="mt-5px fc-red fs-15px">
-      You've requested too many verification codes. Please wait 10 minutes and try again.
-    </div>
-  </div>
-
-  <form #f="ngForm" [formGroup]="verificationCodeForm" class="form-group pt-10px">
-    <div class="d-flex flex-row">
+  <form #f="ngForm" [formGroup]="verificationCodeForm" class="form-group mt-5px">
+    <div class="mobile-verification-input-button">
       <input
-        class="form-control mobile-input"
+        class="form-control mobile-input w-259px"
         name="verificationCode"
         formControlName="verificationCode"
         placeholder="Verification code"
         (ngModelChange)="onVerificationCodeInputChanged()"
       />
-      <button
-        (click)="submitVerificationCode()"
-        [ngClass]="{ disabled: !verificationCodeForm.valid, 'btn-loading': submittingPhoneNumberVerificationCode }"
-        class="black-rounded-button small-button-size ml-10px fs-12px"
-      >
-        Confirm
-      </button>
+      <div class="d-flex flex-column flex-center">
+        <button
+          (click)="submitVerificationCode()"
+          [ngClass]="{ disabled: !verificationCodeForm.valid }"
+          class="black-rounded-button small-button-size ml-10px fs-12px"
+        >
+          <label *ngIf="!submittingPhoneNumberVerificationCode; else elseBlock" class="mb-0px pointer-events-none">Verify your phone</label>
+          <ng-template #elseBlock><i class="fa fa-spinner fa-spin"></i></ng-template>
+        </button>
+        <div *ngIf="false" class="mt-5px">
+          <a href="" style="color: #7C7C7C" class="fs-12px" (click)="resendVerificationCode($event)">Resend</a>
+          <i *ngIf="resentVerificationCode" class="far fa-check-circle fc-blue"></i>
+        </div>
+      </div>
     </div>
     <div class="fc-red fs-15px">
       <div *ngIf="submitPhoneNumberVerificationCodeServerErrors.invalidCode" class="mt-10px">
@@ -89,4 +84,12 @@
       </div>
     </div>
   </form>
+  <div *ngIf="false" class="fs-10px">
+    By proceeding, you agree to receive text messages from bitclout.com (standard rates apply)
+  </div>
+  <div class="fs-18px">
+    <div *ngIf="sendPhoneNumberVerificationTextServerErrors.maxSendAttemptsReached" class="mt-5px fc-red fs-15px">
+      You've requested too many verification codes. Please wait 10 minutes and try again.
+    </div>
+  </div>
 </div>

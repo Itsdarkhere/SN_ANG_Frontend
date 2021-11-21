@@ -37,6 +37,8 @@ export class SignupPageComponent implements OnInit {
   founderRewardInput: number = 100;
   loggedInUserPublicKey = "";
   profileCardUrl: any = "";
+  emailAddress = "";
+  invalidEmailEntered = false;
   uploadProgress: Observable<number>;
   usernameValidationError: string;
   profileUpdates: ProfileUpdates = {
@@ -65,6 +67,28 @@ export class SignupPageComponent implements OnInit {
   }
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
+  }
+  _validateEmail(email) {
+    if (email === "" || this.globalVars.emailRegExp.test(email)) {
+      this.invalidEmailEntered = false;
+    } else {
+      this.invalidEmailEntered = true;
+    }
+  }
+  _updateEmail() {
+    this.backendApi
+      .UpdateUserGlobalMetadata(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check /*UpdaterPublicKeyBase58Check*/,
+        this.emailAddress /*EmailAddress*/,
+        null /*MessageReadStateUpdatesByContact*/
+      )
+      .subscribe(
+        (res) => {},
+        (err) => {
+          // Analytics this
+        }
+      );
   }
   urlToObject = async () => {
     const response = await fetch("/assets/img/default_profile_pic.png");
@@ -106,7 +130,7 @@ export class SignupPageComponent implements OnInit {
   }
   _validateUsername(username) {
     if (username === "") {
-      return
+      return;
     }
     this.usernameValidationError = null;
     // Make sure username matches acceptable pattern
@@ -144,8 +168,14 @@ export class SignupPageComponent implements OnInit {
     this.globalVars.launchSignupFlow();
   }
   nextStep() {
-    if (this.stepNum === 2) {
+    if (this.stepNum === 2 && !this.invalidEmailEntered) {
+      this._updateEmail();
+    }
+    if (this.stepNum === 3) {
       this.updateProfileType();
+      if (!this.globalVars.mobileVerified) {
+        this.router.navigate([RouteNames.BROWSE]);
+      }
     }
     this.stepNum++;
   }
@@ -261,25 +291,7 @@ export class SignupPageComponent implements OnInit {
     comp.globalVars.celebrate();
     comp.updateProfileBeingCalled = false;
     comp.profileUpdated = true;
-    if (comp.globalVars.loggedInUser.UsersWhoHODLYouCount === 0) {
-      SwalHelper.fire({
-        target: comp.globalVars.getTargetComponentSelector(),
-        title: "You’re all set!",
-        showConfirmButton: true,
-        focusConfirm: true,
-        customClass: {
-          confirmButton: "creator-coin-button",
-        },
-        text: `Your profile has been updated.`,
-        confirmButtonText: "Go to my profile",
-      }).then((res) => {
-        if (res.isConfirmed) {
-          comp.router.navigate([
-            AppRoutingModule.profilePath(comp.globalVars.loggedInUser.ProfileEntryResponse.Username),
-          ]);
-        }
-      });
-    }
+    comp.router.navigate([AppRoutingModule.profilePath(comp.globalVars.loggedInUser.ProfileEntryResponse.Username)]);
   }
 
   _updateProfileFailure(comp: SignupPageComponent) {

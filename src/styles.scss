@@ -2755,16 +2755,27 @@ input.bs-timepicker-field {
     color: var(--background);
     &:disabled {
         background-color: grey;
+        border: 1px solid grey;
         cursor: not-allowed;
         label {
             cursor: not-allowed;
         }
     }
 }
+.black-rounded-button.disabled {
+    background-color: grey;
+    border: 1px solid grey;
+    cursor: not-allowed;
+}
 .white-rounded-button {
     background: #ffffff;
     border: 3.309523582458496px solid #3c3c3c;
     border-radius: 30px;
+}
+.white-rounded-button.disabled {
+    border: 3.309523582458496px solid grey;
+    color: grey;
+    cursor: not-allowed;
 }
 .notifications__icon {
     margin-right: 14px;

@@ -401,7 +401,7 @@ export class MintPageComponent implements OnInit {
             return;
           }
 
-          //this.addNFTToLatestDrop(res.DropEntry, this.postHashHex);
+          this.addNFTToLatestDrop(res.DropEntry, this.postHashHex);
         },
         (error) => {
           this.globalVars._alertError(error.error.error);

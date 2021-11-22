@@ -394,18 +394,20 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
       this.globalVars._alertError("Please upload an image that is smaller than 5MB.");
       return;
     }
+    // Make banner image the default image
+    console.log(fileToUpload);
+    document.getElementById("banner-image").setAttribute("src", "./assets/img/default-cover.png");
     // Random key for image, for cache busting
     //this.photoLocation = (Math.random() + 1).toString(36).substring(7);
-
-    // Store image location into db
-    //this.updateSocials();
 
     // Here store the image itself
     this.ref = this.afStorage.ref(this.globalVars.loggedInUser?.PublicKeyBase58Check);
     this.task = this.ref.put(fileToUpload);
 
     // This is for cache busting, but idk if it even works
-    this.loadBannerImage("buster23445");
+    setTimeout(() => {
+      this.loadBannerImage();
+    }, 500);
   }
   getOnlyProfileSocials() {
     return this.firestore
@@ -414,16 +416,15 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
       .valueChanges()
       .subscribe((res) => (this.profileData = res));
   }
-  async loadBannerImage(cacheBust: string = "") {
+  async loadBannerImage() {
     try {
       this.afStorage
         .ref(this.loggedInUser?.PublicKeyBase58Check)
         .getDownloadURL()
-        .toPromise()
-        .then(function (url) {
+        .subscribe(function (url) {
           url = url.replace(
             "https://firebasestorage.googleapis.com",
-            "https://ik.imagekit.io/s93qwyistj0/banner-image/tr:w-915,h-250" + cacheBust
+            "https://ik.imagekit.io/s93qwyistj0/banner-image/tr:w-915,h-250"
           );
           document.getElementById("banner-image").setAttribute("src", url);
           this.profileCardUrl = url;

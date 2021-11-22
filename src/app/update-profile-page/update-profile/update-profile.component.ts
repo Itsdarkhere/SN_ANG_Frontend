@@ -288,7 +288,7 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     this.updateSocials();
 
     // update Email
-    if (!this.invalidEmailEntered) {
+    if (!this.invalidEmailEntered && this.emailAddress != "") {
       this._updateEmail();
     }
 

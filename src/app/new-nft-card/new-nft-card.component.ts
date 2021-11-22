@@ -139,6 +139,7 @@ export class NewNftCardComponent implements OnInit {
   _blocked: boolean;
   constructedEmbedURL: any;
   showPlaceABid: boolean;
+  isForSale: boolean;
   highBid: number = null;
   lowBid: number = null;
   minBid: number = null;
@@ -199,6 +200,7 @@ export class NewNftCardComponent implements OnInit {
             nftEntryResponse.OwnerPublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
         );
         this.showPlaceABid = !!(this.availableSerialNumbers.length - this.myAvailableSerialNumbers.length);
+        this.isForSale = this.availableSerialNumbers.length > 0;
         this.highBid = _.maxBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
         this.lowBid = _.minBy(this.availableSerialNumbers, "HighestBidAmountNanos")?.HighestBidAmountNanos || 0;
         this.minBid = _.maxBy(this.availableSerialNumbers, "MinBidAmountNanos")?.MinBidAmountNanos || 0;

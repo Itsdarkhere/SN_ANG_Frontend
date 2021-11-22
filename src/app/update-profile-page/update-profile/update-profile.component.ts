@@ -288,7 +288,9 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     this.updateSocials();
 
     // update Email
-    this._updateEmail();
+    if (!this.invalidEmailEntered) {
+      this._updateEmail();
+    }
 
     const hasErrors = this._setProfileErrors();
     if (hasErrors) {
@@ -472,7 +474,10 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
             creator: this.profileData?.creator ? this.profileData?.creator : "",
           })
           .then(
-            (res) => {},
+            (res) => {
+              console.log(res);
+              console.log(this.photoLocation);
+            },
             (err) => reject(err)
           );
       });

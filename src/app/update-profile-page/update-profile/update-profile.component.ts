@@ -395,7 +395,6 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
       return;
     }
     // Make banner image the default image
-    console.log(fileToUpload);
     document.getElementById("banner-image").setAttribute("src", "./assets/img/default-cover.png");
     // Random key for image, for cache busting
     //this.photoLocation = (Math.random() + 1).toString(36).substring(7);

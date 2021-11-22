@@ -406,7 +406,7 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     // This is for cache busting, but idk if it even works
     setTimeout(() => {
       this.loadBannerImage();
-    }, 500);
+    }, 2500);
   }
   getOnlyProfileSocials() {
     return this.firestore

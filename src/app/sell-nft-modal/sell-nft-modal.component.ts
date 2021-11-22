@@ -85,7 +85,6 @@ export class SellNftModalComponent implements OnInit {
       .pipe(last((res) => res))
       .subscribe(
         (res) => {
-          this.SendSoldEvent();
           // Hide this modal and open the next one.
           this.bsModalRef.hide();
           this.modalService.show(NftSoldModalComponent, {
@@ -93,6 +92,7 @@ export class SellNftModalComponent implements OnInit {
             initialState: { post: this.post },
           });
           this.modalService.setDismissReason("nft sold");
+          this.SendSoldEvent();
         },
         (err) => {
           console.error(err);

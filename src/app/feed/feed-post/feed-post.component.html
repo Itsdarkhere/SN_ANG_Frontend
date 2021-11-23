@@ -13,7 +13,7 @@
 
      - market-feed component -->
 <div
-  class="d-flex flex-column mobile_feed_post"
+  class="d-flex m-w-100px flex-column mobile_feed_post"
   [ngClass]="{
     'br-12px': setBorder || cardStyle,
     'js-feed-post-hover': hoverable,
@@ -294,10 +294,9 @@
                 src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
               />
             </div>
-
             <!-- Video -->
             <div
-              *ngIf="postContent.VideoURLs && postContent.VideoURLs[0] && !post.ParentStakeID"
+              *ngIf="postContent.VideoURLs && showNFTOwnerInfo && postContent.VideoURLs[0] && !post.ParentStakeID"
               class="feed-post__video-container"
               [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
             >

@@ -204,6 +204,15 @@
                   data-toggle="modal"
                   src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
                 />
+                <iframe
+                  *ngIf="
+                    !postContent.ImageURLs && postContent.VideoURLs && postContent.VideoURLs[0] && !post.ParentStakeID
+                  "
+                  [src]="postContent.VideoURLs[0] | sanitizeVideoUrl"
+                  allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                  class="video-iframe"
+                  allowfullscreen
+                ></iframe>
               </div>
             </ng-container>
             <ng-container *ngIf="quotedContent?.IsNFT && profileFeed">
@@ -388,10 +397,7 @@
               *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID"
               [ngClass]="{ 'for-feed': fromFeed }"
             >
-              <img
-                data-toggle="modal"
-                src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
-              />
+              <img data-toggle="modal" src="{{ mapImageURLs(postContent.ImageURLs[0]) }}" />
             </div>
           </ng-container>
           <ng-container *ngIf="!profileFeed">
@@ -401,6 +407,15 @@
                 data-toggle="modal"
                 src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
               />
+              <iframe
+                *ngIf="
+                  !postContent.ImageURLs && postContent.VideoURLs && postContent.VideoURLs[0] && !post.ParentStakeID
+                "
+                [src]="postContent.VideoURLs[0] | sanitizeVideoUrl"
+                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                class="video-iframe"
+                allowfullscreen
+              ></iframe>
             </div>
           </ng-container>
           <ng-container *ngIf="quotedContent?.IsNFT && profileFeed">
@@ -570,10 +585,7 @@
                 *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID"
                 [ngClass]="{ 'for-feed': fromFeed }"
               >
-                <img
-                  data-toggle="modal"
-                  src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
-                />
+                <img data-toggle="modal" src="{{ mapImageURLs(postContent.ImageURLs[0]) }}" />
               </div>
             </ng-container>
             <ng-container *ngIf="!profileFeed">
@@ -583,6 +595,15 @@
                   data-toggle="modal"
                   src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
                 />
+                <iframe
+                  *ngIf="
+                    !postContent.ImageURLs && postContent.VideoURLs && postContent.VideoURLs[0] && !post.ParentStakeID
+                  "
+                  [src]="postContent.VideoURLs[0] | sanitizeVideoUrl"
+                  allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                  class="video-iframe"
+                  allowfullscreen
+                ></iframe>
               </div>
             </ng-container>
             <ng-container *ngIf="quotedContent?.IsNFT && profileFeed">
@@ -640,7 +661,10 @@
                 </div>
                 <div class="d-flex flex-column">
                   <p class="creator-text-nft-card font-weight-bold">CREATOR</p>
-                  <a class="username-nft-card font-weight-bold" [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, postContent.ProfileEntryResponse.Username]">
+                  <a
+                    class="username-nft-card font-weight-bold"
+                    [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, postContent.ProfileEntryResponse.Username]"
+                  >
                     {{ postContent.ProfileEntryResponse.Username }}
                     <i
                       *ngIf="postContent.ProfileEntryResponse.IsVerified"

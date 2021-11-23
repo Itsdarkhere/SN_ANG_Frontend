@@ -6,7 +6,6 @@ import { GlobalVarsService } from "../../global-vars.service";
 import { InfiniteScroller } from "../../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { uniqBy } from "lodash";
-import { filter, switchMap } from "rxjs/operators";
 import { FunctionPassService } from "src/app/function-pass.service";
 
 @Component({

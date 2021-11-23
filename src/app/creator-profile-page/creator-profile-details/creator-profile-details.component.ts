@@ -219,7 +219,7 @@ export class CreatorProfileDetailsComponent implements OnInit {
         .then(function (url) {
           url = url.replace(
             "https://firebasestorage.googleapis.com",
-            "https://ik.imagekit.io/s93qwyistj0/banner-image/tr:w-915,h-250"
+            "https://ik.imagekit.io/s93qwyistj0/banner-image/tr:w-975,h-250"
           );
 
           document.getElementById("banner-image").setAttribute("src", url);

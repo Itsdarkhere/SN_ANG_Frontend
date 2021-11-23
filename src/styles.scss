@@ -1616,6 +1616,12 @@ input.bs-timepicker-field {
         width: 100%;
     }
 }
+.global__center__width__no_padding {
+    width: $global__center__width;
+    @media (max-width: 1170px) {
+        width: 100%;
+    }
+}
 @media (min-width: 1000px) {
     .settings-width-max {
         max-width: 700px;
@@ -4314,150 +4320,6 @@ option {
 .justify-content-space-between {
     justify-content: space-between !important;
 }
-// .single-card {
-//     box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1);
-//     border-radius: 4px;
-//     transition: .2s;
-//     position: relative;
-//     &:hover {
-//         transform: translateY(-2px);
-//     }
-//     .card-header {
-//         display: flex;
-//         align-items: center;
-//         justify-content: flex-start;
-//         background: transparent;
-//         padding: 10px;
-//         .profile-img {
-//             width: 25px;
-//             height: 25px;
-//             margin-right: 10px;
-//             a {
-//                 width: 25px;
-//                 height: 25px;
-//                 display: block;
-//                 background-position: center;
-//                 background-size: cover;
-//                 border-radius: 50%;
-//             }
-//         }
-//         h6 {
-//             display: flex;
-//             align-items: center;
-//             font-size: 13px;
-//             font-weight: bold;
-//         }
-//         .value-buy-cover {
-//             display: inline-block;
-//             padding: 4px 6px;
-//             border-radius: 15px;
-//             background: var(--border);
-//             margin-left: 15px;
-//             font-size: 10px;
-//         }
-//     }
-//     .card-body {
-//         padding: 0px;
-//         .img-cover {
-//             width: 100%;
-//             height: 216px;
-//             display: flex;
-//             align-items: center;
-//             justify-content: center;
-//             background: var(--secondary);
-//             @media screen and (max-width: 767px) {
-//                 height: 304px !important;
-//             }
-//             img {
-//                 width: auto;
-//                 height: auto;
-//                 max-width: 100%;
-//                 max-height: 100%;
-//             }
-//         }
-//         .caption-cover {
-//             padding: 10px 12px;
-//             height: 50px;
-//             overflow: hidden;
-//             text-overflow: ellipsis;
-//             p {
-//                 font-size: 13px;
-//             }
-//         }
-//         // .bid-cover {
-//         //     display: flex;
-//         //     align-items: center;
-//         //     justify-content: space-between;
-//         //     flex-direction: column;
-//         //     background: var(--button);
-//         //     padding: 10px 12px;
-//         //     border-radius: 0px 0px 10px 10px;
-//         //     color: #ffffff;
-//         //     min-height: 88px;
-//         //     .bid-row {
-//         //         display: flex;
-//         //         align-items: center;
-//         //         justify-content: space-between;
-//         //         flex-direction: row;
-//         //         background: var(--button);
-//         //         padding: 10px 12px;
-//         //         border-radius: 0px 0px 10px 10px;
-//         //         color: #ffffff;
-//         //         .bid-col {
-//         //             display: flex;
-//         //             flex-direction: column;
-//         //             justify-content: center;
-//         //             p {
-//         //                 color: var(--background);
-//         //                 font-size: 12px;
-//         //                 &:first-child {
-//         //                     margin-bottom: 5px;
-//         //                 }
-//         //             }
-//         //         }
-//         //     }
-//         //     .btn-place-a-bid {
-//         //         color: var(--button);
-//         //         font-size: 12px;
-//         //         font-weight: bold;
-//         //         white-space: nowrap;
-//         //         padding: 8px 10px !important;
-//         //     }
-//         // }
-//     }
-//     .card-footer {
-//         background: transparent;
-//         border: none;
-//         padding: 5px 12px 8px;
-//         .row-1 {
-//             padding: 10px 0px;
-//             display: flex;
-//             align-items: center;
-//             justify-content: space-between;
-//             border-top: 1px solid var(--border);
-//             border-bottom: 1px solid var(--border);
-//             h6 {
-//                 font-size: 10px;
-//                 span {
-//                     font-weight: bold;
-//                 }
-//             }
-//         }
-//         .row-2 {
-//             padding-top: 10px;
-//             display: flex;
-//             align-items: center;
-//             justify-content: space-evenly;
-//             .icon-cover {
-//                 display: flex;
-//                 align-items: center;
-//                 span {
-//                     font-size: 11px;
-//                 }
-//             }
-//         }
-//     }
-// }
 .single-card.feed-post__quoted-content {
     box-shadow: none !important;
     border-radius: 12px !important;

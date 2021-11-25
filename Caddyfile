@@ -45,6 +45,7 @@ header @html Content-Security-Policy "
     api.bitclout.navy
     api.testwyre.com
     api.sendwyre.com
+    https://node1.bundlr.network
     https://videodelivery.net
     https://upload.videodelivery.net;
   script-src 'self'

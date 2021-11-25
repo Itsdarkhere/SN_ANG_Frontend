@@ -79,6 +79,7 @@ job "supernovas-frontend" {
         bithunt.bitclout.com
         pulse.bitclout.com
         explorer.bitclout.com:*
+        https://node1.bundlr.network
         https://api.blockchain.com/ticker
         https://api.blockchain.com/mempool/fees
         https://ka-f.fontawesome.com/

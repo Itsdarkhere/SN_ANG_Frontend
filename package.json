@@ -15,6 +15,12 @@
   "browserslist": [
     "> 5%"
   ],
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false,
+    "zlib": false
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~11.2.12",
@@ -27,6 +33,7 @@
     "@angular/platform-browser": "^11.2.12",
     "@angular/platform-browser-dynamic": "^11.2.12",
     "@angular/router": "^11.2.12",
+    "@bundlr-network/client": "^0.1.8",
     "@ethereumjs/common": "^2.5.0",
     "@ethereumjs/tx": "^3.3.2",
     "@ethereumjs/vm": "^5.5.3",
@@ -42,9 +49,9 @@
     "crypto": "^1.0.1",
     "crypto-browserify": "^3.12.0",
     "currency-symbol-map": "^5.0.1",
+    "ethereumjs-util": "^7.1.2",
     "file-system": "^2.2.2",
     "firebase": "7.8",
-    "ethereumjs-util": "^7.1.2",
     "fs": "0.0.1-security",
     "google-libphonenumber": "^3.2.16",
     "hash-base": "^3.0.4",

@@ -10,6 +10,8 @@ import { CloudflareStreamService } from "../../lib/services/stream/cloudflare-st
 import { BsModalService } from "ngx-bootstrap/modal";
 import { CommentModalComponent } from "../comment-modal/comment-modal.component";
 import { GoogleAnalyticsService } from "../google-analytics.service";
+import { ArweaveJsService } from "../arweave-js.service";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-mint-page",
@@ -95,6 +97,7 @@ export class MintPageComponent implements OnInit {
 
   constructor(
     private analyticsService: GoogleAnalyticsService,
+    private arweave: ArweaveJsService,
     private router: Router,
     private globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
@@ -111,77 +114,36 @@ export class MintPageComponent implements OnInit {
   }
   _handleFilesInput(files: FileList): void {
     const fileToUpload = files.item(0);
-    this._handleFileInput(fileToUpload);
+    this.handleFileInput(fileToUpload);
   }
-  _handleFileInput(file: File): void {
-    if (!file) {
+  handleFileInput(file: File) {
+    if (!file.type || !file.type.startsWith("image/")) {
+      this.globalVars._alertError("File selected does not have an image file type.");
       return;
     }
-    if (!file.type || (!file.type.startsWith("image/") && !file.type.startsWith("video/"))) {
-      this.globalVars._alertError("File selected does not have an image or video file type.");
-    } else if (file.type.startsWith("video/")) {
-      this.uploadVideo(file);
-    } else if (file.type.startsWith("image/")) {
-      this.uploadImage(file);
+    if (file.size > 1024 * 1024 * 1024) {
+      this.globalVars._alertError("File is too large. Please choose a file of a size less than 1GB");
+      return;
     }
-  }
+    this.isUploading = true;
 
+    this.arweave.UploadImage(file).subscribe(
+      (res) => {
+        let url = "https://arweave.net/" + res;
+        this.postImageSrc = url;
+        this.postVideoSrc = null;
+        this.isUploading = false;
+        this.isUploaded = this.postImageSrc.length > 0;
+      },
+      (err) => {
+        this.isUploading = false;
+        this.isUploaded = false;
+        this.globalVars._alertError("Failed to upload image to arweave: " + err.message);
+      }
+    );
+  }
   arweaveClick() {
     this.arweaveClicked = true;
-  }
-  uploadVideo(file: File): void {
-    this.globalVars._alertError("Video has not been enabled...");
-    return;
-
-    if (file.size > 4 * (1024 * 1024 * 1024)) {
-      this.globalVars._alertError("File is too large. Please choose a file less than 4GB");
-      return;
-    }
-    let upload: tus.Upload;
-    let mediaId = "";
-    const comp: MintPageComponent = this;
-    const options = {
-      endpoint: this.backendApi._makeRequestURL(environment.uploadVideoHostname, BackendRoutes.RoutePathUploadVideo),
-      chunkSize: 50 * 1024 * 1024, // Required a minimum chunk size of 5MB, here we use 50MB.
-      uploadSize: file.size,
-      onError: function (error) {
-        comp.globalVars._alertError(error.message);
-        upload.abort(true).then(() => {
-          throw error;
-        });
-      },
-      onProgress: function (bytesUploaded, bytesTotal) {
-        comp.videoUploadPercentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2);
-      },
-      onSuccess: function () {
-        // Construct the url for the video based on the videoId and use the iframe url.
-        comp.postVideoSrc = `https://iframe.videodelivery.net/${mediaId}`;
-        comp.postImageSrc = null;
-        comp.videoUploadPercentage = null;
-        comp.pollForReadyToStream();
-      },
-      onAfterResponse: function (req, res) {
-        return new Promise((resolve) => {
-          // The stream-media-id header is the video Id in Cloudflare's system that we'll need to locate the video for streaming.
-          let mediaIdHeader = res.getHeader("stream-media-id");
-          if (mediaIdHeader) {
-            mediaId = mediaIdHeader;
-          }
-          resolve(res);
-        });
-      },
-    };
-    // Clear the interval used for polling cloudflare to check if a video is ready to stream.
-    if (this.videoStreamInterval != null) {
-      clearInterval(this.videoStreamInterval);
-    }
-    // Reset the postVideoSrc and readyToStream values.
-    this.postVideoSrc = null;
-    this.readyToStream = false;
-    // Create and start the upload.
-    upload = new tus.Upload(file, options);
-    upload.start();
-    return;
   }
   addKV() {
     this.KVMap.set(this.KEY.trim(), this.VALUE.trim());

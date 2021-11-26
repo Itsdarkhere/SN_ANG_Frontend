@@ -7,7 +7,6 @@ import {
   ProfileEntryResponse,
 } from "../backend-api.service";
 import { BsModalService } from "ngx-bootstrap/modal";
-import { SharedDialogs } from "src/lib/shared-dialogs";
 import { PlaceBidModalComponent } from "../place-bid-modal/place-bid-modal.component";
 import { GlobalVarsService } from "../global-vars.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -33,13 +32,15 @@ export class ActivityComponent implements OnInit {
   nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
   responseHolder: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
   myBids: NFTBidEntryResponse[];
+  receivedNFTResponse = [];
 
   lastPage = null;
   isLoading = true;
   loadingNewSelection = false;
   static BIDS_MADE = "Bids Made";
   static TRANSFERS = "Transfers";
-  tabs = [ActivityComponent.BIDS_MADE, ActivityComponent.TRANSFERS];
+  static BIDS_RECEIVED = "Bids Received";
+  tabs = [ActivityComponent.BIDS_MADE, ActivityComponent.BIDS_RECEIVED, ActivityComponent.TRANSFERS];
   activeTab: string;
   mobile = false;
 
@@ -50,10 +51,12 @@ export class ActivityComponent implements OnInit {
   static TABS = {
     transfers: "Transfers",
     active_bids: "Bids Made",
+    bids_received: "Bids Received",
   };
   static TABS_LOOKUP = {
-    Transfers: "transfers",
-    BIDS_MADE: "bids_made",
+    [ActivityComponent.TRANSFERS]: "transfers",
+    [ActivityComponent.BIDS_RECEIVED]: "bids_made",
+    [ActivityComponent.BIDS_RECEIVED]: "bids_received",
   };
 
   constructor(
@@ -84,9 +87,12 @@ export class ActivityComponent implements OnInit {
       let tab = queryParams.tab || "bids_made";
       if (tab === "transfers") {
         this.getNFTs(this.getIsForSaleValue()).add();
-      } else {
+      } else if (tab === "bids_made") {
         // Get BIDS
         this.getNFTBids();
+      } else {
+        this.getOwnedNFTS();
+        this.isLoading = false;
       }
     });
   }
@@ -179,7 +185,30 @@ export class ActivityComponent implements OnInit {
       }
     });
   }
-
+  getOwnedNFTS(): Subscription {
+    this.receivedNFTResponse = [];
+    return this.backendApi
+      .GetNFTsForUser(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        true
+      )
+      .subscribe(
+        (res: {
+          NFTsMap: { [k: string]: { PostEntryResponse: PostEntryResponse; NFTEntryResponses: NFTEntryResponse[] } };
+        }) => {
+          for (const k in res.NFTsMap) {
+            this.backendApi
+              .GetNFTBidsForNFTPost(this.globalVars.localNode, this.globalVars.loggedInUser?.PublicKeyBase58Check, k)
+              .subscribe((res) => {
+                console.log(res);
+                this.receivedNFTResponse.push(res);
+              });
+          }
+        }
+      );
+  }
   getPage(page: number) {
     if (this.lastPage != null && page > this.lastPage) {
       return [];
@@ -199,6 +228,8 @@ export class ActivityComponent implements OnInit {
   _handleTabClick(tabName: string) {
     this.activeTab = tabName;
     // Update query params to reflect current tab
+    console.log(tabName);
+    console.log(ActivityComponent.TABS_LOOKUP[tabName]);
     const urlTree = this.router.createUrlTree([], {
       queryParams: { tab: ActivityComponent.TABS_LOOKUP[tabName] || "bids_made" },
       queryParamsHandling: "merge",
@@ -210,9 +241,13 @@ export class ActivityComponent implements OnInit {
       return this.getNFTs(this.getIsForSaleValue()).add(() => {
         this.resetDatasource(event);
       });
-    } else {
+    } else if (this.activeTab === "Bids Made") {
       // Get BIDS
       return this.getNFTBids().add(() => {
+        this.resetDatasource(event);
+      });
+    } else {
+      return this.getOwnedNFTS().add(() => {
         this.resetDatasource(event);
       });
     }

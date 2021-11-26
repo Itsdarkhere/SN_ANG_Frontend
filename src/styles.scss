@@ -474,8 +474,22 @@ $green-font-color: #19b028;
 .electric-border {
     border: 2px solid #2b79f5 !important;
 }
+.electric-outline {
+    outline: 2px solid #2b79f5 !important;
+}
 .thick-electric-border {
     border: 3px solid #2b79f5 !important;
+}
+.small-button-size {
+    width: 115px !important;
+    min-width: 115px;
+    height: 35px;
+}
+.basic-button-size {
+    height: 53px;
+    min-height: 53px;
+    width: 280px;
+    max-width: 100%;
 }
 .background-color-secondary {
     background-color: var(--secondary) !important;
@@ -2759,6 +2773,11 @@ input.bs-timepicker-field {
     background: #ffffff;
     border: 3.309523582458496px solid #3c3c3c;
     border-radius: 30px;
+    &:disabled {
+        border: 3.309523582458496px solid grey;
+        color: grey;
+        cursor: not-allowed;
+    }
 }
 .white-rounded-button.disabled {
     border: 3.309523582458496px solid grey;

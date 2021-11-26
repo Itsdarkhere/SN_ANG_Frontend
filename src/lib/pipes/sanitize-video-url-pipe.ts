@@ -13,6 +13,10 @@ export class SanitizeVideoUrlPipe implements PipeTransform {
     } catch (err) {
       return false;
     }
+    if (url.origin === "https://arweave.net") {
+      console.log(videoURL);
+      return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
     // On this node, we also validate that it matches the expect video URL format
     const regExp = /^https:\/\/iframe\.videodelivery\.net\/[A-Za-z0-9]+$/;
     const match = videoURL.match(regExp);

@@ -71,7 +71,8 @@ job "supernovas-frontend" {
         supernovas.app:*
         node.deso.org
         https://supernovas.app
-        https://arweave.net 
+        https://arweave.net
+        https://*.arweave.net
         https://www.google-analytics.com
         https://www.googletagmanager.com
         api.bitclout.com bitclout.com:*
@@ -133,6 +134,8 @@ job "supernovas-frontend" {
         https://w.soundcloud.com
         https://iframe.videodelivery.net
         https://firestore.googleapis.com
+        https://arweave.net
+        https://*.arweave.net
         https://firebasestorage.googleapis.com
         https://player.twitch.tv
         https://clips.twitch.tv

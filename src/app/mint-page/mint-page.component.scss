@@ -23,6 +23,9 @@
     justify-content: flex-end;
     align-items: center;
 }
+.mint-page-inner-height {
+    height: calc(95% - 50px);
+}
 .mint-page-progress-inner {
     background: var(--background);
     transition: all 0.3s linear;
@@ -32,14 +35,19 @@
 .mint-page-progress-inner.step-2 {
     transition: all 0.3s linear;
     height: 100%;
-    width: 50%;
+    width: 60%;
 }
 .mint-page-progress-inner.step-3 {
     transition: all 0.3s linear;
     height: 100%;
-    width: 25%;
+    width: 40%;
 }
 .mint-page-progress-inner.step-4 {
+    transition: all 0.3s linear;
+    height: 100%;
+    width: 20%;
+}
+.mint-page-progress-inner.step-5 {
     transition: all 0.3s linear;
     height: 100%;
     width: 0%;
@@ -74,6 +82,29 @@
     overflow: hidden;
     box-shadow: 1.0368170738220215px 1.0368170738220215px 20.736339569091797px rgba(0, 0, 0, 0.05);
     cursor: pointer;
+}
+.mint-page-edition-selection {
+    height: 22vh;
+    width: 30vh;
+    max-width: 45%;
+    border: 2px solid #efefef;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 1.0368170738220215px 1.0368170738220215px 20.736339569091797px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+}
+.overflow-y-auto {
+    overflow-y: auto;
+}
+.mint-content-type-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 80%;
+    @media (max-width: 500px) {
+        padding-top: 20px;
+        flex-direction: column;
+    }
 }
 .fs-11px {
  font-size: 11px;
@@ -112,6 +143,18 @@
     font-size: 23px;
     @media screen and (min-height: 800px) {
         font-size: 25px;
+    }
+}
+.fs-33-responsive {
+    font-size: 33px;
+    @media screen and (max-height: 500px) {
+        font-size: 25px !important;
+    }
+}
+.fs-20-responsive {
+    font-size: 20px;
+    @media screen and (max-height: 500px) {
+        font-size: 16px !important;
     }
 }
 .fs-13px {
@@ -166,27 +209,8 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
-.mint-page-inner-inner-inner {
-    height: 100%;
-    max-width: 480px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-}
 .max-width-480 {
     max-width: 480px;
-}
-.mint-page-inner-inner-3 {
-    height: calc(95% - 50px);
-    max-width: 480px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    overflow-y: auto;
-    overflow-x: hidden;
 }
 .mint-page-step-2-continue {
     position: absolute;

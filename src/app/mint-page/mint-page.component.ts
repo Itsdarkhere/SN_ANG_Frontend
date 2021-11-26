@@ -1,5 +1,15 @@
-import { Component, HostListener, OnInit, ChangeDetectorRef, Output, EventEmitter } from "@angular/core";
-import { BackendApiService, BackendRoutes } from "../backend-api.service";
+import {
+  Component,
+  HostListener,
+  OnInit,
+  ChangeDetectorRef,
+  Output,
+  EventEmitter,
+  ElementRef,
+  ViewChild,
+} from "@angular/core";
+import { DomSanitizer } from "@angular/platform-browser";
+import { BackendApiService } from "../backend-api.service";
 import { GlobalVarsService } from "../global-vars.service";
 import { trigger, style, animate, transition } from "@angular/animations";
 import { Router } from "@angular/router";
@@ -54,6 +64,7 @@ export class MintPageComponent implements OnInit {
   disableAnimation = true;
 
   postVideoSrc = null;
+  testVideoSrc = "https://arweave.net/bXfovPML_-CRlfoxLdPsK8p7lrshRLwGFHITzaDMMSQ";
   videoUploadPercentage = null;
 
   showEmbedURL = false;
@@ -70,12 +81,16 @@ export class MintPageComponent implements OnInit {
   isUploaded = false;
   isUploadConfirmed = false;
 
+  // Content type
+  videoType = false;
+  imageType = false;
+
   extrasOpen = false;
   arweaveClicked = false;
-  // Step 1
+  // Step 2
   EDITION_OF_ONE = true;
   OPEN_AUCTION = true;
-  // Step 2, excluding postimageSrc
+  // Step 3, excluding postimageSrc
   IMAGE: any;
   NAME_OF_PIECE: string;
   DESCRIPTION: string = "";
@@ -83,7 +98,7 @@ export class MintPageComponent implements OnInit {
   KEY: string;
   VALUE: string;
   KVMap = new Map();
-  // Step 3
+  // Step 4
   MIN_PRICE: number;
   PRICE_USD: any;
   CREATOR_ROYALTY: number;
@@ -97,6 +112,7 @@ export class MintPageComponent implements OnInit {
 
   constructor(
     private analyticsService: GoogleAnalyticsService,
+    private sanitizer: DomSanitizer,
     private arweave: ArweaveJsService,
     private router: Router,
     private globalVars: GlobalVarsService,
@@ -114,26 +130,31 @@ export class MintPageComponent implements OnInit {
   }
   _handleFilesInput(files: FileList): void {
     const fileToUpload = files.item(0);
-    this.handleFileInput(fileToUpload);
+    if (this.videoType) {
+      this.handleVideoInput(fileToUpload);
+    } else if (this.imageType) {
+      this.handleImageInput(fileToUpload);
+    } else {
+      this.globalVars._alertError("No content type selected...");
+    }
   }
-  handleFileInput(file: File) {
+  handleImageInput(file: File) {
     if (!file.type || !file.type.startsWith("image/")) {
       this.globalVars._alertError("File selected does not have an image file type.");
       return;
     }
-    if (file.size > 1024 * 1024 * 1024) {
-      this.globalVars._alertError("File is too large. Please choose a file of a size less than 1GB");
+    if (file.size > (1024 * 1024 * 1024) / 5) {
+      this.globalVars._alertError("File is too large. Please choose a file of a size less than 200MB");
       return;
     }
     this.isUploading = true;
-
     this.arweave.UploadImage(file).subscribe(
       (res) => {
         let url = "https://arweave.net/" + res;
         this.postImageSrc = url;
         this.postVideoSrc = null;
         this.isUploading = false;
-        this.isUploaded = this.postImageSrc.length > 0;
+        this.isUploaded = url.length > 0;
       },
       (err) => {
         this.isUploading = false;
@@ -141,6 +162,37 @@ export class MintPageComponent implements OnInit {
         this.globalVars._alertError("Failed to upload image to arweave: " + err.message);
       }
     );
+  }
+  handleVideoInput(file: File) {
+    if (!file.type || !file.type.startsWith("video/")) {
+      this.globalVars._alertError("File selected does not have an video file type.");
+      return;
+    }
+    if (file.size > (1024 * 1024 * 1024) / 5) {
+      this.globalVars._alertError("File is too large. Please choose a file of a size less than 200MB");
+      return;
+    }
+    this.isUploading = true;
+    // Its named uploadImage but works for both.
+    this.arweave.UploadImage(file).subscribe(
+      (res) => {
+        let url = "https://arweave.net/" + res;
+        this.postImageSrc = null;
+        setTimeout(() => {
+          this.postVideoSrc = url;
+          this.isUploading = false;
+          this.isUploaded = this.postVideoSrc.length > 0;
+        }, 3000);
+      },
+      (err) => {
+        this.isUploading = false;
+        this.isUploaded = false;
+        this.globalVars._alertError("Failed to upload video to arweave: " + err.message);
+      }
+    );
+  }
+  clearURL(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
   arweaveClick() {
     this.arweaveClicked = true;
@@ -150,7 +202,14 @@ export class MintPageComponent implements OnInit {
     this.KEY = "";
     this.VALUE = "";
   }
-
+  imageTypeSelected() {
+    this.imageType = true;
+    this.videoType = false;
+  }
+  videoTypeSelected() {
+    this.videoType = true;
+    this.imageType = false;
+  }
   updateBidAmountUSD(desoAmount) {
     this.PRICE_USD = this.globalVars.nanosToUSDNumber(desoAmount * 1e9).toFixed(2);
     //this.setErrors();
@@ -205,7 +264,7 @@ export class MintPageComponent implements OnInit {
     this.KVMap.delete(key);
   }
   nextStep() {
-    if (this.step + 1 < 5) {
+    if (this.step + 1 < 6) {
       this.step++;
     }
   }
@@ -283,28 +342,7 @@ export class MintPageComponent implements OnInit {
   }
 
   isPostReady() {
-    return (
-      (this.isUploading || this.postImageSrc?.length > 0) &&
-      this.postImageSrc.length > 0 &&
-      this.isDescribed() &&
-      this.isPriced()
-    );
-  }
-
-  appendExtraData(TxnHashHex) {
-    this.backendApi
-      .AppendExtraData(this.globalVars.localNode, TxnHashHex, {
-        jack: "jill",
-        jim: "George",
-      })
-      .subscribe(
-        (res) => {
-          console.log("NICE");
-        },
-        (err) => {
-          console.log("not nice");
-        }
-      );
+    return (this.postImageSrc?.length > 0 || this.postVideoSrc?.length > 0) && this.isDescribed() && this.isPriced();
   }
 
   mintNFT() {
@@ -336,7 +374,7 @@ export class MintPageComponent implements OnInit {
       )
       .subscribe(
         (res) => {
-          this.dropNFT();
+          //this.dropNFT();
           this.globalVars.updateEverything(res.TxnHashHex, this.mintNFTSuccess, this.mintNFTFailure, this);
         },
         (err) => {
@@ -413,11 +451,19 @@ export class MintPageComponent implements OnInit {
     if (!this.isPostReady()) return;
 
     this.isSubmitPress = true;
-
-    const bodyObj = {
-      Body: this.DESCRIPTION,
-      ImageURLs: [this.postImageSrc].filter((n) => n),
-    };
+    let bodyObj = {};
+    // Decide between Video and Image
+    if (this.videoType) {
+      bodyObj = {
+        Body: this.DESCRIPTION,
+        VideoURLs: [this.postVideoSrc].filter((n) => n),
+      };
+    } else {
+      bodyObj = {
+        Body: this.DESCRIPTION,
+        ImageURLs: [this.postImageSrc].filter((n) => n),
+      };
+    }
 
     this.backendApi
       .SubmitPost(

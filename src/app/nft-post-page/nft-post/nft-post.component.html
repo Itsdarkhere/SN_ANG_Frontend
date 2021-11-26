@@ -21,6 +21,7 @@
           />
         </div>
         <!-- Video -->
+        <!-- Video -->
         <div
           *ngIf="nftPost.VideoURLs && nftPost.VideoURLs[0] && !nftPost.ParentStakeID"
           class="feed-post__video-container w-100"
@@ -28,11 +29,12 @@
         >
           <iframe
             [src]="nftPost.VideoURLs[0] | sanitizeVideoUrl"
-            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+            allow="accelerometer; gyroscope; encrypted-media; picture-in-picture;"
             allowfullscreen
             class="feed-post__video"
           ></iframe>
         </div>
+
         <!-- Video -->
       </div>
     </div>

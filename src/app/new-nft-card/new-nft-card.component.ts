@@ -56,6 +56,7 @@ export class NewNftCardComponent implements OnInit {
     } else {
       this.postContent = post;
     }
+    console.log(this.postContent);
   }
   @Input() set blocked(value: boolean) {
     this._blocked = value;

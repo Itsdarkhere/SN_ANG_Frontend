@@ -27,6 +27,25 @@
     justify-content: center;
     align-items: flex-start;
 }
+.received-bids-avatar {
+    height: 40px;
+    width: 40px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.p-a-top {
+    position: absolute;
+    top: 5px;
+}
+.p-a-top-0 {
+    position: absolute;
+    top: 0px;
+}
+.p-a-bottom {
+    position: absolute;
+    bottom: 10px;
+}
 .active-bids-bid-status {
     grid-area: c;
     height: 100%;
@@ -35,6 +54,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.bids-highest-bid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 .active-bids-right-container {
     width: calc(100% - 100px);
@@ -53,10 +78,14 @@
     height: 100%;
     width: 100%;
 }
-.activity-box-bids {
-    border: 1px solid #e7e7e7;
-    border-radius: 5px;
+.bids-accordion-container {
+    border: 1.3215686082839966px solid #c8c8c8;
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+}
+.activity-box-bids {
+    background-color: var(--background);
+    border: none;
     min-height: 150px;
     display: grid;
     grid-template-rows: 1fr;
@@ -67,11 +96,47 @@
     padding-left: 20px;
     padding-right: 20px;
 }
+.br-top-13px {
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
+}
+.br-13px {
+    border-radius: 13px;
+}
 .grid-area-d {
     grid-area: d;
 }
 .grid-area-c {
     grid-area: c;
+}
+.grid-area-a {
+    grid-area: a;
+}
+.grid-area-b {
+    grid-area: b;
+}
+.bids-dropdown-icon-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 20px;
+}
+.bids-received-bid {
+    border: none;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-top: 1px solid #e7e7e7;
+    min-height: 120px;
+    width: 100%;
+    background-color: #F8F8F8;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "a a b c";
+}
+.max-width-225px {
+    max-width: 225px;
 }
 @media (min-width: 551px) and (max-width: 1300px) {
     .activity-box-bids {
@@ -81,6 +146,22 @@
         grid-template-areas:
             "a b"
             "c d";
+    }
+    .bids-received-bid {
+        min-height: 240px;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: "a a"
+        "b c";
+    }
+    .bids-dropdown-icon-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-right: 0px;
+    }
+    .bids-highest-bid {
+        align-items: center;
     }
     .active-bids-bid-info-accordion { 
         align-items: center;
@@ -92,9 +173,6 @@
     .active-bids-bid-status {
         justify-content: flex-start;
         align-items: center;
-    }
-    .activity-frame-container-bids {
-        justify-content: center;
     }
     .image-size-active-bids-accordion {
         height: 140px !important;
@@ -110,14 +188,27 @@
             "a b"
             "c d";
     }
+    .bids-received-bid {
+        min-height: 240px;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        grid-template-areas: "a a"
+        "b c";
+    }
     .active-bids-button-pab {
         margin-top: 10px;
     }
-    .active-bids-bid-info-accordion { 
+    .bids-dropdown-icon-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-right: 0px;
+    }
+    .bids-highest-bid {
         align-items: center;
     }
-    .activity-frame-container-bids {
-        justify-content: center;
+    .active-bids-bid-info-accordion { 
+        align-items: center;
     }
     .active-bids-bid-status {
         margin-top: 10px;
@@ -141,6 +232,17 @@
     border-radius: 5.55222225189209px;
     border: none;
 }
+.bids-dropdown-icon {
+    height: 15px;
+    transition: all 0.2s linear;
+}
+.h-40px {
+    height: 40px;
+}
+.bids-dropdown-icon.open {
+    transition: all 0.2s linear;
+    transform: rotate(180deg);
+}
 .active-bids-button-vnft {
     width: 200px !important;
     width: 100%;
@@ -154,23 +256,14 @@
     min-height: 0px;
     overflow: hidden;
     transition: all .3s ease;
+    border-bottom-left-radius: 13px;
+    border-bottom-right-radius: 13px;
 }
 .bids-received-accordion.open {
-    min-height: 250px;
+    min-height: 240px;
     overflow: auto;
-    transition: all .3s ease;
 }
-.bids-received-bid {
-    min-height: 100px;
-    width: 100%;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border: 1px solid #e7e7e7;
-    background-color: transparent;
-    border-radius: 5px;
-    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.07);
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+.text-overflow-ellipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }

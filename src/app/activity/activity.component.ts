@@ -185,7 +185,9 @@ export class ActivityComponent implements OnInit {
       }
     });
   }
+
   getOwnedNFTS(): Subscription {
+    this.isLoading = true;
     this.receivedNFTResponse = [];
     return this.backendApi
       .GetNFTsForUser(
@@ -202,13 +204,18 @@ export class ActivityComponent implements OnInit {
             this.backendApi
               .GetNFTBidsForNFTPost(this.globalVars.localNode, this.globalVars.loggedInUser?.PublicKeyBase58Check, k)
               .subscribe((res) => {
-                console.log(res);
                 this.receivedNFTResponse.push(res);
               });
           }
+          this.isLoading = false;
+        },
+        (err) => {
+          this.isLoading = false;
+          this.globalVars._alertError("Problem fetching received bids...");
         }
       );
   }
+
   getPage(page: number) {
     if (this.lastPage != null && page > this.lastPage) {
       return [];
@@ -228,8 +235,6 @@ export class ActivityComponent implements OnInit {
   _handleTabClick(tabName: string) {
     this.activeTab = tabName;
     // Update query params to reflect current tab
-    console.log(tabName);
-    console.log(ActivityComponent.TABS_LOOKUP[tabName]);
     const urlTree = this.router.createUrlTree([], {
       queryParams: { tab: ActivityComponent.TABS_LOOKUP[tabName] || "bids_made" },
       queryParamsHandling: "merge",

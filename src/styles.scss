@@ -378,6 +378,9 @@ $green-font-color: #19b028;
 .h-40 {
     height: 40%;
 }
+.h-80 {
+    height: 80%;
+}
 .h-100 {
     height: 100%;
 }
@@ -2605,7 +2608,9 @@ input.bs-timepicker-field {
     background-repeat: no-repeat;
     background-position: center;
 }
-
+.color-light {
+    color: #666666;
+}
 .message__avatar-placeholder {
     width: 32px;
     min-width: 32px;
@@ -3411,6 +3416,18 @@ em {
 .flex-center-start {
     justify-content: flex-start;
     align-items: center;
+}
+.flex-start-start {
+    justify-content: flex-start;
+    align-items: start;
+}
+.flex-center-end {
+    justify-content: end;
+    align-items: center;
+}
+.flex-end-center {
+    justify-content: center;
+    align-items: end;
 }
 .flex-start-center {
     justify-content: center;

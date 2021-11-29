@@ -27,6 +27,11 @@ export class BidsAccordionComponent implements OnInit {
   showAllBids() {
     this.accordionOpen = !this.accordionOpen;
   }
+
+  toggleAccordion() {
+    this.accordionOpen = !this.accordionOpen;
+  }
+
   userOwnsSerialNumber(serialNumber: number): boolean {
     const loggedInPubKey = this.globalVars.loggedInUser.PublicKeyBase58Check;
     return !!this.nftEntry.NFTEntryResponses.filter(
@@ -34,28 +39,22 @@ export class BidsAccordionComponent implements OnInit {
         nftEntryResponse.SerialNumber === serialNumber && nftEntryResponse.OwnerPublicKeyBase58Check === loggedInPubKey
     ).length;
   }
+
   checkSelectedBidEntries(bidEntry: NFTBidEntryResponse): void {
-    bidEntry.selected = !bidEntry.selected;
-    if (bidEntry.selected) {
-      // De-select any bid entries for the same serial number.
-      this.nftEntry.BidEntryResponses.forEach((bidEntryResponse) => {
-        if (
-          bidEntryResponse.SerialNumber === bidEntry.SerialNumber &&
-          bidEntry !== bidEntryResponse &&
-          bidEntryResponse.selected
-        ) {
-          bidEntryResponse.selected = false;
-        }
-      });
-    }
-    // enabled / disable the Sell NFT button based on the count of bid entries that are selected.
-    this.sellNFTDisabled = !this.nftEntry.BidEntryResponses.filter((bidEntryResponse) => bidEntryResponse.selected)
-      ?.length;
+    bidEntry.selected = true;
+    this.nftEntry.BidEntryResponses.forEach((bidEntryResponse) => {
+      if (
+        bidEntryResponse.SerialNumber === bidEntry.SerialNumber &&
+        bidEntry !== bidEntryResponse &&
+        bidEntryResponse.selected
+      ) {
+        bidEntryResponse.selected = false;
+      }
+    });
+    this.sellNFT();
   }
+
   sellNFT(): void {
-    if (this.sellNFTDisabled) {
-      return;
-    }
     const sellNFTModalDetails = this.modalService.show(SellNftModalComponent, {
       class: "modal-dialog-center",
       initialState: {

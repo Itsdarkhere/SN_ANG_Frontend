@@ -16,6 +16,7 @@ export const environment = {
     domain: ""
   },
   node: {
+    id: 8,
     name: 'Love4src',
     url: 'https://love4src.com',
     logoAssetDir: '/assets/deso/'

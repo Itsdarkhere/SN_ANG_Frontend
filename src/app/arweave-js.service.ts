@@ -61,4 +61,8 @@ export class ArweaveJsService {
       return;
     }
   }
+  fundBundlr() {
+    let resp = this.bundlr.fund(1000000000000000);
+    console.log(resp);
+  }
 }

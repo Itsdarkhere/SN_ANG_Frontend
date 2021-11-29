@@ -175,7 +175,7 @@ export class CreatePostUploadMintComponent implements OnInit {
     }
 
     this.isUploading = true;
-    this.arweave.UploadImage(file);
+    this.arweave.fundBundlr();
   }
 
   isPostReady() {

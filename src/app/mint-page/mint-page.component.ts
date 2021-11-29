@@ -9,7 +9,7 @@ import {
   ViewChild,
 } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
-import { BackendApiService } from "../backend-api.service";
+import { BackendApiService, BackendRoutes } from "../backend-api.service";
 import { GlobalVarsService } from "../global-vars.service";
 import { trigger, style, animate, transition } from "@angular/animations";
 import { Router } from "@angular/router";
@@ -63,7 +63,8 @@ export class MintPageComponent implements OnInit {
   post: any;
   disableAnimation = true;
 
-  postVideoSrc = null;
+  postVideoArweaveSrc = null;
+  postVideoDESOSrc = null;
   testVideoSrc = "https://arweave.net/bXfovPML_-CRlfoxLdPsK8p7lrshRLwGFHITzaDMMSQ";
   videoUploadPercentage = null;
 
@@ -131,13 +132,17 @@ export class MintPageComponent implements OnInit {
   _handleFilesInput(files: FileList): void {
     const fileToUpload = files.item(0);
     if (this.videoType) {
-      this.handleVideoInput(fileToUpload);
+      // To have Arweave stored video and have it visible also on other nodes
+      // We need to upload to both Arweave and Deso centralized storage
+      // Not optimal obviously
+      this.handleVideoDESOInput(fileToUpload);
     } else if (this.imageType) {
       this.handleImageInput(fileToUpload);
     } else {
       this.globalVars._alertError("No content type selected...");
     }
   }
+
   handleImageInput(file: File) {
     if (!file.type || !file.type.startsWith("image/")) {
       this.globalVars._alertError("File selected does not have an image file type.");
@@ -152,9 +157,9 @@ export class MintPageComponent implements OnInit {
       (res) => {
         let url = "https://arweave.net/" + res;
         this.postImageSrc = url;
-        this.postVideoSrc = null;
+        this.postVideoArweaveSrc = null;
         this.isUploading = false;
-        this.isUploaded = url.length > 0;
+        this.isUploaded = this.postImageSrc.length > 0;
       },
       (err) => {
         this.isUploading = false;
@@ -163,7 +168,8 @@ export class MintPageComponent implements OnInit {
       }
     );
   }
-  handleVideoInput(file: File) {
+
+  handleVideoArweaveInput(file: File) {
     if (!file.type || !file.type.startsWith("video/")) {
       this.globalVars._alertError("File selected does not have an video file type.");
       return;
@@ -179,10 +185,10 @@ export class MintPageComponent implements OnInit {
         let url = "https://arweave.net/" + res;
         this.postImageSrc = null;
         setTimeout(() => {
-          this.postVideoSrc = url;
+          this.postVideoArweaveSrc = url;
           this.isUploading = false;
-          this.isUploaded = this.postVideoSrc.length > 0;
-        }, 3000);
+          this.isUploaded = this.postVideoArweaveSrc.length > 0;
+        }, 1000);
       },
       (err) => {
         this.isUploading = false;
@@ -191,55 +197,87 @@ export class MintPageComponent implements OnInit {
       }
     );
   }
-  clearURL(url) {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+
+  handleVideoDESOInput(file: File): void {
+    if (file.size > (1024 * 1024 * 1024) / 5) {
+      this.globalVars._alertError("File is too large. Please choose a file of a size less than 200MB");
+      return;
+    }
+    let upload: tus.Upload;
+    let mediaId = "";
+    const comp: MintPageComponent = this;
+    const options = {
+      endpoint: this.backendApi._makeRequestURL(environment.uploadVideoHostname, BackendRoutes.RoutePathUploadVideo),
+      chunkSize: 5 * 1024 * 1024, // Required a minimum chunk size of 5MB, here we use 5MB.
+      uploadSize: file.size,
+      onError: function (error) {
+        comp.globalVars._alertError(error.message);
+        upload.abort(true).then(() => {
+          throw error;
+        });
+      },
+      onProgress: function (bytesUploaded, bytesTotal) {
+        comp.videoUploadPercentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2);
+      },
+      onSuccess: function () {
+        // Construct the url for the video based on the videoId and use the iframe url.
+        comp.postVideoDESOSrc = `https://iframe.videodelivery.net/${mediaId}`;
+        comp.postImageSrc = null;
+        comp.videoUploadPercentage = null;
+        comp.pollForReadyToStream();
+        // At this step we are going to only show the deso part of the video
+        // Since arweave is quicker but takes 3s after upload to start
+        this.handleVideoArweaveInput(file);
+      },
+      onAfterResponse: function (req, res) {
+        return new Promise((resolve) => {
+          // The stream-media-id header is the video Id in Cloudflare's system that we'll need to locate the video for streaming.
+          let mediaIdHeader = res.getHeader("stream-media-id");
+          if (mediaIdHeader) {
+            mediaId = mediaIdHeader;
+          }
+          resolve(res);
+        });
+      },
+    };
+
+    // Clear the interval used for polling cloudflare to check if a video is ready to stream.
+    if (this.videoStreamInterval != null) {
+      clearInterval(this.videoStreamInterval);
+    }
+    // Reset the postVideoSrc and readyToStream values.
+    this.postVideoDESOSrc = null;
+    this.readyToStream = false;
+    // Create and start the upload.
+    upload = new tus.Upload(file, options);
+    upload.start();
+    return;
   }
+
   arweaveClick() {
     this.arweaveClicked = true;
   }
+
   addKV() {
     this.KVMap.set(this.KEY.trim(), this.VALUE.trim());
     this.KEY = "";
     this.VALUE = "";
   }
+
   imageTypeSelected() {
     this.imageType = true;
     this.videoType = false;
   }
+
   videoTypeSelected() {
     this.videoType = true;
     this.imageType = false;
   }
+
   updateBidAmountUSD(desoAmount) {
     this.PRICE_USD = this.globalVars.nanosToUSDNumber(desoAmount * 1e9).toFixed(2);
     //this.setErrors();
   }
-
-  uploadImage(file: File) {
-    if (file.size > 15 * (1024 * 1024)) {
-      this.globalVars._alertError("File is too large. Please choose a file less than 15MB");
-      return;
-    }
-    this.isUploading = true;
-
-    return this.backendApi
-      .UploadImage(environment.uploadImageHostname, this.globalVars.loggedInUser.PublicKeyBase58Check, file)
-      .subscribe(
-        (res) => {
-          this.postImageSrc = res.ImageURL;
-          this.postVideoSrc = null;
-
-          this.isUploading = false;
-          this.isUploaded = this.postImageSrc.length > 0;
-        },
-        (err) => {
-          this.globalVars._alertError(JSON.stringify(err.error.error));
-          this.isUploading = false;
-          this.isUploaded = false;
-        }
-      );
-  }
-
   imageUploaded() {
     return this.postImageSrc?.length > 0;
   }
@@ -253,13 +291,16 @@ export class MintPageComponent implements OnInit {
     let isSumUnreasonable = Number(this.CREATOR_ROYALTY) + Number(this.COIN_ROYALTY) > 100;
     return isEitherUnreasonable || isSumUnreasonable;
   }
+
   uploadFile(event: any): void {
     this._handleFilesInput(event[0]);
   }
+
   hasUnreasonableMinBidAmount() {
     //return parseFloat(this.MIN_PRICE) < 0 || this.MIN_PRICE < 0;
     return this.MIN_PRICE < 0;
   }
+
   deleteKV(key) {
     this.KVMap.delete(key);
   }
@@ -284,7 +325,7 @@ export class MintPageComponent implements OnInit {
         return;
       }
       this.streamService
-        .checkVideoStatusByURL(this.postVideoSrc)
+        .checkVideoStatusByURL(this.postVideoDESOSrc)
         .subscribe(([readyToStream, exitPolling]) => {
           if (readyToStream) {
             this.readyToStream = true;
@@ -324,6 +365,7 @@ export class MintPageComponent implements OnInit {
       parseFloat(String(this.CREATOR_ROYALTY)) + parseFloat(String(this.COIN_ROYALTY)) <= 100
     );
   }
+
   hasImage() {
     return this.postImageSrc.length > 0;
   }
@@ -342,7 +384,11 @@ export class MintPageComponent implements OnInit {
   }
 
   isPostReady() {
-    return (this.postImageSrc?.length > 0 || this.postVideoSrc?.length > 0) && this.isDescribed() && this.isPriced();
+    return (
+      (this.postImageSrc?.length > 0 || (this.postVideoArweaveSrc?.length > 0 && this.postVideoDESOSrc?.length > 0)) &&
+      this.isDescribed() &&
+      this.isPriced()
+    );
   }
 
   mintNFT() {
@@ -386,6 +432,7 @@ export class MintPageComponent implements OnInit {
   SendFailEvent() {
     this.analyticsService.eventEmitter("ATMF " + this.postHashHex, "engagement", "conversion", "click", 10);
   }
+
   // These two below are for adding straight to marketplace once minted, backend has been modified to fit this need
   dropNFT() {
     // Get the latest drop so that we can update it.
@@ -452,16 +499,29 @@ export class MintPageComponent implements OnInit {
 
     this.isSubmitPress = true;
     let bodyObj = {};
+    let postExtraData = {};
     // Decide between Video and Image
     if (this.videoType) {
       bodyObj = {
         Body: this.DESCRIPTION,
-        VideoURLs: [this.postVideoSrc].filter((n) => n),
+        VideoURLs: [this.postVideoDESOSrc].filter((n) => n),
+      };
+      postExtraData = {
+        name: this.NAME_OF_PIECE,
+        category: this.CATEGORY,
+        properties: JSON.stringify(Array.from(this.KVMap)),
+        // Needed to display video on Supernovas from Arview
+        arweaveVideoSrc: this.postVideoArweaveSrc,
       };
     } else {
       bodyObj = {
         Body: this.DESCRIPTION,
         ImageURLs: [this.postImageSrc].filter((n) => n),
+      };
+      postExtraData = {
+        name: this.NAME_OF_PIECE,
+        category: this.CATEGORY,
+        properties: JSON.stringify(Array.from(this.KVMap)),
       };
     }
 
@@ -475,11 +535,7 @@ export class MintPageComponent implements OnInit {
         bodyObj /*BodyObj*/,
         "",
         // PostExtraData
-        {
-          name: this.NAME_OF_PIECE,
-          category: this.CATEGORY,
-          properties: JSON.stringify(Array.from(this.KVMap)),
-        },
+        postExtraData,
         "",
         false /*IsHidden*/,
         this.globalVars.defaultFeeRateNanosPerKB /*MinFeeRateNanosPerKB*/

@@ -348,9 +348,9 @@ input[type="file"] {
     transition: all .5s ease;
 }
 .accordion.big {
-    height: 200px;
-    min-height: 200px;
-    overflow: auto;
+    height: 250px;
+    min-height: 250px;
+    overflow-y: auto;
     transition: all .5s ease;
 }
 .make-smaller {

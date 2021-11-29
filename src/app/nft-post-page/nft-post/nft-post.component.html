@@ -21,21 +21,26 @@
           />
         </div>
         <!-- Video -->
-        <!-- Video -->
+        <div class="w-100 d-flex flex-center" *ngIf="nftPost.PostExtraData.arweaveVideoSrc">
+          <video controls class="w-90 br-12px" src="{{ nftPost.PostExtraData.arweaveVideoSrc }}"></video>
+        </div>
         <div
-          *ngIf="nftPost.VideoURLs && nftPost.VideoURLs[0] && !nftPost.ParentStakeID"
+          *ngIf="
+            nftPost.VideoURLs &&
+            nftPost.VideoURLs[0] &&
+            !nftPost.ParentStakeID &&
+            !nftPost.PostExtraData.arweaveVideoSrc
+          "
           class="feed-post__video-container w-100"
           [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
         >
           <iframe
             [src]="nftPost.VideoURLs[0] | sanitizeVideoUrl"
-            allow="accelerometer; gyroscope; encrypted-media; picture-in-picture;"
+            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
             allowfullscreen
             class="feed-post__video"
           ></iframe>
         </div>
-
-        <!-- Video -->
       </div>
     </div>
     <div class="nft_bx nft_feed_post_wt_design">
@@ -519,6 +524,6 @@
         </button>
       </div>
     </div>
+    <div class="global__bottom-bar-mobile-height"></div>
   </div>
-  <div class="global__bottom-bar-mobile-height"></div>
 </div>

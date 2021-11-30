@@ -2,7 +2,7 @@
   <div class="w-100 mw-activity">
     <div *ngIf="mobile" class="global__top-bar__height"></div>
     <tab-selector
-      [tabs]="['Bids Made', 'Transfers']"
+      [tabs]="['Bids Made', 'Bids Received', 'Transfers']"
       [activeTab]="activeTab"
       (tabClick)="_handleTabClick($event)"
     ></tab-selector>
@@ -16,6 +16,11 @@
       <div *ngIf="!myBids?.length && activeTab === 'Bids Made' && !isLoading" class="pt-15px">
         <div class="background-color-grey p-35px br-12px d-flex flex-row align-items-center" style="text-align: center">
           <span>No bids yet.</span>
+        </div>
+      </div>
+      <div *ngIf="!checkNFTbidsReceived() && activeTab === 'Bids Received' && !isLoading" class="pt-15px">
+        <div class="background-color-grey p-35px br-12px d-flex flex-row align-items-center" style="text-align: center">
+          <span>No NFTs for sale with bids on them...</span>
         </div>
       </div>
       <div class="row" *ngIf="activeTab === 'Bids Made'">
@@ -178,7 +183,12 @@
           </div>
         </div>
       </div>
-      <div class="global__bottom-bar-mobile-height"></div>
+      <div class="nfts-card-list nft_creator_list" *ngIf="activeTab === 'Bids Received' && !isLoading">
+        <div class="w-100" *ngFor="let nftEntry of receivedNFTResponse">
+          <app-bids-accordion *ngIf="nftEntry.BidEntryResponses" [nftEntry]="nftEntry"></app-bids-accordion>
+        </div>
+      </div>
     </div>
+    <div class="global__bottom-bar-mobile-height"></div>
   </div>
 </app-page>

@@ -1,6 +1,7 @@
 .image-size-active-bids {
     height: 100px !important;
     width: 100px !important;
+    overflow: hidden;
 }
 .activity-frame-container {
     height: 100%;
@@ -14,6 +15,13 @@
 }
 .mw-activity {
     max-width: 915px;
+}
+.owned-nft {
+    background-color: var(--secondary);
+    height: 100px;
+    width: 100%;
+    border: 1px solid black;
+    margin-top: 10px;
 }
 .active-bids-bid-info {
     grid-area: b;

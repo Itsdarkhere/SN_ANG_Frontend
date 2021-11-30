@@ -1,21 +1,6 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ChangeDetectorRef,
-  AfterViewInit,
-  HostListener,
-} from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, HostListener } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
-import {
-  BackendApiService,
-  NFTBidEntryResponse,
-  NFTEntryResponse,
-  PostEntryResponse,
-  ProfileEntryResponse,
-} from "../backend-api.service";
+import { BackendApiService, NFTEntryResponse, PostEntryResponse, ProfileEntryResponse } from "../backend-api.service";
 import { AppRoutingModule } from "../app-routing.module";
 import { Router } from "@angular/router";
 import { SwalHelper } from "../../lib/helpers/swal-helper";

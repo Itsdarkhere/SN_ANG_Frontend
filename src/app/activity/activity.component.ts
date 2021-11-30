@@ -215,7 +215,14 @@ export class ActivityComponent implements OnInit {
         }
       );
   }
-
+  checkNFTbidsReceived() {
+    for (let x of this.receivedNFTResponse) {
+      if (x.BidEntryResponses) {
+        return true;
+      }
+    }
+    return false;
+  }
   getPage(page: number) {
     if (this.lastPage != null && page > this.lastPage) {
       return [];

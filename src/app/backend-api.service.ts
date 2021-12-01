@@ -514,7 +514,6 @@ export class BackendApiService {
   get(endpoint: string, path: string) {
     return this.httpClient.get<any>(this._makeRequestURL(endpoint, path)).pipe(catchError(this._handleError));
   }
-
   post(endpoint: string, path: string, body: any): Observable<any> {
     return this.httpClient.post<any>(this._makeRequestURL(endpoint, path), body).pipe(catchError(this._handleError));
   }
@@ -1711,7 +1710,6 @@ export class BackendApiService {
       UserPublicKeyBase58Check,
     });
   }
-
   // Note that FetchStartIndex < 0 means "fetch me the latest notifications."
   // To implement pagination, all you have to do
   // is set FetchStartIndex to the Index value of the last notification in

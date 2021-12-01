@@ -8,6 +8,7 @@ import {
   ProfileEntryResponse,
 } from "../../backend-api.service";
 import { GlobalVarsService } from "../../global-vars.service";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
@@ -15,6 +16,7 @@ import * as _ from "lodash";
 import { InfiniteScroller } from "../../infinite-scroller";
 import { of, Subscription } from "rxjs";
 import { uniqBy } from "lodash";
+import { catchError } from "rxjs/operators";
 
 @Component({
   selector: "app-creator-profile-created",
@@ -31,10 +33,11 @@ export class CreatorProfileCreatedComponent implements OnInit {
   @Input() afterCommentCreatedCallback: any = null;
   @Input() showProfileAsReserved: boolean;
 
+  posts: PostEntryResponse[];
   nftCollections: NFTCollectionResponse[];
 
   nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
-  dataToShow: NFTCollectionResponse[];
+  dataToShow: PostEntryResponse[];
   responseHolder: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
   myBids: NFTBidEntryResponse[];
 
@@ -47,6 +50,7 @@ export class CreatorProfileCreatedComponent implements OnInit {
   activeTab: string;
 
   constructor(
+    private httpClient: HttpClient,
     private globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
     private route: ActivatedRoute,
@@ -105,63 +109,32 @@ export class CreatorProfileCreatedComponent implements OnInit {
       this.globalVars.loggedInUser.ProfileEntryResponse.PublicKeyBase58Check === this.profile.PublicKeyBase58Check
     );
   }
-
-  getNFTs(isForSale: boolean | null = null): Subscription {
+  getNFTs() {
     this.isLoading = true;
     return this.backendApi
-      .GetNFTShowcaseProfile(
+      .GetPostsForPublicKey(
         this.globalVars.localNode,
+        "",
+        this.profile.Username,
         this.globalVars.loggedInUser?.PublicKeyBase58Check,
-        this.profile.PublicKeyBase58Check
+        "",
+        10000,
+        false /*MediaRequired*/
       )
-      .subscribe(
-        (res: any) => {
-          this.nftCollections = res.NFTCollections;
-          if (this.nftCollections) {
-            this.nftCollections = uniqBy(
-              this.nftCollections,
-              (nftCollection) => nftCollection.PostEntryResponse.PostHashHex
-            );
-            this.nftCollections.sort((a, b) => b.PostEntryResponse.TimestampNanos - a.PostEntryResponse.TimestampNanos);
-            this.dataToShow = this.nftCollections.slice(this.startIndex, this.endIndex);
-          }
-          this.isLoading = false;
-        },
-        (error) => {
-          this.globalVars._alertError(error.error.error);
-          this.isLoading = false;
-        }
-      );
-    /*return this.backendApi
-      .GetNFTsForUser(
-        this.globalVars.localNode,
-        this.profile.PublicKeyBase58Check,
-        this.globalVars.loggedInUser?.PublicKeyBase58Check,
-        isForSale
-      )
-      .subscribe(
-        (res: {
-          NFTsMap: { [k: string]: { PostEntryResponse: PostEntryResponse; NFTEntryResponses: NFTEntryResponse[] } };
-        }) => {
-          this.nftResponse = [];
-          for (const k in res.NFTsMap) {
-            const responseElement = res.NFTsMap[k];
-            if (responseElement.PostEntryResponse.PosterPublicKeyBase58Check === this.profile.PublicKeyBase58Check) {
-              this.nftResponse.push(responseElement);
-            }
-          }
-          this.dataToShow = this.nftResponse.slice(this.startIndex, this.endIndex);
-          this.lastPage = Math.floor(this.nftResponse.length / CreatorProfileCreatedComponent.PAGE_SIZE);
-          this.isLoading = false;
-          return this.nftResponse;
-        }
-      );*/
+      .toPromise()
+      .then((res) => {
+        this.posts = res.Posts.filter((post) => post.IsNFT);
+        this.dataToShow = this.posts.slice(this.startIndex, this.endIndex);
+      })
+      .finally(() => {
+        this.isLoading = false;
+      });
   }
   onScroll() {
-    if (this.endIndex <= this.nftCollections.length - 1) {
+    if (this.endIndex <= this.posts.length - 1) {
       this.startIndex = this.endIndex;
       this.endIndex += 20;
-      this.dataToShow = [...this.dataToShow, ...this.nftCollections.slice(this.startIndex, this.endIndex)];
+      this.dataToShow = [...this.dataToShow, ...this.posts.slice(this.startIndex, this.endIndex)];
     }
   }
 }

@@ -8,6 +8,7 @@ import {
   ProfileEntryResponse,
 } from "../../backend-api.service";
 import { GlobalVarsService } from "../../global-vars.service";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
@@ -15,6 +16,7 @@ import * as _ from "lodash";
 import { InfiniteScroller } from "../../infinite-scroller";
 import { of, Subscription } from "rxjs";
 import { uniqBy } from "lodash";
+import { catchError } from "rxjs/operators";
 
 @Component({
   selector: "app-creator-profile-created",
@@ -47,6 +49,7 @@ export class CreatorProfileCreatedComponent implements OnInit {
   activeTab: string;
 
   constructor(
+    private httpClient: HttpClient,
     private globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
     private route: ActivatedRoute,
@@ -57,6 +60,7 @@ export class CreatorProfileCreatedComponent implements OnInit {
 
   ngOnInit(): void {
     this.getNFTs();
+    this.getNFTSCloutavista();
   }
 
   infiniteScroller: InfiniteScroller = new InfiniteScroller(
@@ -105,7 +109,24 @@ export class CreatorProfileCreatedComponent implements OnInit {
       this.globalVars.loggedInUser.ProfileEntryResponse.PublicKeyBase58Check === this.profile.PublicKeyBase58Check
     );
   }
-
+  getNFTSCloutavista() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        apikey: "8ec4cdf99e8a451a9c45451652d489a9",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "GET",
+        "Access-Control-Allow-Origin": "*",
+      }),
+    };
+    return this.httpClient
+      .get<any>(
+        "https://api.cloutavista.com/1.0/search/?only_nft=true&size=400&page=1&result_type=nft&from_users=striga",
+        httpOptions
+      )
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
   getNFTs(isForSale: boolean | null = null): Subscription {
     this.isLoading = true;
     return this.backendApi

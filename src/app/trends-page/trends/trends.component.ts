@@ -22,8 +22,8 @@ export class TrendsComponent implements OnInit {
   static WINDOW_VIEWPORT = true;
   static BUFFER_SIZE = 20;
   static PADDING = 0.5;
-  startIndex = 0;
-  endIndex = 20;
+  //startIndex = 0;
+  //endIndex = 20;
   //dataToShow: NFTCollectionResponse[];
   selectedOptionWidth: string;
   pagedRequestsByTab = {};
@@ -101,8 +101,8 @@ export class TrendsComponent implements OnInit {
     let secondary = filters.secondary;
     let sort = filters.sort;
     // Reset start and endIndex
-    this.startIndex = 0;
-    this.endIndex = 20;
+    this.globalVars.marketplaceStartIndex = 0;
+    this.globalVars.marketplaceEndIndex = 20;
 
     // Order
     switch (sort) {
@@ -156,8 +156,8 @@ export class TrendsComponent implements OnInit {
     if (primary === "true" && secondary === "true") {
       // Keep all
       this.globalVars.marketplaceDataToShow = this.globalVars.marketplaceFilteredCollection.slice(
-        this.startIndex,
-        this.endIndex
+        this.globalVars.marketplaceStartIndex,
+        this.globalVars.marketplaceEndIndex
       );
     } else if (primary === "true") {
       // Get primary
@@ -165,8 +165,8 @@ export class TrendsComponent implements OnInit {
         (nft) => nft.NFTEntryResponse.OwnerPublicKeyBase58Check === nft.PostEntryResponse.PosterPublicKeyBase58Check
       );
       this.globalVars.marketplaceDataToShow = this.globalVars.marketplaceFilteredCollection.slice(
-        this.startIndex,
-        this.endIndex
+        this.globalVars.marketplaceStartIndex,
+        this.globalVars.marketplaceEndIndex
       );
       // Get secondary
     } else if (secondary === "true") {
@@ -174,14 +174,14 @@ export class TrendsComponent implements OnInit {
         (nft) => nft.NFTEntryResponse.OwnerPublicKeyBase58Check !== nft.PostEntryResponse.PosterPublicKeyBase58Check
       );
       this.globalVars.marketplaceDataToShow = this.globalVars.marketplaceFilteredCollection.slice(
-        this.startIndex,
-        this.endIndex
+        this.globalVars.marketplaceStartIndex,
+        this.globalVars.marketplaceEndIndex
       );
     } else {
       // Keep all
       this.globalVars.marketplaceDataToShow = this.globalVars.marketplaceFilteredCollection.slice(
-        this.startIndex,
-        this.endIndex
+        this.globalVars.marketplaceStartIndex,
+        this.globalVars.marketplaceEndIndex
       );
     }
     this.lastPage = Math.floor(this.globalVars.marketplaceFilteredCollection.length / TrendsComponent.PAGE_SIZE);
@@ -189,12 +189,15 @@ export class TrendsComponent implements OnInit {
   }
 
   onScroll() {
-    if (this.endIndex <= this.globalVars.marketplaceFilteredCollection.length - 1) {
-      this.startIndex = this.endIndex;
-      this.endIndex += 20;
+    if (this.globalVars.marketplaceEndIndex <= this.globalVars.marketplaceFilteredCollection.length - 1) {
+      this.globalVars.marketplaceStartIndex = this.globalVars.marketplaceEndIndex;
+      this.globalVars.marketplaceEndIndex += 20;
       this.globalVars.marketplaceDataToShow = [
         ...this.globalVars.marketplaceDataToShow,
-        ...this.globalVars.marketplaceFilteredCollection.slice(this.startIndex, this.endIndex),
+        ...this.globalVars.marketplaceFilteredCollection.slice(
+          this.globalVars.marketplaceStartIndex,
+          this.globalVars.marketplaceEndIndex
+        ),
       ];
     }
   }

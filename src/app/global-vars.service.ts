@@ -125,6 +125,8 @@ export class GlobalVarsService {
   followFeedPosts = [];
   marketplaceDataToShow: NFTCollectionResponse[];
   marketplaceFilteredCollection: NFTCollectionResponse[];
+  marketplaceStartIndex = 0;
+  marketplaceEndIndex = 20;
   messageResponse = null;
   messageMeta = {
     // <public_key || tstamp> -> messageObj

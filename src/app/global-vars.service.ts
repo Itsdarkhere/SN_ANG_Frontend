@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import {
   BackendApiService,
   BalanceEntryResponse,
+  NFTCollectionResponse,
   PostEntryResponse,
   TransactionFee,
   TutorialStatus,
@@ -122,6 +123,8 @@ export class GlobalVarsService {
   feeRateDeSoPerKB = 1000 / 1e9;
   postsToShow = [];
   followFeedPosts = [];
+  marketplaceDataToShow: NFTCollectionResponse[];
+  marketplaceFilteredCollection: NFTCollectionResponse[];
   messageResponse = null;
   messageMeta = {
     // <public_key || tstamp> -> messageObj

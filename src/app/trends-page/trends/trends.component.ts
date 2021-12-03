@@ -16,7 +16,7 @@ import { FunctionPassService } from "src/app/function-pass.service";
 export class TrendsComponent implements OnInit {
   globalVars: GlobalVarsService;
   nftCollections: NFTCollectionResponse[];
-  filteredCollection: NFTCollectionResponse[];
+  //filteredCollection: NFTCollectionResponse[];
   lastPage: number;
   static PAGE_SIZE = 40;
   static WINDOW_VIEWPORT = true;
@@ -24,7 +24,7 @@ export class TrendsComponent implements OnInit {
   static PADDING = 0.5;
   startIndex = 0;
   endIndex = 20;
-  dataToShow: NFTCollectionResponse[];
+  //dataToShow: NFTCollectionResponse[];
   selectedOptionWidth: string;
   pagedRequestsByTab = {};
   lastPageByTab = {};
@@ -55,7 +55,9 @@ export class TrendsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadData();
+    if (!this.globalVars.marketplaceDataToShow) {
+      this.loadData();
+    }
     this.setMobileBasedOnViewport();
   }
 
@@ -72,7 +74,9 @@ export class TrendsComponent implements OnInit {
     const endIdx = (page + 1) * TrendsComponent.PAGE_SIZE;
 
     return new Promise((resolve, reject) => {
-      resolve(this.filteredCollection.slice(startIdx, Math.min(endIdx, this.nftCollections.length)));
+      resolve(
+        this.globalVars.marketplaceFilteredCollection.slice(startIdx, Math.min(endIdx, this.nftCollections.length))
+      );
     });
   }
 
@@ -123,58 +127,75 @@ export class TrendsComponent implements OnInit {
     switch (status) {
       case "all":
         // Keep all
-        this.filteredCollection = this.nftCollections;
+        this.globalVars.marketplaceFilteredCollection = this.nftCollections;
         break;
       case "has_bids":
-        this.filteredCollection = this.nftCollections.filter(
+        this.globalVars.marketplaceFilteredCollection = this.nftCollections.filter(
           (nft) => nft.NFTEntryResponse.HighestBidAmountNanos != 0 && nft.NFTEntryResponse.IsForSale
         );
         break;
       case "no_bids":
-        this.filteredCollection = this.nftCollections.filter(
+        this.globalVars.marketplaceFilteredCollection = this.nftCollections.filter(
           (nft) => nft.NFTEntryResponse.HighestBidAmountNanos === 0 && nft.NFTEntryResponse.IsForSale
         );
         break;
       case "for_sale":
-        this.filteredCollection = this.nftCollections.filter((nft) => nft.NFTEntryResponse.IsForSale);
+        this.globalVars.marketplaceFilteredCollection = this.nftCollections.filter(
+          (nft) => nft.NFTEntryResponse.IsForSale
+        );
         break;
       case "sold":
-        this.filteredCollection = this.nftCollections.filter(
+        this.globalVars.marketplaceFilteredCollection = this.nftCollections.filter(
           (nft) => !nft.NFTEntryResponse.IsForSale && nft.NFTEntryResponse.LastAcceptedBidAmountNanos > 0
         );
         break;
       default:
-        this.filteredCollection = this.nftCollections;
+        this.globalVars.marketplaceFilteredCollection = this.nftCollections;
         break;
     }
     if (primary === "true" && secondary === "true") {
       // Keep all
-      this.dataToShow = this.filteredCollection.slice(this.startIndex, this.endIndex);
+      this.globalVars.marketplaceDataToShow = this.globalVars.marketplaceFilteredCollection.slice(
+        this.startIndex,
+        this.endIndex
+      );
     } else if (primary === "true") {
       // Get primary
-      this.filteredCollection = this.filteredCollection.filter(
+      this.globalVars.marketplaceFilteredCollection = this.globalVars.marketplaceFilteredCollection.filter(
         (nft) => nft.NFTEntryResponse.OwnerPublicKeyBase58Check === nft.PostEntryResponse.PosterPublicKeyBase58Check
       );
-      this.dataToShow = this.filteredCollection.slice(this.startIndex, this.endIndex);
+      this.globalVars.marketplaceDataToShow = this.globalVars.marketplaceFilteredCollection.slice(
+        this.startIndex,
+        this.endIndex
+      );
       // Get secondary
     } else if (secondary === "true") {
-      this.filteredCollection = this.filteredCollection.filter(
+      this.globalVars.marketplaceFilteredCollection = this.globalVars.marketplaceFilteredCollection.filter(
         (nft) => nft.NFTEntryResponse.OwnerPublicKeyBase58Check !== nft.PostEntryResponse.PosterPublicKeyBase58Check
       );
-      this.dataToShow = this.filteredCollection.slice(this.startIndex, this.endIndex);
+      this.globalVars.marketplaceDataToShow = this.globalVars.marketplaceFilteredCollection.slice(
+        this.startIndex,
+        this.endIndex
+      );
     } else {
       // Keep all
-      this.dataToShow = this.filteredCollection.slice(this.startIndex, this.endIndex);
+      this.globalVars.marketplaceDataToShow = this.globalVars.marketplaceFilteredCollection.slice(
+        this.startIndex,
+        this.endIndex
+      );
     }
-    this.lastPage = Math.floor(this.filteredCollection.length / TrendsComponent.PAGE_SIZE);
+    this.lastPage = Math.floor(this.globalVars.marketplaceFilteredCollection.length / TrendsComponent.PAGE_SIZE);
     this.globalVars.isMarketplaceLoading = false;
   }
 
   onScroll() {
-    if (this.endIndex <= this.filteredCollection.length - 1) {
+    if (this.endIndex <= this.globalVars.marketplaceFilteredCollection.length - 1) {
       this.startIndex = this.endIndex;
       this.endIndex += 20;
-      this.dataToShow = [...this.dataToShow, ...this.filteredCollection.slice(this.startIndex, this.endIndex)];
+      this.globalVars.marketplaceDataToShow = [
+        ...this.globalVars.marketplaceDataToShow,
+        ...this.globalVars.marketplaceFilteredCollection.slice(this.startIndex, this.endIndex),
+      ];
     }
   }
 

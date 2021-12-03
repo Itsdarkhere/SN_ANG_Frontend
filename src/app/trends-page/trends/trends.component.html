@@ -9,7 +9,7 @@
     (scrolled)="onScroll()"
   >
     <div class="nfts-card-list">
-      <div class="nft-col-wrap" *ngFor="let nftCollection of dataToShow">
+      <div class="nft-col-wrap" *ngFor="let nftCollection of globalVars.marketplaceDataToShow">
         <div class="max-width-350">
           <new-nft-card
             [post]="nftCollection.PostEntryResponse"

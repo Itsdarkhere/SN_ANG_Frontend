@@ -168,12 +168,15 @@ header {
 .header-create-button-gradient {
     min-width: 84px;
     min-height: 42px !important;
-    background-image: url("/assets/img/create3.png");
+    background-image: url("/assets/img/create-button-1.png");
     background-size: cover;
     border: none;
     background-color: transparent;
     transition-property: -moz-filter, -ms-filter, -o-filter, -webkit-filter, filter;
     transition-duration: 0.3s;
+    p {
+        text-shadow: 2.666048288345337px 2.666048288345337px 32.2906379699707px rgba(0, 0, 0, 1),0.6665120720863342px 0.3332560360431671px 0px rgba(0, 0, 0, 1);
+    }
     &:active {
         transform: scale(.96);
     }
@@ -189,7 +192,9 @@ header {
     -o-transform: translateZ(0);
     transform: translateZ(0);
 }
-.grow:hover { transform: scale(1.05); }
+.grow:hover { 
+    transform: scale(1.05) translate3d( 0, 0, 0) perspective(1px) 
+}
 .notification-amount {
     position: absolute;
     top: 10px;

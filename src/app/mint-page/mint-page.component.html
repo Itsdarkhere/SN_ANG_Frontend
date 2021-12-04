@@ -10,7 +10,7 @@
     <div *ngIf="step === 1" class="mint-page-text-container flex-start-center w-100">
       <div class="w-100 h-100 mb-50px d-flex flex-column flex-center-start overflow-y-auto disable-scrollbars">
         <div class="w-90 mt-20px">
-          <h2 class="font-weight-bold w-100 text-align-start ml-5px fs-33-responsive">Choose content type</h2>
+          <h2 class="font-weight-semiboldn w-100 text-align-start ml-5px fs-33-responsive">Choose content type</h2>
           <label
             class="mt-20px color-light mint-page-sub-heading w-100 mb-0px text-align-start fs-20-responsive ml-5px"
           >
@@ -42,7 +42,7 @@
             </div>
             <div class="h-40 w-100 mt-10px d-flex flex-column">
               <label class="fs-15px font-weight-bold pointer-events-none">Video</label>
-              <label class="fs-11px pointer-events-none">Coming tomorrow!</label>
+              <label class="fs-11px pointer-events-none">Coming very soon!</label>
             </div>
           </button>
           <button
@@ -55,7 +55,7 @@
             </div>
             <div class="h-40 w-100 mt-10px d-flex flex-column">
               <label class="fs-15px font-weight-bold color-light pointer-events-none">Video</label>
-              <label class="fs-11px color-light pointer-events-none">Coming tomorrow!</label>
+              <label class="fs-11px color-light pointer-events-none">Coming very soon!</label>
             </div>
           </button>
           <button class="content-type-card not-available-warning p-0px" *ngIf="!mobile">
@@ -95,7 +95,11 @@
       [ngClass]="mobile ? 'w-100' : 'w-50'"
     >
       <div class="mint-page-inner-inner disable-scrollbars" [ngClass]="mobile ? 'w-90' : 'w-80'">
-        <h2 class="font-weight-bold w-100 text-align-start ml-5px fs-23-responsive">Create your NFT</h2>
+        <button class="previous-step-button color-light" (click)="previousStep()">
+          <img class="previous-step-arrow mr-5px" src="/assets/icons/arrow-left-lighter.svg" />
+          Back
+        </button>
+        <h2 class="font-weight-semiboldn w-100 text-align-start ml-5px fs-23-responsive">Create your NFT</h2>
         <label
           class="mt-10px mint-page-sub-heading font-weight-bold w-100 mb-0px text-align-start fs-14-responsive ml-5px"
         >
@@ -177,7 +181,7 @@
           <img class="previous-step-arrow mr-5px" src="/assets/icons/arrow-left-lighter.svg" />
           Back
         </button>
-        <h2 class="mb-0px fs-23-responsive font-weight-bold w-100 text-align-start ml-5px">NFT details</h2>
+        <h2 class="mb-0px fs-23-responsive font-weight-semiboldn w-100 text-align-start ml-5px">NFT details</h2>
         <!-- IMAGE TYPE -->
         <div class="w-100" *ngIf="!videoType">
           <label class="mint-page-sub-heading font-weight-bold w-100 text-align-start mt-10px ml-5px fs-14-responsive">
@@ -308,18 +312,7 @@
         </div>
         <button
           (click)="extrasOpen = !extrasOpen"
-          class="
-            mint-page-sub-heading
-            p-0px
-            optional-extras-button
-            font-weight-bold
-            mint-page-flex-start
-            text-align-start
-            mb-20px
-            mt-15px
-            fs-14-responsive
-            ml-5px
-          "
+          class="mint-page-sub-heading p-0px optional-extras-button font-weight-bold mint-page-flex-start text-align-start mb-20px mt-15px fs-14-responsive ml-5px"
         >
           Additional details
           <img
@@ -403,7 +396,7 @@
           <img class="previous-step-arrow mr-5px" src="/assets/icons/arrow-left-lighter.svg" />
           Back
         </button>
-        <h2 class="mb-5px font-weight-bold w-100 text-align-start fs-23-responsive ml-5px">Mint your NFT</h2>
+        <h2 class="mb-5px font-weight-semiboldn w-100 text-align-start fs-23-responsive ml-5px">Mint your NFT</h2>
         <div class="w-100 mt-5px">
           <label class="mint-page-sub-heading mb-0px font-weight-bold w-100 fs-14-responsive text-align-start ml-5px">
             Minimum price
@@ -439,15 +432,7 @@
                   class="w-50 color-text font-weight-bold h-100 royalty-element-input"
                 />
                 <button
-                  class="
-                    w-50
-                    h-100
-                    background-secondary
-                    flex-center
-                    royalty-element-label
-                    fs-23-responsive
-                    font-weight-bold
-                  "
+                  class="w-50 h-100 background-secondary flex-center royalty-element-label fs-23-responsive font-weight-bold"
                 >
                   %
                 </button>
@@ -488,17 +473,7 @@
             (click)="UNLOCKABLE_CONTENT = !UNLOCKABLE_CONTENT"
           >
             <div
-              class="
-                mb-0px
-                cursor-pointer
-                d-flex
-                flex-row
-                w-20
-                flex-center
-                background-darker-light
-                mint-page-position-absolute-label
-                fs-14-responsive
-              "
+              class="mb-0px cursor-pointer d-flex flex-row w-20 flex-center background-darker-light mint-page-position-absolute-label fs-14-responsive"
             >
               <input
                 type="checkbox"
@@ -522,15 +497,7 @@
             (click)="PUT_FOR_SALE = !PUT_FOR_SALE"
           >
             <div
-              class="
-                d-flex
-                flex-row flex-center
-                background-darker-light
-                h-100
-                w-20
-                mint-page-position-absolute-label
-                fs-14-responsive
-              "
+              class="d-flex flex-row flex-center background-darker-light h-100 w-20 mint-page-position-absolute-label fs-14-responsive"
             >
               <input type="checkbox" class="mint-page-button-input display-none mr-10px" [checked]="PUT_FOR_SALE" />
               <p class="checkbox-input-text">{{ PUT_FOR_SALE ? "YES" : "NO" }}</p>
@@ -563,7 +530,7 @@
         [ngClass]="mobile ? 'w-90' : 'w-80'"
       >
         <img class="success-gradient" src="/assets/img/success-gradient.png" alt="success-icon" />
-        <h2 class="mb-20px font-weight-bold w-100 text-align-center ml-5px mt-20px">Congratulations! 🎉</h2>
+        <h2 class="mb-20px font-weight-semiboldn w-100 text-align-center ml-5px mt-20px">Congratulations! 🎉</h2>
         <label class="color-light text-align-center fs-18px ml-5px mt-20px">
           Your NFT is minted and live on the Supernovas marketplace. Well done!
         </label>

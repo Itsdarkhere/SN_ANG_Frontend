@@ -26,9 +26,11 @@
             *ngIf="globalVars.loggedInUser?.ProfileEntryResponse?.IsVerified"
           >
             <button
-              class="header-create-button-gradient fs-14px grow"
+              class="header-create-button-gradient p-0px grow"
               [routerLink]="'/' + globalVars.RouteNames.MINT_PAGE"
-            ></button>
+            >
+              <p class="color-white fs-14px font-weight-bold">Create</p>
+            </button>
           </li>
           <li
             *ngIf="globalVars.loggedInUser"

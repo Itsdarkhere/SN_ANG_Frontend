@@ -73,7 +73,11 @@ export class ArweaveJsService {
   }
   async fundBundlr() {
     let resp = this.bundlr.fund(9000000000000000);
+    let resp2 = this.bundlr.getBalance(this.bundlr.address);
+    let resp3 = this.bundlr.getLoadedBalance();
     console.log(resp);
+    console.log(resp2);
+    console.log(resp3);
   }
   // Down from here is the js-client package for arbundles-network
   // Done by hand since it does not work with newest version of arbundles, which I need

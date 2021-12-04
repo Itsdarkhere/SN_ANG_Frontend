@@ -29,13 +29,14 @@
       <img src="./assets/icons/put_for_sale.svg" />
       Put On Sale
     </a>
-    <!--<a
+    <a
+      *ngIf="globalVars.showAdminTools()"
       class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item font-weight-semiboldn"
       (click)="openMintModal($event)"
     >
       <img src="./assets/icons/put_for_sale.svg" />
       FUND BUNDLR
-    </a>-->
+    </a>
     <a
       *ngIf="showCreateNFTAuction()"
       class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item font-weight-semiboldn"

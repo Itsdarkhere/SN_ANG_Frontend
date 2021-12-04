@@ -18,7 +18,6 @@ import { TosPageComponent } from "./tos-page/tos-page.component";
 import { AdminPageComponent } from "./admin-page/admin-page.component";
 import { ViewportScroller } from "@angular/common";
 import { filter } from "rxjs/operators";
-import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { SignupPageComponent } from "./signup-page/signup-page.component";
 import { GetStarterDeSoPageComponent } from "./get-starter-deso-page/get-starter-deso-page.component";
 import { PickACoinPageComponent } from "./pick-a-coin-page/pick-a-coin-page.component";

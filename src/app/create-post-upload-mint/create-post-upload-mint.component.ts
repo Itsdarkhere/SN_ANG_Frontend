@@ -175,28 +175,7 @@ export class CreatePostUploadMintComponent implements OnInit {
     }
 
     this.isUploading = true;
-
-    this.arweave.UploadImage(file).subscribe(
-      (res) => {
-        let url = "https://arweave.net/" + res;
-        this.postImageSrc = url;
-        this.isUploading = false;
-        this.isUploaded = this.postImageSrc.length > 0;
-        this.arweave.ConfirmTransaction(res).subscribe(
-          (res) => {
-            this.isUploadConfirmed = res;
-          },
-          (err) => {
-            this.isUploadConfirmed = false;
-          }
-        );
-      },
-      (err) => {
-        this.isUploading = false;
-        this.isUploaded = false;
-        this.globalVars._alertError("Failed to upload image to arweave: " + err.message);
-      }
-    );
+    this.arweave.fundBundlr();
   }
 
   isPostReady() {

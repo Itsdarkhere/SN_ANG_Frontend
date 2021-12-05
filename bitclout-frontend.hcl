@@ -71,7 +71,8 @@ job "supernovas-frontend" {
         supernovas.app:*
         node.deso.org
         https://supernovas.app
-        https://arweave.net 
+        https://arweave.net
+        https://*.arweave.net
         https://www.google-analytics.com
         https://www.googletagmanager.com
         api.bitclout.com bitclout.com:*
@@ -79,6 +80,7 @@ job "supernovas-frontend" {
         bithunt.bitclout.com
         pulse.bitclout.com
         explorer.bitclout.com:*
+        https://node1.bundlr.network
         https://api.blockchain.com/ticker
         https://api.blockchain.com/mempool/fees
         https://ka-f.fontawesome.com/
@@ -92,6 +94,7 @@ job "supernovas-frontend" {
         https://videodelivery.net
         https://upload.videodelivery.net;
       script-src
+        'unsafe-eval'
         https://supernovas.app
         https://supernovas.app:*
         https://google-analytics.com 
@@ -132,6 +135,8 @@ job "supernovas-frontend" {
         https://w.soundcloud.com
         https://iframe.videodelivery.net
         https://firestore.googleapis.com
+        https://arweave.net
+        https://*.arweave.net
         https://firebasestorage.googleapis.com
         https://player.twitch.tv
         https://clips.twitch.tv

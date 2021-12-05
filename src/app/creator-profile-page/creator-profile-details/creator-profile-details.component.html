@@ -17,8 +17,7 @@
 
     <!-- Feed Selector -->
     <tab-selector
-      [tabs]="['Collected', 'Posts', 'Creator Coin']"
-      [extraTab]="profile.IsVerified ? 'Created' : ''"
+      [tabs]="['Created', 'Collected', 'Posts', 'Creator Coin']"
       [activeTab]="activeTab"
       (tabClick)="_handleTabClick($event)"
     ></tab-selector>

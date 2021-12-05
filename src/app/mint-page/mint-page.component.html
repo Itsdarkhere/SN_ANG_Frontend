@@ -2,19 +2,104 @@
   <div class="mint-page-progress">
     <div
       class="mint-page-progress-inner"
-      [ngClass]="{ 'step-2': step === 2, 'step-3': step === 3, 'step-4': step === 4 }"
+      [ngClass]="{ 'step-2': step === 2, 'step-3': step === 3, 'step-4': step === 4, 'step-5': step === 5 }"
     ></div>
   </div>
   <div class="d-flex mt-20px" [ngClass]="mobile ? 'messages_container_mobile' : 'messages_container'">
     <!--  STEP 1  -->
+    <div *ngIf="step === 1" class="mint-page-text-container flex-start-center w-100">
+      <div class="w-100 h-100 mb-50px d-flex flex-column flex-center-start overflow-y-auto disable-scrollbars">
+        <div class="w-90 mt-20px">
+          <h2 class="font-weight-semiboldn w-100 text-align-start ml-5px fs-33-responsive">Choose content type</h2>
+          <label
+            class="mt-20px color-light mint-page-sub-heading w-100 mb-0px text-align-start fs-20-responsive ml-5px"
+          >
+            You can mint either image or video NFT’s on Supernovas. Maximum file size is 200Mb.
+          </label>
+        </div>
+        <div class="mint-content-type-container pb-20px w-90" [ngClass]="mobile ? 'justify-content-around' : ''">
+          <button
+            class="content-type-card p-0px"
+            (click)="imageTypeSelected()"
+            [ngClass]="{ 'electric-box-shadow': imageType, 'm-10px': mobile }"
+          >
+            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+              <img src="/assets/icons/image-type.svg" alt="creator icon" />
+            </div>
+            <div class="h-40 w-100 mt-10px d-flex flex-column">
+              <label class="fs-15px font-weight-bold pointer-events-none">Image</label>
+              <label class="fs-11px pointer-events-none">PNG, JPEG files are supported.</label>
+            </div>
+          </button>
+          <button
+            *ngIf="globalVars.showAdminTools()"
+            class="content-type-card p-0px"
+            (click)="videoTypeSelected()"
+            [ngClass]="{ 'electric-box-shadow': videoType, 'm-10px': mobile }"
+          >
+            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+              <img src="/assets/icons/video-type.svg" alt="creator icon" />
+            </div>
+            <div class="h-40 w-100 mt-10px d-flex flex-column">
+              <label class="fs-15px font-weight-bold pointer-events-none">Video</label>
+              <label class="fs-11px pointer-events-none">Coming very soon!</label>
+            </div>
+          </button>
+          <button
+            *ngIf="!globalVars.showAdminTools()"
+            class="content-type-card not-available-warning p-0px"
+            [ngClass]="{ 'm-10px': mobile }"
+          >
+            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+              <img src="/assets/icons/video-type.svg" alt="creator icon" />
+            </div>
+            <div class="h-40 w-100 mt-10px d-flex flex-column">
+              <label class="fs-15px font-weight-bold color-light pointer-events-none">Video</label>
+              <label class="fs-11px color-light pointer-events-none">Coming very soon!</label>
+            </div>
+          </button>
+          <button class="content-type-card not-available-warning p-0px" *ngIf="!mobile">
+            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+              <img src="/assets/icons/music-type.svg" alt="creator icon" />
+            </div>
+            <div class="h-40 w-100 mt-10px d-flex flex-column">
+              <label class="fs-15px color-light font-weight-bold pointer-events-none">Music</label>
+              <label class="fs-11px color-light pointer-events-none">Coming soon!</label>
+            </div>
+          </button>
+          <button class="content-type-card not-available-warning p-0px" *ngIf="!mobile">
+            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+              <img src="/assets/icons/3D-type.png" alt="creator icon" />
+            </div>
+            <div class="h-40 w-100 mt-10px d-flex flex-column">
+              <label class="fs-15px color-light font-weight-bold pointer-events-none">3D</label>
+              <label class="fs-11px color-light pointer-events-none">Coming soon!</label>
+            </div>
+          </button>
+        </div>
+      </div>
+      <button
+        class="mb-0px font-weight-bold mint-page-step-2-continue"
+        [ngClass]="mobile ? 'w-90' : 'w-80'"
+        [disabled]="!videoType && !imageType"
+        (click)="nextStep()"
+      >
+        CONTINUE
+      </button>
+    </div>
+    <!-- STEP 2 -->
     <div
       [@mintSwipeAnimation]
-      *ngIf="step === 1"
+      *ngIf="step === 2"
       class="mint-page-text-container flex-center"
       [ngClass]="mobile ? 'w-100' : 'w-50'"
     >
       <div class="mint-page-inner-inner disable-scrollbars" [ngClass]="mobile ? 'w-90' : 'w-80'">
-        <h2 class="font-weight-bold w-100 text-align-start ml-5px fs-23-responsive">Create your NFT</h2>
+        <button class="previous-step-button color-light" (click)="previousStep()">
+          <img class="previous-step-arrow mr-5px" src="/assets/icons/arrow-left-lighter.svg" />
+          Back
+        </button>
+        <h2 class="font-weight-semiboldn w-100 text-align-start ml-5px fs-23-responsive">Create your NFT</h2>
         <label
           class="mt-10px mint-page-sub-heading font-weight-bold w-100 mb-0px text-align-start fs-14-responsive ml-5px"
         >
@@ -42,7 +127,9 @@
               <img src="/assets/img/single.png" class="make-smaller" alt="nft-card-mockup" />
             </div>
             <div>
-              <label class="font-weight-bold w-100 text-align-center mt-5px mb-0px fs-14-responsive">Collection</label>
+              <label class="font-weight-bold w-100 color-light text-align-center mt-5px mb-0px fs-14-responsive">
+                Collection
+              </label>
               <label class="w-100 text-align-center fs-10-responsive">Coming soon!</label>
             </div>
           </div>
@@ -62,13 +149,13 @@
           </div>
           <div class="w-100 mint-page-auction-selection mt-10px pointer-events-none">
             <div class="background-secondary w-30 h-100 flex-center text-align-center">
-              <label class="mb-0px p-5px font-weight-bold fs-12-responsive">TIMED AUCTION</label>
+              <label class="mb-0px p-5px color-light font-weight-bold fs-12-responsive">TIMED AUCTION</label>
             </div>
             <div class="w-70 mb-0px pl-10px pr-10px fs-10-responsive">Coming soon!</div>
           </div>
           <div class="w-100 mt-10px mint-page-auction-selection pointer-events-none">
             <div class="background-secondary w-30 h-100 flex-center text-align-center">
-              <label class="mb-0px p-5px font-weight-bold fs-12-responsive">BUY NOW</label>
+              <label class="mb-0px color-light p-5px font-weight-bold fs-12-responsive">BUY NOW</label>
             </div>
             <div class="w-70 mb-0px pl-10px pr-10px fs-10-responsive">Coming soon!</div>
           </div>
@@ -85,7 +172,7 @@
     <!--  STEP 2  -->
     <div
       [@mintSwipeAnimation]
-      *ngIf="step === 2"
+      *ngIf="step === 3"
       class="mint-page-text-container-no-max h-100"
       [ngClass]="mobile ? 'w-100' : 'w-50'"
     >
@@ -94,23 +181,33 @@
           <img class="previous-step-arrow mr-5px" src="/assets/icons/arrow-left-lighter.svg" />
           Back
         </button>
-        <h2 class="mb-0px fs-23-responsive font-weight-bold w-100 text-align-start ml-5px">NFT details</h2>
-        <div class="w-100">
+        <h2 class="mb-0px fs-23-responsive font-weight-semiboldn w-100 text-align-start ml-5px">NFT details</h2>
+        <!-- IMAGE TYPE -->
+        <div class="w-100" *ngIf="!videoType">
           <label class="mint-page-sub-heading font-weight-bold w-100 text-align-start mt-10px ml-5px fs-14-responsive">
-            Upload image
+            {{ videoType ? "Upload a video" : "Upload an Image" }}
           </label>
           <label
             for="file-upload"
             class="mint-page-custom-file-upload mb-0px background-secondary d-flex flex-row flex-center"
           >
             <div
-              class="text-align-center"
-              *ngIf="(!isUploading && !(postImageSrc?.length > 0)) || (arweaveClicked && !isUploading)"
+              class="text-align-center d-flex flex-column flex-center"
+              *ngIf="!isUploading && !(postVideoArweaveSrc?.length > 0 || postImageSrc?.length > 0)"
             >
-              <img src="/assets/icons/upload.svg" alt="upload-icon" class="mr-10px" />
-              Upload a regular image
+              <span class="font-weight-semiboldn fs-14-responsive">
+                <img src="/assets/icons/upload.svg" alt="upload-icon" class="mr-5px" />
+                Click to upload an Image
+              </span>
+              <p class="fs-12px p-5px" [ngClass]="mobile ? 'w-90' : 'w-80'" style="color: #7e7e7e">
+                You can upload files up to 200MB. The file is stored on decentralized storage, so it will be available
+                forever.
+              </p>
             </div>
-            <div class="d-flex flex-row flex-center" *ngIf="postImageSrc?.length > 0 && !arweaveClicked">
+            <div
+              class="d-flex flex-row flex-center"
+              *ngIf="(postImageSrc?.length > 0 || postVideoArweaveSrc?.length > 0) && !arweaveClicked"
+            >
               <i class="fa fa-check mr-10px"></i>
               <p>Image uploaded</p>
             </div>
@@ -124,31 +221,46 @@
             id="file-upload"
             class="br-6px"
           />
-          <div class="mint-page-line-or-box w-100 mt-5px mb-5px">
-            <span class="mint-page-line"></span>
-            <label class="mb-0px pr-10px pl-10px fs-16px mint-page-or">OR</label>
-            <span class="mint-page-line"></span>
-          </div>
-          <div class="w-100">
-            <input
-              *ngIf="arweaveClicked"
-              maxlength="500"
-              class="br-6px mint-page-arweave-input"
-              [ngClass]="mobile ? 'fs-10px' : 'fs-12-responsive'"
-              autofocus
-              type="url"
-              [(ngModel)]="postImageSrc"
-              placeholder="Add a link to an image stored on Arweave here"
-            />
-            <button
-              (click)="arweaveClick()"
-              *ngIf="!arweaveClicked"
-              class="br-6px w-100 mint-page-arweave-button"
-              [ngClass]="mobile ? 'fs-10px' : 'fs-12-responsive'"
+        </div>
+        <!-- Video TYPE -->
+        <div class="w-100" *ngIf="videoType">
+          <label class="mint-page-sub-heading font-weight-bold w-100 text-align-start mt-10px ml-5px fs-14-responsive">
+            Upload a video
+          </label>
+          <label
+            for="file-upload"
+            class="mint-page-custom-file-upload mb-0px background-secondary d-flex flex-row flex-center"
+          >
+            <div
+              class="text-align-center d-flex flex-column flex-center"
+              *ngIf="!isUploading && !(postVideoArweaveSrc?.length > 0)"
             >
-              Add a link to an image stored on Arweave here
-            </button>
-          </div>
+              <span class="font-weight-semiboldn fs-14-responsive">
+                <img src="/assets/icons/upload.svg" alt="upload-icon" class="mr-5px" />
+                Click to upload a video
+              </span>
+              <p class="fs-12px p-5px" [ngClass]="mobile ? 'w-90' : 'w-80'" style="color: #7e7e7e">
+                You can upload files up to 200MB. The file is stored on decentralized storage, so it will be available
+                forever.
+              </p>
+            </div>
+            <div
+              class="d-flex flex-row flex-center"
+              *ngIf="(postImageSrc?.length > 0 || postVideoArweaveSrc?.length > 0) && !arweaveClicked"
+            >
+              <i class="fa fa-check mr-10px"></i>
+              <p>Video uploaded</p>
+            </div>
+            <i *ngIf="isUploading" class="fa fa-spinner fa-spin"></i>
+          </label>
+          <input
+            #imageInput
+            type="file"
+            accept="video/*"
+            (change)="_handleFilesInput($event.target.files)"
+            id="file-upload"
+            class="br-6px"
+          />
         </div>
         <div class="w-100">
           <label
@@ -262,15 +374,20 @@
         class="mb-0px font-weight-bold mint-page-step-2-continue"
         [ngClass]="mobile ? 'w-90' : 'w-80'"
         (click)="nextStep()"
-        [disabled]="!isDescribed() || !(postImageSrc?.length > 0) || !isNamed() || !isCategorized()"
+        [disabled]="
+          !isDescribed() ||
+          !(postImageSrc?.length > 0 || postVideoArweaveSrc?.length > 0) ||
+          !isNamed() ||
+          !isCategorized()
+        "
       >
         Continue
       </button>
     </div>
-    <!--  STEP 3  -->
+    <!--  STEP 4  -->
     <div
       [@mintSwipeAnimation]
-      *ngIf="step === 3"
+      *ngIf="step === 4"
       class="mint-page-text-container-no-max h-95"
       [ngClass]="mobile ? 'w-100' : 'w-50'"
     >
@@ -279,7 +396,7 @@
           <img class="previous-step-arrow mr-5px" src="/assets/icons/arrow-left-lighter.svg" />
           Back
         </button>
-        <h2 class="mb-5px font-weight-bold w-100 text-align-start fs-23-responsive ml-5px">Mint your NFT</h2>
+        <h2 class="mb-5px font-weight-semiboldn w-100 text-align-start fs-23-responsive ml-5px">Mint your NFT</h2>
         <div class="w-100 mt-5px">
           <label class="mint-page-sub-heading mb-0px font-weight-bold w-100 fs-14-responsive text-align-start ml-5px">
             Minimum price
@@ -401,10 +518,10 @@
         <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i>
       </button>
     </div>
-    <!--  STEP 4  -->
+    <!--  STEP 5  -->
     <div
       [@cardAppearAnimation]
-      *ngIf="step === 4"
+      *ngIf="step === 5"
       class="mint-page-text-container"
       [ngClass]="mobile ? 'w-100' : 'w-50'"
     >
@@ -413,7 +530,7 @@
         [ngClass]="mobile ? 'w-90' : 'w-80'"
       >
         <img class="success-gradient" src="/assets/img/success-gradient.png" alt="success-icon" />
-        <h2 class="mb-20px font-weight-bold w-100 text-align-center ml-5px mt-20px">Congratulations! 🎉</h2>
+        <h2 class="mb-20px font-weight-semiboldn w-100 text-align-center ml-5px mt-20px">Congratulations! 🎉</h2>
         <label class="color-light text-align-center fs-18px ml-5px mt-20px">
           Your NFT is minted and live on the Supernovas marketplace. Well done!
         </label>
@@ -427,8 +544,11 @@
       </div>
     </div>
     <!--  LEFT SIDE DESKTOP STEPS 1 - 2-->
-    <div *ngIf="!mobile && step < 3" class="mint-page-image-container d-flex flex-center">
-      <label class="mb-0px illuminate-color pr-20px pl-20px text-align-center" *ngIf="!postImageSrc || postVideoSrc">
+    <div *ngIf="!mobile && 1 < step && step < 4" class="mint-page-image-container d-flex flex-center">
+      <label
+        class="mb-0px illuminate-color pr-20px pl-20px text-align-center"
+        *ngIf="!postImageSrc && !postVideoArweaveSrc"
+      >
         Illuminate the digital universe with your imagination.
         <br />
         And never stop.
@@ -437,44 +557,29 @@
         <i class="icon-close feed-post__image-delete" (click)="postImageSrc = null"></i>
         <img class="feed-post__image br-0px" src="{{ postImageSrc }}" />
       </div>
-      <!-- Video is processing - please wait -->
-      <div class="d-flex flex-column align-items-center" *ngIf="postVideoSrc && !readyToStream">
-        <div>Video Processing In Progress</div>
-        <simple-center-loader [height]="150"></simple-center-loader>
-      </div>
-      <div class="d-flex flex-column align-items-center" *ngIf="videoUploadPercentage !== null">
-        <div>Uploading: {{ videoUploadPercentage }}% Complete</div>
-        <mat-progress-bar [value]="videoUploadPercentage" [mode]="'determinate'"></mat-progress-bar>
-      </div>
       <!-- Video Player -->
-      <div *ngIf="postVideoSrc && readyToStream" class="feed-post__video-container">
+      <div *ngIf="postVideoDESOSrc" class="feed-post__video-container m-w-80">
         <iframe
-          [src]="postVideoSrc | sanitizeVideoUrl"
-          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+          [src]="postVideoDESOSrc | sanitizeVideoUrl"
+          allow="accelerometer; gyroscope; encrypted-media; picture-in-picture;"
           allowfullscreen
           class="feed-post__video"
         ></iframe>
       </div>
     </div>
     <!-- LEFT SIDE DESKTOP STEPS 3 - 4 -->
-    <div *ngIf="!mobile && step >= 3" class="mint-page-image-container d-flex flex-center">
+    <div *ngIf="!mobile && step >= 4" class="mint-page-image-container d-flex flex-center">
       <div [@cardAppearAnimation] class="fake-card">
-        <!--<div class="fake-card-header w-100">
-          <div class="d-flex flex-row flex-center">
-            <div class="fake-profile-img pointer-events-none">
-              <a [avatar]="globalVars.loggedInUser.PublicKeyBase58Check"></a>
-            </div>
-            <h6>
-              {{ globalVars.loggedInUser?.ProfileEntryResponse.Username }}
-              <i
-                *ngIf="globalVars.loggedInUser?.ProfileEntryResponse.IsVerified"
-                class="fas fa-check-circle fa-md text-primary"
-              ></i>
-            </h6>
-          </div>
-        </div>-->
         <div class="fake-card-image-box">
-          <img class="fake-card-image" src="{{ postImageSrc }}" />
+          <img *ngIf="postImageSrc" class="fake-card-image" src="{{ postImageSrc }}" />
+          <div *ngIf="postVideoArweaveSrc" class="feed-post__video-container m-w-80">
+            <iframe
+              [src]="postVideoArweaveSrc | sanitizeVideoUrl"
+              allow="accelerometer; gyroscope; encrypted-media; picture-in-picture;"
+              allowfullscreen
+              class="feed-post__video"
+            ></iframe>
+          </div>
         </div>
         <div class="caption-cover w-100">
           <p class="font-weight-semibold fs-20px-im">
@@ -518,14 +623,10 @@
                   #NFTMOfNTooltip="matTooltip"
                 >
                   <p class="p-lighter">Edition of</p>
-                  <!-- <p class="font-weight-bold">{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} </p> -->
                   <p class="font-weight-bold">1</p>
                 </div>
               </ng-container>
             </div>
-            <!--<button class="btn btn-place-a-bid" (click)="openPlaceBidModal($event)" *ngIf="showPlaceABid">
-            Place a Bid
-          </button>-->
           </div>
         </div>
       </div>

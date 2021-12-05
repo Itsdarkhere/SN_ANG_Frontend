@@ -193,7 +193,7 @@
           >
             <div
               class="text-align-center d-flex flex-column flex-center"
-              *ngIf="!isUploading && !(postVideoArweaveSrc?.length > 0 || postImageSrc?.length > 0)"
+              *ngIf="!isUploading && !(postVideoDESOSrc?.length > 0 || postImageSrc?.length > 0)"
             >
               <span class="font-weight-semiboldn fs-14-responsive">
                 <img src="/assets/icons/upload.svg" alt="upload-icon" class="mr-5px" />
@@ -206,7 +206,7 @@
             </div>
             <div
               class="d-flex flex-row flex-center"
-              *ngIf="(postImageSrc?.length > 0 || postVideoArweaveSrc?.length > 0) && !arweaveClicked"
+              *ngIf="(postImageSrc?.length > 0 || postVideoDESOSrc?.length > 0) && !arweaveClicked"
             >
               <i class="fa fa-check mr-10px"></i>
               <p>Image uploaded</p>
@@ -233,7 +233,7 @@
           >
             <div
               class="text-align-center d-flex flex-column flex-center"
-              *ngIf="!isUploading && !(postVideoArweaveSrc?.length > 0)"
+              *ngIf="!isUploading && !(postVideoDESOSrc?.length > 0)"
             >
               <span class="font-weight-semiboldn fs-14-responsive">
                 <img src="/assets/icons/upload.svg" alt="upload-icon" class="mr-5px" />
@@ -246,7 +246,7 @@
             </div>
             <div
               class="d-flex flex-row flex-center"
-              *ngIf="(postImageSrc?.length > 0 || postVideoArweaveSrc?.length > 0) && !arweaveClicked"
+              *ngIf="(postImageSrc?.length > 0 || postVideoDESOSrc?.length > 0) && !arweaveClicked"
             >
               <i class="fa fa-check mr-10px"></i>
               <p>Video uploaded</p>
@@ -376,7 +376,7 @@
         (click)="nextStep()"
         [disabled]="
           !isDescribed() ||
-          !(postImageSrc?.length > 0 || postVideoArweaveSrc?.length > 0) ||
+          !(postImageSrc?.length > 0 || postVideoDESOSrc?.length > 0) ||
           !isNamed() ||
           !isCategorized()
         "
@@ -547,7 +547,7 @@
     <div *ngIf="!mobile && 1 < step && step < 4" class="mint-page-image-container d-flex flex-center">
       <label
         class="mb-0px illuminate-color pr-20px pl-20px text-align-center"
-        *ngIf="!postImageSrc && !postVideoArweaveSrc"
+        *ngIf="!postImageSrc && !postVideoDESOSrc"
       >
         Illuminate the digital universe with your imagination.
         <br />
@@ -572,9 +572,9 @@
       <div [@cardAppearAnimation] class="fake-card">
         <div class="fake-card-image-box">
           <img *ngIf="postImageSrc" class="fake-card-image" src="{{ postImageSrc }}" />
-          <div *ngIf="postVideoArweaveSrc" class="feed-post__video-container m-w-80">
+          <div *ngIf="postVideoDESOSrc" class="feed-post__video-container m-w-80">
             <iframe
-              [src]="postVideoArweaveSrc | sanitizeVideoUrl"
+              [src]="postVideoDESOSrc | sanitizeVideoUrl"
               allow="accelerometer; gyroscope; encrypted-media; picture-in-picture;"
               allowfullscreen
               class="feed-post__video"

@@ -227,7 +227,7 @@ export class MintPageComponent implements OnInit {
         comp.pollForReadyToStream();
         // At this step we are going to only show the deso part of the video
         // Since arweave is quicker but takes 3s after upload to start
-        this.handleVideoArweaveInput(file);
+        comp.handleVideoArweaveInput(file);
       },
       onAfterResponse: function (req, res) {
         return new Promise((resolve) => {

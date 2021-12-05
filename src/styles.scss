@@ -2032,11 +2032,6 @@ input.bs-timepicker-field {
 
 .feed-create-comment-form__reply-container {
     margin-left: 80px;
-    font-weight: 600;
-    font-size: 14px!important;
-    line-height: 21px;
-    color: #626262;
-    opacity: 0.8;
 }
 
 .feed-create-comment-form__avatar {
@@ -4987,29 +4982,7 @@ option {
     width: 97px;
     height: 19px;
 }
-.comment-popup .embed_wrp{
-    position: absolute;
-    left: 0;
-    bottom: 40px;
-    width: calc(100% - 180px);
-}
-.comment-popup .embed_wrp .feed-post_delete {
-    position: absolute;
-    right: 22px;
-    top: 15px;
-    cursor: pointer;
-    z-index: 1;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    background: url("./assets/icons/ic_close.svg") center center #F1F1F1 no-repeat;
-}
-.comment-popup .embed_wrp .feed-post_delete img{
-    display: none;
-}
+
 .embed_wrp {
     position: absolute;
     left: 0;
@@ -5099,17 +5072,42 @@ option {
     }
 }
 
-.comment-popup .modal-content{
-    max-width: 619px;
-    height: 668px;
-    padding: 0;
-    border-radius: 0;
-    background: transparent;
-    border: none;
+.comment_modal .comment-header{
+    position: relative;
 }
-
-.btn-primary{
-    &.post-comment-btn{
+.comment_modal .close{
+    width: 30px;
+    height: 30px;
+    border-radius:50%;
+    background:url("./assets/icons/ic_close.svg") center center #F1F1F1 no-repeat;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index:1;
+}
+.comment-section {
+    padding: 15px 0 0 0;
+}
+.comment-section .fc-default{
+    font-size: 14.0849px;
+    line-height: 21px;
+}
+.comment-popup.modal-dialog{
+    max-width: 619px;
+    background: #FDFDFD;
+    border-radius: 30px;
+    border:none;
+    .feed-post__image-container {
+        max-height: 318px;
+        border-radius:10px;
+    }
+    .modal-content{
+        background: #FDFDFD;
+        box-shadow: 4px 4px 20px 2px rgba(0, 0, 0, 0.16);
+        border-radius: 30px;
+        border:none;
+    }
+    .post_btn {
         min-width:142px;
         height:45px;
         background: #313131;
@@ -5120,44 +5118,71 @@ option {
         align-items: center;
         justify-content: center;
         font-size: 14px;
-        font-weight:700;
+        font-weight: 700;
         color: #FFFFFF;
     }
-}
-.comment-avatar-wrap{
-    position: relative;
-    .avtar-wrap{
-        position: absolute;
-        left:10px;
-        top:10px;
+    .flex-fill{
+        margin-bottom:15px;
+        textarea{
+            min-height: 96px;
+            background: #FFFFFF;
+            border: 0.952182px solid #FCFCFC;
+            box-sizing: border-box;
+            box-shadow: 1px 1.52px 7.62px rgba(0, 0, 0, 0.11);
+            border-radius: 14.2827px;
+            padding:12px 10px 10px 50px;
+        }
     }
-    .feed-create-post__avatar{
-        width:32px;
-        height:32px;
-        margin-right:0;
+    .justify-content-end{
+        padding-bottom:32px;
     }
-    
+    .embed_wrp{
+        width:calc(100% - 180px);
+        bottom:18px;
+    }
+    .avatar-wrap{
+        position: relative;
+        padding-right: 40px;
+        padding-left: 80px;
+        padding-top:5px;
+        .feed-create-post__avatar{
+            width: 32px;
+            height: 32px;
+            position: absolute;
+            left: 90px;
+            top: 12px;
+        }
+    }
+    .modal-bottom-action{
+        padding-right:40px;
+        padding-left:80px;
+    }
+    .media_ico {
+        width: 80px;
+    }
+    .feed-post_delete{
+        width:20px;
+        height:20px;
+        border-radius:50%;
+        background:url("./assets/icons/ic_close.svg") center center #F1F1F1 no-repeat;
+        top: 17px;
+        right: 20px;
+        img{
+            display: none;
+        }
+    }
+    .feed-create-comment-form__reply-container{
+        font-weight: 600;
+        font-size: 14px!important;
+        display: flex;
+        align-items: center;
+        color: #626262;
+    }
+    .feed-post__container{
+        padding-left:10px;
+    }
+    .nft_feed_post_bx{
+        padding-right:15px;
+    }
 }
-.flex-fill textarea{
-    background: #FFFFFF;
-    border: 0.952182px solid #FCFCFC;
-    box-shadow: 1px 1.52px 7.62px rgba(0, 0, 0, 0.11);
-    border-radius: 14.2827px;
-    min-height:96px;
-    padding:15px 10px 10px 50px;
-}
-.comment-popup.modal-dialog{
-    max-width:619px;
-}
-.pr-45px{
-    padding-right:45px;
-}
-.pl-80px{
-    padding-left:80px;
-}
-.bottom-action {
-    padding:22px 40px 32px 80px;
-}
-.modal-feed-post{
-    padding:10px 40px 0 15px;
-}
+

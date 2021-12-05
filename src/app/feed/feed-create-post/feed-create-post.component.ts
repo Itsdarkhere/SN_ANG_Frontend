@@ -439,6 +439,7 @@ export class FeedCreatePostComponent implements OnInit, AfterViewInit {
       onSuccess: function () {
         // Construct the url for the video based on the videoId and use the iframe url.
         comp.postVideoSrc = `https://iframe.videodelivery.net/${mediaId}`;
+        console.log("should have source: " + comp.postVideoSrc);
         comp.postImageSrc = null;
         comp.videoUploadPercentage = null;
         comp.pollForReadyToStream();
@@ -460,6 +461,7 @@ export class FeedCreatePostComponent implements OnInit, AfterViewInit {
     }
     // Reset the postVideoSrc and readyToStream values.
     this.postVideoSrc = null;
+    console.log("should be null: " + this.postVideoSrc);
     this.readyToStream = false;
     // Create and start the upload.
     upload = new tus.Upload(file, options);

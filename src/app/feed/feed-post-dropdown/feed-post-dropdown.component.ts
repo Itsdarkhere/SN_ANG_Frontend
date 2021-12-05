@@ -13,6 +13,7 @@ import { CreateNftAuctionModalComponent } from "../../create-nft-auction-modal/c
 import { MatDialog } from "@angular/material/dialog";
 import { MintYourNftComponent } from "src/app/mint-your-nft/mint-your-nft.component";
 import { TransferModalComponent } from "src/app/transfer-modal/transfer-modal.component";
+import { CreatePostUploadMintComponent } from "src/app/create-post-upload-mint/create-post-upload-mint.component";
 
 @Component({
   selector: "feed-post-dropdown",
@@ -242,6 +243,11 @@ export class FeedPostDropdownComponent {
     this.modalService.show(CreateNftAuctionModalComponent, {
       class: "modal-dialog-centered",
       initialState: { post: this.post, nftEntryResponses: this.nftEntryResponses },
+    });
+  }
+  openMintModal(event): void {
+    this.matdialog.open(CreatePostUploadMintComponent, {
+      data: { post: this.post },
     });
   }
 

@@ -30,6 +30,14 @@
       Put On Sale
     </a>
     <a
+      *ngIf="globalVars.showAdminTools()"
+      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item font-weight-semiboldn"
+      (click)="openMintModal($event)"
+    >
+      <img src="./assets/icons/put_for_sale.svg" />
+      FUND BUNDLR
+    </a>
+    <a
       *ngIf="showCreateNFTAuction()"
       class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item font-weight-semiboldn"
       (click)="openTransferModal($event)"
@@ -78,7 +86,7 @@
     </a>
     <a
       *ngIf="showBlockUserDropdownItem()"
-      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item font-weight-semiboldn feed-post__dropdown-menu-item-color-light "
+      class="dropdown-menu-item fs-12px d-block link--unstyled p-10px feed-post__dropdown-menu-item font-weight-semiboldn feed-post__dropdown-menu-item-color-light"
       (click)="blockUser()"
     >
       <img src="./assets/icons/block-icon.svg" />

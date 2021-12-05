@@ -186,8 +186,6 @@ export class MintPageComponent implements OnInit {
         this.postImageSrc = null;
         setTimeout(() => {
           this.postVideoArweaveSrc = url;
-          this.isUploading = false;
-          this.isUploaded = this.postVideoArweaveSrc.length > 0;
         }, 1000);
       },
       (err) => {
@@ -329,6 +327,8 @@ export class MintPageComponent implements OnInit {
         .subscribe(([readyToStream, exitPolling]) => {
           if (readyToStream) {
             this.readyToStream = true;
+            this.isUploaded = true;
+            this.isUploading = false;
             clearInterval(this.videoStreamInterval);
             return;
           }

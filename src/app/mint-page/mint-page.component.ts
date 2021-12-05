@@ -222,7 +222,6 @@ export class MintPageComponent implements OnInit {
       onSuccess: function () {
         // Construct the url for the video based on the videoId and use the iframe url.
         comp.postVideoDESOSrc = `https://iframe.videodelivery.net/${mediaId}`;
-        console.log("should have source: " + comp.postVideoDESOSrc);
         comp.postImageSrc = null;
         comp.videoUploadPercentage = null;
         comp.pollForReadyToStream();
@@ -248,7 +247,6 @@ export class MintPageComponent implements OnInit {
     }
     // Reset the postVideoSrc and readyToStream values.
     this.postVideoDESOSrc = null;
-    console.log("should be null: " + comp.postVideoDESOSrc);
     this.readyToStream = false;
     // Create and start the upload.
     upload = new tus.Upload(file, options);

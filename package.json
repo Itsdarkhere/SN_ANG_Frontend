@@ -56,6 +56,7 @@
     "ngx-bootstrap": "^6.2.0",
     "ngx-infinite-scroll": "^10.0.1",
     "ngx-intl-tel-input": "^3.0.5",
+    "ngx-shimmer-loading": "0.0.5",
     "ngx-toastr": "^13.2.0",
     "ngx-ui-scroll": "^2.0.0-rc.8",
     "os-browserify": "^0.3.0",

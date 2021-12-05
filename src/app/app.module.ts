@@ -190,6 +190,8 @@ import { OfflineInfoComponent } from "./offline-info/offline-info.component";
 import { MobileVerificationComponent } from "./mobile-verification/mobile-verification.component";
 import { SignupPageComponent } from "./signup-page/signup-page.component";
 import { BidsAccordionComponent } from "./bids-accordion/bids-accordion.component";
+import { NgxShimmerLoadingModule } from "ngx-shimmer-loading";
+import { LoadingShimmerComponent } from './loading-shimmer/loading-shimmer.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -359,6 +361,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     MobileVerificationComponent,
     SignupPageComponent,
     BidsAccordionComponent,
+    LoadingShimmerComponent,
   ],
   imports: [
     BrowserModule,
@@ -383,6 +386,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     NgxIntlTelInputModule,
     UiScrollModule,
     InfiniteScrollModule,
+    NgxShimmerLoadingModule,
     AnimateOnScrollModule.forRoot(),
     ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),

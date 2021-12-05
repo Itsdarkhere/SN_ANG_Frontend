@@ -28,6 +28,22 @@
   <div [id]="getPullToRefreshMarkerId()"></div>
   <button type="button" class="recent_post_btn" (click)="showRecent()">Show recent</button>
   <!-- Posts -->
+
+  <!-- Show shimmer Loader Until page completely Load -->
+  <div class="feed_mobile_gap mt-2" *ngIf="showLoadingSpinner()">
+      <div class="single-card">
+        <div class="w-100">
+          <div class="d-flex flex-column js-feed-post position-relative">
+            <div class="nft-col-wrap" *ngFor='let in of counter(50) ;let i = index'>
+              <div class="card">
+                <loading-shimmer [tabType]="'FEED'"></loading-shimmer>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  
   <div class="feed_mobile_gap" *ngIf="showGlobalOrFollowingPosts()">
     <div *ngFor="let post of postsToShow()">
       <div *ngIf="post.ProfileEntryResponse">

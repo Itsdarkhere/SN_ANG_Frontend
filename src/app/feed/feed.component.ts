@@ -555,4 +555,8 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   getRouterLink(val: any): any {
     return val;
   }
+
+  counter(i: number) {
+    return new Array(i);
+  }
 }

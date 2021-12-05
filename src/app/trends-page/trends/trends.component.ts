@@ -232,4 +232,8 @@ export class TrendsComponent implements OnInit {
         }
       );
   }
+
+  counter(i: number) {
+    return new Array(i);
+  }
 }

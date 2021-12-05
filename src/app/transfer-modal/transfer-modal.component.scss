@@ -6,6 +6,7 @@
     justify-content: center !important;
     align-items: center;
 }
+
 .select-transfer-modal {
     width: 200px;
     height: calc(1.5em + .75rem + 2px);
@@ -15,6 +16,7 @@
     -webkit-appearance: none;
     background-position-x: calc(100% - 10px);
 }
+
 .transfer-modal-button {
     border-radius: 5px;
     color: white;
@@ -28,58 +30,82 @@
         transition-duration: 0.3s;
     }
 }
+
 .textarea-transfer {
     border-radius: 5px !important;
 }
+
 .overwrite-min-height {
     min-height: 450px !important;
 }
+
 .overwrite-min-height2 {
     min-height: 400px !important;
 }
+
 .accept-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
 .transfer-modal-button {
     height: 40px;
 }
+
 .mb--12px {
     margin-bottom: -12px;
 }
+
 @media (max-width: 950px) {
     .mb--12px {
         margin-bottom: 0px;
     }
 }
+
 .transfer-label {
-    font-weight: bold;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 37px;
+    text-align: center;
 }
+
 .modal-header-container {
     width: 100% !important;
     padding: 20px;
 }
+
 .burn-text {
     font-weight: normal;
     font-size: 18px;
 }
+
 .transfer-button {
     background: linear-gradient(45deg, #f3a83c 0%, #ec5454 20%, #f51ac1 35%, #2749f0 74%, #593eb7 99%) !important;
 }
+
 .accept-button {
-    background: linear-gradient(45deg, #f3a83c 0%, #ec5454 20%, #f51ac1 35%, #2749f0 74%, #593eb7 99%) !important;
+    background: #313131 !important;
+    border: 0.190811px solid #000000;
+    box-shadow: 0.53287px 0.53287px 2.66435px 0.266435px rgba(0, 0, 0, 0.11), inset 0px -1.01538px 10.1538px 5.07692px #000000;
+    border-radius: 37.3585px;
+    max-width: 350px;
+    height: 66px;
 }
+
 .burn-button {
     background: linear-gradient(45deg, #f3a83c 0%, #ec5454 20%, #f51ac1 35%, #2749f0 74%, #593eb7 99%) !important;
 }
+
 .burn-button2 {
     background-color: #000000;
 }
+
 .success-img {
     transform: scale(0.95);
 }
+
 .close-window-button {
     background-color: transparent;
     border: 2px solid #000000;

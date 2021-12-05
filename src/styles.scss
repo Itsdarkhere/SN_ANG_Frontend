@@ -2032,6 +2032,11 @@ input.bs-timepicker-field {
 
 .feed-create-comment-form__reply-container {
     margin-left: 80px;
+    font-weight: 600;
+    font-size: 14px!important;
+    line-height: 21px;
+    color: #626262;
+    opacity: 0.8;
 }
 
 .feed-create-comment-form__avatar {
@@ -4982,7 +4987,29 @@ option {
     width: 97px;
     height: 19px;
 }
-
+.comment-popup .embed_wrp{
+    position: absolute;
+    left: 0;
+    bottom: 40px;
+    width: calc(100% - 180px);
+}
+.comment-popup .embed_wrp .feed-post_delete {
+    position: absolute;
+    right: 22px;
+    top: 15px;
+    cursor: pointer;
+    z-index: 1;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    background: url("./assets/icons/ic_close.svg") center center #F1F1F1 no-repeat;
+}
+.comment-popup .embed_wrp .feed-post_delete img{
+    display: none;
+}
 .embed_wrp {
     position: absolute;
     left: 0;
@@ -5070,4 +5097,67 @@ option {
             max-width: 100%;
         }
     }
+}
+
+.comment-popup .modal-content{
+    max-width: 619px;
+    height: 668px;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    border: none;
+}
+
+.btn-primary{
+    &.post-comment-btn{
+        min-width:142px;
+        height:45px;
+        background: #313131;
+        border: 0.114511px solid #000000;
+        box-shadow: 0.319791px 0.319791px 1.59895px 0.159895px rgba(0, 0, 0, 0.11), inset 0px -0.609362px 6.09362px 3.04681px #000000;
+        border-radius: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight:700;
+        color: #FFFFFF;
+    }
+}
+.comment-avatar-wrap{
+    position: relative;
+    .avtar-wrap{
+        position: absolute;
+        left:10px;
+        top:10px;
+    }
+    .feed-create-post__avatar{
+        width:32px;
+        height:32px;
+        margin-right:0;
+    }
+    
+}
+.flex-fill textarea{
+    background: #FFFFFF;
+    border: 0.952182px solid #FCFCFC;
+    box-shadow: 1px 1.52px 7.62px rgba(0, 0, 0, 0.11);
+    border-radius: 14.2827px;
+    min-height:96px;
+    padding:15px 10px 10px 50px;
+}
+.comment-popup.modal-dialog{
+    max-width:619px;
+}
+.pr-45px{
+    padding-right:45px;
+}
+.pl-80px{
+    padding-left:80px;
+}
+.bottom-action {
+    padding:22px 40px 32px 80px;
+}
+.modal-feed-post{
+    padding:10px 40px 0 15px;
 }

@@ -562,7 +562,7 @@ export class NftPostComponent implements OnInit {
 
       // If the user has an account and a profile, open the modal so they can comment.
       this.modalService.show(CommentModalComponent, {
-        class: "modal-dialog-centered",
+        class: "modal-dialog-centered comment-popup",
         initialState,
       });
     }

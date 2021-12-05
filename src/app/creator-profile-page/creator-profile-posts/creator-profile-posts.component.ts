@@ -60,6 +60,7 @@ export class CreatorProfilePostsComponent {
       .toPromise()
       .then((res) => {
         const posts: PostEntryResponse[] = res.Posts;
+        console.log(posts);
         this.pagedKeys[page + 1] = res.LastPostHashHex || "";
         if (!posts || posts.length < CreatorProfilePostsComponent.PAGE_SIZE || this.pagedKeys[page + 1] === "") {
           this.lastPage = page;

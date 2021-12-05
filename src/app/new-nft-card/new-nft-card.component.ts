@@ -128,6 +128,7 @@ export class NewNftCardComponent implements OnInit {
   highBid: number = null;
   lowBid: number = null;
   minBid: number = null;
+  showVideoTypeIcon = true;
   mobile = false;
   lastSalePrice: number = null;
   availableSerialNumbers: NFTEntryResponse[];
@@ -201,7 +202,26 @@ export class NewNftCardComponent implements OnInit {
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
   }
-
+  activateOnHover(play) {
+    let element = document.getElementById("video-nft-1") as HTMLVideoElement;
+    if (play) {
+      this.showVideoTypeIcon = false;
+      element.play();
+    } else {
+      this.showVideoTypeIcon = true;
+      element.pause();
+    }
+  }
+  activateOnHover2(play) {
+    let element = document.getElementById("video-nft-2") as HTMLVideoElement;
+    if (play) {
+      this.showVideoTypeIcon = false;
+      element.play();
+    } else {
+      this.showVideoTypeIcon = true;
+      element.pause();
+    }
+  }
   @HostListener("window:resize")
   onResize() {
     this.setMobileBasedOnViewport();

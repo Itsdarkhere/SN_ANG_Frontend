@@ -579,7 +579,7 @@
         <simple-center-loader [height]="150"></simple-center-loader>
       </div>
     </div>
-    <!-- LEFT SIDE DESKTOP STEPS 3 - 4 -->
+    <!-- LEFT SIDE DESKTOP STEPS >= 4 -->
     <div *ngIf="!mobile && step >= 4" class="mint-page-image-container d-flex flex-center">
       <div [@cardAppearAnimation] class="fake-card">
         <div class="fake-card-image-box">
@@ -591,13 +591,15 @@
             <div class="fake-card-video-icon-container" [ngClass]="{ opacity_0: !showVideoTypeIcon }">
               <img class="fake-card-video-icon" src="/assets/icons/video-type-white.svg" alt="icon" />
             </div>
-            <iframe
-              *ngIf="postVideoDESOSrc"
-              [src]="postVideoDESOSrc | sanitizeVideoUrl"
-              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-              allowfullscreen
+            <video
+              *ngIf="postVideoArweaveSrc"
+              id="fake-video-nft-1"
+              (mouseenter)="activateOnHover(true)"
+              (mouseleave)="activateOnHover(false)"
+              [muted]="'muted'"
               class="fake-card-video-tag"
-            ></iframe>
+              src="{{ postVideoArweaveSrc }}"
+            ></video>
           </div>
         </div>
         <div class="caption-cover w-100">

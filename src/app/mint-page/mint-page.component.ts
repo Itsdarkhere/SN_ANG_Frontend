@@ -196,6 +196,12 @@ export class MintPageComponent implements OnInit {
       }
     );
   }
+  loadArweaveVideo() {
+    let video = document.getElementById("fake-video-nft-1") as HTMLVideoElement;
+    video.load();
+    video.pause();
+    video.currentTime = 0;
+  }
   activateOnHover(play) {
     let element = document.getElementById("fake-video-nft-1") as HTMLVideoElement;
     if (play) {
@@ -316,6 +322,10 @@ export class MintPageComponent implements OnInit {
   nextStep() {
     if (this.step + 1 < 6) {
       this.step++;
+      // Arweave needs a boost to start itself
+      if (this.step === 4) {
+        this.loadArweaveVideo();
+      }
     }
   }
   previousStep() {

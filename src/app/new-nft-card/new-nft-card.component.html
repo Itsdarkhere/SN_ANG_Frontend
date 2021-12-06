@@ -542,13 +542,13 @@
                         compareBit(globalVars.nanosToDeSo(minBid, 5), globalVars.nanosToDeSo(highBid, 5), showPlaceABid)
                       }}
                     </p>
-                    <div class="d-flex flex-row" *ngIf="showPlaceABid">
+                    <div class="d-flex flex-row" *ngIf="isForSale">
                       <p class="font-weight-semiboldn overflow-ellipsis-price">
                         {{ highBid === 0 ? globalVars.nanosToDeSo(minBid, 5) : globalVars.nanosToDeSo(highBid, 5) }}
                       </p>
                       <p class="font-weight-semiboldn">DESO</p>
                     </div>
-                    <div class="d-flex flex-row" *ngIf="!showPlaceABid">
+                    <div class="d-flex flex-row" *ngIf="!isForSale">
                       <p class="font-weight-semiboldn overflow-ellipsis-price">
                         {{ globalVars.nanosToDeSo(lastSalePrice, 5) }}
                       </p>

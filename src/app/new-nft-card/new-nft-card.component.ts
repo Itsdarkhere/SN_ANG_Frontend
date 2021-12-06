@@ -194,7 +194,7 @@ export class NewNftCardComponent implements OnInit {
           if (this.nftEntryResponses[0]?.LastAcceptedBidAmountNanos >= 0) {
             this.lastSalePrice = this.nftEntryResponses[0]?.LastAcceptedBidAmountNanos;
           } else {
-            this.lastSalePrice = this.nftEntryResponses[0]?.MinBidAmountNanos;
+            this.lastSalePrice = 0;
           }
         }
       });

@@ -187,7 +187,7 @@ export class MintPageComponent implements OnInit {
         this.postImageSrc = null;
         setTimeout(() => {
           this.postVideoArweaveSrc = url;
-        }, 1000);
+        }, 3000);
       },
       (err) => {
         this.isUploading = false;

@@ -46,47 +46,30 @@
               >
                 {{ globalVars.unreadNotifications > 99 ? "99+" : globalVars.unreadNotifications }}
               </label>
-            </div>
-            <div class="notification-list-cover" *ngIf="isNotificationOpen">
-              <div class="triangle-up">▲</div>
-              <div class="header_notification_list_inner">
-                <app-notifications-list [isNotificationBar]="true"></app-notifications-list>
-              </div>
-              <a
-                [routerLink]="'/' + globalVars.RouteNames.NOTIFICATIONS"
-                class="view-all-text text-primary"
-                title="View All Notifications"
-              >
-                View All
+                        </div>
+                        <div class="notification-list-cover" *ngIf="isNotificationOpen">
+                            <!-- <div class="triangle-up">▲</div> -->
+                            <div class="header_notification_list_inner">
+                                <app-notifications-list [isNotificationBar]="true"></app-notifications-list>
+                            </div>
+                            <a [routerLink]="'/' + globalVars.RouteNames.NOTIFICATIONS" class="view-all-text text-primary" title="View All Notifications">
+                View all
               </a>
-            </div>
-          </li>
+                        </div>
+                    </li>
 
-          <li *ngIf="globalVars.loggedInUser" class="single-option h-100 d-flex flex-column flex-center">
-            <div
-              class="profile-img"
-              title="My Profile"
-              (click)="hasProfile()"
-              [avatar]="globalVars.loggedInUser.PublicKeyBase58Check"
-            ></div>
-            <label class="mb-0px mt-4px fs-10px cursor-pointer" (click)="hasProfile()">PROFILE</label>
-          </li>
-          <button
-            *ngIf="!globalVars.loggedInUser"
-            (click)="signUp()"
-            class="pl-10px pr-10px h-35px mr-10px black-rounded-button font-weight-bold fs-12px"
-          >
+                    <li *ngIf="globalVars.loggedInUser" class="single-option h-100 d-flex flex-column flex-center">
+                        <div class="profile-img" title="My Profile" (click)="hasProfile()" [avatar]="globalVars.loggedInUser.PublicKeyBase58Check"></div>
+                        <label class="mb-0px mt-4px fs-10px cursor-pointer" (click)="hasProfile()">PROFILE</label>
+                    </li>
+                    <button *ngIf="!globalVars.loggedInUser" (click)="signUp()" class="pl-10px pr-10px h-35px mr-10px black-rounded-button font-weight-bold fs-12px">
             Create a profile
           </button>
-          <button
-            *ngIf="!globalVars.loggedInUser"
-            (click)="login()"
-            class="pl-20px pr-20px h-35px white-rounded-button font-weight-bold fs-12px"
-          >
+                    <button *ngIf="!globalVars.loggedInUser" (click)="login()" class="pl-20px pr-20px h-35px white-rounded-button font-weight-bold fs-12px">
             Log in
           </button>
-        </ul>
-      </div>
+                </ul>
+            </div>
+        </div>
     </div>
-  </div>
 </header>

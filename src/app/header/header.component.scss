@@ -35,7 +35,7 @@ header {
         //width: 712px;
         position: relative;
         width: 62% !important;
-        max-width: 620px;   
+        max-width: 620px;
         left: 100px;
         @media screen and (max-width: 1024px) {
             width: calc(100% - 325px);
@@ -83,7 +83,7 @@ header {
             padding-left: 0px;
             .single-option {
                 &:not(:first-child) {
-                   // padding-left: 25px;
+                    // padding-left: 25px;
                     margin-left: 25px;
                     @media screen and (max-width: 1024px) {
                         padding-left: 10px;
@@ -151,20 +151,25 @@ header {
         }
     }
 }
+
 .header-search-right-container {
     width: calc(100% - 175px);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding-right: 30px;
 }
+
 .h-35px {
     height: 35px;
 }
+
 .w-60 {
     width: 62% !important;
-    max-width: 620px;   
+    max-width: 620px;
 }
+
 .header-create-button-gradient {
     min-width: 84px;
     min-height: 42px !important;
@@ -185,16 +190,22 @@ header {
         filter: brightness(110%);
     }
 }
-.grow { transition: all .2s ease-in-out;
+
+.grow {
+    transition: all .2s ease-in-out;
     -webkit-transform: translateZ(0);
     -moz-transform: translateZ(0);
     -ms-transform: translateZ(0);
     -o-transform: translateZ(0);
     transform: translateZ(0);
 }
-.grow:hover { 
-    transform: scale(1.05) translate3d( 0, 0, 0) perspective(1px) 
+
+.grow:hover {
+    transform: scale(1.05);
 }
+// .grow:hover { 
+//     transform: scale(1.05) translate3d( 0, 0, 0) perspective(1px) 
+// }
 .notification-amount {
     position: absolute;
     top: 10px;
@@ -213,11 +224,13 @@ header {
     border-radius: 20px;
     box-shadow: 0px 1.625px 8.125px rgba(0, 0, 0, 0.1);
 }
+
 .create-button-div {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .notification-icon-cover {
     position: relative;
     z-index: 1;
@@ -234,11 +247,13 @@ header {
     .notification-list-cover {
         position: absolute;
         top: 50px;
-        width: 430px;
-        right: -100px;
-        box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1);
+        width: 416px;
+        right: -180px;
         border-radius: 8px;
         background: var(--background);
+        border: 0.952182px solid #FCFCFC;
+        box-shadow: 1px 1.52px 7.62px rgba(0, 0, 0, 0.11);
+        border-radius: 14.2827px;
         .notification-list {
             padding: 10px 0px 0px;
             position: relative;
@@ -353,7 +368,7 @@ header {
             }
         }
         .view-all-text {
-            padding: 10px;
+            padding: 15px 10px;
             display: block;
             width: 100%;
             border-top: 1px solid var(--border);
@@ -361,7 +376,8 @@ header {
             display: inline-block;
             color: var(--link) !important;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 17.4488px;
+            margin-top: -1px;
         }
     }
 }
@@ -393,6 +409,15 @@ header {
         }
         .feed-max-width-name {
             max-width: 100px;
+        }
+    }
+    .header_notification_list_inner {
+        .notificationbar_mwrapper {
+            width: 100%;
+            margin: 0;
+            box-shadow: none;
+            border: 0;
+            border-radius: 0;
         }
     }
 }

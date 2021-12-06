@@ -32,7 +32,9 @@
             </div>
           </button>
           <button
-            *ngIf="globalVars.showAdminTools()"
+            *ngIf="
+              globalVars.showAdminTools() || this.globalVars.loggedInUser.ProfileEntryResponse.Username === 'Juvonen'
+            "
             class="content-type-card p-0px"
             (click)="videoTypeSelected()"
             [ngClass]="{ 'electric-box-shadow': videoType, 'm-10px': mobile }"
@@ -572,12 +574,15 @@
       <div [@cardAppearAnimation] class="fake-card">
         <div class="fake-card-image-box">
           <img *ngIf="postImageSrc" class="fake-card-image" src="{{ postImageSrc }}" />
-          <div *ngIf="postVideoDESOSrc && readyToStream" class="feed-post__video-container m-w-80">
+          <div
+            *ngIf="postVideoDESOSrc && readyToStream"
+            class="w-100 h-100 background-secondary position-relative d-flex flex-center"
+          >
             <iframe
               [src]="postVideoDESOSrc | sanitizeVideoUrl"
               allow="accelerometer; gyroscope; encrypted-media; picture-in-picture;"
               allowfullscreen
-              class="feed-post__video"
+              class="fake-card-video-tag"
             ></iframe>
           </div>
         </div>

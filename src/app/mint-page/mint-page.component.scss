@@ -23,6 +23,12 @@
     justify-content: flex-end;
     align-items: center;
 }
+.fake-card-video-tag {
+    display: block;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
 .mint-page-inner-height {
     height: calc(95% - 50px);
 }

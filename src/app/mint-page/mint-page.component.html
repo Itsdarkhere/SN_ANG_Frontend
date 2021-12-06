@@ -584,12 +584,21 @@
             *ngIf="postVideoDESOSrc && readyToStream"
             class="w-100 h-100 background-secondary position-relative d-flex flex-center"
           >
-            <iframe
-              [src]="postVideoDESOSrc | sanitizeVideoUrl"
-              allow="accelerometer; gyroscope; encrypted-media; picture-in-picture;"
-              allowfullscreen
+            <div class="fake-card-video-icon-container" [ngClass]="{ opacity_0: !showVideoTypeIcon }">
+              <img class="fake-card-video-icon" src="/assets/icons/video-type-white.svg" alt="icon" />
+            </div>
+            <video
+              *ngIf="postVideoArweaveSrc"
+              id="fake-video-nft-1"
+              (mouseenter)="activateOnHover(true)"
+              (mouseleave)="activateOnHover(false)"
+              loop
+              [muted]="'muted'"
+              muted
               class="fake-card-video-tag"
-            ></iframe>
+              preload="metadata"
+              src="{{ postVideoArweaveSrc }}"
+            ></video>
           </div>
         </div>
         <div class="caption-cover w-100">

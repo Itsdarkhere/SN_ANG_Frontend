@@ -78,6 +78,8 @@ export class MintPageComponent implements OnInit {
   postHashHex = "";
   isSubmitPress = false;
 
+  showVideoTypeIcon = true;
+
   isUploading = false;
   isUploaded = false;
   isUploadConfirmed = false;
@@ -194,7 +196,16 @@ export class MintPageComponent implements OnInit {
       }
     );
   }
-
+  activateOnHover(play) {
+    let element = document.getElementById("video-nft-1") as HTMLVideoElement;
+    if (play) {
+      this.showVideoTypeIcon = false;
+      element.play();
+    } else {
+      this.showVideoTypeIcon = true;
+      element.pause();
+    }
+  }
   handleVideoDESOInput(file: File): void {
     if (file.size > (1024 * 1024 * 1024) / 5) {
       this.globalVars._alertError("File is too large. Please choose a file of a size less than 200MB");

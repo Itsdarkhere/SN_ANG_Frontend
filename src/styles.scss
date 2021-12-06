@@ -4835,7 +4835,7 @@ option {
 }
 
 .nft_placebid_modal_bx {
-    width: 619px;
+    max-width: 619px;
     max-width: calc(100% - 18px);
     .modal-content {
         background: var(--background);
@@ -5421,5 +5421,59 @@ option {
     }
     .nft_feed_post_bx {
         padding-right: 15px;
+    }
+}
+
+.nft_sold_modal {
+    .head_txt {
+        text-align: center;
+        width: 100% !important;
+        display: block !important;
+        font-size: 36px !important;
+        font-weight: 600;
+        line-height: 1;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .fs-15px {
+        font-size: 16px;
+        line-height: 1.67;
+        padding: 0 70px;
+        @media screen and (max-width: 767px) {
+            padding: 0 40px;
+        }
+    }
+    .font-weight-bold {
+        font-size: 16px;
+    }
+    .font-weight-bold {
+        font-size: 19px;
+        font-weight: 600 !important;
+        padding: 0 40px !important;
+        @media screen and (max-width: 767px) {
+            padding: 0 30px;
+        }
+    }
+    .cta-button-gradient {
+        background: #313131 !important;
+        border: 0.190811px solid #000000;
+        box-shadow: 0.53287px 0.53287px 2.66435px 0.266435px rgb(0 0 0 / 11%), inset 0px -1.01538px 10.1538px 5.07692px #000000;
+        border-radius: 37.3585px;
+        max-width: 350px;
+        height: 66px;
+        font-size: 14px;
+    }
+    .close_btn {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        width: 30px;
+        height: 30px;
+        background: #F1F1F1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border-radius: 50%;
     }
 }

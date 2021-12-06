@@ -32,9 +32,6 @@
             </div>
           </button>
           <button
-            *ngIf="
-              globalVars.showAdminTools() || this.globalVars.loggedInUser.ProfileEntryResponse.Username === 'Juvonen'
-            "
             class="content-type-card p-0px"
             (click)="videoTypeSelected()"
             [ngClass]="{ 'electric-box-shadow': videoType, 'm-10px': mobile }"
@@ -44,22 +41,7 @@
             </div>
             <div class="h-40 w-100 mt-10px d-flex flex-column">
               <label class="fs-15px font-weight-bold pointer-events-none">Video</label>
-              <label class="fs-11px pointer-events-none">Coming very soon!</label>
-            </div>
-          </button>
-          <button
-            *ngIf="
-              !globalVars.showAdminTools() && !this.globalVars.loggedInUser.ProfileEntryResponse.Username === 'Juvonen'
-            "
-            class="content-type-card not-available-warning p-0px"
-            [ngClass]="{ 'm-10px': mobile }"
-          >
-            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
-              <img src="/assets/icons/video-type.svg" alt="creator icon" />
-            </div>
-            <div class="h-40 w-100 mt-10px d-flex flex-column">
-              <label class="fs-15px font-weight-bold color-light pointer-events-none">Video</label>
-              <label class="fs-11px color-light pointer-events-none">Coming very soon!</label>
+              <label class="fs-11px pointer-events-none">MP4 files are supported.</label>
             </div>
           </button>
           <button class="content-type-card not-available-warning p-0px" *ngIf="!mobile">

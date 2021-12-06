@@ -588,8 +588,17 @@
             *ngIf="postVideoDESOSrc && readyToStream"
             class="w-100 h-100 background-secondary position-relative d-flex flex-center"
           >
-            <div class="fake-card-video-icon-container" [ngClass]="{ opacity_0: !showVideoTypeIcon }">
-              <img class="fake-card-video-icon" src="/assets/icons/video-type-white.svg" alt="icon" />
+            <div
+              class="fake-card-video-icon-container d-flex flex-center"
+              [ngClass]="{ opacity_0: !showVideoTypeIcon }"
+            >
+              <img
+                class="fake-card-video-icon"
+                *ngIf="!arweaveVideoLoading"
+                src="/assets/icons/video-type-white.svg"
+                alt="icon"
+              />
+              <i class="fa fa-spinner fa-spin fa-2x" *ngIf="arweaveVideoLoading"></i>
             </div>
             <video
               *ngIf="postVideoArweaveSrc"

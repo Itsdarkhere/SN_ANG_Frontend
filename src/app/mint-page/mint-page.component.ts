@@ -67,6 +67,7 @@ export class MintPageComponent implements OnInit {
   postVideoDESOSrc = null;
   testVideoSrc = "https://arweave.net/bXfovPML_-CRlfoxLdPsK8p7lrshRLwGFHITzaDMMSQ";
   videoUploadPercentage = null;
+  arweaveVideoLoading = false;
 
   showEmbedURL = false;
   showImageLink = false;
@@ -184,10 +185,8 @@ export class MintPageComponent implements OnInit {
     this.arweave.UploadImage(file).subscribe(
       (res) => {
         let url = "https://arweave.net/" + res;
+        this.postVideoArweaveSrc = url;
         this.postImageSrc = null;
-        setTimeout(() => {
-          this.postVideoArweaveSrc = url;
-        }, 1000);
       },
       (err) => {
         this.isUploading = false;
@@ -197,10 +196,15 @@ export class MintPageComponent implements OnInit {
     );
   }
   loadArweaveVideo() {
-    let video = document.getElementById("fake-video-nft-1") as HTMLVideoElement;
-    video.load();
-    video.pause();
-    video.currentTime = 0;
+    this.arweaveVideoLoading = true;
+    setTimeout(() => {
+      let video = document.getElementById("fake-video-nft-1") as HTMLVideoElement;
+      video.load();
+      video.pause();
+      video.currentTime = 0;
+      //video.play();
+      this.arweaveVideoLoading = false;
+    }, 3000);
   }
   activateOnHover(play) {
     let element = document.getElementById("fake-video-nft-1") as HTMLVideoElement;

@@ -178,7 +178,6 @@ export class MintPageComponent implements OnInit {
       this.globalVars._alertError("File is too large. Please choose a file of a size less than 200MB");
       return;
     }
-    this.isUploading = true;
     // Its named uploadImage but works for both.
     this.arweave.UploadImage(file).subscribe(
       (res) => {
@@ -201,6 +200,7 @@ export class MintPageComponent implements OnInit {
       this.globalVars._alertError("File is too large. Please choose a file of a size less than 200MB");
       return;
     }
+    this.isUploading = true;
     let upload: tus.Upload;
     let mediaId = "";
     const comp: MintPageComponent = this;

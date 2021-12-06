@@ -48,7 +48,9 @@
             </div>
           </button>
           <button
-            *ngIf="!globalVars.showAdminTools()"
+            *ngIf="
+              !globalVars.showAdminTools() && !this.globalVars.loggedInUser.ProfileEntryResponse.Username === 'Juvonen'
+            "
             class="content-type-card not-available-warning p-0px"
             [ngClass]="{ 'm-10px': mobile }"
           >

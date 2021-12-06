@@ -197,7 +197,7 @@
                   src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
                 />
                 <div
-                  class="w-100 h-100 background-secondary position-relative d-flex flex-center"
+                  class="w-100 h-100 overflow-hidden background-secondary position-relative d-flex flex-center"
                   *ngIf="!postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID"
                 >
                   <div class="card-video-icon-container" [ngClass]="{ opacity_0: !showVideoTypeIcon }">
@@ -422,7 +422,7 @@
                 src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
               />
               <div
-                class="w-100 h-100 background-secondary position-relative d-flex flex-center"
+                class="w-100 h-100 overflow-hidden background-secondary position-relative d-flex flex-center"
                 *ngIf="!postContent.ImageURLs && postContent.PostExtraData.arweaveVideoSrc && !post.ParentStakeID"
               >
                 <div class="card-video-icon-container" [ngClass]="{ opacity_0: !showVideoTypeIcon }">
@@ -631,7 +631,7 @@
                   src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
                 />
                 <div
-                  class="w-100 h-100 background-secondary position-relative d-flex flex-center"
+                  class="w-100 h-100 overflow-hidden background-secondary position-relative d-flex flex-center"
                   *ngIf="!postContent.ImageURLs && postContent.PostExtraData.arweaveVideoSrc && !post.ParentStakeID"
                 >
                   <div class="card-video-icon-container" [ngClass]="{ opacity_0: !showVideoTypeIcon }">

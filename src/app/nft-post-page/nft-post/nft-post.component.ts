@@ -8,7 +8,7 @@ import {
   NFTEntryResponse,
   PostEntryResponse,
 } from "../../backend-api.service";
-import { Title } from "@angular/platform-browser";
+import { DomSanitizer, Title } from "@angular/platform-browser";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { SwalHelper } from "../../../lib/helpers/swal-helper";
 import { RouteNames } from "../../app-routing.module";
@@ -72,6 +72,7 @@ export class NftPostComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private sanitizer: DomSanitizer,
     private analyticsService: GoogleAnalyticsService,
     private router: Router,
     public globalVars: GlobalVarsService,
@@ -91,6 +92,9 @@ export class NftPostComponent implements OnInit {
   }
   ngOnInit() {
     this.SendNFTPageOpenedEvent();
+  }
+  clearURL(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
   SendNFTPageOpenedEvent() {
     this.analyticsService.eventEmitter("nft_page_opened", "usage", "activity", "event", 10);

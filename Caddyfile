@@ -45,7 +45,10 @@ header @html Content-Security-Policy "
     api.bitclout.navy
     api.testwyre.com
     api.sendwyre.com
+    https://node1.bundlr.network
     https://videodelivery.net
+    https://arweave.net
+    https://*.arweave.net
     https://upload.videodelivery.net;
   script-src 'self'
     https://kit.fontawesome.com/070ca4195b.js
@@ -74,6 +77,8 @@ header @html Content-Security-Policy "
     identity.bitclout.com
     identity.bitclout.blue
     identity.bitclout.green
+    https://arweave.net
+    https://*.arweave.net
     https://geo.captcha-delivery.com
     https://www.youtube.com
     https://youtube.com

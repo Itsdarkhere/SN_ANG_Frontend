@@ -123,7 +123,8 @@ export class CreatorProfileCreatedComponent implements OnInit {
       )
       .toPromise()
       .then((res) => {
-        this.posts = res.Posts.filter((post) => post.IsNFT);
+        this.posts = res.Posts.filter((post) => post.IsNFT && post.NumNFTCopiesBurned != post.NumNFTCopies);
+        console.log(this.posts);
         this.dataToShow = this.posts.slice(this.startIndex, this.endIndex);
       })
       .finally(() => {

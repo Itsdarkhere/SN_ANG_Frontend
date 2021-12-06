@@ -171,25 +171,23 @@ header {
 }
 
 .header-create-button-gradient {
-    width: 80px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    backface-visibility: hidden;
-    background: rgb(249, 52, 62);
-    background: -moz-linear-gradient(43deg, rgba(249, 52, 62, 1) 5%, rgba(241, 103, 109, 1) 20%, rgba(245, 197, 25, 1) 35%, rgba(60, 225, 149, 1) 50%, rgba(24, 191, 192, 1) 65%, rgba(72, 109, 239, 1) 80%, rgba(142, 73, 248, 1) 95%);
-    background: -webkit-linear-gradient(43deg, rgba(249, 52, 62, 1) 5%, rgba(241, 103, 109, 1) 20%, rgba(245, 197, 25, 1) 35%, rgba(60, 225, 149, 1) 50%, rgba(24, 191, 192, 1) 65%, rgba(72, 109, 239, 1) 80%, rgba(142, 73, 248, 1) 95%);
-    background: linear-gradient(43deg, rgba(249, 52, 62, 1) 5%, rgba(241, 103, 109, 1) 20%, rgba(245, 197, 25, 1) 35%, rgba(60, 225, 149, 1) 50%, rgba(24, 191, 192, 1) 65%, rgba(72, 109, 239, 1) 80%, rgba(142, 73, 248, 1) 95%);
-    //filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#f9343e", endColorstr="#8e49f8", GradientType=1);
-    border-radius: 16px;
+    min-width: 84px;
+    min-height: 42px !important;
+    background-image: url("/assets/img/create-button-1.png");
+    background-size: cover;
     border: none;
+    background-color: transparent;
+    transition-property: -moz-filter, -ms-filter, -o-filter, -webkit-filter, filter;
+    transition-duration: 0.3s;
+    p {
+        text-shadow: 2.666048288345337px 2.666048288345337px 32.2906379699707px rgba(0, 0, 0, 1),0.6665120720863342px 0.3332560360431671px 0px rgba(0, 0, 0, 1);
+    }
     &:active {
         transform: scale(.96);
     }
-    transition-duration: 0.2s;
     &:hover {
-        transform: scale(1.05);
+        transition-duration: 0.3s;
+        filter: brightness(110%);
     }
 }
 
@@ -205,7 +203,9 @@ header {
 .grow:hover {
     transform: scale(1.05);
 }
-
+// .grow:hover { 
+//     transform: scale(1.05) translate3d( 0, 0, 0) perspective(1px) 
+// }
 .notification-amount {
     position: absolute;
     top: 10px;
@@ -226,10 +226,6 @@ header {
 }
 
 .create-button-div {
-    width: calc(100% - 8px);
-    height: calc(100% - 8px);
-    border-radius: 12px;
-    background: var(--background);
     display: flex;
     justify-content: center;
     align-items: center;

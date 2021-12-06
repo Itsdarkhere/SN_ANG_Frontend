@@ -225,6 +225,10 @@
     background-color: rgba(0, 0, 0, 0.3);
     transition: opacity 0.2s linear;
 }
+.top-br-30px {
+    border-top-left-radius: 30px !important;
+    border-top-right-radius: 30px !important;
+}
 .card-video-icon {
     position: absolute;
     top: 50%;

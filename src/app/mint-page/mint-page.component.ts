@@ -187,7 +187,7 @@ export class MintPageComponent implements OnInit {
         this.postImageSrc = null;
         setTimeout(() => {
           this.postVideoArweaveSrc = url;
-        }, 3000);
+        }, 1000);
       },
       (err) => {
         this.isUploading = false;
@@ -195,9 +195,6 @@ export class MintPageComponent implements OnInit {
         this.globalVars._alertError("Failed to upload video to arweave: " + err.message);
       }
     );
-  }
-  tryArweaveVideoSrcAgain() {
-    this.postVideoArweaveSrc = this.postVideoArweaveSrc;
   }
   activateOnHover(play) {
     let element = document.getElementById("fake-video-nft-1") as HTMLVideoElement;

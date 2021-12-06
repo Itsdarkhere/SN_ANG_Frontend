@@ -206,8 +206,8 @@
                   <video
                     *ngIf="postContent.PostExtraData.arweaveVideoSrc"
                     id="video-nft-1"
-                    (mouseenter)="activateOnHover(true)"
-                    (mouseleave)="activateOnHover(false)"
+                    (mouseenter)="activateOnHover($event, true)"
+                    (mouseleave)="activateOnHover($event, false)"
                     loop
                     [muted]="'muted'"
                     muted
@@ -431,8 +431,8 @@
                 <video
                   *ngIf="postContent.PostExtraData.arweaveVideoSrc"
                   id="video-nft-1"
-                  (mouseenter)="activateOnHover(true)"
-                  (mouseleave)="activateOnHover(false)"
+                  (mouseenter)="activateOnHover($event, true)"
+                  (mouseleave)="activateOnHover($event, false)"
                   loop
                   [muted]="'muted'"
                   muted
@@ -640,8 +640,8 @@
                   <video
                     *ngIf="postContent.PostExtraData.arweaveVideoSrc"
                     id="video-nft-1"
-                    (mouseenter)="activateOnHover(true)"
-                    (mouseleave)="activateOnHover(false)"
+                    (mouseenter)="activateOnHover($event, true)"
+                    (mouseleave)="activateOnHover($event, false)"
                     loop
                     [muted]="'muted'"
                     muted

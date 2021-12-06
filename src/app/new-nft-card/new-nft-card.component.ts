@@ -202,14 +202,13 @@ export class NewNftCardComponent implements OnInit {
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
   }
-  activateOnHover(play) {
-    let element = document.getElementById("video-nft-1") as HTMLVideoElement;
+  activateOnHover(event, play) {
     if (play) {
       this.showVideoTypeIcon = false;
-      element.play();
+      event.target.play();
     } else {
       this.showVideoTypeIcon = true;
-      element.pause();
+      event.target.pause();
     }
   }
   @HostListener("window:resize")

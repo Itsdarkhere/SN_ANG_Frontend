@@ -546,7 +546,7 @@
       </div>
     </div>
     <!--  LEFT SIDE DESKTOP STEPS 1 - 2-->
-    <div *ngIf="!mobile && 1 < step && step < 4" class="mint-page-image-container d-flex flex-center">
+    <div *ngIf="!mobile && 1 < step && step < 4" class="mint-page-image-container d-flex flex-column flex-center">
       <label
         class="mb-0px illuminate-color pr-20px pl-20px text-align-center"
         *ngIf="!postImageSrc && !postVideoDESOSrc"
@@ -567,6 +567,10 @@
           allowfullscreen
           class="feed-post__video"
         ></iframe>
+      </div>
+      <div class="d-flex flex-column align-items-center" *ngIf="videoUploadPercentage !== null">
+        <div>Uploading: {{ videoUploadPercentage }}% Complete</div>
+        <mat-progress-bar [value]="videoUploadPercentage" [mode]="'determinate'"></mat-progress-bar>
       </div>
     </div>
     <!-- LEFT SIDE DESKTOP STEPS 3 - 4 -->

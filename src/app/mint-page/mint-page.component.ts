@@ -197,7 +197,7 @@ export class MintPageComponent implements OnInit {
     );
   }
   activateOnHover(play) {
-    let element = document.getElementById("video-nft-1") as HTMLVideoElement;
+    let element = document.getElementById("fake-video-nft-1") as HTMLVideoElement;
     if (play) {
       this.showVideoTypeIcon = false;
       element.play();

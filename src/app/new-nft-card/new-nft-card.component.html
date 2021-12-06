@@ -213,7 +213,7 @@
                     muted
                     class="video-tag"
                     preload="metadata"
-                    src="{{ postContent.PostExtraData.arweaveVideoSrc }}"
+                    src="{{ postContent.PostExtraData.arweaveVideoSrc + '#t=0.001' }}"
                   ></video>
                 </div>
                 <div
@@ -437,7 +437,8 @@
                   [muted]="'muted'"
                   muted
                   class="video-tag"
-                  src="{{ postContent.PostExtraData.arweaveVideoSrc }}"
+                  preload="metadata"
+                  src="{{ postContent.PostExtraData.arweaveVideoSrc + '#t=0.001' }}"
                 ></video>
               </div>
               <div
@@ -646,7 +647,7 @@
                     muted
                     class="video-tag"
                     preload="metadata"
-                    src="{{ postContent.PostExtraData.arweaveVideoSrc }}"
+                    src="{{ postContent.PostExtraData.arweaveVideoSrc + '#t=0.001' }}"
                   ></video>
                 </div>
                 <div

@@ -196,6 +196,9 @@ export class MintPageComponent implements OnInit {
       }
     );
   }
+  tryArweaveVideoSrcAgain() {
+    this.postVideoArweaveSrc = this.postVideoArweaveSrc;
+  }
   activateOnHover(play) {
     let element = document.getElementById("fake-video-nft-1") as HTMLVideoElement;
     if (play) {

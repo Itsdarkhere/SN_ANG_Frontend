@@ -38,6 +38,10 @@
     background-color: rgba(0, 0, 0, 0.3);
     transition: opacity 0.2s linear;
 }
+.opacity_0 {
+    transition: opacity 0.2s linear;
+    opacity: 0;
+}
 .fake-card-video-icon {
     position: absolute;
     top: 50%;

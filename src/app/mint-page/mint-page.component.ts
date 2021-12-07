@@ -31,11 +31,11 @@ import { Observable } from "rxjs";
     trigger("mintSwipeAnimation", [
       transition(":enter", [
         style({ transform: "translateX(100%)", opacity: "0" }),
-        animate("300ms cubic-bezier(0, 0, 0, 1.13)", style({ transform: "translateX(0%)", opacity: "1" })),
+        animate("700ms cubic-bezier(0, 0, 0, 1.13)", style({ transform: "translateX(0%)", opacity: "1" })),
       ]),
       transition(":leave", [
         style({ transform: "translateX(0%)", opacity: "1" }),
-        animate("500ms cubic-bezier(0, 0, 0, 1.13)", style({ transform: "translateX(100%)", opacity: "0" })),
+        animate("700ms cubic-bezier(0, 0, 0, 1.13)", style({ transform: "translateX(100%)", opacity: "0" })),
       ]),
     ]),
     trigger("swipeAppearAnimation", [

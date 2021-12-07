@@ -186,8 +186,6 @@ export class MintPageComponent implements OnInit {
         this.postImageSrc = null;
         setTimeout(() => {
           this.postVideoArweaveSrc = url;
-          this.isUploading = false;
-          this.isUploaded = this.postVideoArweaveSrc.length > 0;
         }, 1000);
       },
       (err) => {
@@ -227,7 +225,7 @@ export class MintPageComponent implements OnInit {
         comp.pollForReadyToStream();
         // At this step we are going to only show the deso part of the video
         // Since arweave is quicker but takes 3s after upload to start
-        this.handleVideoArweaveInput(file);
+        comp.handleVideoArweaveInput(file);
       },
       onAfterResponse: function (req, res) {
         return new Promise((resolve) => {
@@ -329,6 +327,8 @@ export class MintPageComponent implements OnInit {
         .subscribe(([readyToStream, exitPolling]) => {
           if (readyToStream) {
             this.readyToStream = true;
+            this.isUploaded = true;
+            this.isUploading = false;
             clearInterval(this.videoStreamInterval);
             return;
           }

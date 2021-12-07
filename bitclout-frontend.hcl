@@ -94,12 +94,9 @@ job "supernovas-frontend" {
         https://videodelivery.net
         https://upload.videodelivery.net;
       script-src
+        'unsafe-eval'
         https://supernovas.app
         https://supernovas.app:*
-        https://node1.bundlr.network
-        https://arweave.net
-        https://*.arweave.net;
-        https://polygon-rpc.com
         https://google-analytics.com 
         https://ssl.google-analytics.com
         https://diffuser-cdn.app-us1.com/diffuser/diffuser.js

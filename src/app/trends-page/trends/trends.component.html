@@ -2,7 +2,7 @@
 
 <!-- Show shimmer Loader Until page completely Load -->
 <div class="nfts-card-list" *ngIf="globalVars.isMarketplaceLoading">
-  <div class="nft-col-wrap" *ngFor='let in of counter(50) ;let i = index'>
+  <div class="nft-col-wrap" *ngFor="let in of counter(50); let i = index">
     <div class="card">
     <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
   </div>

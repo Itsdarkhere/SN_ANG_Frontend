@@ -57,6 +57,8 @@ export class TrendsComponent implements OnInit {
   ngOnInit(): void {
     if (!this.globalVars.marketplaceDataToShow) {
       this.loadData();
+    } else {
+      this.getParamsAndSort();
     }
     this.setMobileBasedOnViewport();
   }

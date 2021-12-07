@@ -93,8 +93,7 @@ job "supernovas-frontend" {
         pay.sendwyre.com
         https://videodelivery.net
         https://upload.videodelivery.net;
-      script-src
-        'unsafe-eval'
+      script-src 'self'
         https://supernovas.app
         https://supernovas.app:*
         https://google-analytics.com 

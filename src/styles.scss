@@ -15,31 +15,35 @@ $feed-border-radius: 12px;
     background: var(--background) !important; // TODO: remove all !important, this is a platform to extend
     color: var(--text) !important; // TODO: remove all !important, this is a platform to extend
 }
+
 .profile-type-card {
     width: 190px;
     height: 220px;
-    overflow: hidden;   
+    overflow: hidden;
     background: #ffffff;
     border: 2px solid #efefef;
     border-radius: 15.090079307556152px;
     box-shadow: 1.0368170738220215px 1.0368170738220215px 20.736339569091797px rgba(0, 0, 0, 0.05);
 }
+
 .content-type-card {
     min-width: 190px;
     min-height: 220px;
     height: 255px;
     width: 220px;
-    overflow: hidden;   
+    overflow: hidden;
     background: #ffffff;
     border: 2.5910093784332275px solid #efefef;
     border-radius: 19.54926872253418px;
     box-shadow: 1.3432013988494873px 1.3432013988494873px 26.864025115966797px rgba(0, 0, 0, 0.05);
 }
+
 .not-available-warning {
     &:active {
         outline: 2px solid red !important;
     }
-} 
+}
+
 .text-primary {
     color: #3549fa !important;
 }
@@ -543,6 +547,7 @@ $green-font-color: #19b028;
 .electric-box-shadow {
     box-shadow: 0px 0px 0px 2px #2b79f5 !important;
 }
+
 .electric-outline {
     outline: 2px solid #2b79f5 !important;
 }
@@ -1221,9 +1226,11 @@ $green-font-color: #19b028;
 .mb-30px {
     margin-bottom: 30px;
 }
+
 .mb-50px {
     margin-bottom: 50px;
 }
+
 .ml-30px {
     margin-left: 30px;
 }
@@ -5316,7 +5323,7 @@ option {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background: url("./assets/icons/ic_close.svg") center center #F1F1F1 no-repeat;
+    background: #F1F1F1;
     position: absolute;
     right: 15px;
     top: 15px;

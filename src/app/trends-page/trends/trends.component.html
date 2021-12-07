@@ -42,7 +42,11 @@
 </div>
 
 <div
-  *ngIf="!globalVars.isMarketplaceLoading && !nftCollections && !nftCollections?.length"
+  *ngIf="
+    !globalVars.isMarketplaceLoading &&
+    !this.globalVars.marketplaceCollection &&
+    !this.globalVars.marketplaceCollection?.length
+  "
   class="d-flex align-items-center justify-content-center"
 >
   <div

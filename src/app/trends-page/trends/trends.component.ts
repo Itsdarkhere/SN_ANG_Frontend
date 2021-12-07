@@ -15,7 +15,7 @@ import { FunctionPassService } from "src/app/function-pass.service";
 })
 export class TrendsComponent implements OnInit {
   globalVars: GlobalVarsService;
-  nftCollections: NFTCollectionResponse[];
+  //nftCollections: NFTCollectionResponse[];
   //filteredCollection: NFTCollectionResponse[];
   lastPage: number;
   static PAGE_SIZE = 40;
@@ -57,8 +57,6 @@ export class TrendsComponent implements OnInit {
   ngOnInit(): void {
     if (!this.globalVars.marketplaceDataToShow) {
       this.loadData();
-    } else {
-      this.getParamsAndSort();
     }
     this.setMobileBasedOnViewport();
   }
@@ -77,7 +75,10 @@ export class TrendsComponent implements OnInit {
 
     return new Promise((resolve, reject) => {
       resolve(
-        this.globalVars.marketplaceFilteredCollection.slice(startIdx, Math.min(endIdx, this.nftCollections.length))
+        this.globalVars.marketplaceFilteredCollection.slice(
+          startIdx,
+          Math.min(endIdx, this.globalVars.marketplaceCollection.length)
+        )
       );
     });
   }
@@ -110,49 +111,59 @@ export class TrendsComponent implements OnInit {
     switch (sort) {
       case "most_recent_first":
         // Keep all
-        this.nftCollections.sort((a, b) => b.PostEntryResponse.TimestampNanos - a.PostEntryResponse.TimestampNanos);
+        this.globalVars.marketplaceCollection.sort(
+          (a, b) => b.PostEntryResponse.TimestampNanos - a.PostEntryResponse.TimestampNanos
+        );
         break;
       case "oldest_first":
-        this.nftCollections.sort((a, b) => a.PostEntryResponse.TimestampNanos - b.PostEntryResponse.TimestampNanos);
+        this.globalVars.marketplaceCollection.sort(
+          (a, b) => a.PostEntryResponse.TimestampNanos - b.PostEntryResponse.TimestampNanos
+        );
         break;
       case "highest_price_first":
-        this.nftCollections.sort((a, b) => b.NFTEntryResponse.MinBidAmountNanos - a.NFTEntryResponse.MinBidAmountNanos);
+        this.globalVars.marketplaceCollection.sort(
+          (a, b) => b.NFTEntryResponse.MinBidAmountNanos - a.NFTEntryResponse.MinBidAmountNanos
+        );
         break;
       case "lowest_price_first":
-        this.nftCollections.sort((a, b) => a.NFTEntryResponse.MinBidAmountNanos - b.NFTEntryResponse.MinBidAmountNanos);
+        this.globalVars.marketplaceCollection.sort(
+          (a, b) => a.NFTEntryResponse.MinBidAmountNanos - b.NFTEntryResponse.MinBidAmountNanos
+        );
         break;
       default:
-        this.nftCollections.sort((a, b) => b.PostEntryResponse.TimestampNanos - a.PostEntryResponse.TimestampNanos);
+        this.globalVars.marketplaceCollection.sort(
+          (a, b) => b.PostEntryResponse.TimestampNanos - a.PostEntryResponse.TimestampNanos
+        );
         break;
     }
     // Only use nftCollections in first filter
     switch (status) {
       case "all":
         // Keep all
-        this.globalVars.marketplaceFilteredCollection = this.nftCollections;
+        this.globalVars.marketplaceFilteredCollection = this.globalVars.marketplaceCollection;
         break;
       case "has_bids":
-        this.globalVars.marketplaceFilteredCollection = this.nftCollections.filter(
+        this.globalVars.marketplaceFilteredCollection = this.globalVars.marketplaceCollection.filter(
           (nft) => nft.NFTEntryResponse.HighestBidAmountNanos != 0 && nft.NFTEntryResponse.IsForSale
         );
         break;
       case "no_bids":
-        this.globalVars.marketplaceFilteredCollection = this.nftCollections.filter(
+        this.globalVars.marketplaceFilteredCollection = this.globalVars.marketplaceCollection.filter(
           (nft) => nft.NFTEntryResponse.HighestBidAmountNanos === 0 && nft.NFTEntryResponse.IsForSale
         );
         break;
       case "for_sale":
-        this.globalVars.marketplaceFilteredCollection = this.nftCollections.filter(
+        this.globalVars.marketplaceFilteredCollection = this.globalVars.marketplaceCollection.filter(
           (nft) => nft.NFTEntryResponse.IsForSale
         );
         break;
       case "sold":
-        this.globalVars.marketplaceFilteredCollection = this.nftCollections.filter(
+        this.globalVars.marketplaceFilteredCollection = this.globalVars.marketplaceCollection.filter(
           (nft) => !nft.NFTEntryResponse.IsForSale && nft.NFTEntryResponse.LastAcceptedBidAmountNanos > 0
         );
         break;
       default:
-        this.globalVars.marketplaceFilteredCollection = this.nftCollections;
+        this.globalVars.marketplaceFilteredCollection = this.globalVars.marketplaceCollection;
         break;
     }
     if (primary === "true" && secondary === "true") {
@@ -216,10 +227,10 @@ export class TrendsComponent implements OnInit {
       )
       .subscribe(
         (res: any) => {
-          this.nftCollections = res.NFTCollections;
-          if (this.nftCollections) {
-            this.nftCollections = uniqBy(
-              this.nftCollections,
+          this.globalVars.marketplaceCollection = res.NFTCollections;
+          if (this.globalVars.marketplaceCollection) {
+            this.globalVars.marketplaceCollection = uniqBy(
+              this.globalVars.marketplaceCollection,
               (nftCollection) => nftCollection.PostEntryResponse.PostHashHex
             );
           }

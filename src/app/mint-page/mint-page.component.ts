@@ -11,7 +11,7 @@ import {
 import { DomSanitizer } from "@angular/platform-browser";
 import { BackendApiService, BackendRoutes } from "../backend-api.service";
 import { GlobalVarsService } from "../global-vars.service";
-import { trigger, style, animate, transition } from "@angular/animations";
+import { trigger, style, animate, transition, group, query } from "@angular/animations";
 import { Router } from "@angular/router";
 import { environment } from "../../environments/environment";
 import * as tus from "tus-js-client";
@@ -20,14 +20,44 @@ import { CloudflareStreamService } from "../../lib/services/stream/cloudflare-st
 import { BsModalService } from "ngx-bootstrap/modal";
 import { CommentModalComponent } from "../comment-modal/comment-modal.component";
 import { GoogleAnalyticsService } from "../google-analytics.service";
-import { ArweaveJsService } from "../arweave-js.service";
-import { Observable } from "rxjs";
+const left = [
+  query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
+  group([
+    query(':enter', [style({ transform: 'translateX(-100%)' }), animate('.3s ease', style({ transform: 'translateX(0%)',opacity: "0" }))], {
+      optional: true,
+    }),
+    query(':leave', [style({ transform: 'translateX(0%)' }), animate('.3s ease', style({ transform: 'translateX(100%)',opacity: "0" }))], {
+      optional: true,
+    }),
+  ]),
+];
 
+const right = [
+  query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
+  group([
+    query(':enter', [style({ transform: 'translateX(100%)' }), animate('.3s linear', style({ transform: 'translateX(0%)',opacity: "0" }))], {
+      optional: true,
+    }),
+    query(':leave', [style({ transform: 'translateX(0%)' }), animate('.3s linear', style({ transform: 'translateX(-100%)' , opacity: "0"}))], {
+      optional: true,
+    }),
+  ]),
+];
 @Component({
   selector: "app-mint-page",
   templateUrl: "./mint-page.component.html",
   styleUrls: ["./mint-page.component.scss"],
   animations: [
+    trigger('animSlider', [
+      transition(':increment', right),
+      transition(':decrement', left),
+    ]),
+    // trigger("cardAppearAnimation", [
+    //   transition(":enter", [style({ opacity: "0" }), animate("200ms linear", style({ opacity: "1" }))]),
+    //   transition(":leave", [style({ opacity: "1" }), animate("200ms linear", style({ opacity: "0" }))]),
+    // ]),
+  ],
+ /* animations: [
     trigger("mintSwipeAnimation", [
       transition(":enter", [
         style({ transform: "translateX(100%)", opacity: "0" }),
@@ -49,7 +79,7 @@ import { Observable } from "rxjs";
       transition(":enter", [style({ opacity: "0" }), animate("200ms linear", style({ opacity: "1" }))]),
       transition(":leave", [style({ opacity: "1" }), animate("200ms linear", style({ opacity: "0" }))]),
     ]),
-  ],
+  ],*/
 })
 export class MintPageComponent implements OnInit {
   @Output() postCreated = new EventEmitter();

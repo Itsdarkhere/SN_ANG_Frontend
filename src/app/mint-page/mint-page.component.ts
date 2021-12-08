@@ -20,6 +20,9 @@ import { CloudflareStreamService } from "../../lib/services/stream/cloudflare-st
 import { BsModalService } from "ngx-bootstrap/modal";
 import { CommentModalComponent } from "../comment-modal/comment-modal.component";
 import { GoogleAnalyticsService } from "../google-analytics.service";
+import { ArweaveJsService } from "../arweave-js.service";
+import { Observable } from "rxjs";
+
 const left = [
   query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
   group([

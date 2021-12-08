@@ -220,7 +220,7 @@ export class TrendsComponent implements OnInit {
       this.globalVars.isMarketplaceLoading = true;
     }
     this.backendApi
-      .GetNFTShowcaseStripped(
+      .GetNFTShowcaseSupernovas(
         this.globalVars.localNode,
         this.globalVars.loggedInUser?.PublicKeyBase58Check,
         this.globalVars.loggedInUser?.PublicKeyBase58Check

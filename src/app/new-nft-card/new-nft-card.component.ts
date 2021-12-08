@@ -225,6 +225,7 @@ export class NewNftCardComponent implements OnInit {
         .GetSingleProfile(this.globalVars.localNode, this.postContent.PosterPublicKeyBase58Check, "")
         .subscribe((res) => {
           this.creatorProfile = res.Profile;
+          this.post.ProfileEntryResponse = res;
         });
     }
     this.setMobileBasedOnViewport();

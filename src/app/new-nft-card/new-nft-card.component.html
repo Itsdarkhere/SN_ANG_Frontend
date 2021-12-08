@@ -467,7 +467,7 @@
                   ]"
                 >
                   {{ loadProfile ? this.creatorProfile?.Username : postContent.ProfileEntryResponse?.Username }}
-                  <i *ngIf="true" class="fas fa-check-circle pl-5px fa-md text-primary"></i>
+                  <i *ngIf="loadProfile ? this.creatorProfile?.IsVerified : postContent.ProfileEntryResponse?.IsVerified" class="fas fa-check-circle pl-5px fa-md text-primary"></i>
                 </a>
               </div>
             </div>

@@ -218,6 +218,7 @@ export class NewNftCardComponent implements OnInit {
           this.creatorProfile = res.Profile;
         });
     }
+    
     this.setMobileBasedOnViewport();
     this.setEmbedURLForPostContent();
     if (this.showNFTDetails && this.postContent.IsNFT && !this.nftEntryResponses?.length) {

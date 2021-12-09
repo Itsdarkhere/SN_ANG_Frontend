@@ -26,10 +26,10 @@ import { Observable } from "rxjs";
 const left = [
   query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
   group([
-    query(':enter', [style({ transform: 'translateX(-100%)' }), animate('.3s ease', style({ transform: 'translateX(0%)',opacity: "0" }))], {
+    query(':enter', [style({ transform: 'translateX(-90%)' }), animate('.7s ease', style({ transform: 'translateX(0%)',opacity: "50" }))], {
       optional: true,
     }),
-    query(':leave', [style({ transform: 'translateX(0%)' }), animate('.3s ease', style({ transform: 'translateX(100%)',opacity: "0" }))], {
+    query(':leave', [style({ transform: 'translateX(0%)' }), animate('.7s ease', style({ transform: 'translateX(90%)',opacity: "50" }))], {
       optional: true,
     }),
   ]),
@@ -38,10 +38,10 @@ const left = [
 const right = [
   query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
   group([
-    query(':enter', [style({ transform: 'translateX(100%)' }), animate('.3s linear', style({ transform: 'translateX(0%)',opacity: "0" }))], {
+    query(':enter', [style({ transform: 'translateX(90%)' }), animate('.7s linear', style({ transform: 'translateX(0%)',opacity: "50" }))], {
       optional: true,
     }),
-    query(':leave', [style({ transform: 'translateX(0%)' }), animate('.3s linear', style({ transform: 'translateX(-100%)' , opacity: "0"}))], {
+    query(':leave', [style({ transform: 'translateX(0%)' }), animate('.7s linear', style({ transform: 'translateX(-90%)' , opacity: "50"}))], {
       optional: true,
     }),
   ]),

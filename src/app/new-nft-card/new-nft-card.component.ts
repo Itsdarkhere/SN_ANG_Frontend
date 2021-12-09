@@ -128,6 +128,7 @@ export class NewNftCardComponent implements OnInit {
   highBid: number = null;
   lowBid: number = null;
   minBid: number = null;
+  showVideoTypeIcon = true;
   mobile = false;
   lastSalePrice: number = null;
   availableSerialNumbers: NFTEntryResponse[];
@@ -193,7 +194,7 @@ export class NewNftCardComponent implements OnInit {
           if (this.nftEntryResponses[0]?.LastAcceptedBidAmountNanos >= 0) {
             this.lastSalePrice = this.nftEntryResponses[0]?.LastAcceptedBidAmountNanos;
           } else {
-            this.lastSalePrice = this.nftEntryResponses[0]?.MinBidAmountNanos;
+            this.lastSalePrice = 0;
           }
         }
       });
@@ -201,7 +202,15 @@ export class NewNftCardComponent implements OnInit {
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
   }
-
+  activateOnHover(event, play) {
+    if (play) {
+      this.showVideoTypeIcon = false;
+      event.target.play();
+    } else {
+      this.showVideoTypeIcon = true;
+      event.target.pause();
+    }
+  }
   @HostListener("window:resize")
   onResize() {
     this.setMobileBasedOnViewport();
@@ -216,6 +225,7 @@ export class NewNftCardComponent implements OnInit {
         .GetSingleProfile(this.globalVars.localNode, this.postContent.PosterPublicKeyBase58Check, "")
         .subscribe((res) => {
           this.creatorProfile = res.Profile;
+          this.post.ProfileEntryResponse = res;
         });
     }
     

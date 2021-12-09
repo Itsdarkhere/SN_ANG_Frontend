@@ -283,7 +283,7 @@
 
             <!-- Media, don't show images on comment posts. -->
             <div
-              *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID"
+              *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID && !isNFTDetail"
               class="feed-post__image-container"
               [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
             >
@@ -296,7 +296,13 @@
             </div>
             <!-- Video -->
             <div
-              *ngIf="postContent.VideoURLs && showNFTOwnerInfo && postContent.VideoURLs[0] && !post.ParentStakeID"
+              *ngIf="
+                postContent.VideoURLs &&
+                showNFTOwnerInfo &&
+                postContent.VideoURLs[0] &&
+                !post.ParentStakeID &&
+                !isNFTDetail
+              "
               class="feed-post__video-container"
               [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
             >

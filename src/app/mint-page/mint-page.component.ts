@@ -100,6 +100,7 @@ export class MintPageComponent implements OnInit {
   postVideoDESOSrc = null;
   testVideoSrc = "https://arweave.net/bXfovPML_-CRlfoxLdPsK8p7lrshRLwGFHITzaDMMSQ";
   videoUploadPercentage = null;
+  arweaveVideoLoading = false;
 
   showEmbedURL = false;
   showImageLink = false;
@@ -110,6 +111,8 @@ export class MintPageComponent implements OnInit {
 
   postHashHex = "";
   isSubmitPress = false;
+
+  showVideoTypeIcon = true;
 
   isUploading = false;
   isUploaded = false;
@@ -211,15 +214,12 @@ export class MintPageComponent implements OnInit {
       this.globalVars._alertError("File is too large. Please choose a file of a size less than 200MB");
       return;
     }
-    this.isUploading = true;
     // Its named uploadImage but works for both.
     this.arweave.UploadImage(file).subscribe(
       (res) => {
         let url = "https://arweave.net/" + res;
+        this.postVideoArweaveSrc = url;
         this.postImageSrc = null;
-        setTimeout(() => {
-          this.postVideoArweaveSrc = url;
-        }, 1000);
       },
       (err) => {
         this.isUploading = false;
@@ -228,12 +228,33 @@ export class MintPageComponent implements OnInit {
       }
     );
   }
-
+  loadArweaveVideo() {
+    this.arweaveVideoLoading = true;
+    setTimeout(() => {
+      let video = document.getElementById("fake-video-nft-1") as HTMLVideoElement;
+      video.load();
+      video.pause();
+      video.currentTime = 0;
+      //video.play();
+      this.arweaveVideoLoading = false;
+    }, 3000);
+  }
+  activateOnHover(play) {
+    let element = document.getElementById("fake-video-nft-1") as HTMLVideoElement;
+    if (play) {
+      this.showVideoTypeIcon = false;
+      element.play();
+    } else {
+      this.showVideoTypeIcon = true;
+      element.pause();
+    }
+  }
   handleVideoDESOInput(file: File): void {
     if (file.size > (1024 * 1024 * 1024) / 5) {
       this.globalVars._alertError("File is too large. Please choose a file of a size less than 200MB");
       return;
     }
+    this.isUploading = true;
     let upload: tus.Upload;
     let mediaId = "";
     const comp: MintPageComponent = this;
@@ -338,6 +359,10 @@ export class MintPageComponent implements OnInit {
   nextStep() {
     if (this.step + 1 < 6) {
       this.step++;
+      // Arweave needs a boost to start itself
+      if (this.step === 4) {
+        this.loadArweaveVideo();
+      }
     }
   }
   previousStep() {

@@ -23,6 +23,30 @@
     justify-content: flex-end;
     align-items: center;
 }
+.fake-card-video-tag {
+    display: block;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+.fake-card-video-icon-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    transition: opacity 0.2s linear;
+}
+.opacity_0 {
+    transition: opacity 0.2s linear;
+    opacity: 0;
+}
+.fake-card-video-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 60%;
+}
 .mint-page-inner-height {
     height: calc(95% - 50px);
 }

@@ -197,14 +197,41 @@
                   src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
                 />
                 <div
-                  class="w-100 h-100 background-secondary d-flex flex-center"
-                  *ngIf="
-                    !postContent.ImageURLs && postContent.VideoURLs && postContent.VideoURLs[0] && !post.ParentStakeID
-                  "
+                  class="w-100 h-100 overflow-hidden top-br-30px background-secondary position-relative d-flex flex-center"
+                  *ngIf="!postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID"
                 >
-                  <div>
-                    <img class="w-100px" src="/assets/icons/video-type.svg" alt="image-icon" />
+                  <div class="card-video-icon-container top-br-30px" [ngClass]="{ opacity_0: !showVideoTypeIcon }">
+                    <img class="card-video-icon" src="/assets/icons/video-type-white.svg" alt="icon" />
                   </div>
+                  <video
+                    *ngIf="postContent.PostExtraData.arweaveVideoSrc"
+                    id="video-nft-1"
+                    (mouseenter)="activateOnHover($event, true)"
+                    (mouseleave)="activateOnHover($event, false)"
+                    loop
+                    [muted]="'muted'"
+                    muted
+                    class="video-tag"
+                    preload="metadata"
+                    src="{{ postContent.PostExtraData.arweaveVideoSrc + '#t=0.001' }}"
+                  ></video>
+                </div>
+                <div
+                  *ngIf="
+                    postContent.VideoURLs &&
+                    postContent.VideoURLs[0] &&
+                    !postContent.ParentStakeID &&
+                    !postContent.PostExtraData.arweaveVideoSrc
+                  "
+                  class="w-100 h-100 background-secondary position-relative d-flex flex-center"
+                >
+                  <iframe
+                    *ngIf="!postContent.PostExtraData.arweaveVideoSrc"
+                    [src]="postContent.VideoURLs[0] | sanitizeVideoUrl"
+                    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                    allowfullscreen
+                    class="video-tag"
+                  ></iframe>
                 </div>
               </div>
             </ng-container>
@@ -388,19 +415,48 @@
             <div class="img-cover" [ngClass]="{ 'change-height-img-cover': isQuotedCard }">
               <img
                 class="card-img"
-                *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID"
+                *ngIf="
+                  postContent.ImageURLs && (postContent.ImageURLs[0] || postContent.VideoURLs[0]) && !post.ParentStakeID
+                "
                 data-toggle="modal"
                 src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
               />
               <div
-                class="w-100 h-100 background-secondary d-flex flex-center"
-                *ngIf="
-                  !postContent.ImageURLs && postContent.VideoURLs && postContent.VideoURLs[0] && !post.ParentStakeID
-                "
+                class="w-100 h-100 overflow-hidden top-br-30px background-secondary position-relative d-flex flex-center"
+                *ngIf="!postContent.ImageURLs && postContent.PostExtraData.arweaveVideoSrc && !post.ParentStakeID"
               >
-                <div>
-                  <img class="w-100px" src="/assets/icons/video-type.svg" alt="image-icon" />
+                <div class="card-video-icon-container top-br-30px" [ngClass]="{ opacity_0: !showVideoTypeIcon }">
+                  <img class="card-video-icon" src="/assets/icons/video-type-white.svg" alt="icon" />
                 </div>
+                <video
+                  *ngIf="postContent.PostExtraData.arweaveVideoSrc"
+                  id="video-nft-1"
+                  (mouseenter)="activateOnHover($event, true)"
+                  (mouseleave)="activateOnHover($event, false)"
+                  loop
+                  [muted]="'muted'"
+                  muted
+                  class="video-tag"
+                  preload="metadata"
+                  src="{{ postContent.PostExtraData.arweaveVideoSrc + '#t=0.001' }}"
+                ></video>
+              </div>
+              <div
+                *ngIf="
+                  postContent.VideoURLs &&
+                  postContent.VideoURLs[0] &&
+                  !postContent.ParentStakeID &&
+                  !postContent.PostExtraData.arweaveVideoSrc
+                "
+                class="w-100 h-100 background-secondary position-relative d-flex flex-center"
+              >
+                <iframe
+                  *ngIf="!postContent.PostExtraData.arweaveVideoSrc"
+                  [src]="postContent.VideoURLs[0] | sanitizeVideoUrl"
+                  allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                  allowfullscreen
+                  class="video-tag"
+                ></iframe>
               </div>
             </div>
           </ng-container>
@@ -486,13 +542,13 @@
                         compareBit(globalVars.nanosToDeSo(minBid, 5), globalVars.nanosToDeSo(highBid, 5), showPlaceABid)
                       }}
                     </p>
-                    <div class="d-flex flex-row" *ngIf="showPlaceABid">
+                    <div class="d-flex flex-row" *ngIf="isForSale">
                       <p class="font-weight-semiboldn overflow-ellipsis-price">
                         {{ highBid === 0 ? globalVars.nanosToDeSo(minBid, 5) : globalVars.nanosToDeSo(highBid, 5) }}
                       </p>
                       <p class="font-weight-semiboldn">DESO</p>
                     </div>
-                    <div class="d-flex flex-row" *ngIf="!showPlaceABid">
+                    <div class="d-flex flex-row" *ngIf="!isForSale">
                       <p class="font-weight-semiboldn overflow-ellipsis-price">
                         {{ globalVars.nanosToDeSo(lastSalePrice, 5) }}
                       </p>
@@ -575,14 +631,41 @@
                   src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
                 />
                 <div
-                  class="w-100 h-100 background-secondary d-flex flex-center"
-                  *ngIf="
-                    !postContent.ImageURLs && postContent.VideoURLs && postContent.VideoURLs[0] && !post.ParentStakeID
-                  "
+                  class="w-100 h-100 overflow-hidden top-br-30px background-secondary position-relative d-flex flex-center"
+                  *ngIf="!postContent.ImageURLs && postContent.PostExtraData.arweaveVideoSrc && !post.ParentStakeID"
                 >
-                  <div>
-                    <img class="w-100px" src="/assets/icons/video-type.svg" alt="image-icon" />
+                  <div class="card-video-icon-container top-br-30px" [ngClass]="{ opacity_0: !showVideoTypeIcon }">
+                    <img class="card-video-icon" src="/assets/icons/video-type-white.svg" alt="icon" />
                   </div>
+                  <video
+                    *ngIf="postContent.PostExtraData.arweaveVideoSrc"
+                    id="video-nft-1"
+                    (mouseenter)="activateOnHover($event, true)"
+                    (mouseleave)="activateOnHover($event, false)"
+                    loop
+                    [muted]="'muted'"
+                    muted
+                    class="video-tag"
+                    preload="metadata"
+                    src="{{ postContent.PostExtraData.arweaveVideoSrc + '#t=0.001' }}"
+                  ></video>
+                </div>
+                <div
+                  *ngIf="
+                    postContent.VideoURLs &&
+                    postContent.VideoURLs[0] &&
+                    !postContent.ParentStakeID &&
+                    !postContent.PostExtraData.arweaveVideoSrc
+                  "
+                  class="w-100 h-100 background-secondary position-relative d-flex flex-center"
+                >
+                  <iframe
+                    *ngIf="!postContent.PostExtraData.arweaveVideoSrc"
+                    [src]="postContent.VideoURLs[0] | sanitizeVideoUrl"
+                    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                    allowfullscreen
+                    class="video-tag"
+                  ></iframe>
                 </div>
               </div>
             </ng-container>
@@ -744,15 +827,7 @@
         <div class="container w-100 p-0px">
           <!-- DESKTOP -->
           <div
-            class="
-              row
-              no-gutters
-              d-none d-lg-block
-              py-10px
-              fs-15px
-              border-top border-bottom border-color-light-grey
-              cursor-pointer
-            "
+            class="row no-gutters d-none d-lg-block py-10px fs-15px border-top border-bottom border-color-light-grey cursor-pointer"
           >
             <div class="d-flex justify-content-between">
               <span (click)="openRepostsModal($event)" class="interaction-detail">
@@ -775,15 +850,7 @@
           </div>
           <!-- MOBILE -->
           <div
-            class="
-              row
-              no-gutters
-              d-lg-none
-              py-10px
-              fs-15px
-              border-top border-bottom border-color-light-grey
-              cursor-pointer
-            "
+            class="row no-gutters d-lg-none py-10px fs-15px border-top border-bottom border-color-light-grey cursor-pointer"
           >
             <div class="col-6 mb-0 interaction-detail" (click)="openRepostsModal($event)">
               <b>{{ globalVars.abbreviateNumber(postContentRepostCount) }}</b>

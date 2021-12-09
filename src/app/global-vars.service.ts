@@ -125,6 +125,7 @@ export class GlobalVarsService {
   followFeedPosts = [];
   marketplaceDataToShow: NFTCollectionResponse[];
   marketplaceFilteredCollection: NFTCollectionResponse[];
+  marketplaceCollection: NFTCollectionResponse[];
   marketplaceStartIndex = 0;
   marketplaceEndIndex = 20;
   messageResponse = null;

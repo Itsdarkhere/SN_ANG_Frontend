@@ -12,6 +12,12 @@
 .mw-activity {
     max-width: 915px;
 }
+.iframe-accordion {
+    display: block;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
 .owned-nft {
     background-color: var(--secondary);
     height: 100px;

@@ -15,15 +15,10 @@
       <!-- VIDEO -->
       <div
         *ngIf="nftEntry.PostEntryResponse?.VideoURLs && nftEntry.PostEntryResponse?.VideoURLs[0]"
-        class="image-size-active-bids-accordion"
+        class="image-size-active-bids-accordion w-100 d-flex flex-center position-relative"
         [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
       >
-        <iframe
-          [src]="nftEntry.PostEntryResponse.VideoURLs[0] | sanitizeVideoUrl"
-          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-          allowfullscreen
-          class="feed-post__video"
-        ></iframe>
+        <img src="/assets/icons/video-type.svg" alt="creator icon" />
       </div>
     </div>
     <div class="active-bids-bid-info-accordion">

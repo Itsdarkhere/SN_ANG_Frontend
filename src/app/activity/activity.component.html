@@ -45,18 +45,17 @@
               </div>
               <!-- VIDEO -->
               <div
-                *ngIf="
-                  nftEntry.PostEntryResponse.VideoURLs && nftEntry.PostEntryResponse.VideoURLs[0] && !post.ParentStakeID
-                "
-                class="image-size-active-bids"
+                *ngIf="nftEntry.PostEntryResponse?.VideoURLs && nftEntry.PostEntryResponse?.VideoURLs[0]"
+                class="image-size-active-bids d-flex flex-center"
                 [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
               >
-                <iframe
+                <!--<iframe
                   [src]="nftEntry.PostEntryResponse.VideoURLs[0] | sanitizeVideoUrl"
                   allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                   allowfullscreen
                   class="feed-post__video"
-                ></iframe>
+                ></iframe>-->
+                <img src="/assets/icons/video-type.svg" alt="creator icon" />
               </div>
             </div>
             <div class="active-bids-bid-info">

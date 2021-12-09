@@ -2,7 +2,7 @@
 
 <!-- Show shimmer Loader Until page completely Load -->
 <div class="nfts-card-list" *ngIf="globalVars.isMarketplaceLoading">
-  <div class="nft-col-wrap" *ngFor='let in of counter(50) ;let i = index'>
+  <div class="nft-col-wrap" *ngFor="let in of counter(50); let i = index">
     <div class="card">
     <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
   </div>
@@ -33,7 +33,6 @@
             [setBorder]="true"
             [nftCollectionHighBid]="nftCollection.HighestBidAmountNanos"
             [nftCollectionLowBid]="nftCollection.LowestBidAmountNanos"
-            [loadProfile]="true"
           ></new-nft-card>
         </div>
       </div>
@@ -42,7 +41,11 @@
 </div>
 
 <div
-  *ngIf="!globalVars.isMarketplaceLoading && !nftCollections && !nftCollections?.length"
+  *ngIf="
+    !globalVars.isMarketplaceLoading &&
+    !this.globalVars.marketplaceCollection &&
+    !this.globalVars.marketplaceCollection?.length
+  "
   class="d-flex align-items-center justify-content-center"
 >
   <div

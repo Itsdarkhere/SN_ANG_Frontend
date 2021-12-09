@@ -93,7 +93,7 @@ job "supernovas-frontend" {
         pay.sendwyre.com
         https://videodelivery.net
         https://upload.videodelivery.net;
-      script-src
+      script-src 
         'unsafe-eval'
         https://supernovas.app
         https://supernovas.app:*
@@ -109,6 +109,9 @@ job "supernovas-frontend" {
         https://ka-f.fontawesome.com/;
       style-src 'self' 'unsafe-inline' 
         https://fonts.googleapis.com;
+      media-src 'self'
+        https://arweave.net
+        https://*.arweave.net;
       img-src 'self' data: 
         https://ik.imagekit.io
         https://i.imgur.com

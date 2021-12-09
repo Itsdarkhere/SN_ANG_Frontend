@@ -45,6 +45,7 @@ export class AppComponent implements OnInit {
         ) {
           this.globalVars.marketplaceDataToShow = null;
           this.globalVars.marketplaceFilteredCollection = null;
+          this.globalVars.marketplaceCollection = null;
           this.globalVars.marketplaceStartIndex = 0;
           this.globalVars.marketplaceEndIndex = 20;
         }

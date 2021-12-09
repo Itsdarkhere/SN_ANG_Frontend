@@ -1,13 +1,25 @@
-<div app-theme class="nft-modal-container p-15px">
+<!-- <div app-theme class="nft-modal-container p-15px">
   <nft-modal-header [header]="'Bid placed'" [bsModalRef]="bsModalRef"></nft-modal-header>
-
   <div class="pb-15px fs-15px">Your bid was successful. We will notify you when the auction closes.</div>
-
   <div
     class="font-weight-500 fs-15px pb-15px cursor-pointer"
     style="text-decoration-line: underline"
     (click)="globalVars.exploreShowcase(bsModalRef, modalService)"
   >
     Explore the Showcase
+  </div>
+</div> -->
+
+<div app-theme class="nft-modal-container p-15px">
+  <div class="bid-popup-wrapper">
+    <figure>
+      <img src="assets/icons/Verification_Gradient.png" alt="Icon"/>
+    </figure>
+    <h3 class="bid-title">Your bid is placed!</h3>
+    <p class="bid-description">The auction will end when <br/>the creator sells this NFT.</p>
+    <div class="btn-group">
+      <button type="button" class="view-your-bid">View your bids</button>
+      <button type="button" class="close-popup">Close this window</button>
+    </div>
   </div>
 </div>

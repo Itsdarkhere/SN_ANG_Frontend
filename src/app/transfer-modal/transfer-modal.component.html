@@ -1,7 +1,7 @@
 <div app-theme class="nft-modal-container p-15px align-items-center flex-center" [ngClass]="acceptModal ? 'overwrite-min-height2' : 'overwrite-min-height'">
     <div *ngIf="step === 1" class="w-100 flex-center flex-column">
         <nft-modal-header *ngIf="transferModal" [header]="'Transfer your NFT'" [bsModalRef]="bsModalRef"></nft-modal-header>
-        <nft-modal-header *ngIf="acceptModal" [header]="'Accept transfer'" [bsModalRef]="bsModalRef"></nft-modal-header>
+         <nft-modal-header *ngIf="acceptModal" [header]="'Accept transfer'" [bsModalRef]="bsModalRef"></nft-modal-header>
         <nft-modal-header *ngIf="burnModal" [header]="'Burn NFT'" [bsModalRef]="bsModalRef"></nft-modal-header>
 
         <div class="font-weight-bold w-90 d-flex align-items-center fs-15px pt-15px select-p-container flex-column">
@@ -20,7 +20,7 @@
                 <simple-profile-card [profile]="transferToCreator" [singleColumn]="true" [hideFollowLink]="true" *ngIf="transferToCreator"></simple-profile-card>
             </div>
             <div [ngClass]="burnModal ? 'w-90' : 'w-100'">
-                <label *ngIf="transferModal" class="transfer-label text-start w-100 ml-10px">
+                <label *ngIf="transferModal && serialNumbers.length>1" class="transfer-label text-start w-100 ml-10px">
           Select the edition you want to transfer
         </label>
                 <label *ngIf="burnModal" class="transfer-label text-start w-100 ml-10px">
@@ -29,11 +29,11 @@
                 <label *ngIf="acceptModal" class="transfer-label text-start w-100 ml-10px">
                   I would like to accept ownership of this NFT and add to my NFT gallery
         </label>
-                <!-- <select #selectElem (change)="setSer(selectElem.value)" class="select-transfer-modal mb-10px pl-10px pr-10px w-100">
+                <select *ngIf="serialNumbers.length > 1" #selectElem (change)="setSer(selectElem.value)" class="select-transfer-modal mb-10px pl-10px pr-10px w-100">
           <option *ngFor="let ser of serialNumbers" [value]="ser.SerialNumber">
             Serialnumber #{{ ser.SerialNumber }}
           </option>
-        </select> -->
+        </select>
             </div>
             <div *ngIf="showInput" class="w-100 mt-10px">
                 <p class="transfer-label text-start w-100">Add unlockable content ( required )</p>

@@ -5366,16 +5366,22 @@ option {
         font-weight: 700;
         color: #FFFFFF;
     }
-    .flex-fill {
+    .append-video-url-thumb.flex-fill {
         margin-bottom: 15px;
+        background: #FFFFFF;
+        border: 0.952182px solid #FCFCFC;
+        box-sizing: border-box;
+        box-shadow: 1px 1.52px 7.62px rgba(0, 0, 0, 0.11);
+        border-radius: 14.2827px;
+        overflow: hidden;
         textarea {
             min-height: 96px;
-            background: #FFFFFF;
-            border: 0.952182px solid #FCFCFC;
-            box-sizing: border-box;
-            box-shadow: 1px 1.52px 7.62px rgba(0, 0, 0, 0.11);
-            border-radius: 14.2827px;
+            border:none;
             padding: 12px 10px 10px 50px;
+        }
+        .feed-post__embed-container{
+            border-radius:0;
+            margin-bottom:0;
         }
     }
     .justify-content-end {
@@ -5483,4 +5489,7 @@ option {
         padding: 0;
         border-radius: 50%;
     }
+}
+.modal-dialog .modal-bottom-action .embed_wrp{
+    bottom:35px;
 }

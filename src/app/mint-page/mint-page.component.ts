@@ -54,7 +54,7 @@ import { Observable } from "rxjs";
 export class MintPageComponent implements OnInit {
   @Output() postCreated = new EventEmitter();
 
-  step = 1;
+  step = 2;
   mobile = false;
   submittingPost = false;
   postInput = "";

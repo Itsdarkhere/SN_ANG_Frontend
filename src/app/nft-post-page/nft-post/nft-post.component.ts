@@ -12,7 +12,6 @@ import { DomSanitizer, Title } from "@angular/platform-browser";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { SwalHelper } from "../../../lib/helpers/swal-helper";
 import { RouteNames } from "../../app-routing.module";
-import { BidPlacedModalComponent } from "../../bid-placed-modal/bid-placed-modal.component";
 import { Location } from "@angular/common";
 import * as _ from "lodash";
 import { SellNftModalComponent } from "../../sell-nft-modal/sell-nft-modal.component";
@@ -94,11 +93,6 @@ export class NftPostComponent implements OnInit {
   }
   ngOnInit() {
     this.SendNFTPageOpenedEvent();
-    // this.bsModalRef.hide();
-    this.modalService.show(BidPlacedModalComponent, {
-      class: "modal-dialog-centered modal-sm",
-    });
-    this.modalService.setDismissReason("bid placed");
   }
   clearURL(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);

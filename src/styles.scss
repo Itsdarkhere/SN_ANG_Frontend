@@ -4632,6 +4632,7 @@ option {
             align-items: center;
             justify-content: center;
             display: flex;
+            position: relative;
             .feed-post__avatar-container,
             .d-flex.align-items-center,
             .nft_para,
@@ -4648,6 +4649,15 @@ option {
                 border-radius: 3px !important;
                 margin: 0;
                 max-width: 435px;
+            }
+            .inlrg {
+                position: absolute;
+                bottom: 15px;
+                right: 15px;
+                border: 0;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
             }
         }
         .feed-max-width-name {
@@ -4745,9 +4755,10 @@ option {
 
 .nft_place_bid_sec {
     background: var(--background);
-    box-shadow: 1px 1px 5px rgb(0 0 0 / 15%);
     padding: 30px;
-    border-radius: 8px;
+    border: 5px solid #E9E9E9;
+    box-shadow: 2px 2px 20px rgb(0 0 0 / 9%);
+    border-radius: 23.2633px;
     .nft_current_bid_tpwrapper {
         margin-bottom: 20px;
         .nft_current_bid {

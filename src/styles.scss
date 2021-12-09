@@ -5513,10 +5513,19 @@ option {
     justify-content: center;
     flex-direction: column;
     padding:20px 0 30px;
+    @media (max-width: 576px) {
+        padding:15px 0 20px;
+    }
     figure{
         margin:0 0 15px;
+        @media (max-width: 576px) {
+            margin:0 0 10px;
+        }
         img{
             width:120px;
+            @media (max-width: 576px) {
+                width:100px;
+            }
         }
     }
     .bid-title{
@@ -5526,6 +5535,11 @@ option {
         text-align: center;
         color: #0D0D0D;
         margin:15px 0 0;
+        @media (max-width: 576px) {
+            font-size: 26px;
+            line-height: 38px;
+            margin:10px 0 0;
+        }
     }
     .bid-description{
         font-weight: 500;
@@ -5537,12 +5551,16 @@ option {
         @media (max-width: 767px) {
             line-height: 30px;
         }
+        @media (max-width: 576px) {
+            font-size:16px;
+            line-height:26px;
+        }
     }
     .btn-group{
         display: flex;
         flex-direction: column;
         .view-your-bid{
-            width: 349.92px;
+            max-width: 349.92px;
             height:66px;
             background: #313131;
             border: 0.190811px solid #000000;
@@ -5557,9 +5575,14 @@ option {
             text-align: center;
             color: #FFFFFF;
             margin-bottom:14px;
+            @media (max-width: 576px) {
+                height:56px;
+                font-size: 16.2769px;
+                line-height: 100.5%;
+            }
         }
         .close-popup{
-            width: 349.92px;
+            max-width: 349.92px;
             height:66px;
             background:#fff;
             border: 3px solid #000000;
@@ -5572,6 +5595,11 @@ option {
             justify-content: center;
             text-align: center;
             color: #000000;
+            @media (max-width: 576px) {
+                height:56px;
+                font-size: 16.2769px;
+                line-height: 100.5%;
+            }
         }
     }
 }

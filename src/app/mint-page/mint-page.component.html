@@ -531,7 +531,8 @@
     </div>
     <!--  LEFT SIDE DESKTOP STEPS 1 - 2-->
     <div *ngIf="!mobile && 1 < step && step < 4" class="mint-page-image-container d-flex flex-column flex-center">
-      <div class="mint-warning-box">
+      <!-- ALLOW IF ARWEAVE PROBLEMS -->
+      <div *ngIf="false" class="mint-warning-box">
         <label class="mb-0px font-weight-semiboldn">
           Arweave network is experiencing issues, content might take a few minutes until its visible
         </label>

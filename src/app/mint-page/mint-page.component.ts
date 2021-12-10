@@ -50,39 +50,41 @@ const right = [
   selector: "app-mint-page",
   templateUrl: "./mint-page.component.html",
   styleUrls: ["./mint-page.component.scss"],
+  // animations: [
+  //   trigger('animSlider', [
+  //     transition(':increment', right),
+  //     transition(':decrement', left),
+  //   ]),
+  //   // trigger("cardAppearAnimation", [
+  //   //   transition(":enter", [style({ opacity: "0" }), animate("200ms linear", style({ opacity: "1" }))]),
+  //   //   transition(":leave", [style({ opacity: "1" }), animate("200ms linear", style({ opacity: "0" }))]),
+  //   // ]),
+  // ],
   animations: [
-    trigger('animSlider', [
-      transition(':increment', right),
-      transition(':decrement', left),
+    
+    trigger("mintSwipeAnimation", [
+      transition(":enter", [
+        style({ transform: "translateX(100%)", opacity: "0" }),
+        animate("600ms cubic-bezier(0, 0, 0, 1.13)", style({ transform: "translateX(0%)", opacity: "1" })),
+      ]),
+     
+      transition(":leave", [ 
+        style({ transform: "translateX(0%)", opacity: "1" }),
+        animate("600ms cubic-bezier(0, 0, 0, 1.13)", style({ transform: "translateX(100%)", opacity: "0" })),
+      ]),
     ]),
+    // trigger("swipeAppearAnimation", [
+    //   transition(":enter", [
+    //     style({ transform: "translateX(100%)" }),
+    //     animate("300ms linear", style({ transform: "translateX(0%)" })),
+    //   ]),
+    //   transition(":leave", [style({ opacity: "1" }), animate("200ms linear", style({ opacity: "0" }))]),
+    // ]),
     // trigger("cardAppearAnimation", [
     //   transition(":enter", [style({ opacity: "0" }), animate("200ms linear", style({ opacity: "1" }))]),
     //   transition(":leave", [style({ opacity: "1" }), animate("200ms linear", style({ opacity: "0" }))]),
     // ]),
   ],
- /* animations: [
-    trigger("mintSwipeAnimation", [
-      transition(":enter", [
-        style({ transform: "translateX(100%)", opacity: "0" }),
-        animate("700ms cubic-bezier(0, 0, 0, 1.13)", style({ transform: "translateX(0%)", opacity: "1" })),
-      ]),
-      transition(":leave", [
-        style({ transform: "translateX(0%)", opacity: "1" }),
-        animate("700ms cubic-bezier(0, 0, 0, 1.13)", style({ transform: "translateX(100%)", opacity: "0" })),
-      ]),
-    ]),
-    trigger("swipeAppearAnimation", [
-      transition(":enter", [
-        style({ transform: "translateX(100%)" }),
-        animate("300ms linear", style({ transform: "translateX(0%)" })),
-      ]),
-      transition(":leave", [style({ opacity: "1" }), animate("200ms linear", style({ opacity: "0" }))]),
-    ]),
-    trigger("cardAppearAnimation", [
-      transition(":enter", [style({ opacity: "0" }), animate("200ms linear", style({ opacity: "1" }))]),
-      transition(":leave", [style({ opacity: "1" }), animate("200ms linear", style({ opacity: "0" }))]),
-    ]),
-  ],*/
 })
 export class MintPageComponent implements OnInit {
   @Output() postCreated = new EventEmitter();

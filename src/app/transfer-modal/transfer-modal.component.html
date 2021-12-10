@@ -1,7 +1,7 @@
 <div app-theme class="nft-modal-container p-15px align-items-center flex-center" [ngClass]="acceptModal ? 'overwrite-min-height2' : 'overwrite-min-height'">
     <div *ngIf="step === 1" class="w-100 flex-center flex-column">
         <nft-modal-header *ngIf="transferModal" [header]="'Transfer your NFT'" [bsModalRef]="bsModalRef"></nft-modal-header>
-         <nft-modal-header *ngIf="acceptModal" [header]="'Accept transfer'" [bsModalRef]="bsModalRef"></nft-modal-header>
+        <nft-modal-header *ngIf="acceptModal" [header]="'Accept transfer'" [bsModalRef]="bsModalRef"></nft-modal-header>
         <nft-modal-header *ngIf="burnModal" [header]="'Burn NFT'" [bsModalRef]="bsModalRef"></nft-modal-header>
 
         <div class="font-weight-bold w-90 d-flex align-items-center fs-15px pt-15px select-p-container flex-column">
@@ -86,7 +86,7 @@
         <label *ngIf="burnModal" class="text-center p-10px mt-20px mb-20px">
       Your NFT is now gone forever. Good bye 👋
     </label>
-        <button (click)="hideAndRefresh()" class="transfer-modal-button close-window-button w-100 mb-15px">
+        <button (click)="hideAndRefresh()" class="transfer-modal-button close-window-button mb-15px">
       Close this window
     </button>
     </div>

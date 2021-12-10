@@ -24,8 +24,13 @@
     outline: none;
     border: none;
     font-weight: bold;
-    width: 150px;
-    height: 30px;
+    width: 444px;
+    max-width: 100%;
+    height: 66px;
+    background: #313131;
+    border: 0.28458px solid #000000;
+    box-shadow: 0.794738px 0.794738px 3.97369px 0.397369px rgba(0, 0, 0, 0.11), inset 0px -1.51437px 15.1437px 7.57187px #000000;
+    border-radius: 55.7175px;
     &:hover {
         transform: scale(1.05);
         transition-duration: 0.3s;
@@ -49,10 +54,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.transfer-modal-button {
-    height: 40px;
 }
 
 .mb--12px {
@@ -109,10 +110,4 @@
 
 .success-img {
     transform: scale(0.95);
-}
-
-.close-window-button {
-    background-color: transparent;
-    border: 2px solid #000000;
-    color: #000000;
 }

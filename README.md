@@ -1,6 +1,6 @@
 ![DeSo Logo](src/assets/deso/camelcase_logo.svg)
 
-# Clone the repo and get yourself started?
+# Clone thse repo and get yourself started?
 ```
 git clone https://gitlab.com/love4src/frontend.git
 ```

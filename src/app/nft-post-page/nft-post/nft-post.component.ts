@@ -14,6 +14,8 @@ import { SwalHelper } from "../../../lib/helpers/swal-helper";
 import { RouteNames } from "../../app-routing.module";
 import { Location } from "@angular/common";
 import * as _ from "lodash";
+
+
 import { SellNftModalComponent } from "../../sell-nft-modal/sell-nft-modal.component";
 import { CloseNftAuctionModalComponent } from "../../close-nft-auction-modal/close-nft-auction-modal.component";
 import { Subscription } from "rxjs";

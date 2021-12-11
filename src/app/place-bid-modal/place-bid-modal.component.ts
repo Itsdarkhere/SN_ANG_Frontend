@@ -118,7 +118,7 @@ export class PlaceBidModalComponent implements OnInit {
           // Hide this modal and open the next one.
           this.bsModalRef.hide();
           this.modalService.show(BidPlacedModalComponent, {
-            class: "modal-dialog-centered modal-sm",
+            class: "modal-dialog-centered modal-dialog-bottom modal-sm",
           });
           this.modalService.setDismissReason("bid placed");
           this.SendBidPlacedEvent();

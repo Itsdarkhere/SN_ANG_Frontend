@@ -41,13 +41,13 @@
             </div>
         </div>
         <div class="flex-center w-90 fs-15px pt-15px mt-15px">
-            <button (click)="runCheck()" *ngIf="transferModal" class="transfer-modal-button transfer-button w-100">
+            <button (click)="runCheck()" *ngIf="transferModal" class="transfer-modal-button transfer-button">
         Transfer NFT
       </button>
-            <button (click)="acceptNFTTransfer()" *ngIf="acceptModal" class="transfer-modal-button accept-button w-100">
+            <button (click)="acceptNFTTransfer()" *ngIf="acceptModal" class="transfer-modal-button accept-button">
               Confirm
       </button>
-            <button (click)="stepTwo()" *ngIf="burnModal" class="transfer-modal-button burn-button w-100">Burn</button>
+            <button (click)="stepTwo()" *ngIf="burnModal" class="transfer-modal-button burn-button">Burn</button>
         </div>
     </div>
     <!-- STEP 2 -->
@@ -63,10 +63,10 @@
         <label *ngIf="burnModal" class="text-center p-10px mt-20px mb-20px">
       Once the burn is completed the NFT is lost forever
     </label>
-        <button (click)="runCheck()" *ngIf="transferModal" class="transfer-modal-button transfer-button w-100 mb-15px">
+        <button (click)="runCheck()" *ngIf="transferModal" class="transfer-modal-button transfer-button mb-15px">
       Confirm transfer
     </button>
-        <button (click)="burnNFT()" *ngIf="burnModal" class="transfer-modal-button w-100 mb-15px" [ngClass]="step === 2 ? 'burn-button2' : 'burn-button'">
+        <button (click)="burnNFT()" *ngIf="burnModal" class="transfer-modal-button  mb-15px" [ngClass]="step === 2 ? 'burn-button2' : 'burn-button'">
       🔥 Confirm burning🔥
     </button>
     </div>

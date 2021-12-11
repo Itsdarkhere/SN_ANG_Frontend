@@ -14,6 +14,8 @@ import { SwalHelper } from "../../../lib/helpers/swal-helper";
 import { RouteNames } from "../../app-routing.module";
 import { Location } from "@angular/common";
 import * as _ from "lodash";
+import { BidPlacedModalComponent } from "../../bid-placed-modal/bid-placed-modal.component";
+
 import { SellNftModalComponent } from "../../sell-nft-modal/sell-nft-modal.component";
 import { CloseNftAuctionModalComponent } from "../../close-nft-auction-modal/close-nft-auction-modal.component";
 import { Subscription } from "rxjs";
@@ -93,6 +95,10 @@ export class NftPostComponent implements OnInit {
   }
   ngOnInit() {
     this.SendNFTPageOpenedEvent();
+    this.modalService.show(BidPlacedModalComponent, {
+      class: "modal-dialog-centered modal-sm",
+    });
+    this.modalService.setDismissReason("bid placed");
   }
   clearURL(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);

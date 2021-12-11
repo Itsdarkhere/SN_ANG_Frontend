@@ -22,6 +22,7 @@ import { CommentModalComponent } from "../comment-modal/comment-modal.component"
 import { GoogleAnalyticsService } from "../google-analytics.service";
 import { ArweaveJsService } from "../arweave-js.service";
 import { Observable } from "rxjs";
+import { setTime } from "ngx-bootstrap/chronos/utils/date-setters";
 
 const left = [
   query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
@@ -193,11 +194,13 @@ export class MintPageComponent implements OnInit {
     this.isUploading = true;
     this.arweave.UploadImage(file).subscribe(
       (res) => {
-        let url = "https://arweave.net/" + res;
-        this.postImageSrc = url;
-        this.postVideoArweaveSrc = null;
-        this.isUploading = false;
-        this.isUploaded = this.postImageSrc.length > 0;
+        setTimeout(() => {
+          let url = "https://arweave.net/" + res;
+          this.postImageSrc = url;
+          this.postVideoArweaveSrc = null;
+          this.isUploading = false;
+          this.isUploaded = this.postImageSrc.length > 0;
+        }, 2000);
       },
       (err) => {
         this.isUploading = false;
@@ -219,9 +222,11 @@ export class MintPageComponent implements OnInit {
     // Its named uploadImage but works for both.
     this.arweave.UploadImage(file).subscribe(
       (res) => {
-        let url = "https://arweave.net/" + res;
-        this.postVideoArweaveSrc = url;
-        this.postImageSrc = null;
+        setTimeout(() => {
+          let url = "https://arweave.net/" + res;
+          this.postVideoArweaveSrc = url;
+          this.postImageSrc = null;
+        }, 2000);
       },
       (err) => {
         this.isUploading = false;

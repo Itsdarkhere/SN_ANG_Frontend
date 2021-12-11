@@ -5,6 +5,20 @@
     position: absolute;
     right: 0;
 }
+.mint-warning-box {
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.03);
+    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
 .mint-page-progress {
     position: absolute;
     margin-top: 5px;

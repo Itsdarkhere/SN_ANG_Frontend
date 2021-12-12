@@ -96,6 +96,7 @@
             'border-radius':
               showLeftSelectedBorder && cardStyle ? (postContent.IsNFT && showNFTDetails ? '12px 0' : '12px') : ''
           }" *ngIf="!postContent.IsHidden">
+
                     <!-- Avatar -->
                     <div class="feed-post__avatar-container">
                         <a class="feed-post__avatar br-12px" [avatar]="postContent.ProfileEntryResponse.PublicKeyBase58Check" [routerLink]="
@@ -106,16 +107,36 @@
 
                     <!-- Main Content -->
                     <div class="w-100 nft_feed_post_bx">
+
+
                         <div class="d-flex align-items-center">
-                            <!-- Username-->
-                            <a class="fc-default font-weight-bold" [routerLink]="
-                  getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX, postContent.ProfileEntryResponse.Username])
-                " queryParamsHandling="merge">
-                {{ postContent.ProfileEntryResponse.Username }}
-              </a>
-                            <span *ngIf="postContent.ProfileEntryResponse.IsVerified" class="ml-1 text-primary">
-                <i class="fas fa-check-circle fa-md align-middle"></i>
-              </span>
+                            <div class="d-flex justify-content-between">
+                                <div class="post_del_list">
+                                    <span class="nb">Creator</span>
+                                    <!-- Username-->
+                                    <a class="fc-default font-weight-bold" [routerLink]="
+                                        getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX, postContent.ProfileEntryResponse.Username])
+                                        " queryParamsHandling="merge">
+                                        {{ postContent.ProfileEntryResponse.Username }}
+                                        </a>
+                                    <span *ngIf="postContent.ProfileEntryResponse.IsVerified" class="ml-1 text-primary">
+                                            <i class="fas fa-check-circle fa-md align-middle"></i>
+                                        </span>
+                                </div>
+                                <div class="post_del_list">
+                                    <span class="nb">Edition</span>
+                                    <div class="ps_dells_val"> 1 </div>
+                                </div>
+                                <div class="post_del_list">
+                                    <span class="nb">Minted on</span>
+                                    <div class="ps_dells_val"> DeSo </div>
+                                </div>
+                                <div class="post_del_list">
+                                    <span class="nb">Market</span>
+                                    <div class="ps_dells_val"> Primary </div>
+                                </div>
+                            </div>
+
                             <div class="desktop-creator-coin-info">
                                 <!-- <ng-container *ngTemplateOutlet="creatorCoinInfo"></ng-container> -->
                             </div>
@@ -390,7 +411,13 @@
                         {{ globalVars.nanosToDeSo(nftLastAcceptedBidAmountNanos, 5) }} DESO
                     </div>
                 </div>
-                <div class="nft_done_by" *ngIf="
+                <div class="auction_detl">
+                    <span class="hq">AUCTION</span>
+                    <div class="val">Not started yet</div>
+                    <div class="val_st">The 1st bid starts the auction.</div>
+                </div>
+
+                <!-- <div class="nft_done_by" *ngIf="
             compareBit(
               globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5),
               globalVars.nanosToDeSo(highBid, 5),
@@ -402,7 +429,7 @@
                         <div class="bid_by_avtar" [avatar]="showNFTOwnerInfo?.PublicKeyBase58Check"></div>
                         <div class="name">{{ showNFTOwnerInfo?.ProfileEntryResponse?.Username }}</div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="d-flex flex-wrap justify-content-between" [ngClass]="{
           'flex-column': isQuotedContent,
@@ -412,12 +439,12 @@
                 <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="openPlaceBidModal($event)" *ngIf="showPlaceABid">
           Place a bid
         </button>
-                <p class="center_sec font-weight-bold">
+                <!-- <p class="center_sec font-weight-bold">
                     CREATOR ROYALTY {{ postContent?.NFTRoyaltyToCreatorBasisPoints / 100 }}%
                 </p>
                 <p class="center_sec font-weight-bold">
                     COIN-HOLDER ROYALTY {{ postContent?.NFTRoyaltyToCoinBasisPoints / 100 }}%
-                </p>
+                </p> -->
             </div>
         </div>
     </ng-container>

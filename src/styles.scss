@@ -1399,18 +1399,13 @@ $green-font-color: #19b028;
 }
 
 .global__bottom-bar-mobile {
-    z-index: 2;
     position: fixed;
     left: 0;
     bottom: 0px;
     width: 100%;
     background-color: var(--background);
     height: auto;
-    box-shadow: 0px 2px 3px 1px rgb(0 0 0 / 20%);
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
-    padding: 0 15px;
-    padding-bottom: 5px;
+    padding: 0 15px 10px;
     display: flex;
     min-height: 60px;
     align-items: center;
@@ -4448,7 +4443,7 @@ option {
         font-weight: bold;
         font-size: 16px;
         .icon-cover {
-            width: 25px;
+            width: 28px;
             margin-right: 15px;
             img {
                 width: 100%;
@@ -4760,18 +4755,32 @@ option {
     box-shadow: 2px 2px 20px rgb(0 0 0 / 9%);
     border-radius: 23.2633px;
     .nft_current_bid_tpwrapper {
-        margin-bottom: 20px;
+        margin-bottom: 40px;
         .nft_current_bid {
-            width: 50%;
+            width: 47%;
             padding-right: 20px;
             padding-left: 30px;
             padding-top: 0;
             .val {
-                font-size: 33px;
-                font-weight: 700;
+                font-size: 28.2247px;
+                font-weight: 600;
             }
             .val_st {
-                font-size: 21px;
+                font-size: 17.4692px;
+                color: var( --textalt);
+            }
+        }
+        .auction_detl {
+            width: 58%;
+            padding-left: 50px;
+            border-left: 1px solid var( --border);
+            .val {
+                font-size: 20.35px;
+                font-weight: 600;
+                margin-top: 20px;
+            }
+            .val_st {
+                font-size: 10.18px;
                 color: var( --textalt);
             }
         }
@@ -4793,11 +4802,12 @@ option {
             }
         }
         .hq {
-            font-size: 13px;
+            font-size: 14.69px;
             display: block;
             margin-bottom: 10px;
+            text-transform: uppercase;
             font-weight: 600;
-            color: var( --grey);
+            color: var( --textalt);
         }
     }
     .center_sec {
@@ -4818,8 +4828,8 @@ option {
             max-width: 100%;
             padding: 10px 15px;
             height: 60px;
-            font-size: 12px;
-            margin: 0 auto 20px;
+            font-size: 16px;
+            margin: 0 auto;
             max-width: 100%;
             border: none;
             color: var(--formbg);
@@ -5248,18 +5258,19 @@ option {
 .create_post_mmnenu {
     position: fixed;
     bottom: 0;
-    width: calc(100% - 8px);
-    left: 3px;
+    width: 100%;
+    left: 0;
     max-width: 100% !important;
-    border-radius: 3px 3px 0 0 !important;
-    box-shadow: none !important;
+    border-radius: 25px 25px 0 0 !important;
+    box-shadow: 0 0 10px rgb(0 0 0 / 10%) !important;
+    transform-origin: center bottom !important;
     &::before {
         position: fixed;
         width: 100%;
         left: 0;
         top: 0;
         content: '';
-        background: rgb(0 0 0 / 50%);
+        background: rgba(0, 0, 0, 0.07);
         height: 100%;
         z-index: -1;
     }
@@ -5276,6 +5287,21 @@ option {
         .mat-menu-item {
             padding: 10px 15px;
             height: auto;
+            font-weight: 600;
+            font-size: 20px;
+            font-family: "Poppins", "Roboto";
+            line-height: 88px;
+            &:first-child {
+                border-bottom: 1px solid var(--border);
+            }
+            &:last-child {
+                .icon-cover {
+                    margin: 0 27px 0 -12px;
+                    img {
+                        width: 55px;
+                    }
+                }
+            }
             &.mntbtn {
                 border-bottom: 1px solid #eee;
             }
@@ -5496,4 +5522,35 @@ option {
         padding: 0;
         border-radius: 50%;
     }
+}
+
+.post_del_list {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    min-width: 100px;
+    .nb {
+        position: absolute;
+        top: -25px;
+        font-weight: 600;
+        font-size: 13.4281px;
+        color: #828282;
+        opacity: 0.8;
+    }
+    &:first-child {
+        min-width: 192px;
+        .nb {
+            left: -43px;
+            font-size: 10px;
+        }
+    }
+    .ps_dells_val {
+        font-weight: 600;
+        font-size: 17.4566px;
+        color: #545454;
+    }
+}
+
+.nft_details_main_wrapper .nft_bx.nft_feed_post_wt_design.post {
+    padding-top: 30px;
 }

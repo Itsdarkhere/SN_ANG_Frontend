@@ -45,7 +45,7 @@
                 
             </button>
         </div>
-        <div class="nft_bx nft_feed_post_wt_design">
+        <div class="nft_bx nft_feed_post_wt_design post">
             <div *ngIf="nftPost && nftBidData" class="position-relative">
                 <feed-post [post]="nftPost" [includePaddingOnPost]="true" [isParentPostInThread]="true" [showLeftSelectedBorder]="true" [showInteractionDetails]="true" [blocked]="isPostBlocked(nftPost)" [showName]="true" [showNFTDetails]="true" [showExpandedNFTDetails]="true"
                     [contentShouldLinkToThread]="true" [afterCommentCreatedCallback]="incrementCommentCounter.bind(this)" [isNFTDetail]="true" [showNFTOwnerInfo]="hightestBidOwner" (userBlocked)="afterUserBlocked($event)" (nftBidPlaced)="afterNftBidPlaced($event)"></feed-post>

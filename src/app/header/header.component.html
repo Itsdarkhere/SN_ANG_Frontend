@@ -1,49 +1,30 @@
 <header [class.bg_notification]="isNotificationOpen">
-  <div class="header_golal_wrapper">
-    <div class="logo-cover global__tooltip-icon" [routerLink]="'/' + this.globalVars.RouteNames.BROWSE">
-      <img src="assets/img/l4s_logo.svg" class="clout" alt="" />
-    </div>
-    <div class="header-search-right-container" [ngClass]="mobile ? 'justify-content-end' : ''">
-      <div class="search-bar-cover" [class.active-mobile]="isSearchOpen">
-        <search-bar [focusSearchInput]="isSearchOpen"></search-bar>
-      </div>
-      <div class="right-portion">
-        <ul class="right-side-options for-mobile">
-          <li class="single-option">
-            <img
-              src="assets/icons/search-icon-mobile.svg"
-              class="clout"
-              alt=""
-              (click)="showSearchBar()"
-              *ngIf="!isSearchOpen"
-            />
-            <i class="icon-close" *ngIf="isSearchOpen" (click)="showSearchBar()" title="Close search"></i>
-          </li>
-        </ul>
-        <ul class="right-side-options menu-options-list">
-          <li
-            class="single-option d-flex flex-center position-relative"
-            *ngIf="globalVars.loggedInUser?.ProfileEntryResponse?.IsVerified"
-          >
-            <button
-              class="header-create-button-gradient p-0px grow"
-              [routerLink]="'/' + globalVars.RouteNames.MINT_PAGE"
-            >
-              <p class="color-white fs-14px font-weight-bold">Create</p>
-            </button>
-          </li>
-          <li
-            *ngIf="globalVars.loggedInUser"
-            class="notification-icon-cover single-option h-100 d-flex flex-center flex-column"
-            (clickOutside)="clickOutside()"
-          >
-            <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />
-            <div class="d-flex flex-row mt-5px" (click)="showNotification()">
-              <label class="mb-0px fs-10px cursor-pointer">NOTIFICATIONS</label>
-              <label
-                class="mb-0px fs-10px ml-5px notification-amount pointer-events-none"
-                *ngIf="globalVars.unreadNotifications > 0"
-              >
+    <div class="header_golal_wrapper">
+        <div class="logo-cover global__tooltip-icon" [routerLink]="'/' + this.globalVars.RouteNames.BROWSE">
+            <img src="assets/img/l4s_logo.svg" class="clout" alt="" />
+        </div>
+        <div class="header-search-right-container" [ngClass]="mobile ? 'justify-content-end' : ''">
+            <div class="search-bar-cover" [class.active-mobile]="isSearchOpen">
+                <search-bar [focusSearchInput]="isSearchOpen"></search-bar>
+            </div>
+            <div class="right-portion">
+                <ul class="right-side-options for-mobile">
+                    <li class="single-option">
+                        <img src="assets/icons/search-icon-mobile.svg" class="clout" alt="" (click)="showSearchBar()" *ngIf="!isSearchOpen" />
+                        <i class="icon-close" *ngIf="isSearchOpen" (click)="showSearchBar()" title="Close search"></i>
+                    </li>
+                </ul>
+                <ul class="right-side-options menu-options-list">
+                    <li class="single-option d-flex flex-center position-relative" *ngIf="globalVars.loggedInUser?.ProfileEntryResponse?.IsVerified">
+                        <button class="header-create-button-gradient p-0px grow" [routerLink]="'/' + globalVars.RouteNames.MINT_PAGE">
+                           <p class="color-white fs-14px">Create</p>
+                        </button>
+                    </li>
+                    <li *ngIf="globalVars.loggedInUser" class="notification-icon-cover single-option h-100 d-flex flex-center flex-column" (clickOutside)="clickOutside()">
+                        <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />
+                        <div class="d-flex flex-row mt-5px" (click)="showNotification()">
+                            <label class="mb-0px fs-10px cursor-pointer">NOTIFICATIONS</label>
+                            <label class="mb-0px fs-10px ml-5px notification-amount pointer-events-none" *ngIf="globalVars.unreadNotifications > 0">
                 {{ globalVars.unreadNotifications > 99 ? "99+" : globalVars.unreadNotifications }}
               </label>
                         </div>

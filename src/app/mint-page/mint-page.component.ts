@@ -121,6 +121,23 @@ export class MintPageComponent implements OnInit {
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
   }
+  dropFile(event: any): void {
+    console.log("dropupload");
+    this._handleFileInput(event[0]);
+  }
+  _handleFileInput(file: File): void {
+    const fileToUpload = file;
+    if (this.videoType) {
+      // To have Arweave stored video and have it visible also on other nodes
+      // We need to upload to both Arweave and Deso centralized storage
+      // Not optimal obviously
+      this.handleVideoDESOInput(fileToUpload);
+    } else if (this.imageType) {
+      this.handleImageInput(fileToUpload);
+    } else {
+      this.globalVars._alertError("No content type selected...");
+    }
+  }
   _handleFilesInput(files: FileList): void {
     const fileToUpload = files.item(0);
     if (this.videoType) {

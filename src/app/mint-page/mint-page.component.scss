@@ -366,6 +366,17 @@ input[type="file"] {
     border-radius: 6px;
     cursor: pointer;
 }
+.textarea-filedrop {
+    position: absolute;
+    resize: none;
+    width: 100%;
+    display: none;
+    z-index: 5;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
 .mint-page-input-minh {
     min-height: 30px;
 }

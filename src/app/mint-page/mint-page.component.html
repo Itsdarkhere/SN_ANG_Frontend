@@ -503,12 +503,7 @@
       </button>
     </div>
     <!--  STEP 5  -->
-    <div
-      [@cardAppearAnimation]
-      *ngIf="step === 5"
-      class="mint-page-text-container"
-      [ngClass]="mobile ? 'w-100' : 'w-50'"
-    >
+    <div *ngIf="step === 5" class="mint-page-text-container" [ngClass]="mobile ? 'w-100' : 'w-50'">
       <div
         class="h-95 padding-40px d-flex flex-column overflow-scroll disable-scrollbars max-width-480 flex-center"
         [ngClass]="mobile ? 'w-90' : 'w-80'"

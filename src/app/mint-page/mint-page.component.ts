@@ -1,13 +1,4 @@
-import {
-  Component,
-  HostListener,
-  OnInit,
-  ChangeDetectorRef,
-  Output,
-  EventEmitter,
-  ElementRef,
-  ViewChild,
-} from "@angular/core";
+import { Component, HostListener, OnInit, ChangeDetectorRef, Output, EventEmitter } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { BackendApiService, BackendRoutes } from "../backend-api.service";
 import { GlobalVarsService } from "../global-vars.service";
@@ -21,70 +12,31 @@ import { BsModalService } from "ngx-bootstrap/modal";
 import { CommentModalComponent } from "../comment-modal/comment-modal.component";
 import { GoogleAnalyticsService } from "../google-analytics.service";
 import { ArweaveJsService } from "../arweave-js.service";
-import { Observable } from "rxjs";
-import { setTime } from "ngx-bootstrap/chronos/utils/date-setters";
 
-const left = [
-  query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
-  group([
-    query(':enter', [style({ transform: 'translateX(-90%)' }), animate('.7s ease', style({ transform: 'translateX(0%)',opacity: "50" }))], {
-      optional: true,
-    }),
-    query(':leave', [style({ transform: 'translateX(0%)' }), animate('.7s ease', style({ transform: 'translateX(90%)',opacity: "50" }))], {
-      optional: true,
-    }),
-  ]),
-];
-
-const right = [
-  query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
-  group([
-    query(':enter', [style({ transform: 'translateX(90%)' }), animate('.7s linear', style({ transform: 'translateX(0%)',opacity: "50" }))], {
-      optional: true,
-    }),
-    query(':leave', [style({ transform: 'translateX(0%)' }), animate('.7s linear', style({ transform: 'translateX(-90%)' , opacity: "50"}))], {
-      optional: true,
-    }),
-  ]),
-];
 @Component({
   selector: "app-mint-page",
   templateUrl: "./mint-page.component.html",
   styleUrls: ["./mint-page.component.scss"],
-  // animations: [
-  //   trigger('animSlider', [
-  //     transition(':increment', right),
-  //     transition(':decrement', left),
-  //   ]),
-  //   // trigger("cardAppearAnimation", [
-  //   //   transition(":enter", [style({ opacity: "0" }), animate("200ms linear", style({ opacity: "1" }))]),
-  //   //   transition(":leave", [style({ opacity: "1" }), animate("200ms linear", style({ opacity: "0" }))]),
-  //   // ]),
-  // ],
   animations: [
-    
     trigger("mintSwipeAnimation", [
-      transition(":enter", [
-        style({ transform: "translateX(100%)", opacity: "0" }),
-        animate("600ms cubic-bezier(0, 0, 0, 1.13)", style({ transform: "translateX(0%)", opacity: "1" })),
+      transition("void => prev", [
+        style({ transform: "translateX(-100%)", opacity: "0" }),
+        animate("500ms ease", style({ transform: "translateX(0%)", opacity: "1" })),
       ]),
-     
-      transition(":leave", [ 
+
+      transition("prev => void", [
         style({ transform: "translateX(0%)", opacity: "1" }),
-        animate("600ms cubic-bezier(0, 0, 0, 1.13)", style({ transform: "translateX(100%)", opacity: "0" })),
+        animate("500ms ease", style({ transform: "translateX(100%)", opacity: "0" })),
+      ]),
+      transition("void => next", [
+        style({ transform: "translateX(100%)", opacity: "0" }),
+        animate("500ms ease", style({ transform: "translateX(0%)", opacity: "1" })),
+      ]),
+      transition("next => void", [
+        style({ transform: "translateX(0%)", opacity: "1" }),
+        animate("500ms ease", style({ transform: "translateX(-100%)", opacity: "0" })),
       ]),
     ]),
-    // trigger("swipeAppearAnimation", [
-    //   transition(":enter", [
-    //     style({ transform: "translateX(100%)" }),
-    //     animate("300ms linear", style({ transform: "translateX(0%)" })),
-    //   ]),
-    //   transition(":leave", [style({ opacity: "1" }), animate("200ms linear", style({ opacity: "0" }))]),
-    // ]),
-    // trigger("cardAppearAnimation", [
-    //   transition(":enter", [style({ opacity: "0" }), animate("200ms linear", style({ opacity: "1" }))]),
-    //   transition(":leave", [style({ opacity: "1" }), animate("200ms linear", style({ opacity: "0" }))]),
-    // ]),
   ],
 })
 export class MintPageComponent implements OnInit {
@@ -98,6 +50,7 @@ export class MintPageComponent implements OnInit {
 
   post: any;
   disableAnimation = true;
+  animationType = "none";
 
   postVideoArweaveSrc = null;
   postVideoDESOSrc = null;
@@ -364,6 +317,8 @@ export class MintPageComponent implements OnInit {
     this.KVMap.delete(key);
   }
   nextStep() {
+    this.animationType = "next";
+    this.changeRef.detectChanges();
     if (this.step + 1 < 6) {
       this.step++;
       // Arweave needs a boost to start itself
@@ -373,6 +328,8 @@ export class MintPageComponent implements OnInit {
     }
   }
   previousStep() {
+    this.animationType = "prev";
+    this.changeRef.detectChanges();
     if (this.step - 1 > 0) {
       this.step--;
     }

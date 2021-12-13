@@ -38,6 +38,7 @@
     "@ethereumjs/tx": "^3.3.2",
     "@ethereumjs/vm": "^5.5.3",
     "amplitude-js": "^7.4.3",
+    "amplitudejs": "^5.3.2",
     "arbundles": "^0.5.5",
     "arweave": "^1.10.16",
     "assert": "^2.0.0",

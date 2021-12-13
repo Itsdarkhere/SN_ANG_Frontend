@@ -46,14 +46,18 @@ export class MintPageComponent implements OnInit {
   mobile = false;
   submittingPost = false;
   postInput = "";
-  postImageSrc = null;
 
   post: any;
   disableAnimation = true;
+  // Controls animation direction
   animationType = "none";
 
+  // SRC:s
   postVideoArweaveSrc = null;
   postVideoDESOSrc = null;
+  postImageArweaveSrc = null;
+  postAudioArweaveSrc = null;
+
   testVideoSrc = "https://arweave.net/bXfovPML_-CRlfoxLdPsK8p7lrshRLwGFHITzaDMMSQ";
   videoUploadPercentage = null;
   arweaveVideoLoading = false;
@@ -71,12 +75,15 @@ export class MintPageComponent implements OnInit {
   showVideoTypeIcon = true;
 
   isUploading = false;
+  isCoverImageUploading = false;
   isUploaded = false;
+  isCoverImageUploaded = false;
   isUploadConfirmed = false;
 
   // Content type
   videoType = false;
   imageType = false;
+  audioType = false;
 
   extrasOpen = false;
   arweaveClicked = false;
@@ -122,18 +129,27 @@ export class MintPageComponent implements OnInit {
     this.mobile = this.globalVars.isMobile();
   }
   dropFile(event: any): void {
-    console.log("dropupload");
     this._handleFileInput(event[0]);
+  }
+  // For audio cover image
+  dropFileCoverImage(event: any): void {
+    if (this.audioType) {
+      this.handleImageInputCoverImage(event[0]);
+    } else {
+      this.globalVars._alertError("No content type selected...");
+    }
   }
   _handleFileInput(file: File): void {
     const fileToUpload = file;
     if (this.videoType) {
       // To have Arweave stored video and have it visible also on other nodes
       // We need to upload to both Arweave and Deso centralized storage
-      // Not optimal obviously
+      // Since Deso upload is slower we do that first
       this.handleVideoDESOInput(fileToUpload);
     } else if (this.imageType) {
       this.handleImageInput(fileToUpload);
+    } else if (this.audioType) {
+      this.handleAudioArweaveInput(fileToUpload);
     } else {
       this.globalVars._alertError("No content type selected...");
     }
@@ -147,6 +163,17 @@ export class MintPageComponent implements OnInit {
       this.handleVideoDESOInput(fileToUpload);
     } else if (this.imageType) {
       this.handleImageInput(fileToUpload);
+    } else if (this.audioType) {
+      this.handleAudioArweaveInput(fileToUpload);
+    } else {
+      this.globalVars._alertError("No content type selected...");
+    }
+  }
+  // For audio cover image
+  _handleFilesInputCoverImage(files: FileList): void {
+    const fileToUpload = files.item(0);
+    if (this.audioType) {
+      this.handleImageInputCoverImage(fileToUpload);
     } else {
       this.globalVars._alertError("No content type selected...");
     }
@@ -166,16 +193,45 @@ export class MintPageComponent implements OnInit {
       (res) => {
         setTimeout(() => {
           let url = "https://arweave.net/" + res;
-          this.postImageSrc = url;
+          this.postImageArweaveSrc = url;
           this.postVideoArweaveSrc = null;
           this.isUploading = false;
-          this.isUploaded = this.postImageSrc.length > 0;
+          this.isUploaded = this.postImageArweaveSrc.length > 0;
         }, 2000);
       },
       (err) => {
         this.isUploading = false;
         this.isUploaded = false;
         this.globalVars._alertError("Failed to upload image to arweave: " + err.message);
+      }
+    );
+  }
+  // This is just so we dont have animations start on other 'input' when uploading to this
+  // or vice versa
+  handleImageInputCoverImage(file: File) {
+    if (!file.type || !file.type.startsWith("image/")) {
+      this.globalVars._alertError("File selected does not have an image file type.");
+      return;
+    }
+    if (file.size > (1024 * 1024 * 1024) / 5) {
+      this.globalVars._alertError("File is too large. Please choose a file of a size less than 200MB");
+      return;
+    }
+    this.isCoverImageUploading = true;
+    this.arweave.UploadImage(file).subscribe(
+      (res) => {
+        setTimeout(() => {
+          let url = "https://arweave.net/" + res;
+          this.postImageArweaveSrc = url;
+          this.postVideoArweaveSrc = null;
+          this.isCoverImageUploading = false;
+          this.isCoverImageUploaded = this.postImageArweaveSrc.length > 0;
+        }, 2000);
+      },
+      (err) => {
+        this.isCoverImageUploading = false;
+        this.isCoverImageUploaded = false;
+        this.globalVars._alertError("Failed to upload cover image to arweave: " + err.message);
       }
     );
   }
@@ -195,13 +251,42 @@ export class MintPageComponent implements OnInit {
         setTimeout(() => {
           let url = "https://arweave.net/" + res;
           this.postVideoArweaveSrc = url;
-          this.postImageSrc = null;
+          this.postImageArweaveSrc = null;
+          this.postAudioArweaveSrc = null;
         }, 2000);
       },
       (err) => {
         this.isUploading = false;
         this.isUploaded = false;
         this.globalVars._alertError("Failed to upload video to arweave: " + err.message);
+      }
+    );
+  }
+  handleAudioArweaveInput(file: File) {
+    if (!file.type || !file.type.startsWith("audio/")) {
+      this.globalVars._alertError("File selected does not have an audio file type.");
+      return;
+    }
+    if (file.size > (1024 * 1024 * 1024) / 5) {
+      this.globalVars._alertError("File is too large. Please choose a file of a size less than 200MB");
+      return;
+    }
+    this.isUploading = true;
+    // Its named uploadImage but works for both.
+    this.arweave.UploadImage(file).subscribe(
+      (res) => {
+        setTimeout(() => {
+          let url = "https://arweave.net/" + res;
+          this.postAudioArweaveSrc = url;
+          this.postVideoArweaveSrc = null;
+          this.isUploading = false;
+          this.isUploaded = false;
+        }, 2000);
+      },
+      (err) => {
+        this.isUploading = false;
+        this.isUploaded = false;
+        this.globalVars._alertError("Failed to upload audio to arweave: " + err.message);
       }
     );
   }
@@ -251,7 +336,7 @@ export class MintPageComponent implements OnInit {
       onSuccess: function () {
         // Construct the url for the video based on the videoId and use the iframe url.
         comp.postVideoDESOSrc = `https://iframe.videodelivery.net/${mediaId}`;
-        comp.postImageSrc = null;
+        comp.postImageArweaveSrc = null;
         comp.videoUploadPercentage = null;
         comp.pollForReadyToStream();
         // At this step we are going to only show the deso part of the video
@@ -295,22 +380,26 @@ export class MintPageComponent implements OnInit {
 
   imageTypeSelected() {
     this.imageType = true;
+    this.audioType = false;
     this.videoType = false;
   }
 
   videoTypeSelected() {
     this.videoType = true;
+    this.audioType = false;
     this.imageType = false;
   }
-
+  audioTypeSelected() {
+    this.audioType = true;
+    this.videoType = false;
+    this.imageType = false;
+  }
   updateBidAmountUSD(desoAmount) {
     this.PRICE_USD = this.globalVars.nanosToUSDNumber(desoAmount * 1e9).toFixed(2);
-    //this.setErrors();
   }
   imageUploaded() {
-    return this.postImageSrc?.length > 0;
+    return this.postImageArweaveSrc?.length > 0;
   }
-
   hasUnreasonableRoyalties() {
     let isEitherUnreasonable =
       Number(this.CREATOR_ROYALTY) < 0 ||
@@ -406,7 +495,7 @@ export class MintPageComponent implements OnInit {
   }
 
   hasImage() {
-    return this.postImageSrc.length > 0;
+    return this.postImageArweaveSrc.length > 0;
   }
   isPostCreatorRoyaltyCorrect() {
     return this.isNumber(this.CREATOR_ROYALTY) && this.CREATOR_ROYALTY >= 0 && this.CREATOR_ROYALTY <= 100;
@@ -424,7 +513,8 @@ export class MintPageComponent implements OnInit {
 
   isPostReady() {
     return (
-      (this.postImageSrc?.length > 0 || (this.postVideoArweaveSrc?.length > 0 && this.postVideoDESOSrc?.length > 0)) &&
+      (this.postImageArweaveSrc?.length > 0 ||
+        (this.postVideoArweaveSrc?.length > 0 && this.postVideoDESOSrc?.length > 0)) &&
       this.isDescribed() &&
       this.isPriced()
     );
@@ -552,10 +642,22 @@ export class MintPageComponent implements OnInit {
         // Needed to display video on Supernovas from Arview
         arweaveVideoSrc: this.postVideoArweaveSrc,
       };
+    } else if (this.audioType) {
+      bodyObj = {
+        Body: this.DESCRIPTION,
+        ImageURLs: [this.postImageArweaveSrc].filter((n) => n),
+      };
+      postExtraData = {
+        name: this.NAME_OF_PIECE,
+        category: this.CATEGORY,
+        properties: JSON.stringify(Array.from(this.KVMap)),
+        // Needed to display video on Supernovas from Arview
+        arweaveAudioSrc: this.postAudioArweaveSrc,
+      };
     } else {
       bodyObj = {
         Body: this.DESCRIPTION,
-        ImageURLs: [this.postImageSrc].filter((n) => n),
+        ImageURLs: [this.postImageArweaveSrc].filter((n) => n),
       };
       postExtraData = {
         name: this.NAME_OF_PIECE,

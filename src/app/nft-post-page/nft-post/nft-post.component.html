@@ -13,12 +13,15 @@
           class="feed-post__image-container"
           [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
         >
-          <img
+          <!--<img
             (click)="openImgModal($event, nftPost.ImageURLs[0])"
             data-toggle="modal"
             class="feed-post__image"
             src="{{ mapImageURLs(nftPost.ImageURLs[0]) }}"
-          />
+          />-->
+          <div class="w-100 h-100">
+            <app-audio-player [songName]="Lullaby" [creator]="Juvonen" [audioSrc]="nicenice"></app-audio-player>
+          </div>
         </div>
         <!-- Video -->
         <div class="w-100 d-flex flex-center" *ngIf="nftPost.PostExtraData.arweaveVideoSrc">

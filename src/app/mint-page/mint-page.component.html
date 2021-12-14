@@ -46,6 +46,20 @@
           </button>
           <button
             class="content-type-card not-available-warning p-0px"
+            *ngIf="!globalVars.showAdminTools()"
+            [ngClass]="{ 'electric-box-shadow': audioType, 'm-10px': mobile }"
+          >
+            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+              <img src="/assets/icons/music-type.svg" alt="creator icon" />
+            </div>
+            <div class="h-40 w-100 mt-10px d-flex flex-column">
+              <label class="fs-15px color-light font-weight-bold pointer-events-none">Audio</label>
+              <label class="fs-11px color-light pointer-events-none">Coming soon!</label>
+            </div>
+          </button>
+          <button
+            *ngIf="globalVars.showAdminTools()"
+            class="content-type-card p-0px"
             (click)="audioTypeSelected()"
             [ngClass]="{ 'electric-box-shadow': audioType, 'm-10px': mobile }"
           >

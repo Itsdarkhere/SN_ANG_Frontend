@@ -189,7 +189,14 @@
               <p [ngClass]="quotedContent ? 'pt-10px' : ''" [innerHTML]="postContent.Body | sanitizeAndAutoLink"></p>
             </div>
             <ng-container>
-              <div class="img-cover" [ngClass]="{ 'for-feed': fromFeed }">
+              <div class="img-cover position-relative" [ngClass]="{ 'for-feed': fromFeed }">
+                <div
+                  *ngIf="postContent?.PostExtraData?.arweaveAudioSrc"
+                  class="card-video-icon-container top-br-30px"
+                  [ngClass]="{ opacity_0: !showVideoTypeIcon }"
+                >
+                  <img class="card-video-icon" src="/assets/icons/music-type-white.svg" alt="icon" />
+                </div>
                 <img
                   class="card-img"
                   *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID"
@@ -412,7 +419,14 @@
             <p [ngClass]="quotedContent ? 'pt-10px' : ''" [innerHTML]="postContent.Body | sanitizeAndAutoLink"></p>
           </div>
           <ng-container>
-            <div class="img-cover" [ngClass]="{ 'change-height-img-cover': isQuotedCard }">
+            <div class="img-cover position-relative" [ngClass]="{ 'change-height-img-cover': isQuotedCard }">
+              <div
+                *ngIf="postContent?.PostExtraData?.arweaveAudioSrc"
+                class="card-video-icon-container top-br-30px"
+                [ngClass]="{ opacity_0: !showVideoTypeIcon }"
+              >
+                <img class="card-video-icon" src="/assets/icons/music-type-white.svg" alt="icon" />
+              </div>
               <img
                 class="card-img"
                 *ngIf="
@@ -622,12 +636,18 @@
               <p [ngClass]="quotedContent ? 'pt-10px' : ''" [innerHTML]="postContent.Body | sanitizeAndAutoLink"></p>
             </div>
             <ng-container>
-              <div class="img-cover" [ngClass]="{ 'for-feed': fromFeed }">
+              <div class="img-cover position-relative" [ngClass]="{ 'for-feed': fromFeed }">
+                <div
+                  *ngIf="postContent?.PostExtraData?.arweaveAudioSrc"
+                  class="card-video-icon-container top-br-30px"
+                  [ngClass]="{ opacity_0: !showVideoTypeIcon }"
+                >
+                  <img class="card-video-icon" src="/assets/icons/music-type-white.svg" alt="icon" />
+                </div>
                 <img
                   class="card-img"
                   *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID"
                   data-toggle="modal"
-                  class="card-img"
                   src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
                 />
                 <div

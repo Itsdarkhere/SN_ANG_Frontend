@@ -198,7 +198,7 @@
                 />
                 <div
                   class="w-100 h-100 overflow-hidden top-br-30px background-secondary position-relative d-flex flex-center"
-                  *ngIf="!postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID"
+                  *ngIf="!postContent.ImageURLs && postContent.PostExtraData.arweaveVideoSrc && !post.ParentStakeID"
                 >
                   <div class="card-video-icon-container top-br-30px" [ngClass]="{ opacity_0: !showVideoTypeIcon }">
                     <img class="card-video-icon" src="/assets/icons/video-type-white.svg" alt="icon" />

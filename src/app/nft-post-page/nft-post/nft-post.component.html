@@ -9,23 +9,40 @@
         <!--  afterCommentCreatedCallback explanation: Here, the "post" is a top-level post. A new comment on a -->
         <!--  top-level post should be prepended to the post's list of comments -->
         <div
-          *ngIf="nftPost.ImageURLs && nftPost.ImageURLs[0] && !nftPost.ParentStakeID"
+          *ngIf="
+            nftPost.ImageURLs &&
+            nftPost.ImageURLs[0] &&
+            !nftPost.ParentStakeID &&
+            !nftPost.PostExtraData.arweaveAudioSrc
+          "
           class="feed-post__image-container"
           [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
         >
-          <!--<img
+          <img
             (click)="openImgModal($event, nftPost.ImageURLs[0])"
             data-toggle="modal"
             class="feed-post__image"
             src="{{ mapImageURLs(nftPost.ImageURLs[0]) }}"
-          />-->
-          <div class="w-100 h-100">
-            <app-audio-player [songName]="Lullaby" [creator]="Juvonen" [audioSrc]="nicenice"></app-audio-player>
-          </div>
+          />
         </div>
         <!-- Video -->
         <div class="w-100 d-flex flex-center" *ngIf="nftPost.PostExtraData.arweaveVideoSrc">
           <video controls class="w-100 br-12px" src="{{ nftPost.PostExtraData.arweaveVideoSrc }}"></video>
+        </div>
+        <div class="w-100 d-flex flex-column mt-20px mb-20px" *ngIf="nftPost.PostExtraData?.arweaveAudioSrc">
+          <div class="w-100 d-flex flex-center">
+            <img
+              (click)="openImgModal($event, nftPost.ImageURLs[0])"
+              data-toggle="modal"
+              class="mb-20px nft-page-audio-cover-image"
+              src="{{ mapImageURLs(nftPost.ImageURLs[0]) }}"
+            />
+          </div>
+          <app-audio-player
+            [songName]="nftPost.PostExtraData?.name"
+            [creator]="nftPost.ProfileEntryResponse?.Username"
+            [audioSrc]="nftPost.PostExtraData.arweaveAudioSrc"
+          ></app-audio-player>
         </div>
         <div
           *ngIf="

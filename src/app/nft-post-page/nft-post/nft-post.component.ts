@@ -99,15 +99,15 @@ export class NftPostComponent implements OnInit {
   clearURL(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
-  openImgModal(event, imageURL) {
-    event.stopPropagation();
-    this.modalService.show(FeedPostImageModalComponent, {
-      class: "modal-dialog-centered modal-lg",
-      initialState: {
-        imageURL,
-      },
-    });
-  }
+  // openImgModal(event, imageURL) {
+  //   event.stopPropagation();
+  //   this.modalService.show(FeedPostImageModalComponent, {
+  //     class: "modal-dialog-centered modal-lg",
+  //     initialState: {
+  //       imageURL,
+  //     },
+  //   });
+  // }
   SendNFTPageOpenedEvent() {
     this.analyticsService.eventEmitter("nft_page_opened", "usage", "activity", "event", 10);
   }

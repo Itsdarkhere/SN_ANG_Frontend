@@ -25,7 +25,7 @@ import { environment } from "src/environments/environment";
 import { SharedDialogs } from "src/lib/shared-dialogs";
 import { CommentModalComponent } from "src/app/comment-modal/comment-modal.component";
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
-import { FeedPostImageModalComponent } from "src/app/feed/feed-post-image-modal/feed-post-image-modal.component";
+import { FeedPostImageModalComponent } from 'src/app/feed/feed-post-image-modal/feed-post-image-modal.component';
 
 @Component({
   selector: "nft-post",
@@ -99,15 +99,15 @@ export class NftPostComponent implements OnInit {
   clearURL(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
-  openImgModal(event, imageURL) {
-    event.stopPropagation();
-    this.modalService.show(FeedPostImageModalComponent, {
-      class: "modal-dialog-centered modal-lg",
-      initialState: {
-        imageURL,
-      },
-    });
-  }
+  // openImgModal(event, imageURL) {
+  //   event.stopPropagation();
+  //   this.modalService.show(FeedPostImageModalComponent, {
+  //     class: "modal-dialog-centered modal-lg",
+  //     initialState: {
+  //       imageURL,
+  //     },
+  //   });
+  // }
   SendNFTPageOpenedEvent() {
     this.analyticsService.eventEmitter("nft_page_opened", "usage", "activity", "event", 10);
   }
@@ -132,6 +132,16 @@ export class NftPostComponent implements OnInit {
       0,
       this.globalVars.showAdminTools() /*AddGlobalFeedBool*/
     );
+  }
+
+  openImgModal(event, imageURL) {
+    event.stopPropagation();
+    this.modalService.show(FeedPostImageModalComponent, {
+      class: "modal-dialog-centered modal-lg",
+      initialState: {
+        imageURL,
+      },
+    });
   }
 
   refreshPosts() {

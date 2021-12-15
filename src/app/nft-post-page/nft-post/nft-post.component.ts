@@ -136,6 +136,7 @@ export class NftPostComponent implements OnInit {
     // Fetch the post entry
     this.getPost().subscribe(
       (res) => {
+        console.log(res);
         if (!res || !res.PostFound) {
           this.router.navigateByUrl("/" + this.globalVars.RouteNames.NOT_FOUND, { skipLocationChange: true });
           return;

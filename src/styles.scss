@@ -5643,6 +5643,9 @@ option {
 
 .nft_placebid_modal_bx {
     left: 310px;
+    @media screen and (max-width: 767px) {
+        left: 0;
+    }
 }
 
 .bid_deso_btn {

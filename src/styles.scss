@@ -5652,7 +5652,7 @@ option {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 180px !important;
+    width: 125px !important;
     border-radius: 13.4699px;
     height: 55px;
     font-weight: 600 !important;
@@ -5717,4 +5717,57 @@ option {
         height: 1px;
         margin: 10px 0;
     }
+}
+
+.modal-open .feed-post__image-container {
+    z-index: 9999;
+}
+
+.modal {
+    z-index: 9999;
+}
+
+.plc_bid_inp_wp {
+    width: calc(100% - 125px);
+    position: relative;
+    .mat-input-element {
+        width: 100% !important;
+        height: 100%;
+        font-weight: 600;
+        font-size: 24px !important;
+        padding-right: 140px !important;
+        &::-webkit-input-placeholder {
+            color: #7D7D7D;
+            font-weight: normal;
+        }
+        &:-ms-input-placeholder {
+            color: #7D7D7D;
+            font-weight: normal;
+        }
+        &::placeholder {
+            color: #7D7D7D;
+            font-weight: normal;
+        }
+    }
+    .bid_amt {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0 !important;
+        .vl {
+            display: inline-block;
+            max-width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100px;
+            vertical-align: middle;
+            text-align: right;
+        }
+    }
+}
+
+.page-place-a-bid .popup-body .plc_bid_inp_wp h6.bid_amt {
+    font-size: 16px !important;
+    color: #535353 !important;
 }

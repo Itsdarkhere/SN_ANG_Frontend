@@ -140,12 +140,13 @@
         class="form-control w-50 fs-15px lh-15px"
         style="text-align: right"
         placeholder="0"
+        type="number"
         [(ngModel)]="desoToBuy"
         (ngModelChange)="updateDESOToBuy($event)"
       />
       <div class="ml-2 w-50 fs-15px">
         $DESO &middot;
-        <a class="text-grey7" (click)="clickMaxDESO()">
+        <a class="text-grey7">
           <u>Max</u>
         </a>
       </div>
@@ -165,6 +166,7 @@
         placeholder="0"
         [(ngModel)]="ethToExchange"
         (ngModelChange)="updateETHToExchange($event)"
+        type="number"
       />
       <div class="ml-2 w-50 fs-15px">ETH</div>
     </div>

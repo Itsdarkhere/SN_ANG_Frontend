@@ -417,8 +417,7 @@
                     <div class="val_st">The 1st bid starts the auction.</div>
                 </div>
 
-                <!-- <div class="nft_done_by" *ngIf="
-            compareBit(
+                <!-- <div class="nft_done_by border_n_pd" *ngIf="compareBit(
               globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5),
               globalVars.nanosToDeSo(highBid, 5),
               showPlaceABid
@@ -430,15 +429,34 @@
                         <div class="name">{{ showNFTOwnerInfo?.ProfileEntryResponse?.Username }}</div>
                     </div>
                 </div> -->
+
+                <!-- <div class="auction_detl border_n_pd">
+                    <span class="hq">UNLOCKABLE CONTENT</span>
+                    <div class="val">Unlocked!</div>
+                    <div class="val_st">You are the only one who can view the unlockable content of this NFT.</div>
+                </div> -->
+
             </div>
             <div class="d-flex flex-wrap justify-content-between" [ngClass]="{
           'flex-column': isQuotedContent,
           'align-items-start': isQuotedContent,
           'align-items-center': !isQuotedContent
         }">
+
                 <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="openPlaceBidModal($event)" *ngIf="showPlaceABid">
-          Place a bid
-        </button>
+            Place your Bid
+ </button>
+
+                <!-- <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="openPlaceBidModal($event)" *ngIf="showPlaceABid">
+                   <i><img src="assets/icons/unlock.svg" alt=""></i> View unlockable content
+        </button> -->
+
+                <!-- <div class="feed_post_btn_grp d-flex flex-wrap w-100 justify-content-between">
+                    <button class="btn blk_fill_btn with_ico small"><i><img src="assets/icons/u_money-bill.svg" alt=""></i> Sell your NFT</button>
+                    <button class="btn blk_line_btn with_ico small"><i><img src="assets/icons/circle-error.svg" alt=""></i> Close the auction</button>
+                </div> -->
+
+
                 <!-- <p class="center_sec font-weight-bold">
                     CREATOR ROYALTY {{ postContent?.NFTRoyaltyToCreatorBasisPoints / 100 }}%
                 </p>

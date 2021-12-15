@@ -4069,6 +4069,14 @@ option {
     border: 1px solid var(--border) !important;
 }
 
+.border-2 {
+    border: 2px solid var(--border) !important;
+}
+
+.border-radius-10 {
+    border-radius: 10px;
+}
+
 .cloutavista-button {
     position: sticky;
     bottom: 0px;
@@ -4761,33 +4769,66 @@ option {
             padding-right: 20px;
             padding-left: 30px;
             padding-top: 0;
+            @media screen and (max-width: 767px) {
+                padding-right: 20px;
+                padding-left: 0;
+                width: 42%;
+            }
             .val {
                 font-size: 28.2247px;
                 font-weight: 600;
+                @media screen and (max-width: 767px) {
+                    font-size: 24px;
+                }
             }
             .val_st {
                 font-size: 17.4692px;
                 color: var( --textalt);
+                @media screen and (max-width: 767px) {
+                    font-size: 14px;
+                }
             }
         }
         .auction_detl {
             width: 58%;
             padding-left: 50px;
             border-left: 1px solid var( --border);
+            @media screen and (max-width: 767px) {
+                padding-left: 20px;
+            }
             .val {
                 font-size: 20.35px;
                 font-weight: 600;
                 margin-top: 20px;
+                @media screen and (max-width: 767px) {
+                    font-size: 16px;
+                }
             }
             .val_st {
                 font-size: 10.18px;
                 color: var( --textalt);
+                @media screen and (max-width: 767px) {
+                    font-size: 9px;
+                }
+            }
+            &.border_n_pd {
+                padding: 0;
+                border-left: 0;
             }
         }
         .nft_done_by {
+            width: 58%;
+            padding-left: 50px;
+            border-left: 1px solid var(--border);
+            @media screen and (max-width: 767px) {
+                padding-left: 20px;
+            }
             .name {
                 font-size: 20px;
                 font-weight: 700;
+                @media screen and (max-width: 767px) {
+                    font-size: 16px;
+                }
             }
             .bid_by_avtar {
                 width: 35px;
@@ -4800,6 +4841,10 @@ option {
                 background-size: cover;
                 margin-right: 15px;
             }
+            &.border_n_pd {
+                padding: 0;
+                border-left: 0;
+            }
         }
         .hq {
             font-size: 14.69px;
@@ -4808,6 +4853,9 @@ option {
             text-transform: uppercase;
             font-weight: 600;
             color: var( --textalt);
+            @media screen and (max-width: 767px) {
+                font-size: 13px;
+            }
         }
     }
     .center_sec {
@@ -4915,8 +4963,9 @@ option {
                     opacity: 1 !important;
                     .txt {
                         font-size: 13px !important;
-                        font-weight: 700;
-                        color: var(--topbar);
+                        font-weight: 600;
+                        color: var(--textalt);
+                        text-transform: uppercase;
                         &:first-child {
                             text-align: left !important;
                         }
@@ -4926,10 +4975,14 @@ option {
                     padding-left: 0 !important;
                     padding-right: 0 !important;
                     .txt {
-                        font-size: 12px!important;
+                        font-size: 14px!important;
+                        font-weight: 600;
                         &.bd {
-                            font-weight: 700;
+                            font-weight: 600;
                         }
+                    }
+                    &:hover {
+                        background-color: var(--secalt);
                     }
                 }
             }
@@ -5553,4 +5606,112 @@ option {
 
 .nft_details_main_wrapper .nft_bx.nft_feed_post_wt_design.post {
     padding-top: 30px;
+}
+
+.feed_post_btn_grp {
+    button {
+        width: calc(50% - 10px);
+        @media screen and (max-width: 767px) {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        i {
+            margin: 0 5px 0 0;
+        }
+    }
+}
+
+.blk_fill_btn {
+    background: #313131;
+    border: 0.128864px solid #000000;
+    box-shadow: 0.359873px 0.359873px 1.79937px 0.179937px rgb(0 0 0 / 11%), inset 0px -0.685739px 6.85739px 3.42869px #000000;
+    border-radius: 25.23px;
+    color: #fff !important;
+    font-size: 12.3433px;
+    font-weight: 600;
+    height: 44.57px;
+}
+
+.blk_line_btn {
+    border: 2.02605px solid #000000;
+    box-sizing: border-box;
+    border-radius: 25.23px;
+    font-size: 12.3433px;
+    font-weight: 600;
+    height: 44.57px;
+}
+
+.nft_placebid_modal_bx {
+    left: 310px;
+}
+
+.bid_deso_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 180px !important;
+    border-radius: 13.4699px;
+    height: 55px;
+    font-weight: 600 !important;
+    font-size: 22px !important;
+    i {
+        margin-right: 5px;
+    }
+}
+
+.bid_bg_blk_inp {
+    background: #000;
+    border-radius: 13.4699px !important;
+    border: 0 !important;
+    padding: 3px;
+}
+
+.bid_bg_blk_inp .mat-input-element {
+    background: #fff;
+    border-radius: 13.4699px !important;
+}
+
+.bid_suggest_bx {
+    background: #E8E8E8;
+    border-radius: 11.2088px;
+    padding: 10px 0;
+    margin: 0 15px;
+}
+
+.bid_suggest_bx h5 {
+    font-weight: 600;
+    color: #8A8A8A !important;
+    margin: 0 !important;
+}
+
+.bid_suggest_bx_error {
+    background: #FFE2E2;
+    border-radius: 11.2088px;
+    padding: 10px 0;
+    margin: 0 15px;
+    font-weight: 600;
+    color: #FF7981;
+}
+
+.bid_pop_details_ls {
+    background: #ffffff;
+    box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    padding: 10px 30px;
+    margin-top: 20px;
+    .lst {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        color: #656565;
+        font-size: 14px;
+        .val {
+            font-weight: 600;
+        }
+    }
+    .divider {
+        background: #DADADA;
+        height: 1px;
+        margin: 10px 0;
+    }
 }

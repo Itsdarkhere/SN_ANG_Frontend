@@ -85,8 +85,8 @@ button.amplitude-play-pause.amplitude-playing {
 button.amplitude-play-pause.amplitude-paused {
     background-image: url("/assets/icons/audio-play-icon.svg");
     background-repeat: no-repeat;
+    background-position-x: 55%;
     background-position-y: center;
-    background-position-x: center;
 }
 // END VOLUME POSITION
 div#amplitude-player {

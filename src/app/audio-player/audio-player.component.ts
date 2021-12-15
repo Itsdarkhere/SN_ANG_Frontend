@@ -1,5 +1,6 @@
-import { Component, Input, OnChanges, OnInit } from "@angular/core";
+import { Component, HostListener, Input, OnChanges, OnInit } from "@angular/core";
 import Amplitude from "amplitudejs/dist/amplitude.js";
+import { GlobalVarsService } from "../global-vars.service";
 import { parse } from "path/posix";
 
 @Component({
@@ -8,15 +9,16 @@ import { parse } from "path/posix";
   styleUrls: ["./audio-player.component.scss"],
 })
 export class AudioPlayerComponent implements OnInit {
-  constructor() {}
+  constructor(private globalVars: GlobalVarsService) {}
   @Input() songName: any;
   @Input() creator: any;
   @Input() audioSrc: any;
 
+  mobile = false;
+
   ngOnInit(): void {
-    console.log(this.songName + " " + this.creator + " " + this.audioSrc);
+    this.setMobileBasedOnViewport();
     // Sets volume color correctly on init
-    this.volumeColor();
     Amplitude.init({
       songs: [
         {
@@ -26,11 +28,23 @@ export class AudioPlayerComponent implements OnInit {
         },
       ],
     });
+    // The conditional rendering makes this not work without timeout
+    setTimeout(() => {
+      this.volumeColor();
+    }, 100);
   }
   volumeColor() {
     let volumeRange = document.getElementById("volume-slider") as HTMLInputElement;
     var value = (parseFloat(volumeRange.value) / 100) * 100;
     volumeRange.style.background =
       "linear-gradient(to right, #3A3A3A 0%, #3A3A3A " + value + "%, #EEEEEE " + value + "%, #EEEEEE 100%)";
+  }
+  setMobileBasedOnViewport() {
+    this.mobile = this.globalVars.isMobile();
+  }
+
+  @HostListener("window:resize")
+  onResize() {
+    this.setMobileBasedOnViewport();
   }
 }

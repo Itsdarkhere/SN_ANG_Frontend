@@ -98,6 +98,9 @@ export class BuyDeSoEthComponent implements OnInit {
     private backendApi: BackendApiService,
     private identityService: IdentityService
   ) {}
+  ngOnInit(): void {
+    throw new Error("Method not implemented.");
+  }
 
   ethDepositAddress(): string {
     const pubKey = this.globalVars.loggedInUser.PublicKeyBase58Check;
@@ -377,7 +380,7 @@ export class BuyDeSoEthComponent implements OnInit {
           const signature: { s: any; r: any; v: number | null } = res.signatures[0];
           // For Legacy transaction using the old library, we need to modify V to satisfy EIP 155 constraints.
           if (signedTxType === Transaction && this.common.gteHardfork("spuriousDragon")) {
-            signature.v = signature.v === 0 ? this.getChain() * 2 + 35 : this.getChain() * 2 + 36;
+            //signature.v = signature.v === 0 ? this.getChain() * 2 + 35 : this.getChain() * 2 + 36;
           }
           // Merge the signature into the transaction data.
           const signedTxData = {
@@ -395,13 +398,13 @@ export class BuyDeSoEthComponent implements OnInit {
             case LegacyTransaction: {
               // Create a signed Legacy transaction using the maintained ethereumjs/tx library.
               const legacyTxData = txData as TxData;
-              signedTx = LegacyTransaction.fromTxData(legacyTxData, this.getOptions());
+              //signedTx = LegacyTransaction.fromTxData(legacyTxData, this.getOptions());
               break;
             }
             case FeeMarketEIP1559Transaction: {
               // Create a Fee Market EIP-1559 transaction using the maintained ethereumjs/tx library.
               const feeMarketTxdata = txData as FeeMarketEIP1559TxData;
-              signedTx = FeeMarketEIP1559Transaction.fromTxData(feeMarketTxdata, this.getOptions());
+              //signedTx = FeeMarketEIP1559Transaction.fromTxData(feeMarketTxdata, this.getOptions());
               break;
             }
           }
@@ -421,9 +424,9 @@ export class BuyDeSoEthComponent implements OnInit {
     // Make sure that value + actual fees does not exceed the current balance. If it does, subtract the remainder from value.
     let value = this.weiToExchange.sub(totalFees);
     let remainder = totalFees.add(value).sub(this.weiBalance);
-    /*if (remainder.gt(0)) {
+    if (remainder.gt(new BN(0))) {
       value = value.sub(remainder);
-    }*/
+    }
     return toHex(value);
   }
 
@@ -455,25 +458,29 @@ export class BuyDeSoEthComponent implements OnInit {
     });
   }*/
 
-  computeETHToBurnGivenDESONanos(amountNanos: number): number {
+  /*computeETHToBurnGivenDESONanos(amountNanos: number): number {
     return Number(fromWei(this.computeWeiToBurnGivenDESONanos(amountNanos)));
-  }
+  }*/
 
-  computeWeiToBurnGivenDESONanos(amountNanos: number): BN {
-    const weiMinusFees = new BN(amountNanos).div(this.getExchangeRateAfterFee());
+  /*computeWeiToBurnGivenDESONanos(amountNanos: number): BN {
+    const weiMinusFees = new BN(amountNanos).mul(this.getWeiPerNanoExchangeRate());
     return weiMinusFees.add(this.weiFeeEstimate);
-  }
+  }*/
 
-  computeNanosToCreateGivenWeiToBurn(weiToBurn: BN): number {
+  /*computeNanosToCreateGivenWeiToBurn(weiToBurn: BN): number {
     let weiMinusFees = weiToBurn.sub(this.weiFeeEstimate);
-    /*if (weiMinusFees.ltn(0)) {
+    if (weiMinusFees.ltn(0)) {
       return new BN(0);
-    }*/
-    return Number(fromWei(weiMinusFees)) * this.getExchangeRateAfterFee().toNumber();
+    }
+    return weiMinusFees.div(this.getWeiPerNanoExchangeRate()).toNumber();
   }
 
   getExchangeRateAfterFee(): BN {
     return new BN(this.globalVars.nanosPerETHExchangeRate).mul(new BN(this.nodeFee()));
+  }
+
+  getWeiPerNanoExchangeRate(): BN {
+    return toWei(new BN(1)).div(this.getExchangeRateAfterFee());
   }
 
   updateDESOToBuy(newVal) {
@@ -528,11 +535,11 @@ export class BuyDeSoEthComponent implements OnInit {
         this.ethFeeEstimate = Number(fromWei(this.weiFeeEstimate));
         this.weiToExchange = this.weiFeeEstimate;
         this.ethToExchange = Number(fromWei(this.weiFeeEstimate));
-      });*/
+      });
     }
-  }
+  }*/
 
-  queryETHRPC<Type>(method: string, params: any[]): Promise<Type> {
+  /*queryETHRPC<Type>(method: string, params: any[]): Promise<Type> {
     return this.backendApi
       .QueryETHRPC(this.globalVars.localNode, method, params, this.globalVars.loggedInUser?.PublicKeyBase58Check)
       .toPromise()
@@ -567,7 +574,7 @@ export class BuyDeSoEthComponent implements OnInit {
 
   getMaxPriorityFeePerGas(): Promise<Hex> {
     return this.queryETHRPC<Hex>("eth_maxPriorityFeePerGas", []);
-  }
+  }*/
 
   // getFees returns all the numbers and hex-strings necessary for computing eth gas.
   /*getFees(): Promise<FeeDetails> {
@@ -607,7 +614,7 @@ export class BuyDeSoEthComponent implements OnInit {
       }
     );
   }*/
-
+  /*
   getChain(): Chain {
     return this.globalVars.isTestnet ? Chain.Ropsten : Chain.Mainnet;
   }
@@ -648,5 +655,5 @@ export class BuyDeSoEthComponent implements OnInit {
   }
   toWeiBN(wei: number): BN {
     return this.stringToWeiBN(wei.toString());
-  }
+  }*/
 }

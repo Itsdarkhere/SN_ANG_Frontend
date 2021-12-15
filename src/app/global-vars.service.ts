@@ -3,6 +3,7 @@ import {
   BackendApiService,
   BalanceEntryResponse,
   NFTCollectionResponse,
+  DeSoNode,
   PostEntryResponse,
   TransactionFee,
   TutorialStatus,
@@ -239,6 +240,8 @@ export class GlobalVarsService {
 
   buyETHAddress: string = "";
 
+  nodes: { [id: number]: DeSoNode };
+
   SetupMessages() {
     // If there's no loggedInUser, we set the notification count to zero
     if (!this.loggedInUser) {
@@ -260,32 +263,6 @@ export class GlobalVarsService {
     // Set the filters most recently used and load the messages
     this.SetMessagesFilter(storedTab);
     this.LoadInitialMessages();
-  }
-  GetUnreadNotifications() {
-    if (this.loggedInUser) {
-      this.backendApi
-        .GetUnreadNotificationsCount(this.localNode, this.loggedInUser.PublicKeyBase58Check)
-        .toPromise()
-        .then(
-          (res) => {
-            this.unreadNotifications = res.NotificationsCount;
-            if (res.UpdateMetadata) {
-              this.backendApi
-                .SetNotificationsMetadata(
-                  this.localNode,
-                  this.loggedInUser.PublicKeyBase58Check,
-                  -1,
-                  res.LastUnreadNotificationIndex,
-                  res.NotificationsCount
-                )
-                .toPromise();
-            }
-          },
-          (err) => {
-            console.error(this.backendApi.stringifyError(err));
-          }
-        );
-    }
   }
   SetMessagesFilter(tabName: any) {
     // Set the request parameters if it's a known tab.
@@ -981,11 +958,11 @@ export class GlobalVarsService {
 
   updateLeaderboard(forceRefresh: boolean = false): void {
     const pulseService = new PulseService(this.httpClient, this.backendApi, this);
-    const altumbaseService = new AltumbaseService(this.httpClient, this.backendApi, this);
 
     if (this.topGainerLeaderboard.length === 0 || forceRefresh) {
       pulseService.getDeSoLockedLeaderboard().subscribe((res) => (this.topGainerLeaderboard = res));
     }
+    const altumbaseService = new AltumbaseService(this.httpClient, this.backendApi, this);
     if (this.topDiamondedLeaderboard.length === 0 || forceRefresh) {
       altumbaseService.getDiamondsReceivedLeaderboard().subscribe((res) => (this.topDiamondedLeaderboard = res));
     }

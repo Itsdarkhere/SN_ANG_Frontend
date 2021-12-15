@@ -10,6 +10,7 @@ import { CommentModalComponent } from "../../comment-modal/comment-modal.compone
 import { PopoverDirective } from "ngx-bootstrap/popover";
 import { ThemeService } from "../../theme/theme.service";
 import { includes, round } from "lodash";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "feed-post-icon-row",
@@ -210,6 +211,10 @@ export class FeedPostIconRowComponent {
     if (!this.postContent.PostEntryReaderState) {
       this.postContent.PostEntryReaderState = {};
     }
+    let postExtraData = {};
+    if (environment.node.id) {
+      postExtraData["Node"] = environment.node.id.toString();
+    }
 
     this.sendingRepostRequest = true;
     this._detectChanges();
@@ -222,7 +227,7 @@ export class FeedPostIconRowComponent {
         "" /*Title*/,
         {},
         this.postContent.PostHashHex,
-        {},
+        postExtraData,
         "" /*Sub*/,
         false /*IsHidden*/,
         // What should the fee rate be for this?
@@ -263,6 +268,10 @@ export class FeedPostIconRowComponent {
       return this._preventNonLoggedInUserActions("undo repost");
     }
     this.sendingRepostRequest = true;
+    let postExtraData = {};
+    if (environment.node.id) {
+      postExtraData["Node"] = environment.node.id.toString();
+    }
 
     this._detectChanges();
     this.backendApi
@@ -274,7 +283,7 @@ export class FeedPostIconRowComponent {
         "" /*Title*/,
         {} /*BodyObj*/,
         this.postContent.PostHashHex,
-        {},
+        postExtraData,
         "" /*Sub*/,
         true /*IsHidden*/,
         // What should the fee rate be for this?

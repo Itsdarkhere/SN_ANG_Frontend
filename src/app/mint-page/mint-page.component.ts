@@ -665,6 +665,9 @@ export class MintPageComponent implements OnInit {
         properties: JSON.stringify(Array.from(this.KVMap)),
       };
     }
+    if (environment.node.id) {
+      postExtraData["Node"] = environment.node.id.toString();
+    }
 
     this.backendApi
       .SubmitPost(

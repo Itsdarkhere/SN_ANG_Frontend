@@ -110,7 +110,7 @@
           Editions
         </label>
         <label class="color-light ml-5px fs-12-responsive">
-          Choose between minting either a 1:1 NFT or a collection of NFT’s.
+          Choose between minting either a 1:1 NFT or a collection of NFTs.
         </label>
         <div class="w-100 d-flex flex-row justify-content-space-between">
           <div class="mint-page-edition-selection electric-border">
@@ -646,7 +646,12 @@
         <br />
         And never stop.
       </label>
-      <div *ngIf="audioType && !postImageArweaveSrc" class="w-100 h-50 d-flex flex-center">
+      <label class="mb-0px illuminate-color pr-20px pl-20px text-align-center" *ngIf="audioType && step === 2">
+        Illuminate the digital universe with your imagination.
+        <br />
+        And never stop.
+      </label>
+      <div *ngIf="audioType && !postImageArweaveSrc && step === 3" class="w-100 h-50 d-flex flex-center">
         <label
           dropUpload
           (onFileDropped)="dropFileCoverImage($event)"
@@ -708,12 +713,10 @@
       <div [@cardAppearAnimation] class="fake-card">
         <!-- LEFT SIDE DESKTOP STEPS 3 - 4 -->
         <div class="fake-card-image-box">
-          <img *ngIf="postImageArweaveSrc" class="fake-card-image" src="{{ postImageArweaveSrc }}" />
-          <div
-            *ngIf="postVideoDESOSrc || postAudioArweaveSrc"
-            class="w-100 h-100 background-secondary position-relative d-flex flex-center"
-          >
+          <div class="w-100 z-index-100 h-100 background-secondary position-relative d-flex flex-center">
+            <img *ngIf="postImageArweaveSrc" class="fake-card-image" src="{{ postImageArweaveSrc }}" />
             <div
+              *ngIf="videoType || audioType"
               class="fake-card-video-icon-container d-flex flex-center"
               [ngClass]="{ opacity_0: !showVideoTypeIcon }"
             >
@@ -727,7 +730,7 @@
               <i class="fa fa-spinner fa-spin fa-2x" *ngIf="arweaveVideoLoading"></i>
             </div>
             <video
-              *ngIf="postVideoArweaveSrc"
+              *ngIf="postVideoArweaveSrc && videoType"
               id="fake-video-nft-1"
               (mouseenter)="activateOnHover(true)"
               (mouseleave)="activateOnHover(false)"

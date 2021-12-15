@@ -428,7 +428,7 @@ export class MintPageComponent implements OnInit {
     if (this.step + 1 < 6) {
       this.step++;
       // Arweave needs a boost to start itself
-      if (this.step === 4) {
+      if (this.step === 4 && this.videoType) {
         this.loadArweaveVideo();
       }
     }

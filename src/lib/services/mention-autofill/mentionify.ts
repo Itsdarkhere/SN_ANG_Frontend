@@ -224,7 +224,7 @@ export class Mentionify<Type> {
       setTimeout(() => {
         this.active = 0;
         this.left = scrollX + coords.left + left + this.ref.scrollLeft - modalLeft;
-        this.top = scrollY + coords.top + top + coords.height - this.ref.scrollTop - modalTop;
+        this.top = scrollY + coords.top + top - (this.ref.scrollTop - modalTop);
         this.triggerIdx = triggerIdx;
         this.renderMenu();
       }, 0);

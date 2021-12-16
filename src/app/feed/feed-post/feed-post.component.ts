@@ -598,6 +598,7 @@ export class FeedPostComponent implements OnInit {
       return;
     }
     event.stopPropagation();
+    console.log(this.postContent)
     // Log event to google analytics
     //this.SendAddToCartEvent();
     const modalDetails = this.modalService.show(PlaceBidModalComponent, {
@@ -638,9 +639,9 @@ export class FeedPostComponent implements OnInit {
         this.nftEntryResponses[0]?.LastAcceptedBidAmountNanos === 0 &&
         this.nftEntryResponses[0]?.OwnerPublicKeyBase58Check === this.postContent.PosterPublicKeyBase58Check
       ) {
-        return "Auction closed by artist";
+        return "Owner";
       }
-      return this.nftEntryResponses[0]?.IsForSale === false ? "Sold for" : "Minimum Bid";
+      return this.nftEntryResponses[0]?.IsForSale === false ? "Last Sold for" : "Minimum Bid";
     } else {
       if (Number(maxBid) > 0) {
         return "Highest Bid";

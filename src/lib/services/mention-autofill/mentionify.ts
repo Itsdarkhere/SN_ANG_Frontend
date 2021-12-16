@@ -222,9 +222,10 @@ export class Mentionify<Type> {
       }
 
       setTimeout(() => {
+        const fixedTopOffset = 30;
         this.active = 0;
         this.left = scrollX + coords.left + left + this.ref.scrollLeft - modalLeft;
-        this.top = scrollY + coords.top + top - (this.ref.scrollTop - modalTop);
+        this.top = scrollY + coords.top + top + fixedTopOffset - (this.ref.scrollTop - modalTop);
         this.triggerIdx = triggerIdx;
         this.renderMenu();
       }, 0);

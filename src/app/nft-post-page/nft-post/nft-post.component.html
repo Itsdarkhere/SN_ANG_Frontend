@@ -52,6 +52,9 @@
             </div>
         </div>
         <div class="nft_bx linebx">
+            <!-- feed-post -->
+
+            <!-- feed-post End -->
             <h3 class="hdb">All Bids</h3>
             <simple-center-loader *ngIf="refreshingBids"></simple-center-loader>
             <div *ngIf="!loading && !bids?.length" class="fs-15px p-15px pb-0 d-flex justify-content-center">
@@ -136,8 +139,8 @@
                 <div *ngIf="!loading && !bids?.length" class="fs-15px p-15px pb-0 d-flex justify-content-center">
                     There are no bids yet.
                     <button class="btn btn-danger font-weight-bold fs-15px br-12px" *ngIf="activeTab === NftPostComponent.MY_AUCTIONS && myAvailableSerialNumbers?.length" (click)="closeAuction()">
-              Close my auctions
-            </button>
+                      Close my auctions
+                    </button>
                 </div>
                 <div *ngIf="!loading && bids?.length">
                     <div class="d-flex align-items-center p-15px pb-0 justify-content-between" *ngIf="activeTab === NftPostComponent.MY_AUCTIONS && myAvailableSerialNumbers?.length">
@@ -147,13 +150,13 @@
                         <div>
                             <div class="d-lg-inline-block d-block px-10px py-5px text-align-center">
                                 <button class="btn btn-primary font-weight-bold fs-15px br-12px" style="height: 36px; width: 115px; line-height: 15px" [disabled]="sellNFTDisabled" (click)="sellNFT()" *ngIf="!loading && bids?.length">
-                    Sell NFT
-                  </button>
+                                    Sell NFT
+                                </button>
                             </div>
                             <div class="d-lg-inline-block d-block px-10px py-5px text-align-center">
                                 <button class="btn btn-danger font-weight-bold fs-15px br-12px" (click)="closeAuction()">
-                    Close my auctions
-                  </button>
+                                    Close my auctions
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -214,8 +217,8 @@
                                                 {{ bidEntry.ProfileEntryResponse?.Username || bidEntry.PublicKeyBase58Check }}
                                             </div>
                                             <span *ngIf="bidEntry.ProfileEntryResponse?.IsVerified" (click)="tooltip.toggle()" class="ml-1 mb-1 cursor-pointer text-primary" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="'This account is verified'" #tooltip="matTooltip">
-                          <i class="fas fa-check-circle fa-md align-middle"></i>
-                        </span>
+                                                <i class="fas fa-check-circle fa-md align-middle"></i>
+                                            </span>
                                         </div>
                                         <div class="text-grey9" *ngIf="bidEntry.ProfileEntryResponse">
                                             {{ globalVars.nanosToUSD(bidEntry.ProfileEntryResponse.CoinPriceDeSoNanos, 2) }}

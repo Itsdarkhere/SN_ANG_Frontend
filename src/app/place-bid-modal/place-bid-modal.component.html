@@ -99,17 +99,17 @@
                 <div class="page-place-a-bid">
                     <div class="popup-body">
                         <div class="input-with-button bid_bg_blk_inp">
-                            <input matInput [(ngModel)]="bidAmountDESO" (ngModelChange)="updateBidAmountUSD($event)" type="number" min="0" aria-describedby="clout-label" placeholder="Enter here..." [disabled]="placingBids" />
-                            <button class="btn btn-black bid_deso_btn"><i><img src="assets/icons/dl_lg.svg" alt=""></i>
-                                $DESO</button>
+                            <div class="plc_bid_inp_wp">
+                                <input matInput [(ngModel)]="bidAmountDESO" (ngModelChange)="updateBidAmountUSD($event)" type="number" min="0" aria-describedby="clout-label" placeholder="0.00" [disabled]="placingBids" />
+                                <h6 class="bid_amt" *ngIf="bidAmountUSD"><span class="vl">{{ bidAmountUSD }}</span>$</h6>
+                            </div>
+                            <button class="btn btn-black bid_deso_btn"><i><img src="assets/icons/dl_lg.svg" alt=""></i> $DESO</button>
                         </div>
                         <div class="bid_suggest_bx" *ngIf="!errors||errors==''">
                             <h5>You must bid at least {{ highBid > 0 ? globalVars.nanosToDeSo(highBid) : globalVars.nanosToDeSo(minBid) }} DESO</h5>
                         </div>
 
-                        <div class="bid_suggest_bx_error" *ngIf="errors"><i><img src="assets/icons/info_red.svg"
-                                    alt=""></i> {{ errors }}</div>
-                        <h6 class="text-light" *ngIf="bidAmountUSD">$ {{ bidAmountUSD }}</h6>
+                        <div class="bid_suggest_bx_error" *ngIf="errors"><i><img src="assets/icons/info_red.svg" alt=""></i> {{ errors }}</div>
 
                         <div class="bid_pop_details_ls">
                             <div class="lst">
@@ -130,8 +130,6 @@
                                 <span class="val">0.00 $DESO</span>
                             </div>
                         </div>
-
-
                     </div>
                     <div class="popup-footer">
                         <button class="btn btn-post" (click)="placeBid()" [disabled]="placingBids || errors">

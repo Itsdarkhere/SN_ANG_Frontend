@@ -188,6 +188,7 @@ export class NftPostComponent implements OnInit {
       .subscribe(
         (res) => {
           this.nftBidData = res;
+          console.log(NftPostComponent)
           if (!this.nftBidData.BidEntryResponses) {
             this.nftBidData.BidEntryResponses = [];
           }
@@ -211,6 +212,7 @@ export class NftPostComponent implements OnInit {
           );
 
           this.hightestBidOwner = _.maxBy(this.bids, "BidAmountNanos");
+          console.log(this.hightestBidOwner)
           if (!this.myBids.length) {
             this.tabs = this.tabs.filter((t) => t !== NftPostComponent.MY_BIDS);
             this.activeTab = this.activeTab === NftPostComponent.MY_BIDS ? this.tabs[0] : this.activeTab;
@@ -235,6 +237,9 @@ export class NftPostComponent implements OnInit {
           this.highBid = _.maxBy(this.nftBidData.NFTEntryResponses, "HighestBidAmountNanos")?.HighestBidAmountNanos;
           this.lowBid = _.minBy(this.nftBidData.NFTEntryResponses, "LowestBidAmountNanos")?.LowestBidAmountNanos;
           this.owners = this.nftBidData.NFTEntryResponses;
+          // if (this.feedPost) {
+          //   this.feedPost.nftBidData = this.nftBidData
+          // }
         },
         (err) => {
           console.error(err);
@@ -272,9 +277,14 @@ export class NftPostComponent implements OnInit {
   }
 
   sellNFT(): void {
+    console.log("in sell Nft")
+    console.log(this.sellNFTDisabled)
     if (this.sellNFTDisabled) {
+      this.activeTab = NftPostComponent.MY_AUCTIONS
+      this._handleTabClick(this.activeTab);
       return;
     }
+    console.log(this.nftBidData.BidEntryResponses)
     const sellNFTModalDetails = this.modalService.show(SellNftModalComponent, {
       class: "modal-dialog-center",
       initialState: {

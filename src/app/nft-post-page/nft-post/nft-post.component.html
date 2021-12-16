@@ -47,8 +47,9 @@
         </div>
         <div class="nft_bx nft_feed_post_wt_design post">
             <div *ngIf="nftPost && nftBidData" class="position-relative">
-                <feed-post [post]="nftPost" [includePaddingOnPost]="true" [isParentPostInThread]="true" [showLeftSelectedBorder]="true" [showInteractionDetails]="true" [blocked]="isPostBlocked(nftPost)" [showName]="true" [showNFTDetails]="true" [showExpandedNFTDetails]="true"
-                    [contentShouldLinkToThread]="true" [afterCommentCreatedCallback]="incrementCommentCounter.bind(this)" [isNFTDetail]="true" [showNFTOwnerInfo]="hightestBidOwner" (userBlocked)="afterUserBlocked($event)" (nftBidPlaced)="afterNftBidPlaced($event)"></feed-post>
+                <feed-post [nftBidData]="nftBidData" [post]="nftPost" [includePaddingOnPost]="true" [isParentPostInThread]="true" [showLeftSelectedBorder]="true" [showInteractionDetails]="true" [blocked]="isPostBlocked(nftPost)" [showName]="true" [showNFTDetails]="true"
+                    [showExpandedNFTDetails]="true" [contentShouldLinkToThread]="true" [afterCommentCreatedCallback]="incrementCommentCounter.bind(this)" [isNFTDetail]="true" [showNFTOwnerInfo]="hightestBidOwner" (userBlocked)="afterUserBlocked($event)" (nftBidPlaced)="afterNftBidPlaced($event)"
+                    (sellNFT)="sellNFT($event)" (closeAuction)="closeAuction($event)"></feed-post>
             </div>
         </div>
         <div class="nft_bx linebx">
@@ -148,7 +149,7 @@
                             Select Highest Bids
                         </div>
                         <div>
-                            <div class="d-lg-inline-block d-block px-10px py-5px text-align-center">
+                            <!-- <div class="d-lg-inline-block d-block px-10px py-5px text-align-center">
                                 <button class="btn btn-primary font-weight-bold fs-15px br-12px" style="height: 36px; width: 115px; line-height: 15px" [disabled]="sellNFTDisabled" (click)="sellNFT()" *ngIf="!loading && bids?.length">
                                     Sell NFT
                                 </button>
@@ -157,7 +158,7 @@
                                 <button class="btn btn-danger font-weight-bold fs-15px br-12px" (click)="closeAuction()">
                                     Close my auctions
                                 </button>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="container d-flex align-items-center fs-14px py-15px border-bottom border-color-grey link--unstyled">

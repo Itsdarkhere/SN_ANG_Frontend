@@ -85,7 +85,7 @@
         </div>
         <div
           *ngIf="reposterProfile"
-          class="feed-post__container d-flex justify-content-left w-100 pb-5px"
+          class="feed-post__container border d-flex justify-content-left w-100 pb-5px"
           [ngClass]="{
             'feed-post__blue-border': showLeftSelectedBorder,
             'feed-post__parent-post-font-size': isParentPostInThread,
@@ -113,7 +113,7 @@
           ></feed-post-dropdown>
         </div>
         <!--Make sure card with background argument and repost get top bar-->
-        <div class="card-header" *ngIf="!postContent.IsHidden && background">
+        <div class="card-header border" *ngIf="!postContent.IsHidden && background">
           <!-- Avatar -->
           <div class="profile-img">
             <a
@@ -192,13 +192,28 @@
               <div class="img-cover position-relative" [ngClass]="{ 'for-feed': fromFeed }">
                 <div
                   *ngIf="postContent?.PostExtraData?.arweaveAudioSrc"
-                  class="card-video-icon-container top-br-30px"
-                  [ngClass]="{ opacity_0: !showVideoTypeIcon }"
+                  class="card-audio-icon-container pointer-events-none d-flex flex-center top-br-30px"
                 >
-                  <img class="card-video-icon" src="/assets/icons/music-type-white.svg" alt="icon" />
+                  <img
+                    *ngIf="showAudioTypeIcon"
+                    [@audioIconNoHover]
+                    class="card-audio-icon"
+                    src="/assets/icons/music-type-white.svg"
+                    alt="icon"
+                  />
+                  <div
+                    *ngIf="!showAudioTypeIcon"
+                    [@audioIconHover]
+                    class="audio-icon-hover-state d-flex flex-row flex-center font-weight-semiboldn"
+                  >
+                    <img class="mr-5px" src="/assets/icons/audio-play-small.svg" alt="audio icon small" />
+                    <p>PLAY AUDIO</p>
+                  </div>
                 </div>
                 <img
                   class="card-img"
+                  (mouseenter)="activateOnHoverAudio(false)"
+                  (mouseleave)="activateOnHoverAudio(true)"
                   *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID"
                   data-toggle="modal"
                   src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
@@ -422,13 +437,28 @@
             <div class="img-cover position-relative" [ngClass]="{ 'change-height-img-cover': isQuotedCard }">
               <div
                 *ngIf="postContent?.PostExtraData?.arweaveAudioSrc"
-                class="card-video-icon-container top-br-30px"
-                [ngClass]="{ opacity_0: !showVideoTypeIcon }"
+                class="card-audio-icon-container pointer-events-none d-flex flex-center top-br-30px"
               >
-                <img class="card-video-icon" src="/assets/icons/music-type-white.svg" alt="icon" />
+                <img
+                  *ngIf="showAudioTypeIcon"
+                  [@audioIconNoHover]
+                  class="card-audio-icon"
+                  src="/assets/icons/music-type-white.svg"
+                  alt="icon"
+                />
+                <div
+                  *ngIf="!showAudioTypeIcon"
+                  [@audioIconHover]
+                  class="audio-icon-hover-state d-flex flex-row flex-center font-weight-semiboldn"
+                >
+                  <img class="mr-5px" src="/assets/icons/audio-play-small.svg" alt="audio icon small" />
+                  <p>PLAY AUDIO</p>
+                </div>
               </div>
               <img
                 class="card-img"
+                (mouseenter)="activateOnHoverAudio(false)"
+                (mouseleave)="activateOnHoverAudio(true)"
                 *ngIf="
                   postContent.ImageURLs && (postContent.ImageURLs[0] || postContent.VideoURLs[0]) && !post.ParentStakeID
                 "
@@ -537,7 +567,10 @@
                   ]"
                 >
                   {{ loadProfile ? this.creatorProfile?.Username : postContent.ProfileEntryResponse?.Username }}
-                  <i *ngIf="loadProfile ? this.creatorProfile?.IsVerified : postContent.ProfileEntryResponse?.IsVerified" class="fas fa-check-circle pl-5px fa-md text-primary"></i>
+                  <i
+                    *ngIf="loadProfile ? this.creatorProfile?.IsVerified : postContent.ProfileEntryResponse?.IsVerified"
+                    class="fas fa-check-circle pl-5px fa-md text-primary"
+                  ></i>
                 </a>
               </div>
             </div>
@@ -639,13 +672,28 @@
               <div class="img-cover position-relative" [ngClass]="{ 'for-feed': fromFeed }">
                 <div
                   *ngIf="postContent?.PostExtraData?.arweaveAudioSrc"
-                  class="card-video-icon-container top-br-30px"
-                  [ngClass]="{ opacity_0: !showVideoTypeIcon }"
+                  class="card-audio-icon-container pointer-events-none d-flex flex-center top-br-30px"
                 >
-                  <img class="card-video-icon" src="/assets/icons/music-type-white.svg" alt="icon" />
+                  <img
+                    *ngIf="showAudioTypeIcon"
+                    [@audioIconNoHover]
+                    class="card-audio-icon"
+                    src="/assets/icons/music-type-white.svg"
+                    alt="icon"
+                  />
+                  <div
+                    *ngIf="!showAudioTypeIcon"
+                    [@audioIconHover]
+                    class="audio-icon-hover-state d-flex flex-row flex-center font-weight-semiboldn"
+                  >
+                    <img class="mr-5px" src="/assets/icons/audio-play-small.svg" alt="audio icon small" />
+                    <p>PLAY AUDIO</p>
+                  </div>
                 </div>
                 <img
                   class="card-img"
+                  (mouseenter)="activateOnHoverAudio(false)"
+                  (mouseleave)="activateOnHoverAudio(true)"
                   *ngIf="postContent.ImageURLs && postContent.ImageURLs[0] && !post.ParentStakeID"
                   data-toggle="modal"
                   src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"

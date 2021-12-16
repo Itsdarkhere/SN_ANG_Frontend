@@ -166,7 +166,6 @@ import { AdminNodeAddFeesComponent } from "./admin/admin-node-fees/admin-node-ad
 import { ThemeModule } from "./theme/theme.module";
 import { Theme } from "./theme/symbols";
 import { HeaderComponent } from "./header/header.component";
-import { NftCardComponent } from "./nft-card/nft-card.component";
 import { CreatePostComponent } from "./create-post/create-post.component";
 import { CreateYourNftComponent } from "./create-your-nft/create-your-nft.component";
 import { MintYourNftComponent } from "./mint-your-nft/mint-your-nft.component";
@@ -191,8 +190,8 @@ import { MobileVerificationComponent } from "./mobile-verification/mobile-verifi
 import { SignupPageComponent } from "./signup-page/signup-page.component";
 import { BidsAccordionComponent } from "./bids-accordion/bids-accordion.component";
 import { NgxShimmerLoadingModule } from "ngx-shimmer-loading";
-import { LoadingShimmerComponent } from './loading-shimmer/loading-shimmer.component';
-import { AudioPlayerComponent } from './audio-player/audio-player.component';
+import { LoadingShimmerComponent } from "./loading-shimmer/loading-shimmer.component";
+import { AudioPlayerComponent } from "./audio-player/audio-player.component";
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -325,7 +324,6 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     AdminJumioComponent,
     JumioStatusComponent,
     HeaderComponent,
-    NftCardComponent,
     CreatePostComponent,
     CreateYourNftComponent,
     MintYourNftComponent,

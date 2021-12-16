@@ -583,7 +583,6 @@ export class FeedPostComponent implements OnInit {
 
   getNode(): DeSoNode {
     const nodeId = this.postContent.PostExtraData["Node"];
-    console.log(nodeId);
     if (nodeId && nodeId != environment.node.id) {
       const node = this.globalVars.nodes[nodeId];
       if (node) {

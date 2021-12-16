@@ -2,7 +2,7 @@ import { Component, HostListener, OnInit, ChangeDetectorRef, Output, EventEmitte
 import { DomSanitizer } from "@angular/platform-browser";
 import { BackendApiService, BackendRoutes } from "../backend-api.service";
 import { GlobalVarsService } from "../global-vars.service";
-import { trigger, style, animate, transition, group, query } from "@angular/animations";
+import { trigger, style, animate, transition } from "@angular/animations";
 import { Router } from "@angular/router";
 import { environment } from "../../environments/environment";
 import * as tus from "tus-js-client";

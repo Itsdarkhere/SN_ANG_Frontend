@@ -232,7 +232,7 @@
                   </div>
                 </ng-container>
               </div>
-              <!-- Desktop follow button-->
+              <!-- Desktop follow button
               <follow-button
                 *ngIf="!hideFollowLink"
                 class="ml-10px fs-12px d-lg-block d-none text-grey5"
@@ -240,10 +240,10 @@
                 [followLinkClass]="'link--unstyled'"
                 [followedPubKeyBase58Check]="postContent.ProfileEntryResponse.PublicKeyBase58Check"
                 [creatorCoinTemplate]="creatorCoinInfo"
-              ></follow-button>
+              ></follow-button>-->
 
-              <div class="ml-auto">
-                <div
+              <div class="">
+                <!--<div
                   *ngIf="getNode()"
                   class="d-inline-block mr-5px"
                   [ngClass]="{ 'mr-5px': globalVars.isMobile(), 'mr-10px': !globalVars.isMobile() }"
@@ -259,21 +259,20 @@
                   >
                     <i class="fas fa-external-link-square-alt"></i>
                   </a>
-                </div>
-
-                <feed-post-dropdown
-                  *ngIf="showDropdown && !reposterProfile"
-                  [class.ml-auto]="!isNFTDetail"
-                  [post]="post"
-                  [decryptableNFTEntryResponses]="decryptableNFTEntryResponses"
-                  [postContent]="postContent"
-                  [nftEntryResponses]="nftEntryResponses"
-                  (postHidden)="hidePost()"
-                  (userBlocked)="blockUser()"
-                  (toggleGlobalFeed)="_addPostToGlobalFeed($event)"
-                  (togglePostPin)="_pinPostToGlobalFeed($event)"
-                ></feed-post-dropdown>
+                </div>-->
               </div>
+              <feed-post-dropdown
+                *ngIf="showDropdown && !reposterProfile"
+                [class.ml-auto]="!isNFTDetail"
+                [post]="post"
+                [decryptableNFTEntryResponses]="decryptableNFTEntryResponses"
+                [postContent]="postContent"
+                [nftEntryResponses]="nftEntryResponses"
+                (postHidden)="hidePost()"
+                (userBlocked)="blockUser()"
+                (toggleGlobalFeed)="_addPostToGlobalFeed($event)"
+                (togglePostPin)="_pinPostToGlobalFeed($event)"
+              ></feed-post-dropdown>
             </div>
 
             <!-- Mobile follow button-->

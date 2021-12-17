@@ -163,7 +163,7 @@ export class AppComponent implements OnInit {
         this.globalVars.SetupMessages();
 
         // Get unread notifications for the logged in user
-        //this.globalVars.GetUnreadNotifications();
+        this.globalVars.GetUnreadNotifications();
 
         // Convert the lists of coin balance entries into maps.
         // TODD: I've intermittently seen errors here where UsersYouHODL is null.

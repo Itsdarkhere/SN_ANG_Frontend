@@ -264,6 +264,32 @@ export class GlobalVarsService {
     this.SetMessagesFilter(storedTab);
     this.LoadInitialMessages();
   }
+  GetUnreadNotifications() {
+    if (this.loggedInUser) {
+      this.backendApi
+        .GetUnreadNotificationsCount(this.localNode, this.loggedInUser.PublicKeyBase58Check)
+        .toPromise()
+        .then(
+          (res) => {
+            this.unreadNotifications = res.NotificationsCount;
+            if (res.UpdateMetadata) {
+              this.backendApi
+                .SetNotificationsMetadata(
+                  this.localNode,
+                  this.loggedInUser.PublicKeyBase58Check,
+                  -1,
+                  res.LastUnreadNotificationIndex,
+                  res.NotificationsCount
+                )
+                .toPromise();
+            }
+          },
+          (err) => {
+            console.error(this.backendApi.stringifyError(err));
+          }
+        );
+    }
+  }
   SetMessagesFilter(tabName: any) {
     // Set the request parameters if it's a known tab.
     // Custom is set in the filter menu component and saved in local storage.

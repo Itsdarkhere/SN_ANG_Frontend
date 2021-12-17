@@ -17,6 +17,7 @@ import { PlaceBidModalComponent } from "../../place-bid-modal/place-bid-modal.co
 import { EmbedUrlParserService } from "../../../lib/services/embed-url-parser-service/embed-url-parser-service";
 import { SharedDialogs } from "../../../lib/shared-dialogs";
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
+import { UnlockContentModalComponent } from "src/app/unlock-content-modal/unlock-content-modal.component";
 
 @Component({
   selector: "feed-post",
@@ -620,6 +621,13 @@ export class FeedPostComponent implements OnInit {
         this.nftBidPlaced.emit();
       }
     });
+  }
+  ViewUnlockableContent(){
+    const modalDetails = this.modalService.show(UnlockContentModalComponent, {
+      class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+      initialState: { decryptableNFTEntryResponses: this.decryptableNFTEntryResponses},
+    });
+    const onHideEvent = modalDetails.onHide
   }
 
   showUnlockableContent = false;

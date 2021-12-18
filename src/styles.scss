@@ -3897,6 +3897,9 @@ input {
     box-sizing: border-box;
     box-shadow: 4px 4px 20px 2px rgba(0, 0, 0, 0.16);
     border-radius: 30px;
+    &.gray_bg {
+        background: var(--secondary) !important;
+    }
 }
 
 .nft-modal-radio-size {
@@ -4590,6 +4593,10 @@ width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    @media screen and (min-width: 1400px) {
+        width: 1360px;
+        margin: 0 -50px;
+    }
     @media screen and (max-width: 1050px) {
         padding: 70px 10px 10px 10px;
         align-items: flex-start;
@@ -4597,6 +4604,9 @@ width: 100%;
     .nft_bx {
         width: calc(50% - 10px);
         margin-bottom: 10px;
+        @media screen and (min-width: 1400px) {
+            width: 40%;
+        }
         @media screen and (max-width: 1050px) {
             width: 100%;
         }
@@ -4618,6 +4628,9 @@ width: 100%;
         &.gray {
             background-color: var( --secondary);
             padding: 0 50px;
+            @media screen and (min-width: 1400px) {
+                width: 60%;
+            }
             @media screen and (max-width: 767px) {
                 margin: -5px -10px 0 -10px;
                 width: calc(100% + 20px);
@@ -4706,6 +4719,9 @@ width: 100%;
             flex-direction: column;
             align-items: center;
             padding: 30px 0;
+            @media screen and (min-width: 1400px) {
+                width: 60%;
+            }
         }
         .bids_list_sec {
             margin-top: 30px;
@@ -4844,6 +4860,32 @@ width: 100%;
             &.border_n_pd {
                 padding: 0;
                 border-left: 0;
+            }
+        }
+        .owner_lft {
+            .bid_by_avtar {
+                width: 28px;
+                height: 28px;
+                cursor: pointer;
+                overflow: hidden;
+                border-radius: 50%;
+                border: 3px solid var(--background);
+                box-shadow: 0px 4px 5px 3px rgb(0 0 0 / 10%);
+                background-size: cover;
+                margin-right: 12px;
+            }
+            .name {
+                display: flex;
+                a {
+                    font-size: 15px;
+                    font-weight: 700;
+                    @media screen and (max-width: 767px) {
+                        font-size: 16px;
+                    }
+                }
+                .text-primary {
+                    font-size: 13px;
+                }
             }
         }
         .hq {
@@ -5911,6 +5953,7 @@ width: 100%;
         border-radius: 50%;
     }
 }
+
 .bid-popup-wrapper {
     display: flex;
     align-items: center;
@@ -5920,7 +5963,6 @@ width: 100%;
     @media (max-width: 576px) {
         padding: 15px 0 20px;
     }
-    
     figure {
         margin: 0 0 15px;
         @media (max-width: 576px) {
@@ -5992,6 +6034,126 @@ width: 100%;
             background: #fff;
             border: 3px solid #000000;
             color: #000000;
+        }
+    }
+}
+
+.pop_singl_btn {
+    width: 349.92px;
+    font-size: 18px;
+    margin: auto;
+    max-width: 100%;
+    color: var(--background);
+    font-weight: bold;
+    background: #313131;
+    border: 0.28458px solid #000;
+    box-shadow: 0.794738px 0.794738px 3.97369px 0.397369px #0000001c, inset 0 -1.51437px 15.1437px 7.57187px #000;
+    border-radius: 55.7175px;
+    height: 66px;
+    transition: all 0.3s ease;
+    &:hover {
+        color: var(--background);
+        transform: scale(1.02);
+        -webkit-transform: scale(1.02);
+    }
+}
+
+.unlockable_content_popwrp {
+    padding: 20px;
+    background-color: var(--background);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    min-height: 230px;
+    margin: 30px 0 40px;
+    width: calc(100% - 30px);
+    @media (max-width: 767px) {
+        width: 100%;
+    }
+    .link_list_sc {
+        font-size: 13px;
+        margin: 0 0 8px;
+        .num {
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        .ln_val {}
+    }
+}
+
+.unlockable_pop_close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 30px;
+    height: 30px;
+    background: #F1F1F1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-radius: 50%;
+}
+
+.sl_prc {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    .lb {
+        font-size: 20px;
+        font-weight: 500;
+        @media (max-width: 767px) {
+            font-size: 16px;
+        }
+    }
+    .val {
+        font-size: 24px;
+        font-weight: 600;
+        @media (max-width: 767px) {
+            font-size: 18px;
+        }
+    }
+}
+
+.rcv_pric {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px 0;
+}
+
+.sell_nft_bx {
+    margin-bottom: 40px;
+}
+
+.nft_selling_avatar_del {
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    padding-bottom: 20px;
+    @media (max-width: 767px) {
+        font-size: 16px;
+    }
+    .avatar_container_del {
+        display: flex;
+        align-items: center;
+        @media (max-width: 767px) {
+            width: 100%;
+        }
+        .profile-img {
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 50%;
+            border: 3px solid var(--background);
+            box-shadow: 0px 4px 5px 3px rgb(0 0 0 / 10%);
+            background-size: cover;
+            margin-right: 10px;
+            margin-left: 15px;
+        }
+        .post_del_list {
+            font-size: 16px;
         }
     }
 }

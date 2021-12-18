@@ -297,7 +297,7 @@ export class NftPostComponent implements OnInit {
     }
     console.log(this.nftBidData.BidEntryResponses)
     const sellNFTModalDetails = this.modalService.show(SellNftModalComponent, {
-      class: "modal-dialog-center",
+      class: "modal-dialog-center nft_placebid_modal_bx modal-lg",
       initialState: {
         post: this.nftPost,
         nftEntries: this.nftBidData.NFTEntryResponses,

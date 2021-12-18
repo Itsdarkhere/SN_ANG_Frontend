@@ -405,16 +405,14 @@
                     </div>
                     <div class="val" *ngIf="decryptableNFTEntryResponses?.length && !showUnlockableContent">
                         <span class="hq">Owner</span>
-                        <div class="d-flex">
-                            <div class="bid_by_avtar" [avatar]="postContent?.ProfileEntryResponse?.PublicKeyBase58Check">
-                            </div>
+                        <div class="owner_lft align-items-center d-flex">
+                            <div class="bid_by_avtar" [avatar]="postContent?.ProfileEntryResponse?.PublicKeyBase58Check"></div>
                             <div class="name">
                                 <a class="val" [routerLink]="
                                               getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX,postContent.ProfileEntryResponse.Username ])
                                               " queryParamsHandling="merge">
                                     {{ postContent.ProfileEntryResponse.Username }}
                                 </a>
-
                                 <span *ngIf="postContent.ProfileEntryResponse.IsVerified" class="ml-1 text-primary">
                                     <i class="fas fa-check-circle fa-md align-middle"></i>
                                 </span>
@@ -423,7 +421,7 @@
                     </div>
                 </div>
 
-                <div class="auction_detl" *ngIf="nftBidData?.BidEntryResponses.length>0&&!showPlaceABid && (!decryptableNFTEntryResponses?.length || showUnlockableContent)">
+                <div class="nft_done_by" *ngIf="nftBidData?.BidEntryResponses.length>0&&!showPlaceABid && (!decryptableNFTEntryResponses?.length || showUnlockableContent)">
                     <span class="hq">Made By</span>
                     <div class="d-flex">
                         <div class="bid_by_avtar" [avatar]="showNFTOwnerInfo?.PublicKeyBase58Check"></div>
@@ -451,7 +449,7 @@
                     <div class="val_st">The 1st bid starts the auction.</div>
                 </div>
 
-                <div class="auction_detl" *ngIf="compareBit(
+                <div class="nft_done_by" *ngIf="compareBit(
               globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5),
               globalVars.nanosToDeSo(highBid, 5),
               showPlaceABid
@@ -536,12 +534,12 @@
                 </div>
 
 
-                <p class="center_sec font-weight-bold">
+                <!-- <p class="center_sec font-weight-bold">
                     CREATOR ROYALTY {{ postContent?.NFTRoyaltyToCreatorBasisPoints / 100 }}%
                 </p>
                 <p class="center_sec font-weight-bold">
                     COIN-HOLDER ROYALTY {{ postContent?.NFTRoyaltyToCoinBasisPoints / 100 }}%
-                </p>
+                </p> -->
             </div>
         </div>
     </ng-container>

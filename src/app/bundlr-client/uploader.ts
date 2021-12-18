@@ -59,7 +59,7 @@ export default class Uploader {
     const { protocol, host, port } = this.api.getConfig();
     const res = await this.api.post(`${protocol}://${host}:${port}/tx/${this.currency}`, dataItem.getRaw(), {
       headers: { "Content-Type": "application/octet-stream" },
-      timeout: 100000,
+      timeout: 1000000,
       maxBodyLength: Infinity,
       validateStatus: (status) => (status > 200 && status < 300) || status !== 402,
     });

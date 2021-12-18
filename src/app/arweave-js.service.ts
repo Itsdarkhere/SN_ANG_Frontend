@@ -34,7 +34,6 @@ export class ArweaveJsService {
     this.globalVars = appState;
   }
   startUpload(file: File): Observable<any> {
-    let bundle;
     return from(
       file
         .arrayBuffer()
@@ -58,7 +57,7 @@ export class ArweaveJsService {
 
   UploadImage(file: File): Observable<any> {
     if (this.globalVars.loggedInUser?.ProfileEntryResponse?.IsVerified) {
-      return this.startUpload(file);
+      //return this.startUpload(file);
     } else {
       console.log("Uploading blocked for " + this.globalVars.loggedInUser.PublicKeyBase58Check + " - NOT VERIFIED.");
       return;

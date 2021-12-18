@@ -1,0 +1,16 @@
+<div app-theme class="nft-modal-container p-15px">
+    <div class="bid-popup-wrapper">
+
+        <h3 class="bid-title">Unlockable Content</h3>
+        <!-- <p class="bid-description"> -->
+        <div *ngFor="let nftEntry of decryptableNFTEntryResponses" class="d-flex flex-row">
+            <div>#{{ nftEntry.SerialNumber }}:&nbsp;</div>
+            <div [innerHTML]="nftEntry.DecryptedUnlockableText | sanitizeAndAutoLink">
+            </div>
+        </div>
+        <!-- </p> -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center">
+            <button type="button" (click)="closeThisWindow()" class="btn nft_place_bid_btn">Close this window</button>
+        </div>
+    </div>
+</div>

@@ -17,6 +17,7 @@ import { PlaceBidModalComponent } from "../../place-bid-modal/place-bid-modal.co
 import { EmbedUrlParserService } from "../../../lib/services/embed-url-parser-service/embed-url-parser-service";
 import { SharedDialogs } from "../../../lib/shared-dialogs";
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
+import { UnlockContentModalComponent } from "src/app/unlock-content-modal/unlock-content-modal.component";
 
 @Component({
   selector: "feed-post",
@@ -29,6 +30,7 @@ export class FeedPostComponent implements OnInit {
     return this._post;
   }
   set post(post: PostEntryResponse) {
+    console.log(post)
     // When setting the post, we need to consider repost behavior.
     // If a post is a reposting another post (without a quote), then use the reposted post as the post content.
     // If a post is quoting another post, then we use the quoted post as the quoted content.
@@ -55,6 +57,7 @@ export class FeedPostComponent implements OnInit {
     return this._blocked;
   }
 
+  @Input() nftBidData: any = undefined
   constructor(
     private analyticsService: GoogleAnalyticsService,
     public globalVars: GlobalVarsService,
@@ -63,7 +66,7 @@ export class FeedPostComponent implements OnInit {
     private router: Router,
     private modalService: BsModalService,
     private sanitizer: DomSanitizer
-  ) {}
+  ) { }
 
   // Got this from https://code.habd.as/jhabdas/xanthippe/src/branch/master/lib/xanthippe.js#L8
   // Other regexes:
@@ -126,6 +129,12 @@ export class FeedPostComponent implements OnInit {
 
   // emits diamondSent event
   @Output() diamondSent = new EventEmitter();
+
+  // sell Bid
+  @Output() sellNFT = new EventEmitter();
+
+  // close Auction
+  @Output() closeAuction = new EventEmitter();
 
   AppRoutingModule = AppRoutingModule;
   addingPostToGlobalFeed = false;
@@ -613,6 +622,13 @@ export class FeedPostComponent implements OnInit {
       }
     });
   }
+  ViewUnlockableContent(){
+    const modalDetails = this.modalService.show(UnlockContentModalComponent, {
+      class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+      initialState: { decryptableNFTEntryResponses: this.decryptableNFTEntryResponses},
+    });
+    const onHideEvent = modalDetails.onHide
+  }
 
   showUnlockableContent = false;
   toggleShowUnlockableContent(): void {
@@ -649,6 +665,12 @@ export class FeedPostComponent implements OnInit {
         return "Minimum Bid";
       }
     }
+  }
+  sellYourBid(){
+    this.sellNFT.emit()
+  }
+  closeYourAuction(){
+    this.closeAuction.emit()
   }
   getRouterLink(val: any): any {
     return this.inTutorial ? [] : val;

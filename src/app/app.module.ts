@@ -193,6 +193,7 @@ import { BidsAccordionComponent } from "./bids-accordion/bids-accordion.componen
 import { NgxShimmerLoadingModule } from "ngx-shimmer-loading";
 import { LoadingShimmerComponent } from './loading-shimmer/loading-shimmer.component';
 import { DiscoveryComponent } from './discovery/discovery.component';
+import { UnlockContentModalComponent } from './unlock-content-modal/unlock-content-modal.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -364,6 +365,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     BidsAccordionComponent,
     LoadingShimmerComponent,
     DiscoveryComponent,
+    UnlockContentModalComponent,
   ],
   imports: [
     BrowserModule,

@@ -339,12 +339,7 @@
                 'fa-lock': !decryptableNFTEntryResponses?.length || showUnlockableContent,
                 'fa-unlock-alt': decryptableNFTEntryResponses?.length && !showUnlockableContent
               }"></i>
-                        {{
-                        decryptableNFTEntryResponses?.length
-                        ? showUnlockableContent
-                        ? "Hide Unlockable"
-                        : "Show Unlockable"
-                        : "Unlockable Content"
+                        {{decryptableNFTEntryResponses?.length? showUnlockableContent? "Hide Unlockable" : "Show Unlockable": "Unlockable Content"
                         }}
                     </span>
                 </div>
@@ -386,7 +381,7 @@
 
             <div *ngIf="showExpandedNFTDetails" class="d-flex nft_current_bid_tpwrapper">
                 <div class="nft_current_bid" [ngClass]="{ 'pt-15px': globalVars.isMobile() }">
-                    <span class="hq">
+                    <span class="hq" *ngIf="!decryptableNFTEntryResponses?.length || showUnlockableContent">
                         {{
                         compareBit(
                         globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5),
@@ -396,25 +391,61 @@
                         }}
                     </span>
                     <!--showPlaceAbid was here as 'if' but it didnt work for creator globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5) : globalVars.nanosToDeSo(highBid, 5)-->
-                    <div class="val" *ngIf="availableSerialNumbers?.length > 0">
+                    <div class="val" *ngIf="(availableSerialNumbers?.length > 0)&&!decryptableNFTEntryResponses?.length || showUnlockableContent">
                         {{ highBid === 0 ? globalVars.nanosToUSD(this.nftMinBidAmountNanos, 2) : globalVars.nanosToUSD(highBid, 2) }}
                     </div>
-                    <div class="val_st" *ngIf="availableSerialNumbers?.length > 0">
+                    <div class="val_st" *ngIf="(availableSerialNumbers?.length > 0)&&!decryptableNFTEntryResponses?.length || showUnlockableContent">
                         {{ highBid === 0 ? globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5) : globalVars.nanosToDeSo(highBid, 5) }} DESO
                     </div>
-                    <div class="val" *ngIf="availableSerialNumbers?.length === 0">
+                    <div class="val" *ngIf="(availableSerialNumbers?.length === 0)&&!decryptableNFTEntryResponses?.length || showUnlockableContent">
                         {{ globalVars.nanosToUSD(nftLastAcceptedBidAmountNanos, 2) }}
                     </div>
-                    <div class="val_st" *ngIf="availableSerialNumbers?.length === 0">
+                    <div class="val_st" *ngIf="(availableSerialNumbers?.length === 0)&&!decryptableNFTEntryResponses?.length || showUnlockableContent">
                         {{ globalVars.nanosToDeSo(nftLastAcceptedBidAmountNanos, 5) }} DESO
                     </div>
+                    <div class="val" *ngIf="decryptableNFTEntryResponses?.length && !showUnlockableContent">
+                        <span class="hq">Owner</span>
+                        <div class="d-flex">
+                            <div class="bid_by_avtar" [avatar]="postContent?.ProfileEntryResponse?.PublicKeyBase58Check">
+                            </div>
+                            <div class="name">
+                                <a class="val" [routerLink]="
+                                              getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX,postContent.ProfileEntryResponse.Username ])
+                                              " queryParamsHandling="merge">
+                                    {{ postContent.ProfileEntryResponse.Username }}
+                                </a>
+
+                                <span *ngIf="postContent.ProfileEntryResponse.IsVerified" class="ml-1 text-primary">
+                                    <i class="fas fa-check-circle fa-md align-middle"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="auction_detl" *ngIf="nftBidData?.BidEntryResponses.length>0&&!showPlaceABid && (!decryptableNFTEntryResponses?.length || showUnlockableContent)">
+                    <span class="hq">Made By</span>
+                    <div class="d-flex">
+                        <div class="bid_by_avtar" [avatar]="showNFTOwnerInfo?.PublicKeyBase58Check"></div>
+                        <div class="name">
+                            <a class="fc-default font-weight-bold" [routerLink]="
+                                    getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX, nftBidData?.BidEntryResponses[0]?.ProfileEntryResponse?.Username])
+                                    " queryParamsHandling="merge">
+                                {{nftBidData?.BidEntryResponses[0]?.ProfileEntryResponse?.Username}}
+                            </a>
+
+                            <span *ngIf="nftBidData?.BidEntryResponses[0]?.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">
+                                <i class="fas fa-check-circle fa-md align-middle"></i>
+                            </span>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="auction_detl" *ngIf="compareBit(
                     globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5),
                     globalVars.nanosToDeSo(highBid, 5),
                     showPlaceABid
-                  ) == 'Minimum Bid'
-                ">
+                  ) == 'Minimum Bid' &&showPlaceABid && (!decryptableNFTEntryResponses?.length || showUnlockableContent)">
                     <span class="hq">AUCTION</span>
                     <div class="val">Not started yet</div>
                     <div class="val_st">The 1st bid starts the auction.</div>
@@ -424,8 +455,7 @@
               globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5),
               globalVars.nanosToDeSo(highBid, 5),
               showPlaceABid
-            ) == 'Highest Bid'
-          ">
+            ) == 'Highest Bid'">
                     <span class="hq">Made By</span>
                     <div class="d-flex">
                         <div class="bid_by_avtar" [avatar]="showNFTOwnerInfo?.PublicKeyBase58Check"></div>
@@ -448,15 +478,16 @@
                     globalVars.nanosToDeSo(highBid, 5),
                     showPlaceABid
                   ) == 'Last Sold for'
-                ">
+                  && (!decryptableNFTEntryResponses?.length || showUnlockableContent)">
                     <span class="hq">Owner</span>
                     <div class="d-flex">
-                        <div class="bid_by_avtar" [avatar]="showNFTOwnerInfo?.PublicKeyBase58Check"></div>
+                        <div class="bid_by_avtar" [avatar]="nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.PublicKeyBase58Check">
+                        </div>
                         <div class="name">
                             <a class="fc-default font-weight-bold" [routerLink]="
-                                              getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX, showNFTOwnerInfo?.ProfileEntryResponse?.Username])
+                                              getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX, nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.Username])
                                               " queryParamsHandling="merge">
-                                {{ showNFTOwnerInfo?.ProfileEntryResponse?.Username }}
+                                {{ nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.Username }}
                             </a>
 
                             <span *ngIf="postContent.ProfileEntryResponse.IsVerified" class="ml-1 text-primary">
@@ -471,28 +502,16 @@
                     showPlaceABid
                   ) == 'Owner'
                 ">
-                    <span class="hq">Owner</span>
-                    <div class="d-flex">
-                        <div class="bid_by_avtar" [avatar]="showNFTOwnerInfo?.PublicKeyBase58Check"></div>
-                        <div class="name">
-                            <a class="fc-default font-weight-bold" [routerLink]="
-                                              getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX,postContent.ProfileEntryResponse.Username ])
-                                              " queryParamsHandling="merge">
-                                              {{ postContent.ProfileEntryResponse.Username }}
-                            </a>
-
-                            <span *ngIf="postContent.ProfileEntryResponse.IsVerified" class="ml-1 text-primary">
-                                <i class="fas fa-check-circle fa-md align-middle"></i>
-                            </span>
-                        </div>
-                    </div>
+                    <span class="hq">Status</span>
+                    <div class="val">Not For Sale</div>
+                    <div class="val_st">The NFT is currently Off the market.</div>
                 </div>
 
-                <!-- <div class="auction_detl border_n_pd">
+                <div class="auction_detl border_n_pd" *ngIf="decryptableNFTEntryResponses?.length && !showUnlockableContent">
                     <span class="hq">UNLOCKABLE CONTENT</span>
                     <div class="val">Unlocked!</div>
                     <div class="val_st">You are the only one who can view the unlockable content of this NFT.</div>
-                </div> -->
+                </div>
 
             </div>
             <div class="d-flex flex-wrap justify-content-between" [ngClass]="{
@@ -505,22 +524,24 @@
                     Place your Bid
                 </button>
 
-                <!-- <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="openPlaceBidModal($event)" *ngIf="showPlaceABid">
-                   <i><img src="assets/icons/unlock.svg" alt=""></i> View unlockable content
-        </button> -->
+                <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="ViewUnlockableContent($event)" *ngIf="decryptableNFTEntryResponses?.length && !showUnlockableContent">
+                    <i><img src="assets/icons/unlock.svg" alt=""></i> View unlockable content
+                </button>
 
-                <!-- <div class="feed_post_btn_grp d-flex flex-wrap w-100 justify-content-between">
-                    <button class="btn blk_fill_btn with_ico small"><i><img src="assets/icons/u_money-bill.svg" alt=""></i> Sell your NFT</button>
-                    <button class="btn blk_line_btn with_ico small"><i><img src="assets/icons/circle-error.svg" alt=""></i> Close the auction</button>
-                </div> -->
+                <div class="feed_post_btn_grp d-flex flex-wrap w-100 justify-content-between" *ngIf="(nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length>0)&&!showPlaceABid">
+                    <button class="btn blk_fill_btn with_ico small" (click)=sellYourBid()><i><img
+                                src="assets/icons/u_money-bill.svg" alt=""></i> Sell your NFT</button>
+                    <button class="btn blk_line_btn with_ico small" (click)=closeYourAuction()><i><img
+                                src="assets/icons/circle-error.svg" alt=""></i> Close the auction</button>
+                </div>
 
 
-                <!-- <p class="center_sec font-weight-bold">
+                <p class="center_sec font-weight-bold">
                     CREATOR ROYALTY {{ postContent?.NFTRoyaltyToCreatorBasisPoints / 100 }}%
                 </p>
                 <p class="center_sec font-weight-bold">
                     COIN-HOLDER ROYALTY {{ postContent?.NFTRoyaltyToCoinBasisPoints / 100 }}%
-                </p> -->
+                </p>
             </div>
         </div>
     </ng-container>

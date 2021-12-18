@@ -346,7 +346,7 @@ export class NftPostComponent implements OnInit {
 
   closeAuction(): void {
     const closeNftAuctionModalDetails = this.modalService.show(CloseNftAuctionModalComponent, {
-      class: "modal-dialog-centered",
+      class: "modal-dialog-centered close_auction_pop",
       initialState: {
         post: this.nftPost,
         myAvailableSerialNumbers: this.myAvailableSerialNumbers,

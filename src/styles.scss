@@ -5859,3 +5859,55 @@ width: 100%;
     font-size: 16px !important;
     color: #535353 !important;
 }
+
+.close_auction_pop {
+    .nft_bid_header {
+        .head_txt {
+            font-size: 36px !important;
+            font-weight: 600;
+            color: var(--topbar);
+            width: 100%;
+            line-height: 1;
+            justify-content: center;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+    }
+    .para_txt {
+        font-size: 24px;
+        padding: 0 30px;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .close_acution_btn {
+        width: 349.92px;
+        font-size: 18px;
+        margin: auto;
+        max-width: 100%;
+        color: var(--background);
+        font-weight: bold;
+        background: #313131;
+        border: 0.28458px solid #000;
+        box-shadow: 0.794738px 0.794738px 3.97369px 0.397369px #0000001c, inset 0 -1.51437px 15.1437px 7.57187px #000;
+        border-radius: 55.7175px;
+        height: 66px;
+        transition: all 0.3s ease;
+        &:hover {
+            transform: scale(1.02);
+            -webkit-transform: scale(1.02);
+        }
+    }
+    .close_btn {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        width: 30px;
+        height: 30px;
+        background: #F1F1F1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border-radius: 50%;
+    }
+}

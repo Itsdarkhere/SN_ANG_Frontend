@@ -17,25 +17,29 @@
                 <!-- Availability metadata -->
                 <div class="fs-15px" *ngIf="!loading">
                     <div *ngIf="highBid != null && lowBid != null" class="pb-15px">
-                        <span class="d-lg-inline-block d-block">Highest bid {{ globalVars.nanosToDESO(highBid) }} DESO&nbsp;</span>
-                        <span class="text-grey7 d-lg-inline-block d-block">(~{{ globalVars.nanosToUSD(highBid, 2) }})</span>
+                        <span class="d-lg-inline-block d-block">Highest bid {{ globalVars.nanosToDESO(highBid) }}
+                            DESO&nbsp;</span>
+                        <span class="text-grey7 d-lg-inline-block d-block">(~{{ globalVars.nanosToUSD(highBid, 2)
+                            }})</span>
                         <span class="d-lg-inline-block d-none">&nbsp;|&nbsp;</span>
-                        <span class="d-lg-inline-block d-block">From {{ globalVars.nanosToDeSo(lowBid) }} DESO&nbsp;</span>
-                        <span class="text-grey7 d-lg-inline-block d-block">(~{{ globalVars.nanosToUSD(lowBid, 2) }})</span>
+                        <span class="d-lg-inline-block d-block">From {{ globalVars.nanosToDeSo(lowBid) }}
+                            DESO&nbsp;</span>
+                        <span class="text-grey7 d-lg-inline-block d-block">(~{{ globalVars.nanosToUSD(lowBid, 2)
+                            }})</span>
                     </div>
                     <div class="pb-15px">
                         <span class="d-lg-inline-block d-block">
-              Creator Royalty {{ post.NFTRoyaltyToCreatorBasisPoints / 100 }}%
-            </span>
+                            Creator Royalty {{ post.NFTRoyaltyToCreatorBasisPoints / 100 }}%
+                        </span>
                         <span class="d-lg-inline-block d-none">&nbsp;|&nbsp;</span>
                         <span class="d-lg-inline-block d-block">
-              Coin-holder Royalty {{ post.NFTRoyaltyToCoinBasisPoints / 100 }}%
-            </span>
+                            Coin-holder Royalty {{ post.NFTRoyaltyToCoinBasisPoints / 100 }}%
+                        </span>
                     </div>
                     <div class="d-flex align-items-center">
                         <button class="btn btn-primary font-weight-bold fs-15px mr-15px" style="height: 36px; width: 190px; line-height: 15px" (click)="isSelectingSerialNumber = placingBids ? false : true">
-              Select an Edition
-            </button>
+                            Select an Edition
+                        </button>
                         <span class="pr-20px">{{ availableCount }} of {{ post.NumNFTCopies }} available</span>
                     </div>
                     <div class="pt-15px d-flex justify-content-between align-items-center" *ngIf="showSelectedSerialNumbers">
@@ -44,11 +48,12 @@
                         </div>
                         <div class="d-flex align-items-center">
                             <span class="badge formbg fs-15px font-weight-normal">
-                #{{ selectedSerialNumber.SerialNumber }}
-                <sup>
-                  <i class="fas fa-times pl-5px pt-5px cursor-pointer" (click)="deselectSerialNumber()"></i>
-                </sup>
-              </span>
+                                #{{ selectedSerialNumber.SerialNumber }}
+                                <sup>
+                                    <i class="fas fa-times pl-5px pt-5px cursor-pointer"
+                                        (click)="deselectSerialNumber()"></i>
+                                </sup>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -82,8 +87,8 @@
                 <div *ngIf="errors" class="text-danger" style="white-space: pre-line">{{ errors }}</div>
                 <div class="d-flex align-items-center mb-15px">
                     <button class="btn btn-primary font-weight-bold fs-15px br-12px" style="height: 36px; width: 140px; line-height: 15px" (click)="placeBid()" [disabled]="placingBids || errors">
-            {{ placingBids ? "Placing Bids" : "Place Bid" }}
-          </button>
+                        {{ placingBids ? "Placing Bids" : "Place Bid" }}
+                    </button>
                     <div class="fs-15px ml-30px cursor-pointer text-grey7" (click)="navigateToBuyDESO()">Buy $DESO</div>
                 </div>
             </div>
@@ -100,7 +105,7 @@
                             </div>
                             <button class="btn btn-black bid_deso_btn"><i><img src="assets/icons/dl_lg.svg" alt=""></i> $DESO</button>
                         </div>
-                        <div class="bid_suggest_bx">
+                        <div class="bid_suggest_bx" *ngIf="!errors||errors==''">
                             <h5>You must bid at least {{ highBid > 0 ? globalVars.nanosToDeSo(highBid) : globalVars.nanosToDeSo(minBid) }} DESO</h5>
                         </div>
 
@@ -109,11 +114,11 @@
                         <div class="bid_pop_details_ls">
                             <div class="lst">
                                 <span class="lb">Coin Holder Royalty</span>
-                                <span class="val">10%</span>
+                                <span class="val">{{ post.NFTRoyaltyToCoinBasisPoints / 100 }}%</span>
                             </div>
                             <div class="lst">
                                 <span class="lb">Creator Royalty</span>
-                                <span class="val">10%</span>
+                                <span class="val">{{ post.NFTRoyaltyToCreatorBasisPoints / 100 }}%</span>
                             </div>
                             <div class="divider"></div>
                             <div class="lst">
@@ -128,8 +133,8 @@
                     </div>
                     <div class="popup-footer">
                         <button class="btn btn-post" (click)="placeBid()" [disabled]="placingBids || errors">
-                        {{ placingBids ? "Placing Bids" : "Place Bid" }}
-                      </button>
+                            {{ placingBids ? "Placing Bids" : "Place Bid" }}
+                        </button>
                     </div>
                 </div>
             </div>

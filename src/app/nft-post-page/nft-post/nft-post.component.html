@@ -5,7 +5,7 @@
     <simple-center-loader *ngIf="isLoading"></simple-center-loader>
     <div class="nft_details_main_wrapper">
         <div class="nft_bx nft_feed_post_design gray">
-            <div *ngIf="nftPost && nftBidData" class="w-100">
+            <div *ngIf="nftPost && nftBidData">
                 <!--  afterCommentCreatedCallback explanation: Here, the "post" is a top-level post. A new comment on a -->
                 <!--  top-level post should be prepended to the post's list of comments -->
                 <div *ngIf="nftPost.ImageURLs && nftPost.ImageURLs[0] && !nftPost.ParentStakeID" class="feed-post__image-container" [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }">
@@ -68,7 +68,7 @@
       </button>
 
         </div>
-        <div class="nft_bx">
+        <div class="nft_bx bids_new_sc">
             <div class="borderbg feed-post__blue-border" *ngIf="!loading">
                 <tab-selector [tabs]="tabs" [activeTab]="activeTab" (tabClick)="_handleTabClick($event)"></tab-selector>
             </div>

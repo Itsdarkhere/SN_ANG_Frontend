@@ -4605,7 +4605,7 @@ width: 100%;
         width: calc(50% - 10px);
         margin-bottom: 10px;
         @media screen and (min-width: 1400px) {
-            width: 40%;
+            width: 573px
         }
         @media screen and (max-width: 1050px) {
             width: 100%;
@@ -4629,7 +4629,7 @@ width: 100%;
             background-color: var( --secondary);
             padding: 0 50px;
             @media screen and (min-width: 1400px) {
-                width: 60%;
+                width: calc(100% - 573px);
             }
             @media screen and (max-width: 767px) {
                 margin: -5px -10px 0 -10px;
@@ -4720,8 +4720,11 @@ width: 100%;
             align-items: center;
             padding: 30px 0;
             @media screen and (min-width: 1400px) {
-                width: 60%;
+                width: calc(100% - 573px);
             }
+        }
+        &.bids_new_sc {
+            padding-left: 20px;
         }
         .bids_list_sec {
             margin-top: 30px;
@@ -6152,9 +6155,33 @@ width: 100%;
             margin-right: 10px;
             margin-left: 15px;
         }
-        .post_del_list {
-            font-size: 16px;
+    }
+}
+
+.post_del_list {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    min-width: 90px;
+    .nb {
+        position: absolute;
+        top: -25px;
+        font-weight: 600;
+        font-size: 12.4281px;
+        color: #828282;
+        opacity: 0.8;
+    }
+    &:first-child {
+        min-width: 165px;
+        .nb {
+            left: -43px;
+            font-size: 10px;
         }
+    }
+    .ps_dells_val {
+        font-weight: 600;
+        font-size: 15.4566px;
+        color: #545454;
     }
 }
 

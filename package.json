@@ -33,7 +33,7 @@
     "@angular/platform-browser": "^11.2.12",
     "@angular/platform-browser-dynamic": "^11.2.12",
     "@angular/router": "^11.2.12",
-    "@bundlr-network/client": "^0.3.3",
+    "@bundlr-network/client": "^0.4.4",
     "@ethereumjs/common": "^2.5.0",
     "@ethereumjs/tx": "^3.3.2",
     "@ethereumjs/vm": "^5.5.3",

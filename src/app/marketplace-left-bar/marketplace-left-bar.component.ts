@@ -21,6 +21,11 @@ export class MarketplaceLeftBarComponent implements OnInit {
   static OLDEST_FIRST = "Oldest first";
   static HIGHEST_PRICE_FIRST = "Highest price first";
   static LOWEST_PRICE_FIRST = "Lowest price first";
+  static MOST_LIKES_FIRST = "Most likes first";
+  static MOST_DIAMONDS_FIRST = "Most diamonds first";
+  static MOST_COMMENTS_FIRST = "Most comments first";
+  static MOST_REPOSTS_FIRST = "Most reposts first";
+
   // Status
   static ALL = "All";
   static HAS_BIDS = "Has bids";
@@ -58,6 +63,10 @@ export class MarketplaceLeftBarComponent implements OnInit {
     oldest_first: "Oldest first",
     highest_price_first: "Highest price first",
     lowest_price_first: "Lowest price first",
+    most_likes_first: "Most likes first",
+    most_diamonds_first: "Most diamonds first",
+    most_comments_first: "Most comments first",
+    most_reposts_first: "Most reposts first",
   };
 
   selectValuesInverse = {
@@ -65,6 +74,10 @@ export class MarketplaceLeftBarComponent implements OnInit {
     [MarketplaceLeftBarComponent.OLDEST_FIRST]: "oldest_first",
     [MarketplaceLeftBarComponent.HIGHEST_PRICE_FIRST]: "highest_price_first",
     [MarketplaceLeftBarComponent.LOWEST_PRICE_FIRST]: "lowest_price_first",
+    [MarketplaceLeftBarComponent.MOST_LIKES_FIRST]: "most_likes_first",
+    [MarketplaceLeftBarComponent.MOST_DIAMONDS_FIRST]: "most_diamonds_first",
+    [MarketplaceLeftBarComponent.MOST_COMMENTS_FIRST]: "most_comments_first",
+    [MarketplaceLeftBarComponent.MOST_REPOSTS_FIRST]: "most_reposts_first",
   };
 
   statusValues = {

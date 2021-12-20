@@ -17,7 +17,7 @@
     'js-feed-post-hover': hoverable,
     border: setBorder || cardStyle,
     'feed-post__quoted-content': hoverable && isQuotedContent
-  }" *ngIf="nftEntryResponses!=undefined">
+  }">
     <!-- <code>{{post | json}}</code> -->
     <div class="w-100">
         <div *ngIf="post.IsHidden" class="p-10px background-color-grey d-flex align-items-center justify-content-center fs-15px">
@@ -133,7 +133,7 @@
                                     <span class="nb">Minted on</span>
                                     <div class="ps_dells_val"> DeSo </div>
                                 </div>
-                                <div class="post_del_list" *ngIf="router.url!='/browse?feedTab=Supernovas%20Feed'">
+                                <div class="post_del_list" *ngIf="router.url!='/browse?feedTab=Supernovas%20Feed' && nftEntryResponses">
                                     <span class="nb">Market</span>
                                     <div class="ps_dells_val" *ngIf="postContent?.PosterPublicKeyBase58Check==nftEntryResponses[0]?.OwnerPublicKeyBase58Check"> Primary </div>
                                     <div class="ps_dells_val" *ngIf="postContent?.PosterPublicKeyBase58Check!=nftEntryResponses[0]?.OwnerPublicKeyBase58Check"> Secondary </div>

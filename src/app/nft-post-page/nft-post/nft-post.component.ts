@@ -179,6 +179,7 @@ export class NftPostComponent implements OnInit {
         }
         // Set current post
         this.nftPost = res.PostFound;
+        console.log(this.nftPost)
         this.titleService.setTitle(this.nftPost.ProfileEntryResponse.Username + ` on ${environment.node.name}`);
         this.refreshBidData();
         this.configureMetaTags();

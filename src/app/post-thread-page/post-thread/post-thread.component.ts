@@ -45,7 +45,9 @@ export class PostThreadComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
     this.datasource = this.getDataSource();
+    console.log(this.datasource)
     this.route.params.subscribe((params) => {
+
       this._setStateFromActivatedRoute(route);
     });
   }
@@ -302,9 +304,9 @@ export class PostThreadComponent implements OnInit {
     );
   }
 
-  refreshPosts() {
+  async refreshPosts() {
     // Fetch the post entry
-    this.getPost().subscribe(
+    await this.getPost().subscribe(
       (res) => {
         if (!res || !res.PostFound) {
           this.router.navigateByUrl("/" + this.globalVars.RouteNames.NOT_FOUND, { skipLocationChange: true });
@@ -321,6 +323,7 @@ export class PostThreadComponent implements OnInit {
         }
         // Set current post
         this.currentPost = res.PostFound;
+        console.log(this.currentPost)
         this.titleService.setTitle(this.currentPost.ProfileEntryResponse.Username + ` on ${environment.node.name}`);
       },
       (err) => {
@@ -331,7 +334,7 @@ export class PostThreadComponent implements OnInit {
     );
   }
 
-  _setStateFromActivatedRoute(route) {
+ async _setStateFromActivatedRoute(route) {
     // get the username of the target user (user whose followers / following we're obtaining)
     this.currentPostHashHex = route.snapshot.params.postHashHex;
 
@@ -341,7 +344,7 @@ export class PostThreadComponent implements OnInit {
     // page" and re-render the whole component using the new post hash. instead, angular will
     // continue using the current component and merely change the URL. so we need to explictly
     // refresh the posts every time the route changes.
-    this.refreshPosts();
+   await this.refreshPosts();
     this.datasource.adapter.reset();
   }
 
@@ -353,6 +356,7 @@ export class PostThreadComponent implements OnInit {
     this.globalVars.loggedInUser.BlockedPubKeys[blockedPubKey] = {};
   }
   ngOnInit(){
+    console.log("in post thread")
     // setTimeout(() => {
     //   console.log('refresh post...')
     //   this.refreshPosts();

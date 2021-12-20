@@ -229,6 +229,9 @@ export class FeedPostComponent implements OnInit {
       this.post.RepostCount = 0;
     }
     this.setEmbedURLForPostContent();
+    console.log(this.nftEntryResponses)
+    console.log(this.showNFTDetails)
+    console.log(this.postContent.IsNFT)
     if (this.showNFTDetails && this.postContent.IsNFT && !this.nftEntryResponses?.length) {
       this.getNFTEntries();
     }

@@ -6195,3 +6195,17 @@ width: 100%;
     background-position: center;
     margin-right: 11px;
 }
+
+.comments_likes_list {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    .ls_sc {
+        font-size: 16px;
+        color: #909090;
+        margin: 0 15px;
+        i {
+            margin-left: 5px;
+        }
+    }
+}

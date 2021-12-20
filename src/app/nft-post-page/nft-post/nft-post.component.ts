@@ -26,6 +26,7 @@ import { SharedDialogs } from "src/lib/shared-dialogs";
 import { CommentModalComponent } from "src/app/comment-modal/comment-modal.component";
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 import { FeedPostImageModalComponent } from 'src/app/feed/feed-post-image-modal/feed-post-image-modal.component';
+import { Meta, MetaDefinition } from '@angular/platform-browser';
 
 @Component({
   selector: "nft-post",
@@ -83,7 +84,8 @@ export class NftPostComponent implements OnInit {
     private changeRef: ChangeDetectorRef,
     private modalService: BsModalService,
     private titleService: Title,
-    private location: Location
+    private location: Location,
+    private metaService: Meta
   ) {
     // This line forces the component to reload when only a url param changes.  Without this, the UiScroll component
     // behaves strangely and can reuse data from a previous post.
@@ -179,6 +181,7 @@ export class NftPostComponent implements OnInit {
         this.nftPost = res.PostFound;
         this.titleService.setTitle(this.nftPost.ProfileEntryResponse.Username + ` on ${environment.node.name}`);
         this.refreshBidData();
+        this.configureMetaTags();
       },
       (err) => {
         // TODO: post threads: rollbar
@@ -616,4 +619,11 @@ export class NftPostComponent implements OnInit {
     );
     return list[0]?.EncryptedUnlockableText ? list[0]?.EncryptedUnlockableText : "";
   }
+
+  configureMetaTags(): void {
+  const imageUrl = this.mapImageURLs(this.nftPost?.ImageURLs[0]);
+  const nftDescription = this.nftPost?.PostExtraData?.name;
+  this.metaService.updateTag( { property:'og:url', content:`${imageUrl}`}, "property='og:url'");
+  this.metaService.updateTag( { property:'og:title', content:`${nftDescription}`}, "property='og:title'");
+}
 }

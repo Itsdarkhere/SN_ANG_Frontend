@@ -277,7 +277,7 @@ export class PostEntryResponse {
   CommentCount: number;
   // A list of parent posts for this post (ordered: root -> closest parent post).
   ParentPosts: PostEntryResponse[];
-  PostExtraData: PostExtraData;
+  PostExtraData: any;
   InMempool: boolean;
   IsPinned: boolean;
   DiamondsFromSender?: number;
@@ -390,13 +390,6 @@ export class TransactionFee {
   ProfileEntryResponse?: ProfileEntryResponse;
 }
 
-export class PostExtraData {
-  Node: string;
-  category: string;
-  name: string;
-  properties: string;
-}
-
 @Injectable({
   providedIn: "root",
 })
@@ -418,7 +411,7 @@ export class BackendApiService {
   IdentityUsersKey = "identityUsers";
 
   // Store last local node URL in localStorage
-  LastLocalNodeKey = "https://supernovas.app";
+  LastLocalNodeKey = "lastLocalNodeV2";
 
   // Store last logged in user public key in localStorage
   LastLoggedInUserKey = "lastLoggedInUser";

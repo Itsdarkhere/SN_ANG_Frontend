@@ -135,8 +135,8 @@
                                 </div>
                                 <div class="post_del_list" *ngIf="router.url!='/browse?feedTab=Supernovas%20Feed'">
                                     <span class="nb">Market</span>
-                                    <div class="ps_dells_val" *ngIf="postContent?.PosterPublicKeyBase58Check==nftEntryResponses?.OwnerPublicKeyBase58Check"> Primary </div>
-                                    <div class="ps_dells_val" *ngIf="postContent?.PosterPublicKeyBase58Check!=nftEntryResponses?.OwnerPublicKeyBase58Check"> Secondary </div>
+                                    <div class="ps_dells_val" *ngIf="postContent?.PosterPublicKeyBase58Check==nftEntryResponses[0]?.OwnerPublicKeyBase58Check"> Primary </div>
+                                    <div class="ps_dells_val" *ngIf="postContent?.PosterPublicKeyBase58Check!=nftEntryResponses[0]?.OwnerPublicKeyBase58Check"> Secondary </div>
                                 </div>
                             </div>
 

@@ -5739,6 +5739,9 @@ width: 100%;
 
 .nft_details_main_wrapper .nft_bx.nft_feed_post_wt_design.post {
     padding-top: 30px;
+    .post_del_list {
+        display: flex;
+    }
 }
 
 .feed_post_btn_grp {
@@ -6159,7 +6162,7 @@ width: 100%;
 }
 
 .post_del_list {
-    display: flex;
+    display: none;
     flex-wrap: wrap;
     position: relative;
     min-width: 90px;
@@ -6207,5 +6210,28 @@ width: 100%;
         i {
             margin-left: 5px;
         }
+    }
+}
+
+.post_thread_likes_wrapper {
+    width: 100%;
+    .post-thread__comment-container {
+        background: #FEFEFE;
+        border: 0.910355px solid #EAEAEA;
+        box-sizing: border-box;
+        border-radius: 9.10355px;
+        width: 589px;
+        max-width: 100%;
+        margin: 20px auto -1px;
+        padding-top: 11px;
+    }
+    .border-bottom.border-color-grey {
+        border-left: 1px solid #ddd !important;
+        margin: -1px 10px 0 !important;
+        border-right: 1px solid #ddd !important;
+        border-top: 1px solid #ddd !important;
+    }
+    .mobile_feed_post {
+        margin: 0;
     }
 }

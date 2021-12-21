@@ -56,12 +56,12 @@
             <!-- <feed-post-icon-row *ngIf="showIconRow" [post]="post" [postContent]="postContent" [parentPost]="parentPost" [afterCommentCreatedCallback]="afterCommentCreatedCallback" [afterRepostCreatedCallback]="afterRepostCreatedCallback" [inTutorial]="inTutorial"
             (diamondSent)="diamondSent.emit()"></feed-post-icon-row> -->
             <!-- Feed likes -->
-            <!-- <div class="comments_likes_list">
+            <div class="comments_likes_list">
                 <div class="ls_sc">3 <i><img src="assets/icons/message_n.svg" alt=""></i></div>
                 <div class="ls_sc">12 <i><img src="assets/icons/repeat_n.svg" alt=""></i></div>
                 <div class="ls_sc likes">33 <i><img src="assets/icons/heart_n.svg" alt=""></i></div>
                 <div class="ls_sc">10 <i><img src="assets/icons/star_n.svg" alt=""></i></div>
-            </div> -->
+            </div>
             <!-- Feed likes End-->
 
             <!-- feed-post -->
@@ -73,11 +73,12 @@
                 There are no comments on this NFT yet.
             </div>
 
-            <post-thread [hideHeader]="true" [fromNFTDetail]="true" [hideCurrentPost]="!nftPost.ParentStakeID" *ngIf="nftPost.CommentCount || nftPost.ParentStakeID"></post-thread>
+            <post-thread class="post_thread_likes_wrapper" [hideHeader]="true" [fromNFTDetail]="true" [hideCurrentPost]="!nftPost.ParentStakeID" *ngIf="nftPost.CommentCount || nftPost.ParentStakeID"></post-thread>
+
+
             <button type="button" class="add_comment_btn" (click)="openRepostsModal($event)" *ngIf="!(nftPost.CommentCount || nftPost.ParentStakeID)">
-        <i>+</i>
-        Comment
-      </button>
+                <i>+</i> Comment
+            </button>
         </div>
         <div class="nft_bx bids_new_sc">
             <div class="borderbg feed-post__blue-border" *ngIf="!loading">

@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { GlobalVarsService } from "./global-vars.service";
-import Bundlr from "./bundlr-client/bundlr";
+import { Bundlr } from "@bundlr-network/client";
 import { Observable, of, from } from "rxjs";
+import { config } from "process";
 
 @Injectable({
   providedIn: "root",
@@ -29,7 +30,7 @@ export class ArweaveJsService {
 
   globalVars: GlobalVarsService;
   GlobalVarsService = GlobalVarsService;
-  bundlr = new Bundlr("https://node1.bundlr.network", "arweave", this.arKey);
+  bundlr = new Bundlr("https://node1.bundlr.network", "arweave", this.arKey, { timeout: 1000000 });
   constructor(private appState: GlobalVarsService) {
     this.globalVars = appState;
   }
@@ -64,10 +65,8 @@ export class ArweaveJsService {
     }
   }
   async fundBundlr() {
-    let resp = this.bundlr.fund(9000000000000000);
     let resp2 = this.bundlr.getBalance(this.bundlr.address);
     let resp3 = this.bundlr.getLoadedBalance();
-    console.log(resp);
     console.log(resp2);
     console.log(resp3);
   }

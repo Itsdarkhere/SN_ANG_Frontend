@@ -4597,6 +4597,10 @@ width: 100%;
         width: 1360px;
         margin: 0 -50px;
     }
+    @media screen and (min-width: 1366px) {
+        width: 1300px;
+        margin: 0 -50px;
+    }
     @media screen and (max-width: 1050px) {
         padding: 70px 10px 10px 10px;
         align-items: flex-start;
@@ -4606,6 +4610,9 @@ width: 100%;
         margin-bottom: 10px;
         @media screen and (min-width: 1400px) {
             width: 573px
+        }
+        @media screen and (min-width: 1366px) {
+            width: 600px
         }
         @media screen and (max-width: 1050px) {
             width: 100%;
@@ -4630,6 +4637,9 @@ width: 100%;
             padding: 0 50px;
             @media screen and (min-width: 1400px) {
                 width: calc(100% - 573px);
+            }
+            @media screen and (min-width: 1366px) {
+                width: calc(100% - 600px);
             }
             @media screen and (max-width: 767px) {
                 margin: -5px -10px 0 -10px;
@@ -4721,6 +4731,9 @@ width: 100%;
             padding: 30px 0;
             @media screen and (min-width: 1400px) {
                 width: calc(100% - 573px);
+            }
+            @media screen and (min-width: 1366px) {
+                width: calc(100% - 600px);
             }
         }
         &.bids_new_sc {
@@ -4981,6 +4994,7 @@ width: 100%;
                     line-height: 1;
                     justify-content: center;
                     margin-bottom: 20px;
+                    text-align: center;
                     @media screen and (max-width: 767px) {
                         font-size: 32px !important;
                     }
@@ -5741,6 +5755,7 @@ width: 100%;
     padding-top: 30px;
     .post_del_list {
         display: flex;
+        align-items: center;
     }
 }
 
@@ -5777,8 +5792,9 @@ width: 100%;
     height: 44.57px;
 }
 
-.nft_placebid_modal_bx {
-    left: 310px;
+.nft_placebid_modal_bx,
+.rt_popups {
+    left: 360px;
     @media screen and (max-width: 767px) {
         left: 0;
     }
@@ -6057,6 +6073,7 @@ width: 100%;
     border-radius: 55.7175px;
     height: 66px;
     transition: all 0.3s ease;
+    cursor: pointer;
     &:hover {
         color: var(--background);
         transform: scale(1.02);
@@ -6176,10 +6193,26 @@ width: 100%;
     }
     &:first-child {
         min-width: 165px;
+        a {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+            max-width: 130px;
+            font-size: 15px;
+        }
         .nb {
             left: -43px;
             font-size: 10px;
         }
+    }
+    &.edition {
+        min-width: 60px;
+    }
+    &.minted_on {
+        min-width: 80px;
+    }
+    &.market_sc {
+        min-width: 100px;
     }
     .ps_dells_val {
         font-weight: 600;
@@ -6233,5 +6266,126 @@ width: 100%;
     }
     .mobile_feed_post {
         margin: 0;
+    }
+}
+
+.img_popups {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    height: 100%;
+    .modal-content {
+        border-radius: 0;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        .img {
+            height: 515px;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .img_pop_close {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            background: #F9F9F9;
+            border-radius: 30px;
+            width: 74px;
+            display: flex;
+            justify-content: center;
+            height: 34px;
+            align-items: center;
+            color: #434343;
+            font-weight: 500;
+            cursor: pointer;
+            img {
+                margin-right: 5px;
+            }
+        }
+    }
+}
+
+.textarea_min_ht {
+    min-height: 230px !important;
+    height: 230px !important;
+    margin-top: 0px !important;
+}
+
+.puton_sell {
+    .plc_bid_inp_wp {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        .form-control {
+            width: calc(100% - 120px);
+            height: 100%;
+            font-weight: 600;
+            font-size: 24px !important;
+            max-width: 100% !important;
+            border-radius: 13.4699px !important;
+            text-align: left !important;
+            &::-webkit-input-placeholder {
+                color: #7D7D7D;
+                font-weight: normal;
+            }
+            &:-ms-input-placeholder {
+                color: #7D7D7D;
+                font-weight: normal;
+            }
+            &::placeholder {
+                color: #7D7D7D;
+                font-weight: normal;
+            }
+        }
+    }
+    .aft_bid_val {
+        font-size: 18px;
+        color: #8C8C8C;
+        text-align: left;
+        padding-left: 20px;
+    }
+}
+
+.last_price_list {
+    margin: 30px 0 40px 0;
+    background: #FFFFFF;
+    border: 2px solid #EBEBEB;
+    box-sizing: border-box;
+    border-radius: 10px;
+    .head {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 2px solid #EBEBEB;
+        padding: 0 0 0 20px;
+        flex-wrap: wrap;
+        .th {
+            padding: 10px 0;
+            font-size: 14px;
+            font-weight: 500;
+            color: #7A7A7A;
+            &:last-child {
+                width: 170px;
+                text-align: left;
+            }
+        }
+    }
+    .list_inside {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: 0 0 0 20px;
+        .td_lst {
+            padding: 10px 0;
+            font-size: 14px;
+            color: #2C2C2C;
+            font-weight: 500;
+            &:last-child {
+                width: 170px;
+                text-align: left;
+            }
+        }
     }
 }

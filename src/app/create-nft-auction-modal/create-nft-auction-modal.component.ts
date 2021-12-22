@@ -9,6 +9,7 @@ import { Router } from "@angular/router";
 @Component({
   selector: "create-nft-auction",
   templateUrl: "./create-nft-auction-modal.component.html",
+  styleUrls: ["./create-nft-auction.component.scss"],
 })
 export class CreateNftAuctionModalComponent {
   @Input() postHashHex: string;

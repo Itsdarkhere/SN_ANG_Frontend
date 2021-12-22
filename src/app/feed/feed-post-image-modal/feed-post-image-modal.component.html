@@ -1,3 +1,6 @@
 <div class="p-15px d-flex justify-content-center align-items-center br-3px">
-  <img [src]="imageURL" style="max-height: 100%; max-width: 100%" />
+    <figure class="img"><img [src]="imageURL" style="max-height: 100%; max-width: 100%" /></figure>
+    <div class="img_pop_close" (click)="closeThisWindow()">
+        <img src="assets/icons/minimize.svg" alt=""> Exit
+    </div>
 </div>

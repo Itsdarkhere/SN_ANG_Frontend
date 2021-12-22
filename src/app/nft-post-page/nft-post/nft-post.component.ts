@@ -152,7 +152,7 @@ export class NftPostComponent implements OnInit {
   openImgModal(event, imageURL) {
     event.stopPropagation();
     this.modalService.show(FeedPostImageModalComponent, {
-      class: "modal-dialog-centered modal-lg",
+      class: "modal-dialog-centered img_popups modal-lg",
       initialState: {
         imageURL,
       },
@@ -315,7 +315,7 @@ export class NftPostComponent implements OnInit {
     }
     console.log(this.nftBidData.BidEntryResponses)
     const sellNFTModalDetails = this.modalService.show(SellNftModalComponent, {
-      class: "modal-dialog-center nft_placebid_modal_bx modal-lg",
+      class: "modal-dialog-center nft_placebid_modal_bx rt_popups modal-lg",
       initialState: {
         post: this.nftPost,
         nftEntries: this.nftBidData.NFTEntryResponses,
@@ -330,7 +330,7 @@ export class NftPostComponent implements OnInit {
         this.feedPost.getNFTEntries();
       } else if (response === "unlockable content opened") {
         const unlockableModalDetails = this.modalService.show(AddUnlockableModalComponent, {
-          class: "modal-dialog-centered",
+          class: "modal-dialog-centered nft_placebid_modal_bx rt_popups",
           initialState: {
             post: this.nftPost,
             selectedBidEntries: this.nftBidData.BidEntryResponses.filter((bidEntry) => bidEntry.selected),
@@ -374,7 +374,7 @@ export class NftPostComponent implements OnInit {
 
   closeAuction(): void {
     const closeNftAuctionModalDetails = this.modalService.show(CloseNftAuctionModalComponent, {
-      class: "modal-dialog-centered close_auction_pop",
+      class: "modal-dialog-centered close_auction_pop rt_popups",
       initialState: {
         post: this.nftPost,
         myAvailableSerialNumbers: this.myAvailableSerialNumbers,
@@ -616,7 +616,7 @@ export class NftPostComponent implements OnInit {
 
       // If the user has an account and a profile, open the modal so they can comment.
       this.modalService.show(CommentModalComponent, {
-        class: "modal-dialog-centered",
+        class: "modal-dialog-centered rt_popups",
         initialState,
       });
     }

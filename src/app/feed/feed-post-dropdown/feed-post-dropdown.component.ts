@@ -241,7 +241,7 @@ export class FeedPostDropdownComponent {
 
   openCreateNFTAuctionModal(event): void {
     this.modalService.show(CreateNftAuctionModalComponent, {
-      class: "modal-dialog-centered",
+      class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
       initialState: { post: this.post, nftEntryResponses: this.nftEntryResponses },
     });
   }

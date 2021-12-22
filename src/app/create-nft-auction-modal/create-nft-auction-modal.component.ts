@@ -96,10 +96,12 @@ export class CreateNftAuctionModalComponent {
   }
 
   createAuctionDisabled(): boolean {
+    console.log(!this.selectedSerialNumbers.filter((isSelected) => isSelected)?.length)
     return !this.selectedSerialNumbers.filter((isSelected) => isSelected)?.length;
   }
 
   selectSerialNumber(idx: number): void {
+    console.log(idx)
     this.selectAll = false;
     for (let ii = 0; ii < this.selectedSerialNumbers.length; ii++) {
       this.selectedSerialNumbers[ii] = ii === idx;

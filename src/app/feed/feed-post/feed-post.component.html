@@ -524,7 +524,7 @@
                     <i><img src="assets/icons/unlock.svg" alt=""></i> View unlockable content
                 </button>
                 
-                <button class="btn blk_line_btn with_ico small" *ngIf="isAvailableForSale && !showPlaceABid && !(nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length>0)" (click)=closeYourAuction()><i><img
+                <button class="btn blk_line_btn with_ico" *ngIf="isAvailableForSale && !showPlaceABid && !(nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length>0)" (click)=closeYourAuction()><i><img
                     src="assets/icons/circle-error.svg" alt=""></i> Close the auction
                 </button>
 

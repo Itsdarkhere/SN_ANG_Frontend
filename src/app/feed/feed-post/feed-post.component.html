@@ -506,7 +506,7 @@
                     <div class="val_st">The NFT is currently Off the market.</div>
                 </div>
 
-                <div class="auction_detl border_n_pd" *ngIf="decryptableNFTEntryResponses?.length && !showUnlockableContent">
+                <div class="auction_detl border_n_pd" *ngIf="!isAvailableForSale && decryptableNFTEntryResponses?.length && !showUnlockableContent">
                     <span class="hq">UNLOCKABLE CONTENT</span>
                     <div class="val">Unlocked!</div>
                     <div class="val_st">You are the only one who can view the unlockable content of this NFT.</div>
@@ -527,11 +527,11 @@
                     <i><img src="assets/icons/unlock.svg" alt=""></i> View unlockable content
                 </button>
                 
-                <button class="btn blk_line_btn with_ico small" *ngIf="isAvailableForSale" (click)=closeYourAuction()><i><img
+                <button class="btn blk_line_btn with_ico small" *ngIf="isAvailableForSale && !showPlaceABid && !(nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length>0)" (click)=closeYourAuction()><i><img
                     src="assets/icons/circle-error.svg" alt=""></i> Close the auction
                 </button>
 
-                <div class="feed_post_btn_grp d-flex flex-wrap w-100 justify-content-between" *ngIf="(nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length>0)&&!showPlaceABid">
+                <div class="feed_post_btn_grp d-flex flex-wrap w-100 justify-content-between" *ngIf="(nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length>0) && !showPlaceABid">
                     <button class="btn blk_fill_btn with_ico small" (click)=sellYourBid()><i><img
                                 src="assets/icons/u_money-bill.svg" alt=""></i> Sell your NFT</button>
                     <button class="btn blk_line_btn with_ico small" (click)=closeYourAuction()><i><img

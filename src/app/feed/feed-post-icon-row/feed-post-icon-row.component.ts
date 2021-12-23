@@ -14,7 +14,7 @@ import { includes, round } from "lodash";
 @Component({
   selector: "feed-post-icon-row",
   templateUrl: "./feed-post-icon-row.component.html",
-  styleUrls: ["./feed-post-icon-row.component.sass"],
+  styleUrls: ["./feed-post-icon-row.component.scss"],
 })
 export class FeedPostIconRowComponent {
   @ViewChild("diamondPopover", { static: false }) diamondPopover: PopoverDirective;
@@ -27,7 +27,12 @@ export class FeedPostIconRowComponent {
   @Input() hideNumbers: boolean = false;
   // Will need additional inputs if we walk through actions other than diamonds.
   @Input() inTutorial: boolean = false;
-
+  @Input() firstIconPath: string = '';
+  @Input() secondIconPath: string = '';
+  @Input() thirdIconPath: string = '';
+  @Input() fourthIconPath: string = '';
+  @Input() fifthIconPath: string = '';
+  @Input() canReplaceExistingIcons: boolean = false;
   @Output() diamondSent = new EventEmitter();
 
   sendingRepostRequest = false;
@@ -593,5 +598,9 @@ export class FeedPostIconRowComponent {
   getPopoverContainerClass() {
     const mobileClass = this.globalVars.isMobile() ? "diamond-popover-container-mobile " : "";
     return "diamond-popover-container " + mobileClass;
+  }
+  
+  determineHeartIconPath(): string {
+    return this.postContent?.PostEntryReaderState?.LikedByReader ? this.fourthIconPath : this.thirdIconPath;
   }
 }

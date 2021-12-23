@@ -8,7 +8,7 @@
         <div class="popup-body">
             <div class="input-with-button bid_bg_blk_inp">
                 <div class="plc_bid_inp_wp">
-                    <input [(ngModel)]="minBidAmountUSD" (ngModelChange)="updateMinBidAmountDESO($event)" aria-describedby="usd-label" class="form-control fs-15px text-right d-inline-block" type="number" min="0" placeholder="0.00" [disabled]="creatingAuction" />
+                    <input [(ngModel)]="minBidAmountDESO" (ngModelChange)="updateMinBidAmountUSD($event)" aria-describedby="usd-label" class="form-control fs-15px text-right d-inline-block" type="number" min="0" placeholder="0.00" [disabled]="creatingAuction" />
                     <button class="btn btn-black bid_deso_btn"><i><img src="assets/icons/dl_lg.svg" alt=""></i> $DESO</button>
                 </div>
             </div>
@@ -25,6 +25,7 @@
             <div class="list_section" style="max-height: 160px; overflow-y: scroll">
                 <div class="list_inside" *ngFor="let nft of mySerialNumbersNotForSale()">
                     <div class="td_lst">
+                        <input type="checkbox" style="width: 15px" [(ngModel)]="selectedSerialNumbers[nft.SerialNumber]" />
                         {{ nft.SerialNumber }}
                     </div>
                     <div class="td_lst">

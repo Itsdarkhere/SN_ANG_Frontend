@@ -523,8 +523,12 @@
                     Place your Bid
                 </button>
 
-                <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="ViewUnlockableContent($event)" *ngIf="decryptableNFTEntryResponses?.length && !showUnlockableContent">
+                <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="ViewUnlockableContent($event)" *ngIf="!isAvailableForSale && decryptableNFTEntryResponses?.length && !showUnlockableContent">
                     <i><img src="assets/icons/unlock.svg" alt=""></i> View unlockable content
+                </button>
+                
+                <button class="btn blk_line_btn with_ico small" *ngIf="isAvailableForSale" (click)=closeYourAuction()><i><img
+                    src="assets/icons/circle-error.svg" alt=""></i> Close the auction
                 </button>
 
                 <div class="feed_post_btn_grp d-flex flex-wrap w-100 justify-content-between" *ngIf="(nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length>0)&&!showPlaceABid">

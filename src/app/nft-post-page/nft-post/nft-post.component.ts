@@ -38,6 +38,7 @@ import { FIRST_ICON_PATH, SECOND_ICON_PATH, THIRD_ICON_PATH,
 export class NftPostComponent implements OnInit {
   @ViewChild(FeedPostComponent) feedPost: FeedPostComponent;
 
+  isAvailableForSale = false
   nftPost: PostEntryResponse;
   nftPostHashHex: string;
   nftBidData: NFTBidData;
@@ -193,7 +194,6 @@ export class NftPostComponent implements OnInit {
         // Set current post
         this.nftPost = res.PostFound;
         this.configurePostType(this.nftPost);
-        console.log(this.nftPost, 'coming from nft post component');
         this.titleService.setTitle(this.nftPost.ProfileEntryResponse.Username + ` on ${environment.node.name}`);
         this.refreshBidData();
         this.configureMetaTags();

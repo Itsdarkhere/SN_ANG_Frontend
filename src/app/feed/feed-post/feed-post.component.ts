@@ -30,7 +30,6 @@ export class FeedPostComponent implements OnInit {
     return this._post;
   }
   set post(post: PostEntryResponse) {
-    console.log(post)
     // When setting the post, we need to consider repost behavior.
     // If a post is a reposting another post (without a quote), then use the reposted post as the post content.
     // If a post is quoting another post, then we use the quoted post as the quoted content.
@@ -144,6 +143,9 @@ export class FeedPostComponent implements OnInit {
   _post: any;
   pinningPost = false;
   hidingPost = false;
+  
+  isAvailableForSale = false;
+
   quotedContent: any;
   _blocked: boolean;
   constructedEmbedURL: any;
@@ -172,7 +174,11 @@ export class FeedPostComponent implements OnInit {
         this.postContent.PostHashHex
       )
       .subscribe((res) => {
+        
+        
         this.nftEntryResponses = res.NFTEntryResponses;
+        this.isAvailableForSale = this.nftEntryResponses[0].IsForSale;
+        console.log(this.isAvailableForSale);
         this.nftEntryResponses.sort((a, b) => a.SerialNumber - b.SerialNumber);
         this.decryptableNFTEntryResponses = this.nftEntryResponses.filter(
           (sn) =>
@@ -229,9 +235,6 @@ export class FeedPostComponent implements OnInit {
       this.post.RepostCount = 0;
     }
     this.setEmbedURLForPostContent();
-    console.log(this.nftEntryResponses)
-    console.log(this.showNFTDetails)
-    console.log(this.postContent.IsNFT)
     if (this.showNFTDetails && this.postContent.IsNFT && !this.nftEntryResponses?.length) {
       this.getNFTEntries();
     }

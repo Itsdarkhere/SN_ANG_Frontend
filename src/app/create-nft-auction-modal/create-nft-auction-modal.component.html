@@ -24,13 +24,15 @@
             </div>
             <div class="list_section" style="max-height: 160px; overflow-y: scroll">
                 <div class="list_inside" *ngFor="let nft of mySerialNumbersNotForSale()">
-                    <div class="td_lst">
-                        <input type="checkbox" style="width: 15px" [(ngModel)]="selectedSerialNumbers[nft.SerialNumber]" />
-                        {{ nft.SerialNumber }}
-                    </div>
-                    <div class="td_lst">
-                        {{ globalVars.nanosToDeSo(nft.LastAcceptedBidAmountNanos) }} DESO
-                        <span class="text-grey7">(~{{ globalVars.nanosToUSD(nft.LastAcceptedBidAmountNanos, 2) }})</span>
+                    <input type="checkbox" [(ngModel)]="selectedSerialNumbers[nft.SerialNumber]" />
+                    <div class="ckh_bx">
+                        <div class="td_lst">
+                            {{ nft.SerialNumber }}
+                        </div>
+                        <div class="td_lst">
+                            {{ globalVars.nanosToDeSo(nft.LastAcceptedBidAmountNanos) }} DESO
+                            <span class="text-grey7">(~{{ globalVars.nanosToUSD(nft.LastAcceptedBidAmountNanos, 2) }})</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,7 +92,7 @@
     </div> -->
 
     <div class="d-flex align-items-center">
-        <button class="btn btn-primary font-weight-bold fs-15px br-12px" style="height: 36px; width: 180px; line-height: 15px" (click)="createAuction()" [disabled]="creatingAuction || createAuctionDisabled()">
+        <button class="pop_singl_btn" (click)="createAuction()" [disabled]="creatingAuction || createAuctionDisabled()">
         {{ creatingAuction ? "Creating Auction" : "Create auction" }}
       </button>
         <div *ngIf="creatingAuction" class="pl-15px fs-15px">

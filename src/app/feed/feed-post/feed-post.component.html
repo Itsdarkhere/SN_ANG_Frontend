@@ -503,7 +503,7 @@
                 </div>
 
                 <div class="auction_detl border_n_pd" *ngIf="!isAvailableForSale && decryptableNFTEntryResponses?.length && !showUnlockableContent">
-                <!-- <div class="auction_detl border_n_pd" *ngIf="(decryptableNFTEntryResponses?.length && !showUnlockableContent)&&!(nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length>0)"> -->
+                    <!-- <div class="auction_detl border_n_pd" *ngIf="(decryptableNFTEntryResponses?.length && !showUnlockableContent)&&!(nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length>0)"> -->
                     <span class="hq">UNLOCKABLE CONTENT</span>
                     <div class="val">Unlocked!</div>
                     <div class="val_st">You are the only one who can view the unlockable content of this NFT.</div>
@@ -524,8 +524,8 @@
                 <!-- <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="ViewUnlockableContent($event)" *ngIf="(decryptableNFTEntryResponses?.length && !showUnlockableContent)&&!(nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length>0)"> -->
                     <i><img src="assets/icons/unlock.svg" alt=""></i> View unlockable content
                 </button>
-                
-                <button class="btn blk_line_btn with_ico" *ngIf="isAvailableForSale && !showPlaceABid && !(nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length>0)" (click)=closeYourAuction()><i><img
+
+                <button class="btn blk_line_btn with_ico big" *ngIf="isAvailableForSale && !showPlaceABid && !(nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length>0)" (click)=closeYourAuction()><i><img
                     src="assets/icons/circle-error.svg" alt=""></i> Close the auction
                 </button>
 

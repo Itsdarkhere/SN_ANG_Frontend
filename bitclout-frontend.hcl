@@ -94,7 +94,7 @@ job "supernovas-frontend" {
         https://videodelivery.net
         https://upload.videodelivery.net;
       script-src 
-        'unsafe-eval'
+        'self'
         https://supernovas.app
         https://supernovas.app:*
         https://google-analytics.com 

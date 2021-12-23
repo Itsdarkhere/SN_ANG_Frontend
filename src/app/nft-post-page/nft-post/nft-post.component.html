@@ -68,6 +68,7 @@
                 [thirdIconPath]="thirdIconPath"
                 [fourthIconPath]="fourthIconPath"
                 [fifthIconPath]="fifthIconPath"
+                [afterCommentCreatedCallback]="prependPostToFeed.bind(this)"
                 ></feed-post-icon-row>
             </div>
             <!-- Feed likes End-->
@@ -84,7 +85,7 @@
             <post-thread class="post_thread_likes_wrapper" [hideHeader]="true" [fromNFTDetail]="true" [hideCurrentPost]="!nftPost.ParentStakeID" *ngIf="nftPost.CommentCount || nftPost.ParentStakeID"></post-thread>
 
 
-            <button type="button" class="add_comment_btn" (click)="openRepostsModal($event)" *ngIf="!(nftPost.CommentCount || nftPost.ParentStakeID || canReplaceExistingIcons ) ">
+            <button type="button" class="add_comment_btn" (click)="openRepostsModal($event)" >
                 <i>+</i> Comment
             </button>
         </div>

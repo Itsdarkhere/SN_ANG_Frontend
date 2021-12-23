@@ -147,9 +147,9 @@
                                 <ng-container *ngIf="showNFTDetails && postContent.IsNFT">
                                     <span (clickOutside)="clickOutside()" *ngIf="postContent.HasUnlockable" class="cursor-pointer d-lg-inline-block d-block mt-5px" (mouseenter)="$event.stopImmediatePropagation()" (mouseleave)="$event.stopImmediatePropagation()" (click)="toggleLockablePopup(); toggleShowUnlockableContent()">
                                         <i class="fas" [ngClass]="{
-                        'fa-lock': !decryptableNFTEntryResponses?.length || showUnlockableContent,
-                        'fa-unlock-alt': decryptableNFTEntryResponses?.length && !showUnlockableContent
-                      }"></i>
+                                            'fa-lock': !decryptableNFTEntryResponses?.length || showUnlockableContent,
+                                            'fa-unlock-alt': decryptableNFTEntryResponses?.length && !showUnlockableContent
+                                        }"></i>
                                     </span>
                                     <div class="post-locable-content-wrap" [class.hidden]="!isLockablePopup">
                                         <div class="post-locable-content-inner">
@@ -323,11 +323,7 @@
 
     <ng-container *ngIf="!isNFTDetail">
         <div *ngIf="showNFTDetails && postContent.IsNFT" class="p-15px fs-15px w-100 background-color-grey" [ngStyle]="{ 'border-radius': setBorder || cardStyle ? '0 0 12px 12px' : '' }" [ngClass]="{ 'feed-post__blue-border': showLeftSelectedBorder }">
-            <div class="d-flex justify-content-between" [ngClass]="{
-          'flex-column': isQuotedContent,
-          'align-items-start': isQuotedContent,
-          'align-items-center': !isQuotedContent
-        }">
+            <div class="d-flex justify-content-between" [ngClass]="{'flex-column': isQuotedContent,'align-items-start': isQuotedContent,'align-items-center': !isQuotedContent }">
                 <div>
                     <span *ngIf="showAvailableSerialNumbers">{{ serialNumbersDisplay }}&nbsp;</span>
                     <span *ngIf="!showAvailableSerialNumbers" class="cursor-pointer" (click)="NFTMOfNTooltip.toggle(); toggleShowMOfNNFTTooltip()" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="mOfNNFTTooltip" #NFTMOfNTooltip="matTooltip">
@@ -337,11 +333,10 @@
                     <span *ngIf="postContent.HasUnlockable" class="cursor-pointer d-lg-inline-block d-block mt-5px" (click)="tooltip.toggle(); toggleShowUnlockableContent()" matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size" [matTooltip]="unlockableTooltip"
                         #tooltip="matTooltip">
                         <i class="fas" [ngClass]="{
-                'fa-lock': !decryptableNFTEntryResponses?.length || showUnlockableContent,
-                'fa-unlock-alt': decryptableNFTEntryResponses?.length && !showUnlockableContent
-              }"></i>
-                        {{decryptableNFTEntryResponses?.length? showUnlockableContent? "Hide Unlockable" : "Show Unlockable": "Unlockable Content"
-                        }}
+                            'fa-lock': !decryptableNFTEntryResponses?.length || showUnlockableContent,
+                            'fa-unlock-alt': decryptableNFTEntryResponses?.length && !showUnlockableContent
+                        }"></i>
+                        {{ decryptableNFTEntryResponses?.length? showUnlockableContent? "Hide Unlockable" : "Show Unlockable": "Unlockable Content" }}
                     </span>
                 </div>
                 <button class="btn btn-primary font-weight-bold br-8px fs-13px" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="openPlaceBidModal($event)" *ngIf="showPlaceABid" |>

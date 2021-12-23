@@ -407,14 +407,14 @@
                     <div class="val" *ngIf="decryptableNFTEntryResponses?.length && !showUnlockableContent">
                         <span class="hq">Owner</span>
                         <div class="owner_lft align-items-center d-flex">
-                            <div class="bid_by_avtar" [avatar]="postContent?.ProfileEntryResponse?.PublicKeyBase58Check"></div>
+                            <div class="bid_by_avtar" [avatar]="nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.PublicKeyBase58Check"></div>
                             <div class="name">
                                 <a class="val" [routerLink]="
-                                              getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX,postContent.ProfileEntryResponse.Username ])
+                                              getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX,nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.Username ])
                                               " queryParamsHandling="merge">
-                                    {{ postContent.ProfileEntryResponse.Username }}
+                                              {{ nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.Username }}
                                 </a>
-                                <span *ngIf="postContent.ProfileEntryResponse.IsVerified" class="ml-1 text-primary">
+                                <span *ngIf="nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">
                                     <i class="fas fa-check-circle fa-md align-middle"></i>
                                 </span>
                             </div>
@@ -465,7 +465,7 @@
                                 {{ showNFTOwnerInfo?.ProfileEntryResponse?.Username }}
                             </a>
 
-                            <span *ngIf="postContent.ProfileEntryResponse.IsVerified" class="ml-1 text-primary">
+                            <span *ngIf="showNFTOwnerInfo?.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">
                                 <i class="fas fa-check-circle fa-md align-middle"></i>
                             </span>
                         </div>
@@ -507,6 +507,7 @@
                 </div>
 
                 <div class="auction_detl border_n_pd" *ngIf="!isAvailableForSale && decryptableNFTEntryResponses?.length && !showUnlockableContent">
+                <!-- <div class="auction_detl border_n_pd" *ngIf="(decryptableNFTEntryResponses?.length && !showUnlockableContent)&&!(nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length>0)"> -->
                     <span class="hq">UNLOCKABLE CONTENT</span>
                     <div class="val">Unlocked!</div>
                     <div class="val_st">You are the only one who can view the unlockable content of this NFT.</div>
@@ -524,6 +525,7 @@
                 </button>
 
                 <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="ViewUnlockableContent($event)" *ngIf="!isAvailableForSale && decryptableNFTEntryResponses?.length && !showUnlockableContent">
+                <!-- <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="ViewUnlockableContent($event)" *ngIf="(decryptableNFTEntryResponses?.length && !showUnlockableContent)&&!(nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length>0)"> -->
                     <i><img src="assets/icons/unlock.svg" alt=""></i> View unlockable content
                 </button>
                 

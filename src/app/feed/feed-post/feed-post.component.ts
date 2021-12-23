@@ -665,12 +665,17 @@ export class FeedPostComponent implements OnInit {
         return "Owner";
       }
       return this.nftEntryResponses[0]?.IsForSale === false ? "Last Sold for" : "Minimum Bid";
-    } else {
+    } 
+  else {
+    setTimeout(()=>{
       if (Number(maxBid) > 0) {
         return "Highest Bid";
       } else if (Number(maxBid) === 0) {
+        
         return "Minimum Bid";
       }
+    },1000)
+      
     }
   }
   sellYourBid(){

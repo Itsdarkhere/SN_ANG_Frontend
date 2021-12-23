@@ -74,7 +74,7 @@ export class NftPostComponent implements OnInit {
   static ALL_BIDS = "All Bids";
   static MY_BIDS = "My Bids";
   static MY_AUCTIONS = "My Auctions";
-  static OWNERS = "Owners";
+  static OWNERS = "Provenance";
   static THREAD = "Bids";
   static DETAILS = "Details";
 

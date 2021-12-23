@@ -61,6 +61,9 @@ export class BackendRoutes {
   static RoutePathVerifyEmail = "/api/v0/verify-email";
   static RoutePathResendVerifyEmail = "/api/v0/resend-verify-email";
 
+  // Delete PII
+  static RoutePathDeletePII = "/api/v0/delete-pii";
+
   // Tutorial
   static RoutePathStartOrSkipTutorial = "/api/v0/start-or-skip-tutorial";
   static RoutePathCompleteTutorial = "/api/v0/complete-tutorial";
@@ -390,12 +393,17 @@ export class TransactionFee {
   ProfileEntryResponse?: ProfileEntryResponse;
 }
 
-export class PostExtraData  {
-    Node: string;
-    category: string;
-    name: string;
-    properties: string;
-  }
+export class PostExtraData {
+  Node: string;
+  category: string;
+  name: string;
+  properties: string;
+}
+export class DeSoNode {
+  Name: string;
+  URL: string;
+  Owner: string;
+}
 
 @Injectable({
   providedIn: "root",
@@ -1781,6 +1789,11 @@ export class BackendApiService {
   GetVerifiedUsers(endpoint: string, PublicKey: string): Observable<any> {
     return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminGetVerifiedUsers, PublicKey, {
       PublicKey,
+    });
+  }
+  DeletePII(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathDeletePII, PublicKeyBase58Check, {
+      PublicKeyBase58Check,
     });
   }
 

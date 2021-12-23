@@ -25,7 +25,12 @@ $feed-border-radius: 12px;
     border-radius: 15.090079307556152px;
     box-shadow: 1.0368170738220215px 1.0368170738220215px 20.736339569091797px rgba(0, 0, 0, 0.05);
 }
-
+.background-secondary {
+    background-color: var(--secondary);
+}
+.background-white {
+    background-color: white;
+}
 .content-type-card {
     min-width: 190px;
     min-height: 220px;
@@ -1852,7 +1857,10 @@ input.bs-timepicker-field {
     background: linear-gradient(125deg, #f3a83c 0%, #ec5454 20%, #f51ac1 35%, #265eeb 74%, #593eb7 99%) !important;
     ;
 }
-
+.nft-page-audio-cover-image {
+    max-width: 80%;
+    border-radius: 2.1255195140838623px;
+}
 .left-bar-mobile__flyout-div {
     border-radius: 25px;
     width: calc(100% - 10px);

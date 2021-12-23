@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, AfterViewInit } from "@angular/core";
 import { GlobalVarsService } from "../../global-vars.service";
-import { BackendApiService, NFTEntryResponse, PostEntryResponse } from "../../backend-api.service";
+import { BackendApiService, DeSoNode, NFTEntryResponse, PostEntryResponse } from "../../backend-api.service";
 import { AppRoutingModule } from "../../app-routing.module";
 import { Router } from "@angular/router";
 import { SwalHelper } from "../../../lib/helpers/swal-helper";
@@ -18,6 +18,7 @@ import { EmbedUrlParserService } from "../../../lib/services/embed-url-parser-se
 import { SharedDialogs } from "../../../lib/shared-dialogs";
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 import { UnlockContentModalComponent } from "src/app/unlock-content-modal/unlock-content-modal.component";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "feed-post",
@@ -594,6 +595,16 @@ export class FeedPostComponent implements OnInit {
 
   getEmbedWidth(): string {
     return EmbedUrlParserService.getEmbedWidth(this.postContent.PostExtraData["EmbedVideoURL"]);
+  }
+
+  getNode(): DeSoNode {
+    const nodeId = this.postContent.PostExtraData["Node"];
+    if (nodeId && nodeId != environment.node.id) {
+      const node = this.globalVars.nodes[nodeId];
+      if (node) {
+        return node;
+      }
+    }
   }
 
   // Vimeo iframes have a lot of spacing on top and bottom on mobile.

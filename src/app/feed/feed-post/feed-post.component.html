@@ -422,7 +422,8 @@
                     </div>
                 </div>
 
-                <div class="nft_done_by" *ngIf="nftBidData?.BidEntryResponses.length>0&&!showPlaceABid && (!decryptableNFTEntryResponses?.length || showUnlockableContent)">
+                <div class="nft_done_by" *ngIf="nftBidData?.BidEntryResponses.length>0&&!showPlaceABid 
+                    ">
                     <span class="hq">Made By</span>
                     <div class="d-flex">
                         <div class="bid_by_avtar" [avatar]="nftBidData?.BidEntryResponses[0]?.ProfileEntryResponse?.PublicKeyBase58Check"></div>

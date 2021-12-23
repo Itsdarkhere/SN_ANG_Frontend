@@ -224,7 +224,7 @@ export class FeedPostComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.router.url=="/browse?feedTab=Supernovas%20Feed")
+    console.log(this.router.url == "/browse?feedTab=Supernovas%20Feed")
     if (!this.post.RepostCount) {
       this.post.RepostCount = 0;
     }
@@ -626,10 +626,10 @@ export class FeedPostComponent implements OnInit {
       }
     });
   }
-  ViewUnlockableContent(){
+  ViewUnlockableContent() {
     const modalDetails = this.modalService.show(UnlockContentModalComponent, {
       class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
-      initialState: { decryptableNFTEntryResponses: this.decryptableNFTEntryResponses},
+      initialState: { decryptableNFTEntryResponses: this.decryptableNFTEntryResponses },
     });
     const onHideEvent = modalDetails.onHide
   }
@@ -654,31 +654,37 @@ export class FeedPostComponent implements OnInit {
   }
   compareBit(minBid, maxBid, showPlaceABid): string {
     if (!showPlaceABid && !!this.nftEntryResponses) {
+
       if (
         this.nftEntryResponses[0]?.IsForSale === false &&
         this.nftEntryResponses[0]?.LastAcceptedBidAmountNanos === 0 &&
         this.nftEntryResponses[0]?.OwnerPublicKeyBase58Check === this.postContent.PosterPublicKeyBase58Check
       ) {
-        return "Owner";
-      }
-      return this.nftEntryResponses[0]?.IsForSale === false ? "Last Sold for" : "Minimum Bid";
-    } 
-  else {
-    setTimeout(()=>{
-      if (Number(maxBid) > 0) {
-        return "Highest Bid";
-      } else if (Number(maxBid) === 0) {
+        // setTimeout(() => {
+          return "Owner";
         
-        return "Minimum Bid";
       }
-    },1000)
-      
+      // setTimeout(() => {
+        return this.nftEntryResponses[0]?.IsForSale === false ? "Last Sold for" : "Minimum Bid";
+      // }, 500)
     }
+    else {
+      // setTimeout(() => { 
+        if (Number(maxBid) > 0) {
+          return "Highest Bid";
+        } else if (Number(maxBid) === 0) {
+
+          return "Minimum Bid";
+        }
+      // }, 1000) 
+
+    }
+    return ""
   }
-  sellYourBid(){
+  sellYourBid() {
     this.sellNFT.emit()
   }
-  closeYourAuction(){
+  closeYourAuction() {
     this.closeAuction.emit()
   }
   getRouterLink(val: any): any {

@@ -1,0 +1,32 @@
+<div class="arweave-audio-element p-10px d-flex flex-column flex-center">
+  <div id="progress-container" class="w-100">
+    <input onload="volumeColor()" type="range" class="amplitude-song-slider p-0px border-none" />
+    <progress id="song-played-progress" class="amplitude-song-played-progress w-100 border-none"></progress>
+    <progress id="song-buffered-progress" class="amplitude-buffered-progress border-none" value="0"></progress>
+  </div>
+  <div id="time-container" class="w-100 d-flex flex-center-end pt-5px fs-10px">
+    <span class="amplitude-current-time time-container"></span>
+    <span>/</span>
+    <span class="amplitude-duration-time time-container"></span>
+  </div>
+  <div class="w-100 d-flex flex-row justify-content-between fs-12px">
+    <div class="d-flex flex-start-center flex-column w-30">
+      <p class="font-weight-semiboldn">{{ songName }}</p>
+      <p class="font-weight-bold" style="color: #808080">@{{ creator }}</p>
+    </div>
+    <button class="amplitude-play-pause p-0px border audio-play-button">
+      <!--<img src="/assets/icons/audio-play-icon.svg" alt="play-icon" />-->
+    </button>
+    <div class="w-30 d-flex flex-center" id="volume-container">
+      <img *ngIf="!mobile" src="/assets/icons/audio-volume-icon.svg" class="mr-5px" alt="volume icon" />
+      <input
+        *ngIf="!mobile"
+        type="range"
+        id="volume-slider"
+        class="amplitude-volume-slider p-0px border-none"
+        (input)="volumeColor()"
+        step=".1"
+      />
+    </div>
+  </div>
+</div>

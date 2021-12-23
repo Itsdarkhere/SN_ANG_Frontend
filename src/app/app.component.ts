@@ -200,7 +200,6 @@ export class AppComponent implements OnInit {
       .subscribe((res: any) => {
         this.globalVars.minSatoshisBurnedForProfileCreation = res.MinSatoshisBurnedForProfileCreation;
         this.globalVars.diamondLevelMap = res.DiamondLevelMap;
-        this.globalVars.showProcessingSpinners = res.ShowProcessingSpinners;
         this.globalVars.showBuyWithUSD = res.HasWyreIntegration;
         this.globalVars.showBuyWithETH = res.BuyWithETH;
         this.globalVars.showJumio = res.HasJumioIntegration;
@@ -211,6 +210,7 @@ export class AppComponent implements OnInit {
         this.globalVars.createProfileFeeNanos = res.CreateProfileFeeNanos;
         this.globalVars.isCompProfileCreation = this.globalVars.showPhoneNumberVerification && res.CompProfileCreation;
         this.globalVars.buyETHAddress = res.BuyETHAddress;
+        this.globalVars.nodes = res.Nodes;
 
         this.globalVars.transactionFeeMap = res.TransactionFeeMap;
 
@@ -307,6 +307,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // Load the theme
+    //this.themeService.setTheme("light");
     this.themeService.init();
     // Update the BitClout <-> Bitcoin exchange rate every five minutes. This prevents
     // a stale price from showing in a tab that's been open for a while

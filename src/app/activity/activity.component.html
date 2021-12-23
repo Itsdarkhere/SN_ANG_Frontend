@@ -23,7 +23,7 @@
           <span>No NFTs for sale with bids on them...</span>
         </div>
       </div>
-      <div class="row" *ngIf="activeTab === 'Bids Made'">
+      <div class="row" *ngIf="activeTab === 'Bids Made' && !isLoading">
         <div class="col-12" *ngFor="let nftEntry of myBids">
           <div class="w-100 mt-20px activity-box">
             <!-- IMAGE -->

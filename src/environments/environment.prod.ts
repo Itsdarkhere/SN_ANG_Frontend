@@ -23,6 +23,7 @@ export const environment = {
     domain: "",
   },
   node: {
+    id: 9,
     name: "Supernovas",
     url: "https://deso.org",
     logoAssetDir: "/assets/deso/",

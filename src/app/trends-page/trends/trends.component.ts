@@ -130,6 +130,26 @@ export class TrendsComponent implements OnInit {
           (a, b) => a.NFTEntryResponse.MinBidAmountNanos - b.NFTEntryResponse.MinBidAmountNanos
         );
         break;
+      case "most_likes_first":
+        this.globalVars.marketplaceCollection.sort(
+          (a, b) => b.PostEntryResponse.LikeCount - a.PostEntryResponse.LikeCount
+        );
+        break;
+      case "most_diamonds_first":
+        this.globalVars.marketplaceCollection.sort(
+          (a, b) => b.PostEntryResponse.DiamondCount - a.PostEntryResponse.DiamondCount
+        );
+        break;
+      case "most_comments_first":
+        this.globalVars.marketplaceCollection.sort(
+          (a, b) => b.PostEntryResponse.CommentCount - a.PostEntryResponse.CommentCount
+        );
+        break;
+      case "most_reposts_first":
+        this.globalVars.marketplaceCollection.sort(
+          (a, b) => b.PostEntryResponse.RepostCount - a.PostEntryResponse.RepostCount
+        );
+        break;
       default:
         this.globalVars.marketplaceCollection.sort(
           (a, b) => b.PostEntryResponse.TimestampNanos - a.PostEntryResponse.TimestampNanos

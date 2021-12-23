@@ -1,6 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, HostListener } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
-import { BackendApiService, NFTEntryResponse, PostEntryResponse, ProfileEntryResponse } from "../backend-api.service";
+import {
+  BackendApiService,
+  DeSoNode,
+  NFTEntryResponse,
+  PostEntryResponse,
+  ProfileEntryResponse,
+} from "../backend-api.service";
 import { AppRoutingModule } from "../app-routing.module";
 import { Router } from "@angular/router";
 import { SwalHelper } from "../../lib/helpers/swal-helper";
@@ -17,10 +23,28 @@ import { SharedDialogs } from "../../lib/shared-dialogs";
 import { FeedPostImageModalComponent } from "../feed/feed-post-image-modal/feed-post-image-modal.component";
 import { TransferModalComponent } from "../transfer-modal/transfer-modal.component";
 import { GoogleAnalyticsService } from "../google-analytics.service";
+import { environment } from "src/environments/environment";
+import { animate, style, transition, trigger } from "@angular/animations";
 @Component({
   selector: "new-nft-card",
   templateUrl: "./new-nft-card.component.html",
   styleUrls: ["./new-nft-card.component.scss"],
+  animations: [
+    trigger("audioIconNoHover", [
+      transition(":enter", [style({ opacity: "0" }), animate("400ms ease", style({ opacity: "1" }))]),
+      transition(":leave", [style({ opacity: "1" }), animate("400ms ease", style({ opacity: "0" }))]),
+    ]),
+    trigger("audioIconHover", [
+      transition(":leave", [
+        style({ transform: "translateY(0%)", opacity: "1" }),
+        animate("400ms ease", style({ transform: "translateY(100%)", opacity: "0" })),
+      ]),
+      transition(":enter", [
+        style({ transform: "translateY(100%)" }),
+        animate("400ms ease", style({ transform: "translateY(0%)" })),
+      ]),
+    ]),
+  ],
 })
 export class NewNftCardComponent implements OnInit {
   @Input()
@@ -129,6 +153,7 @@ export class NewNftCardComponent implements OnInit {
   lowBid: number = null;
   minBid: number = null;
   showVideoTypeIcon = true;
+  showAudioTypeIcon = true;
   mobile = false;
   lastSalePrice: number = null;
   availableSerialNumbers: NFTEntryResponse[];
@@ -211,6 +236,11 @@ export class NewNftCardComponent implements OnInit {
       event.target.pause();
     }
   }
+  activateOnHoverAudio(play) {
+    if (this.postContent?.PostExtraData?.arweaveAudioSrc) {
+      this.showAudioTypeIcon = play;
+    }
+  }
   @HostListener("window:resize")
   onResize() {
     this.setMobileBasedOnViewport();
@@ -228,7 +258,7 @@ export class NewNftCardComponent implements OnInit {
           this.post.ProfileEntryResponse = res;
         });
     }
-    
+
     this.setMobileBasedOnViewport();
     this.setEmbedURLForPostContent();
     if (this.showNFTDetails && this.postContent.IsNFT && !this.nftEntryResponses?.length) {
@@ -375,6 +405,15 @@ export class NewNftCardComponent implements OnInit {
           );
       }
     });
+  }
+  getNode(): DeSoNode {
+    const nodeId = this.postContent.PostExtraData["Node"];
+    if (nodeId && nodeId != environment.node.id) {
+      const node = this.globalVars.nodes[nodeId];
+      if (node) {
+        return node;
+      }
+    }
   }
   blockUser() {
     SwalHelper.fire({

@@ -3,6 +3,7 @@ import {
   BackendApiService,
   BalanceEntryResponse,
   NFTCollectionResponse,
+  DeSoNode,
   PostEntryResponse,
   TransactionFee,
   TutorialStatus,
@@ -102,6 +103,7 @@ export class GlobalVarsService {
   messagesRequestsFollowedOnly = false;
 
   // Whether or not to show processing spinners in the UI for unmined transactions.
+  // TODO: Move into environment.ts
   showProcessingSpinners = false;
 
   rightBarLeaderboard = [];
@@ -237,6 +239,8 @@ export class GlobalVarsService {
   transactionFeeInfo: string;
 
   buyETHAddress: string = "";
+
+  nodes: { [id: number]: DeSoNode };
 
   SetupMessages() {
     // If there's no loggedInUser, we set the notification count to zero
@@ -980,11 +984,11 @@ export class GlobalVarsService {
 
   updateLeaderboard(forceRefresh: boolean = false): void {
     const pulseService = new PulseService(this.httpClient, this.backendApi, this);
-    const altumbaseService = new AltumbaseService(this.httpClient, this.backendApi, this);
 
     if (this.topGainerLeaderboard.length === 0 || forceRefresh) {
       pulseService.getDeSoLockedLeaderboard().subscribe((res) => (this.topGainerLeaderboard = res));
     }
+    const altumbaseService = new AltumbaseService(this.httpClient, this.backendApi, this);
     if (this.topDiamondedLeaderboard.length === 0 || forceRefresh) {
       altumbaseService.getDiamondsReceivedLeaderboard().subscribe((res) => (this.topDiamondedLeaderboard = res));
     }

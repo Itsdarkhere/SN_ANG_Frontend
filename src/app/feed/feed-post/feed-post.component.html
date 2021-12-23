@@ -145,7 +145,8 @@
                             </div>
                             <div class="nft-detail-lock-info-wrap ml-auto" *ngIf="isNFTDetail">
                                 <ng-container *ngIf="showNFTDetails && postContent.IsNFT">
-                                    <span (clickOutside)="clickOutside()" *ngIf="postContent.HasUnlockable" class="cursor-pointer d-lg-inline-block d-block mt-5px" (mouseenter)="$event.stopImmediatePropagation()" (mouseleave)="$event.stopImmediatePropagation()" (click)="toggleLockablePopup(); toggleShowUnlockableContent()">
+                                  <!-- toggleShowUnlockableContent() -->
+                                    <span (clickOutside)="clickOutside()" *ngIf="postContent.HasUnlockable" class="cursor-pointer d-lg-inline-block d-block mt-5px" (mouseenter)="$event.stopImmediatePropagation()" (mouseleave)="$event.stopImmediatePropagation()" (click)="toggleLockablePopup();">
                                         <i class="fas" [ngClass]="{
                                             'fa-lock': !decryptableNFTEntryResponses?.length || showUnlockableContent,
                                             'fa-unlock-alt': decryptableNFTEntryResponses?.length && !showUnlockableContent

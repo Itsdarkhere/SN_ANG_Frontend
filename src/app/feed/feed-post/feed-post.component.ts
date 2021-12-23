@@ -597,15 +597,15 @@ export class FeedPostComponent implements OnInit {
     return EmbedUrlParserService.getEmbedWidth(this.postContent.PostExtraData["EmbedVideoURL"]);
   }
 
-  getNode(): DeSoNode {
-    const nodeId = this.postContent.PostExtraData["Node"];
-    if (nodeId && nodeId != environment.node.id) {
-      const node = this.globalVars.nodes[nodeId];
-      if (node) {
-        return node;
-      }
-    }
-  }
+  // getNode(): DeSoNode {
+  //   const nodeId = this.postContent.PostExtraData["Node"];
+  //   if (nodeId && nodeId != environment.node.id) {
+  //     const node = this.globalVars.nodes[nodeId];
+  //     if (node) {
+  //       return node;
+  //     }
+  //   }
+  // }
 
   // Vimeo iframes have a lot of spacing on top and bottom on mobile.
   setNegativeMargins(link: string, globalVars: GlobalVarsService) {

@@ -105,22 +105,23 @@
     <div class="nft_bx linebx">
       <!-- <feed-post-icon-row *ngIf="showIconRow" [post]="post" [postContent]="postContent" [parentPost]="parentPost" [afterCommentCreatedCallback]="afterCommentCreatedCallback" [afterRepostCreatedCallback]="afterRepostCreatedCallback" [inTutorial]="inTutorial"
             (diamondSent)="diamondSent.emit()"></feed-post-icon-row> -->
-      <!-- Feed likes -->
-      <div class="comments_likes_list">
-        <feed-post-icon-row
-          *ngIf="showIconRow"
-          [post]="post"
-          [postContent]="postContent"
-          [parentPost]="parentPost"
-          [canReplaceExistingIcons]="canReplaceExistingIcons"
-          [firstIconPath]="firstIconPath"
-          [secondIconPath]="secondIconPath"
-          [thirdIconPath]="thirdIconPath"
-          [fourthIconPath]="fourthIconPath"
-          [fifthIconPath]="fifthIconPath"
-        ></feed-post-icon-row>
-      </div>
-      <!-- Feed likes End-->
+            <!-- Feed likes -->
+            <div class="comments_likes_list">
+                <feed-post-icon-row
+                *ngIf="showIconRow"
+                [post]="post"
+                [postContent]="postContent"
+                [parentPost]="parentPost"
+                [canReplaceExistingIcons]="canReplaceExistingIcons"
+                [firstIconPath]="firstIconPath"
+                [secondIconPath]="secondIconPath"
+                [thirdIconPath]="thirdIconPath"
+                [fourthIconPath]="fourthIconPath"
+                [fifthIconPath]="fifthIconPath"
+                [afterCommentCreatedCallback]="prependPostToFeed.bind(this)"
+                ></feed-post-icon-row>
+            </div>
+            <!-- Feed likes End-->
 
       <!-- feed-post -->
 

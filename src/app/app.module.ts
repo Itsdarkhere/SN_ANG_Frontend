@@ -28,8 +28,6 @@ import { FeedCreatePostComponent } from "./feed/feed-create-post/feed-create-pos
 import { FeedPostComponent } from "./feed/feed-post/feed-post.component";
 import { FeedPostDropdownComponent } from "./feed/feed-post-dropdown/feed-post-dropdown.component";
 import { FeedPostIconRowComponent } from "./feed/feed-post-icon-row/feed-post-icon-row.component";
-import { CreatorsLeaderboardPageComponent } from "./creators-leaderboard/creators-leaderboard-page/creators-leaderboard-page.component";
-import { CreatorsLeaderboardComponent } from "./creators-leaderboard/creators-leaderboard/creators-leaderboard.component";
 import { BuyDeSoPageComponent } from "./buy-deso-page/buy-deso-page.component";
 import { MessagesPageComponent } from "./messages-page/messages-page.component";
 import { SettingsPageComponent } from "./settings-page/settings-page.component";
@@ -72,7 +70,6 @@ import { TopBarMobileNavigationControlComponent } from "./top-bar-mobile/top-bar
 import { BottomBarMobileTabComponent } from "./bottom-bar-mobile/bottom-bar-mobile-tab/bottom-bar-mobile-tab.component";
 import { NotFoundComponent } from "./not-found-page/not-found/not-found.component";
 import { CreatePostPageComponent } from "./create-post-page/create-post-page.component";
-import { CreatePostUploadMintComponent } from "./create-post-upload-mint/create-post-upload-mint.component";
 import { CreatePostFormComponent } from "./create-post-page/create-post-form/create-post-form.component";
 import { TopBarMobileLogInOrSignUpComponent } from "./top-bar-mobile/top-bar-mobile-log-in-or-sign-up/top-bar-mobile-log-in-or-sign-up.component";
 import { TopBarMobileHamburgerMenuComponent } from "./top-bar-mobile/top-bar-mobile-hamburger-menu/top-bar-mobile-hamburger-menu.component";
@@ -167,8 +164,6 @@ import { ThemeModule } from "./theme/theme.module";
 import { Theme } from "./theme/symbols";
 import { HeaderComponent } from "./header/header.component";
 import { CreatePostComponent } from "./create-post/create-post.component";
-import { CreateYourNftComponent } from "./create-your-nft/create-your-nft.component";
-import { MintYourNftComponent } from "./mint-your-nft/mint-your-nft.component";
 import { PlaceABidComponent } from "./place-a-bid/place-a-bid.component";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { ClickoutsideDirective } from "./directives/clickoutside.directive";
@@ -212,8 +207,6 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     NotFoundPageComponent,
     BrowsePageComponent,
     CreatePostComponent,
-    MintYourNftComponent,
-    CreateYourNftComponent,
     PlaceABidComponent,
     NewNftCardComponent,
     FeedComponent,
@@ -223,8 +216,6 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     FeedPostComponent,
     FeedPostDropdownComponent,
     FeedPostIconRowComponent,
-    CreatorsLeaderboardPageComponent,
-    CreatorsLeaderboardComponent,
     BuyDeSoPageComponent,
     WalletComponent,
     MessagesPageComponent,
@@ -268,7 +259,6 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     BottomBarMobileTabComponent,
     NotFoundComponent,
     CreatePostPageComponent,
-    CreatePostUploadMintComponent,
     CreatePostFormComponent,
     TopBarMobileLogInOrSignUpComponent,
     TopBarMobileHamburgerMenuComponent,
@@ -325,8 +315,6 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     JumioStatusComponent,
     HeaderComponent,
     CreatePostComponent,
-    CreateYourNftComponent,
-    MintYourNftComponent,
     PlaceABidComponent,
     ClickoutsideDirective,
     ReferralProgramMgrComponent,

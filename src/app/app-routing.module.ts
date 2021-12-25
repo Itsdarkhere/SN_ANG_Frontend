@@ -3,7 +3,6 @@ import { Routes, RouterModule, Router, Scroll } from "@angular/router";
 import { ManageFollowsPageComponent } from "./manage-follows-page/manage-follows-page.component";
 import { NotFoundPageComponent } from "./not-found-page/not-found-page.component";
 import { BrowsePageComponent } from "./browse-page/browse-page.component";
-import { CreatorsLeaderboardPageComponent } from "./creators-leaderboard/creators-leaderboard-page/creators-leaderboard-page.component";
 import { BuyDeSoPageComponent } from "./buy-deso-page/buy-deso-page.component";
 import { MessagesPageComponent } from "./messages-page/messages-page.component";
 import { SettingsPageComponent } from "./settings-page/settings-page.component";
@@ -92,7 +91,6 @@ const routes: Routes = [
   { path: RouteNames.SIGNUP, component: SignupPageComponent, pathMatch: "full" },
   { path: RouteNames.MINT_PAGE, component: MintPageComponent, pathMatch: "full" },
   { path: RouteNames.BROWSE, component: BrowsePageComponent, pathMatch: "full" },
-  { path: RouteNames.CREATORS, component: CreatorsLeaderboardPageComponent, pathMatch: "full" },
   { path: RouteNames.USER_PREFIX + "/:username", component: CreatorProfilePageComponent, pathMatch: "full" },
   { path: RouteNames.SETTINGS, component: SettingsPageComponent, pathMatch: "full" },
   { path: RouteNames.BUY_DESO, component: BuyDeSoPageComponent, pathMatch: "full" },

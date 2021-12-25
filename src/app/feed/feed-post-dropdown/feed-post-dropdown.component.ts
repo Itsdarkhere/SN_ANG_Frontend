@@ -11,9 +11,7 @@ import { SwalHelper } from "../../../lib/helpers/swal-helper";
 import { MintNftModalComponent } from "../../mint-nft-modal/mint-nft-modal.component";
 import { CreateNftAuctionModalComponent } from "../../create-nft-auction-modal/create-nft-auction-modal.component";
 import { MatDialog } from "@angular/material/dialog";
-import { MintYourNftComponent } from "src/app/mint-your-nft/mint-your-nft.component";
 import { TransferModalComponent } from "src/app/transfer-modal/transfer-modal.component";
-import { CreatePostUploadMintComponent } from "src/app/create-post-upload-mint/create-post-upload-mint.component";
 
 @Component({
   selector: "feed-post-dropdown",
@@ -225,10 +223,7 @@ export class FeedPostDropdownComponent {
   }
 
   openMintNftModal(event, component): void {
-    event.stopPropagation();
-    this.matdialog.open(MintYourNftComponent, {
-      data: { post: this.post },
-    });
+    console.log("log");
   }
 
   UserOwnsSerialNumbers() {
@@ -243,11 +238,6 @@ export class FeedPostDropdownComponent {
     this.modalService.show(CreateNftAuctionModalComponent, {
       class: "modal-dialog-centered",
       initialState: { post: this.post, nftEntryResponses: this.nftEntryResponses },
-    });
-  }
-  openMintModal(event): void {
-    this.matdialog.open(CreatePostUploadMintComponent, {
-      data: { post: this.post },
     });
   }
 

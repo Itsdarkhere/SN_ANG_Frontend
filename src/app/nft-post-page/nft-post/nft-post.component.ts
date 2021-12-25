@@ -14,8 +14,6 @@ import { SwalHelper } from "../../../lib/helpers/swal-helper";
 import { RouteNames } from "../../app-routing.module";
 import { Location } from "@angular/common";
 import * as _ from "lodash";
-
-
 import { SellNftModalComponent } from "../../sell-nft-modal/sell-nft-modal.component";
 import { CloseNftAuctionModalComponent } from "../../close-nft-auction-modal/close-nft-auction-modal.component";
 import { Subscription } from "rxjs";
@@ -26,8 +24,10 @@ import { SharedDialogs } from "src/lib/shared-dialogs";
 import { CommentModalComponent } from "src/app/comment-modal/comment-modal.component";
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 import { FeedPostImageModalComponent } from 'src/app/feed/feed-post-image-modal/feed-post-image-modal.component';
-import { Meta, MetaDefinition } from '@angular/platform-browser';
 import { CancelEvent } from '../shared/models/cancel-event.interface';
+import { Meta } from '@angular/platform-browser';
+import { FIRST_ICON_PATH, SECOND_ICON_PATH, THIRD_ICON_PATH,
+  FOURTH_ICON_PATH, FIFTH_ICON_PATH } from 'src/app/feed/shared/constants/defines';
 
 @Component({
   selector: "nft-post",
@@ -37,6 +37,7 @@ import { CancelEvent } from '../shared/models/cancel-event.interface';
 export class NftPostComponent implements OnInit {
   @ViewChild(FeedPostComponent) feedPost: FeedPostComponent;
 
+  isAvailableForSale = false
   nftPost: PostEntryResponse;
   nftPostHashHex: string;
   nftBidData: NFTBidData;
@@ -56,14 +57,25 @@ export class NftPostComponent implements OnInit {
   owners: NFTEntryResponse[];
   hightestBidOwner: any = {};
   NftPostComponent = NftPostComponent;
-
   activeTab = NftPostComponent.THREAD;
   properties: any;
+  showIconRow = true;
+  firstIconPath = FIRST_ICON_PATH;
+  secondIconPath = SECOND_ICON_PATH;
+  thirdIconPath = THIRD_ICON_PATH
+  fourthIconPath = FOURTH_ICON_PATH;
+  fifthIconPath = FIFTH_ICON_PATH;
+
+  canReplaceExistingIcons = true;
+  _post: any;
+  postContent: any;
+  reposterProfile: any;
+  quotedContent: any;
 
   static ALL_BIDS = "All Bids";
   static MY_BIDS = "My Bids";
   static MY_AUCTIONS = "My Auctions";
-  static OWNERS = "Owners";
+  static OWNERS = "Provenance";
   static THREAD = "Bids";
   static DETAILS = "Details";
 
@@ -151,6 +163,7 @@ export class NftPostComponent implements OnInit {
     // Fetch the post entry
     this.getPost().subscribe(
       (res) => {
+        console.log(res);
         if (!res || !res.PostFound) {
           this.router.navigateByUrl("/" + this.globalVars.RouteNames.NOT_FOUND, { skipLocationChange: true });
           return;
@@ -180,7 +193,7 @@ export class NftPostComponent implements OnInit {
         }
         // Set current post
         this.nftPost = res.PostFound;
-        console.log(this.nftPost)
+        this.configurePostType(this.nftPost);
         this.titleService.setTitle(this.nftPost.ProfileEntryResponse.Username + ` on ${environment.node.name}`);
         this.refreshBidData();
         this.configureMetaTags();
@@ -636,5 +649,30 @@ export class NftPostComponent implements OnInit {
           );
       }
     });
+  }
+
+  isRepost(post: any): boolean {
+    return post.Body === "" && (!post.ImageURLs || post.ImageURLs?.length === 0) && post.RepostedPostEntryResponse;
+  }
+  isQuotedClout(post: any): boolean {
+    return (post.Body !== "" || post.ImageURLs?.length > 0) && post.RepostedPostEntryResponse;
+  }
+  isRegularPost(post: any): boolean {
+    return !this.isRepost(post) && !this.isQuotedClout(post);
+  }
+
+  configurePostType(post: any): void {
+    if (this.isRepost(post)) {
+      this.postContent = post.RepostedPostEntryResponse;
+      this.reposterProfile = post.ProfileEntryResponse;
+      if (this.isQuotedClout(post?.RepostedPostEntryResponse)) {
+        this.quotedContent = this.postContent.RepostedPostEntryResponse;
+      }
+    } else if (this.isQuotedClout(post)) {
+      this.postContent = post;
+      this.quotedContent = post.RepostedPostEntryResponse;
+    } else {
+      this.postContent = post;
+    }
   }
 }

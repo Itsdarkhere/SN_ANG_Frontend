@@ -94,11 +94,7 @@
         </div>
       </div>
       <div class="col-2 pl-2 my-auto" style="min-width: 85px">
-        <div
-          (click)="refreshBalance()"
-          class="btn btn-outline-secondary w-100 fs-15px p-5px"
-          style="border-radius: 3px; height: 35px"
-        >
+        <div class="btn btn-outline-secondary w-100 fs-15px p-5px" style="border-radius: 3px; height: 35px">
           Refresh
         </div>
       </div>
@@ -140,12 +136,12 @@
         class="form-control w-50 fs-15px lh-15px"
         style="text-align: right"
         placeholder="0"
+        type="number"
         [(ngModel)]="desoToBuy"
-        (ngModelChange)="updateDESOToBuy($event)"
       />
       <div class="ml-2 w-50 fs-15px">
         $DESO &middot;
-        <a class="text-grey7" (click)="clickMaxDESO()">
+        <a class="text-grey7">
           <u>Max</u>
         </a>
       </div>
@@ -164,7 +160,7 @@
         aria-describedby="emailHelp"
         placeholder="0"
         [(ngModel)]="ethToExchange"
-        (ngModelChange)="updateETHToExchange($event)"
+        type="number"
       />
       <div class="ml-2 w-50 fs-15px">ETH</div>
     </div>

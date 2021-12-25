@@ -18,6 +18,7 @@ import { EmbedUrlParserService } from "../../../lib/services/embed-url-parser-se
 import { SharedDialogs } from "../../../lib/shared-dialogs";
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 import { UnlockContentModalComponent } from "src/app/unlock-content-modal/unlock-content-modal.component";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "feed-post",
@@ -30,7 +31,6 @@ export class FeedPostComponent implements OnInit {
     return this._post;
   }
   set post(post: PostEntryResponse) {
-    console.log(post)
     // When setting the post, we need to consider repost behavior.
     // If a post is a reposting another post (without a quote), then use the reposted post as the post content.
     // If a post is quoting another post, then we use the quoted post as the quoted content.
@@ -145,6 +145,9 @@ export class FeedPostComponent implements OnInit {
   _post: any;
   pinningPost = false;
   hidingPost = false;
+  
+  isAvailableForSale = false;
+
   quotedContent: any;
   _blocked: boolean;
   constructedEmbedURL: any;
@@ -173,7 +176,11 @@ export class FeedPostComponent implements OnInit {
         this.postContent.PostHashHex
       )
       .subscribe((res) => {
+        
+        
         this.nftEntryResponses = res.NFTEntryResponses;
+        this.isAvailableForSale = this.nftEntryResponses[0].IsForSale;
+        console.log(this.isAvailableForSale);
         this.nftEntryResponses.sort((a, b) => a.SerialNumber - b.SerialNumber);
         this.decryptableNFTEntryResponses = this.nftEntryResponses.filter(
           (sn) =>
@@ -225,14 +232,11 @@ export class FeedPostComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.router.url=="/browse?feedTab=Supernovas%20Feed")
+    console.log(this.router.url == "/browse?feedTab=Supernovas%20Feed")
     if (!this.post.RepostCount) {
       this.post.RepostCount = 0;
     }
     this.setEmbedURLForPostContent();
-    console.log(this.nftEntryResponses)
-    console.log(this.showNFTDetails)
-    console.log(this.postContent.IsNFT)
     if (this.showNFTDetails && this.postContent.IsNFT && !this.nftEntryResponses?.length) {
       this.getNFTEntries();
     }
@@ -594,6 +598,16 @@ export class FeedPostComponent implements OnInit {
     return EmbedUrlParserService.getEmbedWidth(this.postContent.PostExtraData["EmbedVideoURL"]);
   }
 
+  // getNode(): DeSoNode {
+  //   const nodeId = this.postContent.PostExtraData["Node"];
+  //   if (nodeId && nodeId != environment.node.id) {
+  //     const node = this.globalVars.nodes[nodeId];
+  //     if (node) {
+  //       return node;
+  //     }
+  //   }
+  // }
+
   // Vimeo iframes have a lot of spacing on top and bottom on mobile.
   setNegativeMargins(link: string, globalVars: GlobalVarsService) {
     return globalVars.isMobile() && EmbedUrlParserService.isVimeoLink(link);
@@ -627,10 +641,10 @@ export class FeedPostComponent implements OnInit {
       }
     });
   }
-  ViewUnlockableContent(){
+  ViewUnlockableContent() {
     const modalDetails = this.modalService.show(UnlockContentModalComponent, {
       class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
-      initialState: { decryptableNFTEntryResponses: this.decryptableNFTEntryResponses},
+      initialState: { decryptableNFTEntryResponses: this.decryptableNFTEntryResponses },
     });
     const onHideEvent = modalDetails.onHide
   }
@@ -655,26 +669,37 @@ export class FeedPostComponent implements OnInit {
   }
   compareBit(minBid, maxBid, showPlaceABid): string {
     if (!showPlaceABid && !!this.nftEntryResponses) {
+
       if (
         this.nftEntryResponses[0]?.IsForSale === false &&
         this.nftEntryResponses[0]?.LastAcceptedBidAmountNanos === 0 &&
         this.nftEntryResponses[0]?.OwnerPublicKeyBase58Check === this.postContent.PosterPublicKeyBase58Check
       ) {
-        return "Owner";
+        // setTimeout(() => {
+          return "Owner";
+        
       }
-      return this.nftEntryResponses[0]?.IsForSale === false ? "Last Sold for" : "Minimum Bid";
-    } else {
-      if (Number(maxBid) > 0) {
-        return "Highest Bid";
-      } else if (Number(maxBid) === 0) {
-        return "Minimum Bid";
-      }
+      // setTimeout(() => {
+        return this.nftEntryResponses[0]?.IsForSale === false ? "Last Sold for" : "Minimum Bid";
+      // }, 500)
     }
+    else {
+      // setTimeout(() => { 
+        if (Number(maxBid) > 0) {
+          return "Highest Bid";
+        } else if (Number(maxBid) === 0) {
+
+          return "Minimum Bid";
+        }
+      // }, 1000) 
+
+    }
+    return ""
   }
-  sellYourBid(){
+  sellYourBid() {
     this.sellNFT.emit()
   }
-  closeYourAuction(){
+  closeYourAuction() {
     this.closeAuction.emit()
   }
   getRouterLink(val: any): any {

@@ -223,14 +223,39 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: #0000004d;
     transition: opacity 0.2s linear;
+}
+.card-audio-icon-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #0000004d;
+    transition: all 0.2s linear;
+}
+.audio-icon-hover-state {
+    width: 216px;
+    height: 49px;
+    background: #000000;
+    border-radius: 30px;
+    p {
+        color: #FFFFFF;
+    }
 }
 .top-br-30px {
     border-top-left-radius: 30px !important;
     border-top-right-radius: 30px !important;
 }
 .card-video-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 60%;
+}
+.card-audio-icon {
     position: absolute;
     top: 50%;
     left: 50%;

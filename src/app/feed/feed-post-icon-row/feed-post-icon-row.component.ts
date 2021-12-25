@@ -10,11 +10,12 @@ import { CommentModalComponent } from "../../comment-modal/comment-modal.compone
 import { PopoverDirective } from "ngx-bootstrap/popover";
 import { ThemeService } from "../../theme/theme.service";
 import { includes, round } from "lodash";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "feed-post-icon-row",
   templateUrl: "./feed-post-icon-row.component.html",
-  styleUrls: ["./feed-post-icon-row.component.sass"],
+  styleUrls: ["./feed-post-icon-row.component.scss"],
 })
 export class FeedPostIconRowComponent {
   @ViewChild("diamondPopover", { static: false }) diamondPopover: PopoverDirective;
@@ -27,7 +28,12 @@ export class FeedPostIconRowComponent {
   @Input() hideNumbers: boolean = false;
   // Will need additional inputs if we walk through actions other than diamonds.
   @Input() inTutorial: boolean = false;
-
+  @Input() firstIconPath: string = '';
+  @Input() secondIconPath: string = '';
+  @Input() thirdIconPath: string = '';
+  @Input() fourthIconPath: string = '';
+  @Input() fifthIconPath: string = '';
+  @Input() canReplaceExistingIcons: boolean = false;
   @Output() diamondSent = new EventEmitter();
 
   sendingRepostRequest = false;
@@ -210,6 +216,10 @@ export class FeedPostIconRowComponent {
     if (!this.postContent.PostEntryReaderState) {
       this.postContent.PostEntryReaderState = {};
     }
+    let postExtraData = {};
+    if (environment.node.id) {
+      postExtraData["Node"] = environment.node.id.toString();
+    }
 
     this.sendingRepostRequest = true;
     this._detectChanges();
@@ -222,7 +232,7 @@ export class FeedPostIconRowComponent {
         "" /*Title*/,
         {},
         this.postContent.PostHashHex,
-        {},
+        postExtraData,
         "" /*Sub*/,
         false /*IsHidden*/,
         // What should the fee rate be for this?
@@ -263,6 +273,10 @@ export class FeedPostIconRowComponent {
       return this._preventNonLoggedInUserActions("undo repost");
     }
     this.sendingRepostRequest = true;
+    let postExtraData = {};
+    if (environment.node.id) {
+      postExtraData["Node"] = environment.node.id.toString();
+    }
 
     this._detectChanges();
     this.backendApi
@@ -274,7 +288,7 @@ export class FeedPostIconRowComponent {
         "" /*Title*/,
         {} /*BodyObj*/,
         this.postContent.PostHashHex,
-        {},
+        postExtraData,
         "" /*Sub*/,
         true /*IsHidden*/,
         // What should the fee rate be for this?
@@ -593,5 +607,9 @@ export class FeedPostIconRowComponent {
   getPopoverContainerClass() {
     const mobileClass = this.globalVars.isMobile() ? "diamond-popover-container-mobile " : "";
     return "diamond-popover-container " + mobileClass;
+  }
+  
+  determineHeartIconPath(): string {
+    return this.postContent?.PostEntryReaderState?.LikedByReader ? this.fourthIconPath : this.thirdIconPath;
   }
 }

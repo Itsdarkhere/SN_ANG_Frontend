@@ -9,7 +9,7 @@
       [messageThreads]="globalVars.messageResponse ? globalVars.messageResponse.OrderedContactsWithMessages : null"
     ></messages-inbox>
     <messages-thread-view
-      class="messages-thread__desktop-column"
+      class="w-100"
       [messageThread]="
         globalVars.messageResponse
           ? selectedThread
@@ -76,7 +76,7 @@
         ></messages-inbox>
         <messages-thread-view
           *ngIf="showThreadView"
-          class="messages-thread__desktop-column"
+          class="w-100"
           [isMobile]="true"
           [messageThread]="
             globalVars.messageResponse

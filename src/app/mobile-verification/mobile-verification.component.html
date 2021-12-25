@@ -19,7 +19,7 @@
       <button
         (click)="sendVerificationText()"
         [ngClass]="{ disabled: !phoneForm.valid }"
-        class="white-rounded-button small-button-size ml-10px fs-12px"
+        class="white-rounded-button small-button-size-2 ml-10px fs-12px"
       >
         <label *ngIf="!sendingPhoneNumberVerificationText; else elseBlock" class="mb-0px pointer-events-none">Get verification code</label>
         <ng-template #elseBlock><i class="fa fa-spinner fa-spin"></i></ng-template>
@@ -64,7 +64,7 @@
         <button
           (click)="submitVerificationCode()"
           [ngClass]="{ disabled: !verificationCodeForm.valid }"
-          class="black-rounded-button small-button-size ml-10px fs-12px"
+          class="black-rounded-button small-button-size-2 ml-10px fs-12px"
         >
           <label *ngIf="!submittingPhoneNumberVerificationCode; else elseBlock" class="mb-0px pointer-events-none">Verify your phone</label>
           <ng-template #elseBlock><i class="fa fa-spinner fa-spin"></i></ng-template>

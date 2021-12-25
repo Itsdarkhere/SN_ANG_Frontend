@@ -27,6 +27,7 @@ import { CommentModalComponent } from "src/app/comment-modal/comment-modal.compo
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 import { FeedPostImageModalComponent } from 'src/app/feed/feed-post-image-modal/feed-post-image-modal.component';
 import { Meta, MetaDefinition } from '@angular/platform-browser';
+import { CancelEvent } from '../shared/models/cancel-event.interface';
 
 @Component({
   selector: "nft-post",
@@ -541,37 +542,7 @@ export class NftPostComponent implements OnInit {
   }
 
   cancelBid(bidEntry: NFTBidEntryResponse): void {
-    SwalHelper.fire({
-      target: this.globalVars.getTargetComponentSelector(),
-      title: "Cancel Bid",
-      html: `Are you sure you'd like to cancel this bid?`,
-      showCancelButton: true,
-      customClass: {
-        confirmButton: "btn btn-light",
-        cancelButton: "btn btn-light no",
-      },
-      reverseButtons: true,
-    }).then((res) => {
-      if (res.isConfirmed) {
-        this.backendApi
-          .CreateNFTBid(
-            this.globalVars.localNode,
-            this.globalVars.loggedInUser.PublicKeyBase58Check,
-            this.nftPost.PostHashHex,
-            bidEntry.SerialNumber,
-            0,
-            this.globalVars.defaultFeeRateNanosPerKB
-          )
-          .subscribe(
-            (res) => {
-              this.refreshBidData();
-            },
-            (err) => {
-              console.error(err);
-            }
-          );
-      }
-    });
+    this.triggerBidCancellation(this.nftPost.PostHashHex, bidEntry.SerialNumber, 0 );
   }
 
   reloadingThread = false;
@@ -627,4 +598,43 @@ export class NftPostComponent implements OnInit {
   this.metaService.updateTag( { property:'og:url', content:`${imageUrl}`}, "property='og:url'");
   this.metaService.updateTag( { property:'og:title', content:`${nftDescription}`}, "property='og:title'");
 }
+
+  onBidCancellation(event: CancelEvent): void {
+  const { postHashHex, serialNumber, bidAmountNanos} = event;
+  this.triggerBidCancellation(postHashHex, serialNumber, bidAmountNanos );
+  }
+
+  triggerBidCancellation(postHashHex: string, serialNumber: number, bidAmountNanos: number): void {
+    SwalHelper.fire({
+      target: this.globalVars.getTargetComponentSelector(),
+      title: "Cancel Bid",
+      html: `Are you sure you want to cancel your bid ?`,
+      showCancelButton: true,
+      customClass: {
+        confirmButton: "btn btn-light",
+        cancelButton: "btn btn-light no",
+      },
+      reverseButtons: true,
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.backendApi
+          .CreateNFTBid(
+            this.globalVars.localNode,
+            this.globalVars.loggedInUser.PublicKeyBase58Check,
+            postHashHex,
+            serialNumber,
+            bidAmountNanos,
+            this.globalVars.defaultFeeRateNanosPerKB
+          )
+          .subscribe(
+            () => {
+              this.refreshBidData();
+            },
+            (err) => {
+              console.error(err);
+            }
+          );
+      }
+    });
+  }
 }

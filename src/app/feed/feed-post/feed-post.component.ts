@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, AfterViewInit } from "@angular/core";
 import { GlobalVarsService } from "../../global-vars.service";
-import { BackendApiService, NFTEntryResponse, PostEntryResponse } from "../../backend-api.service";
+import { BackendApiService, NFTEntryResponse, PostEntryResponse, NFTBidEntryResponse, NFTBidData } from "../../backend-api.service";
 import { AppRoutingModule } from "../../app-routing.module";
 import { Router } from "@angular/router";
 import { SwalHelper } from "../../../lib/helpers/swal-helper";
@@ -57,7 +57,7 @@ export class FeedPostComponent implements OnInit {
     return this._blocked;
   }
 
-  @Input() nftBidData: any = undefined
+  @Input() nftBidData: NFTBidData;
   constructor(
     private analyticsService: GoogleAnalyticsService,
     public globalVars: GlobalVarsService,
@@ -135,6 +135,7 @@ export class FeedPostComponent implements OnInit {
 
   // close Auction
   @Output() closeAuction = new EventEmitter();
+  @Output() onBidCancellation = new EventEmitter();
 
   AppRoutingModule = AppRoutingModule;
   addingPostToGlobalFeed = false;
@@ -679,4 +680,46 @@ export class FeedPostComponent implements OnInit {
   getRouterLink(val: any): any {
     return this.inTutorial ? [] : val;
   }
+
+  cancelBid(bidEntry: NFTBidEntryResponse): void {
+    SwalHelper.fire({
+      target: this.globalVars.getTargetComponentSelector(),
+      title: "Cancel Bid",
+      html: `Are you sure you'd like to cancel this bid?`,
+      showCancelButton: true,
+      customClass: {
+        confirmButton: "btn btn-light",
+        cancelButton: "btn btn-light no",
+      },
+      reverseButtons: true,
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.backendApi
+          .CreateNFTBid(
+            this.globalVars.localNode,
+            this.globalVars.loggedInUser.PublicKeyBase58Check,
+            this._post.PostHashHex,
+            this.nftBidData.BidEntryResponses[0].SerialNumber,
+            0,
+            this.globalVars.defaultFeeRateNanosPerKB
+          )
+          .subscribe(
+            () => {
+            },
+            (err) => {
+              console.error(err);
+            }
+          );
+      }
+    });
+  }
+
+  onBidCancel = (event :any): void => {
+  this.onBidCancellation.emit({
+    postHashHex: this._post.PostHashHex,
+    serialNumber: this.nftBidData.BidEntryResponses[0].SerialNumber,
+    bidAmountNanos: 0,
+  })
+  }
+  
 }

@@ -1180,7 +1180,7 @@ export class GlobalVarsService {
         return;
       }
       this.backendApi
-        .GetJumioStatusForPublicKey(environment.jumioEndpointHostname, publicKey)
+        .GetJumioStatusForPublicKey(environment.verificationEndpointHostname, publicKey)
         .subscribe(
           (res: any) => {
             if (res.JumioVerified) {
@@ -1228,7 +1228,7 @@ export class GlobalVarsService {
     const referralHash = localStorage.getItem("referralCode");
     if (referralHash) {
       this.backendApi
-        .GetReferralInfoForReferralHash(environment.jumioEndpointHostname, referralHash)
+        .GetReferralInfoForReferralHash(environment.verificationEndpointHostname, referralHash)
         .subscribe((res) => {
           const referralInfo = res.ReferralInfoResponse.Info;
           if (

@@ -19,11 +19,12 @@ import { SharedDialogs } from "../../../lib/shared-dialogs";
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 import { UnlockContentModalComponent } from "src/app/unlock-content-modal/unlock-content-modal.component";
 import { environment } from "src/environments/environment";
+import { CreateNftAuctionModalComponent } from 'src/app/create-nft-auction-modal/create-nft-auction-modal.component';
 
 @Component({
   selector: "feed-post",
   templateUrl: "./feed-post.component.html",
-  styleUrls: ["./feed-post.component.sass"],
+  styleUrls: ["./feed-post.component.scss"],
 })
 export class FeedPostComponent implements OnInit {
   @Input()
@@ -719,4 +720,24 @@ export class FeedPostComponent implements OnInit {
 
     return pastBid ? true : false;
   }
+  
+  showPutForSaleButton(): boolean {
+    return (
+      this.post.IsNFT &&
+      !!this.nftEntryResponses?.filter(
+        (nftEntryResponse) =>
+          !nftEntryResponse.IsForSale &&
+          nftEntryResponse.OwnerPublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
+      )?.length
+    );
+  }
+
+
+  openCreateNFTAuctionModal(event): void {
+    this.modalService.show(CreateNftAuctionModalComponent, {
+      class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
+      initialState: { post: this.post, nftEntryResponses: this.nftEntryResponses },
+    });
+  }
+  
 }

@@ -526,7 +526,11 @@
                     Place your Bid
                 </button>
 
-                <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="ViewUnlockableContent($event)" *ngIf="!isAvailableForSale && decryptableNFTEntryResponses?.length && !showUnlockableContent">
+                <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="openCreateNFTAuctionModal($event)" *ngIf="showPutForSaleButton() && !nftEntryResponses[0].IsPending">
+                    Put NFT for sale
+                </button>
+
+                <button class="btn nft_place_bid_btn nft_sale_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="ViewUnlockableContent($event)" *ngIf="!isAvailableForSale && decryptableNFTEntryResponses?.length && !showUnlockableContent">
                 <!-- <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="ViewUnlockableContent($event)" *ngIf="(decryptableNFTEntryResponses?.length && !showUnlockableContent)&&!(nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length>0)"> -->
                     <i><img src="assets/icons/unlock.svg" alt=""></i> View unlockable content
                 </button>
@@ -541,6 +545,8 @@
                     <button class="btn blk_line_btn with_ico small" (click)=closeYourAuction()><i><img
                                 src="assets/icons/circle-error.svg" alt=""></i> Close the auction</button>
                 </div>
+
+                
 
 
                 <!-- <p class="center_sec font-weight-bold">

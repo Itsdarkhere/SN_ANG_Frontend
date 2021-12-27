@@ -176,8 +176,6 @@ export class FeedPostComponent implements OnInit {
         this.postContent.PostHashHex
       )
       .subscribe((res) => {
-        
-        
         this.nftEntryResponses = res.NFTEntryResponses;
         this.isAvailableForSale = this.nftEntryResponses[0].IsForSale;
         console.log(this.isAvailableForSale);
@@ -713,5 +711,12 @@ export class FeedPostComponent implements OnInit {
     bidAmountNanos: 0,
   })
   }
-  
+
+  hasUserPlacedBids(): boolean {
+    const pastBid = this.nftBidData.BidEntryResponses.find((bidEntry: NFTBidEntryResponse) => {
+      return bidEntry.PublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
+    })
+
+    return pastBid ? true : false;
+  }
 }

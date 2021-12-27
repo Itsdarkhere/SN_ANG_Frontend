@@ -22,7 +22,7 @@
                 <span class="th">SERIAL NUMBER</span>
                 <span class="th">LAST PRICE</span>
             </div>
-            <div class="list_section" style="max-height: 160px; overflow-y: scroll">
+            <div class="list_section" style="max-height: 160px">
                 <div class="list_inside" *ngFor="let nft of mySerialNumbersNotForSale()">
                     <input type="checkbox" [(ngModel)]="selectedSerialNumbers[nft.SerialNumber]" />
                     <div class="ckh_bx">

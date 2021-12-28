@@ -516,8 +516,13 @@
           'align-items-start': isQuotedContent,
           'align-items-center': !isQuotedContent
         }">
+ 
+           <div class="feed_post_btn_grp d-flex flex-wrap w-100 justify-content-between" *ngIf="hasUserPlacedBids()">
+            <button class="btn blk_fill_btn with_ico small" (click)="openPlaceBidModal($event)"> Place new bid</button>
+            <button class="btn blk_line_btn with_ico small" (click)="onBidCancel($event)">Cancel your bid</button>
+             </div>
 
-                <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="openPlaceBidModal($event)" *ngIf="showPlaceABid">
+                <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="openPlaceBidModal($event)" *ngIf="showPlaceABid && !(hasUserPlacedBids()) && !(showPutForSaleButton()) ">
                     Place your Bid
                 </button>
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, AfterViewInit } from "@angular/core";
 import { GlobalVarsService } from "../../global-vars.service";
-import { BackendApiService, DeSoNode, NFTEntryResponse, PostEntryResponse } from "../../backend-api.service";
+import { BackendApiService, NFTEntryResponse, PostEntryResponse, NFTBidEntryResponse, NFTBidData } from "../../backend-api.service";
 import { AppRoutingModule } from "../../app-routing.module";
 import { Router } from "@angular/router";
 import { SwalHelper } from "../../../lib/helpers/swal-helper";
@@ -58,7 +58,7 @@ export class FeedPostComponent implements OnInit {
     return this._blocked;
   }
 
-  @Input() nftBidData: any = undefined
+  @Input() nftBidData: NFTBidData;
   constructor(
     private analyticsService: GoogleAnalyticsService,
     public globalVars: GlobalVarsService,
@@ -136,6 +136,7 @@ export class FeedPostComponent implements OnInit {
 
   // close Auction
   @Output() closeAuction = new EventEmitter();
+  @Output() onBidCancellation = new EventEmitter();
 
   AppRoutingModule = AppRoutingModule;
   addingPostToGlobalFeed = false;
@@ -176,8 +177,6 @@ export class FeedPostComponent implements OnInit {
         this.postContent.PostHashHex
       )
       .subscribe((res) => {
-        
-        
         this.nftEntryResponses = res.NFTEntryResponses;
         this.isAvailableForSale = this.nftEntryResponses[0].IsForSale;
         console.log(this.isAvailableForSale);
@@ -706,6 +705,22 @@ export class FeedPostComponent implements OnInit {
     return this.inTutorial ? [] : val;
   }
 
+  onBidCancel = (event :any): void => {
+  this.onBidCancellation.emit({
+    postHashHex: this._post.PostHashHex,
+    serialNumber: this.nftBidData.BidEntryResponses[0].SerialNumber,
+    bidAmountNanos: 0,
+  })
+  }
+
+  hasUserPlacedBids(): boolean {
+    const pastBid = this.nftBidData.BidEntryResponses.find((bidEntry: NFTBidEntryResponse) => {
+      return bidEntry.PublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
+    })
+
+    return pastBid ? true : false;
+  }
+  
   showPutForSaleButton(): boolean {
     return (
       this.post.IsNFT &&

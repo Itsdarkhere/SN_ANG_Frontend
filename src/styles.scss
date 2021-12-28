@@ -5824,7 +5824,8 @@ width: 100%;
 }
 
 .nft_placebid_modal_bx,
-.rt_popups {
+.rt_popups,
+.swal2-popup {
     left: 360px;
     @media screen and (max-width: 1280px) {
         left: 300px;

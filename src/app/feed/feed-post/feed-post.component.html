@@ -522,7 +522,7 @@
             <button class="btn blk_line_btn with_ico small" (click)="onBidCancel($event)">Cancel your bid</button>
              </div>
 
-                <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="openPlaceBidModal($event)" *ngIf="showPlaceABid && !(hasUserPlacedBids()) ">
+                <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="openPlaceBidModal($event)" *ngIf="showPlaceABid && !(hasUserPlacedBids()) && !(showPutForSaleButton()) ">
                     Place your Bid
                 </button>
 

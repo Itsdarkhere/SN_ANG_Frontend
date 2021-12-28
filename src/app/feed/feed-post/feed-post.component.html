@@ -526,7 +526,7 @@
                     Place your Bid
                 </button>
 
-                <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="openCreateNFTAuctionModal($event)" *ngIf="showPutForSaleButton() && !nftEntryResponses[0].IsPending">
+                <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="openCreateNFTAuctionModal($event)" *ngIf="!(!isAvailableForSale && decryptableNFTEntryResponses?.length && !showUnlockableContent) && showPutForSaleButton() && !nftEntryResponses[0].IsPending">
                     Put NFT for sale
                 </button>
 

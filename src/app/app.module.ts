@@ -194,6 +194,7 @@ import { DiscoveryComponent } from './discovery/discovery.component';
 import { UnlockContentModalComponent } from './unlock-content-modal/unlock-content-modal.component';
 import { LoadingShimmerComponent } from "./loading-shimmer/loading-shimmer.component";
 import { AudioPlayerComponent } from "./audio-player/audio-player.component";
+import { CancelBidModalComponent } from './cancel-bid-modal/cancel-bid-modal.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -366,6 +367,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     DiscoveryComponent,
     UnlockContentModalComponent,
     AudioPlayerComponent,
+    CancelBidModalComponent,
   ],
   imports: [
     BrowserModule,

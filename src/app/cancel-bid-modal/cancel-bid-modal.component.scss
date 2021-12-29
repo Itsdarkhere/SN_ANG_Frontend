@@ -1,0 +1,23 @@
+.selected_bid{
+background-color: var(--secalt);
+}
+
+.nft_cancel{
+    &.btn {
+        background: #313131;
+        border: 0.28458px solid #000000;
+        box-shadow: 0.794738px 0.794738px 3.97369px 0.397369px rgba(0, 0, 0, 0.11), inset 0px -1.51437px 15.1437px 7.57187px #000000;
+        border-radius: 55.7175px;
+        width: 300px;
+        max-width: 100%;
+        padding: 10px 15px;
+        height: 60px;
+        font-size: 16px;
+        margin: 0 auto;
+        max-width: 100%;
+        border: none;
+        color: var(--formbg);
+        font-weight: 600;
+        margin-top: 20px;
+    }
+}

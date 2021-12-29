@@ -28,6 +28,7 @@ import { CancelEvent } from '../shared/models/cancel-event.interface';
 import { Meta } from '@angular/platform-browser';
 import { FIRST_ICON_PATH, SECOND_ICON_PATH, THIRD_ICON_PATH,
   FOURTH_ICON_PATH, FIFTH_ICON_PATH } from 'src/app/feed/shared/constants/defines';
+import { CancelBidModalComponent } from 'src/app/cancel-bid-modal/cancel-bid-modal.component';
 
 @Component({
   selector: "nft-post",
@@ -612,7 +613,7 @@ export class NftPostComponent implements OnInit {
   this.metaService.updateTag( { property:'og:title', content:`${nftDescription}`}, "property='og:title'");
 }
 
-  onBidCancellation(event: CancelEvent): void {
+  onSingleBidCancellation(event: CancelEvent): void {
   const { postHashHex, serialNumber, bidAmountNanos} = event;
   this.triggerBidCancellation(postHashHex, serialNumber, bidAmountNanos );
   }
@@ -675,4 +676,16 @@ export class NftPostComponent implements OnInit {
       this.postContent = post;
     }
   }
+
+  onMultipleBidsCancellation(event: any): void {
+    console.log(event);
+    const modalDetails = this.modalService.show(CancelBidModalComponent, {
+      class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+      initialState: {
+        bidEntryResponses: event.cancellableBids,
+        postHashHex: event.postHashHex
+      },
+    });
+  }
+
 }

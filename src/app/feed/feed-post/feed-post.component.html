@@ -114,7 +114,7 @@
                         <div class="d-flex align-items-center">
                             <div class="d-flex justify-content-between">
                                 <div class="post_del_list">
-                                    <span class="nb">Creator</span>
+                                    <span class="nb" *ngIf="isNFTProfile">Creator</span>
                                     <!-- Username-->
                                     <a class="fc-default font-weight-bold" [routerLink]="
                                         getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX, postContent.ProfileEntryResponse.Username])
@@ -125,15 +125,15 @@
                                         <i class="fas fa-check-circle fa-md align-middle"></i>
                                     </span>
                                 </div>
-                                <div class="post_del_list edition" *ngIf="router.url!='/browse?feedTab=Supernovas%20Feed'">
+                                <div class="post_del_list edition" *ngIf="isNFTProfile">
                                     <span class="nb">Edition</span>
                                     <div class="ps_dells_val"> 1 </div>
                                 </div>
-                                <div class="post_del_list minted_on" *ngIf="router.url!='/browse?feedTab=Supernovas%20Feed'">
+                                <div class="post_del_list minted_on" *ngIf="isNFTProfile">
                                     <span class="nb">Minted on</span>
                                     <div class="ps_dells_val"> DeSo </div>
                                 </div>
-                                <div class="post_del_list market_sc" *ngIf="router.url!='/browse?feedTab=Supernovas%20Feed' && nftEntryResponses">
+                                <div class="post_del_list market_sc" *ngIf="isNFTProfile">
                                     <span class="nb">Market</span>
                                     <div class="ps_dells_val" *ngIf="postContent?.PosterPublicKeyBase58Check==nftEntryResponses[0]?.OwnerPublicKeyBase58Check"> Primary </div>
                                     <div class="ps_dells_val" *ngIf="postContent?.PosterPublicKeyBase58Check!=nftEntryResponses[0]?.OwnerPublicKeyBase58Check"> Secondary </div>

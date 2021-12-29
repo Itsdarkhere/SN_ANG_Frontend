@@ -81,6 +81,7 @@
     <div class="nft_bx nft_feed_post_wt_design post">
       <div *ngIf="nftPost && nftBidData" class="position-relative">
         <feed-post
+          [isNFTProfile] = "true"
           [nftBidData]="nftBidData"
           [post]="nftPost"
           [includePaddingOnPost]="true"

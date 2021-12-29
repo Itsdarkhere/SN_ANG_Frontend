@@ -20,6 +20,7 @@ import { environment } from "src/environments/environment";
 export class FeedPostIconRowComponent {
   @ViewChild("diamondPopover", { static: false }) diamondPopover: PopoverDirective;
 
+  @Input() isNFTProfile = false
   @Input() post: PostEntryResponse;
   @Input() postContent: PostEntryResponse;
   @Input() parentPost: PostEntryResponse;
@@ -384,10 +385,11 @@ export class FeedPostIconRowComponent {
         afterCommentCreatedCallback: isQuote ? this.afterRepostCreatedCallback : this.afterCommentCreatedCallback,
         isQuote,
       };
-      console.log(this.afterCommentCreatedCallback);
+      console.log('XxxxxxxxxxxxxxxxxxxxxxX');
+      console.log(this.isNFTProfile);
       // If the user has an account and a profile, open the modal so they can comment.
       this.modalService.show(CommentModalComponent, {
-        class: "modal-dialog-centered rt_popups",
+        class: (this.isNFTProfile)?"modal-dialog-centered rt_popups":"modal-dialog-centered",
         initialState,
       });
     }

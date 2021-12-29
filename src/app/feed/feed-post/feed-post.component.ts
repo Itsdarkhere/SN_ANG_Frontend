@@ -58,6 +58,7 @@ export class FeedPostComponent implements OnInit {
     return this._blocked;
   }
   @Input() isNFTProfile = false;
+  @Input() isNFTProfileComment = false;
   @Input() nftBidData: NFTBidData;
   constructor(
     private analyticsService: GoogleAnalyticsService,

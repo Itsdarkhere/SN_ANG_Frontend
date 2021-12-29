@@ -136,7 +136,8 @@ export class FeedPostComponent implements OnInit {
 
   // close Auction
   @Output() closeAuction = new EventEmitter();
-  @Output() onBidCancellation = new EventEmitter();
+  @Output() onSingleBidCancellation = new EventEmitter();
+  @Output() onMultipleBidsCancellation = new EventEmitter();
 
   AppRoutingModule = AppRoutingModule;
   addingPostToGlobalFeed = false;
@@ -705,12 +706,25 @@ export class FeedPostComponent implements OnInit {
     return this.inTutorial ? [] : val;
   }
 
-  onBidCancel = (event :any): void => {
-  this.onBidCancellation.emit({
-    postHashHex: this._post.PostHashHex,
-    serialNumber: this.nftBidData.BidEntryResponses[0].SerialNumber,
-    bidAmountNanos: 0,
-  })
+  onBidCancel = (event: any): void => {
+    const numberOfBids = this.nftBidData.BidEntryResponses.length;
+    console.log(this._post);
+    if (this.hasUserPlacedBids() && numberOfBids > 0) {
+      if (numberOfBids > 1) {
+      this.onMultipleBidsCancellation.emit({
+      cancellableBids: this.nftBidData.BidEntryResponses,
+      postHashHex: this._post.PostHashHex
+      })
+      }
+      else {
+        this.onSingleBidCancellation.emit({
+          postHashHex: this._post.PostHashHex,
+          serialNumber: this.nftBidData.BidEntryResponses[0].SerialNumber,
+          bidAmountNanos: 0,
+        })
+      }
+    }
+
   }
 
   hasUserPlacedBids(): boolean {

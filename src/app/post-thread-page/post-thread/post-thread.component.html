@@ -66,6 +66,7 @@
             *ngIf="item.ProfileEntryResponse != null"
             [includePaddingOnPost]="true"
             [post]="item"
+            [isNFTProfileComment] = "isNFTProfile"
             [parentPost]="currentPost"
             [contentShouldLinkToThread]="true"
             [showIconRow]="true"

@@ -26,6 +26,7 @@ export class PostThreadComponent implements OnInit {
   commentLimit = 20;
   datasource: IDatasource<IAdapter<any>>;
 
+  @Input() isNFTProfile = false;
   @Input() hideHeader: boolean = false;
   @Input() hideCurrentPost: boolean = false;
   @Input() fromNFTDetail: boolean = false;

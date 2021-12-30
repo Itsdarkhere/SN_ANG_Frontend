@@ -18,12 +18,12 @@ export class BidPlacedModalComponent {
   onExploreClicked() {
     this.globalVars.exploreShowcase(this.bsModalRef, this.modalService);
   }
-  viewBids() {
+  viewBids(){
     this.bsModalRef.hide();
-    this.router.navigate(["/activity"]);
+    this.router.navigate(['/activity']);
   }
   hideAndRefresh() {
     this.bsModalRef.hide();
-    this.modalService.setDismissReason("Success");
+    window.location.reload();
   }
 }

@@ -6,6 +6,7 @@ import * as _ from "lodash";
 import { of } from "rxjs";
 import { concatMap, filter, last, map, take } from "rxjs/operators";
 import { NftSoldModalComponent } from "../nft-sold-modal/nft-sold-modal.component";
+import { AddUnlockableModalComponent } from "../add-unlockable-modal/add-unlockable-modal.component";
 import { Router } from "@angular/router";
 import { GoogleAnalyticsService } from "../google-analytics.service";
 

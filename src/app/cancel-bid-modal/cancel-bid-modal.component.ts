@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { BsModalRef } from "ngx-bootstrap/modal";
 import { NFTBidEntryResponse, BackendApiService } from "../backend-api.service";
-import { BsModalService } from "ngx-bootstrap/modal";
 import { GlobalVarsService } from "../global-vars.service";
 
 @Component({
@@ -18,8 +17,7 @@ export class CancelBidModalComponent implements OnInit {
   constructor(
     public bsModalRef: BsModalRef,
     public globalVars: GlobalVarsService,
-    private backendApi: BackendApiService,
-    private modalService: BsModalService
+    private backendApi: BackendApiService
   ) {}
 
   ngOnInit(): void {}
@@ -48,8 +46,7 @@ export class CancelBidModalComponent implements OnInit {
       )
       .subscribe(
         () => {
-          this.bsModalRef.hide;
-          this.modalService.setDismissReason("Bid cancelled");
+          window.location.reload();
         },
         (err) => {
           console.error(err);

@@ -917,10 +917,6 @@ $green-font-color: #19b028;
     padding-right: 20px;
 }
 
-.pl-20px {
-    padding-right: 20px;
-}
-
 .pr-10px {
     padding-right: 10px;
 }
@@ -6304,6 +6300,55 @@ width: 100%;
     }
     .mobile_feed_post {
         margin: 0;
+    }
+}
+.select-winning-bid-box {
+    width: 512px;
+    max-width: 100%;
+    height: 300px;
+    background: #ffffff;
+    border: 2px solid #ebebeb;
+    border-radius: 10px;
+    .table-head {
+        height: 40px;
+        border-bottom: 2px solid #ebebeb;
+        p {
+            width: 33%;
+        }
+    }
+    .modal-bids-container {
+        height: calc(100% - 40px);
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        button {
+            height: 50px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            .holdings__name {
+                text-overflow: ellipsis;
+            }
+            span {
+                width: 33%;
+            }
+            .bid__avatar {
+                width: 29px;
+                height: 28px;
+                border: 2.0714285373687744px solid #ffffff;
+                border-radius: 50%;
+                box-shadow: 0.6891809105873108px 0.6891809105873108px 3.4459030628204346px rgba(0, 0, 0, 0.1);
+            }
+        }
+    }
+    .modal-bids-container .selected {
+        background-color: var(--secalt);
     }
 }
 

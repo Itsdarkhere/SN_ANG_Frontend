@@ -19,8 +19,10 @@ export class SellNftModalComponent implements OnInit {
   @Input() post: PostEntryResponse;
   @Input() nftEntries: NFTEntryResponse[];
   @Input() selectedBidEntries: NFTBidEntryResponse[];
+  sellNFTStep = 1;
   loading = false;
   sellNFTDisabled = false;
+  bidSelected = false;
   sellingPrice = 2.0887;
   earnings = 1.3587;
   creatorRoyalty = 0.42;
@@ -40,7 +42,7 @@ export class SellNftModalComponent implements OnInit {
   // TODO: compute service fee.
   ngOnInit(): void {
     console.log(this.post);
-    console.log()
+    console.log(this.selectedBidEntries);
     this.sellingPrice = _.sumBy(this.selectedBidEntries, "BidAmountNanos") / 1e9;
     const coinRoyaltyBasisPoints = this.post.NFTRoyaltyToCoinBasisPoints;
     const creatorRoyaltyBasisPoints = this.post.NFTRoyaltyToCreatorBasisPoints;
@@ -105,6 +107,16 @@ export class SellNftModalComponent implements OnInit {
         this.sellNFTDisabled = false;
         this.sellingNFT = false;
       });
+  }
+  selectBidEntry(bidEntry: NFTBidEntryResponse): void {
+    this.selectedBidEntries.forEach((bidEntry) => (bidEntry.selected = false));
+    bidEntry.selected = true;
+    this.bidSelected = true;
+  }
+  nextStep() {
+    if (this.sellNFTStep == 1) {
+      this.sellNFTStep++;
+    }
   }
   SendSoldEvent() {
     this.analyticsService.eventEmitter("bid_accepted", "transaction", "sold", "click", 10);

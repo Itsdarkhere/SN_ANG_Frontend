@@ -1,6 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, AfterViewInit } from "@angular/core";
 import { GlobalVarsService } from "../../global-vars.service";
-import { BackendApiService, NFTEntryResponse, PostEntryResponse, NFTBidEntryResponse, NFTBidData } from "../../backend-api.service";
+import {
+  BackendApiService,
+  NFTEntryResponse,
+  PostEntryResponse,
+  NFTBidEntryResponse,
+  NFTBidData,
+} from "../../backend-api.service";
 import { AppRoutingModule } from "../../app-routing.module";
 import { Router } from "@angular/router";
 import { SwalHelper } from "../../../lib/helpers/swal-helper";
@@ -19,7 +25,7 @@ import { SharedDialogs } from "../../../lib/shared-dialogs";
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 import { UnlockContentModalComponent } from "src/app/unlock-content-modal/unlock-content-modal.component";
 import { environment } from "src/environments/environment";
-import { CreateNftAuctionModalComponent } from 'src/app/create-nft-auction-modal/create-nft-auction-modal.component';
+import { CreateNftAuctionModalComponent } from "src/app/create-nft-auction-modal/create-nft-auction-modal.component";
 
 @Component({
   selector: "feed-post",
@@ -68,7 +74,7 @@ export class FeedPostComponent implements OnInit {
     private router: Router,
     private modalService: BsModalService,
     private sanitizer: DomSanitizer
-  ) { }
+  ) {}
 
   // Got this from https://code.habd.as/jhabdas/xanthippe/src/branch/master/lib/xanthippe.js#L8
   // Other regexes:
@@ -148,7 +154,7 @@ export class FeedPostComponent implements OnInit {
   _post: any;
   pinningPost = false;
   hidingPost = false;
-  
+
   isAvailableForSale = false;
 
   quotedContent: any;
@@ -233,7 +239,7 @@ export class FeedPostComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.router.url == "/browse?feedTab=Supernovas%20Feed")
+    console.log(this.router.url == "/browse?feedTab=Supernovas%20Feed");
     if (!this.post.RepostCount) {
       this.post.RepostCount = 0;
     }
@@ -627,7 +633,7 @@ export class FeedPostComponent implements OnInit {
       return;
     }
     event.stopPropagation();
-    console.log(this.postContent)
+    console.log(this.postContent);
     // Log event to google analytics
     //this.SendAddToCartEvent();
     const modalDetails = this.modalService.show(PlaceBidModalComponent, {
@@ -647,7 +653,7 @@ export class FeedPostComponent implements OnInit {
       class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
       initialState: { decryptableNFTEntryResponses: this.decryptableNFTEntryResponses },
     });
-    const onHideEvent = modalDetails.onHide
+    const onHideEvent = modalDetails.onHide;
   }
 
   showUnlockableContent = false;
@@ -670,38 +676,40 @@ export class FeedPostComponent implements OnInit {
   }
   compareBit(minBid, maxBid, showPlaceABid): string {
     if (!showPlaceABid && !!this.nftEntryResponses) {
-
       if (
         this.nftEntryResponses[0]?.IsForSale === false &&
         this.nftEntryResponses[0]?.LastAcceptedBidAmountNanos === 0 &&
         this.nftEntryResponses[0]?.OwnerPublicKeyBase58Check === this.postContent.PosterPublicKeyBase58Check
       ) {
         // setTimeout(() => {
-          return "Owner";
-        
+        return "Owner";
       }
       // setTimeout(() => {
-        return this.nftEntryResponses[0]?.IsForSale === false ? "Last Sold for" : "Minimum Bid";
+      return this.nftEntryResponses[0]?.IsForSale === false ? "Last Sold for" : "Minimum Bid";
       // }, 500)
+    } else {
+      // setTimeout(() => {
+      if (Number(maxBid) > 0) {
+        return "Highest Bid";
+      } else if (Number(maxBid) === 0) {
+        return "Minimum Bid";
+      }
+      // }, 1000)
     }
-    else {
-      // setTimeout(() => { 
-        if (Number(maxBid) > 0) {
-          return "Highest Bid";
-        } else if (Number(maxBid) === 0) {
-
-          return "Minimum Bid";
-        }
-      // }, 1000) 
-
-    }
-    return ""
+    return "";
+  }
+  UserOwnsSerialNumbers() {
+    const loggedInPubKey = this.globalVars?.loggedInUser?.PublicKeyBase58Check;
+    let serialList = this.nftEntryResponses.filter(
+      (NFTEntryResponse) => NFTEntryResponse.OwnerPublicKeyBase58Check === loggedInPubKey
+    );
+    return serialList;
   }
   sellYourBid() {
-    this.sellNFT.emit()
+    this.sellNFT.emit();
   }
   closeYourAuction() {
-    this.closeAuction.emit()
+    this.closeAuction.emit();
   }
   getRouterLink(val: any): any {
     return this.inTutorial ? [] : val;
@@ -712,30 +720,28 @@ export class FeedPostComponent implements OnInit {
     console.log(this._post);
     if (this.hasUserPlacedBids() && numberOfBids > 0) {
       if (numberOfBids > 1) {
-      this.onMultipleBidsCancellation.emit({
-      cancellableBids: this.nftBidData.BidEntryResponses,
-      postHashHex: this._post.PostHashHex
-      })
-      }
-      else {
+        this.onMultipleBidsCancellation.emit({
+          cancellableBids: this.nftBidData.BidEntryResponses,
+          postHashHex: this._post.PostHashHex,
+        });
+      } else {
         this.onSingleBidCancellation.emit({
           postHashHex: this._post.PostHashHex,
           serialNumber: this.nftBidData.BidEntryResponses[0].SerialNumber,
           bidAmountNanos: 0,
-        })
+        });
       }
     }
-
-  }
+  };
 
   hasUserPlacedBids(): boolean {
     const pastBid = this.nftBidData.BidEntryResponses.find((bidEntry: NFTBidEntryResponse) => {
-      return bidEntry.PublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
-    })
+      return bidEntry.PublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check;
+    });
 
     return pastBid ? true : false;
   }
-  
+
   showPutForSaleButton(): boolean {
     return (
       this.post.IsNFT &&
@@ -747,12 +753,10 @@ export class FeedPostComponent implements OnInit {
     );
   }
 
-
   openCreateNFTAuctionModal(event): void {
     this.modalService.show(CreateNftAuctionModalComponent, {
       class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
       initialState: { post: this.post, nftEntryResponses: this.nftEntryResponses },
     });
   }
-  
 }

@@ -23,12 +23,17 @@ import { environment } from "src/environments/environment";
 import { SharedDialogs } from "src/lib/shared-dialogs";
 import { CommentModalComponent } from "src/app/comment-modal/comment-modal.component";
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
-import { FeedPostImageModalComponent } from 'src/app/feed/feed-post-image-modal/feed-post-image-modal.component';
-import { CancelEvent } from '../shared/models/cancel-event.interface';
-import { Meta } from '@angular/platform-browser';
-import { FIRST_ICON_PATH, SECOND_ICON_PATH, THIRD_ICON_PATH,
-  FOURTH_ICON_PATH, FIFTH_ICON_PATH } from 'src/app/feed/shared/constants/defines';
-import { CancelBidModalComponent } from 'src/app/cancel-bid-modal/cancel-bid-modal.component';
+import { FeedPostImageModalComponent } from "src/app/feed/feed-post-image-modal/feed-post-image-modal.component";
+import { CancelEvent } from "../shared/models/cancel-event.interface";
+import { Meta } from "@angular/platform-browser";
+import {
+  FIRST_ICON_PATH,
+  SECOND_ICON_PATH,
+  THIRD_ICON_PATH,
+  FOURTH_ICON_PATH,
+  FIFTH_ICON_PATH,
+} from "src/app/feed/shared/constants/defines";
+import { CancelBidModalComponent } from "src/app/cancel-bid-modal/cancel-bid-modal.component";
 
 @Component({
   selector: "nft-post",
@@ -38,7 +43,7 @@ import { CancelBidModalComponent } from 'src/app/cancel-bid-modal/cancel-bid-mod
 export class NftPostComponent implements OnInit {
   @ViewChild(FeedPostComponent) feedPost: FeedPostComponent;
 
-  isAvailableForSale = false
+  isAvailableForSale = false;
   nftPost: PostEntryResponse;
   nftPostHashHex: string;
   nftBidData: NFTBidData;
@@ -63,7 +68,7 @@ export class NftPostComponent implements OnInit {
   showIconRow = true;
   firstIconPath = FIRST_ICON_PATH;
   secondIconPath = SECOND_ICON_PATH;
-  thirdIconPath = THIRD_ICON_PATH
+  thirdIconPath = THIRD_ICON_PATH;
   fourthIconPath = FOURTH_ICON_PATH;
   fifthIconPath = FIFTH_ICON_PATH;
 
@@ -218,7 +223,7 @@ export class NftPostComponent implements OnInit {
       .subscribe(
         (res) => {
           this.nftBidData = res;
-          console.log(NftPostComponent)
+          console.log(this.nftBidData);
           if (!this.nftBidData.BidEntryResponses) {
             this.nftBidData.BidEntryResponses = [];
           }
@@ -242,7 +247,7 @@ export class NftPostComponent implements OnInit {
           );
 
           this.hightestBidOwner = _.maxBy(this.bids, "BidAmountNanos");
-          console.log(this.hightestBidOwner)
+          console.log(this.hightestBidOwner);
           if (!this.myBids.length) {
             this.tabs = this.tabs.filter((t) => t !== NftPostComponent.MY_BIDS);
             this.activeTab = this.activeTab === NftPostComponent.MY_BIDS ? this.tabs[0] : this.activeTab;
@@ -307,20 +312,21 @@ export class NftPostComponent implements OnInit {
   }
 
   sellNFT(): void {
-    console.log("in sell Nft")
-    console.log(this.sellNFTDisabled)
-    if (this.sellNFTDisabled) {
-      this.activeTab = NftPostComponent.MY_AUCTIONS
+    console.log("in sell Nft");
+    console.log(this.sellNFTDisabled);
+    if (false) {
+      this.activeTab = NftPostComponent.MY_AUCTIONS;
       this._handleTabClick(this.activeTab);
       return;
     }
-    console.log(this.nftBidData.BidEntryResponses)
+    console.log(this.nftBidData.BidEntryResponses);
     const sellNFTModalDetails = this.modalService.show(SellNftModalComponent, {
       class: "modal-dialog-center nft_placebid_modal_bx rt_popups modal-lg",
       initialState: {
         post: this.nftPost,
         nftEntries: this.nftBidData.NFTEntryResponses,
-        selectedBidEntries: this.nftBidData.BidEntryResponses.filter((bidEntry) => bidEntry.selected),
+        selectedBidEntries: this.nftBidData.BidEntryResponses,
+        //filter((bidEntry) => bidEntry.selected)
       },
     });
     const onHiddenEvent = sellNFTModalDetails.onHidden;
@@ -363,8 +369,8 @@ export class NftPostComponent implements OnInit {
       });
     }
     // enabled / disable the Sell NFT button based on the count of bid entries that are selected.
-    this.sellNFTDisabled = !this.nftBidData.BidEntryResponses.filter((bidEntryResponse) => bidEntryResponse.selected)
-      ?.length;
+    /*this.sellNFTDisabled = !this.nftBidData.BidEntryResponses.filter((bidEntryResponse) => bidEntryResponse.selected)
+      ?.length;*/
   }
 
   selectBidEntry(bidEntry: NFTBidEntryResponse): void {
@@ -556,7 +562,7 @@ export class NftPostComponent implements OnInit {
   }
 
   cancelBid(bidEntry: NFTBidEntryResponse): void {
-    this.triggerBidCancellation(this.nftPost.PostHashHex, bidEntry.SerialNumber, 0 );
+    this.triggerBidCancellation(this.nftPost.PostHashHex, bidEntry.SerialNumber, 0);
   }
 
   reloadingThread = false;
@@ -607,15 +613,15 @@ export class NftPostComponent implements OnInit {
   }
 
   configureMetaTags(): void {
-  const imageUrl = this.mapImageURLs(this.nftPost?.ImageURLs[0]);
-  const nftDescription = this.nftPost?.PostExtraData?.name;
-  this.metaService.updateTag( { property:'og:url', content:`${imageUrl}`}, "property='og:url'");
-  this.metaService.updateTag( { property:'og:title', content:`${nftDescription}`}, "property='og:title'");
-}
+    const imageUrl = this.mapImageURLs(this.nftPost?.ImageURLs[0]);
+    const nftDescription = this.nftPost?.PostExtraData?.name;
+    this.metaService.updateTag({ property: "og:url", content: `${imageUrl}` }, "property='og:url'");
+    this.metaService.updateTag({ property: "og:title", content: `${nftDescription}` }, "property='og:title'");
+  }
 
   onSingleBidCancellation(event: CancelEvent): void {
-  const { postHashHex, serialNumber, bidAmountNanos} = event;
-  this.triggerBidCancellation(postHashHex, serialNumber, bidAmountNanos );
+    const { postHashHex, serialNumber, bidAmountNanos } = event;
+    this.triggerBidCancellation(postHashHex, serialNumber, bidAmountNanos);
   }
 
   triggerBidCancellation(postHashHex: string, serialNumber: number, bidAmountNanos: number): void {
@@ -683,9 +689,8 @@ export class NftPostComponent implements OnInit {
       class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
       initialState: {
         bidEntryResponses: event.cancellableBids,
-        postHashHex: event.postHashHex
+        postHashHex: event.postHashHex,
       },
     });
   }
-
 }

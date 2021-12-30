@@ -700,10 +700,9 @@ export class FeedPostComponent implements OnInit {
   }
   UserOwnsSerialNumbers() {
     const loggedInPubKey = this.globalVars?.loggedInUser?.PublicKeyBase58Check;
-    let serialList = this.nftEntryResponses.filter(
+    return this.nftBidData.NFTEntryResponses.filter(
       (NFTEntryResponse) => NFTEntryResponse.OwnerPublicKeyBase58Check === loggedInPubKey
-    );
-    return serialList;
+    )?.length;
   }
   sellYourBid() {
     this.sellNFT.emit();
@@ -750,6 +749,43 @@ export class FeedPostComponent implements OnInit {
           !nftEntryResponse.IsForSale &&
           nftEntryResponse.OwnerPublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
       )?.length
+    );
+  }
+  putForSaleButton() {
+    return (
+      !this.nftBidData.PostEntryResponse.HasUnlockable &&
+      !this.nftEntryResponses.filter((nftEntry) => nftEntry.IsForSale)?.length
+    );
+  }
+  unlockableButton() {
+    return (
+      this.nftBidData.PostEntryResponse.HasUnlockable &&
+      !this.nftEntryResponses.filter((nftEntry) => nftEntry.IsForSale)?.length
+    );
+  }
+
+  sellAndCloseButtons() {
+    return (
+      this.nftBidData.BidEntryResponses?.length > 0 &&
+      this.nftBidData.NFTEntryResponses.filter((nftEntry) => nftEntry.IsForSale)?.length
+    );
+  }
+  // If the bidData does not contain bids on the users serialnumbers we show close
+  closeButton() {
+    let userPk = this.globalVars?.loggedInUser?.PublicKeyBase58Check;
+    console.log(
+      this.nftBidData.NFTEntryResponses.filter(
+        (nftEntry) => nftEntry.OwnerPublicKeyBase58Check === userPk && nftEntry.IsForSale
+      )
+    );
+    return false;
+  }
+
+  // Gets nfts on sale and owned by the user
+  usersSerialNumbers() {
+    let userPk = this.globalVars?.loggedInUser?.PublicKeyBase58Check;
+    return this.nftBidData.NFTEntryResponses.filter(
+      (nftEntry) => nftEntry.OwnerPublicKeyBase58Check === userPk && nftEntry.IsForSale
     );
   }
 

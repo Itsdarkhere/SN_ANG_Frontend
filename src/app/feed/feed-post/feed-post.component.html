@@ -912,19 +912,12 @@
           class="btn nft_place_bid_btn"
           [ngClass]="{ 'mt-15px': isQuotedContent }"
           (click)="openCreateNFTAuctionModal($event)"
-          *ngIf="
-            !(!isAvailableForSale && decryptableNFTEntryResponses?.length && !showUnlockableContent) &&
-            showPutForSaleButton() &&
-            !nftEntryResponses[0].IsPending
-          "
+          *ngIf="putForSaleButton()"
         >
           Put NFT for sale
         </button>
 
-        <div
-          class="feed_post_btn_grp d-flex flex-wrap w-100 justify-content-between"
-          *ngIf="nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length > 0 && !showPlaceABid"
-        >
+        <div class="feed_post_btn_grp d-flex flex-wrap w-100 justify-content-between" *ngIf="sellAndCloseButtons()">
           <button class="btn blk_fill_btn with_ico small" (click)="sellYourBid()">
             <i><img src="assets/icons/u_money-bill.svg" alt="" /></i>
             Sell your NFT
@@ -939,7 +932,7 @@
           class="btn nft_place_bid_btn nft_sale_btn"
           [ngClass]="{ 'mt-15px': isQuotedContent }"
           (click)="ViewUnlockableContent($event)"
-          *ngIf="!isAvailableForSale && decryptableNFTEntryResponses?.length && !showUnlockableContent"
+          *ngIf="unlockableButton()"
         >
           <!-- <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="ViewUnlockableContent($event)" *ngIf="(decryptableNFTEntryResponses?.length && !showUnlockableContent)&&!(nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length>0)"> -->
           <i><img src="assets/icons/unlock.svg" alt="" /></i>

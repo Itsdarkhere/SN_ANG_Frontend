@@ -692,5 +692,13 @@ export class NftPostComponent implements OnInit {
         postHashHex: event.postHashHex,
       },
     });
+    const onHiddenEvent = modalDetails.onHidden;
+    onHiddenEvent.subscribe((response) => {
+      if (response === "Bid cancelled") {
+        this.loading = true;
+        this.refreshPosts();
+        this.feedPost.getNFTEntries();
+      }
+    });
   }
 }

@@ -6321,12 +6321,14 @@ width: 100%;
         height: 100%;
         align-items: center;
         justify-content: center;
+        pointer-events: none;
         .img {
             height: 515px;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
+            pointer-events: all;
         }
         .img_pop_close {
             position: absolute;
@@ -6342,6 +6344,7 @@ width: 100%;
             color: #434343;
             font-weight: 500;
             cursor: pointer;
+            pointer-events: all;
             img {
                 margin-right: 5px;
             }

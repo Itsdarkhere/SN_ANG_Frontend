@@ -67,6 +67,9 @@ export class NftPostComponent implements OnInit {
   fourthIconPath = FOURTH_ICON_PATH;
   fifthIconPath = FIFTH_ICON_PATH;
 
+
+
+
   canReplaceExistingIcons = true;
   _post: any;
   postContent: any;
@@ -151,7 +154,7 @@ export class NftPostComponent implements OnInit {
   }
 
   openImgModal(event, imageURL) {
-    event.stopPropagation();
+    event.stopPropagation(); 
     this.modalService.show(FeedPostImageModalComponent, {
       class: "modal-dialog-centered img_popups modal-lg",
       initialState: {

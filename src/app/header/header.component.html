@@ -21,13 +21,15 @@
                         </button>
                     </li>
                     <li *ngIf="globalVars.loggedInUser" class="notification-icon-cover single-option h-100 d-flex flex-center flex-column" (clickOutside)="clickOutside()">
-                        <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />
+                      <div class="noti_hv">
+                      <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />
                         <div class="d-flex flex-row mt-5px" (click)="showNotification()">
                             <label class="mb-0px fs-10px cursor-pointer">NOTIFICATIONS</label>
                             <label class="mb-0px fs-10px ml-5px notification-amount pointer-events-none" *ngIf="globalVars.unreadNotifications > 0">
                 {{ globalVars.unreadNotifications > 99 ? "99+" : globalVars.unreadNotifications }}
               </label>
             </div>
+          </div> 
             <div class="notification-list-cover" *ngIf="isNotificationOpen">
               <!-- <div class="triangle-up">▲</div> -->
               <div class="header_notification_list_inner">
@@ -43,7 +45,7 @@
             </div>
           </li>
 
-          <li *ngIf="globalVars.loggedInUser" class="single-option h-100 d-flex flex-column flex-center">
+          <li *ngIf="globalVars.loggedInUser" class="single-option hd-profile-nv h-100 d-flex flex-column flex-center">
             <div
               class="profile-img"
               title="My Profile"

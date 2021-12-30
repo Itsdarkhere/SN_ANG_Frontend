@@ -9,8 +9,14 @@ import { BsModalRef } from "ngx-bootstrap/modal";
   templateUrl: "./feed-post-image-modal.component.html",
   styleUrls: ["./feed-post-image-modal.component.scss"],
 })
+
+
+
 export class FeedPostImageModalComponent {
   @Input() imageURL: string;
+
+
+
 
   constructor(
     public globalVars: GlobalVarsService,

@@ -39,6 +39,8 @@ export class SellNftModalComponent implements OnInit {
 
   // TODO: compute service fee.
   ngOnInit(): void {
+    console.log(this.post);
+    console.log()
     this.sellingPrice = _.sumBy(this.selectedBidEntries, "BidAmountNanos") / 1e9;
     const coinRoyaltyBasisPoints = this.post.NFTRoyaltyToCoinBasisPoints;
     const creatorRoyaltyBasisPoints = this.post.NFTRoyaltyToCreatorBasisPoints;

@@ -1,23 +1,34 @@
 <div app-theme class="nft-modal-container p-15px">
-    <nft-modal-header [header]="'Sell your NFT'" [bsModalRef]="bsModalRef"></nft-modal-header>
+  <nft-modal-header [header]="'Sell your NFT'" [bsModalRef]="bsModalRef"></nft-modal-header>
 
-    <div *ngIf="selectedBidEntries?.length">
-        <div class="nft_selling_avatar_del">
-            You are selling the NFT to
-            <div class="avatar_container_del">
-                <div title="My Profile" class="profile-img" style="background-image: url(&quot;https://supernovas.app/api/v0/get-single-profile-picture/BC1YLhLZHnfyXpHbrsCmNfi5Psb3Sst1qVm6ZpLTHz9AtspQGaujVZu?fallback=http://localhost:4200/assets/img/default_profile_pic.png&quot;);"></div>
-                <div class="post_del_list"><a class="fc-default font-weight-bold">@maensivu </a><span class="ml-1 text-primary ng-star-inserted"><i class="fas fa-check-circle fa-md align-middle" aria-hidden="true"></i></span></div>
-            </div>
+  <div *ngIf="selectedBidEntries?.length">
+    <!--<div class="nft_selling_avatar_del">
+        You are selling the NFT to
+        <div class="avatar_container_del">
+          <div
+            title="My Profile"
+            class="profile-img"
+            style="
+              background-image: url('https://supernovas.app/api/v0/get-single-profile-picture/BC1YLhLZHnfyXpHbrsCmNfi5Psb3Sst1qVm6ZpLTHz9AtspQGaujVZu?fallback=http://localhost:4200/assets/img/default_profile_pic.png');
+            "
+          ></div>
+          <div class="post_del_list">
+            <a class="fc-default font-weight-bold">@maensivu</a>
+            <span class="ml-1 text-primary ng-star-inserted">
+              <i class="fas fa-check-circle fa-md align-middle" aria-hidden="true"></i>
+            </span>
+          </div>
         </div>
+      </div>-->
 
-        <!-- <div class="container d-flex align-items-center fs-14px p-15px border-bottom border-color-grey link--unstyled">
+    <!-- <div class="container d-flex align-items-center fs-14px p-15px border-bottom border-color-grey link--unstyled">
             <div class="col-5 p-0 text-align-center">Bidder</div>
             <div class="col-2 p-0 text-align-center" *ngIf="post.NumNFTCopies > 1">Edition</div>
             <div class="p-0 text-align-center" [ngClass]="{ 'col-7': post.NumNFTCopies == 1, 'col-5': post.NumNFTCopies > 1 }">
                 Bid Amount
             </div>
         </div> -->
-        <!-- <div class="pb-15px">
+    <!-- <div class="pb-15px">
             <div style="max-height: 200px; overflow-y: scroll">
                 <div class="container d-flex align-items-center fs-14px p-15px border-bottom border-color-grey link--unstyled formbg" *ngFor="let bidEntry of selectedBidEntries; let i = index">
                     <div class="row no-gutters w-100">
@@ -53,8 +64,8 @@
             </div>
         </div> -->
 
-        <!-- Summary data -->
-        <!-- <div class="content fs-15px mb-30px py-5px formbg">
+    <!-- Summary data -->
+    <!-- <div class="content fs-15px mb-30px py-5px formbg">
             <div class="row p-10px">
                 <div class="col-6 m-0px">Selling Price</div>
                 <div class="col-6 m-0px d-flex flex-wrap justify-content-end">
@@ -87,54 +98,47 @@
             </div>
         </div> -->
 
-        <div class="bid_pop_details_ls sell_nft_bx">
-            <div class="sl_prc">
-                <span class="lb">Sales price</span>
-                <div class="val">
-                    {{ globalVars.abbreviateNumber(sellingPrice, 3) }} $DESO
-                    <div class="text-grey7 d-lg-inline-block d-block">(~{{ globalVars.nanosToUSD(sellingPrice * 1e9, 2) }})</div>
-                </div>
-            </div>
-            <div class="divider"></div>
-            <div class="lst">
-                <span class="lb">Creator Royalty</span>
-                <span class="val">
-                  {{ globalVars.abbreviateNumber(creatorRoyalty, 3) }} $DESO 
-                  <div class="text-grey7 d-lg-inline-block d-block">
-                    (~{{ globalVars.nanosToUSD(creatorRoyalty * 1e9, 2) }})
-                </div>
-                </span>
-            </div>
-            <div class="lst">
-                <span class="lb">Coin Holder Royalty</span>
-                <span class="val">{{ globalVars.abbreviateNumber(coinRoyalty, 3) }} $DESO
-                  <div class="text-grey7 d-lg-inline-block d-block">(~{{ globalVars.nanosToUSD(coinRoyalty * 1e9, 2) }})</div>
-                </span>
-            </div>
-            <div class="lst">
-                <span class="lb">Blockchain fee</span>
-                <span class="val">0.001 $DESO</span>
-            </div>
-            <div class="lst">
-                <span class="lb">Supernovas service fee</span>
-                <span class="val">0.00 $DESO</span>
-            </div>
-            <div class="divider"></div>
-            <div class="rcv_pric">
-                <span class="lb">You’ll receive</span>
-                <div class="val">
-                    {{ globalVars.abbreviateNumber(earnings, 3) }} $DESO
-                    <div class="text-grey7 d-lg-inline-block d-block">(~{{ globalVars.nanosToUSD(earnings * 1e9, 2) }})</div>
-                </div>
-            </div>
+    <div class="bid_pop_details_ls sell_nft_bx">
+      <div class="sl_prc">
+        <span class="lb">Sales price</span>
+        <div class="val">
+          {{ globalVars.abbreviateNumber(sellingPrice, 3) }} $DESO
+          <div class="text-grey7 d-lg-inline-block fs-18px d-block">(~{{ globalVars.nanosToUSD(sellingPrice * 1e9, 2) }})</div>
         </div>
+      </div>
+      <div class="divider"></div>
+      <div class="lst">
+        <span class="lb">Creator Royalty</span>
+        <span class="val">{{ post.NFTRoyaltyToCreatorBasisPoints / 100 }} %</span>
+      </div>
+      <div class="lst">
+        <span class="lb">Coin Holder Royalty</span>
+        <span class="val">{{ post.NFTRoyaltyToCoinBasisPoints / 100 }} %</span>
+      </div>
+      <div class="lst">
+        <span class="lb">Blockchain fee</span>
+        <span class="val">0.001 $DESO</span>
+      </div>
+      <div class="lst">
+        <span class="lb">Supernovas service fee</span>
+        <span class="val">0.00 $DESO</span>
+      </div>
+      <div class="divider"></div>
+      <div class="rcv_pric">
+        <span class="lb">You’ll receive</span>
+        <div class="val">
+          {{ globalVars.abbreviateNumber(earnings, 3) }} $DESO
+          <div class="text-grey7 d-lg-inline-block d-block">(~{{ globalVars.nanosToUSD(earnings * 1e9, 2) }})</div>
+        </div>
+      </div>
+    </div>
 
-        <div class="d-flex align-items-center mb-15px">
-            <button class="btn pop_singl_btn" (click)="sellNFT()" [disabled]="sellNFTDisabled || !selectedBidEntries?.length">
+    <div class="d-flex align-items-center mb-15px">
+      <button class="btn pop_singl_btn" (click)="sellNFT()" [disabled]="sellNFTDisabled || !selectedBidEntries?.length">
         {{ sellingNFT ? "Selling NFTs" : "Sell" }}
       </button>
-            <div *ngIf="sellingNFT" class="pl-15px fs-15px">{{ sellNFTCounter }} of {{ sellNFTTotal }} sold</div>
-        </div>
+      <div *ngIf="sellingNFT" class="pl-15px fs-15px">{{ sellNFTCounter }} of {{ sellNFTTotal }} sold</div>
     </div>
-    <div *ngIf="!selectedBidEntries?.length">You must select at least one bid in order to sell this NFT.</div>
+  </div>
+  <div *ngIf="!selectedBidEntries?.length">You must select at least one bid in order to sell this NFT.</div>
 </div>

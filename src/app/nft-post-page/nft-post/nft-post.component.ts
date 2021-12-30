@@ -72,6 +72,9 @@ export class NftPostComponent implements OnInit {
   fourthIconPath = FOURTH_ICON_PATH;
   fifthIconPath = FIFTH_ICON_PATH;
 
+
+
+
   canReplaceExistingIcons = true;
   _post: any;
   postContent: any;
@@ -156,7 +159,7 @@ export class NftPostComponent implements OnInit {
   }
 
   openImgModal(event, imageURL) {
-    event.stopPropagation();
+    event.stopPropagation(); 
     this.modalService.show(FeedPostImageModalComponent, {
       class: "modal-dialog-centered img_popups modal-lg",
       initialState: {
@@ -208,7 +211,7 @@ export class NftPostComponent implements OnInit {
         // TODO: post threads: rollbar
         console.error(err);
         this.router.navigateByUrl("/" + this.globalVars.RouteNames.NOT_FOUND, { skipLocationChange: true });
-        this.loading = false;
+        this.delayLoading();
       }
     );
   }
@@ -282,9 +285,9 @@ export class NftPostComponent implements OnInit {
         }
       )
       .add(() => {
-        this._handleTabClick(this.activeTab);
-        this.loading = false;
-        this.refreshingBids = false;
+      this._handleTabClick(this.activeTab);
+      this.delayLoading();
+      this.refreshingBids = false;
       });
   }
 
@@ -692,5 +695,15 @@ export class NftPostComponent implements OnInit {
         postHashHex: event.postHashHex,
       },
     });
+  }
+
+  counter(i: number) {
+    return new Array(i);
+  }
+
+  delayLoading(): void {
+    setTimeout(()=> {
+      this.loading = false;
+    }, 1000);
   }
 }

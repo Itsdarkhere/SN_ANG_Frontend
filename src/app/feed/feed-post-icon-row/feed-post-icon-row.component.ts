@@ -385,8 +385,6 @@ export class FeedPostIconRowComponent {
         afterCommentCreatedCallback: isQuote ? this.afterRepostCreatedCallback : this.afterCommentCreatedCallback,
         isQuote,
       };
-      console.log('XxxxxxxxxxxxxxxxxxxxxxX');
-      console.log(this.isNFTProfile);
       // If the user has an account and a profile, open the modal so they can comment.
       this.modalService.show(CommentModalComponent, {
         class: (this.isNFTProfile)?"modal-dialog-centered rt_popups":"modal-dialog-centered",

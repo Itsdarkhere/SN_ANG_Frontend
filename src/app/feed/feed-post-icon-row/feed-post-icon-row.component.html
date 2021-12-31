@@ -9,7 +9,7 @@
     data-target=".js-feed-post-icon-row__comment-modal"
   >
     <div *ngIf="canReplaceExistingIcons; else commentIcon">
-      <i class="feed-post-icon-row__icon"><img src="{{ firstIconPath }}" alt="" /></i>
+      <i class="feed-post-icon-row__icon background-hover-blue"><img src="{{ firstIconPath }}" alt="" /></i>
     </div>
     <ng-template #commentIcon>
       <i class="icon-reply feed-post-icon-row__icon"></i>
@@ -37,7 +37,7 @@
       aria-expanded="false"
     >
       <span *ngIf="canReplaceExistingIcons; else retweetIcon">
-        <i class="feed-post-icon-row__icon"><img src="{{ secondIconPath }}" alt="" /></i>
+        <i class="feed-post-icon-row__icon background-hover-green"><img src="{{ secondIconPath }}" alt="" /></i>
       </span>
       <ng-template #retweetIcon>
         <i class="icon-repost feed-post-icon-row__icon"></i>
@@ -93,7 +93,7 @@
     class="cursor-pointer d-flex align-items-center"
     *ngIf="canReplaceExistingIcons; else likeIcon"
   >
-    <i class="feed-post-icon-row__icon">
+    <i class="feed-post-icon-row__icon background-hover-red">
       <img
         (click)="animateLike = !animateLike"
         [ngClass]="{ is_animating: animateLike }"

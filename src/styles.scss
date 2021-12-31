@@ -2326,7 +2326,15 @@ input.bs-timepicker-field {
         background-color: var(--secondary);
     }
 }
-
+.background-hover-red:hover {
+    background-color: rgb(255, 132, 132) !important;
+}
+.background-hover-green:hover {
+    background-color: rgb(210, 255, 209) !important;
+}
+.background-hover-blue:hover {
+    background-color: rgb(180, 210, 255) !important;
+}
 .feed-post-icon-row__icon.icon-reply {
     &:hover {
         background-color: $comment-hover;

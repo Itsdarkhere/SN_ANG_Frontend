@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectorRef, ViewChild, Output, EventEmitter } from "@angular/core";
+import { Component, Input, ChangeDetectorRef, ViewChild, Output, EventEmitter, ElementRef } from "@angular/core";
 import { ConfettiSvg, GlobalVarsService } from "../../global-vars.service";
 import { BackendApiService, PostEntryResponse } from "../../backend-api.service";
 import { SharedDialogs } from "../../../lib/shared-dialogs";
@@ -11,6 +11,7 @@ import { PopoverDirective } from "ngx-bootstrap/popover";
 import { ThemeService } from "../../theme/theme.service";
 import { includes, round } from "lodash";
 import { environment } from "src/environments/environment";
+import { CdkDrag } from "@angular/cdk/drag-drop";
 
 @Component({
   selector: "feed-post-icon-row",
@@ -19,6 +20,7 @@ import { environment } from "src/environments/environment";
 })
 export class FeedPostIconRowComponent {
   @ViewChild("diamondPopover", { static: false }) diamondPopover: PopoverDirective;
+  @ViewChild('diamondButton', { static: false }) diamondButton: ElementRef;
 
   @Input() isNFTProfile = false;
   @Input() post: PostEntryResponse;
@@ -88,7 +90,7 @@ export class FeedPostIconRowComponent {
     private ref: ChangeDetectorRef,
     private modalService: BsModalService,
     private themeService: ThemeService
-  ) {}
+  ) { }
 
   // Initiate mobile drag, have diamonds appear
   startDrag() {
@@ -149,7 +151,7 @@ export class FeedPostIconRowComponent {
     this.diamondDragging = false;
     // If the drag box is not in the "cancel" position, and the selected diamond makes sense, send diamonds
     if (!this.diamondDragCancel && this.diamondIdxDraggedTo > -1 && this.diamondIdxDraggedTo < this.diamondCount) {
-      this.onDiamondSelected(null, this.diamondIdxDraggedTo);
+      this.onDiamondSelected(event, this.diamondIdxDraggedTo);
     }
     // Reset drag-related variables
     this.resetDragVariables();
@@ -314,7 +316,7 @@ export class FeedPostIconRowComponent {
       );
   }
 
-  toggleLike(event: any) {
+  toggleLike(event: Event) {
     if (this.inTutorial) {
       return;
     }
@@ -342,6 +344,7 @@ export class FeedPostIconRowComponent {
       this.postContent.PostEntryReaderState.LikedByReader = true;
       isUnlike = false;
     }
+    if (!isUnlike) this.showEmojiAnimation(event as PointerEvent, '❤️');
     this.ref.detectChanges();
     // Fire off the transaction.
     this.backendApi
@@ -361,6 +364,42 @@ export class FeedPostIconRowComponent {
           console.error(err);
         }
       );
+  }
+
+  showEmojiAnimation(event: PointerEvent | TouchEvent | { source: CdkDrag, distance: {} }, emoji: string, amount = 20) {
+    const { x, y } = (<any>event)?.source?._dragRef?._lastKnownPointerPosition || {};
+    const touch = (<any>event).touches?.[0] || (<any>event).changedTouches?.[0];
+
+    const { clientX, clientY } = event instanceof PointerEvent ? event
+      : event instanceof TouchEvent ? touch
+        : { clientX: x, clientY: y };
+
+    for (let i = 1; i <= amount; i++) {
+      this.createParticle({ clientX, clientY }, emoji);
+    }
+  }
+
+  createParticle({ clientX, clientY }, emoji: string) {
+    const particle = document.createElement('particle');
+    document.body.appendChild(particle);
+    const destinationX = (Math.random() - 0.5) * 200;
+    const destinationY = (Math.random() - 0.5) * 200;
+    const rotation = Math.random() * 520;
+    particle.innerHTML = emoji;
+    particle.style.left = `${clientX - 10}px`;
+    particle.style.top = `${clientY - 10}px`;
+    particle.style.fontSize = `${Math.random() * 24 + 10}px`;
+    particle.style.width = particle.style.height = 'auto';
+
+    const animation = particle.animate([
+      {
+        transform: `translate(${destinationX}px, ${destinationY}px) rotate(${rotation}deg)`,
+        opacity: 0
+      }], {
+      duration: 1000 + Math.random() * 500,
+      delay: Math.random()
+    });
+    animation.onfinish = () => particle.remove();
   }
 
   openModal(event, isQuote: boolean = false) {
@@ -387,7 +426,7 @@ export class FeedPostIconRowComponent {
       };
       // If the user has an account and a profile, open the modal so they can comment.
       this.modalService.show(CommentModalComponent, {
-        class: this.isNFTProfile ? "modal-dialog-centered rt_popups" : "modal-dialog-centered",
+        class: (this.isNFTProfile) ? "modal-dialog-centered rt_popups" : "modal-dialog-centered",
         initialState,
       });
     }
@@ -441,8 +480,10 @@ export class FeedPostIconRowComponent {
     this.collapseDiamondInfo = !this.collapseDiamondInfo;
   }
 
-  sendDiamonds(diamonds: number, skipCelebration: boolean = false): Promise<void> {
+  sendDiamonds(diamonds: number, event: PointerEvent, skipCelebration: boolean = false): Promise<void> {
     this.sendingDiamonds = true;
+    // Show the animation here so the event trigger position is accurate.
+    this.showEmojiAnimation(event, '💎');
     return this.backendApi
       .SendDiamonds(
         this.globalVars.localNode,
@@ -468,7 +509,8 @@ export class FeedPostIconRowComponent {
           this.postContent.PostEntryReaderState.DiamondLevelBestowed = diamonds;
           if (!skipCelebration) {
             // Celebrate when the SendDiamonds call completes
-            this.globalVars.celebrate([ConfettiSvg.DIAMOND]);
+            // this.globalVars.celebrate([ConfettiSvg.DIAMOND]);
+            // this.showEmojiAnimation(event, '💎');
           }
           this.globalVars.updateEverything(res.TxnHashHex, this.sendDiamondsSuccess, this.sendDiamondsFailure, this);
         },
@@ -501,7 +543,7 @@ export class FeedPostIconRowComponent {
     }
   };
 
-  async sendOneDiamond(event: any, fromDragEvent: boolean) {
+  async sendOneDiamond(event: PointerEvent, fromDragEvent: boolean) {
     // Disable diamond selection if diamonds are being sent
     if (this.sendingDiamonds) {
       return;
@@ -554,7 +596,7 @@ export class FeedPostIconRowComponent {
       return;
     }
 
-    if (event && event.pointerType === "touch" && includes(event.target.classList, "reaction-icon")) {
+    if (event?.pointerType === "touch" && includes(event?.target.classList, "reaction-icon")) {
       event.stopPropagation();
       return;
     }
@@ -569,7 +611,7 @@ export class FeedPostIconRowComponent {
       return;
     }
     this.diamondSelected = index + 1;
-    if (event) {
+    if (event && !(event.source instanceof CdkDrag)) {
       event.stopPropagation();
     }
     if (this.diamondSelected > FeedPostIconRowComponent.DiamondWarningThreshold) {
@@ -577,9 +619,8 @@ export class FeedPostIconRowComponent {
         target: this.globalVars.getTargetComponentSelector(),
         icon: "info",
         title: `Sending ${this.diamondSelected} diamonds to @${this.postContent.ProfileEntryResponse?.Username}`,
-        html: `Clicking confirm will send ${this.globalVars.getUSDForDiamond(this.diamondSelected)} to @${
-          this.postContent.ProfileEntryResponse?.Username
-        }`,
+        html: `Clicking confirm will send ${this.globalVars.getUSDForDiamond(this.diamondSelected)} to @${this.postContent.ProfileEntryResponse?.Username
+          }`,
         showCancelButton: true,
         showConfirmButton: true,
         focusConfirm: true,
@@ -592,11 +633,11 @@ export class FeedPostIconRowComponent {
         reverseButtons: true,
       }).then(async (res: any) => {
         if (res.isConfirmed) {
-          await this.sendDiamonds(this.diamondSelected);
+          await this.sendDiamonds(this.diamondSelected, event);
         }
       });
     } else {
-      await this.sendDiamonds(this.diamondSelected);
+      await this.sendDiamonds(this.diamondSelected, event);
     }
   }
 

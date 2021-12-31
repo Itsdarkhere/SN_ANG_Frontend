@@ -25,7 +25,7 @@
     dropdown
     #dropdown="bs-dropdown"
     [ngClass]="{
-      'fc-green': postContent.PostEntryReaderState ? postContent.PostEntryReaderState.RepostedByReader : false
+      'fc-green': !!postContent.PostEntryReaderState?.RepostedByReader
     }"
   >
     <a
@@ -89,18 +89,19 @@
 
   <div
     (click)="toggleLike($event)"
-    [ngClass]="{ 'fc-red': postContent.PostEntryReaderState ? postContent.PostEntryReaderState.LikedByReader : false }"
+    [ngClass]="{ 'fc-red': !!postContent.PostEntryReaderState?.LikedByReader }"
     class="cursor-pointer d-flex align-items-center"
     *ngIf="canReplaceExistingIcons; else likeIcon"
   >
-    <i class="feed-post-icon-row__icon background-hover-red">
+    <i *ngIf="!this.postContent?.PostEntryReaderState?.LikedByReader" class="feed-post-icon-row__icon">
       <img
         (click)="animateLike = !animateLike"
         [ngClass]="{ is_animating: animateLike }"
-        src="{{ determineHeartIconPath() }}"
-        alt=""
+        [src]="thirdIconPath"
+        alt="empty-heart"
       />
     </i>
+    <span *ngIf="this.postContent?.PostEntryReaderState?.LikedByReader" #fullHeart class="fs-20px">❤️</span>
     <span [ngClass]="{ 'icon-padding': canReplaceExistingIcons }" *ngIf="!hideNumbers">
       {{ postContent.LikeCount }}
     </span>
@@ -108,8 +109,30 @@
   <ng-template #likeIcon>
     <div
       (click)="toggleLike($event)"
+      [ngClass]="{ 'fc-red': postContent.PostEntryReaderState?.LikedByReader }"
+      class="cursor-pointer d-flex align-items-center"
+      *ngIf="canReplaceExistingIcons; else likeIcon"
+    >
+      <i class="feed-post-icon-row__icon background-hover-red">
+        <img
+          (click)="animateLike = !animateLike"
+          [ngClass]="{ is_animating: animateLike }"
+          src="{{ determineHeartIconPath() }}"
+          alt=""
+        />
+      </i>
+      <span [ngClass]="{ 'icon-padding': canReplaceExistingIcons }" *ngIf="!hideNumbers">
+        {{ postContent.LikeCount }}
+      </span>
+    </div>
+  </ng-template>
+  <ng-template #likeIcon>
+    <div
+      (click)="toggleLike($event)"
       [ngClass]="{
-        'fc-red': postContent.PostEntryReaderState ? postContent.PostEntryReaderState.LikedByReader : false
+        is_animating: animateLike,
+        'icon-heart': !postContent.PostEntryReaderState?.LikedByReader,
+        'icon-heart-fill': postContent.PostEntryReaderState?.LikedByReader
       }"
       class="cursor-pointer d-flex align-items-center"
     >
@@ -141,7 +164,7 @@
       </div>
     </div>
   </ng-template>
-  <div class="cursor-pointer d-flex align-items-center">
+  <div class="cursor-pointer d-flex align-items-center" #diamondButton>
     <!--Container to hold the bounds for the mobile drag interface-->
     <div
       class="diamond-mobile-drag-container unselectable"
@@ -174,22 +197,14 @@
       (mouseleave)="removeDiamondSelection()"
     >
       <span *ngIf="canReplaceExistingIcons; else diamondIcon">
-        <i
-          class="feed-post-icon-row__icon mr-2"
+        <span
+          class="mr-2 fs-22px"
           [ngStyle]="{
             visibility: diamondDragging ? 'hidden' : 'visible'
           }"
         >
-          <!--<img src="{{ fifthIconPath }}" alt="" />-->
-          <i
-            class="icon-diamond diamond-reaction"
-            [ngClass]="{
-              'icon-diamond': !sendingDiamonds,
-              'fas fa-spinner fa-spin': sendingDiamonds,
-              'fc-blue': postContent.PostEntryReaderState?.DiamondLevelBestowed > 0
-            }"
-          ></i>
-        </i>
+          💎
+        </span>
       </span>
       <ng-template #diamondIcon>
         <i
@@ -197,7 +212,7 @@
           [ngClass]="{
             'icon-diamond': !sendingDiamonds,
             'fas fa-spinner fa-spin': sendingDiamonds,
-            'fc-blue': postContent.PostEntryReaderState?.DiamondLevelBestowed > 0
+            'icon-diamond-fill': postContent.PostEntryReaderState?.DiamondLevelBestowed > 0
           }"
           [ngStyle]="{
             visibility: diamondDragging ? 'hidden' : 'visible'
@@ -211,7 +226,7 @@
             postContent.ProfileEntryResponse?.PublicKeyBase58Check === globalVars.loggedInUser?.PublicKeyBase58Check ||
             sendingDiamonds
         }"
-        class="diamond-btn icon-diamond"
+        class="diamond-btn icon-diamond fs-22px"
         id="diamond-button"
       >
         <div

@@ -109,30 +109,8 @@
   <ng-template #likeIcon>
     <div
       (click)="toggleLike($event)"
-      [ngClass]="{ 'fc-red': postContent.PostEntryReaderState?.LikedByReader }"
-      class="cursor-pointer d-flex align-items-center"
-      *ngIf="canReplaceExistingIcons; else likeIcon"
-    >
-      <i class="feed-post-icon-row__icon background-hover-red">
-        <img
-          (click)="animateLike = !animateLike"
-          [ngClass]="{ is_animating: animateLike }"
-          src="{{ determineHeartIconPath() }}"
-          alt=""
-        />
-      </i>
-      <span [ngClass]="{ 'icon-padding': canReplaceExistingIcons }" *ngIf="!hideNumbers">
-        {{ postContent.LikeCount }}
-      </span>
-    </div>
-  </ng-template>
-  <ng-template #likeIcon>
-    <div
-      (click)="toggleLike($event)"
       [ngClass]="{
-        is_animating: animateLike,
-        'icon-heart': !postContent.PostEntryReaderState?.LikedByReader,
-        'icon-heart-fill': postContent.PostEntryReaderState?.LikedByReader
+        is_animating: animateLike
       }"
       class="cursor-pointer d-flex align-items-center"
     >

@@ -211,21 +211,11 @@
                   <span class="nb">Minted on</span>
                   <div class="ps_dells_val">DeSo</div>
                 </div>
-                <div class="post_del_list market_sc" *ngIf="isNFTProfile">
+                <!--<div class="post_del_list market_sc" *ngIf="isNFTProfile">
                   <span class="nb">Market</span>
-                  <div
-                    class="ps_dells_val"
-                    *ngIf="postContent?.PosterPublicKeyBase58Check == nftEntryResponses[0]?.OwnerPublicKeyBase58Check"
-                  >
-                    Primary
-                  </div>
-                  <div
-                    class="ps_dells_val"
-                    *ngIf="postContent?.PosterPublicKeyBase58Check != nftEntryResponses[0]?.OwnerPublicKeyBase58Check"
-                  >
-                    Secondary
-                  </div>
-                </div>
+                  <div class="ps_dells_val" *ngIf="primaryMarket()">Primary</div>
+                  <div class="ps_dells_val" *ngIf="!primaryMarket()">Secondary</div>
+                </div>-->
               </div>
 
               <div class="desktop-creator-coin-info">

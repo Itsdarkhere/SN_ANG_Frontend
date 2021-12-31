@@ -470,6 +470,11 @@ $green-font-color: #19b028;
         transform: scale(1.05);
     }
 }
+.hover-background-secalt {
+    &:hover {
+        background-color: var(--secalt) !important;
+    }
+}
 
 // Custom font classes.
 .fc-default {

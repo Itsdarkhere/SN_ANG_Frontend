@@ -20,7 +20,7 @@ import { environment } from "src/environments/environment";
 export class FeedPostIconRowComponent {
   @ViewChild("diamondPopover", { static: false }) diamondPopover: PopoverDirective;
 
-  @Input() isNFTProfile = false
+  @Input() isNFTProfile = false;
   @Input() post: PostEntryResponse;
   @Input() postContent: PostEntryResponse;
   @Input() parentPost: PostEntryResponse;
@@ -29,11 +29,11 @@ export class FeedPostIconRowComponent {
   @Input() hideNumbers: boolean = false;
   // Will need additional inputs if we walk through actions other than diamonds.
   @Input() inTutorial: boolean = false;
-  @Input() firstIconPath: string = '';
-  @Input() secondIconPath: string = '';
-  @Input() thirdIconPath: string = '';
-  @Input() fourthIconPath: string = '';
-  @Input() fifthIconPath: string = '';
+  @Input() firstIconPath: string = "";
+  @Input() secondIconPath: string = "";
+  @Input() thirdIconPath: string = "";
+  @Input() fourthIconPath: string = "";
+  @Input() fifthIconPath: string = "";
   @Input() canReplaceExistingIcons: boolean = false;
   @Output() diamondSent = new EventEmitter();
 
@@ -387,7 +387,7 @@ export class FeedPostIconRowComponent {
       };
       // If the user has an account and a profile, open the modal so they can comment.
       this.modalService.show(CommentModalComponent, {
-        class: (this.isNFTProfile)?"modal-dialog-centered rt_popups":"modal-dialog-centered",
+        class: this.isNFTProfile ? "modal-dialog-centered rt_popups" : "modal-dialog-centered",
         initialState,
       });
     }
@@ -608,7 +608,7 @@ export class FeedPostIconRowComponent {
     const mobileClass = this.globalVars.isMobile() ? "diamond-popover-container-mobile " : "";
     return "diamond-popover-container " + mobileClass;
   }
-  
+
   determineHeartIconPath(): string {
     return this.postContent?.PostEntryReaderState?.LikedByReader ? this.fourthIconPath : this.thirdIconPath;
   }

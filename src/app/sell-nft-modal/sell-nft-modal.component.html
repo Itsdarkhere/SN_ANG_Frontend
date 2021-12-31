@@ -11,7 +11,7 @@
       <div class="modal-bids-container overflow-hidden d-flex flex-start">
         <button
           *ngFor="let bid of selectedBidEntries"
-          class="p-0px"
+          class="p-0px hover-background-secalt"
           (click)="selectBidEntry(bid)"
           [ngClass]="{ selected: bid.selected }"
         >

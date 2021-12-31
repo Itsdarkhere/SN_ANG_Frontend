@@ -11,6 +11,7 @@ import { PopoverDirective } from "ngx-bootstrap/popover";
 import { ThemeService } from "../../theme/theme.service";
 import { includes, round } from "lodash";
 import { environment } from "src/environments/environment";
+import { CdkDrag } from "@angular/cdk/drag-drop";
 
 @Component({
   selector: "feed-post-icon-row",
@@ -365,9 +366,16 @@ export class FeedPostIconRowComponent {
       );
   }
 
-  showEmojiAnimation(event: PointerEvent, emoji: string, amount = 20) {
+  showEmojiAnimation(event: PointerEvent | TouchEvent | { source: CdkDrag, distance: {} }, emoji: string, amount = 20) {
+    const { x, y } = (<any>event)?.source?._dragRef?._lastKnownPointerPosition || {};
+    const touch = (<any>event).touches?.[0] || (<any>event).changedTouches?.[0];
+
+    const { clientX, clientY } = event instanceof PointerEvent ? event
+      : event instanceof TouchEvent ? touch
+        : { clientX: x, clientY: y };
+
     for (let i = 1; i <= amount; i++) {
-      this.createParticle(event, emoji);
+      this.createParticle({ clientX, clientY }, emoji);
     }
   }
 
@@ -377,9 +385,6 @@ export class FeedPostIconRowComponent {
     const destinationX = (Math.random() - 0.5) * 200;
     const destinationY = (Math.random() - 0.5) * 200;
     const rotation = Math.random() * 520;
-    // const isDiamond = emoji === '💎';
-    // clientX =  isDiamond ? this.diamondButton?.nativeElement?.offsetLeft || clientX : clientX;
-    // clientY = isDiamond ? this.diamondButton?.nativeElement?.offsetTop || clientY : clientY;
     particle.innerHTML = emoji;
     particle.style.left = `${clientX - 10}px`;
     particle.style.top = `${clientY - 10}px`;
@@ -606,7 +611,7 @@ export class FeedPostIconRowComponent {
       return;
     }
     this.diamondSelected = index + 1;
-    if (event) {
+    if (event && !(event.source instanceof CdkDrag)) {
       event.stopPropagation();
     }
     if (this.diamondSelected > FeedPostIconRowComponent.DiamondWarningThreshold) {

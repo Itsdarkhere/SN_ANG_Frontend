@@ -90,7 +90,7 @@ class="mt-5px js-feed-post-icon-row__container fs-14px text-grey5 d-flex justify
   <i *ngIf="!this.postContent?.PostEntryReaderState?.LikedByReader" class=" feed-post-icon-row__icon "><img
     (click)="animateLike = !animateLike"
     [ngClass]="{'is_animating': animateLike}"
-     [src]="thirdIconPath" alt="empty-heart"></i>
+    [src]="thirdIconPath" alt="empty-heart"></i>
      <span *ngIf="this.postContent?.PostEntryReaderState?.LikedByReader" #fullHeart class="fs-20px">❤️</span>
     <span [ngClass]=" {'icon-padding':
       canReplaceExistingIcons}" *ngIf="!hideNumbers">{{ postContent.LikeCount }}</span>
@@ -173,7 +173,7 @@ class="mt-5px js-feed-post-icon-row__container fs-14px text-grey5 d-flex justify
       [ngClass]="{
         'icon-diamond': !sendingDiamonds,
         'fas fa-spinner fa-spin': sendingDiamonds,
-        'fc-blue': postContent.PostEntryReaderState?.DiamondLevelBestowed > 0
+        'icon-diamond-fill': postContent.PostEntryReaderState?.DiamondLevelBestowed > 0
       }"
       [ngStyle]="{
         visibility: diamondDragging ? 'hidden' : 'visible'
@@ -187,7 +187,7 @@ class="mt-5px js-feed-post-icon-row__container fs-14px text-grey5 d-flex justify
             postContent.ProfileEntryResponse?.PublicKeyBase58Check === globalVars.loggedInUser?.PublicKeyBase58Check ||
             sendingDiamonds
         }"
-        class="diamond-btn icon-diamond"
+        class="diamond-btn icon-diamond fs-22px"
         id="diamond-button"
       >
         <div

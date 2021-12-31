@@ -200,11 +200,8 @@
         <tab-selector [tabs]="tabs" [activeTab]="activeTab" (tabClick)="_handleTabClick($event)"></tab-selector>
       </div>
       <div *ngIf="showBidsView">
-        <div *ngIf="!loading && !bids?.length" class="fs-15px p-15px pb-0 d-flex justify-content-center">
+        <div *ngIf="!loading && !bids?.length" class="fs-15px p-15px pb-0 d-flex justify-content-center nft-no-bids">
           There are no bids yet.
-          <!-- <button class="btn btn-danger font-weight-bold fs-15px br-12px" *ngIf="activeTab === NftPostComponent.MY_AUCTIONS && myAvailableSerialNumbers?.length" (click)="closeAuction()">
-                      Close auctions
-                    </button> -->
         </div>
         <div *ngIf="!loading && bids?.length">
           <div
@@ -479,7 +476,10 @@
         </div>
       </div>
       <div *ngIf="!loading && activeTab === NftPostComponent.THREAD && !reloadingThread">
-        <div *ngIf="!loading && !bids?.length" class="fs-15px p-15px pb-0 d-flex justify-content-center">
+        <div
+          *ngIf="!loading && !bids?.length"
+          class="fs-15px pb-0 d-flex justify-content-center nft-no-bids font-weight-semibold"
+        >
           There are no bids yet.
         </div>
         <div *ngIf="!loading && bids?.length">

@@ -2354,11 +2354,16 @@ input.bs-timepicker-field {
 
 /* diamond button hover animation */
 
-.feed-post-icon-row__icon.icon-diamond {
+.feed-post-icon-row__icon.icon-diamond,
+.feed-post-icon-row__icon.icon-diamond-fill {
     &:hover {
         background-color: $diamond-hover;
         color: $diamond-color;
     }
+}
+
+.feed-post-icon-row__icon.icon-diamond-fill {
+    font-size: 22px !important;
 }
 
 
@@ -6501,6 +6506,7 @@ width: 100%;
 }
 
 particle {
+  z-index: 9999;
   position: fixed;
   opacity: 1;
   pointer-events: none;

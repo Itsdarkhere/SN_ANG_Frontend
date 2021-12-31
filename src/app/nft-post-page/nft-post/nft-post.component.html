@@ -165,8 +165,15 @@
       <!-- feed-post End -->
       <!-- <h3 class="hdb">Comments</h3> -->
       <simple-center-loader *ngIf="refreshingBids"></simple-center-loader>
-      <div *ngIf="!nftPost.CommentCount && !nftPost.ParentStakeID" class="p-15px d-flex justify-content-center">
-        There are no comments on this NFT yet.
+      <div
+        *ngIf="!nftPost.CommentCount && !nftPost.ParentStakeID"
+        class="p-15px d-flex flex-column flex-center nft-no-comments font-weight-semiboldn"
+      >
+        No comments yet
+        <button class="font-weight-semiboldn mt-20px" (click)="openRepostsModal($event)">
+          <img src="/assets/icons/comment.svg" alt="plus-icon" />
+          Comment
+        </button>
       </div>
 
       <post-thread

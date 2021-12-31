@@ -310,7 +310,6 @@ export class NftPostComponent implements OnInit {
   }
 
   afterNftBidPlaced() {
-    this.loading = true;
     this.refreshBidData();
   }
 
@@ -626,7 +625,6 @@ export class NftPostComponent implements OnInit {
     const { postHashHex, serialNumber, bidAmountNanos } = event;
     this.triggerBidCancellation(postHashHex, serialNumber, bidAmountNanos);
   }
-
   triggerBidCancellation(postHashHex: string, serialNumber: number, bidAmountNanos: number): void {
     SwalHelper.fire({
       target: this.globalVars.getTargetComponentSelector(),
@@ -702,7 +700,7 @@ export class NftPostComponent implements OnInit {
   }
 
   delayLoading(): void {
-    setTimeout(()=> {
+    setTimeout(() => {
       this.loading = false;
     }, 1000);
   }

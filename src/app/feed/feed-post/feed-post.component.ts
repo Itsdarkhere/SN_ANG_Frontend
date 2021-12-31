@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, AfterViewInit } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from "@angular/core";
 import { GlobalVarsService } from "../../global-vars.service";
 import {
   BackendApiService,
@@ -24,7 +24,6 @@ import { EmbedUrlParserService } from "../../../lib/services/embed-url-parser-se
 import { SharedDialogs } from "../../../lib/shared-dialogs";
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 import { UnlockContentModalComponent } from "src/app/unlock-content-modal/unlock-content-modal.component";
-import { environment } from "src/environments/environment";
 import { CreateNftAuctionModalComponent } from "src/app/create-nft-auction-modal/create-nft-auction-modal.component";
 
 @Component({
@@ -754,9 +753,17 @@ export class FeedPostComponent implements OnInit {
   }
 
   openCreateNFTAuctionModal(event): void {
-    this.modalService.show(CreateNftAuctionModalComponent, {
+    let createNftAuctionDetails = this.modalService.show(CreateNftAuctionModalComponent, {
       class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
       initialState: { post: this.post, nftEntryResponses: this.nftEntryResponses },
+    });
+    const onHiddenEvent = createNftAuctionDetails.onHidden;
+    onHiddenEvent.subscribe((response) => {
+      if (response === "nft auction started") {
+        this.getNFTEntries();
+        // Refreshes this component on nft post level
+        this.nftBidPlaced.emit();
+      }
     });
   }
 }

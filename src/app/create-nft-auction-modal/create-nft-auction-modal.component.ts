@@ -1,5 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { BsModalRef } from "ngx-bootstrap/modal";
+import { BsModalService } from "ngx-bootstrap/modal";
 import { GlobalVarsService } from "../global-vars.service";
 import { BackendApiService, NFTEntryResponse, PostEntryResponse } from "../backend-api.service";
 import { concatMap, last, map } from "rxjs/operators";
@@ -26,6 +27,7 @@ export class CreateNftAuctionModalComponent {
     private backendApi: BackendApiService,
     public globalVars: GlobalVarsService,
     public bsModalRef: BsModalRef,
+    private modalService: BsModalService,
     private router: Router
   ) {}
 
@@ -70,8 +72,9 @@ export class CreateNftAuctionModalComponent {
       .pipe(last((res) => res))
       .subscribe(
         (res) => {
-          this.router.navigate(["/" + this.globalVars.RouteNames.NFT + "/" + this.post.PostHashHex]);
+          //this.router.navigate(["/" + this.globalVars.RouteNames.NFT + "/" + this.post.PostHashHex]);
           this.bsModalRef.hide();
+          this.modalService.setDismissReason("nft auction started");
         },
         (err) => {
           console.error(err);

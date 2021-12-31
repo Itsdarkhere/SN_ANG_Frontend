@@ -34,6 +34,7 @@ import {
   FIFTH_ICON_PATH,
 } from "src/app/feed/shared/constants/defines";
 import { CancelBidModalComponent } from "src/app/cancel-bid-modal/cancel-bid-modal.component";
+import { ConfirmationModalComponent } from "src/app/confirmation-modal/confirmation-modal.component";
 
 @Component({
   selector: "nft-post",
@@ -71,9 +72,6 @@ export class NftPostComponent implements OnInit {
   thirdIconPath = THIRD_ICON_PATH;
   fourthIconPath = FOURTH_ICON_PATH;
   fifthIconPath = FIFTH_ICON_PATH;
-
-
-
 
   canReplaceExistingIcons = true;
   _post: any;
@@ -159,7 +157,7 @@ export class NftPostComponent implements OnInit {
   }
 
   openImgModal(event, imageURL) {
-    event.stopPropagation(); 
+    event.stopPropagation();
     this.modalService.show(FeedPostImageModalComponent, {
       class: "modal-dialog-centered img_popups modal-lg",
       initialState: {
@@ -285,9 +283,9 @@ export class NftPostComponent implements OnInit {
         }
       )
       .add(() => {
-      this._handleTabClick(this.activeTab);
-      this.delayLoading();
-      this.refreshingBids = false;
+        this._handleTabClick(this.activeTab);
+        this.delayLoading();
+        this.refreshingBids = false;
       });
   }
 
@@ -626,18 +624,17 @@ export class NftPostComponent implements OnInit {
     this.triggerBidCancellation(postHashHex, serialNumber, bidAmountNanos);
   }
   triggerBidCancellation(postHashHex: string, serialNumber: number, bidAmountNanos: number): void {
-    SwalHelper.fire({
-      target: this.globalVars.getTargetComponentSelector(),
-      title: "Cancel Bid",
-      html: `Are you sure you want to cancel your bid ?`,
-      showCancelButton: true,
-      customClass: {
-        confirmButton: "btn btn-light",
-        cancelButton: "btn btn-light no",
+    const confirmationModalDetails = this.modalService.show(ConfirmationModalComponent, {
+      class: "modal-dialog-centered close_auction_pop rt_popups",
+      initialState: {
+        title: "Cancel Bid",
+        text: "Proceeding will cancel your bid...",
+        buttonText: "Cancel bid",
       },
-      reverseButtons: true,
-    }).then((res) => {
-      if (res.isConfirmed) {
+    });
+    const onHiddenEvent = confirmationModalDetails.onHidden;
+    onHiddenEvent.subscribe((response) => {
+      if (response === "confirmed") {
         this.backendApi
           .CreateNFTBid(
             this.globalVars.localNode,
@@ -692,6 +689,13 @@ export class NftPostComponent implements OnInit {
         bidEntryResponses: event.cancellableBids,
         postHashHex: event.postHashHex,
       },
+    });
+    let onHidden = modalDetails.onHidden;
+    onHidden.subscribe((response) => {
+      if ((response = "Bids cancelled")) {
+        this.refreshBidData();
+        this.feedPost.getNFTEntries();
+      }
     });
   }
 

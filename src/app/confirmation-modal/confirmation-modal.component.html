@@ -1,0 +1,11 @@
+<div app-theme class="nft-modal-container p-15px">
+  <nft-modal-header [header]="title" [bsModalRef]="bsModalRef"></nft-modal-header>
+  <div class="py-15px para_txt">
+    {{ text }}
+  </div>
+  <div class="d-flex flex-column align-items-center py-15px">
+    <button class="btn fs-15px close_acution_btn br-12px" (click)="confirm()" [disabled]="closingAuction">
+      {{ buttonText }}
+    </button>
+  </div>
+</div>

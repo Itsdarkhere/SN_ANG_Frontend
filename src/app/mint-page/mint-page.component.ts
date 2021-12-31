@@ -549,7 +549,7 @@ export class MintPageComponent implements OnInit {
       )
       .subscribe(
         (res) => {
-          this.dropNFT();
+          //  this.dropNFT();
           this.globalVars.updateEverything(res.TxnHashHex, this.mintNFTSuccess, this.mintNFTFailure, this);
         },
         (err) => {

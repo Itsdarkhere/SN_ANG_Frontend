@@ -280,7 +280,7 @@ export class PostEntryResponse {
   CommentCount: number;
   // A list of parent posts for this post (ordered: root -> closest parent post).
   ParentPosts: PostEntryResponse[];
-  PostExtraData: any;
+  PostExtraData: PostExtraData;
   InMempool: boolean;
   IsPinned: boolean;
   DiamondsFromSender?: number;
@@ -393,6 +393,12 @@ export class TransactionFee {
   ProfileEntryResponse?: ProfileEntryResponse;
 }
 
+export class PostExtraData {
+  Node: string;
+  category: string;
+  name: string;
+  properties: string;
+}
 export class DeSoNode {
   Name: string;
   URL: string;

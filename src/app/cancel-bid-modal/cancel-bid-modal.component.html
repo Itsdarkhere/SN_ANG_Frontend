@@ -1,0 +1,38 @@
+<div app-theme class="nft-modal-container p-15px">
+  <nft-modal-header [header]="'Cancel a bid'" [bsModalRef]="bsModalRef"></nft-modal-header>
+
+  <div *ngIf="bidEntryResponses?.length">
+    <div class="fs-15px nft_para text-center text-grey5">
+      This is a list of your previously selected bids. Please choose carefully the bid you want to cancel.
+    </div>
+    <div class="container border-2 border-radius-10 fs-15px px-0px">
+      <div class="row no-gutters py-15px create-nft-auction-row-border heads" style="opacity: 50%">
+        <div class="col-6 txt"><span class="pl-15px">Serial Number</span></div>
+        <div class="col-6 txt">Placed Bids</div>
+      </div>
+      <div class="bid_cell" style="max-height: 250px; min-height: 250px">
+        <div
+          [ngClass]="{ selected_bid: bid?.selected }"
+          *ngFor="let bid of bidEntryResponses"
+          class="row no-gutters nft_bid_tb_details background-color-white p-10px mb-0px create-nft-auction-row-border cursor-pointer"
+          (click)="selectSerialNumber(bid)"
+        >
+          <div class="col-6 pl-15px mb-0px d-flex align-items-center">
+            <span class="lh-15px pl-15px txt bd">{{ bid?.SerialNumber }}</span>
+          </div>
+          <div class="col-6 mb-0px d-flex justify-content-start align-items-center">
+            <div class="d-flex justify-content-around flex-wrap align-items-center">
+              <div class="d-lg-inline-block txt d-block text-left w-100">
+                {{ globalVars.nanosToDeSo(bid?.BidAmountNanos) }} DESO
+              </div>
+              <div class="text-grey7 txt text-left bd d-lg-inline-block d-block w-100">
+                (~{{ globalVars.nanosToUSD(bid?.BidAmountNanos, 2) }})
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="btn nft_cancel" (click)="cancelBid()" *ngIf="checkIfBidWasSelected()">Cancel your bid</button>
+</div>

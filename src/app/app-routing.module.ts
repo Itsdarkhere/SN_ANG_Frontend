@@ -35,6 +35,8 @@ import { DiamondTutorialPageComponent } from "./tutorial/diamond-tutorial-page/d
 import { CreatePostTutorialPageComponent } from "./tutorial/create-post-tutorial-page/create-post-tutorial-page.component";
 import { ActivityComponent } from "./activity/activity.component";
 import { MintPageComponent } from "./mint-page/mint-page.component";
+import { DiscoveryComponent } from "./discovery/discovery.component";
+
 
 class RouteNames {
   // Not sure if we should have a smarter schema for this, e.g. what happens if we have
@@ -83,6 +85,8 @@ class RouteNames {
   public static TUTORIAL = "tutorial";
   public static CREATE_PROFILE = "create-profile";
   public static INVEST = "invest";
+
+  public static DISCOVERY = "discovery";
 }
 
 const routes: Routes = [
@@ -100,6 +104,7 @@ const routes: Routes = [
   { path: RouteNames.WALLET, component: WalletPageComponent, pathMatch: "full" },
   { path: RouteNames.UPDATE_PROFILE, component: UpdateProfilePageComponent, pathMatch: "full" },
   { path: RouteNames.NOTIFICATIONS, component: NotificationsPageComponent, pathMatch: "full" },
+  { path: RouteNames.DISCOVERY, component: DiscoveryComponent, pathMatch: "full" },
   { path: RouteNames.NOT_FOUND, component: NotFoundPageComponent, pathMatch: "full" },
   // CREATE_POST needs to be above the POSTS route, since both involve the prefix /posts
   // if CREATOR_POST is second, then it's route (/posts/new/) will get matched to POSTS instead
@@ -167,6 +172,8 @@ const routes: Routes = [
   },
   // This NotFound route must be the last one as it catches all paths that were not matched above.
   { path: "**", component: NotFoundPageComponent, pathMatch: "full" },
+
+ 
 ];
 
 @NgModule({

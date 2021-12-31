@@ -121,10 +121,16 @@
     border-radius: 14.2827px;
     width: 673px;
     margin: 20px 0 20px 0;
+    @media screen and (max-width: 767px) {
+        width: 100%;
+    }
     .noti_tpbar {
         width: 673px;
         background: transparent;
         position: static;
+        @media screen and (max-width: 767px) {
+            width: 100%;
+        }
     }
     .global__top-bar__height {
         display: none;

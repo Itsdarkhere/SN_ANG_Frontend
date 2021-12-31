@@ -20,10 +20,9 @@ export class BidPlacedModalComponent {
   }
   viewBids(){
     this.bsModalRef.hide();
-    this.router.navigate(['/activity']);
+    this.router.navigate(["/activity"]);
   }
   hideAndRefresh() {
     this.bsModalRef.hide();
-    window.location.reload();
   }
 }

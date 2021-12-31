@@ -127,73 +127,91 @@
       <div *ngIf="biddableSerialNumbers?.length" [ngClass]="{ 'd-none': isSelectingSerialNumber }">
         <div class="page-place-a-bid">
           <div class="popup-body">
-            <h5>You must bid at least</h5>
-            <h5 class="font-weight-bold">
-              {{ highBid > 0 ? globalVars.nanosToDeSo(highBid) : globalVars.nanosToDeSo(minBid) }} DESO
-            </h5>
-            <br />
-            <div class="input-with-button">
-              <input
-                matInput
-                [(ngModel)]="bidAmountDESO"
-                (ngModelChange)="updateBidAmountUSD($event)"
-                type="number"
-                min="0"
-                aria-describedby="clout-label"
-                placeholder="Enter here..."
-                [disabled]="placingBids"
-              />
-              <button class="btn btn-black">$DESO</button>
+            <div class="input-with-button bid_bg_blk_inp">
+              <div class="plc_bid_inp_wp">
+                <input
+                  matInput
+                  [(ngModel)]="bidAmountDESO"
+                  (ngModelChange)="updateBidAmountUSD($event)"
+                  type="number"
+                  min="0"
+                  aria-describedby="clout-label"
+                  placeholder="0.00"
+                  [disabled]="placingBids"
+                />
+                <h6 class="bid_amt" *ngIf="bidAmountUSD">
+                  <span class="vl">{{ bidAmountUSD }}</span>
+                  $
+                </h6>
+              </div>
+              <button class="btn btn-black bid_deso_btn">
+                <i><img src="assets/icons/dl_lg.svg" alt="" /></i>
+                $DESO
+              </button>
+            </div>
+            <div class="bid_suggest_bx" *ngIf="!errors || errors == ''">
+              <h5>
+                You must bid at least
+                {{ highBid > 0 ? globalVars.nanosToDeSo(highBid) : globalVars.nanosToDeSo(minBid) }} DESO
+              </h5>
             </div>
 
-            <h6 class="text-light" *ngIf="bidAmountUSD">$ {{ bidAmountUSD }}</h6>
+            <div class="bid_suggest_bx_error" *ngIf="errors">
+              <i><img src="assets/icons/info_red.svg" alt="" /></i>
+              {{ errors }}
+            </div>
 
-            <br />
+            <div class="bid_pop_details_ls">
+              <div class="lst">
+                <span class="lb">Coin Holder Royalty</span>
+                <span class="val">{{ post.NFTRoyaltyToCoinBasisPoints / 100 }}%</span>
+              </div>
+              <div class="lst">
+                <span class="lb">Creator Royalty</span>
+                <span class="val">{{ post.NFTRoyaltyToCreatorBasisPoints / 100 }}%</span>
+              </div>
+              <div class="divider"></div>
+              <div class="lst">
+                <span class="lb">Blockchain fee</span>
+                <span class="val">0.001 $DESO</span>
+              </div>
+              <div class="lst">
+                <span class="lb">Supernovas service fee</span>
+                <span class="val">0.00 $DESO</span>
+              </div>
+            </div>
           </div>
           <div class="popup-footer">
             <button class="btn btn-post" (click)="placeBid()" [disabled]="placingBids || errors">
               {{ placingBids ? "Placing Bids" : "Place Bid" }}
             </button>
-            <h6 class="text-red" *ngIf="errors">
-              {{ errors }}
-            </h6>
           </div>
         </div>
       </div>
     </ng-container>
 
     <div *ngIf="biddableSerialNumbers?.length" [ngClass]="{ 'd-none': !isSelectingSerialNumber }">
-      <div class="fs-15px nft_para text-grey5">
+      <div class="fs-15px nft_para text-center text-grey5">
         An NFT can have multiple editions, each with its own unique serial number.
       </div>
-      <div class="container fs-15px px-0px">
+      <div class="container border-2 border-radius-10 fs-15px px-0px">
         <div class="row no-gutters py-15px create-nft-auction-row-border heads" style="opacity: 50%">
-          <div class="col-3 txt mb-0px text-align-center">Serial Number</div>
-          <div class="col-4 txt mb-0px text-align-center">Highest Bid</div>
-          <div class="col-5 txt mb-0px text-right">Min Bid Amount</div>
+          <div class="col-4 txt text-align-center"><span class="pl-15px">Serial Number</span></div>
+          <div class="col-5 txt mb-0px text-left">Min Bid Amount</div>
+          <div class="col-3 txt mb-0px text-align-left">Highest Bid</div>
         </div>
-        <div style="max-height: 250px; overflow-y: scroll" class="">
+        <div style="max-height: 250px; min-height: 250px; overflow-y: scroll" class="">
           <div
             #uiScroll
             *uiScroll="let nft of datasource"
-            class="row no-gutters nft_bid_tb_details background-color-white p-15px mb-0px create-nft-auction-row-border cursor-pointer"
+            class="row no-gutters nft_bid_tb_details background-color-white p-10px mb-0px create-nft-auction-row-border cursor-pointer"
             (click)="selectSerialNumber(nft.SerialNumber)"
           >
-            <div class="col-3 mb-0px d-flex align-items-center">
-              <span class="lh-15px txt bd">#{{ nft.SerialNumber }}</span>
+            <div class="col-4 pl-15px mb-0px d-flex align-items-center">
+              <span class="lh-15px pl-15px txt bd">{{ nft.SerialNumber }}</span>
             </div>
-            <div class="col-4 mb-0px d-flex justify-content-around align-items-center">
-              <div class="d-flex justify-content-around flex-wrap align-items-center">
-                <div class="d-lg-inline-block txt d-block text-center w-100">
-                  {{ globalVars.nanosToDeSo(nft.HighestBidAmountNanos) }} DESO
-                </div>
-                <div class="text-grey7 txt text-center bd d-lg-inline-block d-block w-100">
-                  (~{{ globalVars.nanosToUSD(nft.HighestBidAmountNanos, 2) }})
-                </div>
-              </div>
-            </div>
-            <div class="col-5 mb-0px d-flex justify-content-around align-items-center">
-              <div class="d-flex justify-content-around flex-wrap text-right">
+            <div class="col-5 mb-0px d-flex justify-content-start align-items-center">
+              <div class="d-flex justify-content-around flex-wrap text-left">
                 <div class="d-lg-inline-block txt d-block w-100">
                   {{ globalVars.nanosToDeSo(nft.MinBidAmountNanos) }} DESO
                 </div>
@@ -202,11 +220,21 @@
                 </div>
               </div>
             </div>
+            <div class="col-3 mb-0px d-flex justify-content-start align-items-center">
+              <div class="d-flex justify-content-around flex-wrap align-items-center">
+                <div class="d-lg-inline-block txt d-block text-left w-100">
+                  {{ globalVars.nanosToDeSo(nft.HighestBidAmountNanos) }} DESO
+                </div>
+                <div class="text-grey7 txt text-left bd d-lg-inline-block d-block w-100">
+                  (~{{ globalVars.nanosToUSD(nft.HighestBidAmountNanos, 2) }})
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div *ngIf="!biddableSerialNumbers.length" class="fs-15px">
+    <div *ngIf="!biddableSerialNumbers.length" class="fs-15px text-center">
       There are no serial numbers available for you to bid on.
     </div>
   </div>

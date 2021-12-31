@@ -1,12 +1,22 @@
-<div class="mt-5px js-feed-post-icon-row__container fs-14px text-grey5 d-flex justify-content-between unselectable">
+<div
+  [ngClass]="{ 'js-feed-post-icon-row__container--big-size': canReplaceExistingIcons }"
+  class="mt-5px js-feed-post-icon-row__container fs-14px text-grey5 d-flex justify-content-between unselectable"
+>
   <div
     class="cursor-pointer d-flex align-items-center"
     (click)="openModal($event)"
     data-toggle="modal"
     data-target=".js-feed-post-icon-row__comment-modal"
   >
-    <i class="icon-reply feed-post-icon-row__icon"></i>
-    <span *ngIf="!hideNumbers">{{ postContent.CommentCount }}</span>
+    <div *ngIf="canReplaceExistingIcons; else commentIcon">
+      <i class="feed-post-icon-row__icon background-hover-blue"><img src="{{ firstIconPath }}" alt="" /></i>
+    </div>
+    <ng-template #commentIcon>
+      <i class="icon-reply feed-post-icon-row__icon"></i>
+    </ng-template>
+    <span [ngClass]="{ 'icon-padding': canReplaceExistingIcons }" *ngIf="!hideNumbers">
+      {{ postContent.CommentCount }}
+    </span>
   </div>
 
   <div
@@ -15,7 +25,7 @@
     dropdown
     #dropdown="bs-dropdown"
     [ngClass]="{
-      'fc-green': postContent.PostEntryReaderState ? postContent.PostEntryReaderState.RepostedByReader : false
+      'fc-green': !!postContent.PostEntryReaderState?.RepostedByReader
     }"
   >
     <a
@@ -26,9 +36,16 @@
       aria-haspopup="true"
       aria-expanded="false"
     >
-      <i class="icon-repost feed-post-icon-row__icon"></i>
+      <span *ngIf="canReplaceExistingIcons; else retweetIcon">
+        <i class="feed-post-icon-row__icon background-hover-green"><img src="{{ secondIconPath }}" alt="" /></i>
+      </span>
+      <ng-template #retweetIcon>
+        <i class="icon-repost feed-post-icon-row__icon"></i>
+      </ng-template>
     </a>
-    <span *ngIf="!hideNumbers">{{ postContent.RepostCount + postContent.QuoteRepostCount }}</span>
+    <span [ngClass]="{ 'icon-padding': canReplaceExistingIcons }" *ngIf="!hideNumbers">
+      {{ postContent.RepostCount + postContent.QuoteRepostCount }}
+    </span>
     <div
       class="dropdown-menu p-0 fs-12px border background-color-light-grey"
       style="min-width: 6rem"
@@ -72,20 +89,45 @@
 
   <div
     (click)="toggleLike($event)"
-    [ngClass]="{ 'fc-red': postContent.PostEntryReaderState ? postContent.PostEntryReaderState.LikedByReader : false }"
+    [ngClass]="{ 'fc-red': !!postContent.PostEntryReaderState?.LikedByReader }"
     class="cursor-pointer d-flex align-items-center"
+    *ngIf="canReplaceExistingIcons; else likeIcon"
   >
-    <i
-      [ngClass]="{
-        is_animating: animateLike,
-        'icon-heart': postContent.PostEntryReaderState ? !postContent.PostEntryReaderState.LikedByReader : true,
-        'icon-heart-fill': postContent.PostEntryReaderState ? postContent.PostEntryReaderState.LikedByReader : false
-      }"
-      (click)="animateLike = !animateLike"
-      class="feed-post-icon-row__icon"
-    ></i>
-    <span *ngIf="!hideNumbers">{{ postContent.LikeCount }}</span>
+    <i *ngIf="!this.postContent?.PostEntryReaderState?.LikedByReader" class="feed-post-icon-row__icon">
+      <img
+        (click)="animateLike = !animateLike"
+        [ngClass]="{ is_animating: animateLike }"
+        [src]="thirdIconPath"
+        alt="empty-heart"
+      />
+    </i>
+    <span *ngIf="this.postContent?.PostEntryReaderState?.LikedByReader" #fullHeart class="fs-20px">❤️</span>
+    <span [ngClass]="{ 'icon-padding': canReplaceExistingIcons }" *ngIf="!hideNumbers">
+      {{ postContent.LikeCount }}
+    </span>
   </div>
+  <ng-template #likeIcon>
+    <div
+      (click)="toggleLike($event)"
+      [ngClass]="{
+        is_animating: animateLike
+      }"
+      class="cursor-pointer d-flex align-items-center"
+    >
+      <i
+        [ngClass]="{
+          is_animating: animateLike,
+          'icon-heart': postContent.PostEntryReaderState ? !postContent.PostEntryReaderState.LikedByReader : true,
+          'icon-heart-fill': postContent.PostEntryReaderState ? postContent.PostEntryReaderState.LikedByReader : false
+        }"
+        (click)="animateLike = !animateLike"
+        class="feed-post-icon-row__icon"
+      ></i>
+      <span [ngClass]="{ 'icon-padding': canReplaceExistingIcons }" *ngIf="!hideNumbers">
+        {{ postContent.LikeCount }}
+      </span>
+    </div>
+  </ng-template>
 
   <ng-template #popTemplate>
     <div id="diamond-popover" class="m-10px">
@@ -100,7 +142,7 @@
       </div>
     </div>
   </ng-template>
-  <div class="cursor-pointer d-flex align-items-center">
+  <div class="cursor-pointer d-flex align-items-center" #diamondButton>
     <!--Container to hold the bounds for the mobile drag interface-->
     <div
       class="diamond-mobile-drag-container unselectable"
@@ -132,17 +174,29 @@
       (mouseover)="addDiamondSelection($event)"
       (mouseleave)="removeDiamondSelection()"
     >
-      <i
-        class="feed-post-icon-row__icon mr-2"
-        [ngClass]="{
-          'icon-diamond': !sendingDiamonds,
-          'fas fa-spinner fa-spin': sendingDiamonds,
-          'fc-blue': postContent.PostEntryReaderState?.DiamondLevelBestowed > 0
-        }"
-        [ngStyle]="{
-          visibility: diamondDragging ? 'hidden' : 'visible'
-        }"
-      ></i>
+      <span *ngIf="canReplaceExistingIcons; else diamondIcon">
+        <span
+          class="mr-2 fs-22px"
+          [ngStyle]="{
+            visibility: diamondDragging ? 'hidden' : 'visible'
+          }"
+        >
+          💎
+        </span>
+      </span>
+      <ng-template #diamondIcon>
+        <i
+          class="feed-post-icon-row__icon mr-2"
+          [ngClass]="{
+            'icon-diamond': !sendingDiamonds,
+            'fas fa-spinner fa-spin': sendingDiamonds,
+            'icon-diamond-fill': postContent.PostEntryReaderState?.DiamondLevelBestowed > 0
+          }"
+          [ngStyle]="{
+            visibility: diamondDragging ? 'hidden' : 'visible'
+          }"
+        ></i>
+      </ng-template>
       <a
         [ngClass]="{
           'dragged-like': diamondDragging,
@@ -150,7 +204,7 @@
             postContent.ProfileEntryResponse?.PublicKeyBase58Check === globalVars.loggedInUser?.PublicKeyBase58Check ||
             sendingDiamonds
         }"
-        class="diamond-btn icon-diamond"
+        class="diamond-btn icon-diamond fs-22px"
         id="diamond-button"
       >
         <div
@@ -211,7 +265,9 @@
         cdkDrag
       ></div>
     </div>
-    <span *ngIf="!hideNumbers">{{ postContent.DiamondCount }}</span>
+    <span [ngClass]="{ 'icon-padding-diamond': canReplaceExistingIcons }" *ngIf="!hideNumbers">
+      {{ postContent.DiamondCount }}
+    </span>
   </div>
 
   <!-- <div class="d-none date_ico_sec d-lg-flex cursor-pointer align-items-center">

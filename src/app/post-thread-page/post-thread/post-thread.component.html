@@ -66,6 +66,7 @@
             *ngIf="item.ProfileEntryResponse != null"
             [includePaddingOnPost]="true"
             [post]="item"
+            [isNFTProfileComment] = "isNFTProfile"
             [parentPost]="currentPost"
             [contentShouldLinkToThread]="true"
             [showIconRow]="true"
@@ -102,8 +103,4 @@
       </div>
     </div>
   </div>
-  <button *ngIf="fromNFTDetail" type="button" class="add_comment_btn" (click)="openRepostsModal($event)">
-    <i>+</i>
-    Comment
-  </button>
 </div>

@@ -185,8 +185,12 @@ import { MobileVerificationComponent } from "./mobile-verification/mobile-verifi
 import { SignupPageComponent } from "./signup-page/signup-page.component";
 import { BidsAccordionComponent } from "./bids-accordion/bids-accordion.component";
 import { NgxShimmerLoadingModule } from "ngx-shimmer-loading";
+import { DiscoveryComponent } from './discovery/discovery.component';
+import { UnlockContentModalComponent } from './unlock-content-modal/unlock-content-modal.component';
 import { LoadingShimmerComponent } from "./loading-shimmer/loading-shimmer.component";
 import { AudioPlayerComponent } from "./audio-player/audio-player.component";
+import { CancelBidModalComponent } from './cancel-bid-modal/cancel-bid-modal.component';
+import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -349,7 +353,11 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     SignupPageComponent,
     BidsAccordionComponent,
     LoadingShimmerComponent,
+    DiscoveryComponent,
+    UnlockContentModalComponent,
     AudioPlayerComponent,
+    CancelBidModalComponent,
+    ConfirmationModalComponent,
   ],
   imports: [
     BrowserModule,

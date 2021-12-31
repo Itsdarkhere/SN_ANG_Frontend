@@ -24,6 +24,17 @@ import { SharedDialogs } from "src/lib/shared-dialogs";
 import { CommentModalComponent } from "src/app/comment-modal/comment-modal.component";
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 import { FeedPostImageModalComponent } from "src/app/feed/feed-post-image-modal/feed-post-image-modal.component";
+import { CancelEvent } from "../shared/models/cancel-event.interface";
+import { Meta } from "@angular/platform-browser";
+import {
+  FIRST_ICON_PATH,
+  SECOND_ICON_PATH,
+  THIRD_ICON_PATH,
+  FOURTH_ICON_PATH,
+  FIFTH_ICON_PATH,
+} from "src/app/feed/shared/constants/defines";
+import { CancelBidModalComponent } from "src/app/cancel-bid-modal/cancel-bid-modal.component";
+import { ConfirmationModalComponent } from "src/app/confirmation-modal/confirmation-modal.component";
 
 @Component({
   selector: "nft-post",
@@ -33,6 +44,7 @@ import { FeedPostImageModalComponent } from "src/app/feed/feed-post-image-modal/
 export class NftPostComponent implements OnInit {
   @ViewChild(FeedPostComponent) feedPost: FeedPostComponent;
 
+  isAvailableForSale = false;
   nftPost: PostEntryResponse;
   nftPostHashHex: string;
   nftBidData: NFTBidData;
@@ -52,21 +64,32 @@ export class NftPostComponent implements OnInit {
   owners: NFTEntryResponse[];
   hightestBidOwner: any = {};
   NftPostComponent = NftPostComponent;
-
   activeTab = NftPostComponent.THREAD;
   properties: any;
+  showIconRow = true;
+  firstIconPath = FIRST_ICON_PATH;
+  secondIconPath = SECOND_ICON_PATH;
+  thirdIconPath = THIRD_ICON_PATH;
+  fourthIconPath = FOURTH_ICON_PATH;
+  fifthIconPath = FIFTH_ICON_PATH;
+
+  canReplaceExistingIcons = true;
+  _post: any;
+  postContent: any;
+  reposterProfile: any;
+  quotedContent: any;
 
   static ALL_BIDS = "All Bids";
   static MY_BIDS = "My Bids";
-  static MY_AUCTIONS = "My Auctions";
-  static OWNERS = "Owners";
-  static THREAD = "Comments";
+  //static MY_AUCTIONS = "My Auctions";
+  static OWNERS = "Provenance";
+  static THREAD = "Bids";
   static DETAILS = "Details";
 
   tabs = [
     NftPostComponent.THREAD,
     NftPostComponent.MY_BIDS,
-    NftPostComponent.MY_AUCTIONS,
+    //NftPostComponent.MY_AUCTIONS,
     NftPostComponent.OWNERS,
     NftPostComponent.DETAILS,
   ];
@@ -81,7 +104,8 @@ export class NftPostComponent implements OnInit {
     private changeRef: ChangeDetectorRef,
     private modalService: BsModalService,
     private titleService: Title,
-    private location: Location
+    private location: Location,
+    private metaService: Meta
   ) {
     // This line forces the component to reload when only a url param changes.  Without this, the UiScroll component
     // behaves strangely and can reuse data from a previous post.
@@ -97,15 +121,15 @@ export class NftPostComponent implements OnInit {
   clearURL(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
-  openImgModal(event, imageURL) {
-    event.stopPropagation();
-    this.modalService.show(FeedPostImageModalComponent, {
-      class: "modal-dialog-centered modal-lg",
-      initialState: {
-        imageURL,
-      },
-    });
-  }
+  // openImgModal(event, imageURL) {
+  //   event.stopPropagation();
+  //   this.modalService.show(FeedPostImageModalComponent, {
+  //     class: "modal-dialog-centered modal-lg",
+  //     initialState: {
+  //       imageURL,
+  //     },
+  //   });
+  // }
   SendNFTPageOpenedEvent() {
     this.analyticsService.eventEmitter("nft_page_opened", "usage", "activity", "event", 10);
   }
@@ -130,6 +154,16 @@ export class NftPostComponent implements OnInit {
       0,
       this.globalVars.showAdminTools() /*AddGlobalFeedBool*/
     );
+  }
+
+  openImgModal(event, imageURL) {
+    event.stopPropagation();
+    this.modalService.show(FeedPostImageModalComponent, {
+      class: "modal-dialog-centered img_popups modal-lg",
+      initialState: {
+        imageURL,
+      },
+    });
   }
 
   refreshPosts() {
@@ -166,14 +200,16 @@ export class NftPostComponent implements OnInit {
         }
         // Set current post
         this.nftPost = res.PostFound;
+        this.configurePostType(this.nftPost);
         this.titleService.setTitle(this.nftPost.ProfileEntryResponse.Username + ` on ${environment.node.name}`);
         this.refreshBidData();
+        this.configureMetaTags();
       },
       (err) => {
         // TODO: post threads: rollbar
         console.error(err);
         this.router.navigateByUrl("/" + this.globalVars.RouteNames.NOT_FOUND, { skipLocationChange: true });
-        this.loading = false;
+        this.delayLoading();
       }
     );
   }
@@ -188,6 +224,7 @@ export class NftPostComponent implements OnInit {
       .subscribe(
         (res) => {
           this.nftBidData = res;
+          console.log(this.nftBidData);
           if (!this.nftBidData.BidEntryResponses) {
             this.nftBidData.BidEntryResponses = [];
           }
@@ -198,10 +235,10 @@ export class NftPostComponent implements OnInit {
             (nftEntryResponse) =>
               nftEntryResponse.OwnerPublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
           );
-          if (!this.myAvailableSerialNumbers?.length) {
+          /*if (!this.myAvailableSerialNumbers?.length) {
             this.tabs = this.tabs.filter((t) => t !== NftPostComponent.MY_AUCTIONS);
             this.activeTab = this.activeTab === NftPostComponent.MY_AUCTIONS ? this.tabs[0] : this.activeTab;
-          }
+          }*/
           this.myBids = this.nftBidData.BidEntryResponses.filter(
             (bidEntry) => bidEntry.PublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
           );
@@ -211,6 +248,7 @@ export class NftPostComponent implements OnInit {
           );
 
           this.hightestBidOwner = _.maxBy(this.bids, "BidAmountNanos");
+          console.log(this.hightestBidOwner);
           if (!this.myBids.length) {
             this.tabs = this.tabs.filter((t) => t !== NftPostComponent.MY_BIDS);
             this.activeTab = this.activeTab === NftPostComponent.MY_BIDS ? this.tabs[0] : this.activeTab;
@@ -235,6 +273,9 @@ export class NftPostComponent implements OnInit {
           this.highBid = _.maxBy(this.nftBidData.NFTEntryResponses, "HighestBidAmountNanos")?.HighestBidAmountNanos;
           this.lowBid = _.minBy(this.nftBidData.NFTEntryResponses, "LowestBidAmountNanos")?.LowestBidAmountNanos;
           this.owners = this.nftBidData.NFTEntryResponses;
+          // if (this.feedPost) {
+          //   this.feedPost.nftBidData = this.nftBidData
+          // }
         },
         (err) => {
           console.error(err);
@@ -243,7 +284,7 @@ export class NftPostComponent implements OnInit {
       )
       .add(() => {
         this._handleTabClick(this.activeTab);
-        this.loading = false;
+        this.delayLoading();
         this.refreshingBids = false;
       });
   }
@@ -267,20 +308,16 @@ export class NftPostComponent implements OnInit {
   }
 
   afterNftBidPlaced() {
-    this.loading = true;
     this.refreshBidData();
   }
 
   sellNFT(): void {
-    if (this.sellNFTDisabled) {
-      return;
-    }
     const sellNFTModalDetails = this.modalService.show(SellNftModalComponent, {
-      class: "modal-dialog-center",
+      class: "modal-dialog-center nft_placebid_modal_bx rt_popups modal-lg",
       initialState: {
         post: this.nftPost,
         nftEntries: this.nftBidData.NFTEntryResponses,
-        selectedBidEntries: this.nftBidData.BidEntryResponses.filter((bidEntry) => bidEntry.selected),
+        selectedBidEntries: this.nftBidData.BidEntryResponses,
       },
     });
     const onHiddenEvent = sellNFTModalDetails.onHidden;
@@ -291,7 +328,7 @@ export class NftPostComponent implements OnInit {
         this.feedPost.getNFTEntries();
       } else if (response === "unlockable content opened") {
         const unlockableModalDetails = this.modalService.show(AddUnlockableModalComponent, {
-          class: "modal-dialog-centered",
+          class: "modal-dialog-centered nft_placebid_modal_bx rt_popups",
           initialState: {
             post: this.nftPost,
             selectedBidEntries: this.nftBidData.BidEntryResponses.filter((bidEntry) => bidEntry.selected),
@@ -323,8 +360,8 @@ export class NftPostComponent implements OnInit {
       });
     }
     // enabled / disable the Sell NFT button based on the count of bid entries that are selected.
-    this.sellNFTDisabled = !this.nftBidData.BidEntryResponses.filter((bidEntryResponse) => bidEntryResponse.selected)
-      ?.length;
+    /*this.sellNFTDisabled = !this.nftBidData.BidEntryResponses.filter((bidEntryResponse) => bidEntryResponse.selected)
+      ?.length;*/
   }
 
   selectBidEntry(bidEntry: NFTBidEntryResponse): void {
@@ -335,7 +372,7 @@ export class NftPostComponent implements OnInit {
 
   closeAuction(): void {
     const closeNftAuctionModalDetails = this.modalService.show(CloseNftAuctionModalComponent, {
-      class: "modal-dialog-centered",
+      class: "modal-dialog-centered close_auction_pop rt_popups",
       initialState: {
         post: this.nftPost,
         myAvailableSerialNumbers: this.myAvailableSerialNumbers,
@@ -376,10 +413,8 @@ export class NftPostComponent implements OnInit {
 
   _handleTabClick(tabName: string): void {
     this.activeTab = tabName;
-    this.showBidsView =
-      tabName === NftPostComponent.ALL_BIDS ||
-      tabName === NftPostComponent.MY_BIDS ||
-      tabName === NftPostComponent.MY_AUCTIONS;
+    this.showBidsView = tabName === NftPostComponent.ALL_BIDS || tabName === NftPostComponent.MY_BIDS; //||
+    //tabName === NftPostComponent.MY_AUCTIONS;
     if (this.activeTab === NftPostComponent.ALL_BIDS) {
       this.bids = this.nftBidData.BidEntryResponses.filter(
         (bidEntry) => bidEntry.BidAmountNanos <= bidEntry.BidderBalanceNanos
@@ -388,14 +423,14 @@ export class NftPostComponent implements OnInit {
       this.bids = this.nftBidData.BidEntryResponses.filter(
         (bidEntry) => bidEntry.PublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
       );
-    } else if (this.activeTab === NftPostComponent.MY_AUCTIONS) {
+    } /*else if (this.activeTab === NftPostComponent.MY_AUCTIONS) {
       const serialNumbers = this.myAvailableSerialNumbers?.map((nftEntryResponse) => nftEntryResponse.SerialNumber);
       this.bids = this.nftBidData.BidEntryResponses.filter(
         (bidEntry) =>
           (serialNumbers.includes(bidEntry.SerialNumber) || bidEntry.SerialNumber === 0) &&
           bidEntry.BidAmountNanos <= bidEntry.BidderBalanceNanos
       );
-    }
+    }*/
     if (this.showBidsView) {
       this.sortBids(this.sortByField, this.sortDescending);
     } else if (this.activeTab === NftPostComponent.OWNERS) {
@@ -516,37 +551,7 @@ export class NftPostComponent implements OnInit {
   }
 
   cancelBid(bidEntry: NFTBidEntryResponse): void {
-    SwalHelper.fire({
-      target: this.globalVars.getTargetComponentSelector(),
-      title: "Cancel Bid",
-      html: `Are you sure you'd like to cancel this bid?`,
-      showCancelButton: true,
-      customClass: {
-        confirmButton: "btn btn-light",
-        cancelButton: "btn btn-light no",
-      },
-      reverseButtons: true,
-    }).then((res) => {
-      if (res.isConfirmed) {
-        this.backendApi
-          .CreateNFTBid(
-            this.globalVars.localNode,
-            this.globalVars.loggedInUser.PublicKeyBase58Check,
-            this.nftPost.PostHashHex,
-            bidEntry.SerialNumber,
-            0,
-            this.globalVars.defaultFeeRateNanosPerKB
-          )
-          .subscribe(
-            (res) => {
-              this.refreshBidData();
-            },
-            (err) => {
-              console.error(err);
-            }
-          );
-      }
-    });
+    this.triggerBidCancellation(this.nftPost.PostHashHex, bidEntry.SerialNumber, 0);
   }
 
   reloadingThread = false;
@@ -577,7 +582,7 @@ export class NftPostComponent implements OnInit {
 
       // If the user has an account and a profile, open the modal so they can comment.
       this.modalService.show(CommentModalComponent, {
-        class: "modal-dialog-centered",
+        class: "modal-dialog-centered rt_popups",
         initialState,
       });
     }
@@ -594,5 +599,102 @@ export class NftPostComponent implements OnInit {
       (nftEntryResponse) => nftEntryResponse.EncryptedUnlockableText
     );
     return list[0]?.EncryptedUnlockableText ? list[0]?.EncryptedUnlockableText : "";
+  }
+
+  configureMetaTags(): void {
+    const imageUrl = this.mapImageURLs(this.nftPost?.ImageURLs[0]);
+    const nftDescription = this.nftPost?.PostExtraData?.name;
+    this.metaService.updateTag({ property: "og:url", content: `${imageUrl}` }, "property='og:url'");
+    this.metaService.updateTag({ property: "og:title", content: `${nftDescription}` }, "property='og:title'");
+  }
+
+  onSingleBidCancellation(event: CancelEvent): void {
+    const { postHashHex, serialNumber, bidAmountNanos } = event;
+    this.triggerBidCancellation(postHashHex, serialNumber, bidAmountNanos);
+  }
+  triggerBidCancellation(postHashHex: string, serialNumber: number, bidAmountNanos: number): void {
+    const confirmationModalDetails = this.modalService.show(ConfirmationModalComponent, {
+      class: "modal-dialog-centered close_auction_pop rt_popups",
+      initialState: {
+        title: "Cancel Bid",
+        text: "Proceeding will cancel your bid...",
+        buttonText: "Cancel bid",
+      },
+    });
+    const onHiddenEvent = confirmationModalDetails.onHidden;
+    onHiddenEvent.subscribe((response) => {
+      if (response === "confirmed") {
+        this.backendApi
+          .CreateNFTBid(
+            this.globalVars.localNode,
+            this.globalVars.loggedInUser.PublicKeyBase58Check,
+            postHashHex,
+            serialNumber,
+            bidAmountNanos,
+            this.globalVars.defaultFeeRateNanosPerKB
+          )
+          .subscribe(
+            () => {
+              this.refreshBidData();
+            },
+            (err) => {
+              console.error(err);
+            }
+          );
+      }
+    });
+  }
+
+  isRepost(post: any): boolean {
+    return post.Body === "" && (!post.ImageURLs || post.ImageURLs?.length === 0) && post.RepostedPostEntryResponse;
+  }
+  isQuotedClout(post: any): boolean {
+    return (post.Body !== "" || post.ImageURLs?.length > 0) && post.RepostedPostEntryResponse;
+  }
+  isRegularPost(post: any): boolean {
+    return !this.isRepost(post) && !this.isQuotedClout(post);
+  }
+
+  configurePostType(post: any): void {
+    if (this.isRepost(post)) {
+      this.postContent = post.RepostedPostEntryResponse;
+      this.reposterProfile = post.ProfileEntryResponse;
+      if (this.isQuotedClout(post?.RepostedPostEntryResponse)) {
+        this.quotedContent = this.postContent.RepostedPostEntryResponse;
+      }
+    } else if (this.isQuotedClout(post)) {
+      this.postContent = post;
+      this.quotedContent = post.RepostedPostEntryResponse;
+    } else {
+      this.postContent = post;
+    }
+  }
+
+  onMultipleBidsCancellation(event: any): void {
+    console.log(event);
+    const modalDetails = this.modalService.show(CancelBidModalComponent, {
+      class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+      initialState: {
+        bidEntryResponses: event.cancellableBids,
+        postHashHex: event.postHashHex,
+      },
+    });
+    let onHidden = modalDetails.onHidden;
+    onHidden.subscribe((response) => {
+      if ((response = "Bids cancelled")) {
+        this.refreshBidData();
+        this.feedPost.getNFTEntries();
+      }
+    });
+  }
+
+  counter(i: number) {
+    return new Array(i);
+  }
+
+  delayLoading(): void {
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000);
   }
 }

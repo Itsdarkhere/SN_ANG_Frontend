@@ -21,7 +21,7 @@ class="mt-5px js-feed-post-icon-row__container fs-14px text-grey5 d-flex justify
     dropdown
     #dropdown="bs-dropdown"
     [ngClass]="{
-      'fc-green': postContent.PostEntryReaderState ? postContent.PostEntryReaderState.RepostedByReader : false
+      'fc-green': !!postContent.PostEntryReaderState?.RepostedByReader
     }"
   >
     <a
@@ -83,27 +83,29 @@ class="mt-5px js-feed-post-icon-row__container fs-14px text-grey5 d-flex justify
 
   <div
   (click)="toggleLike($event)"
-  [ngClass]="{ 'fc-red': postContent.PostEntryReaderState ? postContent.PostEntryReaderState.LikedByReader : false }"
+  [ngClass]="{ 'fc-red': !!postContent.PostEntryReaderState?.LikedByReader }"
    class="cursor-pointer d-flex align-items-center"
    *ngIf="canReplaceExistingIcons; else likeIcon"
   >
-  <i class="feed-post-icon-row__icon "><img
+  <i *ngIf="!this.postContent?.PostEntryReaderState?.LikedByReader" class=" feed-post-icon-row__icon "><img
     (click)="animateLike = !animateLike"
     [ngClass]="{'is_animating': animateLike}"
-     src="{{determineHeartIconPath()}}" alt=""></i>
-    <span [ngClass]="{'icon-padding': canReplaceExistingIcons}" *ngIf="!hideNumbers">{{ postContent.LikeCount }}</span>
+     [src]="thirdIconPath" alt="empty-heart"></i>
+     <span *ngIf="this.postContent?.PostEntryReaderState?.LikedByReader" #fullHeart class="fs-20px">❤️</span>
+    <span [ngClass]=" {'icon-padding':
+      canReplaceExistingIcons}" *ngIf="!hideNumbers">{{ postContent.LikeCount }}</span>
   </div>
   <ng-template #likeIcon>
-    <div 
+    <div
     (click)="toggleLike($event)"
-    [ngClass]="{ 'fc-red': postContent.PostEntryReaderState ? postContent.PostEntryReaderState.LikedByReader : false }"
+    [ngClass]="{ 'fc-red': postContent.PostEntryReaderState?.LikedByReader }"
     class="cursor-pointer d-flex align-items-center"
   >
     <i
       [ngClass]="{
         is_animating: animateLike,
-        'icon-heart': postContent.PostEntryReaderState ? !postContent.PostEntryReaderState.LikedByReader : true,
-        'icon-heart-fill': postContent.PostEntryReaderState ? postContent.PostEntryReaderState.LikedByReader : false
+        'icon-heart': !postContent.PostEntryReaderState?.LikedByReader,
+        'icon-heart-fill': postContent.PostEntryReaderState?.LikedByReader
       }"
       (click)="animateLike = !animateLike"
       class="feed-post-icon-row__icon"
@@ -125,7 +127,7 @@ class="mt-5px js-feed-post-icon-row__container fs-14px text-grey5 d-flex justify
       </div>
     </div>
   </ng-template>
-  <div class="cursor-pointer d-flex align-items-center">
+  <div class="cursor-pointer d-flex align-items-center" #diamondButton>
     <!--Container to hold the bounds for the mobile drag interface-->
     <div
       class="diamond-mobile-drag-container unselectable"
@@ -158,12 +160,12 @@ class="mt-5px js-feed-post-icon-row__container fs-14px text-grey5 d-flex justify
       (mouseleave)="removeDiamondSelection()"
     >
     <span *ngIf="canReplaceExistingIcons; else diamondIcon">
-      <i
-       class="feed-post-icon-row__icon mr-2"
+      <span
+       class="mr-2 fs-22px"
        [ngStyle]="{
         visibility: diamondDragging ? 'hidden' : 'visible'
       }"
-       ><img src="{{fifthIconPath}}" alt=""></i>
+       >💎</span>
     </span>
     <ng-template #diamondIcon>
       <i

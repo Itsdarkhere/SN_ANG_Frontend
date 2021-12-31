@@ -6338,6 +6338,7 @@ width: 100%;
         justify-content: flex-start;
         button {
             height: 50px;
+            min-height: 50px;
             width: 100%;
             display: flex;
             justify-content: space-around;
@@ -6415,7 +6416,9 @@ width: 100%;
     height: 230px !important;
     margin-top: 0px !important;
 }
-
+.list_section {
+    overflow-y: scroll;
+}
 .puton_sell {
     .plc_bid_inp_wp {
         display: flex;

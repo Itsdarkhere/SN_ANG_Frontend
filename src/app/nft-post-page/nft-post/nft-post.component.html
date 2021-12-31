@@ -8,7 +8,7 @@
         <div class="w-100">
           <div class="d-flex flex-column js-feed-post position-relative">
             <div class="nft-col-wrap" *ngFor="let in of counter(1); let i = index">
-              <div class="card">
+              <div class="">
                 <loading-shimmer [tabType]="'POST'"></loading-shimmer>
               </div>
             </div>
@@ -204,7 +204,7 @@
           There are no bids yet.
         </div>
         <div *ngIf="!loading && bids?.length">
-          <div
+          <!--<div
             class="d-flex align-items-center p-15px pb-0 justify-content-between"
             *ngIf="activeTab === NftPostComponent.MY_AUCTIONS && myAvailableSerialNumbers?.length"
           >
@@ -216,7 +216,7 @@
               Select Highest Bids
             </div>
             <div></div>
-          </div>
+          </div>-->
           <div
             class="container d-flex align-items-center fs-14px py-15px border-bottom border-color-grey link--unstyled"
           >

@@ -64,7 +64,7 @@ export class SellNftModalComponent implements OnInit {
     this.sellNFTTotal = this.selectedBidEntries.length;
     this.sellNFTDisabled = true;
     this.sellingNFT = true;
-    of(...this.selectedBidEntries)
+    of(...this.selectedBidEntries.filter((bidEntry) => bidEntry.selected))
       .pipe(
         concatMap((bidEntry) => {
           return this.backendApi
@@ -111,7 +111,25 @@ export class SellNftModalComponent implements OnInit {
   selectBidEntry(bidEntry: NFTBidEntryResponse): void {
     this.selectedBidEntries.forEach((bidEntry) => (bidEntry.selected = false));
     bidEntry.selected = true;
+    this.sellNFTDisabled = false;
     this.bidSelected = true;
+    // Check selected
+    this.checkSelectedBidEntry(bidEntry);
+  }
+
+  checkSelectedBidEntry(bidEntry: NFTBidEntryResponse) {
+    if (bidEntry.selected) {
+      // De-select any bid entries for the same serial number.
+      this.selectedBidEntries.forEach((bidEntryResponse) => {
+        if (
+          bidEntryResponse.SerialNumber === bidEntry.SerialNumber &&
+          bidEntry !== bidEntryResponse &&
+          bidEntryResponse.selected
+        ) {
+          bidEntryResponse.selected = false;
+        }
+      });
+    }
   }
   nextStep() {
     if (this.sellNFTStep == 1) {

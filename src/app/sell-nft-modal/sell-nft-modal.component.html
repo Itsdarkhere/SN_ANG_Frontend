@@ -8,7 +8,7 @@
         <p class="fs-14px font-weight-semiboldn color-light text-align-left pl-20px">SERIALNUMBER</p>
         <p class="fs-14px font-weight-semiboldn color-light text-align-left pl-20px">BID</p>
       </div>
-      <div class="modal-bids-container overflow-hidden d-flex flex-start">
+      <div class="modal-bids-container d-flex flex-start">
         <button
           *ngFor="let bid of selectedBidEntries"
           class="p-0px hover-background-secalt"
@@ -55,24 +55,6 @@
   </div>
   <div *ngIf="sellNFTStep === 2">
     <nft-modal-header [header]="'Sell your NFT'" [bsModalRef]="bsModalRef"></nft-modal-header>
-    <!--<div class="nft_selling_avatar_del">
-        You are selling the NFT to
-        <div class="avatar_container_del">
-          <div
-            title="My Profile"
-            class="profile-img"
-            style="
-              background-image: url('https://supernovas.app/api/v0/get-single-profile-picture/BC1YLhLZHnfyXpHbrsCmNfi5Psb3Sst1qVm6ZpLTHz9AtspQGaujVZu?fallback=http://localhost:4200/assets/img/default_profile_pic.png');
-            "
-          ></div>
-          <div class="post_del_list">
-            <a class="fc-default font-weight-bold">@maensivu</a>
-            <span class="ml-1 text-primary ng-star-inserted">
-              <i class="fas fa-check-circle fa-md align-middle" aria-hidden="true"></i>
-            </span>
-          </div>
-        </div>
-      </div>-->
     <div class="bid_pop_details_ls sell_nft_bx">
       <div class="sl_prc">
         <span class="lb">Sales price</span>

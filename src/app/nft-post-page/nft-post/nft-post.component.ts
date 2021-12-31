@@ -81,7 +81,7 @@ export class NftPostComponent implements OnInit {
 
   static ALL_BIDS = "All Bids";
   static MY_BIDS = "My Bids";
-  static MY_AUCTIONS = "My Auctions";
+  //static MY_AUCTIONS = "My Auctions";
   static OWNERS = "Provenance";
   static THREAD = "Bids";
   static DETAILS = "Details";
@@ -89,7 +89,7 @@ export class NftPostComponent implements OnInit {
   tabs = [
     NftPostComponent.THREAD,
     NftPostComponent.MY_BIDS,
-    NftPostComponent.MY_AUCTIONS,
+    //NftPostComponent.MY_AUCTIONS,
     NftPostComponent.OWNERS,
     NftPostComponent.DETAILS,
   ];
@@ -235,10 +235,10 @@ export class NftPostComponent implements OnInit {
             (nftEntryResponse) =>
               nftEntryResponse.OwnerPublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
           );
-          if (!this.myAvailableSerialNumbers?.length) {
+          /*if (!this.myAvailableSerialNumbers?.length) {
             this.tabs = this.tabs.filter((t) => t !== NftPostComponent.MY_AUCTIONS);
             this.activeTab = this.activeTab === NftPostComponent.MY_AUCTIONS ? this.tabs[0] : this.activeTab;
-          }
+          }*/
           this.myBids = this.nftBidData.BidEntryResponses.filter(
             (bidEntry) => bidEntry.PublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
           );
@@ -312,21 +312,12 @@ export class NftPostComponent implements OnInit {
   }
 
   sellNFT(): void {
-    console.log("in sell Nft");
-    console.log(this.sellNFTDisabled);
-    if (false) {
-      this.activeTab = NftPostComponent.MY_AUCTIONS;
-      this._handleTabClick(this.activeTab);
-      return;
-    }
-    console.log(this.nftBidData.BidEntryResponses);
     const sellNFTModalDetails = this.modalService.show(SellNftModalComponent, {
       class: "modal-dialog-center nft_placebid_modal_bx rt_popups modal-lg",
       initialState: {
         post: this.nftPost,
         nftEntries: this.nftBidData.NFTEntryResponses,
         selectedBidEntries: this.nftBidData.BidEntryResponses,
-        //filter((bidEntry) => bidEntry.selected)
       },
     });
     const onHiddenEvent = sellNFTModalDetails.onHidden;
@@ -422,10 +413,8 @@ export class NftPostComponent implements OnInit {
 
   _handleTabClick(tabName: string): void {
     this.activeTab = tabName;
-    this.showBidsView =
-      tabName === NftPostComponent.ALL_BIDS ||
-      tabName === NftPostComponent.MY_BIDS ||
-      tabName === NftPostComponent.MY_AUCTIONS;
+    this.showBidsView = tabName === NftPostComponent.ALL_BIDS || tabName === NftPostComponent.MY_BIDS; //||
+    //tabName === NftPostComponent.MY_AUCTIONS;
     if (this.activeTab === NftPostComponent.ALL_BIDS) {
       this.bids = this.nftBidData.BidEntryResponses.filter(
         (bidEntry) => bidEntry.BidAmountNanos <= bidEntry.BidderBalanceNanos
@@ -434,14 +423,14 @@ export class NftPostComponent implements OnInit {
       this.bids = this.nftBidData.BidEntryResponses.filter(
         (bidEntry) => bidEntry.PublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
       );
-    } else if (this.activeTab === NftPostComponent.MY_AUCTIONS) {
+    } /*else if (this.activeTab === NftPostComponent.MY_AUCTIONS) {
       const serialNumbers = this.myAvailableSerialNumbers?.map((nftEntryResponse) => nftEntryResponse.SerialNumber);
       this.bids = this.nftBidData.BidEntryResponses.filter(
         (bidEntry) =>
           (serialNumbers.includes(bidEntry.SerialNumber) || bidEntry.SerialNumber === 0) &&
           bidEntry.BidAmountNanos <= bidEntry.BidderBalanceNanos
       );
-    }
+    }*/
     if (this.showBidsView) {
       this.sortBids(this.sortByField, this.sortDescending);
     } else if (this.activeTab === NftPostComponent.OWNERS) {

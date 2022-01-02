@@ -75,6 +75,7 @@
       </div>
       <div class="cursor-pointer" *ngIf="item.post">
         <feed-post
+          *ngIf="item.post.ProfileEntryResponse"
           [post]="item.post"
           [includePaddingOnPost]="true"
           [showReplyingToContent]="!!item.parentPost"

@@ -239,6 +239,8 @@ export class FeedPostComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.router.url == "/browse?feedTab=Supernovas%20Feed");
+    console.log(this.post);
+    console.log(this.postContent);
     if (!this.post.RepostCount) {
       this.post.RepostCount = 0;
     }

@@ -80,7 +80,6 @@ export class NotificationsListComponent implements OnInit {
       .toPromise()
       .then(
         (res) => {
-
           // Only update the notifications metadata if loading the first page
           // If we're reading the notifications, we set unread notifications to 0,
           // and set the last unread notification index equal to the last read notification index

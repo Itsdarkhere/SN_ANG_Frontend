@@ -171,9 +171,9 @@
           <div class="feed-post__avatar-container">
             <a
               class="feed-post__avatar br-12px"
-              [avatar]="postContent.ProfileEntryResponse.PublicKeyBase58Check"
+              [avatar]="postContent.ProfileEntryResponse?.PublicKeyBase58Check"
               [routerLink]="
-                getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX, postContent.ProfileEntryResponse.Username])
+                getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX, postContent.ProfileEntryResponse?.Username])
               "
               queryParamsHandling="merge"
             ></a>
@@ -192,14 +192,14 @@
                     [routerLink]="
                       getRouterLink([
                         '/' + globalVars.RouteNames.USER_PREFIX,
-                        postContent.ProfileEntryResponse.Username
+                        postContent.ProfileEntryResponse?.Username
                       ])
                     "
                     queryParamsHandling="merge"
                   >
-                    {{ postContent.ProfileEntryResponse.Username }}
+                    {{ postContent.ProfileEntryResponse?.Username }}
                   </a>
-                  <span *ngIf="postContent.ProfileEntryResponse.IsVerified" class="ml-1 text-primary">
+                  <span *ngIf="postContent.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">
                     <i class="fas fa-check-circle fa-md align-middle"></i>
                   </span>
                 </div>

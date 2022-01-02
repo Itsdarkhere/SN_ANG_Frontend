@@ -25,6 +25,7 @@ import { SharedDialogs } from "../../../lib/shared-dialogs";
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 import { UnlockContentModalComponent } from "src/app/unlock-content-modal/unlock-content-modal.component";
 import { CreateNftAuctionModalComponent } from "src/app/create-nft-auction-modal/create-nft-auction-modal.component";
+import { take } from "rxjs/operators";
 
 @Component({
   selector: "feed-post",
@@ -759,7 +760,7 @@ export class FeedPostComponent implements OnInit {
       class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
       initialState: { post: this.post, nftEntryResponses: this.nftEntryResponses },
     });
-    const onHiddenEvent = createNftAuctionDetails.onHidden;
+    const onHiddenEvent = createNftAuctionDetails.onHidden.pipe(take(1));
     onHiddenEvent.subscribe((response) => {
       if (response === "nft auction started") {
         this.getNFTEntries();

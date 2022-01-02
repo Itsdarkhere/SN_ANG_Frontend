@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, ViewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
 import { BackendApiService, ProfileEntryResponse } from "../../backend-api.service";
 import { GlobalVarsService } from "../../global-vars.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -10,7 +10,6 @@ import { environment } from "src/environments/environment";
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from "@angular/fire/storage";
 import { Observable } from "rxjs";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { map, finalize } from "rxjs/operators";
 
 @Component({
   selector: "creator-profile-details",
@@ -80,7 +79,6 @@ export class CreatorProfileDetailsComponent implements OnInit {
     this.profileCardUrl = "";
     this.titleService.setTitle(this.userName + ` on ${environment.node.name}`);
   }
-
   userBlocked() {
     this.childTopCardComponent._unfollowIfBlocked();
   }
@@ -254,9 +252,7 @@ export class CreatorProfileDetailsComponent implements OnInit {
               );
               document.getElementById("banner-image").setAttribute("src", url);
               this.profileCardUrl = url;
-              //this.profileCardUrl = url;
             })
-            //.then((res) => (this.profileCardUrl = res))
             .then(() => (this.loading = false))
             .catch(() => (this.loading = false))
         );

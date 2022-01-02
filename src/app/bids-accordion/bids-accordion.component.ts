@@ -4,6 +4,7 @@ import { NFTBidEntryResponse } from "../backend-api.service";
 import { GlobalVarsService } from "../global-vars.service";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { SellNftModalComponent } from "../sell-nft-modal/sell-nft-modal.component";
+import { take } from "rxjs/operators";
 
 @Component({
   selector: "app-bids-accordion",
@@ -63,7 +64,7 @@ export class BidsAccordionComponent implements OnInit {
         selectedBidEntries: this.nftEntry.BidEntryResponses.filter((bidEntry) => bidEntry.selected),
       },
     });
-    const onHiddenEvent = sellNFTModalDetails.onHidden;
+    const onHiddenEvent = sellNFTModalDetails.onHidden.pipe(take(1));
     onHiddenEvent.subscribe((response) => {
       if (response === "nft sold") {
         // This is different from basic implementation
@@ -76,7 +77,7 @@ export class BidsAccordionComponent implements OnInit {
             selectedBidEntries: this.nftEntry.BidEntryResponses.filter((bidEntry) => bidEntry.selected),
           },
         });
-        const onHiddenEvent = unlockableModalDetails.onHidden;
+        const onHiddenEvent = unlockableModalDetails.onHidden.pipe(take(1));
         onHiddenEvent.subscribe((response) => {
           if (response === "nft sold") {
             // This is different from basic implementation

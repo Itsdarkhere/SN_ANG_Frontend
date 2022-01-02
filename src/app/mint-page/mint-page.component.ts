@@ -12,6 +12,7 @@ import { BsModalService } from "ngx-bootstrap/modal";
 import { CommentModalComponent } from "../comment-modal/comment-modal.component";
 import { GoogleAnalyticsService } from "../google-analytics.service";
 import { ArweaveJsService } from "../arweave-js.service";
+import { take } from "rxjs/operators";
 
 @Component({
   selector: "app-mint-page",
@@ -246,21 +247,24 @@ export class MintPageComponent implements OnInit {
       return;
     }
     // Its named uploadImage but works for both.
-    this.arweave.UploadImage(file).subscribe(
-      (res) => {
-        setTimeout(() => {
-          let url = "https://arweave.net/" + res;
-          this.postVideoArweaveSrc = url;
-          this.postImageArweaveSrc = null;
-          this.postAudioArweaveSrc = null;
-        }, 2000);
-      },
-      (err) => {
-        this.isUploading = false;
-        this.isUploaded = false;
-        this.globalVars._alertError("Failed to upload video to arweave: " + err.message);
-      }
-    );
+    this.arweave
+      .UploadImage(file)
+      .pipe(take(1))
+      .subscribe(
+        (res) => {
+          setTimeout(() => {
+            let url = "https://arweave.net/" + res;
+            this.postVideoArweaveSrc = url;
+            this.postImageArweaveSrc = null;
+            this.postAudioArweaveSrc = null;
+          }, 2000);
+        },
+        (err) => {
+          this.isUploading = false;
+          this.isUploaded = false;
+          this.globalVars._alertError("Failed to upload video to arweave: " + err.message);
+        }
+      );
   }
   handleAudioArweaveInput(file: File) {
     if (!file.type || !file.type.startsWith("audio/")) {
@@ -273,22 +277,25 @@ export class MintPageComponent implements OnInit {
     }
     this.isUploading = true;
     // Its named uploadImage but works for both.
-    this.arweave.UploadImage(file).subscribe(
-      (res) => {
-        setTimeout(() => {
-          let url = "https://arweave.net/" + res;
-          this.postAudioArweaveSrc = url;
-          this.postVideoArweaveSrc = null;
+    this.arweave
+      .UploadImage(file)
+      .pipe(take(1))
+      .subscribe(
+        (res) => {
+          setTimeout(() => {
+            let url = "https://arweave.net/" + res;
+            this.postAudioArweaveSrc = url;
+            this.postVideoArweaveSrc = null;
+            this.isUploading = false;
+            this.isUploaded = false;
+          }, 2000);
+        },
+        (err) => {
           this.isUploading = false;
           this.isUploaded = false;
-        }, 2000);
-      },
-      (err) => {
-        this.isUploading = false;
-        this.isUploaded = false;
-        this.globalVars._alertError("Failed to upload audio to arweave: " + err.message);
-      }
-    );
+          this.globalVars._alertError("Failed to upload audio to arweave: " + err.message);
+        }
+      );
   }
   loadArweaveVideo() {
     this.arweaveVideoLoading = true;

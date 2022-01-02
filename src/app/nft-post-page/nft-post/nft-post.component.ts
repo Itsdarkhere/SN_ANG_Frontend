@@ -35,6 +35,7 @@ import {
 } from "src/app/feed/shared/constants/defines";
 import { CancelBidModalComponent } from "src/app/cancel-bid-modal/cancel-bid-modal.component";
 import { ConfirmationModalComponent } from "src/app/confirmation-modal/confirmation-modal.component";
+import { take } from "rxjs/operators";
 
 @Component({
   selector: "nft-post",
@@ -320,7 +321,7 @@ export class NftPostComponent implements OnInit {
         selectedBidEntries: this.nftBidData.BidEntryResponses,
       },
     });
-    const onHiddenEvent = sellNFTModalDetails.onHidden;
+    const onHiddenEvent = sellNFTModalDetails.onHidden.pipe(take(1));
     onHiddenEvent.subscribe((response) => {
       if (response === "nft sold") {
         this.loading = true;
@@ -334,7 +335,7 @@ export class NftPostComponent implements OnInit {
             selectedBidEntries: this.nftBidData.BidEntryResponses.filter((bidEntry) => bidEntry.selected),
           },
         });
-        const onHiddenEvent = unlockableModalDetails.onHidden;
+        const onHiddenEvent = unlockableModalDetails.onHidden.pipe(take(1));
         onHiddenEvent.subscribe((response) => {
           if (response === "nft sold") {
             this.loading = true;
@@ -378,7 +379,7 @@ export class NftPostComponent implements OnInit {
         myAvailableSerialNumbers: this.myAvailableSerialNumbers,
       },
     });
-    const onHiddenEvent = closeNftAuctionModalDetails.onHidden;
+    const onHiddenEvent = closeNftAuctionModalDetails.onHidden.pipe(take(1));
     onHiddenEvent.subscribe((response) => {
       if (response === "auction cancelled") {
         this.refreshBidData();
@@ -621,7 +622,7 @@ export class NftPostComponent implements OnInit {
         buttonText: "Cancel bid",
       },
     });
-    const onHiddenEvent = confirmationModalDetails.onHidden;
+    const onHiddenEvent = confirmationModalDetails.onHidden.pipe(take(1));
     onHiddenEvent.subscribe((response) => {
       if (response === "confirmed") {
         this.backendApi
@@ -679,7 +680,7 @@ export class NftPostComponent implements OnInit {
         postHashHex: event.postHashHex,
       },
     });
-    let onHidden = modalDetails.onHidden;
+    let onHidden = modalDetails.onHidden.pipe(take(1));
     onHidden.subscribe((response) => {
       if ((response = "Bids cancelled")) {
         this.refreshBidData();

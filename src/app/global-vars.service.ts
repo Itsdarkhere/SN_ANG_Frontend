@@ -130,6 +130,12 @@ export class GlobalVarsService {
   marketplaceCollection: NFTCollectionResponse[];
   marketplaceStartIndex = 0;
   marketplaceEndIndex = 20;
+  // Discovery nfts page
+  nftsDataToShow: NFTCollectionResponse[];
+  nftsFilteredCollection: NFTCollectionResponse[];
+  nftsCollection: NFTCollectionResponse[];
+  nftsStartIndex = 0;
+  nftsEndIndex = 20;
   messageResponse = null;
   messageMeta = {
     // <public_key || tstamp> -> messageObj

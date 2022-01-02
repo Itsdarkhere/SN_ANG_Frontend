@@ -1,0 +1,42 @@
+<app-page-small-nav>
+  <div class="w-100">
+    <h2 class="mt-50px font-weight-semiboldn fs-38px">Trending auctions</h2>
+    <!-- Show shimmer Loader Until page completely Load -->
+    <div class="nfts-card-list-discovery" *ngIf="nftsPageLoading">
+      <div class="nft-col-wrap" *ngFor="let in of counter(50); let i = index">
+        <div class="card">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!nftsPageLoading">
+      <div
+        class="discovery-nft-showcase"
+        infiniteScroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="150"
+        (scrolled)="onScroll()"
+      >
+        <div class="nfts-card-list-discovery">
+          <div class="nft-col-wrap" *ngFor="let nftCollection of this.globalVars.nftsDataToShow">
+            <div class="max-width-300-plus">
+              <new-nft-card
+                [post]="nftCollection.PostEntryResponse"
+                [includePaddingOnPost]="true"
+                [pending]="false"
+                [showReplyingToContent]="nftCollection.PostEntryResponse.parentPost"
+                [parentPost]="nftCollection.PostEntryResponse.parentPost"
+                [contentShouldLinkToThread]="true"
+                [showNFTDetails]="true"
+                [showExpandedNFTDetails]="true"
+                [setBorder]="true"
+                [nftCollectionHighBid]="nftCollection.HighestBidAmountNanos"
+                [nftCollectionLowBid]="nftCollection.LowestBidAmountNanos"
+              ></new-nft-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-page-small-nav>

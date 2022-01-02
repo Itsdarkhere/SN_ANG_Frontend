@@ -1,0 +1,94 @@
+.discovery-nft-showcase {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.discovery-main-card-container {
+    height: 500px;
+    background-color: var(--secondary);
+}
+.zindex {
+    z-index: 1;
+}
+.discovery-category-box {
+    width: 370px;
+    height: 175px;
+    border-radius: 12px;
+    box-shadow: 0px 2.7464449405670166px 8.631684303283691px rgba(0, 0, 0, 0.25);
+    z-index: -1;
+    .top-gradient {
+        overflow: hidden;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        width: 100%;
+        height: 70%;
+        background: linear-gradient(125deg, #f3a83c 0%, #ec5454 20%, #f51ac1 35%, #265eeb 74%, #593eb7 99%) !important;;
+    }
+    .bottom-white {
+        width: 100%;
+        height: 30%;
+        padding-left: 10px;
+    }
+}
+.discovery-bottom-box {
+    height: 150px;
+    border: none;
+    background: #ffffff;
+    border-radius: 30px;
+    box-shadow: 2.75px 2.7464449405670166px 20px rgba(0, 0, 0, 0.1);
+    label {
+
+    }
+}
+.discovery-spacer {
+    height: 150px;
+}
+.mt-100px {
+    margin-top: 100px;
+}
+.mt-50px {
+    margin-top: 50px;
+}
+.discovery-spacer-2 {
+    height: 50px;
+}
+.discovery-creator-cards-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.discovery-link {
+    background-color: #E8E8E8;
+    border-radius: 30px;
+    width: 130px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.discovery-selector {
+    position: sticky;
+    z-index: 100;
+    top: 0px;
+    height: 75px;
+    div {
+        z-index: 2;
+        height: 49px;
+        background: #ffffff;
+        border-radius: 30px;
+        box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.05);
+        button {
+            height: 90%;
+            border: none;
+            background-color: transparent;
+            border-radius: 30px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        button.selected {
+            background-color: #E8E8E8;
+        }
+    }
+}

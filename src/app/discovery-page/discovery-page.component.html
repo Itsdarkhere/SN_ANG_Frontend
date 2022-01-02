@@ -1,0 +1,246 @@
+<app-page-small-nav>
+  <!-- Bunch of things on this page turn from flexboxes into carousels, on var mobile change-->
+  <div class="discovery-main-card-container mt-20px"></div>
+  <div class="w-100 d-flex flex-column flex-center discovery-selector">
+    <div class="w-100 d-flex align-items-start justify-content-around">
+      <button class="selected font-weight-semibold">Trending</button>
+      <button class="font-weight-semibold">Categories</button>
+      <button class="font-weight-semibold">Fresh drops</button>
+      <button class="font-weight-semibold">Newly verified</button>
+      <button class="font-weight-semibold">Secondary heat</button>
+      <button class="font-weight-semibold">Community favorites</button>
+      <button class="font-weight-semibold">Recenly sold</button>
+    </div>
+  </div>
+  <div class="w-100 mt-50px pr-10px pl-10px d-flex align-items-center justify-content-between">
+    <h2 class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">Trending Auctions</h2>
+    <a class="discovery-link" [routerLink]="'/' + this.globalVars.RouteNames.NFT_PAGE">
+      View all
+      <img src="/assets/icons/chevron_right.svg" />
+    </a>
+  </div>
+  <div *ngIf="!mobile" class="w-100 pr-5px pl-5px discovery-nft-showcase">
+    <div class="nfts-card-list-discovery">
+      <div class="nft-col-wrap" *ngFor="let nftEntry of dataToShow">
+        <div class="max-width-300-plus">
+          <new-nft-card
+            *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
+            [contentShouldLinkToThread]="true"
+            [includePaddingOnPost]="true"
+            [post]="nftEntry.PostEntryResponse"
+            [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+            [blocked]="globalVars.hasUserBlockedCreator('BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w')"
+            [showNFTDetails]="true"
+            [showExpandedNFTDetails]="false"
+            [setBorder]="true"
+            [showAvailableSerialNumbers]="true"
+            [cardStyle]="true"
+            [profilePublicKeyBase58Check]="BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w"
+            (userBlocked)="userBlocked()"
+          ></new-nft-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <carousel class="zindex" *ngIf="mobile" [height]="520" [cellWidth]="300" [freeScroll]="true">
+    <div class="carousel-cell pt-10px" *ngFor="let nftEntry of dataToShow">
+      <new-nft-card
+        *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
+        [contentShouldLinkToThread]="true"
+        [includePaddingOnPost]="true"
+        [post]="nftEntry.PostEntryResponse"
+        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+        [blocked]="globalVars.hasUserBlockedCreator('BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w')"
+        [showNFTDetails]="true"
+        [showExpandedNFTDetails]="false"
+        [setBorder]="true"
+        [showAvailableSerialNumbers]="true"
+        [cardStyle]="true"
+        [profilePublicKeyBase58Check]="BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w"
+        (userBlocked)="userBlocked()"
+      ></new-nft-card>
+    </div>
+  </carousel>
+  <h2 class="font-weight-semiboldn mt-20px pl-10px" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">Explore categories</h2>
+  <carousel class="mt-20px zindex" [height]="200" [cellWidth]="400" [freeScroll]="false">
+    <div class="carousel-cell pl-5px">
+      <div class="discovery-category-box font-weight-semibold">
+        <div class="top-gradient"></div>
+        <div class="bottom-white d-flex flex-center-start">Oranges</div>
+      </div>
+    </div>
+    <div class="carousel-cell pl-5px">
+      <div class="discovery-category-box font-weight-semibold">
+        <div class="top-gradient"></div>
+        <div class="bottom-white d-flex flex-center-start">Apples</div>
+      </div>
+    </div>
+    <div class="carousel-cell pl-5px">
+      <div class="discovery-category-box font-weight-semibold">
+        <div class="top-gradient"></div>
+        <div class="bottom-white d-flex flex-center-start">Grapes</div>
+      </div>
+    </div>
+    <div class="carousel-cell pl-5px">
+      <div class="discovery-category-box font-weight-semibold">
+        <div class="top-gradient"></div>
+        <div class="bottom-white d-flex flex-center-start">blueberries</div>
+      </div>
+    </div>
+  </carousel>
+  <div class="w-100 mt-50px pr-10px pl-10px d-flex align-items-center justify-content-between">
+    <h2 class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">Fresh drops</h2>
+    <a class="discovery-link" [routerLink]="'/' + this.globalVars.RouteNames.NFT_PAGE">
+      View all
+      <img src="/assets/icons/chevron_right.svg" />
+    </a>
+  </div>
+  <div *ngIf="!mobile" class="w-100 pr-5px pl-5px discovery-nft-showcase">
+    <div class="nfts-card-list-discovery">
+      <div class="nft-col-wrap" *ngFor="let nftEntry of dataToShow">
+        <div class="max-width-350">
+          <new-nft-card
+            *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
+            [contentShouldLinkToThread]="true"
+            [includePaddingOnPost]="true"
+            [post]="nftEntry.PostEntryResponse"
+            [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+            [blocked]="globalVars.hasUserBlockedCreator('BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w')"
+            [showNFTDetails]="true"
+            [showExpandedNFTDetails]="false"
+            [setBorder]="true"
+            [showAvailableSerialNumbers]="true"
+            [cardStyle]="true"
+            [profilePublicKeyBase58Check]="BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w"
+            (userBlocked)="userBlocked()"
+          ></new-nft-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <carousel class="zindex" *ngIf="mobile" [height]="520" [cellWidth]="300" [freeScroll]="true">
+    <div class="carousel-cell pt-10px" *ngFor="let nftEntry of dataToShow">
+      <new-nft-card
+        *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
+        [contentShouldLinkToThread]="true"
+        [includePaddingOnPost]="true"
+        [post]="nftEntry.PostEntryResponse"
+        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+        [blocked]="globalVars.hasUserBlockedCreator('BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w')"
+        [showNFTDetails]="true"
+        [showExpandedNFTDetails]="false"
+        [setBorder]="true"
+        [showAvailableSerialNumbers]="true"
+        [cardStyle]="true"
+        [profilePublicKeyBase58Check]="BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w"
+        (userBlocked)="userBlocked()"
+      ></new-nft-card>
+    </div>
+  </carousel>
+  <h2 class="font-weight-semiboldn mt-20px pl-10px" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">
+    Newly verified creators
+  </h2>
+  <div *ngIf="!mobile" class="discovery-creator-cards-container mt-20px w-100">
+    <app-creator-card></app-creator-card>
+    <app-creator-card></app-creator-card>
+    <app-creator-card></app-creator-card>
+    <app-creator-card></app-creator-card>
+    <app-creator-card></app-creator-card>
+    <app-creator-card></app-creator-card>
+    <app-creator-card></app-creator-card>
+    <app-creator-card></app-creator-card>
+  </div>
+  <carousel class="zindex" *ngIf="mobile" [height]="420" [cellWidth]="300" [freeScroll]="true">
+    <div class="carousel-cell">
+      <app-creator-card></app-creator-card>
+    </div>
+    <div class="carousel-cell">
+      <app-creator-card></app-creator-card>
+    </div>
+    <div class="carousel-cell">
+      <app-creator-card></app-creator-card>
+    </div>
+    <div class="carousel-cell">
+      <app-creator-card></app-creator-card>
+    </div>
+    <div class="carousel-cell">
+      <app-creator-card></app-creator-card>
+    </div>
+    <div class="carousel-cell">
+      <app-creator-card></app-creator-card>
+    </div>
+    <div class="carousel-cell">
+      <app-creator-card></app-creator-card>
+    </div>
+    <div class="carousel-cell">
+      <app-creator-card></app-creator-card>
+    </div>
+  </carousel>
+  <h2 class="font-weight-semiboldn mt-50px pl-10px" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">
+    Explore content formats
+  </h2>
+  <carousel [height]="330" [cellWidth]="300" [freeScroll]="true" class="mt-20px zindex">
+    <div class="carousel-cell pt-10px pl-5px">
+      <button class="content-type-card-discovery p-0px">
+        <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+          <img src="/assets/icons/image-type.svg" alt="creator icon" />
+        </div>
+        <div class="h-40 w-100 mt-10px d-flex flex-column">
+          <label class="fs-32px font-weight-semiboldn pointer-events-none">Images</label>
+        </div>
+      </button>
+    </div>
+    <div class="carousel-cell pt-10px pl-5px">
+      <button class="content-type-card-discovery p-0px">
+        <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+          <img src="/assets/icons/video-type.svg" alt="creator icon" />
+        </div>
+        <div class="h-40 w-100 mt-10px d-flex flex-column">
+          <label class="fs-32px font-weight-semiboldn pointer-events-none">Video</label>
+        </div>
+      </button>
+    </div>
+    <div class="carousel-cell pt-10px pl-5px">
+      <button class="content-type-card-discovery p-0px">
+        <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+          <img src="/assets/icons/music-type.svg" alt="creator icon" />
+        </div>
+        <div class="h-40 w-100 mt-10px d-flex flex-column">
+          <label class="fs-32px color-light font-weight-semiboldn pointer-events-none">Audio</label>
+          <label class="fs-16px color-light pointer-events-none">Coming soon!</label>
+        </div>
+      </button>
+    </div>
+    <div class="carousel-cell pt-10px pl-5px">
+      <button class="content-type-card-discovery not-available-warning p-0px">
+        <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+          <img src="/assets/icons/3D-type.png" alt="creator icon" />
+        </div>
+        <div class="h-40 w-100 mt-10px d-flex flex-column">
+          <label class="fs-32px color-light font-weight-semiboldn pointer-events-none">3D</label>
+          <label class="fs-16px color-light pointer-events-none">Coming soon!</label>
+        </div>
+      </button>
+    </div>
+  </carousel>
+  <div class="mt-100px w-100 d-flex justify-content-between" [ngClass]="mobile ? 'flex-column' : 'flex-row'">
+    <button
+      [routerLink]="'/' + this.globalVars.RouteNames.TRENDS"
+      [ngClass]="mobile ? 'w-100 mb-20px' : 'w-45'"
+      class="discovery-bottom-box p-20px d-flex flex-column flex-start-start"
+    >
+      <label class="mb-0px font-weight-semiboldn mt-10px ml-10px fs-20px">Explore all NFTs</label>
+      <p class="mt-10px color-light">Filter and sort all Deso NFTs on the marketplace.</p>
+    </button>
+    <button
+      [routerLink]="'/' + this.globalVars.RouteNames.BROWSE"
+      [ngClass]="mobile ? 'w-100' : 'w-45'"
+      class="discovery-bottom-box p-20px d-flex flex-column flex-start-start"
+    >
+      <label class="mb-0px font-weight-semiboldn mt-10px ml-10px fs-20px">Check the chatter on Feed</label>
+      <p class="mt-10px color-light">Filter and sort all Deso NFTs on the marketplace.</p>
+    </button>
+  </div>
+  <div class="discovery-spacer-2"></div>
+  <div *ngIf="mobile" class="discovery-spacer"></div>
+</app-page-small-nav>

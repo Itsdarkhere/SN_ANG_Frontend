@@ -158,6 +158,7 @@ import { BuyDeSoEthComponent } from "./buy-deso-page/buy-deso-eth/buy-deso-eth.c
 import { SanitizeVideoUrlPipe } from "../lib/pipes/sanitize-video-url-pipe";
 import { AdminNodeFeesComponent } from "./admin/admin-node-fees/admin-node-fees.component";
 import { AdminNodeAddFeesComponent } from "./admin/admin-node-fees/admin-node-add-fee/admin-node-add-fees.component";
+import { IvyCarouselModule } from "angular-responsive-carousel";
 
 // Modular Themes for DeSo by Carsen Klock @carsenk
 import { ThemeModule } from "./theme/theme.module";
@@ -185,12 +186,15 @@ import { MobileVerificationComponent } from "./mobile-verification/mobile-verifi
 import { SignupPageComponent } from "./signup-page/signup-page.component";
 import { BidsAccordionComponent } from "./bids-accordion/bids-accordion.component";
 import { NgxShimmerLoadingModule } from "ngx-shimmer-loading";
-import { DiscoveryComponent } from './discovery/discovery.component';
+import { DiscoveryComponent } from './discovery-page/discovery/discovery.component';
 import { UnlockContentModalComponent } from './unlock-content-modal/unlock-content-modal.component';
 import { LoadingShimmerComponent } from "./loading-shimmer/loading-shimmer.component";
 import { AudioPlayerComponent } from "./audio-player/audio-player.component";
 import { CancelBidModalComponent } from './cancel-bid-modal/cancel-bid-modal.component';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
+import { DiscoveryPageComponent } from './discovery-page/discovery-page.component';
+import { NftPageComponent } from './discovery-page/nft-page/nft-page.component';
+import { CreatorCardComponent } from './creator-card/creator-card.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -358,6 +362,9 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     AudioPlayerComponent,
     CancelBidModalComponent,
     ConfirmationModalComponent,
+    DiscoveryPageComponent,
+    NftPageComponent,
+    CreatorCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -382,6 +389,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     NgxIntlTelInputModule,
     UiScrollModule,
     InfiniteScrollModule,
+    IvyCarouselModule,
     NgxShimmerLoadingModule,
     AnimateOnScrollModule.forRoot(),
     ToastrModule.forRoot(),

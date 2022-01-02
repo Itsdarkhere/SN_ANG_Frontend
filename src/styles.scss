@@ -45,7 +45,21 @@ $feed-border-radius: 12px;
     border-radius: 19.54926872253418px;
     box-shadow: 1.3432013988494873px 1.3432013988494873px 26.864025115966797px rgba(0, 0, 0, 0.05);
 }
-
+.content-type-card-discovery {
+    min-width: 280px;
+    min-height: 310px;
+    height: 255px;
+    width: 220px;
+    overflow: hidden;
+    background: #ffffff;
+    border: 2.5910093784332275px solid #efefef;
+    border-radius: 19.54926872253418px;
+    box-shadow: 1.3432013988494873px 1.3432013988494873px 26.864025115966797px rgba(0, 0, 0, 0.05);
+    img {
+        width: 80px !important;
+        height: 80px !important;
+    }
+}
 .not-available-warning {
     &:active {
         outline: 2px solid red !important;
@@ -3983,7 +3997,36 @@ border-bottom: 2px solid var(--text);
 width: 100%;
 }*/
 }
-
+.nfts-card-list-discovery {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: 20px -10px 0px;
+    padding: 0px;
+    list-style-type: none;
+    @media screen and (max-width: 676px) {
+        padding: 0px 0px 0 0px;
+    }
+    &.nft_creator_list {
+        @media screen and (max-width: 676px) {
+            padding-top: 0;
+        }
+    }
+    .nft-col-wrap {
+        padding: 10px;
+        width: calc(100% / 4);
+        min-width: 300px;
+        margin-bottom: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @media screen and (max-width: 676px) {
+            width: 100%;
+            margin-bottom: 35px;
+        }
+    }
+}
 .mobile_mrk_head {
     font-size: 24px;
     padding: 10px 0 9px;
@@ -4504,7 +4547,10 @@ width: 100%;
 .max-width-300 {
     max-width: 300px;
 }
-
+.max-width-300-plus {
+    max-width: 300px;
+    width: 100%;
+}
 .max-width-350 {
     width: 100%;
     max-width: 350px;

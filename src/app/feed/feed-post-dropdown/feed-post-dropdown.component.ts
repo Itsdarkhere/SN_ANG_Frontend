@@ -12,6 +12,7 @@ import { MintNftModalComponent } from "../../mint-nft-modal/mint-nft-modal.compo
 import { CreateNftAuctionModalComponent } from "../../create-nft-auction-modal/create-nft-auction-modal.component";
 import { MatDialog } from "@angular/material/dialog";
 import { TransferModalComponent } from "src/app/transfer-modal/transfer-modal.component";
+import { take } from "rxjs/operators";
 
 @Component({
   selector: "feed-post-dropdown",
@@ -161,6 +162,13 @@ export class FeedPostDropdownComponent {
     return this.globalFeedEligible() && this.post.IsPinned;
   }
 
+  hidePost() {
+    this.postHidden.emit();
+  }
+
+  blockUser() {
+    this.userBlocked.emit();
+  }
   showCreateNFTAuction(): boolean {
     return (
       this.post.IsNFT &&
@@ -171,15 +179,6 @@ export class FeedPostDropdownComponent {
       )?.length
     );
   }
-
-  hidePost() {
-    this.postHidden.emit();
-  }
-
-  blockUser() {
-    this.userBlocked.emit();
-  }
-
   _addPostToGlobalFeed(event: any) {
     this.toggleGlobalFeed.emit(event);
   }
@@ -235,10 +234,16 @@ export class FeedPostDropdownComponent {
   }
 
   openCreateNFTAuctionModal(event): void {
-    this.modalService.show(CreateNftAuctionModalComponent, {
+    var auctionModalDetails = this.modalService.show(CreateNftAuctionModalComponent, {
       class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
       initialState: { post: this.post, nftEntryResponses: this.nftEntryResponses },
     });
+    let onHiddenEvent = auctionModalDetails.onHidden.pipe(take(1));
+    onHiddenEvent.subscribe((response) => {
+      if (response === "nft auction started") {
+        window.location.reload();
+      }
+    })
   }
 
   // Content of the modal is decided by the last 3 values, very much not DRY but eh

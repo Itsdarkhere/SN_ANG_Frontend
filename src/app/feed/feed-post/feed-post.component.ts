@@ -124,6 +124,8 @@ export class FeedPostComponent implements OnInit {
   // If the post is shown in a modal, this is used to hide the modal on post click.
   @Input() containerModalRef: any = null;
 
+  @Input() bidsOnMyNFTs: any;
+
   @Input() inTutorial: boolean = false;
 
   // emits the PostEntryResponse
@@ -237,7 +239,37 @@ export class FeedPostComponent implements OnInit {
         }
       });
   }
+  showCreateNFTAuction(): boolean {
+    return (
+      this.post.IsNFT &&
+      !!this.nftEntryResponses?.filter(
+        (nftEntryResponse) =>
+          !nftEntryResponse.IsForSale &&
+          nftEntryResponse.OwnerPublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
+      )?.length
+    );
+  }
+  hasNFTsNotOnSale(): boolean {
+    return (
+      this.post.IsNFT &&
+      !!this.nftEntryResponses?.filter(
+        (nftEntryResponse) =>
+          !nftEntryResponse.IsForSale &&
+          nftEntryResponse.OwnerPublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
+      )?.length
+    );
+  }
 
+  hasNFTsOnSale(): boolean {
+    return (
+      this.post.IsNFT &&
+      !!this.nftEntryResponses?.filter(
+        (nftEntryResponse) =>
+          nftEntryResponse.IsForSale &&
+          nftEntryResponse.OwnerPublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
+      )?.length
+    );
+  }
   ngOnInit() {
     console.log(this.router.url == "/browse?feedTab=Supernovas%20Feed");
     console.log(this.post);
@@ -636,8 +668,6 @@ export class FeedPostComponent implements OnInit {
     }
     event.stopPropagation();
     console.log(this.postContent);
-    // Log event to google analytics
-    //this.SendAddToCartEvent();
     const modalDetails = this.modalService.show(PlaceBidModalComponent, {
       class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
       initialState: { post: this.postContent },
@@ -702,10 +732,11 @@ export class FeedPostComponent implements OnInit {
   }
   UserOwnsSerialNumbers() {
     const loggedInPubKey = this.globalVars?.loggedInUser?.PublicKeyBase58Check;
+    console.log(this.nftEntryResponses);
     let serialList = this.nftEntryResponses.filter(
       (NFTEntryResponse) => NFTEntryResponse.OwnerPublicKeyBase58Check === loggedInPubKey
     );
-    return serialList;
+    return serialList.length > 0;
   }
   sellYourBid() {
     this.sellNFT.emit();

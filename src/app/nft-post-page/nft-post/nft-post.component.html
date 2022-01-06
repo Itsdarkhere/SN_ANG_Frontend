@@ -129,6 +129,7 @@
           [afterCommentCreatedCallback]="incrementCommentCounter.bind(this)"
           [isNFTDetail]="true"
           [showNFTOwnerInfo]="hightestBidOwner"
+          [bidsOnMyNFTs]="bidsOnMyNfts?.length"
           (userBlocked)="afterUserBlocked($event)"
           (nftBidPlaced)="afterNftBidPlaced($event)"
           (sellNFT)="sellNFT($event)"

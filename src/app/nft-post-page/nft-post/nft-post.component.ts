@@ -62,6 +62,7 @@ export class NftPostComponent implements OnInit {
   selectedBid: NFTBidEntryResponse;
   showBidsView: boolean = true;
   bids: NFTBidEntryResponse[];
+  bidsOnMyNfts: NFTBidEntryResponse[];
   owners: NFTEntryResponse[];
   hightestBidOwner: any = {};
   NftPostComponent = NftPostComponent;
@@ -247,7 +248,13 @@ export class NftPostComponent implements OnInit {
           this.bids = this.nftBidData.BidEntryResponses.filter(
             (bidEntry) => bidEntry.BidAmountNanos <= bidEntry.BidderBalanceNanos
           );
-
+          // This figures out if your nft has bids
+          const serialNumbers = this.myAvailableSerialNumbers?.map((nftEntryResponse) => nftEntryResponse.SerialNumber);
+          this.bidsOnMyNfts = this.nftBidData.BidEntryResponses.filter(
+            (bidEntry) =>
+              (serialNumbers.includes(bidEntry.SerialNumber) || bidEntry.SerialNumber === 0) &&
+              bidEntry.BidAmountNanos <= bidEntry.BidderBalanceNanos
+          );
           this.hightestBidOwner = _.maxBy(this.bids, "BidAmountNanos");
           console.log(this.hightestBidOwner);
           if (!this.myBids.length) {

@@ -607,9 +607,10 @@ export class NftPostComponent implements OnInit {
   }
 
   configureMetaTags(): void {
+    this.refreshPosts();
     console.log("------------------------------ configureMetaTags function hit ------------------------------");
-    // const imageUrl = this.mapImageURLs(this.nftPost.ImageURLs[0]);
-    const imageUrl = "https://arweave.net/yYQkx4IrwflWfPfx-P2fnCUHOL1mGK5Mdgfw8ntoohc";
+    const imageUrl = this.mapImageURLs(this.nftPost.ImageURLs[0]);
+    // const imageUrl = "https://arweave.net/yYQkx4IrwflWfPfx-P2fnCUHOL1mGK5Mdgfw8ntoohc";
     console.log(`------------------------------ The imageUrl is ${imageUrl} ------------------------------`);
     // this.metaService.updateTag({ property: "twitter:image", content: `${imageUrl}` }, "property='twitter:image'");
     // this.metaService.updateTag(

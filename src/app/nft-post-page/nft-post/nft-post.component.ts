@@ -118,7 +118,7 @@ export class NftPostComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.SendNFTPageOpenedEvent();
+    this.configureMetaTags();
   }
   clearURL(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
@@ -132,9 +132,6 @@ export class NftPostComponent implements OnInit {
   //     },
   //   });
   // }
-  SendNFTPageOpenedEvent() {
-    this.analyticsService.eventEmitter("nft_page_opened", "usage", "activity", "event", 10);
-  }
   mapImageURLs(imgURL: string): string {
     if (imgURL.startsWith("https://i.imgur.com")) {
       return imgURL.replace("https://i.imgur.com", "https://images.bitclout.com/i.imgur.com");
@@ -205,7 +202,6 @@ export class NftPostComponent implements OnInit {
         this.configurePostType(this.nftPost);
         this.titleService.setTitle(this.nftPost.ProfileEntryResponse.Username + ` on ${environment.node.name}`);
         this.refreshBidData();
-        this.configureMetaTags();
       },
       (err) => {
         // TODO: post threads: rollbar
@@ -611,8 +607,11 @@ export class NftPostComponent implements OnInit {
 
   configureMetaTags(): void {
     const imageUrl = this.mapImageURLs(this.nftPost?.ImageURLs[0]);
-    //const nftDescription = this.nftPost?.PostExtraData?.name;
     this.metaService.updateTag({ property: "twitter:image", content: `${imageUrl}` }, "property='twitter:image'");
+    this.metaService.updateTag(
+      { property: "og:image:secure_url", content: `${imageUrl}` },
+      "property='og:image:secure_url'"
+    );
     this.metaService.updateTag({ property: "og:image", content: `${imageUrl}` }, "property='og:image'");
   }
 

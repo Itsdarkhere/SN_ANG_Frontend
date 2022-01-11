@@ -30,6 +30,7 @@
             [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
           >
             <img
+              id="post-image"
               (click)="openImgModal($event, nftPost.ImageURLs[0])"
               data-toggle="modal"
               class="feed-post__image"

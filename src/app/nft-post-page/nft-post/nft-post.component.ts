@@ -118,6 +118,7 @@ export class NftPostComponent implements OnInit {
     });
   }
   ngOnInit() {
+    console.log("------------------------------ page loaded ------------------------------");
     this.configureMetaTags();
   }
   clearURL(url) {
@@ -606,13 +607,17 @@ export class NftPostComponent implements OnInit {
   }
 
   configureMetaTags(): void {
-    const imageUrl = this.mapImageURLs(this.nftPost?.ImageURLs[0]);
-    this.metaService.updateTag({ property: "twitter:image", content: `${imageUrl}` }, "property='twitter:image'");
-    this.metaService.updateTag(
-      { property: "og:image:secure_url", content: `${imageUrl}` },
-      "property='og:image:secure_url'"
-    );
-    this.metaService.updateTag({ property: "og:image", content: `${imageUrl}` }, "property='og:image'");
+    console.log("------------------------------ configureMetaTags function hit ------------------------------");
+    // const imageUrl = this.mapImageURLs(this.nftPost.ImageURLs[0]);
+    const imageUrl = "https://arweave.net/yYQkx4IrwflWfPfx-P2fnCUHOL1mGK5Mdgfw8ntoohc";
+    console.log(`------------------------------ The imageUrl is ${imageUrl} ------------------------------`);
+    // this.metaService.updateTag({ property: "twitter:image", content: `${imageUrl}` }, "property='twitter:image'");
+    // this.metaService.updateTag(
+    //   { property: "og:image:secure_url", content: `${imageUrl}` },
+    //   "property='og:image:secure_url'"
+    // );
+    // this.metaService.updateTag({ property: "og:image", content: `${imageUrl}` }, "property='og:image'");
+    document.querySelector("meta[property='og:image']").setAttribute("content", `${imageUrl}`);
   }
 
   onSingleBidCancellation(event: CancelEvent): void {

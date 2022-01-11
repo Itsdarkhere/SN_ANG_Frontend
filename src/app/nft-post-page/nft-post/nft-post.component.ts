@@ -611,9 +611,9 @@ export class NftPostComponent implements OnInit {
 
   configureMetaTags(): void {
     const imageUrl = this.mapImageURLs(this.nftPost?.ImageURLs[0]);
-    const nftDescription = this.nftPost?.PostExtraData?.name;
-    this.metaService.updateTag({ property: "og:url", content: `${imageUrl}` }, "property='og:url'");
-    this.metaService.updateTag({ property: "og:title", content: `${nftDescription}` }, "property='og:title'");
+    //const nftDescription = this.nftPost?.PostExtraData?.name;
+    this.metaService.updateTag({ property: "twitter:image", content: `${imageUrl}` }, "property='twitter:image'");
+    this.metaService.updateTag({ property: "og:image", content: `${imageUrl}` }, "property='og:image'");
   }
 
   onSingleBidCancellation(event: CancelEvent): void {

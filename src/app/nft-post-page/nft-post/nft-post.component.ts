@@ -622,8 +622,12 @@ export class NftPostComponent implements OnInit {
     //   "property='og:image:secure_url'"
     // );
     // this.metaService.updateTag({ property: "og:image", content: `${imageUrl}` }, "property='og:image'");
-    document.querySelector("meta[property='og:image']").setAttribute("content", `${imageUrl}`);
-    document.querySelector("meta[name='twitter:image']").setAttribute("content", `${imageUrl}`);
+
+    // document.querySelector("meta[property='og:image']").setAttribute("content", `${imageUrl}`);
+    // document.querySelector("meta[name='twitter:image']").setAttribute("content", `${imageUrl}`);
+
+    this.metaService.updateTag({ property: "og:image", content: imageUrl });
+    this.metaService.updateTag({ name: "twitter:image", content: imageUrl });
   }
 
   onSingleBidCancellation(event: CancelEvent): void {

@@ -32,31 +32,85 @@
         globalVars.loggedInUser?.PublicKeyBase58Check &&
         !globalVars.loggedInUser?.ProfileEntryResponse?.Username
       "
+      class="singup-center disable-scrollbars signup-center-height d-flex flex-column flex-center"
+    >
+      <div class="signup-window">
+        <label class="font-weight-semiboldn mb-0px mt-20px fs-32px text-align-center signup-window-header">
+          Pick your profile type
+        </label>
+        <label style="color: #666666" class="fs-20px mt-20px mb-20px text-align-center">
+          Choose between creator and collector profile.
+        </label>
+        <!-- <div class="singup-card-box mb-20px max-width-445px"> -->
+        <div class="singup-card-box">
+          <button
+            class="profile-type-card mt-20px p-0px left-btn"
+            (click)="creatorSelected()"
+            [ngClass]="{ 'electric-border': creator }"
+          >
+            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+              <img src="/assets/icons/creator.svg" alt="creator icon" />
+            </div>
+            <div class="h-40 w-100 mt-10px text-align-center">
+              <label class="fs-15px font-weight-bold pointer-events-none">CREATOR</label>
+              <label class="fs-11px pointer-events-none">I want to create NFT’s.</label>
+            </div>
+          </button>
+          <button
+            class="profile-type-card mt-20px p-0px right-btn"
+            (click)="collectorSelected()"
+            [ngClass]="{ 'electric-border': collector }"
+          >
+            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+              <img src="/assets/icons/collector.svg" alt="colletor icon" />
+            </div>
+            <div class="h-40 w-100 mt-10px text-align-center">
+              <label class="fs-15px font-weight-bold pointer-events-none">COLLECTOR</label>
+              <label class="fs-11px pointer-events-none">I want to buy and sell NFT’s.</label>
+            </div>
+          </button>
+        </div>
+        <!-- <button
+          (click)="nextStep()"
+          [disabled]="!creator && !collector"
+          class="black-rounded-button mb-20px basic-button-size d-flex color-white flex-center flex-row fs-15px mt-30px font-weight-bold"
+        > -->
+        <button
+          (click)="nextStep()"
+          [disabled]="!creator && !collector"
+          class="black-rounded-button mb-20px basic-button-size color-white fs-15px mt-30px font-weight-bold"
+        >
+          Continue
+        </button>
+      </div>
+    </div>
+    <div
+      *ngIf="
+        stepNum === 3 &&
+        globalVars.loggedInUser?.PublicKeyBase58Check &&
+        !globalVars.loggedInUser?.ProfileEntryResponse?.Username
+      "
       class="singup-center signup-center-height disable-scrollbars d-flex flex-column flex-center"
     >
-      <div class="max-width-445px">
-        <label class="font-weight-semiboldn mb-0px mt-20px header-font-rezising text-align-center">
-          Set up your contact details
+      <div class="max-width-445px signup-window">
+        <label class="font-weight-semiboldn mb-0px mt-20px header-font-rezising text-align-center signup-window-header">
+          Email for notifications
         </label>
-        <div class="h-120px mt-20px">
+        <div class="h-120px mt-20px signup-window-body">
           <label class="fs-18px mb-0px font-weight-semiboldn">Email</label>
-          <p style="color: #969696" class="fs-13px font-weight-semibold">Your email address.</p>
+          <p style="color: #969696" class="fs-13px font-weight-semibold">
+            You'll get notified when something important happens.
+          </p>
           <input
             type="text"
             class="signup-input mt-10px"
             [(ngModel)]="emailAddress"
             (ngModelChange)="_validateEmail($event)"
-            placeholder="Email"
+            placeholder="Email Address"
           />
           <div class="fc-red mt-5px fs-15px" *ngIf="invalidEmailEntered">Please enter a valid email address.</div>
         </div>
-        <label class="fs-18px mb-0px font-weight-semiboldn">Phone number</label>
-        <p style="color: #969696" class="fs-13px font-weight-semibold">
-          Verify your phone number and you will receive 0.01 $DESO for free!
-        </p>
-        <div class="mt-10px">
-          <app-mobile-verification></app-mobile-verification>
-        </div>
+
         <div class="w-100 d-flex flex-center">
           <button
             (click)="nextStep()"
@@ -67,60 +121,67 @@
         </div>
       </div>
     </div>
+
     <div
       *ngIf="
-        stepNum === 3 &&
+        stepNum === 4 &&
         globalVars.loggedInUser?.PublicKeyBase58Check &&
         !globalVars.loggedInUser?.ProfileEntryResponse?.Username
       "
-      class="singup-center disable-scrollbars signup-center-height d-flex flex-column flex-center"
+      class="singup-center signup-center-height disable-scrollbars d-flex flex-column flex-center"
     >
-      <label class="font-weight-semiboldn mb-0px mt-20px fs-32px text-align-center">Pick your profile type</label>
-      <label style="color: #666666" class="max-width-445px fs-20px mt-20px mb-20px text-align-center">
-        Choose between creator and collector profile.
-      </label>
-      <div class="singup-card-box mb-20px max-width-445px">
-        <button
-          class="profile-type-card mt-20px p-0px"
-          (click)="creatorSelected()"
-          [ngClass]="{ 'electric-border': creator }"
-        >
-          <div class="h-60 w-100 d-flex flex-center background-color-secondary">
-            <img src="/assets/icons/creator.svg" alt="creator icon" />
+      <div class="max-width-445px">
+        <label class="font-weight-semiboldn mb-0px mt-20px header-font-rezising text-align-center">
+          Verify your phone number
+        </label>
+        <div class="h-120px mt-20px">
+          <label class="fs-18px mb-0px font-weight-semiboldn">Phone number</label>
+          <p style="color: #969696" class="fs-13px font-weight-semibold">
+            By verifying your phone number we know you are a real person!
+          </p>
+          <div class="mt-10px">
+            <app-mobile-verification [stepNum]="stepNum" (nextStep)="nextStep()"></app-mobile-verification>
           </div>
-          <div class="h-40 w-100 mt-10px text-align-center">
-            <label class="fs-15px font-weight-bold pointer-events-none">CREATOR</label>
-            <label class="fs-11px pointer-events-none">I want to create NFT’s.</label>
-          </div>
-        </button>
-        <button
-          class="profile-type-card mt-20px p-0px"
-          (click)="collectorSelected()"
-          [ngClass]="{ 'electric-border': collector }"
-        >
-          <div class="h-60 w-100 d-flex flex-center background-color-secondary">
-            <img src="/assets/icons/collector.svg" alt="colletor icon" />
-          </div>
-          <div class="h-40 w-100 mt-10px text-align-center">
-            <label class="fs-15px font-weight-bold pointer-events-none">COLLECTOR</label>
-            <label class="fs-11px pointer-events-none">I want to buy and sell NFT’s.</label>
-          </div>
-        </button>
+        </div>
+
+        <!-- <div class="w-100 d-flex flex-center">
+          <button
+            (click)="nextStep()"
+            class="black-rounded-button mb-20px basic-button-size d-flex color-white flex-center flex-row fs-15px mt-30px font-weight-bold"
+          >
+            Continue
+          </button>
+        </div> -->
       </div>
-      <button
-        (click)="nextStep()"
-        [disabled]="!creator && !collector"
-        class="black-rounded-button mb-20px basic-button-size d-flex color-white flex-center flex-row fs-15px mt-30px font-weight-bold"
-      >
-        Continue
-      </button>
     </div>
+
+    <!-- <div
+      *ngIf="
+        stepNum === 5 &&
+        globalVars.loggedInUser?.PublicKeyBase58Check &&
+        !globalVars.loggedInUser?.ProfileEntryResponse?.Username
+      "
+      class="singup-center signup-center-height disable-scrollbars d-flex flex-column flex-center"
+    >
+      <div class="max-width-445px">
+        <label class="font-weight-semiboldn mb-0px mt-20px header-font-rezising text-align-center">
+          Enter verification code
+        </label>
+        <div class="h-120px mt-20px">
+          <div class="mt-10px">
+            <app-mobile-verification [stepNum]="stepNum" (nextStep)="nextStep()"></app-mobile-verification>
+          </div>
+          <p style="color: #969696" class="fs-13px font-weight-semibold">Did not get it? Resend the code.</p>
+        </div>
+      </div>
+    </div> -->
+
     <!--globalVars.loggedInUser?.PublicKeyBase58Check &&
         (creator || collector) &&
         !globalVars.loggedInUser?.ProfileEntryResponse?.Username-->
     <div
       *ngIf="
-        stepNum === 4 &&
+        stepNum === 5 &&
         globalVars.loggedInUser?.PublicKeyBase58Check &&
         (creator || collector) &&
         !globalVars.loggedInUser?.ProfileEntryResponse?.Username

@@ -6,6 +6,8 @@ import { BackendApiService } from "../backend-api.service";
 import { MessagesInboxComponent } from "../messages-page/messages-inbox/messages-inbox.component";
 import { animate, style, transition, trigger } from "@angular/animations";
 
+import { IdentityService } from "../identity.service";
+
 @Component({
   selector: "app-mobile-verification",
   templateUrl: "./mobile-verification.component.html",
@@ -20,6 +22,9 @@ export class MobileVerificationComponent implements OnInit {
   @Output() backToPreviousSignupStepClicked = new EventEmitter();
   @Output() phoneNumberVerified = new EventEmitter();
   @Output() skipButtonClicked = new EventEmitter();
+
+  @Output("nextStep") nextStep: EventEmitter<any> = new EventEmitter();
+  @Input() stepNum: number;
 
   MessagesInboxComponent = MessagesInboxComponent;
 
@@ -43,10 +48,18 @@ export class MobileVerificationComponent implements OnInit {
   sendPhoneNumberVerificationTextServerErrors = new SendPhoneNumberVerificationTextServerErrors();
   submitPhoneNumberVerificationCodeServerErrors = new SubmitPhoneNumberVerificationCodeServerErrors();
 
-  constructor(public globalVars: GlobalVarsService, private backendApi: BackendApiService) {}
+  constructor(
+    public globalVars: GlobalVarsService,
+    private backendApi: BackendApiService,
+    private identityService: IdentityService
+  ) {}
 
   ngOnInit(): void {
     this._setScreenToShow();
+  }
+
+  _nextStep() {
+    this.nextStep.emit();
   }
 
   _setScreenToShow() {
@@ -75,12 +88,23 @@ export class MobileVerificationComponent implements OnInit {
   }
 
   sendVerificationText() {
-    if (this.phoneForm.invalid) {
-      return;
-    }
-    this.verificationStep = true;
-    this.globalVars.logEvent("account : create : send-verification-text");
-    this._sendPhoneNumberVerificationText();
+    // if (this.phoneForm.invalid) {
+    //   return;
+    // }
+    // this.verificationStep = true;
+    // this.globalVars.logEvent("account : create : send-verification-text");
+    // this._sendPhoneNumberVerificationText();
+    // this._nextStep();
+
+    this.identityService
+      .launchPhoneNumberVerification(this.globalVars?.loggedInUser?.PublicKeyBase58Check)
+      .subscribe((res) => {
+        if (res.phoneNumberSuccess) {
+          this.globalVars.updateEverything().add(() => {
+            this.stepNum = 1;
+          });
+        }
+      });
   }
   resendVerificationCode(event) {
     event.stopPropagation();

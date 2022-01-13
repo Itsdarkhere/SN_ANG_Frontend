@@ -1,5 +1,5 @@
 <div class="h-100px">
-  <form #f="ngForm" [formGroup]="phoneForm" class="form-group mt-5px">
+  <form *ngIf="stepNum === 4" #f="ngForm" [formGroup]="phoneForm" class="form-group mt-5px">
     <div class="mobile-verification-input-button">
       <ngx-intl-tel-input
         style="font-size: 15px !important"
@@ -16,14 +16,18 @@
         name="phone"
         formControlName="phone"
       ></ngx-intl-tel-input>
-      <button
-        (click)="sendVerificationText()"
-        [ngClass]="{ disabled: !phoneForm.valid }"
-        class="white-rounded-button small-button-size-2 ml-10px fs-12px"
-      >
-        <label *ngIf="!sendingPhoneNumberVerificationText; else elseBlock" class="mb-0px pointer-events-none">Get verification code</label>
-        <ng-template #elseBlock><i class="fa fa-spinner fa-spin"></i></ng-template>
-      </button>
+      <div class="w-100 d-flex flex-center">
+        <button
+          (click)="sendVerificationText()"
+          [ngClass]="{ disabled: !phoneForm.valid }"
+          class="black-rounded-button mb-20px basic-button-size d-flex color-white flex-center flex-row fs-15px mt-30px font-weight-bold"
+        >
+          <label *ngIf="!sendingPhoneNumberVerificationText; else elseBlock" class="mb-0px pointer-events-none">
+            Send verification code
+          </label>
+          <ng-template #elseBlock><i class="fa fa-spinner fa-spin"></i></ng-template>
+        </button>
+      </div>
     </div>
     <div class="fc-red fs-15px">
       <!-- TODO: kinda obnoxious how this displays an error as soon as I start typing-->
@@ -51,7 +55,7 @@
       </div>
     </div>
   </form>
-  <form #f="ngForm" [formGroup]="verificationCodeForm" class="form-group mt-5px">
+  <form *ngIf="stepNum === 5" #f="ngForm" [formGroup]="verificationCodeForm" class="form-group mt-5px">
     <div class="mobile-verification-input-button">
       <input
         class="form-control mobile-input w-259px"
@@ -66,11 +70,13 @@
           [ngClass]="{ disabled: !verificationCodeForm.valid }"
           class="black-rounded-button small-button-size-2 ml-10px fs-12px"
         >
-          <label *ngIf="!submittingPhoneNumberVerificationCode; else elseBlock" class="mb-0px pointer-events-none">Verify your phone</label>
+          <label *ngIf="!submittingPhoneNumberVerificationCode; else elseBlock" class="mb-0px pointer-events-none">
+            Verify your phone
+          </label>
           <ng-template #elseBlock><i class="fa fa-spinner fa-spin"></i></ng-template>
         </button>
         <div *ngIf="false" class="mt-5px">
-          <a href="" style="color: #7C7C7C" class="fs-12px" (click)="resendVerificationCode($event)">Resend</a>
+          <a href="" style="color: #7c7c7c" class="fs-12px" (click)="resendVerificationCode($event)">Resend</a>
           <i *ngIf="resentVerificationCode" class="far fa-check-circle fc-blue"></i>
         </div>
       </div>

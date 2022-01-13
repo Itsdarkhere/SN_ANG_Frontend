@@ -171,19 +171,21 @@ export class SignupPageComponent implements OnInit {
   }
   nextStep() {
     if (this.stepNum === 2) {
+      this.updateProfileType();
+      //   if (!this.globalVars.mobileVerified) {
+      //     this.router.navigate([RouteNames.BROWSE]);
+      //   }
+      //   else {
+      //     this.SendStepFourEvent();
+      //   }
       this.SendStepTwoEvent();
     }
-    if (this.stepNum === 2 && !this.invalidEmailEntered) {
-      this._updateEmail();
+    if (this.stepNum === 3) {
       this.SendStepThreeEvent();
     }
-    if (this.stepNum === 3) {
-      this.updateProfileType();
-      if (!this.globalVars.mobileVerified) {
-        this.router.navigate([RouteNames.BROWSE]);
-      } else {
-        this.SendStepFourEvent();
-      }
+    if (this.stepNum === 3 && !this.invalidEmailEntered) {
+      this._updateEmail();
+      this.SendStepThreeEvent();
     }
     this.stepNum++;
   }

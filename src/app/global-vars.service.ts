@@ -948,8 +948,8 @@ export class GlobalVarsService {
     return localStorage.getItem("referralCode");
   }
 
-  //   async flowRedirect(signedUp: boolean, publicKey: string): Promise<void> {
-  flowRedirect(signedUp: boolean, publicKey: string): void {
+  async flowRedirect(signedUp: boolean, publicKey: string): Promise<void> {
+    //   flowRedirect(signedUp: boolean, publicKey: string): void {
     // if res.signedUp === false then if /else for creator or collector
     if (signedUp) {
       // If this node supports phone number verification, go to step 3, else proceed to step 4.
@@ -958,19 +958,30 @@ export class GlobalVarsService {
         queryParams: { stepNum },
       });
     } else {
-      // call to firebase
+      //   // call to firebase
       //   const firebaseRes = await this.firestore.collection("profile-details").doc(publicKey).get().toPromise();
-      //   this.getProfileSocials(publicKey);
+      //   // cicular replacer since firestore returns circular structure
+      //   const getCircularReplacer = () => {
+      //     const seen = new WeakSet();
+      //     return (key, value) => {
+      //       if (typeof value === "object" && value !== null) {
+      //         if (seen.has(value)) {
+      //           return;
+      //         }
+      //         seen.add(value);
+      //       }
+      //       return value;
+      //     };
+      //   };
 
-      //   let firebaseResObj = JSON.stringify(firebaseRes);
-      //   setTimeout(() => {
-      //     console.log(
-      //       `-------------------------- profile data ${JSON.stringify(this.profileData)} --------------------------`
-      //     );
-      //   }, 5000);
-      //   console.log(`-------------------------- profile data ${firebaseRes} --------------------------`);
+      //   console.log(
+      //     `-------------------------- profile data ${JSON.stringify(
+      //       firebaseRes,
+      //       getCircularReplacer()
+      //     )} --------------------------`
+      //   );
 
-      // if creator or collector is true then direct to new flow
+      //   // if creator or collector is true then direct to new flow
 
       // else go to browse tab
       this.router.navigate(["/" + this.RouteNames.BROWSE]);

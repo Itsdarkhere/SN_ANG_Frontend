@@ -35,10 +35,8 @@ import { DiamondTutorialPageComponent } from "./tutorial/diamond-tutorial-page/d
 import { CreatePostTutorialPageComponent } from "./tutorial/create-post-tutorial-page/create-post-tutorial-page.component";
 import { ActivityComponent } from "./activity/activity.component";
 import { MintPageComponent } from "./mint-page/mint-page.component";
-import { DiscoveryComponent } from "./discovery-page/discovery/discovery.component";
 import { NftPageComponent } from "./discovery-page/nft-page/nft-page.component";
 import { DiscoveryPageComponent } from "./discovery-page/discovery-page.component";
-
 
 class RouteNames {
   // Not sure if we should have a smarter schema for this, e.g. what happens if we have
@@ -175,8 +173,6 @@ const routes: Routes = [
   },
   // This NotFound route must be the last one as it catches all paths that were not matched above.
   { path: "**", component: NotFoundPageComponent, pathMatch: "full" },
-
- 
 ];
 
 @NgModule({

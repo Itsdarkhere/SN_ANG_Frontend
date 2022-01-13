@@ -69,7 +69,7 @@
               class="profile-img"
               title="My Profile"
               (click)="hasProfile()"
-              [avatar]="globalVars.loggedInUser.PublicKeyBase58Check"
+              [avatar]="globalVars.loggedInUser?.PublicKeyBase58Check"
             ></div>
             <label class="mb-0px mt-4px fs-10px cursor-pointer" (click)="hasProfile()">PROFILE</label>
           </li>

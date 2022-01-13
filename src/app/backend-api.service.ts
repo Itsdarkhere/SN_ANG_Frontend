@@ -127,6 +127,8 @@ export class BackendRoutes {
   static RoutePathGetWyreWalletOrdersForPublicKey = "/api/v0/admin/get-wyre-wallet-orders-for-public-key";
   static RoutePathAdminGetNFTDrop = "/api/v0/admin/get-nft-drop";
   static RoutePathAdminUpdateNFTDrop = "/api/v0/admin/update-nft-drop";
+  // Discovery postgres routes
+  static RoutePathGetCommunityFavourites = "/api/v0/get-community-favourites";
   // Same as the two above but for supernovas uses
   static RoutePathGetMarketplaceRefSupernovas = "/api/v0/get-marketplace-ref-supernovas";
   static RoutePathAddToMarketplaceSupernovas = "/api/v0/add-to-marketplace-supernovas";
@@ -1123,6 +1125,16 @@ export class BackendApiService {
       ReaderPublicKeyBase58Check,
       PostHashHex,
       NumToFetch,
+    });
+  }
+  GetCommunityFavourite(
+    endpoint: string,
+    ReaderPublicKeyBase58Check: string,
+    ProfilePublicKey: string
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetCommunityFavourites, {
+      ReaderPublicKeyBase58Check,
+      ProfilePublicKey,
     });
   }
   GetNFTShowcaseProfile(

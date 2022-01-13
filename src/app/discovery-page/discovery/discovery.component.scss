@@ -3,13 +3,17 @@
     flex-wrap: wrap;
     margin-top: 20px;
     justify-content: space-between;
+    height: 600px;
     @media screen and (max-width: 767px) {
+        height: auto;
         flex-direction: column-reverse;
         padding: 40px 0 20px 0;
         margin: 0 -10px;
     }
     .disc_art_left {
+        height: 100%;
         width: 550px;
+        max-width: 45%;
         background-color: #272727;
         border-radius: 25px 2px 2px 25px;
         overflow: hidden;
@@ -45,6 +49,11 @@
                 position: relative;
                 z-index: 1;
                 color: #fff;
+                width: 100%;
+                padding: 20px 40px;
+                @media screen and (max-width: 767px) {
+                    padding: 0px;
+                }
                 h3 {
                     color: #fff;
                     font-size: 52px;
@@ -65,15 +74,21 @@
                         display: flex;
                         align-items: center;
                         .profile-img {
-                            width: 28px;
-                            height: 28px;
+                            width: 33px;
+                            height: 33px;
                             cursor: pointer;
                             overflow: hidden;
                             border-radius: 50%;
-                            border: 3px solid #FFFFFF;
-                            box-shadow: 0px 4px 5px 3px rgb(0 0 0 / 10%);
-                            background-size: cover;
-                            margin: 6px 5px 0 15px;
+                            border: 3px solid #ffffff;
+                            margin: 4px 5px 3px 15px;
+                            box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.1);
+                            a {
+                                width: 100%;
+                                height: 100%;
+                                display: block;
+                                background-position: center;
+                                background-size: cover;
+                            }
                             @media screen and (max-width: 767px) {
                                 margin: 4px 5px 0 15px;
                             }
@@ -200,7 +215,8 @@
         }
     }
     .disc_art_right {
-        width: calc(100% - 550px);
+        width: 55%;
+        height: 100%;
         border-radius: 0px 25px 25px 0px;
         background-color: #F6F6F6;
         padding: 40px 60px;
@@ -215,4 +231,7 @@
             border-radius: 0;
         }
     }
+}
+.discovery-main-nft-shimmer-container{
+    width: 70%;
 }

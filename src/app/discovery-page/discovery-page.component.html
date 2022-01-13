@@ -1,9 +1,9 @@
 <app-page-small-nav>
   <!-- Bunch of things on this page turn from flexboxes into carousels, on var mobile change-->
   <div class="mt-20px">
-    <app-discovery></app-discovery>
+    <app-discovery [post]="mainNftResponse"></app-discovery>
   </div>
-  <div class="w-100 mt-20px d-flex flex-column flex-center discovery-selector">
+  <div class="w-100 mt-20px d-flex flex-column flex-start-center discovery-selector">
     <div class="w-100 d-flex align-items-start justify-content-around">
       <button class="selected font-weight-semibold">Trending</button>
       <button class="font-weight-semibold">Categories</button>
@@ -22,14 +22,55 @@
     </a>
   </div>
   <div *ngIf="!mobile" class="w-100 pr-5px pl-5px discovery-nft-showcase">
-    <div class="nfts-card-list-discovery">
+    <div class="nfts-card-list-discovery w-100" *ngIf="postsLoading">
+      <div class="nft-col-wrap">
+        <div class="card">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
+      </div>
+      <div class="nft-col-wrap">
+        <div class="card">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
+      </div>
+      <div class="nft-col-wrap">
+        <div class="card">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
+      </div>
+      <div class="nft-col-wrap">
+        <div class="card">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
+      </div>
+      <div class="nft-col-wrap">
+        <div class="card">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
+      </div>
+      <div class="nft-col-wrap">
+        <div class="card">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
+      </div>
+      <div class="nft-col-wrap">
+        <div class="card">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
+      </div>
+      <div class="nft-col-wrap">
+        <div class="card">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
+      </div>
+    </div>
+    <div class="nfts-card-list-discovery" *ngIf="!postsLoading">
       <div class="nft-col-wrap" *ngFor="let nftEntry of dataToShow">
         <div class="max-width-300-plus">
           <new-nft-card
-            *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
             [contentShouldLinkToThread]="true"
             [includePaddingOnPost]="true"
-            [post]="nftEntry.PostEntryResponse"
+            [post]="nftEntry"
             [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
             [blocked]="globalVars.hasUserBlockedCreator('BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w')"
             [showNFTDetails]="true"
@@ -47,10 +88,9 @@
   <carousel class="zindex" *ngIf="mobile" [height]="520" [cellWidth]="300" [freeScroll]="true">
     <div class="carousel-cell pt-10px" *ngFor="let nftEntry of dataToShow">
       <new-nft-card
-        *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="nftEntry.PostEntryResponse"
+        [post]="nftEntry"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator('BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w')"
         [showNFTDetails]="true"
@@ -64,29 +104,60 @@
     </div>
   </carousel>
   <h2 class="font-weight-semiboldn mt-20px pl-10px" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">Explore categories</h2>
-  <carousel class="mt-20px zindex" [height]="200" [cellWidth]="400" [freeScroll]="false">
+  <carousel class="mt-20px zindex" [height]="200" [cellWidth]="265" [freeScroll]="false">
     <div class="carousel-cell pl-5px">
-      <div class="discovery-category-box font-weight-semibold">
-        <div class="top-gradient"></div>
-        <div class="bottom-white d-flex flex-center-start">Oranges</div>
+      <div class="discovery-category-box">
+        <img class="w-100 h-100" loading="lazy" src="/assets/img/category_art.png" alt="category art" />
       </div>
     </div>
     <div class="carousel-cell pl-5px">
-      <div class="discovery-category-box font-weight-semibold">
-        <div class="top-gradient"></div>
-        <div class="bottom-white d-flex flex-center-start">Apples</div>
+      <div class="discovery-category-box">
+        <img
+          class="w-100 h-100"
+          loading="lazy"
+          src="/assets/img/category_collectibles.png"
+          alt="category collectibles"
+        />
       </div>
     </div>
     <div class="carousel-cell pl-5px">
-      <div class="discovery-category-box font-weight-semibold">
-        <div class="top-gradient"></div>
-        <div class="bottom-white d-flex flex-center-start">Grapes</div>
+      <div class="discovery-category-box">
+        <img
+          class="w-100 h-100"
+          loading="lazy"
+          src="/assets/img/category_generative_art.png"
+          alt="category generative art"
+        />
       </div>
     </div>
     <div class="carousel-cell pl-5px">
-      <div class="discovery-category-box font-weight-semibold">
-        <div class="top-gradient"></div>
-        <div class="bottom-white d-flex flex-center-start">blueberries</div>
+      <div class="discovery-category-box">
+        <img
+          class="w-100 h-100"
+          loading="lazy"
+          src="/assets/img/category_metaverse_gaming.png"
+          alt="category metaverse & gaming"
+        />
+      </div>
+    </div>
+    <div class="carousel-cell pl-5px">
+      <div class="discovery-category-box">
+        <img class="w-100 h-100" loading="lazy" src="/assets/img/category_music.png" alt="category music" />
+      </div>
+    </div>
+    <div class="carousel-cell pl-5px">
+      <div class="discovery-category-box">
+        <img
+          class="w-100 h-100"
+          loading="lazy"
+          src="/assets/img/category_pp_collection.png"
+          alt="category profile picture collection"
+        />
+      </div>
+    </div>
+    <div class="carousel-cell pl-5px">
+      <div class="discovery-category-box">
+        <img class="w-100 h-100" loading="lazy" src="/assets/img/category_photography.png" alt="category photography" />
       </div>
     </div>
   </carousel>
@@ -102,10 +173,9 @@
       <div class="nft-col-wrap" *ngFor="let nftEntry of dataToShow">
         <div class="max-width-350">
           <new-nft-card
-            *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
             [contentShouldLinkToThread]="true"
             [includePaddingOnPost]="true"
-            [post]="nftEntry.PostEntryResponse"
+            [post]="nftEntry"
             [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
             [blocked]="globalVars.hasUserBlockedCreator('BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w')"
             [showNFTDetails]="true"
@@ -123,10 +193,9 @@
   <carousel class="zindex" *ngIf="mobile" [height]="520" [cellWidth]="300" [freeScroll]="true">
     <div class="carousel-cell pt-10px" *ngFor="let nftEntry of dataToShow">
       <new-nft-card
-        *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="nftEntry.PostEntryResponse"
+        [post]="nftEntry"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator('BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w')"
         [showNFTDetails]="true"

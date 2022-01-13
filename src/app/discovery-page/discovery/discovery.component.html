@@ -2,20 +2,26 @@
   <div class="disc_art_left">
     <div class="top_sc">
       <div class="dtails_wp">
-        <h3>The Name of Art</h3>
-        <div class="art_details_nv">
+        <h3>{{ post?.PostExtraData?.name }}</h3>
+        <div class="art_details_nv" *ngIf="post">
           By
 
           <div class="user_detail">
-            <div
-              title="My Profile"
-              class="profile-img"
-              style="
-                background-image: url(https://supernovas.app/api/v0/get-single-profile-picture/BC1YLhLZHnfyXpHbrsCmNfi5Psb3Sst1qVm6ZpLTHz9AtspQGaujVZu?fallback=http://localhost:4200/assets/img/default_profile_pic.png);
-              "
-            ></div>
-            <span class="val">@username</span>
-            <span class="bg"><i class="fas fa-check-circle fa-md align-middle" aria-hidden="true"></i></span>
+            <div class="profile-img">
+              <a
+                [avatar]="post.ProfileEntryResponse?.PublicKeyBase58Check"
+                [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, post?.ProfileEntryResponse?.Username]"
+                queryParamsHandling="merge"
+              ></a>
+            </div>
+            <span
+              class="val"
+              [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, post?.ProfileEntryResponse?.Username]"
+              queryParamsHandling="merge"
+            >
+              {{ post?.ProfileEntryResponse?.Username }}
+            </span>
+            <i *ngIf="post?.ProfileEntryResponse?.IsVerified" class="fas pl-5px fa-check-circle fa-md text-primary"></i>
           </div>
         </div>
       </div>
@@ -53,7 +59,12 @@
   </div>
   <div class="disc_art_right">
     <div class="feed-post__image-container">
-      <img data-toggle="modal" class="feed-post__image" src="assets/img/discovery_bg.jpg" />
+      <img data-toggle="modal" (load)="imageLoaded()" class="feed-post__image" src="{{ post.ImageURLs[0] }}" />
+    </div>
+    <div class="w-100 h-100 d-flex flex-center" *ngIf="!hasImageLoaded">
+      <div class="w-70">
+        <loading-shimmer [tabType]="'POST'"></loading-shimmer>
+      </div>
     </div>
   </div>
 </div>

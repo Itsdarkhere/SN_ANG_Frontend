@@ -10,14 +10,14 @@ import { GlobalVarsService } from "../global-vars.service";
   styleUrls: ["./discovery-page.component.scss"],
 })
 export class DiscoveryPageComponent implements OnInit {
-  activeTab = "one";
   mobile = false;
   dataToShow: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
-  nftResponse: any[];
+  mainNftResponse: PostEntryResponse;
+  postsLoading = false;
   constructor(private backendApi: BackendApiService, public globalVars: GlobalVarsService) {}
 
   ngOnInit(): void {
-    this.getNFTs();
+    this.getCommunityFavourites();
     this.setMobileBasedOnViewport();
   }
   setMobileBasedOnViewport() {
@@ -28,31 +28,20 @@ export class DiscoveryPageComponent implements OnInit {
   onResize() {
     this.setMobileBasedOnViewport();
   }
-  _handleTabClick(event) {
-    this.activeTab = event.target.value;
-  }
-  getNFTs(isForSale: boolean | null = null): Subscription {
-    return this.backendApi
-      .GetNFTsForUser(
+  getCommunityFavourites() {
+    this.postsLoading = true;
+    this.backendApi
+      .GetCommunityFavourite(
         this.globalVars.localNode,
-        "BC1YLfgucuJF6n288pZNhfkTeXsFiWNEgfDoK6jw97jkdoGcKtEUDTW",
+        this.globalVars.loggedInUser?.PublicKeyBase58Check,
         this.globalVars.loggedInUser?.PublicKeyBase58Check
       )
-      .subscribe(
-        (res: {
-          NFTsMap: { [k: string]: { PostEntryResponse: PostEntryResponse; NFTEntryResponses: NFTEntryResponse[] } };
-        }) => {
-          this.nftResponse = [];
-          for (const k in res.NFTsMap) {
-            const responseElement = res.NFTsMap[k];
-            if (!responseElement.NFTEntryResponses[0].IsPending) {
-              this.nftResponse.push(responseElement);
-            }
-          }
-          this.dataToShow = this.nftResponse.slice(0, 8);
-          console.log(this.dataToShow);
-        }
-      );
+      .subscribe((res) => {
+        console.log(res);
+        this.postsLoading = false;
+        this.mainNftResponse = res["PostEntryResponse"][0];
+        this.dataToShow = res["PostEntryResponse"].slice(1, 9);
+      });
   }
   appendCommentAfterParentPost(postEntryResponse) {
     console.log("nice");

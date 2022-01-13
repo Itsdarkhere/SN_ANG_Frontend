@@ -8,6 +8,9 @@ import { animate, style, transition, trigger } from "@angular/animations";
 
 import { IdentityService } from "../identity.service";
 
+import { ActivatedRoute, Router } from "@angular/router";
+import { AppRoutingModule, RouteNames } from "../app-routing.module";
+
 @Component({
   selector: "app-mobile-verification",
   templateUrl: "./mobile-verification.component.html",
@@ -51,7 +54,9 @@ export class MobileVerificationComponent implements OnInit {
   constructor(
     public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
-    private identityService: IdentityService
+    private identityService: IdentityService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -102,7 +107,8 @@ export class MobileVerificationComponent implements OnInit {
       .subscribe((res) => {
         if (res.phoneNumberSuccess) {
           this.globalVars.updateEverything().add(() => {
-            this.stepNum = 1;
+            // this.stepNum = 1;
+            this.router.navigate([RouteNames.BROWSE]);
           });
         }
       });

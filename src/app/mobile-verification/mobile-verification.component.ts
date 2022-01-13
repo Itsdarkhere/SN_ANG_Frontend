@@ -96,6 +96,7 @@ export class MobileVerificationComponent implements OnInit {
     // this._sendPhoneNumberVerificationText();
     // this._nextStep();
 
+    // https://docs.deso.org/identity/window-api/endpoints#verify-phone-number
     this.identityService
       .launchPhoneNumberVerification(this.globalVars?.loggedInUser?.PublicKeyBase58Check)
       .subscribe((res) => {

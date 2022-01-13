@@ -12,6 +12,27 @@
   border-radius: 5.669146537780762px;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
 }
+.signup-window-btn {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 250px; /* Need a specific value to work */
+  bottom: 0;
+  margin-bottom: 50px;
+}
+.button-solid {
+  border: none;
+  margin-top: 40px;
+  color: #787878;
+  background: white;
+  font-size: 15px;
+}
+button-solid:focus {
+  border: none;
+  outline: none;
+}
 .mobile-verification-input-button {
   display: flex;
   flex-direction: column;

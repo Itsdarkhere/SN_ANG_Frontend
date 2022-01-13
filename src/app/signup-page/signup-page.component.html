@@ -75,10 +75,15 @@
           [disabled]="!creator && !collector"
           class="black-rounded-button mb-20px basic-button-size d-flex color-white flex-center flex-row fs-15px mt-30px font-weight-bold"
         > -->
+        <!-- <button
+          (click)="nextStep()"
+          [disabled]="!creator && !collector"
+          class="black-rounded-button mb-20px basic-button-size color-white fs-15px mt-30px font-weight-bold signup-window-btn-1"
+        > -->
         <button
           (click)="nextStep()"
           [disabled]="!creator && !collector"
-          class="black-rounded-button mb-20px basic-button-size color-white fs-15px mt-30px font-weight-bold"
+          class="black-rounded-button basic-button-size color-white fs-15px font-weight-bold signup-window-btn"
         >
           Continue
         </button>
@@ -114,7 +119,7 @@
         <div class="w-100 d-flex flex-center">
           <button
             (click)="nextStep()"
-            class="black-rounded-button mb-20px basic-button-size d-flex color-white flex-center flex-row fs-15px mt-30px font-weight-bold"
+            class="black-rounded-button basic-button-size color-white fs-15px font-weight-bold signup-window-btn"
           >
             Continue
           </button>
@@ -130,16 +135,16 @@
       "
       class="singup-center signup-center-height disable-scrollbars d-flex flex-column flex-center"
     >
-      <div class="max-width-445px">
-        <label class="font-weight-semiboldn mb-0px mt-20px header-font-rezising text-align-center">
+      <div class="max-width-445px signup-window">
+        <label class="font-weight-semiboldn mb-0px mt-20px header-font-rezising text-align-center signup-window-header">
           Verify your phone number
         </label>
-        <div class="h-120px mt-20px">
+        <div class="h-120px mt-20px signup-window-body">
           <label class="fs-18px mb-0px font-weight-semiboldn">Phone number</label>
           <p style="color: #969696" class="fs-13px font-weight-semibold">
             By verifying your phone number we know you are a real person!
           </p>
-          <div class="mt-10px">
+          <div>
             <app-mobile-verification [stepNum]="stepNum" (nextStep)="nextStep()"></app-mobile-verification>
           </div>
         </div>

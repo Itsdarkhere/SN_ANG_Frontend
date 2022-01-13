@@ -26,6 +26,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 25px;
   @media (max-width: 500px) {
     flex-direction: column;
   }
@@ -52,12 +53,29 @@
 .signup-window {
   height: 100vh;
   text-align: center;
+  position: relative;
 }
 .signup-window-header {
   margin-top: 50px;
 }
 .signup-window-body {
   margin-top: 60px;
+}
+.signup-window-btn {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 250px; /* Need a specific value to work */
+  bottom: 0;
+  margin-bottom: 50px;
+}
+.signup-window-btn-1 {
+  margin-top: 100px;
+}
+.signup-window-btn-2 {
+  margin-top: 200px;
 }
 .max-width-445px {
   width: 445px;

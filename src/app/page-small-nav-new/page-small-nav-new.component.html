@@ -1,0 +1,14 @@
+<!-- Why new page small nav ? 
+    The old one is fucked And im trying to push discovery out.
+    Refactor of the old one and removal of this is something that needs to be done,
+    once there is some breathing room -->
+<app-header></app-header>
+<div [class]="mobile ? 'global__mobile' : 'global__desktop'" class="position-relative">
+  <div class="m_inner_wrapper flex-column end" [ngClass]="mobile ? 'marketplace-mobile-margin' : ''">
+    <app-small-left-bar *ngIf="!mobile"></app-small-left-bar>
+    <left-bar-mobile *ngIf="mobile"></left-bar-mobile>
+    <div class="w-100">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

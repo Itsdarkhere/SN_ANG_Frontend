@@ -195,6 +195,7 @@ import { ConfirmationModalComponent } from './confirmation-modal/confirmation-mo
 import { DiscoveryPageComponent } from './discovery-page/discovery-page.component';
 import { NftPageComponent } from './discovery-page/nft-page/nft-page.component';
 import { CreatorCardComponent } from './creator-card/creator-card.component';
+import { PageSmallNavNewComponent } from './page-small-nav-new/page-small-nav-new.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -365,6 +366,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     DiscoveryPageComponent,
     NftPageComponent,
     CreatorCardComponent,
+    PageSmallNavNewComponent,
   ],
   imports: [
     BrowserModule,

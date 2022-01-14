@@ -14,6 +14,7 @@ export class DiscoveryPageComponent implements OnInit {
   dataToShow: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
   mainNftResponse: PostEntryResponse;
   postsLoading = false;
+  fakeArray = [1, 2, 3, 4, 5, 6, 7, 8];
   constructor(private backendApi: BackendApiService, public globalVars: GlobalVarsService) {}
 
   ngOnInit(): void {
@@ -38,9 +39,12 @@ export class DiscoveryPageComponent implements OnInit {
       )
       .subscribe((res) => {
         console.log(res);
-        this.postsLoading = false;
         this.mainNftResponse = res["PostEntryResponse"][0];
         this.dataToShow = res["PostEntryResponse"].slice(1, 9);
+        setTimeout(() => {
+          this.postsLoading = false;
+          console.log(this.postsLoading);
+        }, 300);
       });
   }
   appendCommentAfterParentPost(postEntryResponse) {

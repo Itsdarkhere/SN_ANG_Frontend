@@ -1,8 +1,6 @@
-<app-page-small-nav>
+<app-page-small-nav-new>
   <!-- Bunch of things on this page turn from flexboxes into carousels, on var mobile change-->
-  <div class="mt-20px">
-    <app-discovery [post]="mainNftResponse"></app-discovery>
-  </div>
+  <app-discovery [post]="mainNftResponse"></app-discovery>
   <div class="w-100 mt-20px d-flex flex-column flex-start-center discovery-selector">
     <div class="w-100 d-flex align-items-start justify-content-around">
       <button class="selected font-weight-semibold">Trending</button>
@@ -21,44 +19,9 @@
       <img src="/assets/icons/chevron_right.svg" />
     </a>
   </div>
-  <div *ngIf="!mobile" class="w-100 pr-5px pl-5px discovery-nft-showcase">
+  <div *ngIf="!mobile" class="w-100 discovery-nft-showcase">
     <div class="nfts-card-list-discovery w-100" *ngIf="postsLoading">
-      <div class="nft-col-wrap">
-        <div class="card">
-          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
-        </div>
-      </div>
-      <div class="nft-col-wrap">
-        <div class="card">
-          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
-        </div>
-      </div>
-      <div class="nft-col-wrap">
-        <div class="card">
-          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
-        </div>
-      </div>
-      <div class="nft-col-wrap">
-        <div class="card">
-          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
-        </div>
-      </div>
-      <div class="nft-col-wrap">
-        <div class="card">
-          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
-        </div>
-      </div>
-      <div class="nft-col-wrap">
-        <div class="card">
-          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
-        </div>
-      </div>
-      <div class="nft-col-wrap">
-        <div class="card">
-          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
-        </div>
-      </div>
-      <div class="nft-col-wrap">
+      <div class="nft-col-wrap" *ngFor="let a of fakeArray">
         <div class="card">
           <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
         </div>
@@ -168,7 +131,7 @@
       <img src="/assets/icons/chevron_right.svg" />
     </a>
   </div>
-  <div *ngIf="!mobile" class="w-100 pr-5px pl-5px discovery-nft-showcase">
+  <div *ngIf="!mobile" class="w-100 discovery-nft-showcase">
     <div class="nfts-card-list-discovery">
       <div class="nft-col-wrap" *ngFor="let nftEntry of dataToShow">
         <div class="max-width-350">
@@ -212,39 +175,57 @@
     Newly verified creators
   </h2>
   <div *ngIf="!mobile" class="discovery-creator-cards-container mt-20px w-100">
-    <app-creator-card></app-creator-card>
-    <app-creator-card></app-creator-card>
-    <app-creator-card></app-creator-card>
-    <app-creator-card></app-creator-card>
-    <app-creator-card></app-creator-card>
-    <app-creator-card></app-creator-card>
-    <app-creator-card></app-creator-card>
-    <app-creator-card></app-creator-card>
+    <div class="nfts-card-list-discovery">
+      <div class="nft-col-wrap">
+        <app-creator-card [publicKey]="'BC1YLfgucuJF6n288pZNhfkTeXsFiWNEgfDoK6jw97jkdoGcKtEUDTW'"></app-creator-card>
+      </div>
+      <div class="nft-col-wrap">
+        <app-creator-card [publicKey]="'BC1YLhocSA7zKnroJGSCxDLm8aueLpvmKHTUUPa9PmsEY8rxTkGqiG8'"></app-creator-card>
+      </div>
+      <div class="nft-col-wrap">
+        <app-creator-card [publicKey]="'BC1YLi2CCqL4ptq9zBZP9XFSJfrupjvNwFHQu4g5Nc6y5WckhSZWmNm'"></app-creator-card>
+      </div>
+      <div class="nft-col-wrap">
+        <app-creator-card [publicKey]="'BC1YLi7jfGV1z5Z3QmZeATNzwDrdfktKNBcp3NMijkAiP3S6xoiVtBB'"></app-creator-card>
+      </div>
+      <div class="nft-col-wrap">
+        <app-creator-card [publicKey]="'BC1YLi7jfGV1z5Z3QmZeATNzwDrdfktKNBcp3NMijkAiP3S6xoiVtBB'"></app-creator-card>
+      </div>
+      <div class="nft-col-wrap">
+        <app-creator-card [publicKey]="'BC1YLgmk4R4oTi2eVbybau6Z5mnh4tENSamDEXdn2Bke6Fv7bfnczWT'"></app-creator-card>
+      </div>
+      <div class="nft-col-wrap">
+        <app-creator-card [publicKey]="'BC1YLiuKfzE6HjurKQi156kzhUo8LGQWDUvudhkEPuqDZWe1NrdeLmV'"></app-creator-card>
+      </div>
+      <div class="nft-col-wrap">
+        <app-creator-card [publicKey]="'BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w'"></app-creator-card>
+      </div>
+    </div>
   </div>
   <carousel class="zindex" *ngIf="mobile" [height]="420" [cellWidth]="300" [freeScroll]="true">
     <div class="carousel-cell">
-      <app-creator-card></app-creator-card>
+      <app-creator-card [publicKey]="BC1YLfgucuJF6n288pZNhfkTeXsFiWNEgfDoK6jw97jkdoGcKtEUDTW"></app-creator-card>
     </div>
     <div class="carousel-cell">
-      <app-creator-card></app-creator-card>
+      <app-creator-card [publicKey]="BC1YLhocSA7zKnroJGSCxDLm8aueLpvmKHTUUPa9PmsEY8rxTkGqiG8"></app-creator-card>
     </div>
     <div class="carousel-cell">
-      <app-creator-card></app-creator-card>
+      <app-creator-card [publicKey]="BC1YLi2CCqL4ptq9zBZP9XFSJfrupjvNwFHQu4g5Nc6y5WckhSZWmNm"></app-creator-card>
     </div>
     <div class="carousel-cell">
-      <app-creator-card></app-creator-card>
+      <app-creator-card [publicKey]="BC1YLgToU7dbhNYrkVgvxjUtw22zjoc3aF5XcBKktanyYkvWKxKUR71"></app-creator-card>
     </div>
     <div class="carousel-cell">
-      <app-creator-card></app-creator-card>
+      <app-creator-card [publicKey]="BC1YLi7jfGV1z5Z3QmZeATNzwDrdfktKNBcp3NMijkAiP3S6xoiVtBB"></app-creator-card>
     </div>
     <div class="carousel-cell">
-      <app-creator-card></app-creator-card>
+      <app-creator-card [publicKey]="BC1YLgmk4R4oTi2eVbybau6Z5mnh4tENSamDEXdn2Bke6Fv7bfnczWT"></app-creator-card>
     </div>
     <div class="carousel-cell">
-      <app-creator-card></app-creator-card>
+      <app-creator-card [publicKey]="BC1YLiuKfzE6HjurKQi156kzhUo8LGQWDUvudhkEPuqDZWe1NrdeLmV"></app-creator-card>
     </div>
     <div class="carousel-cell">
-      <app-creator-card></app-creator-card>
+      <app-creator-card [publicKey]="BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w"></app-creator-card>
     </div>
   </carousel>
   <h2 class="font-weight-semiboldn mt-50px pl-10px" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">
@@ -314,4 +295,4 @@
   </div>
   <div class="discovery-spacer-2"></div>
   <div *ngIf="mobile" class="discovery-spacer"></div>
-</app-page-small-nav>
+</app-page-small-nav-new>

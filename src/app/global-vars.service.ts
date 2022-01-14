@@ -908,7 +908,7 @@ export class GlobalVarsService {
         this.logEvent(`account : ${event} : success`);
         this.backendApi.setIdentityServiceUsers(res.users, res.publicKeyAdded);
         this.updateEverything().add(() => {
-          this.flowRedirect(res.signedUp);
+          this.flowRedirect(res);
         });
       });
   }

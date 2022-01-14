@@ -19,6 +19,7 @@
         overflow: hidden;
         @media screen and (max-width: 767px) {
             width: 100%;
+            max-width: 100%;
             border-radius: 0 0 25px 25px;
         }
         .top_sc {
@@ -223,6 +224,12 @@
         align-items: center;
         justify-content: center;
         display: flex;
+        div {
+            width: 90%;
+            img {
+                max-width: 100%;
+            }
+        }
         @media screen and (max-width: 767px) {
             width: 100%;
             padding: 40px 20px;

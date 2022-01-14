@@ -1,65 +1,82 @@
-<div class="discovery_wrapper">
+<div class="discovery_wrapper mt-20px">
   <div class="disc_art_left">
     <div class="top_sc">
       <div class="dtails_wp">
-        <h3>{{ post?.PostExtraData?.name }}</h3>
-        <div class="art_details_nv" *ngIf="post">
-          By
-
-          <div class="user_detail">
-            <div class="profile-img">
-              <a
-                [avatar]="post.ProfileEntryResponse?.PublicKeyBase58Check"
-                [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, post?.ProfileEntryResponse?.Username]"
-                queryParamsHandling="merge"
-              ></a>
-            </div>
-            <span
-              class="val"
-              [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, post?.ProfileEntryResponse?.Username]"
-              queryParamsHandling="merge"
-            >
-              {{ post?.ProfileEntryResponse?.Username }}
-            </span>
-            <i *ngIf="post?.ProfileEntryResponse?.IsVerified" class="fas pl-5px fa-check-circle fa-md text-primary"></i>
+        <div class="w-100 h-100 d-flex flex-center" *ngIf="!hasImageLoaded; else infoBlock">
+          <div class="w-100 shm">
+            <loading-shimmer [tabType]="'DISCOVERY'"></loading-shimmer>
           </div>
         </div>
+        <ng-template #infoBlock>
+          <h3>{{ post?.PostExtraData?.name }}</h3>
+          <div class="art_details_nv" *ngIf="post">
+            By
+
+            <div class="user_detail">
+              <div class="profile-img">
+                <a
+                  [avatar]="post.ProfileEntryResponse?.PublicKeyBase58Check"
+                  [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, post?.ProfileEntryResponse?.Username]"
+                  queryParamsHandling="merge"
+                ></a>
+              </div>
+              <span
+                class="val"
+                [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, post?.ProfileEntryResponse?.Username]"
+                queryParamsHandling="merge"
+              >
+                {{ post?.ProfileEntryResponse?.Username }}
+              </span>
+              <i
+                *ngIf="post?.ProfileEntryResponse?.IsVerified"
+                class="fas pl-5px fa-check-circle fa-md text-primary"
+              ></i>
+            </div>
+          </div>
+        </ng-template>
       </div>
     </div>
     <div class="btm_sc">
-      <div class="hgst_bid_sc">
-        <div class="hgs">
-          <span class="lb">HIGHEST BID</span>
-          <span class="val">1.55 DESO</span>
-          <span class="val_sm">155.65$</span>
+      <div class="w-100 mt-20px h-100 d-flex flex-center" *ngIf="!hasImageLoaded; else bidBlock">
+        <div class="w-85 mt-20px shm">
+          <loading-shimmer [tabType]="'DISCOVERY'"></loading-shimmer>
         </div>
-        <div class="auct">
-          <span class="lb">HIGHEST BID</span>
-          <div class="time_section_bx">
-            <div class="time_sc">
-              <span class="tm">20</span>
-              <span class="tm_lb">Hours</span>
-            </div>
-            <div class="time_sc">
-              <span class="tm">13</span>
-              <span class="tm_lb">Minutes</span>
-            </div>
-            <div class="time_sc">
-              <span class="tm">31</span>
-              <span class="tm_lb">Seconds</span>
+      </div>
+      <ng-template #bidBlock>
+        <div class="hgst_bid_sc">
+          <div class="hgs">
+            <span class="lb">HIGHEST BID</span>
+            <span class="val">1.55 DESO</span>
+            <span class="val_sm">155.65$</span>
+          </div>
+          <div class="auct">
+            <span class="lb">HIGHEST BID</span>
+            <div class="time_section_bx">
+              <div class="time_sc">
+                <span class="tm">20</span>
+                <span class="tm_lb">Hours</span>
+              </div>
+              <div class="time_sc">
+                <span class="tm">13</span>
+                <span class="tm_lb">Minutes</span>
+              </div>
+              <div class="time_sc">
+                <span class="tm">31</span>
+                <span class="tm_lb">Seconds</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="btn_grp">
-        <button type="button" class="fill_btn">Place a Bid</button>
-        <button type="button" class="line_btn">View</button>
-      </div>
+        <div class="btn_grp">
+          <button type="button" class="fill_btn">Place a Bid</button>
+          <button type="button" class="line_btn">View</button>
+        </div>
+      </ng-template>
     </div>
   </div>
   <div class="disc_art_right">
-    <div class="feed-post__image-container">
-      <img data-toggle="modal" (load)="imageLoaded()" class="feed-post__image" src="{{ post.ImageURLs[0] }}" />
+    <div class="" *ngIf="post">
+      <img data-toggle="modal" (load)="imageLoaded()" class="" src="{{ post.ImageURLs[0] }}" />
     </div>
     <div class="w-100 h-100 d-flex flex-center" *ngIf="!hasImageLoaded">
       <div class="w-70">

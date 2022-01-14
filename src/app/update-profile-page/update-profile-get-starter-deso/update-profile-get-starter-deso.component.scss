@@ -1,70 +1,155 @@
-.card-box-profile-update {
-    width: 100%;
-    padding-bottom: 100px;
-    // max-width: 1000px;
-    max-width: 650px;
-    min-height: 300px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
+// .card-box-profile-update {
+//     width: 100%;
+//     padding-bottom: 100px;
+//     // max-width: 1000px;
+//     max-width: 650px;
+//     min-height: 300px;
+//     display: flex;
+//     flex-wrap: wrap;
+//     flex-direction: row;
+//     justify-content: space-between;
+//     align-items: flex-start;
+// }
+// .card-profile-update {
+//     margin-top: 25px;
+//     height: 240px;
+//     min-width: 200px;
+//     width: 23%;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: flex-start;
+//     align-items: center;
+//     border-radius: 20px;
+//     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
+//     border: .5px solid #FCFCFC;
+//     overflow: hidden;
+// }
+// @media (max-width: 440px) {
+//     .card-profile-update {
+//         height: 220px;
+//         min-width: 180px;
+//     }
+// }
+// .card-profile-header {
+//     width: 95%;
+//     text-align: center;
+//     font-size: 18px;
+//     font-weight: bold;
+//     padding-top: 15px;
+//     padding-bottom: 15px;
+// }
+// .card-profile-desc {
+//     width: 95%;
+//     text-align: center;
+//     font-size: 12px;
+// }
+// .profile-icon {
+//     //padding-bottom: 10px;
+//     fill: white;
+// }
+// .background-profile {
+//     height: 33%;
+//     width: 100%;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     background-size: cover;
+//     background-repeat: no-repeat;
+// }
+// .background-mobile {
+//     background-image: url("/assets/img/phone-background.png");
+// }
+// .background-jumio {
+//     background-image: url("/assets/img/jumio-background.png");
+// }
+// .background-deso {
+//     background-image: url("/assets/img/deso-background.png");
+// }
+// .background-blockchain {
+//     background-image: url("/assets/img/block-background.png");
+// }
+
+.onboarding-card-shadow {
+  width: 700px;
+  height: 875px;
+  left: 2px;
+  top: -1px;
+
+  background: #f3f3f3;
+  border-radius: 30.2255px;
+  position: relative;
 }
-.card-profile-update {
-    margin-top: 25px;
-    height: 240px;
-    min-width: 200px;
-    width: 23%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    border-radius: 20px;
-    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
-    border: .5px solid #FCFCFC;
-    overflow: hidden;
+
+.onboarding-card {
+  width: 680px;
+  height: 852px;
+  left: 10px;
+  top: 6px;
+
+  background: #ffffff;
+  border-radius: 29.6169px;
+  position: absolute;
 }
-@media (max-width: 440px) {
-    .card-profile-update {
-        height: 220px;
-        min-width: 180px;
-    }
+
+.onboarding-card-header {
+  font-weight: 600;
+  font-size: 32px;
+  position: absolute;
+  left: 58px;
+  top: 38px;
 }
-.card-profile-header {
-    width: 95%;
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    padding-top: 15px;
-    padding-bottom: 15px;
+
+.onboarding-card-subheader {
+  font-size: 20px;
+  position: absolute;
+  left: 58px;
+  top: 93px;
 }
-.card-profile-desc {
-    width: 95%;
-    text-align: center;
-    font-size: 12px;    
+
+.color-gradient {
+  left: 58px;
+  top: 200px;
+  position: absolute;
+  width: 11.69px;
+  height: 425px;
 }
-.profile-icon {
-    //padding-bottom: 10px;
-    fill: white;
+
+.checkmark-1 {
+  position: absolute;
+  width: 26.57px;
+  height: 26.57px;
+  left: 50px;
+  top: 195px;
 }
-.background-profile {
-    height: 33%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+
+.step-1-header {
+  position: absolute;
+  left: 95px;
+  top: 192px;
+  font-size: 18px;
+  font-weight: bold;
 }
-.background-mobile {
-    background-image: url("/assets/img/phone-background.png");
+
+.step-1-text {
+  position: absolute;
+  left: 95px;
+  top: 222px;
+  font-size: 15px;
+  width: 400px;
 }
-.background-jumio {
-    background-image: url("/assets/img/jumio-background.png");
+
+.onboarding-card-button {
+  width: 128px;
+  height: 56px;
+  border: 3px solid #000000;
+  border-radius: 31.879194259643555px;
+  box-shadow: 0.4547150731086731px 0.4547150731086731px 2.2735750675201416px rgba(0, 0, 0, 0.11);
+  background-color: white;
+  position: absolute;
+  font-weight: bold;
 }
-.background-deso {
-    background-image: url("/assets/img/deso-background.png");
-}
-.background-blockchain {
-    background-image: url("/assets/img/block-background.png");
+
+.onboarding-card-button-1 {
+  top: 222px;
+  right: 50px;
 }

@@ -1,7 +1,8 @@
 <div class="discovery_wrapper mt-20px">
   <div class="disc_art_left">
-    <div class="top_sc" style="background-image: url({{ post?.ImageURLs[0] }})">
+    <div class="top_sc">
       <div class="dtails_wp">
+        <!-- style="background-image: url({{ post?.ImageURLs[0] }})" -->
         <!--<div class="w-100 h-100 d-flex flex-center" *ngIf="!hasImageLoaded; else infoBlock">
           <div class="w-100 shm">
             <loading-shimmer [tabType]="'DISCOVERY'"></loading-shimmer>
@@ -68,7 +69,10 @@
     </div>
   </div>
   <div class="disc_art_right">
-    <div class="content-container" *ngIf="post">
+    <div
+      class="content-container d-flex flex-center"
+      *ngIf="post?.ImageURLs && post?.ImageURLs[0] && !post?.PostExtraData?.arweaveAudioSrc"
+    >
       <img
         data-toggle="modal"
         (click)="openImgModal($event, post.ImageURLs[0])"
@@ -77,20 +81,20 @@
         src="{{ post.ImageURLs[0] }}"
       />
     </div>
-    <div class="content-container d-flex flex-center flex-column" *ngIf="post?.PostExtraData?.arweaveAudioSrc">
-      <div class="w-100 d-flex flex-center">
-        <img
-          (click)="openImgModal($event, post.ImageURLs[0])"
-          data-toggle="modal"
-          class="mb-20px nft-page-audio-cover-image"
-          src="{{ mapImageURLs(post.ImageURLs[0]) }}"
-        />
+    <div class="audio-container d-flex flex-center flex-column" *ngIf="post?.PostExtraData?.arweaveAudioSrc">
+      <img
+        (click)="openImgModal($event, post.ImageURLs[0])"
+        data-toggle="modal"
+        class="mb-20px nft-page-audio-cover-image"
+        src="{{ mapImageURLs(post.ImageURLs[0]) }}"
+      />
+      <div class="w-100">
+        <app-audio-player
+          [songName]="post.PostExtraData?.name"
+          [creator]="post.ProfileEntryResponse?.Username"
+          [audioSrc]="post.PostExtraData.arweaveAudioSrc"
+        ></app-audio-player>
       </div>
-      <app-audio-player
-        [songName]="post.PostExtraData?.name"
-        [creator]="post.ProfileEntryResponse?.Username"
-        [audioSrc]="post.PostExtraData.arweaveAudioSrc"
-      ></app-audio-player>
     </div>
     <!-- Video -->
     <div class="content-container d-flex flex-center" *ngIf="post?.PostExtraData?.arweaveVideoSrc">

@@ -662,6 +662,7 @@ export class FeedPostComponent implements OnInit {
     this.isLockablePopup = false;
     this.showUnlockableContent = false;
   }
+  // This has a problem with returning owner and showing last sold for amounts as zero
   compareBit(minBid, maxBid, showPlaceABid): string {
     if (!showPlaceABid && !!this.nftEntryResponses) {
       if (

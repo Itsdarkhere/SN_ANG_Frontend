@@ -43,6 +43,12 @@ export class DiscoveryComponent implements OnInit {
   blocked() {
     //console.log("nicce");
   }
+  mapImageURLs(imgURL: string): string {
+    if (imgURL.startsWith("https://i.imgur.com")) {
+      return imgURL.replace("https://i.imgur.com", "https://images.bitclout.com/i.imgur.com");
+    }
+    return imgURL;
+  }
   openImgModal(event, imageURL) {
     event.stopPropagation();
     this.modalService.show(FeedPostImageModalComponent, {

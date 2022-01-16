@@ -41,8 +41,7 @@ export class DiscoveryPageComponent implements OnInit {
         this.globalVars.loggedInUser?.PublicKeyBase58Check
       )
       .subscribe((res) => {
-        console.log(res);
-        this.mainNftResponse = res["PostEntryResponse"][1];
+        this.mainNftResponse = res["PostEntryResponse"][0];
         this.dataToShow = res["PostEntryResponse"].slice(1, 9);
         setTimeout(() => {
           this.postsLoading = false;
@@ -57,6 +56,22 @@ export class DiscoveryPageComponent implements OnInit {
       queryParamsHandling: "merge",
     });
   }
+  /*loadTest() {
+    this.backendApi
+      .GetPostsForPublicKey(
+        this.globalVars.localNode,
+        "",
+        "juvonen",
+        this.globalVars.loggedInUser?.PublicKeyBase58Check,
+        "",
+        10000,
+        false
+      )
+      .toPromise()
+      .then((res) => {
+        this.mainNftResponse = res["Posts"][3];
+      });
+  }*/
   scrollTo(id: string) {
     document.getElementById(id).scrollIntoView({ behavior: "smooth", block: "start" });
   }

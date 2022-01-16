@@ -35,7 +35,9 @@ export class DiscoveryComponent implements OnInit {
   ngOnInit(): void {}
   ngOnChanges(changes: SimpleChanges) {
     if (changes.post) {
-      this.loadBidData();
+      if (this.post.PostHashHex) {
+        this.loadBidData();
+      }
     }
   }
   blocked() {
@@ -83,14 +85,16 @@ export class DiscoveryComponent implements OnInit {
       .subscribe(
         (res) => {
           this.nftBidData = res;
-          this.bids = this.nftBidData.BidEntryResponses.filter(
-            (bidEntry) => bidEntry.BidAmountNanos <= bidEntry.BidderBalanceNanos
-          );
-          this.hightestBidOwner = _.maxBy(this.bids, "BidAmountNanos");
+          if (this.nftBidData.BidEntryResponses?.length > 0) {
+            this.bids = this.nftBidData.BidEntryResponses.filter(
+              (bidEntry) => bidEntry.BidAmountNanos <= bidEntry.BidderBalanceNanos
+            );
+            this.hightestBidOwner = _.maxBy(this.bids, "BidAmountNanos");
 
-          this.myBidsLength = this.nftBidData.BidEntryResponses.filter(
-            (bidEntry) => bidEntry.PublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
-          )?.length;
+            this.myBidsLength = this.nftBidData.BidEntryResponses.filter(
+              (bidEntry) => bidEntry.PublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
+            )?.length;
+          }
         },
         (err) => {
           this.globalVars._alertError(err);

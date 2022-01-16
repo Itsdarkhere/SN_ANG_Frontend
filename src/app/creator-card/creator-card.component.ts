@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, SimpleChanges } from "@angular/core";
 import { ProfileEntryResponse } from "../backend-api.service";
 import { GlobalVarsService } from "../global-vars.service";
 import { BackendApiService } from "../backend-api.service";
@@ -13,8 +13,12 @@ export class CreatorCardComponent implements OnInit {
   @Input() publicKey: string;
   creatorProfile: ProfileEntryResponse;
 
-  ngOnInit(): void {
-    this.loadProfile();
+  ngOnInit(): void {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.publicKey) {
+      this.loadProfile();
+    }
   }
 
   loadProfile() {

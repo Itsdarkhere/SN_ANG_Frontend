@@ -97,7 +97,7 @@
       <video controls class="w-100 br-5px" src="{{ post.PostExtraData.arweaveVideoSrc }}"></video>
     </div>
     <div
-      *ngIf="post.VideoURLs && post.VideoURLs[0] && !post.ParentStakeID && !post?.PostExtraData?.arweaveVideoSrc"
+      *ngIf="post?.VideoURLs && post?.VideoURLs[0] && !post.ParentStakeID && !post?.PostExtraData?.arweaveVideoSrc"
       class="feed-post__video-container content-container"
       [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
     >

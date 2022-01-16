@@ -23,10 +23,12 @@
             border-radius: 0 0 25px 25px;
         }
         .top_sc {
-            background: url("../../../assets/img/discovery_bg.jpg") no-repeat;
+            //background: url("../../../assets/img/discovery_bg.jpg") no-repeat;
             position: relative;
             height: 50%;
-            background-size: cover;
+            background-size: cover; /* or contain depending on what you want */
+            background-position: center center !important;
+            background-repeat: no-repeat;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -227,6 +229,7 @@
         div {
             width: 90%;
             img {
+                cursor: pointer;
                 max-width: 100%;
             }
         }

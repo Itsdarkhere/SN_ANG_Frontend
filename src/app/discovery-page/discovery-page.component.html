@@ -2,19 +2,17 @@
   <!-- Bunch of things on this page turn from flexboxes into carousels, on var mobile change-->
   <app-discovery [post]="mainNftResponse"></app-discovery>
   <div class="w-100 mt-20px d-flex flex-column flex-start-center discovery-selector">
-    <div class="w-100 d-flex align-items-start justify-content-around">
-      <button class="selected font-weight-semibold">Trending</button>
+    <div class="w-100 d-flex align-items-center justify-content-around">
+      <button class="font-weight-semibold">Community favourites</button>
       <button class="font-weight-semibold">Categories</button>
       <button class="font-weight-semibold">Fresh drops</button>
       <button class="font-weight-semibold">Newly verified</button>
-      <button class="font-weight-semibold">Secondary heat</button>
-      <button class="font-weight-semibold">Community favorites</button>
-      <button class="font-weight-semibold">Recenly sold</button>
+      <button class="font-weight-semibold">Content formats</button>
     </div>
   </div>
   <div class="w-100 mt-50px pr-10px pl-10px d-flex align-items-center justify-content-between">
-    <h2 class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">Trending Auctions</h2>
-    <a class="discovery-link" [routerLink]="'/' + this.globalVars.RouteNames.NFT_PAGE">
+    <h2 class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">Community Favourites</h2>
+    <a class="discovery-link" (click)="routeViewAll('communityfavourites')">
       View all
       <img src="/assets/icons/chevron_right.svg" />
     </a>
@@ -67,14 +65,14 @@
     </div>
   </carousel>
   <h2 class="font-weight-semiboldn mt-20px pl-10px" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">Explore categories</h2>
-  <carousel class="mt-20px zindex" [height]="200" [cellWidth]="265" [freeScroll]="false">
+  <carousel class="mt-20px zindex" [height]="200" [cellWidth]="255" [freeScroll]="false">
     <div class="carousel-cell pl-5px">
-      <div class="discovery-category-box">
+      <div class="discovery-category-box" (click)="routeViewAll('art')">
         <img class="w-100 h-100" loading="lazy" src="/assets/img/category_art.png" alt="category art" />
       </div>
     </div>
     <div class="carousel-cell pl-5px">
-      <div class="discovery-category-box">
+      <div class="discovery-category-box" (click)="routeViewAll('collectibles')">
         <img
           class="w-100 h-100"
           loading="lazy"
@@ -84,56 +82,56 @@
       </div>
     </div>
     <div class="carousel-cell pl-5px">
-      <div class="discovery-category-box">
+      <div class="discovery-category-box" (click)="routeViewAll('generative')">
         <img
           class="w-100 h-100"
           loading="lazy"
-          src="/assets/img/category_generative_art.png"
+          src="/assets/img/category_generative.png"
           alt="category generative art"
         />
       </div>
     </div>
     <div class="carousel-cell pl-5px">
-      <div class="discovery-category-box">
+      <div class="discovery-category-box" (click)="routeViewAll('metaverse')">
         <img
           class="w-100 h-100"
           loading="lazy"
-          src="/assets/img/category_metaverse_gaming.png"
+          src="/assets/img/category_metaverse.png"
           alt="category metaverse & gaming"
         />
       </div>
     </div>
     <div class="carousel-cell pl-5px">
-      <div class="discovery-category-box">
+      <div class="discovery-category-box" (click)="routeViewAll('music')">
         <img class="w-100 h-100" loading="lazy" src="/assets/img/category_music.png" alt="category music" />
       </div>
     </div>
     <div class="carousel-cell pl-5px">
-      <div class="discovery-category-box">
+      <div class="discovery-category-box" (click)="routeViewAll('profilepic')">
         <img
           class="w-100 h-100"
           loading="lazy"
-          src="/assets/img/category_pp_collection.png"
+          src="/assets/img/category_pp.png"
           alt="category profile picture collection"
         />
       </div>
     </div>
     <div class="carousel-cell pl-5px">
-      <div class="discovery-category-box">
+      <div class="discovery-category-box" (click)="routeViewAll('photography')">
         <img class="w-100 h-100" loading="lazy" src="/assets/img/category_photography.png" alt="category photography" />
       </div>
     </div>
   </carousel>
   <div class="w-100 mt-50px pr-10px pl-10px d-flex align-items-center justify-content-between">
     <h2 class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">Fresh drops</h2>
-    <a class="discovery-link" [routerLink]="'/' + this.globalVars.RouteNames.NFT_PAGE">
+    <a class="discovery-link" (click)="routeViewAll('fresh')">
       View all
       <img src="/assets/icons/chevron_right.svg" />
     </a>
   </div>
   <div *ngIf="!mobile" class="w-100 discovery-nft-showcase">
     <div class="nfts-card-list-discovery">
-      <div class="nft-col-wrap" *ngFor="let nftEntry of dataToShow">
+      <div class="nft-col-wrap" *ngFor="let nftEntry of dataToShow2">
         <div class="max-width-350">
           <new-nft-card
             [contentShouldLinkToThread]="true"
@@ -154,7 +152,7 @@
     </div>
   </div>
   <carousel class="zindex" *ngIf="mobile" [height]="520" [cellWidth]="300" [freeScroll]="true">
-    <div class="carousel-cell pt-10px" *ngFor="let nftEntry of dataToShow">
+    <div class="carousel-cell pt-10px" *ngFor="let nftEntry of dataToShow2">
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
@@ -231,9 +229,9 @@
   <h2 class="font-weight-semiboldn mt-50px pl-10px" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">
     Explore content formats
   </h2>
-  <carousel [height]="330" [cellWidth]="300" [freeScroll]="true" class="mt-20px zindex">
+  <carousel [height]="330" [cellWidth]="290" [freeScroll]="true" class="mt-20px zindex">
     <div class="carousel-cell pt-10px pl-5px">
-      <button class="content-type-card-discovery p-0px">
+      <button class="content-type-card-discovery p-0px" (click)="routeViewAll('image')">
         <div class="h-60 w-100 d-flex flex-center background-color-secondary">
           <img src="/assets/icons/image-type.svg" alt="creator icon" />
         </div>
@@ -243,7 +241,7 @@
       </button>
     </div>
     <div class="carousel-cell pt-10px pl-5px">
-      <button class="content-type-card-discovery p-0px">
+      <button class="content-type-card-discovery p-0px" (click)="routeViewAll('video')">
         <div class="h-60 w-100 d-flex flex-center background-color-secondary">
           <img src="/assets/icons/video-type.svg" alt="creator icon" />
         </div>
@@ -253,7 +251,7 @@
       </button>
     </div>
     <div class="carousel-cell pt-10px pl-5px">
-      <button class="content-type-card-discovery p-0px">
+      <button class="content-type-card-discovery not-available-warning p-0px">
         <div class="h-60 w-100 d-flex flex-center background-color-secondary">
           <img src="/assets/icons/music-type.svg" alt="creator icon" />
         </div>

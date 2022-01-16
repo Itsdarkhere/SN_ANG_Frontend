@@ -3,6 +3,7 @@ import { GlobalVarsService } from "src/app/global-vars.service";
 import { BackendApiService } from "src/app/backend-api.service";
 import { InfiniteScroller } from "../../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
+import { ActivatedRoute } from "@angular/router";
 import { uniqBy } from "lodash";
 
 @Component({
@@ -13,6 +14,8 @@ import { uniqBy } from "lodash";
 export class NftPageComponent implements OnInit {
   lastPage: number;
   nftsPageLoading = false;
+  offset = 0;
+  category = "fresh";
   static PAGE_SIZE = 40;
   static WINDOW_VIEWPORT = true;
   static BUFFER_SIZE = 20;
@@ -27,10 +30,19 @@ export class NftPageComponent implements OnInit {
   );
 
   datasource: IDatasource<IAdapter<any>> = this.infiniteScroller.getDatasource();
-  constructor(public globalVars: GlobalVarsService, private backendApi: BackendApiService) {}
+  constructor(
+    public globalVars: GlobalVarsService,
+    private backendApi: BackendApiService,
+    public route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.loadData();
+    this.route.queryParams.subscribe((queryParams) => {
+      if (queryParams.category) {
+        this.category = queryParams.category;
+      }
+      this.loadData(this.offset, false);
+    }).unsubscribe;
   }
   getPage(page: number) {
     if (this.lastPage != null && page > this.lastPage) {
@@ -41,44 +53,37 @@ export class NftPageComponent implements OnInit {
     const endIdx = (page + 1) * NftPageComponent.PAGE_SIZE;
 
     return new Promise((resolve, reject) => {
-      resolve(this.globalVars.nftsCollection.slice(startIdx, Math.min(endIdx, this.globalVars.nftsCollection.length)));
+      resolve(this.globalVars.nftsDataToShow.slice(startIdx, Math.min(endIdx, this.globalVars.nftsDataToShow.length)));
     });
   }
   onScroll() {
-    if (this.globalVars.nftsEndIndex <= this.globalVars.nftsCollection.length - 1) {
-      this.globalVars.nftsStartIndex = this.globalVars.nftsEndIndex;
-      this.globalVars.nftsEndIndex += 20;
-      this.globalVars.nftsDataToShow = [
-        ...this.globalVars.nftsDataToShow,
-        ...this.globalVars.nftsCollection.slice(this.globalVars.nftsStartIndex, this.globalVars.nftsEndIndex),
-      ];
-    }
+    this.offset = this.offset + 30;
+    this.loadData(this.offset, true);
   }
-  loadData(showmore: boolean = false) {
-    this.nftsPageLoading = true;
+  loadData(offset: number = 0, showmore: boolean) {
+    if (!showmore) {
+      this.nftsPageLoading = true;
+    }
     this.backendApi
-      .GetNFTShowcaseSupernovas(
+      .GetNFTsByCategory(
         this.globalVars.localNode,
         this.globalVars.loggedInUser?.PublicKeyBase58Check,
-        this.globalVars.loggedInUser?.PublicKeyBase58Check
+        this.category,
+        offset
       )
       .subscribe(
         (res: any) => {
-          this.globalVars.nftsCollection = res.NFTCollections;
-          if (this.globalVars.nftsCollection) {
-            this.globalVars.nftsCollection = uniqBy(
-              this.globalVars.nftsCollection,
-              (nftCollection) => nftCollection.PostEntryResponse.PostHashHex
-            );
-          }
           if (showmore) {
+            this.globalVars.nftsDataToShow = this.globalVars.nftsDataToShow.concat(res.PostEntryResponse);
+          } else {
+            this.globalVars.nftsDataToShow = res.PostEntryResponse;
+          }
+          this.nftsPageLoading = false;
+          console.log(this.globalVars.nftsDataToShow.length);
+          /*if (showmore) {
             document.body.scrollTop = 0; // For Safari
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-          }
-          this.globalVars.nftsDataToShow = [
-            ...this.globalVars.nftsCollection.slice(this.globalVars.nftsStartIndex, this.globalVars.nftsEndIndex),
-          ];
-          this.nftsPageLoading = false;
+          }*/
         },
         (error) => {
           this.globalVars._alertError(error.error.error);

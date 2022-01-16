@@ -8,6 +8,8 @@ import { map, mergeMap, switchMap, catchError, mapTo } from "rxjs/operators";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { IdentityService } from "./identity.service";
 import { environment } from "src/environments/environment";
+import { StringMap } from "@angular/compiler/src/compiler_facade_interface";
+import internal from "stream";
 
 export class BackendRoutes {
   static ExchangeRateRoute = "/api/v0/get-exchange-rate";
@@ -129,6 +131,8 @@ export class BackendRoutes {
   static RoutePathAdminUpdateNFTDrop = "/api/v0/admin/update-nft-drop";
   // Discovery postgres routes
   static RoutePathGetCommunityFavourites = "/api/v0/get-community-favourites";
+  static RoutePathGetFreshDrops = "/api/v0/get-fresh-drops";
+  static RoutePathGetNFTsByCategory = "/api/v0/get-nfts-by-category";
   // Same as the two above but for supernovas uses
   static RoutePathGetMarketplaceRefSupernovas = "/api/v0/get-marketplace-ref-supernovas";
   static RoutePathAddToMarketplaceSupernovas = "/api/v0/add-to-marketplace-supernovas";
@@ -1133,6 +1137,24 @@ export class BackendApiService {
     ProfilePublicKey: string
   ): Observable<any> {
     return this.post(endpoint, BackendRoutes.RoutePathGetCommunityFavourites, {
+      ReaderPublicKeyBase58Check,
+      ProfilePublicKey,
+    });
+  }
+  GetNFTsByCategory(
+    endpoint: string,
+    ReaderPublicKeyBase58Check: string,
+    Category: string,
+    Offset: number
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetNFTsByCategory, {
+      ReaderPublicKeyBase58Check,
+      Category,
+      Offset,
+    });
+  }
+  GetFreshDrops(endpoint: string, ReaderPublicKeyBase58Check: string, ProfilePublicKey: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetFreshDrops, {
       ReaderPublicKeyBase58Check,
       ProfilePublicKey,
     });

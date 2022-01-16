@@ -3,6 +3,7 @@ import { Subscription } from "rxjs";
 import { NFTEntryResponse, PostEntryResponse } from "../backend-api.service";
 import { BackendApiService } from "../backend-api.service";
 import { GlobalVarsService } from "../global-vars.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-discovery-page",
@@ -12,13 +13,15 @@ import { GlobalVarsService } from "../global-vars.service";
 export class DiscoveryPageComponent implements OnInit {
   mobile = false;
   dataToShow: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
+  dataToShow2: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
   mainNftResponse: PostEntryResponse;
   postsLoading = false;
   fakeArray = [1, 2, 3, 4, 5, 6, 7, 8];
-  constructor(private backendApi: BackendApiService, public globalVars: GlobalVarsService) {}
+  constructor(private backendApi: BackendApiService, public globalVars: GlobalVarsService, public router: Router) {}
 
   ngOnInit(): void {
     this.getCommunityFavourites();
+    this.getFreshDrops();
     this.setMobileBasedOnViewport();
   }
   setMobileBasedOnViewport() {
@@ -43,8 +46,26 @@ export class DiscoveryPageComponent implements OnInit {
         this.dataToShow = res["PostEntryResponse"].slice(1, 9);
         setTimeout(() => {
           this.postsLoading = false;
-          console.log(this.postsLoading);
         }, 300);
+      });
+  }
+  routeViewAll(category) {
+    this.router.navigate([this.globalVars.RouteNames.NFT_PAGE], {
+      queryParams: {
+        category: category,
+      },
+      queryParamsHandling: "merge",
+    });
+  }
+  getFreshDrops() {
+    this.backendApi
+      .GetFreshDrops(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser?.PublicKeyBase58Check,
+        this.globalVars.loggedInUser?.PublicKeyBase58Check
+      )
+      .subscribe((res) => {
+        this.dataToShow2 = res["PostEntryResponse"].slice(0, 8);
       });
   }
   appendCommentAfterParentPost(postEntryResponse) {

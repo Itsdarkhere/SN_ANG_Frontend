@@ -222,7 +222,6 @@ export class NftPostComponent implements OnInit {
       .subscribe(
         (res) => {
           this.nftBidData = res;
-          console.log(this.nftBidData);
           if (!this.nftBidData.BidEntryResponses) {
             this.nftBidData.BidEntryResponses = [];
           }

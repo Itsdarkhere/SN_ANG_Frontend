@@ -1,17 +1,17 @@
 <app-page-small-nav-new>
   <!-- Bunch of things on this page turn from flexboxes into carousels, on var mobile change-->
   <app-discovery [post]="mainNftResponse"></app-discovery>
-  <div class="w-100 mt-20px d-flex flex-column flex-start-center discovery-selector">
+  <div class="w-100 mt-20px d-flex flex-column flex-start-center discovery-selector disable-scrollbars">
     <div class="w-100 d-flex align-items-center justify-content-around">
-      <button class="font-weight-semibold">Community favourites</button>
-      <button class="font-weight-semibold">Categories</button>
-      <button class="font-weight-semibold">Fresh drops</button>
-      <button class="font-weight-semibold">Newly verified</button>
-      <button class="font-weight-semibold">Content formats</button>
+      <button class="font-weight-semibold" (click)="scrollTo('favourites')">Community favourites</button>
+      <button class="font-weight-semibold" (click)="scrollTo('categories')">Categories</button>
+      <button class="font-weight-semibold" (click)="scrollTo('fresh-drops')">Fresh drops</button>
+      <button class="font-weight-semibold" (click)="scrollTo('creators')">Newly verified</button>
+      <button class="font-weight-semibold" (click)="scrollTo('content-type')">Content formats</button>
     </div>
   </div>
   <div class="w-100 mt-50px pr-10px pl-10px d-flex align-items-center justify-content-between">
-    <h2 class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">Community Favourites</h2>
+    <h2 id="favourites" class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">Community Favourites</h2>
     <a class="discovery-link" (click)="routeViewAll('communityfavourites')">
       View all
       <img src="/assets/icons/chevron_right.svg" />
@@ -64,8 +64,8 @@
       ></new-nft-card>
     </div>
   </carousel>
-  <h2 class="font-weight-semiboldn mt-20px pl-10px" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">Explore categories</h2>
-  <carousel class="mt-20px zindex" [height]="200" [cellWidth]="255" [freeScroll]="false">
+  <h2 id="categories" class="font-weight-semiboldn mt-20px pl-10px" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">Explore categories</h2>
+  <carousel class="mt-20px zindex px-10px" [height]="200" [cellWidth]="255" [freeScroll]="false">
     <div class="carousel-cell pl-5px">
       <div class="discovery-category-box" (click)="routeViewAll('art')">
         <img class="w-100 h-100" loading="lazy" src="/assets/img/category_art.png" alt="category art" />
@@ -123,7 +123,7 @@
     </div>
   </carousel>
   <div class="w-100 mt-50px pr-10px pl-10px d-flex align-items-center justify-content-between">
-    <h2 class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">Fresh drops</h2>
+    <h2 id="fresh-drops" class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">Fresh drops</h2>
     <a class="discovery-link" (click)="routeViewAll('fresh')">
       View all
       <img src="/assets/icons/chevron_right.svg" />
@@ -169,7 +169,7 @@
       ></new-nft-card>
     </div>
   </carousel>
-  <h2 class="font-weight-semiboldn mt-20px pl-10px" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">
+  <h2 id="creators" class="font-weight-semiboldn mt-20px pl-10px" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">
     Newly verified creators
   </h2>
   <div *ngIf="!mobile" class="discovery-creator-cards-container mt-20px w-100">
@@ -202,31 +202,31 @@
   </div>
   <carousel class="zindex" *ngIf="mobile" [height]="420" [cellWidth]="300" [freeScroll]="true">
     <div class="carousel-cell">
-      <app-creator-card [publicKey]="BC1YLfgucuJF6n288pZNhfkTeXsFiWNEgfDoK6jw97jkdoGcKtEUDTW"></app-creator-card>
+      <app-creator-card [publicKey]="'BC1YLi2CCqL4ptq9zBZP9XFSJfrupjvNwFHQu4g5Nc6y5WckhSZWmNm'"></app-creator-card>
     </div>
     <div class="carousel-cell">
-      <app-creator-card [publicKey]="BC1YLhocSA7zKnroJGSCxDLm8aueLpvmKHTUUPa9PmsEY8rxTkGqiG8"></app-creator-card>
+      <app-creator-card [publicKey]="'BC1YLi2CCqL4ptq9zBZP9XFSJfrupjvNwFHQu4g5Nc6y5WckhSZWmNm'"></app-creator-card>
     </div>
     <div class="carousel-cell">
-      <app-creator-card [publicKey]="BC1YLi2CCqL4ptq9zBZP9XFSJfrupjvNwFHQu4g5Nc6y5WckhSZWmNm"></app-creator-card>
+      <app-creator-card [publicKey]="'BC1YLi2CCqL4ptq9zBZP9XFSJfrupjvNwFHQu4g5Nc6y5WckhSZWmNm'"></app-creator-card>
     </div>
     <div class="carousel-cell">
-      <app-creator-card [publicKey]="BC1YLgToU7dbhNYrkVgvxjUtw22zjoc3aF5XcBKktanyYkvWKxKUR71"></app-creator-card>
+      <app-creator-card [publicKey]="'BC1YLi2CCqL4ptq9zBZP9XFSJfrupjvNwFHQu4g5Nc6y5WckhSZWmNm'"></app-creator-card>
     </div>
     <div class="carousel-cell">
-      <app-creator-card [publicKey]="BC1YLi7jfGV1z5Z3QmZeATNzwDrdfktKNBcp3NMijkAiP3S6xoiVtBB"></app-creator-card>
+      <app-creator-card [publicKey]="'BC1YLi2CCqL4ptq9zBZP9XFSJfrupjvNwFHQu4g5Nc6y5WckhSZWmNm'"></app-creator-card>
     </div>
     <div class="carousel-cell">
-      <app-creator-card [publicKey]="BC1YLgmk4R4oTi2eVbybau6Z5mnh4tENSamDEXdn2Bke6Fv7bfnczWT"></app-creator-card>
+      <app-creator-card [publicKey]="'BC1YLi2CCqL4ptq9zBZP9XFSJfrupjvNwFHQu4g5Nc6y5WckhSZWmNm'"></app-creator-card>
     </div>
     <div class="carousel-cell">
-      <app-creator-card [publicKey]="BC1YLiuKfzE6HjurKQi156kzhUo8LGQWDUvudhkEPuqDZWe1NrdeLmV"></app-creator-card>
+      <app-creator-card [publicKey]="'BC1YLi2CCqL4ptq9zBZP9XFSJfrupjvNwFHQu4g5Nc6y5WckhSZWmNm'"></app-creator-card>
     </div>
     <div class="carousel-cell">
-      <app-creator-card [publicKey]="BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w"></app-creator-card>
+      <app-creator-card [publicKey]="'BC1YLi2CCqL4ptq9zBZP9XFSJfrupjvNwFHQu4g5Nc6y5WckhSZWmNm'"></app-creator-card>
     </div>
   </carousel>
-  <h2 class="font-weight-semiboldn mt-50px pl-10px" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">
+  <h2 id="content-type" class="font-weight-semiboldn mt-50px pl-10px" [ngClass]="mobile ? 'fs-32px' : 'fs-38px'">
     Explore content formats
   </h2>
   <carousel [height]="330" [cellWidth]="290" [freeScroll]="true" class="mt-20px zindex">
@@ -292,5 +292,4 @@
     </button>
   </div>
   <div class="discovery-spacer-2"></div>
-  <div *ngIf="mobile" class="discovery-spacer"></div>
 </app-page-small-nav-new>

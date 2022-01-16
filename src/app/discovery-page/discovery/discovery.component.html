@@ -38,38 +38,37 @@
           <loading-shimmer [tabType]="'DISCOVERY'"></loading-shimmer>
         </div>
       </div>-->
-      <div class="hgst_bid_sc">
-        <div class="hgs">
-          <span class="lb">HIGHEST BID</span>
-          <span class="val">1.55 DESO</span>
-          <span class="val_sm">155.65$</span>
-        </div>
-        <div class="auct">
-          <span class="lb">HIGHEST BID</span>
-          <div class="time_section_bx">
-            <div class="time_sc">
-              <span class="tm">20</span>
-              <span class="tm_lb">Hours</span>
-            </div>
-            <div class="time_sc">
-              <span class="tm">13</span>
-              <span class="tm_lb">Minutes</span>
-            </div>
-            <div class="time_sc">
-              <span class="tm">31</span>
-              <span class="tm_lb">Seconds</span>
-            </div>
-          </div>
-        </div>
+      <div *ngIf="post" class="hgst_bid_sc w-100">
+        <feed-post
+          [isNFTProfile]="true"
+          [post]="post"
+          [nftBidData]="nftBidData"
+          [isPostBlocked]="blocked()"
+          [includePaddingOnPost]="true"
+          [isParentPostInThread]="true"
+          [showLeftSelectedBorder]="true"
+          [showInteractionDetails]="true"
+          [showName]="true"
+          [showNFTDetails]="true"
+          [showExpandedNFTDetails]="true"
+          [showDiscoveryDetails]="true"
+          [showNFTOwnerInfo]="hightestBidOwner"
+          [contentShouldLinkToThread]="true"
+          [afterCommentCreatedCallback]="blocked()"
+          [isNFTDetail]="true"
+          [bidsOnMyNFTs]="bidsOnMyNfts?.length"
+        ></feed-post>
       </div>
       <div class="btn_grp">
-        <button type="button" class="fill_btn">Place a Bid</button>
-        <button type="button" class="line_btn">View</button>
+        <button type="button" class="fill_btn" (click)="openPlaceBidModal($event)">
+          {{ myBidsLength > 0 ? "Bid again" : "Place a Bid" }}
+        </button>
+        <button type="button" class="line_btn" (click)="viewNFT()">View</button>
       </div>
     </div>
   </div>
   <div class="disc_art_right">
-    <div class="" *ngIf="post">
+    <div class="content-container" *ngIf="post">
       <img
         data-toggle="modal"
         (click)="openImgModal($event, post.ImageURLs[0])"
@@ -78,7 +77,38 @@
         src="{{ post.ImageURLs[0] }}"
       />
     </div>
-    <div class="w-100 h-100 d-flex flex-center" *ngIf="!hasImageLoaded">
+    <div class="content-container d-flex flex-center flex-column" *ngIf="post?.PostExtraData?.arweaveAudioSrc">
+      <div class="w-100 d-flex flex-center">
+        <img
+          (click)="openImgModal($event, post.ImageURLs[0])"
+          data-toggle="modal"
+          class="mb-20px nft-page-audio-cover-image"
+          src="{{ mapImageURLs(post.ImageURLs[0]) }}"
+        />
+      </div>
+      <app-audio-player
+        [songName]="post.PostExtraData?.name"
+        [creator]="post.ProfileEntryResponse?.Username"
+        [audioSrc]="post.PostExtraData.arweaveAudioSrc"
+      ></app-audio-player>
+    </div>
+    <!-- Video -->
+    <div class="content-container d-flex flex-center" *ngIf="post?.PostExtraData?.arweaveVideoSrc">
+      <video controls class="w-100 br-5px" src="{{ post.PostExtraData.arweaveVideoSrc }}"></video>
+    </div>
+    <div
+      *ngIf="post.VideoURLs && post.VideoURLs[0] && !post.ParentStakeID && !post?.PostExtraData?.arweaveVideoSrc"
+      class="feed-post__video-container content-container"
+      [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
+    >
+      <iframe
+        [src]="post.VideoURLs[0] | sanitizeVideoUrl"
+        allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+        allowfullscreen
+        class="feed-post__video"
+      ></iframe>
+    </div>
+    <div class="w-100 h-100 d-flex flex-center" *ngIf="false">
       <div class="w-70">
         <loading-shimmer [tabType]="'POST'"></loading-shimmer>
       </div>

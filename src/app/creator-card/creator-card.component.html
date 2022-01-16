@@ -14,6 +14,11 @@
       </p>
       <div></div>
     </div>
-    <button class="cc-follow-btn mt-10px font-wgeiht-semiboldn white-rounded-button">Follow</button>
+    <!--<button class="cc-follow-btn mt-10px font-weight-semiboldn white-rounded-button">Follow</button>-->
+    <follow-button
+      [followButtonClasses]="['cc-follow-btn', 'mt-10px', 'font-weight-semiboldn', 'white-rounded-button']"
+      [unfollowButtonClasses]="['cc-follow-btn', 'mt-10px', 'font-weight-semiboldn', 'white-rounded-button']"
+      [followedPubKeyBase58Check]="creatorProfile.PublicKeyBase58Check"
+    ></follow-button>
   </div>
 </div>

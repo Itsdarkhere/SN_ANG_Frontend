@@ -122,67 +122,8 @@
             }
             .hgst_bid_sc {
                 padding: 40px;
-                display: flex;
-                justify-content: space-between;
                 @media screen and (max-width: 767px) {
                     padding: 20px;
-                }
-                .hgs {
-                    display: flex;
-                    flex-direction: column;
-                    .lb {
-                        font-size: 14.69px;
-                        display: block;
-                        margin-bottom: 10px;
-                        text-transform: uppercase;
-                        font-weight: 600;
-                        color: var(--textalt);
-                    }
-                    .val {
-                        font-size: 28.2247px;
-                        font-weight: 600;
-                        @media screen and (max-width: 767px) {
-                            font-size: 22.2247px;
-                        }
-                    }
-                    .val_sm {
-                        font-size: 22.4692px;
-                        color: var(--secalt);
-                        @media screen and (max-width: 767px) {
-                            font-size: 17.2247px;
-                        }
-                    }
-                }
-                .auct {
-                    display: flex;
-                    flex-direction: column;
-                    .lb {
-                        font-size: 14.69px;
-                        display: block;
-                        margin-bottom: 10px;
-                        text-transform: uppercase;
-                        font-weight: 600;
-                        color: var(--textalt);
-                    }
-                    .time_section_bx {
-                        display: flex;
-                        .time_sc {
-                            display: flex;
-                            flex-direction: column;
-                            width: 70px;
-                            .tm {
-                                font-size: 28.2247px;
-                                font-weight: 600;
-                                @media screen and (max-width: 767px) {
-                                    font-size: 22.2247px;
-                                }
-                            }
-                            .tm_lb {
-                                font-size: 11px;
-                                color: var(--mborder);
-                            }
-                        }
-                    }
                 }
             }
             .btn_grp {
@@ -226,11 +167,13 @@
         align-items: center;
         justify-content: center;
         display: flex;
-        div {
+        .content-container {
             width: 90%;
+            height: 90%;
             img {
                 cursor: pointer;
                 max-width: 100%;
+                max-height: 100%;
             }
         }
         @media screen and (max-width: 767px) {

@@ -1,3 +1,6 @@
+h2 {
+    scroll-margin: 100px;
+}
 .discovery-nft-showcase {
     display: flex;
     justify-content: center;
@@ -57,12 +60,12 @@
 }
 .discovery-selector {
     height: 75px;
-    //overflow: hidden;
+    overflow-x: scroll;
     background-color: transparent;
     div {
         z-index: 2;
         height: 49px;
-        //min-width: 1000px;
+        min-width: 1000px;
         background: #ffffff;
         border-radius: 30px;
         box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.05);

@@ -486,7 +486,9 @@ $green-font-color: #19b028;
 .fc-default {
     color: var(--norm);
 }
-
+.fc-secalt {
+    color: var(--secalt)
+}
 .fc-muted {
     color: var(--textalt);
 }
@@ -4579,7 +4581,55 @@ width: 100%;
     overflow-wrap: anywhere;
     word-break: break-word;
 }
-
+.discovery-hgs {
+    display: flex;
+    flex-direction: row;
+    .lb {
+        font-size: 14.69px;
+        display: block;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: var(--textalt);
+    }
+    .val {
+        font-size: 28.2247px;
+        font-weight: 600;
+        @media screen and (max-width: 767px) {
+            font-size: 22.2247px;
+        }
+    }
+    .val_ns {
+        font-size: 28.2247px;
+        @media screen and (max-width: 767px) {
+            font-size: 22.2247px;
+        }
+    }
+    .val_sm {
+        font-size: 22.4692px;
+        color: var(--secalt);
+        @media screen and (max-width: 767px) {
+            font-size: 17.2247px;
+        }
+    }
+}
+.cc-follow-btn {
+    max-width: 100%;
+    width: 172px;
+    height: 45px;
+}
+.discovery-auct {
+    display: flex;
+    flex-direction: column;
+    .lb {
+        font-size: 14.69px;
+        display: block;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: var(--textalt);
+    }
+}
 .bio-cover {
     p {
         a {

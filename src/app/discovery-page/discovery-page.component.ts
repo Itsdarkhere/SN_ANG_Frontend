@@ -42,7 +42,7 @@ export class DiscoveryPageComponent implements OnInit {
       )
       .subscribe((res) => {
         console.log(res);
-        this.mainNftResponse = res["PostEntryResponse"][0];
+        this.mainNftResponse = res["PostEntryResponse"][1];
         this.dataToShow = res["PostEntryResponse"].slice(1, 9);
         setTimeout(() => {
           this.postsLoading = false;
@@ -56,6 +56,9 @@ export class DiscoveryPageComponent implements OnInit {
       },
       queryParamsHandling: "merge",
     });
+  }
+  scrollTo(id: string) {
+    document.getElementById(id).scrollIntoView({ behavior: "smooth", block: "start" });
   }
   getFreshDrops() {
     this.backendApi

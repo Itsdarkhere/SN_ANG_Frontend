@@ -128,6 +128,9 @@ export class FeedPostComponent implements OnInit {
 
   @Input() inTutorial: boolean = false;
 
+  // Discovery page
+  @Input() showDiscoveryDetails: boolean = false;
+
   // emits the PostEntryResponse
   @Output() postDeleted = new EventEmitter();
 

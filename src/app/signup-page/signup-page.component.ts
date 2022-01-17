@@ -190,7 +190,7 @@ export class SignupPageComponent implements OnInit {
     if (this.stepNum === 4) {
       this.updateProfileType();
       if (!this.globalVars.mobileVerified) {
-        this.router.navigate([RouteNames.BROWSE]);
+        this.router.navigate([RouteNames.UPDATE_PROFILE]);
       } else {
         this.SendStepFourEvent();
       }

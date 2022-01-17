@@ -93,25 +93,25 @@ export class MobileVerificationComponent implements OnInit {
   }
 
   sendVerificationText() {
-    // if (this.phoneForm.invalid) {
-    //   return;
-    // }
-    // this.verificationStep = true;
-    // this.globalVars.logEvent("account : create : send-verification-text");
-    // this._sendPhoneNumberVerificationText();
-    // this._nextStep();
+    if (this.phoneForm.invalid) {
+      return;
+    }
+    this.verificationStep = true;
+    this.globalVars.logEvent("account : create : send-verification-text");
+    this._sendPhoneNumberVerificationText();
+    this._nextStep();
 
     // https://docs.deso.org/identity/window-api/endpoints#verify-phone-number
-    this.identityService
-      .launchPhoneNumberVerification(this.globalVars?.loggedInUser?.PublicKeyBase58Check)
-      .subscribe((res) => {
-        if (res.phoneNumberSuccess) {
-          this.globalVars.updateEverything().add(() => {
-            // this.stepNum = 1;
-            this.router.navigate([RouteNames.BROWSE]);
-          });
-        }
-      });
+    // this.identityService
+    //   .launchPhoneNumberVerification(this.globalVars?.loggedInUser?.PublicKeyBase58Check)
+    //   .subscribe((res) => {
+    //     if (res.phoneNumberSuccess) {
+    //       this.globalVars.updateEverything().add(() => {
+    //         // this.stepNum = 1;
+    //         this.router.navigate([RouteNames.BROWSE]);
+    //       });
+    //     }
+    //   });
   }
   resendVerificationCode(event) {
     event.stopPropagation();

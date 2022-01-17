@@ -1,7 +1,7 @@
 <div class="h-100px">
   <form *ngIf="stepNum === 4" #f="ngForm" [formGroup]="phoneForm" class="form-group mt-5px">
     <div class="mobile-verification-input-button">
-      <!-- <ngx-intl-tel-input
+      <ngx-intl-tel-input
         style="font-size: 15px !important"
         [cssClass]="'form-control mobile-input sign-up__phone-input'"
         [separateDialCode]="true"
@@ -15,7 +15,7 @@
         (ngModelChange)="onPhoneNumberInputChanged()"
         name="phone"
         formControlName="phone"
-      ></ngx-intl-tel-input> -->
+      ></ngx-intl-tel-input>
       <div class="w-100 d-flex flex-center">
         <!-- <button
           (click)="sendVerificationText()"

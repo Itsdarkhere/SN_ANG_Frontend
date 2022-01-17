@@ -4,11 +4,11 @@ import { RouteNames } from "../../app-routing.module";
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 
 @Component({
-  selector: "update-profile-get-starter-deso",
-  templateUrl: "./update-profile-get-starter-deso.component.html",
-  styleUrls: ["./update-profile-get-starter-deso.component.scss"],
+  selector: "complete-profile",
+  templateUrl: "./complete-profile.component.html",
+  styleUrls: ["./complete-profile.component.scss"],
 })
-export class UpdateProfileGetStarterDeSoComponent {
+export class CompleteProfileComponent {
   RouteNames = RouteNames;
 
   constructor(public globalVars: GlobalVarsService, private analyticsService: GoogleAnalyticsService) {}

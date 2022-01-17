@@ -39,7 +39,6 @@ import { DiscoveryComponent } from "./discovery-page/discovery/discovery.compone
 import { NftPageComponent } from "./discovery-page/nft-page/nft-page.component";
 import { DiscoveryPageComponent } from "./discovery-page/discovery-page.component";
 
-
 class RouteNames {
   // Not sure if we should have a smarter schema for this, e.g. what happens if we have
   //   1. /:username/following
@@ -175,8 +174,6 @@ const routes: Routes = [
   },
   // This NotFound route must be the last one as it catches all paths that were not matched above.
   { path: "**", component: NotFoundPageComponent, pathMatch: "full" },
-
- 
 ];
 
 @NgModule({

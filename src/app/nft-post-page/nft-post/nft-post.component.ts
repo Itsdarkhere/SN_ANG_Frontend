@@ -118,7 +118,9 @@ export class NftPostComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.configureMetaTags();
+    console.log("------------------------------ page loaded ------------------------------");
+    // this.refreshPosts();
+    // this.configureMetaTags();
   }
   clearURL(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
@@ -202,6 +204,7 @@ export class NftPostComponent implements OnInit {
         this.configurePostType(this.nftPost);
         this.titleService.setTitle(this.nftPost.ProfileEntryResponse.Username + ` on ${environment.node.name}`);
         this.refreshBidData();
+        this.configureMetaTags();
       },
       (err) => {
         // TODO: post threads: rollbar
@@ -605,13 +608,25 @@ export class NftPostComponent implements OnInit {
   }
 
   configureMetaTags(): void {
-    const imageUrl = this.mapImageURLs(this.nftPost?.ImageURLs[0]);
-    this.metaService.updateTag({ property: "twitter:image", content: `${imageUrl}` }, "property='twitter:image'");
-    this.metaService.updateTag(
-      { property: "og:image:secure_url", content: `${imageUrl}` },
-      "property='og:image:secure_url'"
-    );
-    this.metaService.updateTag({ property: "og:image", content: `${imageUrl}` }, "property='og:image'");
+    // this.refreshPosts();
+    console.log("------------------------------ configureMetaTags function hit ------------------------------");
+    const imageUrl = this.mapImageURLs(this.nftPost.ImageURLs[0]);
+    // const imageUrl = "https://arweave.net/yYQkx4IrwflWfPfx-P2fnCUHOL1mGK5Mdgfw8ntoohc";
+
+    console.log(`------------------------------ The imageUrl is ${imageUrl} ------------------------------`);
+
+    // this.metaService.updateTag({ property: "twitter:image", content: `${imageUrl}` }, "property='twitter:image'");
+    // this.metaService.updateTag(
+    //   { property: "og:image:secure_url", content: `${imageUrl}` },
+    //   "property='og:image:secure_url'"
+    // );
+    // this.metaService.updateTag({ property: "og:image", content: `${imageUrl}` }, "property='og:image'");
+
+    // document.querySelector("meta[property='og:image']").setAttribute("content", `${imageUrl}`);
+    // document.querySelector("meta[name='twitter:image']").setAttribute("content", `${imageUrl}`);
+
+    this.metaService.updateTag({ property: "og:image", content: imageUrl });
+    this.metaService.updateTag({ name: "twitter:image", content: imageUrl });
   }
 
   onSingleBidCancellation(event: CancelEvent): void {

@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { GlobalVarsService } from "../../global-vars.service";
 import { RouteNames } from "../../app-routing.module";
+import { GlobalVarsService } from "../../global-vars.service";
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 
 @Component({
-  selector: "complete-profile",
+  selector: "app-complete-profile",
   templateUrl: "./complete-profile.component.html",
   styleUrls: ["./complete-profile.component.scss"],
 })
@@ -14,16 +14,13 @@ export class CompleteProfileComponent {
   constructor(public globalVars: GlobalVarsService, private analyticsService: GoogleAnalyticsService) {}
 
   // rounded to nearest integer
-  ngOnInit() {
-    this.SendCreateProfileVisitEvent();
-  }
   SendCreateProfileVisitEvent() {
-    this.analyticsService.eventEmitter("create_profile_visit", "usage", "activity", "event", 10);
+    //this.analyticsService.eventEmitter("create_profile_visit", "usage", "activity", "event", 10);
   }
   minPurchaseAmountInUsdRoundedUp() {
-    const satoshisPerBitcoin = 1e8;
+    /*const satoshisPerBitcoin = 1e8;
     let minimumInBitcoin = this.globalVars.minSatoshisBurnedForProfileCreation / satoshisPerBitcoin;
-    return Math.ceil(this.globalVars.usdPerBitcoinExchangeRate * minimumInBitcoin);
+    return Math.ceil(this.globalVars.usdPerBitcoinExchangeRate * minimumInBitcoin);*/
   }
 
   getCreateProfileMessage(): string {
@@ -34,14 +31,14 @@ export class CompleteProfileComponent {
   }
 
   buyDESO() {
-    window.open("https://buy.deso.org/", "_blank");
+    //window.open("https://buy.deso.org/", "_blank");
   }
 
   verifyProfile() {
-    window.open("https://form.typeform.com/to/sv1kaUT2", "_blank");
+    //window.open("https://form.typeform.com/to/sv1kaUT2", "_blank");
   }
 
   contactSupport() {
-    window.open("https://intercom.help/supernovas/en", "_blank");
+    //window.open("https://intercom.help/supernovas/en", "_blank");
   }
 }

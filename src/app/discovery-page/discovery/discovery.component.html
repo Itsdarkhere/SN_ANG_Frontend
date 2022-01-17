@@ -39,8 +39,9 @@
           <loading-shimmer [tabType]="'DISCOVERY'"></loading-shimmer>
         </div>
       </div>-->
-      <div *ngIf="post" class="hgst_bid_sc w-100">
+      <div class="hgst_bid_sc w-100">
         <feed-post
+          *ngIf="post"
           [isNFTProfile]="true"
           [post]="post"
           [nftBidData]="nftBidData"

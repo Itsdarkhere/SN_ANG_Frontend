@@ -15,6 +15,8 @@ export class DiscoveryPageComponent implements OnInit {
   dataToShow: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
   dataToShow2: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
   mainNftResponse: PostEntryResponse;
+  userArray: string[];
+  extraUserArray: string[];
   postsLoading = false;
   fakeArray = [1, 2, 3, 4, 5, 6, 7, 8];
   constructor(private backendApi: BackendApiService, public globalVars: GlobalVarsService, public router: Router) {}
@@ -23,6 +25,7 @@ export class DiscoveryPageComponent implements OnInit {
     this.getCommunityFavourites();
     this.getFreshDrops();
     this.setMobileBasedOnViewport();
+    this._loadVerifiedUsers();
   }
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
@@ -72,7 +75,24 @@ export class DiscoveryPageComponent implements OnInit {
         this.mainNftResponse = res["Posts"][3];
       });
   }*/
-  /*loadData() {
+  _loadVerifiedUsers() {
+    this.backendApi
+      .AdminGetVerifiedUsers(this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check)
+      .subscribe(
+        (res) => {
+          var arrayHolder = res.VerifiedUsers.sort(() => Math.random() - 0.5);
+          this.userArray = arrayHolder.slice(0, 8);
+          // Some of the users might have deleted their profiles
+          // So if fetch in creatorCard fails, we can try again with an additional profile
+          this.extraUserArray = arrayHolder.slice(8, 10);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+  }
+  /*
+  loadData() {
     this.backendApi
       .GetNFTsByCategory(this.globalVars.localNode, this.globalVars.loggedInUser?.PublicKeyBase58Check, "video", 0)
       .subscribe(

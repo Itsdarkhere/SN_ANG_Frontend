@@ -15,11 +15,25 @@ export class NftPageComponent implements OnInit {
   lastPage: number;
   nftsPageLoading = false;
   offset = 0;
-  category = "fresh";
+  category: string;
+  pageTitle: string;
   static PAGE_SIZE = 40;
   static WINDOW_VIEWPORT = true;
   static BUFFER_SIZE = 20;
   static PADDING = 0.5;
+
+  // Header texts
+  static ART = "Art";
+  static COLLECTIBLES = "Collectibles";
+  static GENERATIVE = "Generative";
+  static METAVERSE = "Metaverse";
+  static PROFILE_PICTURE = "Profile Picture";
+  static MUSIC = "Music";
+  static PHOTOGRAPHY = "Photography";
+  static FRESH = "Fresh";
+  static COMMUNITY_FAVOURITES = "Community Favourites";
+  static IMAGES = "Images";
+  static VIDEO = "Video";
 
   infiniteScroller: InfiniteScroller = new InfiniteScroller(
     NftPageComponent.PAGE_SIZE,
@@ -28,6 +42,20 @@ export class NftPageComponent implements OnInit {
     NftPageComponent.BUFFER_SIZE,
     NftPageComponent.PADDING
   );
+
+  pageTitleValues = {
+    art: "Art",
+    collectibles: "Collectibles",
+    generative: "Generative",
+    metaverse: "Metaverse",
+    profile_pic: "Profile Picture",
+    music: "Music",
+    photography: "Photography",
+    fresh: "Fresh",
+    communityfavourites: "Community Favourites",
+    image: "images",
+    video: "Video",
+  };
 
   datasource: IDatasource<IAdapter<any>> = this.infiniteScroller.getDatasource();
   constructor(
@@ -40,6 +68,11 @@ export class NftPageComponent implements OnInit {
     this.route.queryParams.subscribe((queryParams) => {
       if (queryParams.category) {
         this.category = queryParams.category;
+        if (this.category in this.pageTitleValues) {
+          this.pageTitle = this.pageTitleValues[this.category];
+        } else {
+          this.pageTitle = "Fresh";
+        }
       }
       this.loadData(this.offset, false);
     }).unsubscribe;

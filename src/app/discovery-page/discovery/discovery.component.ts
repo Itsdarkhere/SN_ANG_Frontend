@@ -33,7 +33,7 @@ export class DiscoveryComponent implements OnInit {
   ngOnInit(): void {}
   ngOnChanges(changes: SimpleChanges) {
     if (changes.post) {
-      if (this.post.PostHashHex) {
+      if (this.post?.PostHashHex) {
         this.loadBidData();
       }
     }

@@ -1,10 +1,14 @@
-<div class="creator-card-container m-10px">
+<div class="creator-card-container m-10px" *ngIf="!profileDeleted">
   <div class="creator-card-top-container d-flex flex-center">
     <div class="creator-card-avatar" [avatar]="creatorProfile?.PublicKeyBase58Check"></div>
   </div>
   <div class="creator-card-bottom-container p-10px d-flex flex-column flex-center">
     <label class="font-weight-bold fs-12px mb-minus-5px color-light">Creator</label>
-    <p class="font-weight-semiboldn fs-18px mb-5px">
+    <p
+      class="font-weight-semiboldn cursor-pointer fs-18px mb-5px"
+      [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, creatorProfile?.Username]"
+      queryParamsHandling="merge"
+    >
       {{ creatorProfile?.Username }}
       <i *ngIf="creatorProfile?.IsVerified" class="fas fs-14px fa-check-circle fa-md text-primary"></i>
     </p>

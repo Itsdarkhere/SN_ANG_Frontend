@@ -684,6 +684,9 @@ export class FeedPostComponent implements OnInit {
   }
   UserOwnsSerialNumbers() {
     const loggedInPubKey = this.globalVars?.loggedInUser?.PublicKeyBase58Check;
+    if (!this.nftEntryResponses) {
+      return false;
+    }
     let serialList = this.nftEntryResponses.filter(
       (NFTEntryResponse) => NFTEntryResponse.OwnerPublicKeyBase58Check === loggedInPubKey
     );

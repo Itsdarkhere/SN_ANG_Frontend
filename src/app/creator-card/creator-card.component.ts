@@ -10,24 +10,32 @@ import { BackendApiService } from "../backend-api.service";
 })
 export class CreatorCardComponent implements OnInit {
   constructor(public globalVars: GlobalVarsService, public backendApi: BackendApiService) {}
-  @Input() publicKey: string;
+  @Input() username: string;
+  @Input() extraUsernames: string[];
+  failedFetchStep = 0;
   creatorProfile: ProfileEntryResponse;
+  profileDeleted = false;
 
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.publicKey) {
-      this.loadProfile();
+    if (changes.username) {
+      this.loadProfile(this.username);
     }
   }
 
-  loadProfile() {
-    this.backendApi.GetSingleProfile(this.globalVars.localNode, this.publicKey, "").subscribe(
+  loadProfile(username) {
+    this.backendApi.GetSingleProfile(this.globalVars.localNode, "", username).subscribe(
       (res) => {
         this.creatorProfile = res.Profile;
       },
       (err) => {
-        this.globalVars._alertError(err);
+        if (this.failedFetchStep < 2) {
+          this.loadProfile(this.extraUsernames[this.failedFetchStep]);
+          this.failedFetchStep++;
+        } else {
+          this.profileDeleted = true;
+        }
       }
     );
   }

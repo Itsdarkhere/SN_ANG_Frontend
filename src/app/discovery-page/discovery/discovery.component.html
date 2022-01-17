@@ -1,6 +1,6 @@
 <div class="discovery_wrapper mt-20px">
   <div class="disc_art_left">
-    <div class="top_sc">
+    <div class="top_sc" id="discovery_top_sc">
       <div class="dtails_wp">
         <!-- style="background-image: url({{ post?.ImageURLs[0] }})" -->
         <!--<div class="w-100 h-100 d-flex flex-center" *ngIf="!hasImageLoaded; else infoBlock">
@@ -72,19 +72,24 @@
     <div
       class="content-container d-flex flex-center"
       *ngIf="post?.ImageURLs && post?.ImageURLs[0] && !post?.PostExtraData?.arweaveAudioSrc"
+      [ngClass]="hasContentLoaded ? 'show' : ''"
     >
       <img
         data-toggle="modal"
         (click)="openImgModal($event, post.ImageURLs[0])"
-        (load)="imageLoaded()"
-        class=""
+        (load)="contentLoaded(post.ImageURLs[0], false)"
         src="{{ post.ImageURLs[0] }}"
       />
     </div>
-    <div class="audio-container d-flex flex-center flex-column" *ngIf="post?.PostExtraData?.arweaveAudioSrc">
+    <div
+      class="audio-container d-flex flex-center flex-column"
+      [ngClass]="hasContentLoaded ? 'show' : ''"
+      *ngIf="post?.PostExtraData?.arweaveAudioSrc"
+    >
       <img
         (click)="openImgModal($event, post.ImageURLs[0])"
         data-toggle="modal"
+        (load)="contentLoaded(post.ImageURLs[0], false)"
         class="mb-20px nft-page-audio-cover-image"
         src="{{ mapImageURLs(post.ImageURLs[0]) }}"
       />
@@ -97,22 +102,20 @@
       </div>
     </div>
     <!-- Video -->
-    <div class="content-container d-flex flex-center" *ngIf="post?.PostExtraData?.arweaveVideoSrc">
-      <video controls class="w-100 br-5px" src="{{ post.PostExtraData.arweaveVideoSrc }}"></video>
-    </div>
     <div
-      *ngIf="post?.VideoURLs && post?.VideoURLs[0] && !post.ParentStakeID && !post?.PostExtraData?.arweaveVideoSrc"
-      class="feed-post__video-container content-container"
-      [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
+      class="video-container d-flex flex-center"
+      *ngIf="post?.PostExtraData?.arweaveVideoSrc"
+      [ngClass]="hasContentLoaded ? 'show' : ''"
     >
-      <iframe
-        [src]="post.VideoURLs[0] | sanitizeVideoUrl"
-        allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-        allowfullscreen
-        class="feed-post__video"
-      ></iframe>
+      <video
+        controls
+        id="discovery_video"
+        (loadeddata)="contentLoaded(post.PostExtraData.arweaveVideoSrc, false)"
+        class="w-100 br-5px"
+        src="{{ post.PostExtraData.arweaveVideoSrc }}"
+      ></video>
     </div>
-    <div class="w-100 h-100 d-flex flex-center" *ngIf="false">
+    <div class="w-100 h-100 d-flex flex-center" *ngIf="!hasContentLoaded">
       <div class="w-70">
         <loading-shimmer [tabType]="'POST'"></loading-shimmer>
       </div>

@@ -72,6 +72,18 @@ export class DiscoveryPageComponent implements OnInit {
         this.mainNftResponse = res["Posts"][3];
       });
   }*/
+  /*loadData() {
+    this.backendApi
+      .GetNFTsByCategory(this.globalVars.localNode, this.globalVars.loggedInUser?.PublicKeyBase58Check, "video", 0)
+      .subscribe(
+        (res: any) => {
+          this.mainNftResponse = res["PostEntryResponse"][0];
+        },
+        (error) => {
+          this.globalVars._alertError(error.error.error);
+        }
+      );
+  }*/
   scrollTo(id: string) {
     document.getElementById(id).scrollIntoView({ behavior: "smooth", block: "start" });
   }

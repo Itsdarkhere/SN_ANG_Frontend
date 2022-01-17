@@ -21,7 +21,8 @@ export class DiscoveryComponent implements OnInit {
   bids: NFTBidEntryResponse[];
   hightestBidOwner: any = {};
   myBidsLength: number;
-  hasImageLoaded = false;
+  hasContentLoaded = false;
+  backgroundImage: string;
   constructor(
     //private route: DiscoveryRoute,
     private router: Router,
@@ -29,9 +30,6 @@ export class DiscoveryComponent implements OnInit {
     public globalVars: GlobalVarsService,
     public backendApi: BackendApiService
   ) {}
-  imageLoaded() {
-    this.hasImageLoaded = true;
-  }
   ngOnInit(): void {}
   ngOnChanges(changes: SimpleChanges) {
     if (changes.post) {
@@ -106,5 +104,11 @@ export class DiscoveryComponent implements OnInit {
           this.globalVars._alertError(err);
         }
       );
+  }
+  contentLoaded(imageSrc: string, video: boolean) {
+    this.hasContentLoaded = true;
+    if (!video) {
+      document.getElementById("discovery_top_sc").style.backgroundImage = "url(" + imageSrc + ")";
+    }
   }
 }

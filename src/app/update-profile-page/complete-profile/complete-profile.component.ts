@@ -23,7 +23,7 @@ export class CompleteProfileComponent {
   ) {}
 
   ngOnInit() {
-    this.getUsername();
+    // this.getUsername();
   }
 
   async getProfileSocials(): Promise<void> {
@@ -51,7 +51,7 @@ export class CompleteProfileComponent {
     };
   };
 
-  async getUsername(): Promise<void> {
+  async isCreator(): Promise<void> {
     const publicKey = this.globalVars.loggedInUser.PublicKeyBase58Check;
     const firebaseRes = await this.firestore.collection("profile-details").doc(publicKey).get().toPromise();
     let firebaseResData = JSON.stringify(
@@ -67,36 +67,11 @@ export class CompleteProfileComponent {
 
     console.log(`------------------------ ${firebaseResData} ------------------------`);
 
-    if ((firebaseResData = "false")) {
+    if (firebaseResData === "false") {
       console.log(`false`);
+    } else {
+      console.log(`true`);
     }
-
-    let username1 = JSON.stringify(this.globalVars.loggedInUser.ProfileEntryResponse["Username"]);
-
-    console.log(` -------------------------- ${username1} -------------------------- `);
-
-    // console.log(
-    //   `-------------------------- profile data ${JSON.stringify(
-    //     firebaseRes,
-    //     this.getCircularReplacer()
-    //   )} --------------------------`
-    // );
-
-    // if there is no document, they haven't saved their profile data yet
-    // if (!fields) {
-    // console.log(
-    //   `--------------------------- ${JSON.stringify(
-    //     this.globalVars.loggedInUser?.ProfileEntryResponse["PublicKeyBase58Check"]
-    //   )} --------------------------- `
-    // );
-    // }
-
-    // console.log(
-    //   `--------------------------------------- globalvars are ${JSON.stringify(
-    //     this.globalVars["loggedInUser"]["ProfileEntryResponse"],
-    //     this.getCircularReplacer()
-    //   )} ---------------------------------------`
-    // );
   }
 
   // rounded to nearest integer
@@ -120,7 +95,18 @@ export class CompleteProfileComponent {
     window.open("https://buy.deso.org/", "_blank");
   }
 
-  buyCreatorCoin() {}
+  buyCreatorCoin() {
+    let isNullUsername = JSON.stringify(this.globalVars.loggedInUser?.ProfileEntryResponse);
+
+    if (isNullUsername === "null") {
+      alert("You must create a username for your profile in order to buy your creator coin.");
+    } else {
+      let username1 = JSON.stringify(this.globalVars.loggedInUser.ProfileEntryResponse["Username"]);
+      username1 = username1.replace(/['"]+/g, "");
+      console.log(username1);
+      window.open(`https://supernovas.app/u/${username1}/buy`, "_blank");
+    }
+  }
 
   createProfile() {
     this.router.navigate([RouteNames.UPDATE_PROFILE]);

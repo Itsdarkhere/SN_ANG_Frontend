@@ -34,7 +34,6 @@ export class HeaderComponent implements OnInit {
       panelClass: "popup-modal",
     });
   }
-
   placeBid(): void {
     const dialogRef = this.dialog.open(PlaceABidComponent, {
       width: "600px",

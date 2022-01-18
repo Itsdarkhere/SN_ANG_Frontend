@@ -17,6 +17,7 @@ import { SharedDialogs } from "src/lib/shared-dialogs";
 })
 export class DiscoveryComponent implements OnInit {
   @Input() post: PostEntryResponse;
+  @Input() mobile: PostEntryResponse;
   nftBidData: NFTBidData;
   bids: NFTBidEntryResponse[];
   hightestBidOwner: any = {};

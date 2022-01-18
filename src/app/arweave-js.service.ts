@@ -64,8 +64,8 @@ export class ArweaveJsService {
       return;
     }
   }
-  async fundBundlr() {
-    let resp2 = this.bundlr.getBalance(this.bundlr.address);
+  fundBundlr() {
+    let resp2 = this.bundlr.getBalance(this.bundlr.address).then((res) => console.log(res));
     let resp3 = this.bundlr.getLoadedBalance();
     console.log(resp2);
     console.log(resp3);

@@ -48,6 +48,15 @@ export class AppComponent implements OnInit {
           this.globalVars.marketplaceCollection = null;
           this.globalVars.marketplaceStartIndex = 0;
           this.globalVars.marketplaceEndIndex = 20;
+        } else if (
+          !(event.url.includes("nfts") || event.url.includes("discovery")) &&
+          this.globalVars.discoveryDataToShow
+        ) {
+          this.globalVars.discoveryDataToShow = null;
+          this.globalVars.discoveryDataToShow2 = null;
+          this.globalVars.discoveryMainNftResponse = null;
+          this.globalVars.discoveryUserArray = null;
+          this.globalVars.discoveryExtraUserArray = null;
         }
       }
     });
@@ -234,12 +243,13 @@ export class AppComponent implements OnInit {
             }
           })
           .sort((a, b) => b.fees - a.fees);
-        
+
         //Get the max of all fees
         this.globalVars.transactionFeeMax = Math.max(...simpleFeeMap?.map((k) => k?.fees));
 
         //Prepare text detailed info of fees and join with newlines
-        this.globalVars.transactionFeeInfo = simpleFeeMap?.map((k) => `${k?.txnType}: ${this.globalVars.nanosToUSD(k?.fees, 4)}`)
+        this.globalVars.transactionFeeInfo = simpleFeeMap
+          ?.map((k) => `${k?.txnType}: ${this.globalVars.nanosToUSD(k?.fees, 4)}`)
           .join("\n");
       });
   }

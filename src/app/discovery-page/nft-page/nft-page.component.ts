@@ -46,14 +46,14 @@ export class NftPageComponent implements OnInit {
   pageTitleValues = {
     art: "Art",
     collectibles: "Collectibles",
-    generative: "Generative",
-    metaverse: "Metaverse",
-    profile_pic: "Profile Picture",
+    generative: "Generative Art",
+    metaverse: "Metaverse & Gaming",
+    profile_pic: "Profile Picture Collection",
     music: "Music",
     photography: "Photography",
-    fresh: "Fresh",
+    fresh: "Fresh Drops",
     communityfavourites: "Community Favourites",
-    image: "images",
+    image: "Images",
     video: "Video",
   };
 
@@ -81,7 +81,6 @@ export class NftPageComponent implements OnInit {
     if (this.lastPage != null && page > this.lastPage) {
       return [];
     }
-
     const startIdx = page * NftPageComponent.PAGE_SIZE;
     const endIdx = (page + 1) * NftPageComponent.PAGE_SIZE;
 
@@ -112,7 +111,6 @@ export class NftPageComponent implements OnInit {
             this.globalVars.nftsDataToShow = res.PostEntryResponse;
           }
           this.nftsPageLoading = false;
-          console.log(this.globalVars.nftsDataToShow.length);
           /*if (showmore) {
             document.body.scrollTop = 0; // For Safari
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera

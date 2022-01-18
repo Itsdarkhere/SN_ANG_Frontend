@@ -10,22 +10,24 @@ import { Router } from "@angular/router";
   templateUrl: "./discovery-page.component.html",
   styleUrls: ["./discovery-page.component.scss"],
 })
+// GlobalVars are used to disable loading if user allready has stuff loaded
 export class DiscoveryPageComponent implements OnInit {
   mobile = false;
-  dataToShow: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
-  dataToShow2: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
-  mainNftResponse: PostEntryResponse;
-  userArray: string[];
-  extraUserArray: string[];
   postsLoading = false;
   fakeArray = [1, 2, 3, 4, 5, 6, 7, 8];
   constructor(private backendApi: BackendApiService, public globalVars: GlobalVarsService, public router: Router) {}
 
   ngOnInit(): void {
-    this.getCommunityFavourites();
-    this.getFreshDrops();
     this.setMobileBasedOnViewport();
-    this._loadVerifiedUsers();
+    if (
+      !this.globalVars.discoveryUserArray &&
+      !this.globalVars.discoveryDataToShow &&
+      !this.globalVars.discoveryDataToShow2
+    ) {
+      this.getCommunityFavourites();
+      this.getFreshDrops();
+      this._loadVerifiedUsers();
+    }
   }
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
@@ -44,8 +46,8 @@ export class DiscoveryPageComponent implements OnInit {
         this.globalVars.loggedInUser?.PublicKeyBase58Check
       )
       .subscribe((res) => {
-        this.mainNftResponse = res["PostEntryResponse"][0];
-        this.dataToShow = res["PostEntryResponse"].slice(1, 9);
+        this.globalVars.discoveryMainNftResponse = res["PostEntryResponse"][0];
+        this.globalVars.discoveryDataToShow = res["PostEntryResponse"].slice(1, 9);
         setTimeout(() => {
           this.postsLoading = false;
         }, 300);
@@ -81,10 +83,10 @@ export class DiscoveryPageComponent implements OnInit {
       .subscribe(
         (res) => {
           var arrayHolder = res.VerifiedUsers.sort(() => Math.random() - 0.5);
-          this.userArray = arrayHolder.slice(0, 8);
+          this.globalVars.discoveryUserArray = arrayHolder.slice(0, 8);
           // Some of the users might have deleted their profiles
           // So if fetch in creatorCard fails, we can try again with an additional profile
-          this.extraUserArray = arrayHolder.slice(8, 10);
+          this.globalVars.discoveryExtraUserArray = arrayHolder.slice(8, 10);
         },
         (err) => {
           console.log(err);
@@ -115,7 +117,7 @@ export class DiscoveryPageComponent implements OnInit {
         this.globalVars.loggedInUser?.PublicKeyBase58Check
       )
       .subscribe((res) => {
-        this.dataToShow2 = res["PostEntryResponse"].slice(0, 8);
+        this.globalVars.discoveryDataToShow2 = res["PostEntryResponse"].slice(0, 8);
       });
   }
   appendCommentAfterParentPost(postEntryResponse) {

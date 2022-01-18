@@ -79,9 +79,30 @@
   position: relative;
 }
 
+.onboarding-card-shadow-collector {
+  width: 700px;
+  height: 975px;
+  left: 2px;
+  top: -1px;
+  background: #f3f3f3;
+  border-radius: 30.2255px;
+  position: relative;
+}
+
 .onboarding-card {
   width: 680px;
   height: 1002px;
+  left: 10px;
+  top: 10px;
+
+  background: #ffffff;
+  border-radius: 29.6169px;
+  position: absolute;
+}
+
+.onboarding-card-collector {
+  width: 680px;
+  height: 945px;
   left: 10px;
   top: 10px;
 
@@ -111,6 +132,14 @@
   position: absolute;
   width: 11.69px;
   height: 550px;
+}
+
+.color-gradient-collector {
+  left: 58px;
+  top: 175px;
+  position: absolute;
+  width: 11.69px;
+  height: 425px;
 }
 
 .onboarding-card-button {
@@ -254,6 +283,14 @@
   top: 700px;
 }
 
+.done-collector {
+  position: absolute;
+  width: 46.76px;
+  height: 26.57px;
+  left: 40px;
+  top: 575px;
+}
+
 // line-break
 .line-break {
   position: absolute;
@@ -261,6 +298,16 @@
   height: 0px;
   left: 0px;
   top: 760px;
+
+  border: 0.25px solid #c7c7c7;
+}
+
+.line-break-collector {
+  position: absolute;
+  width: 680px;
+  height: 0px;
+  left: 0px;
+  top: 645px;
 
   border: 0.25px solid #c7c7c7;
 }
@@ -274,6 +321,14 @@
   font-weight: bold;
 }
 
+.support-header-collector {
+  position: absolute;
+  left: 95px;
+  top: 680px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
 .support-text {
   position: absolute;
   left: 95px;
@@ -282,8 +337,22 @@
   width: 450px;
 }
 
+.support-text-collector {
+  position: absolute;
+  left: 95px;
+  top: 725px;
+  font-size: 15px;
+  width: 450px;
+}
+
 .onboarding-support-button {
   top: 900px;
+  left: 95px;
+  width: 275px;
+}
+
+.onboarding-support-button-collector {
+  top: 825px;
   left: 95px;
   width: 275px;
 }

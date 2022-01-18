@@ -1,5 +1,5 @@
 <app-page>
-  <div class="onboarding-card-shadow">
+  <div *ngIf="isCreator" class="onboarding-card-shadow">
     <div class="onboarding-card">
       <p class="onboarding-card-header-1">Welcome to Supernovas!</p>
       <p class="onboarding-card-subheader">Complete the last steps to finalize your onboarding 🌈</p>
@@ -43,6 +43,51 @@
       <p class="support-header">Need Help? We got you.</p>
       <p class="support-text">Browse the support articles or reach out to us and we'll get you started!</p>
       <button (click)="contactSupport()" class="onboarding-card-button onboarding-support-button">
+        Supernovas Support
+      </button>
+    </div>
+  </div>
+  <div *ngIf="!isCreator" class="onboarding-card-shadow-collector">
+    <div class="onboarding-card-collector">
+      <p class="onboarding-card-header-1">Welcome to Supernovas!</p>
+      <p class="onboarding-card-subheader">Complete the last steps to finalize your onboarding 🌈</p>
+      <img
+        src="../../../assets/complete-onboarding/color-gradient.png"
+        alt="color gradient"
+        class="color-gradient-collector"
+      />
+      <!-- step 1 -->
+      <img src="../../../assets/complete-onboarding/checkmark.png" alt="checkmark" class="checkmark-1" />
+      <p class="step-1-header">Invest in $DESO</p>
+      <p class="step-1-text">
+        You need $DESO cryptocurrency to use Supernovas. Buy $DESO on Coinbase or from deso.org with credit card,
+        Bitcoin or Ethereum
+      </p>
+      <button (click)="buyDESO()" class="onboarding-card-button onboarding-card-button-1">Buy $DESO</button>
+      <!-- step 2 -->
+      <img src="../../../assets/complete-onboarding/checkmark.png" alt="checkmark" class="checkmark-2" />
+      <p class="step-2-header">Create your Supernovas Profile</p>
+      <p class="step-2-text">
+        After investing to your Creator Coin, you are able to finalize your profile and start using Supernovas. Set your
+        Founder Reward to 10%, so that you can earn money every time someone invests in your coin.
+      </p>
+      <button (click)="createProfile()" class="onboarding-card-button onboarding-card-button-2">Create Profile</button>
+      <!-- step 3 -->
+      <img src="../../../assets/complete-onboarding/checkmark.png" alt="checkmark" class="checkmark-3" />
+      <p class="step-3-header">Welcome to Supernovas!</p>
+      <p class="step-3-text">
+        Everyone on Supernovas has their own Creator Coin, which others can invest into. Invest your coin first when the
+        price is low.
+      </p>
+      <button (click)="buyCreatorCoin()" class="onboarding-card-button onboarding-card-button-3">Buy your Coin</button>
+      <!-- done -->
+      <img src="../../../assets/complete-onboarding/done.png" alt="done" class="done-collector" />
+      <!-- line break -->
+      <div class="line-break-collector"></div>
+      <!-- support -->
+      <p class="support-header-collector">Need Help? We got you.</p>
+      <p class="support-text-collector">Browse the support articles or reach out to us and we'll get you started!</p>
+      <button (click)="contactSupport()" class="onboarding-card-button onboarding-support-button-collector">
         Supernovas Support
       </button>
     </div>

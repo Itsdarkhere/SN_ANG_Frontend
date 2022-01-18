@@ -14,6 +14,7 @@ export class CompleteProfileComponent {
   RouteNames = RouteNames;
   profileData: any;
   proto: any;
+  isCreator: boolean;
 
   constructor(
     public globalVars: GlobalVarsService,
@@ -23,7 +24,7 @@ export class CompleteProfileComponent {
   ) {}
 
   ngOnInit() {
-    // this.getUsername();
+    this.checkCreatorStatus();
   }
 
   async getProfileSocials(): Promise<void> {
@@ -51,7 +52,7 @@ export class CompleteProfileComponent {
     };
   };
 
-  async isCreator(): Promise<void> {
+  async checkCreatorStatus(): Promise<void> {
     const publicKey = this.globalVars.loggedInUser.PublicKeyBase58Check;
     const firebaseRes = await this.firestore.collection("profile-details").doc(publicKey).get().toPromise();
     let firebaseResData = JSON.stringify(
@@ -69,8 +70,10 @@ export class CompleteProfileComponent {
 
     if (firebaseResData === "false") {
       console.log(`false`);
+      this.isCreator = false;
     } else {
       console.log(`true`);
+      this.isCreator = true;
     }
   }
 

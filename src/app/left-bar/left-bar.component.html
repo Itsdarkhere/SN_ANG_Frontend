@@ -59,7 +59,7 @@
 
       <left-bar-button
         *ngIf="globalVars.loggedInUser && !globalVars.loggedInUser.ProfileEntryResponse?.Username"
-        [link]="'/' + this.globalVars.RouteNames.UPDATE_PROFILE"
+        [link]="'/' + this.globalVars.RouteNames.COMPLETE_PROFILE"
         [buttonLabel]="'Complete Onboarding'"
         [imgSrc]="'assets/icons/profile-icon.svg'"
       ></left-bar-button>

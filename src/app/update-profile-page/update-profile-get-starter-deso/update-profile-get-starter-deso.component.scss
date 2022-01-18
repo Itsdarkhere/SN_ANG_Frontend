@@ -1,290 +1,290 @@
-// .card-box-profile-update {
-//     width: 100%;
-//     padding-bottom: 100px;
-//     // max-width: 1000px;
-//     max-width: 650px;
-//     min-height: 300px;
-//     display: flex;
-//     flex-wrap: wrap;
-//     flex-direction: row;
-//     justify-content: space-between;
-//     align-items: flex-start;
-// }
-// .card-profile-update {
-//     margin-top: 25px;
-//     height: 240px;
-//     min-width: 200px;
-//     width: 23%;
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: flex-start;
-//     align-items: center;
-//     border-radius: 20px;
-//     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
-//     border: .5px solid #FCFCFC;
-//     overflow: hidden;
-// }
-// @media (max-width: 440px) {
-//     .card-profile-update {
-//         height: 220px;
-//         min-width: 180px;
-//     }
-// }
-// .card-profile-header {
-//     width: 95%;
-//     text-align: center;
-//     font-size: 18px;
-//     font-weight: bold;
-//     padding-top: 15px;
-//     padding-bottom: 15px;
-// }
-// .card-profile-desc {
-//     width: 95%;
-//     text-align: center;
-//     font-size: 12px;
-// }
-// .profile-icon {
-//     //padding-bottom: 10px;
-//     fill: white;
-// }
-// .background-profile {
-//     height: 33%;
-//     width: 100%;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     background-size: cover;
-//     background-repeat: no-repeat;
-// }
-// .background-mobile {
-//     background-image: url("/assets/img/phone-background.png");
-// }
-// .background-jumio {
-//     background-image: url("/assets/img/jumio-background.png");
-// }
-// .background-deso {
-//     background-image: url("/assets/img/deso-background.png");
-// }
-// .background-blockchain {
-//     background-image: url("/assets/img/block-background.png");
-// }
-
-.onboarding-card-shadow {
-  width: 700px;
-  height: 1025px;
-  left: 2px;
-  top: -1px;
-
-  background: #f3f3f3;
-  border-radius: 30.2255px;
-  position: relative;
+.card-box-profile-update {
+  width: 100%;
+  padding-bottom: 100px;
+  // max-width: 1000px;
+  max-width: 650px;
+  min-height: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
 }
-
-.onboarding-card {
-  width: 680px;
-  height: 1002px;
-  left: 10px;
-  top: 6px;
-
-  background: #ffffff;
-  border-radius: 29.6169px;
-  position: absolute;
+.card-profile-update {
+  margin-top: 25px;
+  height: 240px;
+  min-width: 200px;
+  width: 23%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 20px;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
+  border: 0.5px solid #fcfcfc;
+  overflow: hidden;
 }
-
-.onboarding-card-header-1 {
-  font-weight: 600;
-  font-size: 32px;
-  position: absolute;
-  left: 58px;
-  top: 38px;
+@media (max-width: 440px) {
+  .card-profile-update {
+    height: 220px;
+    min-width: 180px;
+  }
 }
-
-.onboarding-card-subheader {
-  font-size: 20px;
-  position: absolute;
-  left: 58px;
-  top: 93px;
-}
-
-.color-gradient {
-  left: 58px;
-  top: 175px;
-  position: absolute;
-  width: 11.69px;
-  height: 550px;
-}
-
-.onboarding-card-button {
-  width: 130px;
-  height: 56px;
-  border: 3px solid #000000;
-  border-radius: 31.879194259643555px;
-  box-shadow: 0.4547150731086731px 0.4547150731086731px 2.2735750675201416px rgba(0, 0, 0, 0.11);
-  background-color: white;
-  position: absolute;
-  font-weight: bold;
-  font-size: 15px;
-}
-
-// Step 1
-.checkmark-1 {
-  position: absolute;
-  width: 26.57px;
-  height: 26.57px;
-  left: 50px;
-  top: 170px;
-}
-
-.step-1-header {
-  position: absolute;
-  left: 95px;
-  top: 167px;
+.card-profile-header {
+  width: 95%;
+  text-align: center;
   font-size: 18px;
   font-weight: bold;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.card-profile-desc {
+  width: 95%;
+  text-align: center;
+  font-size: 12px;
+}
+.profile-icon {
+  //padding-bottom: 10px;
+  fill: white;
+}
+.background-profile {
+  height: 33%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.background-mobile {
+  background-image: url("/assets/img/phone-background.png");
+}
+.background-jumio {
+  background-image: url("/assets/img/jumio-background.png");
+}
+.background-deso {
+  background-image: url("/assets/img/deso-background.png");
+}
+.background-blockchain {
+  background-image: url("/assets/img/block-background.png");
 }
 
-.step-1-text {
-  position: absolute;
-  left: 95px;
-  top: 197px;
-  font-size: 15px;
-  width: 400px;
-}
+// .onboarding-card-shadow {
+//   width: 700px;
+//   height: 1025px;
+//   left: 2px;
+//   top: -1px;
 
-.onboarding-card-button-1 {
-  top: 197px;
-  right: 50px;
-}
+//   background: #f3f3f3;
+//   border-radius: 30.2255px;
+//   position: relative;
+// }
 
-// Step 2
-.checkmark-2 {
-  position: absolute;
-  width: 26.57px;
-  height: 26.57px;
-  left: 50px;
-  top: 297px;
-}
+// .onboarding-card {
+//   width: 680px;
+//   height: 1002px;
+//   left: 10px;
+//   top: 6px;
 
-.step-2-header {
-  position: absolute;
-  left: 95px;
-  top: 297px;
-  font-size: 18px;
-  font-weight: bold;
-}
+//   background: #ffffff;
+//   border-radius: 29.6169px;
+//   position: absolute;
+// }
 
-.step-2-text {
-  position: absolute;
-  left: 95px;
-  top: 327px;
-  font-size: 15px;
-  width: 400px;
-}
+// .onboarding-card-header-1 {
+//   font-weight: 600;
+//   font-size: 32px;
+//   position: absolute;
+//   left: 58px;
+//   top: 38px;
+// }
 
-.onboarding-card-button-2 {
-  top: 327px;
-  right: 50px;
-}
+// .onboarding-card-subheader {
+//   font-size: 20px;
+//   position: absolute;
+//   left: 58px;
+//   top: 93px;
+// }
 
-// Step 3
-.checkmark-3 {
-  position: absolute;
-  width: 26.57px;
-  height: 26.57px;
-  left: 50px;
-  top: 427px;
-}
+// .color-gradient {
+//   left: 58px;
+//   top: 175px;
+//   position: absolute;
+//   width: 11.69px;
+//   height: 550px;
+// }
 
-.step-3-header {
-  position: absolute;
-  left: 95px;
-  top: 427px;
-  font-size: 18px;
-  font-weight: bold;
-}
+// .onboarding-card-button {
+//   width: 130px;
+//   height: 56px;
+//   border: 3px solid #000000;
+//   border-radius: 31.879194259643555px;
+//   box-shadow: 0.4547150731086731px 0.4547150731086731px 2.2735750675201416px rgba(0, 0, 0, 0.11);
+//   background-color: white;
+//   position: absolute;
+//   font-weight: bold;
+//   font-size: 15px;
+// }
 
-.step-3-text {
-  position: absolute;
-  left: 95px;
-  top: 457px;
-  font-size: 15px;
-  width: 400px;
-}
+// // Step 1
+// .checkmark-1 {
+//   position: absolute;
+//   width: 26.57px;
+//   height: 26.57px;
+//   left: 50px;
+//   top: 170px;
+// }
 
-.onboarding-card-button-3 {
-  top: 457px;
-  right: 50px;
-}
+// .step-1-header {
+//   position: absolute;
+//   left: 95px;
+//   top: 167px;
+//   font-size: 18px;
+//   font-weight: bold;
+// }
 
-// Step 4
-.checkmark-4 {
-  position: absolute;
-  width: 26.57px;
-  height: 26.57px;
-  left: 50px;
-  top: 577px;
-}
+// .step-1-text {
+//   position: absolute;
+//   left: 95px;
+//   top: 197px;
+//   font-size: 15px;
+//   width: 400px;
+// }
 
-.step-4-header {
-  position: absolute;
-  left: 95px;
-  top: 577px;
-  font-size: 18px;
-  font-weight: bold;
-}
+// .onboarding-card-button-1 {
+//   top: 197px;
+//   right: 50px;
+// }
 
-.step-4-text {
-  position: absolute;
-  left: 95px;
-  top: 607px;
-  font-size: 15px;
-  width: 400px;
-}
+// // Step 2
+// .checkmark-2 {
+//   position: absolute;
+//   width: 26.57px;
+//   height: 26.57px;
+//   left: 50px;
+//   top: 297px;
+// }
 
-.onboarding-card-button-4 {
-  top: 607px;
-  right: 50px;
-}
+// .step-2-header {
+//   position: absolute;
+//   left: 95px;
+//   top: 297px;
+//   font-size: 18px;
+//   font-weight: bold;
+// }
 
-// done
-.done {
-  position: absolute;
-  width: 46.76px;
-  height: 26.57px;
-  left: 40px;
-  top: 700px;
-}
+// .step-2-text {
+//   position: absolute;
+//   left: 95px;
+//   top: 327px;
+//   font-size: 15px;
+//   width: 400px;
+// }
 
-// line-break
-.line-break {
-  position: absolute;
-  width: 680px;
-  height: 0px;
-  left: 0px;
-  top: 760px;
+// .onboarding-card-button-2 {
+//   top: 327px;
+//   right: 50px;
+// }
 
-  border: 0.25px solid #c7c7c7;
-}
+// // Step 3
+// .checkmark-3 {
+//   position: absolute;
+//   width: 26.57px;
+//   height: 26.57px;
+//   left: 50px;
+//   top: 427px;
+// }
 
-// support
-.support-header {
-  position: absolute;
-  left: 95px;
-  top: 785px;
-  font-size: 24px;
-  font-weight: bold;
-}
+// .step-3-header {
+//   position: absolute;
+//   left: 95px;
+//   top: 427px;
+//   font-size: 18px;
+//   font-weight: bold;
+// }
 
-.support-text {
-  position: absolute;
-  left: 95px;
-  top: 820px;
-  font-size: 15px;
-  width: 450px;
-}
+// .step-3-text {
+//   position: absolute;
+//   left: 95px;
+//   top: 457px;
+//   font-size: 15px;
+//   width: 400px;
+// }
 
-.onboarding-support-button {
-  top: 900px;
-  left: 95px;
-  width: 275px;
-}
+// .onboarding-card-button-3 {
+//   top: 457px;
+//   right: 50px;
+// }
+
+// // Step 4
+// .checkmark-4 {
+//   position: absolute;
+//   width: 26.57px;
+//   height: 26.57px;
+//   left: 50px;
+//   top: 577px;
+// }
+
+// .step-4-header {
+//   position: absolute;
+//   left: 95px;
+//   top: 577px;
+//   font-size: 18px;
+//   font-weight: bold;
+// }
+
+// .step-4-text {
+//   position: absolute;
+//   left: 95px;
+//   top: 607px;
+//   font-size: 15px;
+//   width: 400px;
+// }
+
+// .onboarding-card-button-4 {
+//   top: 607px;
+//   right: 50px;
+// }
+
+// // done
+// .done {
+//   position: absolute;
+//   width: 46.76px;
+//   height: 26.57px;
+//   left: 40px;
+//   top: 700px;
+// }
+
+// // line-break
+// .line-break {
+//   position: absolute;
+//   width: 680px;
+//   height: 0px;
+//   left: 0px;
+//   top: 760px;
+
+//   border: 0.25px solid #c7c7c7;
+// }
+
+// // support
+// .support-header {
+//   position: absolute;
+//   left: 95px;
+//   top: 785px;
+//   font-size: 24px;
+//   font-weight: bold;
+// }
+
+// .support-text {
+//   position: absolute;
+//   left: 95px;
+//   top: 820px;
+//   font-size: 15px;
+//   width: 450px;
+// }
+
+// .onboarding-support-button {
+//   top: 900px;
+//   left: 95px;
+//   width: 275px;
+// }

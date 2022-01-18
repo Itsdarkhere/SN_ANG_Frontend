@@ -8,7 +8,8 @@ import { MessagesPageComponent } from "./messages-page/messages-page.component";
 import { SettingsPageComponent } from "./settings-page/settings-page.component";
 import { CreatorProfilePageComponent } from "./creator-profile-page/creator-profile-page.component";
 import { TradeCreatorPageComponent } from "./trade-creator-page/trade-creator-page.component";
-import { UpdateProfilePageComponent } from "./update-profile-page/update-profile-page.component";
+import { CompleteProfileComponent } from "./update-profile-page/complete-profile/complete-profile.component";
+import { UpdateProfileComponent } from "./update-profile-page/update-profile/update-profile.component";
 import { NotificationsPageComponent } from "./notifications-page/notifications-page.component";
 import { PostThreadPageComponent } from "./post-thread-page/post-thread-page.component";
 import { TransferDeSoPageComponent } from "./transfer-deso-page/transfer-deso-page.component";
@@ -66,6 +67,7 @@ class RouteNames {
   public static PICK_A_COIN = "select-creator-coin";
   public static BUY_CREATOR = "buy";
   public static SELL_CREATOR = "sell";
+  public static COMPLETE_PROFILE = "complete-profile";
   public static UPDATE_PROFILE = "update-profile";
   public static NOTIFICATIONS = "notifications";
   public static NOT_FOUND = "404";
@@ -104,7 +106,8 @@ const routes: Routes = [
   { path: RouteNames.INBOX_PREFIX, component: MessagesPageComponent, pathMatch: "full" },
   { path: RouteNames.REFERRALS, component: ReferralsComponent, pathMatch: "full" },
   { path: RouteNames.WALLET, component: WalletPageComponent, pathMatch: "full" },
-  { path: RouteNames.UPDATE_PROFILE, component: UpdateProfilePageComponent, pathMatch: "full" },
+  { path: RouteNames.COMPLETE_PROFILE, component: CompleteProfileComponent, pathMatch: "full" },
+  { path: RouteNames.UPDATE_PROFILE, component: UpdateProfileComponent, pathMatch: "full" },
   { path: RouteNames.NOTIFICATIONS, component: NotificationsPageComponent, pathMatch: "full" },
   { path: RouteNames.DISCOVERY, component: DiscoveryPageComponent, pathMatch: "full" },
   { path: RouteNames.NOT_FOUND, component: NotFoundPageComponent, pathMatch: "full" },

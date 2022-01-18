@@ -378,7 +378,7 @@ export class GlobalVarsService {
     this.loggedInUser = user;
 
     // Fetch referralLinks for the userList before completing the load.
-    this.backendApi.GetReferralInfoForUser(this.localNode, this.loggedInUser.PublicKeyBase58Check).subscribe(
+    this.backendApi.GetReferralInfoForUser(this.localNode, this.loggedInUser?.PublicKeyBase58Check).subscribe(
       (res: any) => {
         this.loggedInUser.ReferralInfoResponses = res.ReferralInfoResponses;
       },

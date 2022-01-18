@@ -29,7 +29,7 @@ export type ProfileUpdateErrors = {
   styleUrls: ["./update-profile.component.scss"],
 })
 export class UpdateProfileComponent implements OnInit, OnChanges {
-  @Input() loggedInUser: any;
+  //   @Input() loggedInUser: any;
   @Input() inTutorial: boolean = false;
 
   // Firebase
@@ -97,6 +97,14 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     this.getOnlyProfileSocials();
     this.loadBannerImage();
     this._getUserMetadata();
+
+    // console.log(
+    //   `----------------------------- can create profile ${this.globalVars.loggedInUser.CanCreateProfile} -----------------------------`
+    // );
+
+    // console.log(
+    //   `----------------------------- PublicKeyBase58Check ${this.globalVars.loggedInUser.PublicKeyBase58Check} -----------------------------`
+    // );
   }
 
   _getUserMetadata() {
@@ -418,7 +426,7 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
   async loadBannerImage() {
     try {
       this.afStorage
-        .ref(this.loggedInUser?.PublicKeyBase58Check)
+        .ref(this.globalVars.loggedInUser?.PublicKeyBase58Check)
         .getDownloadURL()
         .subscribe(function (url) {
           url = url.replace(
@@ -436,11 +444,11 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
   async getProfileSocials() {
     return this.firestore
       .collection("profile-details")
-      .doc(this.loggedInUser?.PublicKeyBase58Check)
+      .doc(this.globalVars.loggedInUser?.PublicKeyBase58Check)
       .valueChanges()
       .subscribe((res) =>
         this.afStorage
-          .ref(this.loggedInUser?.PublicKeyBase58Check)
+          .ref(this.globalVars.loggedInUser?.PublicKeyBase58Check)
           .child(res["photoLocation"])
           .getDownloadURL()
           .toPromise()

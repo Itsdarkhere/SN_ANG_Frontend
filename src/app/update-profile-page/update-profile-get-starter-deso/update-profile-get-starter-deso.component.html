@@ -1,4 +1,4 @@
-<!-- <div class="fs-15px mt-15px">
+<div class="fs-15px mt-15px">
   To finalize creating your profile, you need $DESO cryptocurrency.
   <br />
   <br />
@@ -10,16 +10,16 @@
   <br />
   <span>Get $DESO by using any of the methods below 👇</span>
 </div>
-<div class="card-box-profile-update"> -->
-<!--<a class="card-profile-update" [routerLink]="'/' + RouteNames.GET_STARTER_BITCLOUT">
+<div class="card-box-profile-update">
+  <!-- <a class="card-profile-update" [routerLink]="'/' + RouteNames.GET_STARTER_BITCLOUT">
     <div class="background-profile background-mobile">
       <img [src]="'assets/icons/mobile.svg'" class="profile-icon" />
     </div>
     <h3 class="card-profile-header">Verify your phone number</h3>
     <p class="card-profile-desc">Get around ~$0.1 worth of $DESO for free by verifying it through Twilio.</p>
-  </a>
-  -->
-<!-- <a class="card-profile-update" (click)="globalVars.launchGetFreeDESOFlow()">
+  </a> -->
+
+  <a class="card-profile-update" (click)="globalVars.launchGetFreeDESOFlow()">
     <div class="background-profile background-jumio">
       <img [src]="'assets/icons/jumio.svg'" class="profile-icon" />
     </div>
@@ -42,53 +42,4 @@
     <h3 class="card-profile-header">Buy $DESO on blockchain.com</h3>
     <p class="card-profile-desc">Buy $DESO on blockchain.com’s exchange.</p>
   </a>
-</div> -->
-
-<div class="onboarding-card-shadow">
-  <div class="onboarding-card">
-    <p class="onboarding-card-header-1">Welcome to Supernovas!</p>
-    <p class="onboarding-card-subheader">Complete the last steps to finalize your onboarding 🌈</p>
-    <img src="../../../assets/complete-onboarding/color-gradient.png" alt="color gradient" class="color-gradient" />
-    <!-- step 1 -->
-    <img src="../../../assets/complete-onboarding/checkmark.png" alt="checkmark" class="checkmark-1" />
-    <p class="step-1-header">Invest in $DESO</p>
-    <p class="step-1-text">
-      You need $DESO cryptocurrency to use Supernovas. Buy $DESO on Coinbase or from deso.org with credit card, Bitcoin
-      or Ethereum
-    </p>
-    <button (click)="buyDESO()" class="onboarding-card-button onboarding-card-button-1">Buy $DESO</button>
-    <!-- step 2 -->
-    <img src="../../../assets/complete-onboarding/checkmark.png" alt="checkmark" class="checkmark-2" />
-    <p class="step-2-header">Welcome to Supernovas!</p>
-    <p class="step-2-text">
-      Everyone on Supernovas has their own Creator Coin, which others can invest into. Invest your coin first when the
-      price is low.
-    </p>
-    <button class="onboarding-card-button onboarding-card-button-2">Buy your Coin</button>
-    <!-- step 3 -->
-    <img src="../../../assets/complete-onboarding/checkmark.png" alt="checkmark" class="checkmark-3" />
-    <p class="step-3-header">Create your Supernovas Profile</p>
-    <p class="step-3-text">
-      After investing to your Creator Coin, you are able to finalize your profile and start using Supernovas. Set your
-      Founder Reward to 10%, so that you can earn money every time someone invests in your coin.
-    </p>
-    <button class="onboarding-card-button onboarding-card-button-3">Create Profile</button>
-    <!-- step 4 -->
-    <img src="../../../assets/complete-onboarding/checkmark.png" alt="checkmark" class="checkmark-4" />
-    <p class="step-4-header">Verify your creator profile</p>
-    <p class="step-4-text">
-      All Supernovas Creators are verified to ensure only authentic work. We'll complete verification within 24 hours.
-    </p>
-    <button (click)="verifyProfile()" class="onboarding-card-button onboarding-card-button-4">Verify Profile</button>
-    <!-- done -->
-    <img src="../../../assets/complete-onboarding/done.png" alt="done" class="done" />
-    <!-- line break -->
-    <div class="line-break"></div>
-    <!-- support -->
-    <p class="support-header">Need Help? We got you.</p>
-    <p class="support-text">Browse the support articles or reach out to us and we'll get you started!</p>
-    <button (click)="contactSupport()" class="onboarding-card-button onboarding-support-button">
-      Supernovas Support
-    </button>
-  </div>
 </div>

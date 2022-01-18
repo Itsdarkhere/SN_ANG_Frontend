@@ -1,5 +1,6 @@
 <app-page>
-  <div *ngIf="isCreator" class="onboarding-card-shadow">
+  <!-- creator, no profile and not verified -->
+  <div *ngIf="isCreator && isNullUsername && !isVerified" class="onboarding-card-shadow">
     <div class="onboarding-card">
       <p class="onboarding-card-header-1">Welcome to Supernovas!</p>
       <p class="onboarding-card-subheader">Complete the last steps to finalize your onboarding 🌈</p>
@@ -47,6 +48,31 @@
       </button>
     </div>
   </div>
+  <!-- creator, has profile, not verified -->
+  <div *ngIf="isCreator && !isNullUsername && !isVerified" class="onboarding-card-shadow-hasProfile">
+    <div class="onboarding-card-hasProfile">
+      <p class="onboarding-card-header-1">Welcome to Supernovas!</p>
+      <p class="onboarding-card-subheader-hasProfile">
+        Before you can start minting your NFTs as a creator, we need to verify your profile.
+      </p>
+      <p class="step-4-header-hasProfile">Verify your creator profile</p>
+      <p class="step-4-text-hasProfile">
+        All Supernovas Creators are verified to ensure only authentic work. We'll complete verification within 24 hours.
+      </p>
+      <button (click)="verifyProfile()" class="onboarding-card-button onboarding-card-button-4-hasProfile">
+        Verify Your Profile
+      </button>
+      <!-- line break -->
+      <div class="line-break-hasProfile"></div>
+      <!-- support -->
+      <p class="support-header-hasProfile">Need Help? We got you.</p>
+      <p class="support-text-hasProfile">Browse the support articles or reach out to us and we'll get you started!</p>
+      <button (click)="contactSupport()" class="onboarding-card-button onboarding-support-button-hasProfile">
+        Supernovas Support
+      </button>
+    </div>
+  </div>
+  <!-- is collector -->
   <div *ngIf="!isCreator" class="onboarding-card-shadow-collector">
     <div class="onboarding-card-collector">
       <p class="onboarding-card-header-1">Welcome to Supernovas!</p>

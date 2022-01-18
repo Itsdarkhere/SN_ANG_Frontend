@@ -79,6 +79,16 @@
   position: relative;
 }
 
+.onboarding-card-shadow-hasProfile {
+  width: 700px;
+  height: 645px;
+  left: 2px;
+  top: -1px;
+  background: #f3f3f3;
+  border-radius: 30.2255px;
+  position: relative;
+}
+
 .onboarding-card-shadow-collector {
   width: 700px;
   height: 975px;
@@ -92,6 +102,17 @@
 .onboarding-card {
   width: 680px;
   height: 1002px;
+  left: 10px;
+  top: 10px;
+
+  background: #ffffff;
+  border-radius: 29.6169px;
+  position: absolute;
+}
+
+.onboarding-card-hasProfile {
+  width: 680px;
+  height: 625px;
   left: 10px;
   top: 10px;
 
@@ -124,6 +145,14 @@
   position: absolute;
   left: 58px;
   top: 93px;
+}
+
+.onboarding-card-subheader-hasProfile {
+  font-size: 20px;
+  position: absolute;
+  left: 58px;
+  top: 93px;
+  width: 550px;
 }
 
 .color-gradient {
@@ -261,6 +290,14 @@
   font-weight: bold;
 }
 
+.step-4-header-hasProfile {
+  position: absolute;
+  left: 58px;
+  top: 200px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
 .step-4-text {
   position: absolute;
   left: 95px;
@@ -269,9 +306,23 @@
   width: 400px;
 }
 
+.step-4-text-hasProfile {
+  position: absolute;
+  left: 58px;
+  top: 230px;
+  font-size: 15px;
+  width: 355px;
+}
+
 .onboarding-card-button-4 {
   top: 607px;
   right: 50px;
+}
+
+.onboarding-card-button-4-hasProfile {
+  top: 230px;
+  right: 30px;
+  width: 200px;
 }
 
 // done
@@ -302,6 +353,16 @@
   border: 0.25px solid #c7c7c7;
 }
 
+.line-break-hasProfile {
+  position: absolute;
+  width: 680px;
+  height: 0px;
+  left: 0px;
+  top: 350px;
+
+  border: 0.25px solid #c7c7c7;
+}
+
 .line-break-collector {
   position: absolute;
   width: 680px;
@@ -317,6 +378,14 @@
   position: absolute;
   left: 95px;
   top: 785px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.support-header-hasProfile {
+  position: absolute;
+  left: 95px;
+  top: 400px;
   font-size: 24px;
   font-weight: bold;
 }
@@ -337,6 +406,14 @@
   width: 450px;
 }
 
+.support-text-hasProfile {
+  position: absolute;
+  left: 95px;
+  top: 435px;
+  font-size: 15px;
+  width: 450px;
+}
+
 .support-text-collector {
   position: absolute;
   left: 95px;
@@ -347,6 +424,12 @@
 
 .onboarding-support-button {
   top: 900px;
+  left: 95px;
+  width: 275px;
+}
+
+.onboarding-support-button-hasProfile {
+  top: 515px;
   left: 95px;
   width: 275px;
 }

@@ -15,6 +15,9 @@ export class CompleteProfileComponent {
   profileData: any;
   proto: any;
   isCreator: boolean;
+  isVerified: boolean;
+  username: any;
+  isNullUsername: boolean;
 
   constructor(
     public globalVars: GlobalVarsService,
@@ -24,7 +27,9 @@ export class CompleteProfileComponent {
   ) {}
 
   ngOnInit() {
+    this.checkNullUsername();
     this.checkCreatorStatus();
+    this.checkIsVerified();
   }
 
   async getProfileSocials(): Promise<void> {
@@ -37,6 +42,25 @@ export class CompleteProfileComponent {
       .subscribe((res) => (this.profileData = res));
 
     console.log(`---------------------------- ${this.profileData} ----------------------------`);
+  }
+
+  checkNullUsername() {
+    let isNullUsernameRes = JSON.stringify(this.globalVars.loggedInUser?.ProfileEntryResponse);
+    if (isNullUsernameRes === "null") {
+      this.isNullUsername = true;
+    } else {
+      this.isNullUsername = false;
+    }
+  }
+
+  checkIsVerified() {
+    let isVerifiedRes = JSON.stringify(this.globalVars.loggedInUser.ProfileEntryResponse["IsVerified"]);
+
+    if (isVerifiedRes === "true") {
+      this.isVerified = true;
+    } else {
+      this.isVerified = false;
+    }
   }
 
   getCircularReplacer = () => {
@@ -99,15 +123,13 @@ export class CompleteProfileComponent {
   }
 
   buyCreatorCoin() {
-    let isNullUsername = JSON.stringify(this.globalVars.loggedInUser?.ProfileEntryResponse);
-
-    if (isNullUsername === "null") {
+    if (this.isNullUsername === true) {
       alert("You must create a username for your profile in order to buy your creator coin.");
     } else {
-      let username1 = JSON.stringify(this.globalVars.loggedInUser.ProfileEntryResponse["Username"]);
-      username1 = username1.replace(/['"]+/g, "");
-      console.log(username1);
-      window.open(`https://supernovas.app/u/${username1}/buy`, "_blank");
+      this.username = JSON.stringify(this.globalVars.loggedInUser.ProfileEntryResponse["Username"]);
+      this.username = this.username.replace(/['"]+/g, "");
+      console.log(this.username);
+      window.open(`https://supernovas.app/u/${this.username}/buy`, "_blank");
     }
   }
 

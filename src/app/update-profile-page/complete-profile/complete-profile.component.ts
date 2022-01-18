@@ -4,6 +4,7 @@ import { GlobalVarsService } from "../../global-vars.service";
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AngularFirestore } from "@angular/fire/firestore";
+import { isNull } from "lodash";
 
 @Component({
   selector: "app-complete-profile",
@@ -26,22 +27,26 @@ export class CompleteProfileComponent {
     private firestore: AngularFirestore
   ) {}
 
-  ngOnInit() {
+  async ngOnInit(): Promise<void> {
+    await this.checkCreatorStatus();
     this.checkNullUsername();
-    this.checkCreatorStatus();
     this.checkIsVerified();
+
+    this.checkOnboardingStatus();
   }
 
-  async getProfileSocials(): Promise<void> {
-    const publicKey = this.globalVars.loggedInUser?.PublicKeyBase58Check;
+  checkOnboardingStatus() {
+    // this.isVerified = true;
 
-    const firestoreRes = this.firestore
-      .collection("profile-details")
-      .doc(publicKey)
-      .valueChanges()
-      .subscribe((res) => (this.profileData = res));
+    console.log("---------------------- onboarding function hit");
+    console.log(this.isCreator);
+    console.log(this.isNullUsername);
+    console.log(this.isVerified);
 
-    console.log(`---------------------------- ${this.profileData} ----------------------------`);
+    //   if they are a creator, have a profile and are verified then onboarding is complete
+    if (this.isCreator === true && this.isNullUsername === false && this.isVerified === true) {
+      this.router.navigate([RouteNames.UPDATE_PROFILE]);
+    }
   }
 
   checkNullUsername() {
@@ -90,13 +95,9 @@ export class CompleteProfileComponent {
     // const firebase4 = JSON.parse(firebaseResData["_document"]);
     // const firebase5 = JSON.stringify(firebase4);
 
-    console.log(`------------------------ ${firebaseResData} ------------------------`);
-
     if (firebaseResData === "false") {
-      console.log(`false`);
       this.isCreator = false;
     } else {
-      console.log(`true`);
       this.isCreator = true;
     }
   }
@@ -128,7 +129,6 @@ export class CompleteProfileComponent {
     } else {
       this.username = JSON.stringify(this.globalVars.loggedInUser.ProfileEntryResponse["Username"]);
       this.username = this.username.replace(/['"]+/g, "");
-      console.log(this.username);
       window.open(`https://supernovas.app/u/${this.username}/buy`, "_blank");
     }
   }

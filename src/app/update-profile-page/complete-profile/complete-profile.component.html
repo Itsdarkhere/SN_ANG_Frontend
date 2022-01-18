@@ -72,8 +72,8 @@
       </button>
     </div>
   </div>
-  <!-- is collector -->
-  <div *ngIf="!isCreator" class="onboarding-card-shadow-collector">
+  <!-- is collector and no profile -->
+  <div *ngIf="!isCreator && isNullUsername" class="onboarding-card-shadow-collector">
     <div class="onboarding-card-collector">
       <p class="onboarding-card-header-1">Welcome to Supernovas!</p>
       <p class="onboarding-card-subheader">Complete the last steps to finalize your onboarding 🌈</p>

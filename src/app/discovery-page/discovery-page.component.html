@@ -37,13 +37,12 @@
             [includePaddingOnPost]="true"
             [post]="nftEntry"
             [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-            [blocked]="globalVars.hasUserBlockedCreator('BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w')"
+            [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
             [showNFTDetails]="true"
             [showExpandedNFTDetails]="false"
             [setBorder]="true"
             [showAvailableSerialNumbers]="true"
             [cardStyle]="true"
-            [profilePublicKeyBase58Check]="BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w"
             (userBlocked)="userBlocked()"
           ></new-nft-card>
         </div>
@@ -57,13 +56,12 @@
         [includePaddingOnPost]="true"
         [post]="nftEntry"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-        [blocked]="globalVars.hasUserBlockedCreator('BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w')"
+        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
         [showExpandedNFTDetails]="false"
         [setBorder]="true"
         [showAvailableSerialNumbers]="true"
         [cardStyle]="true"
-        [profilePublicKeyBase58Check]="BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w"
         (userBlocked)="userBlocked()"
       ></new-nft-card>
     </div>
@@ -76,7 +74,7 @@
   <carousel
     class="zindex"
     [arrows]="mobile ? false : true"
-    [height]="200"
+    [height]="180"
     [cellWidth]="255"
     [loop]="true"
     [cellsToScroll]="3"
@@ -157,13 +155,12 @@
             [includePaddingOnPost]="true"
             [post]="nftEntry"
             [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-            [blocked]="globalVars.hasUserBlockedCreator('BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w')"
+            [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
             [showNFTDetails]="true"
             [showExpandedNFTDetails]="false"
             [setBorder]="true"
             [showAvailableSerialNumbers]="true"
             [cardStyle]="true"
-            [profilePublicKeyBase58Check]="BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w"
             (userBlocked)="userBlocked()"
           ></new-nft-card>
         </div>
@@ -177,13 +174,12 @@
         [includePaddingOnPost]="true"
         [post]="nftEntry"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-        [blocked]="globalVars.hasUserBlockedCreator('BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w')"
+        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
         [showExpandedNFTDetails]="false"
         [setBorder]="true"
         [showAvailableSerialNumbers]="true"
         [cardStyle]="true"
-        [profilePublicKeyBase58Check]="BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w"
         (userBlocked)="userBlocked()"
       ></new-nft-card>
     </div>
@@ -208,7 +204,7 @@
       <app-creator-card [username]="username" [extraUserNames]="globalVars.discoveryExtraUserArray"></app-creator-card>
     </div>
   </carousel>
-  <div class="discovery-header-box mt-50px">
+  <div class="discovery-header-box mt-35px">
     <h2 id="content-type" class="font-weight-semiboldn pl-10px" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
       Explore content formats
     </h2>

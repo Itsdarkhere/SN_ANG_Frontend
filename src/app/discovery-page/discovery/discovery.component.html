@@ -62,35 +62,58 @@
         ></feed-post>
       </div>
       <div class="btn_grp">
-        <button type="button" class="fill_btn" (click)="openPlaceBidModal($event)">
+        <button
+          *ngIf="
+            globalVars?.loggedInUser.PublicKeyBase58Check != post?.PosterPublicKeyBase58Check &&
+            post?.NumNFTCopiesForSale > 0
+          "
+          type="button"
+          class="fill_btn"
+          (click)="openPlaceBidModal($event)"
+        >
           {{ myBidsLength > 0 ? "Bid again" : "Place a Bid" }}
         </button>
+        <div
+          class="discovery-follow-parent"
+          *ngIf="
+            globalVars?.loggedInUser?.PublicKeyBase58Check != post?.PosterPublicKeyBase58Check &&
+            post?.NumNFTCopiesForSale == 0
+          "
+        >
+          <follow-button
+            [followButtonClasses]="['discovery-follow-button']"
+            [unfollowButtonClasses]="['discovery-follow-button']"
+            [followedPubKeyBase58Check]="post?.PosterPublicKeyBase58Check"
+          ></follow-button>
+        </div>
         <button type="button" class="line_btn" (click)="viewNFT()">View</button>
       </div>
     </div>
   </div>
   <div class="disc_art_right">
     <div
-      class="content-container d-flex flex-center"
+      class="d-flex flex-center content-container"
+      [ngClass]="hasContentLoaded ? '' : 'display-none'"
       *ngIf="post?.ImageURLs && post?.ImageURLs[0] && !post?.PostExtraData?.arweaveAudioSrc"
-      [ngClass]="hasContentLoaded ? 'show' : ''"
     >
       <img
+        id="discovery-main-image"
+        (load)="contentLoaded(post.ImageURLs[0], false)"
         data-toggle="modal"
         (click)="openImgModal($event, post.ImageURLs[0])"
-        (load)="contentLoaded(post.ImageURLs[0], false)"
         src="{{ post.ImageURLs[0] }}"
       />
     </div>
     <div
-      class="audio-container d-flex flex-center flex-column"
-      [ngClass]="hasContentLoaded ? 'show' : ''"
+      class="d-flex flex-center flex-column audio-container"
+      [ngClass]="hasContentLoaded ? '' : 'display-none'"
       *ngIf="post?.PostExtraData?.arweaveAudioSrc"
     >
       <img
+        id="discovery-main-image"
+        (load)="contentLoaded(post.ImageURLs[0], false)"
         (click)="openImgModal($event, post.ImageURLs[0])"
         data-toggle="modal"
-        (load)="contentLoaded(post.ImageURLs[0], false)"
         class="mb-20px nft-page-audio-cover-image"
         src="{{ mapImageURLs(post.ImageURLs[0]) }}"
       />
@@ -106,17 +129,17 @@
     <div
       class="video-container d-flex flex-center"
       *ngIf="post?.PostExtraData?.arweaveVideoSrc"
-      [ngClass]="hasContentLoaded ? 'show' : ''"
+      [ngClass]="hasContentLoaded ? '' : 'display-none'"
     >
       <video
         controls
         id="discovery_video"
-        (loadeddata)="contentLoaded(post.PostExtraData.arweaveVideoSrc, false)"
+        (loadeddata)="contentLoaded(post.PostExtraData.arweaveVideoSrc, true)"
         class="w-100 br-5px"
         src="{{ post.PostExtraData.arweaveVideoSrc }}"
       ></video>
     </div>
-    <div class="w-100 h-100 d-flex flex-center" *ngIf="!hasContentLoaded">
+    <div class="w-100 h-100 d-flex flex-center" *ngIf="removeShimmer">
       <div class="w-70">
         <loading-shimmer [tabType]="'POST'"></loading-shimmer>
       </div>

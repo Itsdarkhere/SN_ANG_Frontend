@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from "@angular/core";
+import { AfterViewInit, Component, Input, OnInit, SimpleChanges } from "@angular/core";
 import { Router } from "@angular/router";
 import { NFTBidData, NFTBidEntryResponse, PostEntryResponse } from "src/app/backend-api.service";
 import { GlobalVarsService } from "src/app/global-vars.service";
@@ -23,6 +23,7 @@ export class DiscoveryComponent implements OnInit {
   hightestBidOwner: any = {};
   myBidsLength: number;
   hasContentLoaded = false;
+  removeShimmer = true;
   backgroundImage: string;
   constructor(
     //private route: DiscoveryRoute,
@@ -32,6 +33,7 @@ export class DiscoveryComponent implements OnInit {
     public backendApi: BackendApiService
   ) {}
   ngOnInit(): void {}
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes.post) {
       if (this.post?.PostHashHex) {
@@ -107,9 +109,12 @@ export class DiscoveryComponent implements OnInit {
       );
   }
   contentLoaded(imageSrc: string, video: boolean) {
-    this.hasContentLoaded = true;
     if (!video) {
       document.getElementById("discovery_top_sc").style.backgroundImage = "url(" + imageSrc + ")";
     }
+    this.removeShimmer = false;
+    setTimeout(() => {
+      this.hasContentLoaded = false;
+    }, 150);
   }
 }

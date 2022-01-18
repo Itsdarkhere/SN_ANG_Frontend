@@ -4030,6 +4030,37 @@ width: 100%;
         }
     }
 }
+.creator-card-list-discovery {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: 20px 0px 0px;
+    padding: 0px;
+    list-style-type: none;
+    width: 100%;
+    @media screen and (max-width: 676px) {
+        padding: 0px 0px 0 0px;
+    }
+    &.nft_creator_list {
+        @media screen and (max-width: 676px) {
+            padding-top: 0;
+        }
+    }
+    .nft-col-wrap {
+        padding: 10px;
+        width: calc(100% / 4);
+        min-width: 300px;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @media screen and (max-width: 676px) {
+            width: 100%;
+            margin-bottom: 35px;
+        }
+    }
+}
 .shm {
     .shimmer-loading .ngx-shimmer {
         background-color: rgba(0, 0, 0, 0.1);
@@ -4612,6 +4643,17 @@ width: 100%;
             font-size: 17.2247px;
         }
     }
+}
+.discovery-follow-button {
+    width: 100%;
+    margin: 0px !important;
+    padding: 10px 0px;
+    background: #FFFFFF !important;
+    border: 3.66359px solid #FFFFFF !important;
+    box-sizing: border-box;
+    box-shadow: 0.750529px 0.750529px 3.75264px 0.375264px rgba(0, 0, 0, 0.11);
+    border-radius: 52.6181px !important;
+    font-weight: 600 !important;
 }
 .cc-follow-btn {
     max-width: 100%;

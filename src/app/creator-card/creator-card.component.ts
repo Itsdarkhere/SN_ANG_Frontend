@@ -2,6 +2,8 @@ import { Component, Input, OnInit, SimpleChanges } from "@angular/core";
 import { ProfileEntryResponse } from "../backend-api.service";
 import { GlobalVarsService } from "../global-vars.service";
 import { BackendApiService } from "../backend-api.service";
+import { throwMatDialogContentAlreadyAttachedError } from "@angular/material/dialog";
+import { Console } from "console";
 
 @Component({
   selector: "app-creator-card",
@@ -11,7 +13,7 @@ import { BackendApiService } from "../backend-api.service";
 export class CreatorCardComponent implements OnInit {
   constructor(public globalVars: GlobalVarsService, public backendApi: BackendApiService) {}
   @Input() username: string;
-  @Input() extraUsernames: string[];
+  @Input() extraUserNames: string[];
   failedFetchStep = 0;
   creatorProfile: ProfileEntryResponse;
   profileDeleted = false;
@@ -29,9 +31,9 @@ export class CreatorCardComponent implements OnInit {
       (res) => {
         this.creatorProfile = res.Profile;
       },
-      (err) => {
+      (error) => {
         if (this.failedFetchStep < 2) {
-          this.loadProfile(this.extraUsernames[this.failedFetchStep]);
+          this.loadProfile(this.extraUserNames[this.failedFetchStep]);
           this.failedFetchStep++;
         } else {
           this.profileDeleted = true;

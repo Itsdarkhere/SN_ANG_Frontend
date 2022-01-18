@@ -24,6 +24,7 @@ export class DiscoveryPageComponent implements OnInit {
       !this.globalVars.discoveryDataToShow &&
       !this.globalVars.discoveryDataToShow2
     ) {
+      console.log("LOADING AGAIN");
       this.getCommunityFavourites();
       this.getFreshDrops();
       this._loadVerifiedUsers();
@@ -61,22 +62,18 @@ export class DiscoveryPageComponent implements OnInit {
       queryParamsHandling: "merge",
     });
   }
-  /*loadTest() {
+  loadTest() {
     this.backendApi
-      .GetPostsForPublicKey(
+      .GetSingleProfile(
         this.globalVars.localNode,
-        "",
-        "juvonen",
         this.globalVars.loggedInUser?.PublicKeyBase58Check,
-        "",
-        10000,
-        false
+        this.globalVars.loggedInUser?.PublicKeyBase58Check
       )
       .toPromise()
       .then((res) => {
-        this.mainNftResponse = res["Posts"][3];
+        console.log(res);
       });
-  }*/
+  }
   _loadVerifiedUsers() {
     this.backendApi
       .AdminGetVerifiedUsers(this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check)

@@ -47,7 +47,12 @@ h2 {
     align-items: center;
     flex-wrap: wrap;
 }
-
+.discovery-header-box {
+    height: 50px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
 .discovery-link {
     border-radius: 30px;
     width: 130px;

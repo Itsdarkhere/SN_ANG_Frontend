@@ -56,7 +56,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars.discoveryDataToShow[0]"
+        [post]="globalVars?.discoveryDataToShow[0]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -71,7 +71,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars.discoveryDataToShow[1]"
+        [post]="this.globalVars?.discoveryDataToShow[1]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -86,7 +86,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars.discoveryDataToShow[2]"
+        [post]="this.globalVars?.discoveryDataToShow[2]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -101,7 +101,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars.discoveryDataToShow[3]"
+        [post]="this.globalVars?.discoveryDataToShow[3]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -116,7 +116,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars.discoveryDataToShow[4]"
+        [post]="this.globalVars?.discoveryDataToShow[4]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -131,7 +131,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars.discoveryDataToShow[5]"
+        [post]="this.globalVars?.discoveryDataToShow[5]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -146,7 +146,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars.discoveryDataToShow[6]"
+        [post]="this.globalVars?.discoveryDataToShow[6]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -161,7 +161,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars.discoveryDataToShow[7]"
+        [post]="this.globalVars?.discoveryDataToShow[7]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -173,7 +173,7 @@
       ></new-nft-card>
     </div>
   </div>
-  <div class="discovery-header-box mt-20px">
+  <div class="discovery-header-box mt-20px" [ngClass]="mobile ? 'mb--10px' : 'mb-10px'">
     <h2 id="categories" class="font-weight-semiboldn pl-10px" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
       Explore categories
     </h2>
@@ -273,7 +273,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars.discoveryDataToShow2[0]"
+        [post]="this.globalVars?.discoveryDataToShow2[0]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -288,7 +288,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars.discoveryDataToShow2[1]"
+        [post]="this.globalVars?.discoveryDataToShow2[1]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -303,7 +303,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars.discoveryDataToShow2[2]"
+        [post]="this.globalVars?.discoveryDataToShow2[2]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -318,7 +318,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars.discoveryDataToShow2[3]"
+        [post]="this.globalVars?.discoveryDataToShow2[3]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -333,7 +333,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars.discoveryDataToShow2[4]"
+        [post]="this.globalVars?.discoveryDataToShow2[4]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -348,7 +348,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars.discoveryDataToShow2[5]"
+        [post]="this.globalVars?.discoveryDataToShow2[5]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -363,7 +363,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars.discoveryDataToShow2[6]"
+        [post]="this.globalVars?.discoveryDataToShow2[6]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -378,7 +378,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars.discoveryDataToShow2[7]"
+        [post]="this.globalVars?.discoveryDataToShow2[7]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -425,49 +425,49 @@
   <div *ngIf="mobile" class="keen-slider" #sliderRef4>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
-        [username]="globalVars.discoveryUserArray[0]"
+        [username]="globalVars?.discoveryUserArray[0]"
         [extraUserNames]="globalVars.discoveryExtraUserArray"
       ></app-creator-card>
     </div>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
-        [username]="globalVars.discoveryUserArray[1]"
+        [username]="globalVars?.discoveryUserArray[1]"
         [extraUserNames]="globalVars.discoveryExtraUserArray"
       ></app-creator-card>
     </div>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
-        [username]="globalVars.discoveryUserArray[2]"
+        [username]="globalVars?.discoveryUserArray[2]"
         [extraUserNames]="globalVars.discoveryExtraUserArray"
       ></app-creator-card>
     </div>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
-        [username]="globalVars.discoveryUserArray[3]"
+        [username]="globalVars?.discoveryUserArray[3]"
         [extraUserNames]="globalVars.discoveryExtraUserArray"
       ></app-creator-card>
     </div>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
-        [username]="globalVars.discoveryUserArray[4]"
+        [username]="globalVars?.discoveryUserArray[4]"
         [extraUserNames]="globalVars.discoveryExtraUserArray"
       ></app-creator-card>
     </div>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
-        [username]="globalVars.discoveryUserArray[5]"
+        [username]="globalVars?.discoveryUserArray[5]"
         [extraUserNames]="globalVars.discoveryExtraUserArray"
       ></app-creator-card>
     </div>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
-        [username]="globalVars.discoveryUserArray[6]"
+        [username]="globalVars?.discoveryUserArray[6]"
         [extraUserNames]="globalVars.discoveryExtraUserArray"
       ></app-creator-card>
     </div>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
-        [username]="globalVars.discoveryUserArray[7]"
+        [username]="globalVars?.discoveryUserArray[7]"
         [extraUserNames]="globalVars.discoveryExtraUserArray"
       ></app-creator-card>
     </div>
@@ -477,7 +477,7 @@
       Explore content formats
     </h2>
   </div>
-  <div class="keen-slider" #sliderRef5>
+  <div class="keen-slider" #sliderRef5 [ngClass]="mobile ? '' : 'mt-20px'">
     <div class="keen-slider__slide format-slide1 pt-10px">
       <button class="content-type-card-discovery p-0px" (click)="routeViewAll('image')">
         <div class="h-60 w-100 d-flex flex-center background-color-secondary">

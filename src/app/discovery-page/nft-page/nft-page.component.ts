@@ -48,7 +48,7 @@ export class NftPageComponent implements OnInit {
     collectibles: "Collectibles",
     generative: "Generative Art",
     metaverse: "Metaverse & Gaming",
-    profile_pic: "Profile Picture Collection",
+    profilepic: "Profile Picture Collection",
     music: "Music",
     photography: "Photography",
     fresh: "Fresh Drops",

@@ -1,5 +1,6 @@
 <app-page-small-nav-new>
   <!-- Bunch of things on this page turn from flexboxes into carousels, on var mobile change-->
+  <div *ngIf="mobile" class="discovery-spacer-2"></div>
   <app-discovery [post]="globalVars?.discoveryMainNftResponse"></app-discovery>
   <div class="w-100 mt-20px d-flex flex-column flex-start-center discovery-selector disable-scrollbars">
     <div class="w-100 d-flex align-items-center justify-content-around">
@@ -49,12 +50,13 @@
       </div>
     </div>
   </div>
-  <carousel class="zindex" *ngIf="mobile" [height]="520" [cellWidth]="300" [freeScroll]="true">
-    <div class="carousel-cell pt-10px" *ngFor="let nftEntry of globalVars.discoveryDataToShow">
+  <!-- Dynamic content unfortunately does not work straight out the box, apparently since content is loaded after slider init -->
+  <div *ngIf="mobile" class="keen-slider" #sliderRef1>
+    <div class="keen-slider__slide number-slide1 pt-10px">
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="nftEntry"
+        [post]="this.globalVars.discoveryDataToShow[0]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -65,29 +67,123 @@
         (userBlocked)="userBlocked()"
       ></new-nft-card>
     </div>
-  </carousel>
+    <div class="keen-slider__slide number-slide1 pt-10px">
+      <new-nft-card
+        [contentShouldLinkToThread]="true"
+        [includePaddingOnPost]="true"
+        [post]="this.globalVars.discoveryDataToShow[1]"
+        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+        [showNFTDetails]="true"
+        [showExpandedNFTDetails]="false"
+        [setBorder]="true"
+        [showAvailableSerialNumbers]="true"
+        [cardStyle]="true"
+        (userBlocked)="userBlocked()"
+      ></new-nft-card>
+    </div>
+    <div class="keen-slider__slide number-slide1 pt-10px">
+      <new-nft-card
+        [contentShouldLinkToThread]="true"
+        [includePaddingOnPost]="true"
+        [post]="this.globalVars.discoveryDataToShow[2]"
+        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+        [showNFTDetails]="true"
+        [showExpandedNFTDetails]="false"
+        [setBorder]="true"
+        [showAvailableSerialNumbers]="true"
+        [cardStyle]="true"
+        (userBlocked)="userBlocked()"
+      ></new-nft-card>
+    </div>
+    <div class="keen-slider__slide number-slide1 pt-10px">
+      <new-nft-card
+        [contentShouldLinkToThread]="true"
+        [includePaddingOnPost]="true"
+        [post]="this.globalVars.discoveryDataToShow[3]"
+        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+        [showNFTDetails]="true"
+        [showExpandedNFTDetails]="false"
+        [setBorder]="true"
+        [showAvailableSerialNumbers]="true"
+        [cardStyle]="true"
+        (userBlocked)="userBlocked()"
+      ></new-nft-card>
+    </div>
+    <div class="keen-slider__slide number-slide1 pt-10px">
+      <new-nft-card
+        [contentShouldLinkToThread]="true"
+        [includePaddingOnPost]="true"
+        [post]="this.globalVars.discoveryDataToShow[4]"
+        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+        [showNFTDetails]="true"
+        [showExpandedNFTDetails]="false"
+        [setBorder]="true"
+        [showAvailableSerialNumbers]="true"
+        [cardStyle]="true"
+        (userBlocked)="userBlocked()"
+      ></new-nft-card>
+    </div>
+    <div class="keen-slider__slide number-slide1 pt-10px">
+      <new-nft-card
+        [contentShouldLinkToThread]="true"
+        [includePaddingOnPost]="true"
+        [post]="this.globalVars.discoveryDataToShow[5]"
+        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+        [showNFTDetails]="true"
+        [showExpandedNFTDetails]="false"
+        [setBorder]="true"
+        [showAvailableSerialNumbers]="true"
+        [cardStyle]="true"
+        (userBlocked)="userBlocked()"
+      ></new-nft-card>
+    </div>
+    <div class="keen-slider__slide number-slide1 pt-10px">
+      <new-nft-card
+        [contentShouldLinkToThread]="true"
+        [includePaddingOnPost]="true"
+        [post]="this.globalVars.discoveryDataToShow[6]"
+        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+        [showNFTDetails]="true"
+        [showExpandedNFTDetails]="false"
+        [setBorder]="true"
+        [showAvailableSerialNumbers]="true"
+        [cardStyle]="true"
+        (userBlocked)="userBlocked()"
+      ></new-nft-card>
+    </div>
+    <div class="keen-slider__slide number-slide1 pt-10px">
+      <new-nft-card
+        [contentShouldLinkToThread]="true"
+        [includePaddingOnPost]="true"
+        [post]="this.globalVars.discoveryDataToShow[7]"
+        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+        [showNFTDetails]="true"
+        [showExpandedNFTDetails]="false"
+        [setBorder]="true"
+        [showAvailableSerialNumbers]="true"
+        [cardStyle]="true"
+        (userBlocked)="userBlocked()"
+      ></new-nft-card>
+    </div>
+  </div>
   <div class="discovery-header-box mt-20px">
     <h2 id="categories" class="font-weight-semiboldn pl-10px" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
       Explore categories
     </h2>
   </div>
-  <carousel
-    class="zindex"
-    [arrows]="mobile ? false : true"
-    [height]="180"
-    [cellWidth]="255"
-    [loop]="true"
-    [cellsToScroll]="3"
-    [ngClass]="mobile ? '' : 'mt-20px'"
-    [freeScroll]="mobile ? true : false"
-  >
-    <div class="carousel-cell">
-      <div class="discovery-category-box" (click)="routeViewAll('art')">
+  <div class="navigation-wrapper position-relative">
+    <div class="keen-slider" #sliderRef2>
+      <div class="keen-slider__slide category-slide1 pt-10px cursor-pointer" (click)="routeViewAll('art')">
         <img class="w-100 h-100" loading="lazy" src="/assets/img/category_art.png" alt="category art" />
       </div>
-    </div>
-    <div class="carousel-cell">
-      <div class="discovery-category-box" (click)="routeViewAll('collectibles')">
+      <div class="keen-slider__slide category-slide1 pt-10px cursor-pointer" (click)="routeViewAll('collectibles')">
         <img
           class="w-100 h-100"
           loading="lazy"
@@ -95,9 +191,7 @@
           alt="category collectibles"
         />
       </div>
-    </div>
-    <div class="carousel-cell">
-      <div class="discovery-category-box" (click)="routeViewAll('generative')">
+      <div class="keen-slider__slide category-slide1 pt-10px cursor-pointer" (click)="routeViewAll('generative')">
         <img
           class="w-100 h-100"
           loading="lazy"
@@ -105,24 +199,18 @@
           alt="category generative art"
         />
       </div>
-    </div>
-    <div class="carousel-cell">
-      <div class="discovery-category-box" (click)="routeViewAll('metaverse')">
+      <div class="keen-slider__slide category-slide1 pt-10px cursor-pointer" (click)="routeViewAll('metaverse')">
         <img
-          class="w-100 h-100"
+          class="w-100 h-100 cursor-pointer"
           loading="lazy"
           src="/assets/img/category_metaverse.png"
           alt="category metaverse & gaming"
         />
       </div>
-    </div>
-    <div class="carousel-cell">
-      <div class="discovery-category-box" (click)="routeViewAll('music')">
+      <div class="keen-slider__slide category-slide1 pt-10px cursor-pointer" (click)="routeViewAll('music')">
         <img class="w-100 h-100" loading="lazy" src="/assets/img/category_music.png" alt="category music" />
       </div>
-    </div>
-    <div class="carousel-cell">
-      <div class="discovery-category-box" (click)="routeViewAll('profilepic')">
+      <div class="keen-slider__slide category-slide1 pt-10px cursor-pointer" (click)="routeViewAll('profilepic')">
         <img
           class="w-100 h-100"
           loading="lazy"
@@ -130,13 +218,26 @@
           alt="category profile picture collection"
         />
       </div>
-    </div>
-    <div class="carousel-cell">
-      <div class="discovery-category-box" (click)="routeViewAll('photography')">
+      <div class="keen-slider__slide category-slide1 pt-10px cursor-pointer">
         <img class="w-100 h-100" loading="lazy" src="/assets/img/category_photography.png" alt="category photography" />
       </div>
     </div>
-  </carousel>
+    <!-- Arrows -->
+    <!--<div class="discovery-arrow-box-1 discovery-arrow-box">
+      <svg class="discovery-arrow" (click)="slider2.prev()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z" />
+      </svg>
+    </div>-->
+    <button
+      (click)="slider2.next()"
+      *ngIf="!mobile"
+      class="discovery-arrow-box-2 discovery-arrow-box d-flex flex-center"
+    >
+      <svg *ngIf="slider2" class="discovery-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
+      </svg>
+    </button>
+  </div>
   <div class="w-100 mt-50px pr-10px pl-10px d-flex align-items-center justify-content-between">
     <div class="discovery-header-box">
       <h2 id="fresh-drops" class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">Fresh drops</h2>
@@ -167,7 +268,129 @@
       </div>
     </div>
   </div>
-  <carousel class="zindex" *ngIf="mobile" [height]="520" [cellWidth]="300" [freeScroll]="true">
+  <div *ngIf="mobile" class="keen-slider" #sliderRef3>
+    <div class="keen-slider__slide number-slide1 pt-10px">
+      <new-nft-card
+        [contentShouldLinkToThread]="true"
+        [includePaddingOnPost]="true"
+        [post]="this.globalVars.discoveryDataToShow2[0]"
+        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+        [showNFTDetails]="true"
+        [showExpandedNFTDetails]="false"
+        [setBorder]="true"
+        [showAvailableSerialNumbers]="true"
+        [cardStyle]="true"
+        (userBlocked)="userBlocked()"
+      ></new-nft-card>
+    </div>
+    <div class="keen-slider__slide number-slide1 pt-10px">
+      <new-nft-card
+        [contentShouldLinkToThread]="true"
+        [includePaddingOnPost]="true"
+        [post]="this.globalVars.discoveryDataToShow2[1]"
+        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+        [showNFTDetails]="true"
+        [showExpandedNFTDetails]="false"
+        [setBorder]="true"
+        [showAvailableSerialNumbers]="true"
+        [cardStyle]="true"
+        (userBlocked)="userBlocked()"
+      ></new-nft-card>
+    </div>
+    <div class="keen-slider__slide number-slide1 pt-10px">
+      <new-nft-card
+        [contentShouldLinkToThread]="true"
+        [includePaddingOnPost]="true"
+        [post]="this.globalVars.discoveryDataToShow2[2]"
+        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+        [showNFTDetails]="true"
+        [showExpandedNFTDetails]="false"
+        [setBorder]="true"
+        [showAvailableSerialNumbers]="true"
+        [cardStyle]="true"
+        (userBlocked)="userBlocked()"
+      ></new-nft-card>
+    </div>
+    <div class="keen-slider__slide number-slide1 pt-10px">
+      <new-nft-card
+        [contentShouldLinkToThread]="true"
+        [includePaddingOnPost]="true"
+        [post]="this.globalVars.discoveryDataToShow2[3]"
+        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+        [showNFTDetails]="true"
+        [showExpandedNFTDetails]="false"
+        [setBorder]="true"
+        [showAvailableSerialNumbers]="true"
+        [cardStyle]="true"
+        (userBlocked)="userBlocked()"
+      ></new-nft-card>
+    </div>
+    <div class="keen-slider__slide number-slide1 pt-10px">
+      <new-nft-card
+        [contentShouldLinkToThread]="true"
+        [includePaddingOnPost]="true"
+        [post]="this.globalVars.discoveryDataToShow2[4]"
+        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+        [showNFTDetails]="true"
+        [showExpandedNFTDetails]="false"
+        [setBorder]="true"
+        [showAvailableSerialNumbers]="true"
+        [cardStyle]="true"
+        (userBlocked)="userBlocked()"
+      ></new-nft-card>
+    </div>
+    <div class="keen-slider__slide number-slide1 pt-10px">
+      <new-nft-card
+        [contentShouldLinkToThread]="true"
+        [includePaddingOnPost]="true"
+        [post]="this.globalVars.discoveryDataToShow2[5]"
+        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+        [showNFTDetails]="true"
+        [showExpandedNFTDetails]="false"
+        [setBorder]="true"
+        [showAvailableSerialNumbers]="true"
+        [cardStyle]="true"
+        (userBlocked)="userBlocked()"
+      ></new-nft-card>
+    </div>
+    <div class="keen-slider__slide number-slide1 pt-10px">
+      <new-nft-card
+        [contentShouldLinkToThread]="true"
+        [includePaddingOnPost]="true"
+        [post]="this.globalVars.discoveryDataToShow2[6]"
+        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+        [showNFTDetails]="true"
+        [showExpandedNFTDetails]="false"
+        [setBorder]="true"
+        [showAvailableSerialNumbers]="true"
+        [cardStyle]="true"
+        (userBlocked)="userBlocked()"
+      ></new-nft-card>
+    </div>
+    <div class="keen-slider__slide number-slide1 pt-10px">
+      <new-nft-card
+        [contentShouldLinkToThread]="true"
+        [includePaddingOnPost]="true"
+        [post]="this.globalVars.discoveryDataToShow2[7]"
+        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+        [showNFTDetails]="true"
+        [showExpandedNFTDetails]="false"
+        [setBorder]="true"
+        [showAvailableSerialNumbers]="true"
+        [cardStyle]="true"
+        (userBlocked)="userBlocked()"
+      ></new-nft-card>
+    </div>
+  </div>
+  <!--<carousel class="zindex" *ngIf="mobile" [height]="520" [cellWidth]="300" [freeScroll]="true">
     <div class="carousel-cell pt-10px" *ngFor="let nftEntry of globalVars.discoveryDataToShow2">
       <new-nft-card
         [contentShouldLinkToThread]="true"
@@ -183,7 +406,7 @@
         (userBlocked)="userBlocked()"
       ></new-nft-card>
     </div>
-  </carousel>
+  </carousel>-->
   <div class="discovery-header-box mt-20px">
     <h2 id="creators" class="font-weight-semiboldn pl-10px" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
       Newly verified creators
@@ -199,18 +422,63 @@
       </div>
     </div>
   </div>
-  <carousel class="zindex" *ngIf="mobile" [height]="420" [cellWidth]="300" [freeScroll]="true">
-    <div class="carousel-cell" *ngFor="let username of globalVars?.discoveryUserArray">
-      <app-creator-card [username]="username" [extraUserNames]="globalVars.discoveryExtraUserArray"></app-creator-card>
+  <div *ngIf="mobile" class="keen-slider" #sliderRef4>
+    <div class="keen-slider__slide creator-slide1">
+      <app-creator-card
+        [username]="globalVars.discoveryUserArray[0]"
+        [extraUserNames]="globalVars.discoveryExtraUserArray"
+      ></app-creator-card>
     </div>
-  </carousel>
+    <div class="keen-slider__slide creator-slide1">
+      <app-creator-card
+        [username]="globalVars.discoveryUserArray[1]"
+        [extraUserNames]="globalVars.discoveryExtraUserArray"
+      ></app-creator-card>
+    </div>
+    <div class="keen-slider__slide creator-slide1">
+      <app-creator-card
+        [username]="globalVars.discoveryUserArray[2]"
+        [extraUserNames]="globalVars.discoveryExtraUserArray"
+      ></app-creator-card>
+    </div>
+    <div class="keen-slider__slide creator-slide1">
+      <app-creator-card
+        [username]="globalVars.discoveryUserArray[3]"
+        [extraUserNames]="globalVars.discoveryExtraUserArray"
+      ></app-creator-card>
+    </div>
+    <div class="keen-slider__slide creator-slide1">
+      <app-creator-card
+        [username]="globalVars.discoveryUserArray[4]"
+        [extraUserNames]="globalVars.discoveryExtraUserArray"
+      ></app-creator-card>
+    </div>
+    <div class="keen-slider__slide creator-slide1">
+      <app-creator-card
+        [username]="globalVars.discoveryUserArray[5]"
+        [extraUserNames]="globalVars.discoveryExtraUserArray"
+      ></app-creator-card>
+    </div>
+    <div class="keen-slider__slide creator-slide1">
+      <app-creator-card
+        [username]="globalVars.discoveryUserArray[6]"
+        [extraUserNames]="globalVars.discoveryExtraUserArray"
+      ></app-creator-card>
+    </div>
+    <div class="keen-slider__slide creator-slide1">
+      <app-creator-card
+        [username]="globalVars.discoveryUserArray[7]"
+        [extraUserNames]="globalVars.discoveryExtraUserArray"
+      ></app-creator-card>
+    </div>
+  </div>
   <div class="discovery-header-box mt-35px">
     <h2 id="content-type" class="font-weight-semiboldn pl-10px" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
       Explore content formats
     </h2>
   </div>
-  <carousel [height]="330" [cellWidth]="290" [freeScroll]="true" class="zindex" [ngClass]="mobile ? '' : 'mt-20px'">
-    <div class="carousel-cell pt-10px pl-5px">
+  <div class="keen-slider" #sliderRef5>
+    <div class="keen-slider__slide format-slide1 pt-10px">
       <button class="content-type-card-discovery p-0px" (click)="routeViewAll('image')">
         <div class="h-60 w-100 d-flex flex-center background-color-secondary">
           <img src="/assets/icons/image-type.svg" alt="creator icon" />
@@ -220,7 +488,7 @@
         </div>
       </button>
     </div>
-    <div class="carousel-cell pt-10px pl-5px">
+    <div class="keen-slider__slide format-slide1 pt-10px">
       <button class="content-type-card-discovery p-0px" (click)="routeViewAll('video')">
         <div class="h-60 w-100 d-flex flex-center background-color-secondary">
           <img src="/assets/icons/video-type.svg" alt="creator icon" />
@@ -230,7 +498,7 @@
         </div>
       </button>
     </div>
-    <div class="carousel-cell pt-10px pl-5px">
+    <div class="keen-slider__slide format-slide1 pt-10px">
       <button class="content-type-card-discovery not-available-warning p-0px">
         <div class="h-60 w-100 d-flex flex-center background-color-secondary">
           <img src="/assets/icons/music-type.svg" alt="creator icon" />
@@ -241,7 +509,7 @@
         </div>
       </button>
     </div>
-    <div class="carousel-cell pt-10px pl-5px">
+    <div class="keen-slider__slide format-slide1 pt-10px">
       <button class="content-type-card-discovery not-available-warning p-0px">
         <div class="h-60 w-100 d-flex flex-center background-color-secondary">
           <img src="/assets/icons/3D-type.png" alt="creator icon" />
@@ -252,7 +520,7 @@
         </div>
       </button>
     </div>
-  </carousel>
+  </div>
   <div class="mt-100px w-100 d-flex justify-content-between" [ngClass]="mobile ? 'flex-column' : 'flex-row'">
     <button
       [routerLink]="'/' + this.globalVars.RouteNames.TRENDS"

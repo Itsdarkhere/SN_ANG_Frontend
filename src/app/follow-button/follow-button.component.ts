@@ -5,7 +5,7 @@
 // if you're following someone who follows you.
 // TODO: fix this ^^
 
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, SimpleChanges } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
 import { BackendApiService } from "../backend-api.service";
 import { Input } from "@angular/core";
@@ -119,7 +119,14 @@ export class FollowButtonComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.followChangeSubscription.unsubscribe();
   }
-
+  // If it takes a second to get the pk
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.followedPubKeyBase58Check) {
+      if (this.followedPubKeyBase58Check) {
+        this.isFollowing = this.followService._isLoggedInUserFollowing(this.followedPubKeyBase58Check);
+      }
+    }
+  }
   ngOnInit() {
     this.isFollowing = this.followService._isLoggedInUserFollowing(this.followedPubKeyBase58Check);
   }

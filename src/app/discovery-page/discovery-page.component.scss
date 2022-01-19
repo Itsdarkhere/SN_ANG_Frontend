@@ -14,13 +14,17 @@ h2 {
 .carousel-arrow .carousel-arrow-next {
     right: 0px !important;
 }
-.zindex {
-    z-index: 1;
+.h-520 {
+    height: 520px;
 }
+  
 .discovery-category-box {
     width: 263px;
     height: 176px;
     z-index: -1;
+}
+.zindex {
+    z-index: 1;
 }
 .discovery-bottom-box {
     height: 150px;
@@ -109,4 +113,66 @@ h2 {
       flex-grow: 1;
       max-width: 100%;
     }
+}
+.card-slide {
+    width: 300px !important;
+    max-width: 300px !important;
+}
+[class^="number-slide"],
+[class*=" number-slide"] {
+  height: 520px;
+  overflow: visible !important;
+  width: 310px !important;
+  min-width: 310px;
+}
+[class^="creator-slide"],
+[class*=" creator-slide"] {
+  height: 420px;
+  overflow: visible !important;
+  width: 290px !important;
+  min-width: 290px;
+}
+[class^="format-slide"],
+[class*=" format-slide"] {
+  height: 330px;
+  overflow: visible !important;
+  width: 290px !important;
+  min-width: 290px;
+}
+[class^="category-slide"],
+[class*=" category-slide"] {
+  height: 176px;
+  overflow: visible !important;
+  width: 263px !important;
+  min-width: 263px;
+}
+.discovery-arrow-box-1 {
+    left: 5px;
+}
+.discovery-arrow-box-2 {
+    left: auto;
+    right: 5px;
+}
+.discovery-arrow-box {
+    position: absolute;
+    left: auto;
+    right: 5px;
+    top: 50%;
+    height: 50px;
+    width: 50px;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    background-color: #e6e6e6;
+    border-radius: 30px;
+    cursor: pointer;
+    border: none;
+    &:active {
+        transition: all 0.2s linear;
+        transform: scale(.95);
+    }
+}
+.discovery-arrow {
+    width: 30px;
+    height: 30px;
+    fill: #FEFEFE;
 }

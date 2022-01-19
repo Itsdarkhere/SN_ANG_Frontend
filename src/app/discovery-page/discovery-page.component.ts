@@ -1,17 +1,29 @@
-import { Component, HostListener, OnInit } from "@angular/core";
-import { Subscription } from "rxjs";
-import { NFTEntryResponse, PostEntryResponse } from "../backend-api.service";
+/* eslint-disable prettier/prettier */
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from "@angular/core";
 import { BackendApiService } from "../backend-api.service";
 import { GlobalVarsService } from "../global-vars.service";
+import KeenSlider, { KeenSliderInstance } from "keen-slider"
 import { Router } from "@angular/router";
 
 @Component({
   selector: "app-discovery-page",
   templateUrl: "./discovery-page.component.html",
-  styleUrls: ["./discovery-page.component.scss"],
+  styleUrls: ["./discovery-page.component.scss", "../../../node_modules/keen-slider/keen-slider.min.css",],
 })
 // GlobalVars are used to disable loading if user allready has stuff loaded
 export class DiscoveryPageComponent implements OnInit {
+  @ViewChild("sliderRef1") sliderRef1: ElementRef<HTMLElement>
+  @ViewChild("sliderRef2") sliderRef2: ElementRef<HTMLElement>
+  @ViewChild("sliderRef3") sliderRef3: ElementRef<HTMLElement>
+  @ViewChild("sliderRef4") sliderRef4: ElementRef<HTMLElement>
+  @ViewChild("sliderRef5") sliderRef5: ElementRef<HTMLElement>
+
+  slider1: KeenSliderInstance = null
+  slider2: KeenSliderInstance = null
+  slider3: KeenSliderInstance = null
+  slider4: KeenSliderInstance = null
+  slider5: KeenSliderInstance = null
+
   mobile = false;
   postsLoading = false;
   fakeArray = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -24,7 +36,6 @@ export class DiscoveryPageComponent implements OnInit {
       !this.globalVars.discoveryDataToShow &&
       !this.globalVars.discoveryDataToShow2
     ) {
-      console.log("LOADING AGAIN");
       this.getCommunityFavourites();
       this.getFreshDrops();
       this._loadVerifiedUsers();
@@ -33,7 +44,44 @@ export class DiscoveryPageComponent implements OnInit {
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
   }
-
+  ngAfterViewInit() {
+    if (this.mobile) {
+      this.slider1 = new KeenSlider(this.sliderRef1.nativeElement, {
+        loop: true,
+        mode: "free-snap",
+        slides: { perView: "auto", spacing: 20  },
+      })
+      this.slider3 = new KeenSlider(this.sliderRef3.nativeElement, {
+        loop: true,
+        mode: "free-snap",
+        slides: { perView: "auto", spacing: 20  },
+      })
+      this.slider4 = new KeenSlider(this.sliderRef4.nativeElement, {
+        loop: true,
+        mode: "free-snap",
+        slides: { perView: "auto", spacing: 10  },
+      })
+    } 
+    this.slider2 = new KeenSlider(this.sliderRef2.nativeElement, {
+      loop: true,
+      mode: "free-snap",
+      slides: { perView: "auto", spacing: 20  },
+    })
+    this.slider5 = new KeenSlider(this.sliderRef5.nativeElement, {
+      loop: true,
+      mode: "free-snap",
+      slides: { perView: "auto", spacing: 10  },
+    })
+  }
+  ngOnDestroy() {
+    if (this.mobile) {
+      if (this.slider1) this.slider1.destroy();
+      if (this.slider3) this.slider3.destroy();
+      if (this.slider4) this.slider4.destroy();
+    }
+    if (this.slider2) this.slider2.destroy();
+    if (this.slider5) this.slider5.destroy();
+  }
   @HostListener("window:resize")
   onResize() {
     this.setMobileBasedOnViewport();
@@ -47,6 +95,7 @@ export class DiscoveryPageComponent implements OnInit {
         this.globalVars.loggedInUser?.PublicKeyBase58Check
       )
       .subscribe((res) => {
+        // For big image
         this.globalVars.discoveryMainNftResponse = res["PostEntryResponse"][0];
         this.globalVars.discoveryDataToShow = res["PostEntryResponse"].slice(1, 9);
         setTimeout(() => {

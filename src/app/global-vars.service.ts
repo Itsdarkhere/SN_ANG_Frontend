@@ -52,6 +52,23 @@ const svgToProps = {
 export class GlobalVarsService {
   profileData: any;
 
+  //   isCreator boolean
+  isCreator: boolean;
+  //   isVerified boolean
+  isVerified: boolean;
+  //   isVerifiedRes
+  isVerifiedRes: any;
+  //   isVerifiedStrBool
+  isVerifiedStrBool: string;
+  //   username
+  username: any;
+  //   isNullUsername
+  isNullUsername: boolean;
+  //   isNullUsernameRes
+  isNullUsernameRes: any;
+  //   isOnboardingComplete
+  isOnboardingComplete: boolean;
+
   // Note: I don't think we should have default values for this. I think we should just
   // loading spinner until we get a correct value. That said, I'm not going to fix that
   // right now, I'm just moving this magic number into a constant.
@@ -252,6 +269,105 @@ export class GlobalVarsService {
   buyETHAddress: string = "";
 
   nodes: { [id: number]: DeSoNode };
+
+  //   ------------------------------------ update globalVars for loggedInUser ------------------------------------
+  getCircularReplacer = () => {
+    const seen = new WeakSet();
+    return (key, value) => {
+      if (typeof value === "object" && value !== null) {
+        if (seen.has(value)) {
+          return;
+        }
+        seen.add(value);
+      }
+      return value;
+    };
+  };
+
+  async checkCreatorStatus(): Promise<void> {
+    const publicKey = this.loggedInUser.PublicKeyBase58Check;
+    const firebaseRes = await this.firestore.collection("profile-details").doc(publicKey).get().toPromise();
+    let firebaseResData = JSON.stringify(
+      firebaseRes["_document"]["proto"]["fields"]["creator"]["booleanValue"],
+      this.getCircularReplacer()
+    );
+
+    if (firebaseResData === "false") {
+      this.isCreator = false;
+    } else {
+      this.isCreator = true;
+    }
+
+    console.log(
+      ` --------------------------------- creator status is ${this.isCreator} --------------------------------- `
+    );
+  }
+
+  checkIsVerified() {
+    this.isVerifiedRes = JSON.stringify(this.loggedInUser?.ProfileEntryResponse);
+    if (this.isVerifiedRes === "null") {
+      this.isVerified = false;
+    } else {
+      this.isVerifiedStrBool = JSON.stringify(this.loggedInUser?.ProfileEntryResponse["IsVerified"]);
+      if (this.isVerifiedStrBool === "true") {
+        this.isVerified = true;
+      } else {
+        this.isVerified = false;
+      }
+    }
+
+    console.log(` ------------------------------------ isVerified status is ${this.isVerified} ------------------- `);
+  }
+
+  checkNullUsername() {
+    this.isNullUsernameRes = JSON.stringify(this.loggedInUser?.ProfileEntryResponse);
+    if (this.isNullUsernameRes === "null") {
+      this.isNullUsername = true;
+    } else {
+      this.username = JSON.stringify(this.loggedInUser?.ProfileEntryResponse["Username"]);
+      this.username = this.username.replace(/['"]+/g, "");
+      console.log(` ------------------------ username is ${this.username} ------------------------ `);
+      if (this.username) {
+        this.isNullUsername = false;
+      } else {
+        this.isNullUsername = true;
+      }
+    }
+
+    console.log(
+      ` -------------------------------- isNullUsername is ${this.isNullUsername} -------------------------------- `
+    );
+  }
+
+  checkOnboardingCompleted() {
+    //   if they are a creator, have a profile and are verified then onboarding is complete
+    if (this.isCreator === true && this.isNullUsername === false && this.isVerified === true) {
+      this.isOnboardingComplete = true;
+    }
+    // if they are a collector and have a profile then onboarding is complete
+    else if (this.isCreator === false && this.isNullUsername === false) {
+      this.isOnboardingComplete = true;
+    } else {
+      this.isOnboardingComplete = false;
+    }
+
+    console.log(` ------------------------------ isOnboardingComplete ${this.isOnboardingComplete} ---------------- `);
+  }
+
+  async checkOnboardingStatus(): Promise<void> {
+    //   update loggedInUser global variables
+    await this.checkCreatorStatus();
+
+    //   update checkIsVerified
+    this.checkIsVerified();
+
+    //   update checkNullUsername
+    this.checkNullUsername();
+
+    //   update onboardingcomplete status
+    this.checkOnboardingCompleted();
+  }
+  //   ------------------------------------ end of update globalVars for loggedInUser ------------------------------------
 
   SetupMessages() {
     // If there's no loggedInUser, we set the notification count to zero

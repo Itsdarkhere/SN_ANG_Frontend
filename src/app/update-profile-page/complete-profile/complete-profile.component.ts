@@ -14,7 +14,6 @@ import { isNull } from "lodash";
 export class CompleteProfileComponent {
   RouteNames = RouteNames;
   profileData: any;
-  proto: any;
   isCreator: boolean;
   isVerified: boolean;
   username: any;
@@ -28,77 +27,10 @@ export class CompleteProfileComponent {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    await this.checkCreatorStatus();
-    this.checkNullUsername();
-    this.checkIsVerified();
+    await this.globalVars.checkOnboardingStatus();
 
-    this.checkOnboardingStatus();
-  }
-
-  checkOnboardingStatus() {
-    // this.isVerified = true;
-
-    console.log("---------------------- onboarding function hit");
-    console.log(this.isCreator);
-    console.log(this.isNullUsername);
-    console.log(this.isVerified);
-
-    //   if they are a creator, have a profile and are verified then onboarding is complete
-    if (this.isCreator === true && this.isNullUsername === false && this.isVerified === true) {
+    if (this.globalVars.isOnboardingComplete === true) {
       this.router.navigate([RouteNames.UPDATE_PROFILE]);
-    }
-  }
-
-  checkNullUsername() {
-    let isNullUsernameRes = JSON.stringify(this.globalVars.loggedInUser?.ProfileEntryResponse);
-    if (isNullUsernameRes === "null") {
-      this.isNullUsername = true;
-    } else {
-      this.isNullUsername = false;
-    }
-  }
-
-  checkIsVerified() {
-    let isVerifiedRes = JSON.stringify(this.globalVars.loggedInUser.ProfileEntryResponse["IsVerified"]);
-
-    if (isVerifiedRes === "true") {
-      this.isVerified = true;
-    } else {
-      this.isVerified = false;
-    }
-  }
-
-  getCircularReplacer = () => {
-    const seen = new WeakSet();
-    return (key, value) => {
-      if (typeof value === "object" && value !== null) {
-        if (seen.has(value)) {
-          return;
-        }
-        seen.add(value);
-      }
-      return value;
-    };
-  };
-
-  async checkCreatorStatus(): Promise<void> {
-    const publicKey = this.globalVars.loggedInUser.PublicKeyBase58Check;
-    const firebaseRes = await this.firestore.collection("profile-details").doc(publicKey).get().toPromise();
-    let firebaseResData = JSON.stringify(
-      firebaseRes["_document"]["proto"]["fields"]["creator"]["booleanValue"],
-      this.getCircularReplacer()
-    );
-
-    // put profile response into profile data
-
-    // const proto = JSON.stringify(firebaseResData["proto"], this.getCircularReplacer());
-    // const firebase4 = JSON.parse(firebaseResData["_document"]);
-    // const firebase5 = JSON.stringify(firebase4);
-
-    if (firebaseResData === "false") {
-      this.isCreator = false;
-    } else {
-      this.isCreator = true;
     }
   }
 
@@ -124,11 +56,10 @@ export class CompleteProfileComponent {
   }
 
   buyCreatorCoin() {
-    if (this.isNullUsername === true) {
-      alert("You must create a username for your profile in order to buy your creator coin.");
+    if (this.globalVars.isNullUsername === true) {
+      this.globalVars._alertSuccess("You must create a username for your profile in order to buy your creator coin.");
+      //   alert("You must create a username for your profile in order to buy your creator coin.");
     } else {
-      this.username = JSON.stringify(this.globalVars.loggedInUser.ProfileEntryResponse["Username"]);
-      this.username = this.username.replace(/['"]+/g, "");
       window.open(`https://supernovas.app/u/${this.username}/buy`, "_blank");
     }
   }

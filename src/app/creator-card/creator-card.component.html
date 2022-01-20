@@ -25,8 +25,20 @@
     <!--<button class="cc-follow-btn mt-10px font-weight-semiboldn white-rounded-button">Follow</button>-->
     <follow-button
       *ngIf="!globalVars.hasUserBlockedCreator(creatorProfile?.PublicKeyBase58Check)"
-      [followButtonClasses]="['cc-follow-btn', 'mt-10px', 'font-weight-semiboldn', 'white-rounded-button']"
-      [unfollowButtonClasses]="['cc-follow-btn', 'mt-10px', 'font-weight-semiboldn', 'white-rounded-button']"
+      [followButtonClasses]="[
+        'cc-follow-btn',
+        'mt-10px',
+        'ml-0px-important',
+        'font-weight-semiboldn',
+        'white-rounded-button'
+      ]"
+      [unfollowButtonClasses]="[
+        'cc-follow-btn',
+        'mt-10px',
+        'ml-0px-important',
+        'font-weight-semiboldn',
+        'white-rounded-button'
+      ]"
       [followedPubKeyBase58Check]="creatorProfile?.PublicKeyBase58Check"
     ></follow-button>
   </div>

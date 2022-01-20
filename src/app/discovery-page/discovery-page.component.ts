@@ -47,12 +47,12 @@ export class DiscoveryPageComponent implements OnInit {
   ngAfterViewInit() {
     if (this.mobile) {
       this.slider1 = new KeenSlider(this.sliderRef1.nativeElement, {
-        loop: true,
+        loop: false,
         mode: "free-snap",
         slides: { perView: "auto", spacing: 20  },
       })
       this.slider3 = new KeenSlider(this.sliderRef3.nativeElement, {
-        loop: true,
+        loop: false,
         mode: "free-snap",
         slides: { perView: "auto", spacing: 20  },
       })

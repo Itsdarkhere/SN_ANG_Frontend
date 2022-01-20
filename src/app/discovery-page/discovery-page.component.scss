@@ -141,10 +141,10 @@ h2 {
 }
 [class^="category-slide"],
 [class*=" category-slide"] {
-  height: 176px;
+  height: 197px;
   overflow: visible !important;
-  width: 263px !important;
-  min-width: 263px;
+  width: 283px !important;
+  min-width: 283px;
 }
 .discovery-arrow-box-1 {
     left: 5px;
@@ -162,10 +162,11 @@ h2 {
     width: 50px;
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
-    background-color: #e6e6e6;
+    background-color: #F8F8F8;
     border-radius: 30px;
     cursor: pointer;
     border: none;
+    box-shadow: 1.510444688796997px 1.510444688796997px 1.510444688796997px rgba(0, 0, 0, 0.25);
     &:active {
         transition: all 0.2s linear;
         transform: scale(.95);
@@ -175,7 +176,7 @@ h2 {
     margin-bottom: -10px;
 }
 .discovery-arrow {
-    width: 30px;
-    height: 30px;
-    fill: #FEFEFE;
+    width: 40px;
+    height: 40px;
+    fill: #717171;
 }

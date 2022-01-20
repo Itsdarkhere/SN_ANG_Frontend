@@ -24,6 +24,13 @@
 
       <left-bar-button
         [forDesktop]="true"
+        [imgSrc]="'assets/icons/discovery_icon.svg'"
+        [link]="'/' + this.globalVars.RouteNames.DISCOVERY"
+        [buttonLabel]="'Discovery'"
+      ></left-bar-button>
+
+      <left-bar-button
+        [forDesktop]="true"
         [imgSrc]="'assets/icons/feed-icon.svg'"
         [link]="'/' + this.globalVars.RouteNames.BROWSE"
         [buttonLabel]="'Feed'"

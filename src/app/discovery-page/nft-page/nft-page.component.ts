@@ -17,6 +17,7 @@ export class NftPageComponent implements OnInit {
   offset = 0;
   category: string;
   pageTitle: string;
+  mobile = false;
   static PAGE_SIZE = 40;
   static WINDOW_VIEWPORT = true;
   static BUFFER_SIZE = 20;
@@ -65,6 +66,7 @@ export class NftPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.setMobileBasedOnViewport();
     this.route.queryParams.subscribe((queryParams) => {
       if (queryParams.category) {
         this.category = queryParams.category;
@@ -76,6 +78,9 @@ export class NftPageComponent implements OnInit {
       }
       this.loadData(this.offset, false);
     }).unsubscribe;
+  }
+  setMobileBasedOnViewport() {
+    this.mobile = this.globalVars.isMobile();
   }
   getPage(page: number) {
     if (this.lastPage != null && page > this.lastPage) {

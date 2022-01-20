@@ -91,58 +91,58 @@
     </div>
   </div>
   <div class="disc_art_right">
-    <div
-      class="d-flex flex-center content-container"
-      [ngClass]="hasContentLoaded ? '' : 'display-none'"
-      *ngIf="post?.ImageURLs && post?.ImageURLs[0] && !post?.PostExtraData?.arweaveAudioSrc"
-    >
-      <img
-        id="discovery-main-image"
-        (load)="contentLoaded(post.ImageURLs[0], false)"
-        data-toggle="modal"
-        (click)="openImgModal($event, post.ImageURLs[0])"
-        src="{{ post.ImageURLs[0] }}"
-      />
-    </div>
-    <div
-      class="d-flex flex-center flex-column audio-container"
-      [ngClass]="hasContentLoaded ? '' : 'display-none'"
-      *ngIf="post?.PostExtraData?.arweaveAudioSrc"
-    >
-      <img
-        id="discovery-main-image"
-        (load)="contentLoaded(post.ImageURLs[0], false)"
-        (click)="openImgModal($event, post.ImageURLs[0])"
-        data-toggle="modal"
-        class="mb-20px nft-page-audio-cover-image"
-        src="{{ mapImageURLs(post.ImageURLs[0]) }}"
-      />
-      <div class="w-100">
-        <app-audio-player
-          [songName]="post.PostExtraData?.name"
-          [creator]="post.ProfileEntryResponse?.Username"
-          [audioSrc]="post.PostExtraData.arweaveAudioSrc"
-        ></app-audio-player>
-      </div>
-    </div>
-    <!-- Video -->
-    <div
-      class="video-container d-flex flex-center"
-      *ngIf="post?.PostExtraData?.arweaveVideoSrc"
-      [ngClass]="hasContentLoaded ? '' : 'display-none'"
-    >
-      <video
-        controls
-        id="discovery_video"
-        (loadeddata)="contentLoaded(post.PostExtraData.arweaveVideoSrc, true)"
-        class="w-100 br-5px"
-        src="{{ post.PostExtraData.arweaveVideoSrc }}"
-      ></video>
-    </div>
-    <div class="w-100 h-100 d-flex flex-center" *ngIf="removeShimmer">
+    <div class="w-100 h-100 d-flex flex-center" *ngIf="!hasContentLoaded; else showNFT">
       <div class="w-70">
-        <loading-shimmer [tabType]="'POST'"></loading-shimmer>
+        <loading-shimmer *ngIf="!mobile" [tabType]="'POST'"></loading-shimmer>
+        <loading-shimmer *ngIf="mobile" [tabType]="'MOBILEPOST'"></loading-shimmer>
       </div>
     </div>
+    <ng-template #showNFT>
+      <div
+        class="d-flex flex-center content-container"
+        [ngClass]="hasContentLoaded ? '' : 'display-none'"
+        *ngIf="post?.ImageURLs && post?.ImageURLs[0] && !post?.PostExtraData?.arweaveAudioSrc"
+      >
+        <img
+          id="discovery-main-image"
+          data-toggle="modal"
+          (click)="openImgModal($event, post.ImageURLs[0])"
+          src="{{ post.ImageURLs[0] }}"
+        />
+      </div>
+      <div
+        class="d-flex flex-center flex-column audio-container"
+        [ngClass]="hasContentLoaded ? '' : 'display-none'"
+        *ngIf="post?.PostExtraData?.arweaveAudioSrc"
+      >
+        <img
+          id="discovery-main-image"
+          (click)="openImgModal($event, post.ImageURLs[0])"
+          data-toggle="modal"
+          class="mb-20px nft-page-audio-cover-image"
+          src="{{ mapImageURLs(post.ImageURLs[0]) }}"
+        />
+        <div class="w-100">
+          <app-audio-player
+            [songName]="post.PostExtraData?.name"
+            [creator]="post.ProfileEntryResponse?.Username"
+            [audioSrc]="post.PostExtraData.arweaveAudioSrc"
+          ></app-audio-player>
+        </div>
+      </div>
+      <!-- Video -->
+      <div
+        class="video-container d-flex flex-center"
+        *ngIf="post?.PostExtraData?.arweaveVideoSrc"
+        [ngClass]="hasContentLoaded ? '' : 'display-none'"
+      >
+        <video
+          controls
+          id="discovery_video"
+          class="w-100 br-5px"
+          src="{{ post.PostExtraData.arweaveVideoSrc }}"
+        ></video>
+      </div>
+    </ng-template>
   </div>
 </div>

@@ -1,10 +1,10 @@
 <app-page-small-nav-new>
   <!-- Bunch of things on this page turn from flexboxes into carousels, on var mobile change-->
   <div *ngIf="mobile" class="discovery-spacer-2"></div>
-  <app-discovery [post]="globalVars?.discoveryMainNftResponse"></app-discovery>
+  <app-discovery [post]="discoveryMainNftResponse" [mobile]="mobile"></app-discovery>
   <div class="w-100 mt-20px d-flex flex-column flex-start-center discovery-selector disable-scrollbars">
     <div class="w-100 d-flex align-items-center justify-content-around">
-      <button class="font-weight-semibold" (click)="scrollTo('favourites')">Community favourites</button>
+      <button class="font-weight-semibold" (click)="scrollTo('favourites')">Community favorites</button>
       <button class="font-weight-semibold" (click)="scrollTo('categories')">Categories</button>
       <button class="font-weight-semibold" (click)="scrollTo('fresh-drops')">Fresh drops</button>
       <button class="font-weight-semibold" (click)="scrollTo('creators')">Newly verified</button>
@@ -14,7 +14,7 @@
   <div class="w-100 mt-50px pr-10px pl-10px d-flex align-items-center justify-content-between">
     <div class="discovery-header-box">
       <h2 id="favourites" class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
-        Community Favourites
+        Community Favorites
       </h2>
     </div>
     <a class="discovery-link" (click)="routeViewAll('communityfavourites')">
@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="nfts-card-list-discovery" *ngIf="!postsLoading">
-      <div class="nft-col-wrap" *ngFor="let nftEntry of globalVars.discoveryDataToShow">
+      <div class="nft-col-wrap" *ngFor="let nftEntry of discoveryDataToShow">
         <div class="max-width-300-plus">
           <new-nft-card
             [contentShouldLinkToThread]="true"
@@ -56,7 +56,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="globalVars?.discoveryDataToShow[0]"
+        [post]="this?.discoveryDataToShow[0]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -71,7 +71,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars?.discoveryDataToShow[1]"
+        [post]="this?.discoveryDataToShow[1]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -86,7 +86,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars?.discoveryDataToShow[2]"
+        [post]="this?.discoveryDataToShow[2]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -101,7 +101,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars?.discoveryDataToShow[3]"
+        [post]="this?.discoveryDataToShow[3]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -116,7 +116,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars?.discoveryDataToShow[4]"
+        [post]="this?.discoveryDataToShow[4]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -131,7 +131,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars?.discoveryDataToShow[5]"
+        [post]="this?.discoveryDataToShow[5]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -146,7 +146,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars?.discoveryDataToShow[6]"
+        [post]="this?.discoveryDataToShow[6]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -161,7 +161,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars?.discoveryDataToShow[7]"
+        [post]="this?.discoveryDataToShow[7]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -249,8 +249,8 @@
     </a>
   </div>
   <div *ngIf="!mobile" class="w-100 discovery-nft-showcase">
-    <div class="nfts-card-list-discovery">
-      <div class="nft-col-wrap" *ngFor="let nftEntry of globalVars.discoveryDataToShow2">
+    <div class="nfts-card-list-discovery" *ngIf="!postsLoading">
+      <div class="nft-col-wrap" *ngFor="let nftEntry of discoveryDataToShow2">
         <div class="max-width-350">
           <new-nft-card
             [contentShouldLinkToThread]="true"
@@ -268,13 +268,20 @@
         </div>
       </div>
     </div>
+    <div class="nfts-card-list-discovery w-100" *ngIf="postsLoading">
+      <div class="nft-col-wrap" *ngFor="let a of fakeArray">
+        <div class="card">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
+      </div>
+    </div>
   </div>
   <div *ngIf="mobile" class="keen-slider" #sliderRef3>
     <div class="keen-slider__slide number-slide1 pt-10px pl-5px">
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars?.discoveryDataToShow2[0]"
+        [post]="this?.discoveryDataToShow2[0]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -289,7 +296,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars?.discoveryDataToShow2[1]"
+        [post]="this?.discoveryDataToShow2[1]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -304,7 +311,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars?.discoveryDataToShow2[2]"
+        [post]="this?.discoveryDataToShow2[2]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -319,7 +326,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars?.discoveryDataToShow2[3]"
+        [post]="this?.discoveryDataToShow2[3]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -334,7 +341,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars?.discoveryDataToShow2[4]"
+        [post]="this?.discoveryDataToShow2[4]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -349,7 +356,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars?.discoveryDataToShow2[5]"
+        [post]="this?.discoveryDataToShow2[5]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -364,7 +371,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars?.discoveryDataToShow2[6]"
+        [post]="this?.discoveryDataToShow2[6]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -379,7 +386,7 @@
       <new-nft-card
         [contentShouldLinkToThread]="true"
         [includePaddingOnPost]="true"
-        [post]="this.globalVars?.discoveryDataToShow2[7]"
+        [post]="this?.discoveryDataToShow2[7]"
         [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
         [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
         [showNFTDetails]="true"
@@ -410,66 +417,70 @@
   </carousel>-->
   <div class="discovery-header-box mt-20px">
     <h2 id="creators" class="font-weight-semiboldn pl-10px" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
-      Newly verified creators
+      Supernovas verified creators
     </h2>
   </div>
   <div *ngIf="!mobile" class="discovery-creator-cards-container w-100">
-    <div class="creator-card-list-discovery">
-      <div class="nft-col-wrap" *ngFor="let username of globalVars.discoveryUserArray">
-        <app-creator-card
-          [username]="username"
-          [extraUserNames]="globalVars.discoveryExtraUserArray"
-        ></app-creator-card>
+    <div class="creator-card-list-discovery" *ngIf="!postsLoading">
+      <div class="nft-col-wrap" *ngFor="let username of discoveryUserArray">
+        <app-creator-card [username]="username" [extraUserNames]="discoveryExtraUserArray"></app-creator-card>
+      </div>
+    </div>
+    <div class="nfts-card-list-discovery w-100" *ngIf="postsLoading">
+      <div class="nft-col-wrap" *ngFor="let a of fakeArray">
+        <div class="card">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
       </div>
     </div>
   </div>
   <div *ngIf="mobile" class="keen-slider" #sliderRef4>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
-        [username]="globalVars?.discoveryUserArray[0]"
-        [extraUserNames]="globalVars.discoveryExtraUserArray"
+        [username]="discoveryUserArray[0]"
+        [extraUserNames]="discoveryExtraUserArray"
       ></app-creator-card>
     </div>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
-        [username]="globalVars?.discoveryUserArray[1]"
-        [extraUserNames]="globalVars.discoveryExtraUserArray"
+        [username]="discoveryUserArray[1]"
+        [extraUserNames]="discoveryExtraUserArray"
       ></app-creator-card>
     </div>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
-        [username]="globalVars?.discoveryUserArray[2]"
-        [extraUserNames]="globalVars.discoveryExtraUserArray"
+        [username]="discoveryUserArray[2]"
+        [extraUserNames]="discoveryExtraUserArray"
       ></app-creator-card>
     </div>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
-        [username]="globalVars?.discoveryUserArray[3]"
-        [extraUserNames]="globalVars.discoveryExtraUserArray"
+        [username]="discoveryUserArray[3]"
+        [extraUserNames]="discoveryExtraUserArray"
       ></app-creator-card>
     </div>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
-        [username]="globalVars?.discoveryUserArray[4]"
-        [extraUserNames]="globalVars.discoveryExtraUserArray"
+        [username]="discoveryUserArray[4]"
+        [extraUserNames]="discoveryExtraUserArray"
       ></app-creator-card>
     </div>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
-        [username]="globalVars?.discoveryUserArray[5]"
-        [extraUserNames]="globalVars.discoveryExtraUserArray"
+        [username]="discoveryUserArray[5]"
+        [extraUserNames]="discoveryExtraUserArray"
       ></app-creator-card>
     </div>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
-        [username]="globalVars?.discoveryUserArray[6]"
-        [extraUserNames]="globalVars.discoveryExtraUserArray"
+        [username]="discoveryUserArray[6]"
+        [extraUserNames]="discoveryExtraUserArray"
       ></app-creator-card>
     </div>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
-        [username]="globalVars?.discoveryUserArray[7]"
-        [extraUserNames]="globalVars.discoveryExtraUserArray"
+        [username]="discoveryUserArray[7]"
+        [extraUserNames]="discoveryExtraUserArray"
       ></app-creator-card>
     </div>
   </div>
@@ -543,4 +554,10 @@
     </button>
   </div>
   <div class="discovery-spacer-2"></div>
+  <div *ngIf="mobile" class="discovery-spacer-2"></div>
+  <bottom-bar-mobile
+    *ngIf="mobile"
+    class="global__bottom-bar-mobile scrolled"
+    [showPostButton]="showPostButton"
+  ></bottom-bar-mobile>
 </app-page-small-nav-new>

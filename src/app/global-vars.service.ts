@@ -137,12 +137,7 @@ export class GlobalVarsService {
   nftsCollection: NFTCollectionResponse[];
   nftsStartIndex = 0;
   nftsEndIndex = 20;
-  // Discovery new load stoppers
-  discoveryDataToShow: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
-  discoveryDataToShow2: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
-  discoveryMainNftResponse: PostEntryResponse;
-  discoveryUserArray: string[];
-  discoveryExtraUserArray: string[];
+
   messageResponse = null;
   messageMeta = {
     // <public_key || tstamp> -> messageObj

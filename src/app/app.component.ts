@@ -48,15 +48,12 @@ export class AppComponent implements OnInit {
           this.globalVars.marketplaceCollection = null;
           this.globalVars.marketplaceStartIndex = 0;
           this.globalVars.marketplaceEndIndex = 20;
-        } else if (
-          !(event.url.includes("nfts") || event.url.includes("discovery")) &&
-          this.globalVars.discoveryDataToShow
-        ) {
-          this.globalVars.discoveryDataToShow = null;
-          this.globalVars.discoveryDataToShow2 = null;
-          this.globalVars.discoveryMainNftResponse = null;
-          this.globalVars.discoveryUserArray = null;
-          this.globalVars.discoveryExtraUserArray = null;
+        } else if (!(event.url.includes("nft") || event.url.includes("nfts")) && this.globalVars.nftsDataToShow) {
+          this.globalVars.nftsDataToShow = null;
+          this.globalVars.nftsFilteredCollection = null;
+          this.globalVars.nftsCollection = null;
+          this.globalVars.nftsStartIndex = 0;
+          this.globalVars.nftsEndIndex = 20;
         }
       }
     });

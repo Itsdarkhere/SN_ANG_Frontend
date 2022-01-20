@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from "@angular/core";
-import { BackendApiService } from "../backend-api.service";
+import { BackendApiService, NFTEntryResponse, PostEntryResponse } from "../backend-api.service";
 import { GlobalVarsService } from "../global-vars.service";
 import KeenSlider, { KeenSliderInstance } from "keen-slider"
 import { Router } from "@angular/router";
@@ -24,14 +24,24 @@ export class DiscoveryPageComponent implements OnInit {
   slider4: KeenSliderInstance = null
   slider5: KeenSliderInstance = null
 
+  discoveryDataToShow: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
+  discoveryDataToShow2: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
+  discoveryMainNftResponse: PostEntryResponse;
+  discoveryUserArray: string[];
+  discoveryExtraUserArray: string[];
+
   mobile = false;
   postsLoading = false;
+  posts2Loading = false;
+  usersLoading = false;
   fakeArray = [1, 2, 3, 4, 5, 6, 7, 8];
   constructor(private backendApi: BackendApiService, public globalVars: GlobalVarsService, public router: Router) {}
 
   ngOnInit(): void {
     this.setMobileBasedOnViewport();
-    if (
+    // We could use this to not load again coming from nfts-page but It still seems to have some issues
+    // So for now we load everytime
+    /*if (
       !this.globalVars.discoveryUserArray &&
       !this.globalVars.discoveryDataToShow &&
       !this.globalVars.discoveryDataToShow2
@@ -39,7 +49,10 @@ export class DiscoveryPageComponent implements OnInit {
       this.getCommunityFavourites();
       this.getFreshDrops();
       this._loadVerifiedUsers();
-    }
+    }*/
+    this.getCommunityFavourites();
+    this.getFreshDrops();
+    this._loadVerifiedUsers();
   }
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
@@ -96,8 +109,8 @@ export class DiscoveryPageComponent implements OnInit {
       )
       .subscribe((res) => {
         // For big image
-        this.globalVars.discoveryMainNftResponse = res["PostEntryResponse"][0];
-        this.globalVars.discoveryDataToShow = res["PostEntryResponse"].slice(1, 9);
+        this.discoveryMainNftResponse = res["PostEntryResponse"][0];
+        this.discoveryDataToShow = res["PostEntryResponse"].slice(1, 9);
         setTimeout(() => {
           this.postsLoading = false;
         }, 300);
@@ -111,47 +124,26 @@ export class DiscoveryPageComponent implements OnInit {
       queryParamsHandling: "merge",
     });
   }
-  loadTest() {
-    this.backendApi
-      .GetSingleProfile(
-        this.globalVars.localNode,
-        this.globalVars.loggedInUser?.PublicKeyBase58Check,
-        this.globalVars.loggedInUser?.PublicKeyBase58Check
-      )
-      .toPromise()
-      .then((res) => {
-        console.log(res);
-      });
-  }
   _loadVerifiedUsers() {
     this.backendApi
       .AdminGetVerifiedUsers(this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check)
       .subscribe(
         (res) => {
           var arrayHolder = res.VerifiedUsers.sort(() => Math.random() - 0.5);
-          this.globalVars.discoveryUserArray = arrayHolder.slice(0, 8);
+          this.discoveryUserArray = arrayHolder.slice(0, 8);
+
           // Some of the users might have deleted their profiles
           // So if fetch in creatorCard fails, we can try again with an additional profile
-          this.globalVars.discoveryExtraUserArray = arrayHolder.slice(8, 10);
+          this.discoveryExtraUserArray = arrayHolder.slice(8, 10);
+          setTimeout(() => {
+            this.usersLoading = false;
+          }, 300);
         },
         (err) => {
           console.log(err);
         }
       );
   }
-  /*
-  loadData() {
-    this.backendApi
-      .GetNFTsByCategory(this.globalVars.localNode, this.globalVars.loggedInUser?.PublicKeyBase58Check, "video", 0)
-      .subscribe(
-        (res: any) => {
-          this.mainNftResponse = res["PostEntryResponse"][0];
-        },
-        (error) => {
-          this.globalVars._alertError(error.error.error);
-        }
-      );
-  }*/
   scrollTo(id: string) {
     document.getElementById(id).scrollIntoView({ behavior: "smooth", block: "start" });
   }
@@ -163,7 +155,10 @@ export class DiscoveryPageComponent implements OnInit {
         this.globalVars.loggedInUser?.PublicKeyBase58Check
       )
       .subscribe((res) => {
-        this.globalVars.discoveryDataToShow2 = res["PostEntryResponse"].slice(0, 8);
+        this.discoveryDataToShow2 = res["PostEntryResponse"].slice(0, 8);
+        setTimeout(() => {
+          this.posts2Loading = false;
+        }, 300);
       });
   }
   appendCommentAfterParentPost(postEntryResponse) {

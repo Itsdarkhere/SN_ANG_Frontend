@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit, SimpleChanges } from "@angular/core";
+import { Component, Input, OnInit, SimpleChanges } from "@angular/core";
 import { Router } from "@angular/router";
 import { NFTBidData, NFTBidEntryResponse, PostEntryResponse } from "src/app/backend-api.service";
 import { GlobalVarsService } from "src/app/global-vars.service";
@@ -17,7 +17,7 @@ import { SharedDialogs } from "src/lib/shared-dialogs";
 })
 export class DiscoveryComponent implements OnInit {
   @Input() post: PostEntryResponse;
-  @Input() mobile: PostEntryResponse;
+  @Input() mobile: boolean;
   nftBidData: NFTBidData;
   bids: NFTBidEntryResponse[];
   hightestBidOwner: any = {};
@@ -106,15 +106,23 @@ export class DiscoveryComponent implements OnInit {
         (err) => {
           this.globalVars._alertError(err);
         }
-      );
+      )
+      .add(() => {
+        this.delayLoading();
+      });
   }
-  contentLoaded(imageSrc: string, video: boolean) {
-    if (!video) {
-      document.getElementById("discovery_top_sc").style.backgroundImage = "url(" + imageSrc + ")";
+
+  // NFT profile had this implementation, while far from perfect it does work quite nicely there
+  delayLoading() {
+    if (this.post.PostExtraData["arweaveVideoSrc"]) {
+      setTimeout(() => {
+        this.hasContentLoaded = true;
+      }, 1000);
+    } else if (this.post.ImageURLs[0]) {
+      setTimeout(() => {
+        document.getElementById("discovery_top_sc").style.backgroundImage = "url(" + this.post.ImageURLs[0] + ")";
+        this.hasContentLoaded = true;
+      }, 1000);
     }
-    this.removeShimmer = false;
-    setTimeout(() => {
-      this.hasContentLoaded = false;
-    }, 150);
   }
 }

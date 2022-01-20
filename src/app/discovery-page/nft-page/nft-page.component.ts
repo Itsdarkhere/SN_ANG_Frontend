@@ -53,7 +53,7 @@ export class NftPageComponent implements OnInit {
     music: "Music",
     photography: "Photography",
     fresh: "Fresh Drops",
-    communityfavourites: "Community Favourites",
+    communityfavourites: "Community Favorites",
     image: "Images",
     video: "Video",
   };

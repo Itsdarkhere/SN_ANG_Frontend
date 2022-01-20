@@ -7,7 +7,7 @@
     @media screen and (max-width: 767px) {
         height: auto;
         flex-direction: column-reverse;
-        padding: 40px 0 20px 0;
+        padding: 0px 0 20px 0;
         margin: 0 -10px;
     }
     .disc_art_left {
@@ -123,6 +123,7 @@
                 padding: 40px;
                 min-height: 200px;
                 @media screen and (max-width: 767px) {
+                    min-height: 100px;
                     padding: 20px;
                 }
             }
@@ -170,6 +171,9 @@
         align-items: center;
         justify-content: center;
         display: flex;
+        @media screen and (max-width: 767px) {
+            min-height: 450px;
+        }
         .content-container {
             width: 90%;
             height: 90%;
@@ -221,4 +225,7 @@
 }
 .discovery-main-nft-shimmer-container{
     width: 70%;
+}
+.min-h-450 {
+    min-height: 450px;
 }

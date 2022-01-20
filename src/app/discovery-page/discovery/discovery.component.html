@@ -64,7 +64,7 @@
       <div class="btn_grp">
         <button
           *ngIf="
-            globalVars?.loggedInUser.PublicKeyBase58Check != post?.PosterPublicKeyBase58Check &&
+            globalVars?.loggedInUser?.PublicKeyBase58Check != post?.PosterPublicKeyBase58Check &&
             post?.NumNFTCopiesForSale > 0
           "
           type="button"

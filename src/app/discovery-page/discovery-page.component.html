@@ -7,7 +7,7 @@
       <button class="font-weight-semibold" (click)="scrollTo('favourites')">Community favorites</button>
       <button class="font-weight-semibold" (click)="scrollTo('categories')">Categories</button>
       <button class="font-weight-semibold" (click)="scrollTo('fresh-drops')">Fresh drops</button>
-      <button class="font-weight-semibold" (click)="scrollTo('creators')">Newly verified</button>
+      <button class="font-weight-semibold" (click)="scrollTo('creators')">Supernovas verified</button>
       <button class="font-weight-semibold" (click)="scrollTo('content-type')">Content formats</button>
     </div>
   </div>
@@ -421,12 +421,12 @@
     </h2>
   </div>
   <div *ngIf="!mobile" class="discovery-creator-cards-container w-100">
-    <div class="creator-card-list-discovery" *ngIf="!postsLoading">
+    <div class="creator-card-list-discovery" *ngIf="!usersLoading">
       <div class="nft-col-wrap" *ngFor="let username of discoveryUserArray">
         <app-creator-card [username]="username" [extraUserNames]="discoveryExtraUserArray"></app-creator-card>
       </div>
     </div>
-    <div class="nfts-card-list-discovery w-100" *ngIf="postsLoading">
+    <div class="nfts-card-list-discovery w-100" *ngIf="usersLoading">
       <div class="nft-col-wrap" *ngFor="let a of fakeArray">
         <div class="card">
           <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>

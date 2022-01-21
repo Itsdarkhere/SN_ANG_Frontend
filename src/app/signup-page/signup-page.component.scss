@@ -181,3 +181,28 @@
 .signup-window-body-mobile {
   margin-top: 5vh;
 }
+
+@media screen and (max-width: 480px) {
+  .signup-card-box-mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 0;
+  }
+
+  .profile-type-card-mobile {
+    width: 40vw;
+    height: 20vh;
+    margin-top: 2.5vh;
+    overflow: hidden;
+    background: #ffffff;
+    border: 2px solid #efefef;
+    border-radius: 15.0900793076px;
+    box-shadow: 1.0368170738px 1.0368170738px 20.7363395691px rgb(0 0 0 / 5%);
+  }
+
+  .h-60 {
+    height: 45%;
+  }
+}

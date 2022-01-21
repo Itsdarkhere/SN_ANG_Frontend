@@ -63,7 +63,16 @@ export class MobileVerificationComponent implements OnInit {
     this._setScreenToShow();
   }
 
-  _nextStep() {
+  _nextStep(verify: boolean) {
+    if (verify) {
+      this.globalVars.wantToVerifyPhone = true;
+    } else {
+      this.globalVars.wantToVerifyPhone = false;
+    }
+    console.log(
+      ` ---------------------------- wantToVerifyPhone ${this.globalVars.wantToVerifyPhone} ---------------------------- `
+    );
+
     this.nextStep.emit();
   }
 
@@ -96,10 +105,11 @@ export class MobileVerificationComponent implements OnInit {
     if (this.phoneForm.invalid) {
       return;
     }
+    // this.globalVars.wantToVerifyPhone = true;
     this.verificationStep = true;
     this.globalVars.logEvent("account : create : send-verification-text");
     this._sendPhoneNumberVerificationText();
-    this._nextStep();
+    this._nextStep(true);
 
     // https://docs.deso.org/identity/window-api/endpoints#verify-phone-number
     // this.identityService
@@ -241,6 +251,8 @@ export class MobileVerificationComponent implements OnInit {
           );
           this.globalVars.logEvent("account : create : submit-verification-code: success");
           this.globalVars.mobileVerified = true;
+          this.globalVars.isVerified = true;
+          this.router.navigate([RouteNames.BROWSE]);
         },
         (err) => {
           this._parseSubmitPhoneNumberVerificationCodeServerErrors(err);

@@ -56,3 +56,16 @@ button-solid:focus {
 .h-100px {
   min-height: 100px;
 }
+
+@media screen and (max-width: 480px) {
+  #verify-phone-button {
+    width: 45vw !important;
+  }
+
+  .mobile-verification-component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}

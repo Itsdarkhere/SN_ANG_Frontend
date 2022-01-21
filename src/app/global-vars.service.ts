@@ -68,6 +68,8 @@ export class GlobalVarsService {
   isNullUsernameRes: any;
   //   isOnboardingComplete
   isOnboardingComplete: boolean;
+  //   wantToVerifyPhone
+  wantToVerifyPhone: boolean;
 
   // Note: I don't think we should have default values for this. I think we should just
   // loading spinner until we get a correct value. That said, I'm not going to fix that

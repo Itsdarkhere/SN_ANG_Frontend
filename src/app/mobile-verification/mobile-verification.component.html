@@ -1,4 +1,4 @@
-<div class="h-100px">
+<div class="h-100px mobile-verification-component">
   <form *ngIf="stepNum === 4" #f="ngForm" [formGroup]="phoneForm" class="form-group mt-5px">
     <div class="mobile-verification-input-button">
       <ngx-intl-tel-input
@@ -26,21 +26,21 @@
           <button
             (click)="sendVerificationText()"
             class="black-rounded-button basic-button-size color-white fs-15px font-weight-bold"
+            type="button"
           >
             <label *ngIf="!sendingPhoneNumberVerificationText; else elseBlock" class="mb-0px pointer-events-none">
               Send verification code
             </label>
             <ng-template #elseBlock><i class="fa fa-spinner fa-spin"></i></ng-template>
           </button>
-          <button (click)="_nextStep()" class="button-solid">Skip</button>
+          <button type="button" (click)="_nextStep(false)" class="button-solid">Skip</button>
         </div>
       </div>
     </div>
     <div class="fc-red fs-15px">
-      <!-- TODO: kinda obnoxious how this displays an error as soon as I start typing
-      <div *ngIf="f.form.value.phone && f.form.controls.phone.invalid" class="mt-10px">
+      <!-- <div *ngIf="f.form.value.phone && f.form.controls.phone.invalid" class="mt-10px">
         Please enter a valid phone number
-      </div>
+      </div> -->
 
       <div *ngIf="sendPhoneNumberVerificationTextServerErrors.phoneNumberAlreadyInUse" class="mt-10px">
         This phone number is being used by another account. Please use a different phone number or sign into your other
@@ -59,10 +59,15 @@
       <div *ngIf="sendPhoneNumberVerificationTextServerErrors.chineseNumberNotAllowed" class="mt-10px">
         Currently we can't send text messages to China. If you have a non-Chinese number, please try that. If not, click
         "skip" below. You can still use the site by buying DESO.
-      </div> -->
+      </div>
     </div>
   </form>
-  <!-- <form *ngIf="stepNum === 5" #f="ngForm" [formGroup]="verificationCodeForm" class="form-group mt-5px">
+  <form
+    *ngIf="this.globalVars.wantToVerifyPhone"
+    #f="ngForm"
+    [formGroup]="verificationCodeForm"
+    class="form-group mt-5px"
+  >
     <div class="mobile-verification-input-button">
       <input
         class="form-control mobile-input w-259px"
@@ -74,8 +79,10 @@
       <div class="d-flex flex-column flex-center">
         <button
           (click)="submitVerificationCode()"
-          [ngClass]="{ disabled: !verificationCodeForm.valid }"
+          [ngClass]="{ 'disabled verify-phone-button': !verificationCodeForm.valid }"
+          id="verify-phone-button"
           class="black-rounded-button small-button-size-2 ml-10px fs-12px"
+          type="button"
         >
           <label *ngIf="!submittingPhoneNumberVerificationCode; else elseBlock" class="mb-0px pointer-events-none">
             Verify your phone
@@ -104,5 +111,5 @@
     <div *ngIf="sendPhoneNumberVerificationTextServerErrors.maxSendAttemptsReached" class="mt-5px fc-red fs-15px">
       You've requested too many verification codes. Please wait 10 minutes and try again.
     </div>
-  </div> -->
+  </div>
 </div>

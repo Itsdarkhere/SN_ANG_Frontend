@@ -67,6 +67,7 @@ export class SignupPageComponent implements OnInit {
       this.stepNum = params.stepNum ? parseInt(params.stepNum) : 1;
     });
   }
+
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
   }
@@ -179,24 +180,29 @@ export class SignupPageComponent implements OnInit {
       //     this.SendStepFourEvent();
       //   }
       this.SendStepTwoEvent();
+      this.stepNum++;
     }
     if (this.stepNum === 3) {
       this.SendStepThreeEvent();
+      this.stepNum++;
     }
     if (this.stepNum === 3 && !this.invalidEmailEntered) {
       this._updateEmail();
       this.SendStepThreeEvent();
+      this.stepNum++;
     }
     if (this.stepNum === 4) {
       this.updateProfileType();
-      if (!this.globalVars.mobileVerified) {
+      if (this.globalVars.wantToVerifyPhone === false) {
         this.router.navigate([RouteNames.COMPLETE_PROFILE]);
-      } else {
-        this.SendStepFourEvent();
       }
-    }
 
-    this.stepNum++;
+      console.log(` -------------------------- stepNum ${this.stepNum} ------------------------- `);
+
+      //   if (!this.globalVars.mobileVerified) {
+      //       this.SendStepFourEvent();
+      // }
+    }
   }
   creatorSelected() {
     this.creator = true;

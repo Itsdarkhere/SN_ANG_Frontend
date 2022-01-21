@@ -1,0 +1,14 @@
+.mlb-status-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 10px;
+    button {
+        width: 83px;
+        height: 68px;
+        background-color: #FFFFFF;
+        border: 1.1800000667572021px solid #aaaaaa;
+        border-radius: 7.866666793823242px;
+    }
+}

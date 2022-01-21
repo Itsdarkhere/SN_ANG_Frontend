@@ -18,7 +18,7 @@
         <label class="marketplace-checkbox-label fs-14px">Primary</label>
       </button>
       <button
-        class="w-100 mt-5px marketplace-filter-button d-flex flex-row align-items-center pl-10px position-relative"
+        class="w-100 mt-10px marketplace-filter-button d-flex flex-row align-items-center pl-10px position-relative"
         [ngClass]="secondary ? 'market-button-checked' : ''"
         (click)="toggleSecondary()"
       >
@@ -41,12 +41,12 @@
       </select>
       <label class="w-100 mt-20px pl-10px marketplace-label">Content format</label>
       <button
-        class="w-100 mlb-content-format-button pl-10px fs-14px"
+        class="w-100 mlb-content-format-button d-flex flex-row flex-center-start pl-10px"
         [ngClass]="status === 'All' ? 'market-button-active' : ''"
         (click)="changeStatus('All')"
       >
         <img src="/assets/icons/market_globe_icon.svg" alt="image-icon" />
-        All
+        <p class="pl-5px fs-14px">All</p>
       </button>
       <div class="mlb-status-grid pt-10px">
         <button>

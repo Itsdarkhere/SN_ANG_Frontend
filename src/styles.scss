@@ -1649,10 +1649,12 @@ input.bs-timepicker-field {
     text-align: start;
     background: #ffffff;
     font-weight: 500;
-    color: #2C2C2C;
     border: 2.5px solid #222222;
     border-radius: 10px;
     box-shadow: 0.9287535548210144px 1.8575071096420288px 4.643767833709717px rgba(0, 0, 0, 0.06);
+    p {
+        color: #2C2C2C;
+    }
 }
 .market-button-active {
     font-weight: 500;

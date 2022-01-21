@@ -41,27 +41,28 @@
       </select>
       <label class="w-100 mt-20px pl-10px marketplace-label">Content format</label>
       <button
-        class="w-100 marketplace-filter-button pl-10px"
+        class="w-100 mlb-content-format-button pl-10px fs-14px"
         [ngClass]="status === 'All' ? 'market-button-active' : ''"
         (click)="changeStatus('All')"
       >
+        <img src="/assets/icons/market_globe_icon.svg" alt="image-icon" />
         All
       </button>
       <div class="mlb-status-grid pt-10px">
         <button>
-          <img src="/assets/icons/market_images_icon.svg" alt="image-icon" />
+          <img src="/assets/icons/market_images_icon.svg" class="mb-5px" alt="image-icon" />
           Images
         </button>
         <button>
-          <img src="/assets/icons/market_video_icon.svg" alt="image-icon" />
+          <img src="/assets/icons/market_video_icon.svg" class="mb-5px" alt="image-icon" />
           Video
         </button>
         <button>
-          <img src="/assets/icons/market_music_icon.svg" alt="image-icon" />
+          <img src="/assets/icons/market_music_icon.svg" class="mb-5px" alt="image-icon" />
           Music
         </button>
         <button>
-          <img src="/assets/icons/market_3d_icon.svg" alt="image-icon" />
+          <img src="/assets/icons/market_3d_icon.svg" class="mb-5px" alt="image-icon" />
           3D
         </button>
       </div>

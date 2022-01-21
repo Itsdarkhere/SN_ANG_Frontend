@@ -1580,9 +1580,7 @@ input.bs-timepicker-field {
     line-height: 12px;
 }
 
-.mkr_top_select {
-    width: 202px;
-    height: 48px;
+.mrk_select {
     background: #ffffff;
     color: #525252;
     border: 1.346666693687439px solid #aaaaaa;
@@ -1592,6 +1590,14 @@ input.bs-timepicker-field {
     -webkit-appearance: none;
     padding-left: 10px;
     background-position-x: calc(100% - 10px);
+}
+.mrk_top_select_height {
+    width: 202px;
+    height: 48px;
+}
+.mrk_select_height {
+    width: 100%;
+    height: 42px;
 }
 
 .marketplace-mobile-margin {

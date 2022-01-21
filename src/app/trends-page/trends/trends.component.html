@@ -1,6 +1,34 @@
 <!--MARKETPLACE CONTENT-->
 <!-- Show shimmer Loader Until page completely Load -->
-<div class="mobile_mrk_head" [ngClass]="mobile ? 'mt-65px' : ''">Marketplace</div>
+<div
+  class="mrk_top pb-10px d-flex flex-end-center flex-row justify-content-between"
+  [ngClass]="mobile ? 'mt-65px' : ''"
+>
+  <div class="mrk_top_selector-one px-5px d-flex flex-row">
+    <button (click)="setContentType('NFTs')" [ngClass]="{ selected: typeNFTs }">NFTs</button>
+    <button (click)="setContentType('Collections')" [ngClass]="{ selected: typeCollections }">Collections</button>
+    <button (click)="setContentType('Creators')" [ngClass]="{ selected: typeCreators }">Creators</button>
+  </div>
+  <div class="d-flex flex-row">
+    <div class="mrk_top_selector-two px-5px ml-20px d-flex flex-row">
+      <button class="selected" (click)="setDisplayType('Card')" [ngClass]="{ selected: displayCard }">
+        <img src="/assets/icons/market_grid_type_card_icon.svg" alt="card icon" />
+      </button>
+      <button (click)="setDisplayType('Grid')" [ngClass]="{ selected: displayGrid }">
+        <img src="/assets/icons/market_grid_type_grid_icon.svg" alt="grid icon" />
+      </button>
+    </div>
+    <select class="p-5px ml-20px mkr_top_select fs-14px">
+      <option value="Most recent first">Most recent first</option>
+      <option value="Oldest first">Oldest first</option>
+      <option value="Highest price first">Highest price first</option>
+      <option value="Most likes first">Most likes first</option>
+      <option value="Most diamonds first">Most diamonds first</option>
+      <option value="Most comments first">Most comments first</option>
+      <option value="Most reposts first">Most reposts first</option>
+    </select>
+  </div>
+</div>
 <div class="w-100 d-flex flex-row overflow-visible">
   <app-marketplace-left-bar *ngIf="!mobile"></app-marketplace-left-bar>
   <div [ngClass]="mobile ? 'global__content__width' : 'global__center__width'">

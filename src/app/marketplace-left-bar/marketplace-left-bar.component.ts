@@ -16,6 +16,19 @@ export class MarketplaceLeftBarComponent implements OnInit {
   secondary = true;
   selectValue: string;
   status: string;
+
+  // Status buttons
+  statusAll = false;
+  statusForSale = false;
+  statusHasBids = false;
+  statusSold = false;
+
+  // Content format buttons
+  formatImages = false;
+  formatVideo = false;
+  formatMusic = false;
+  format3D = false;
+
   // Sorting
   static MOST_RECENT_FIRST = "Most recent first";
   static OLDEST_FIRST = "Oldest first";
@@ -98,6 +111,85 @@ export class MarketplaceLeftBarComponent implements OnInit {
 
   changeStatus(status) {
     this.status = status;
+  }
+  // Status button clicks
+  statusClick(button: string) {
+    console.log(button);
+    switch (button) {
+      case "All":
+        if (this.statusAll) {
+          this.statusAll = false;
+        } else {
+          this.statusAll = true;
+          // IF all you close others
+          this.statusForSale = false;
+          this.statusHasBids = false;
+          this.statusSold = false;
+        }
+        break;
+      case "For Sale":
+        if (this.statusForSale) {
+          this.statusForSale = false;
+        } else {
+          this.statusAll = false;
+          this.statusForSale = true;
+        }
+        break;
+      case "Has Bids":
+        if (this.statusHasBids) {
+          this.statusHasBids = false;
+        } else {
+          this.statusAll = false;
+          this.statusHasBids = true;
+        }
+        break;
+      case "Sold":
+        if (this.statusSold) {
+          this.statusSold = false;
+        } else {
+          this.statusAll = false;
+          this.statusSold = true;
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  // Status button clicks
+  formatClick(button: string) {
+    switch (button) {
+      case "Images":
+        if (this.formatImages) {
+          this.formatImages = false;
+        } else {
+          this.formatImages = true;
+        }
+        break;
+      case "Video":
+        if (this.formatVideo) {
+          this.formatVideo = false;
+        } else {
+          this.formatVideo = true;
+        }
+        break;
+      case "Music":
+        if (this.formatMusic) {
+          this.formatMusic = false;
+        } else {
+          this.formatMusic = true;
+        }
+        break;
+      case "3D":
+        if (this.format3D) {
+          this.format3D = false;
+        } else {
+          this.format3D = true;
+        }
+        break;
+      default:
+        break;
+    }
   }
   // Functionpass service is made to pass this argument
   apply() {

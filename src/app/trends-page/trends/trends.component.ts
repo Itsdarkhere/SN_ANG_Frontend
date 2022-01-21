@@ -32,6 +32,16 @@ export class TrendsComponent implements OnInit {
   index = 0;
   mobile = false;
 
+  // Nfts, creators, collections
+  typeNFTs = true;
+  typeCollections = false;
+  typeCreators = false;
+
+  // display type, card or grid
+  // Naming convention for display grid probably is not optimal but couldnt come up with a better one
+  displayCard = true;
+  displayGrid = false;
+
   infiniteScroller: InfiniteScroller = new InfiniteScroller(
     TrendsComponent.PAGE_SIZE,
     this.getPage.bind(this),
@@ -82,7 +92,45 @@ export class TrendsComponent implements OnInit {
       );
     });
   }
-
+  // Choosing between a grid display of NFTs and Card display
+  setDisplayType(display: string) {
+    switch (display) {
+      case "Card":
+        this.displayCard = true;
+        this.displayGrid = false;
+        break;
+      case "Grid":
+        this.displayGrid = true;
+        this.displayCard = false;
+        break;
+      default:
+        break;
+    }
+  }
+  setContentType(content: string) {
+    switch (content) {
+      case "NFTs":
+        this.typeNFTs = true;
+        // Only one content type at a time
+        this.typeCollections = false;
+        this.typeCreators = false;
+        break;
+      case "Collections":
+        this.typeCollections = true;
+        // Only one content type at a time
+        this.typeNFTs = false;
+        this.typeCreators = false;
+        break;
+      case "Creators":
+        this.typeCreators = true;
+        // Only one content type at a time
+        this.typeCollections = false;
+        this.typeNFTs = false;
+        break;
+      default:
+        break;
+    }
+  }
   getParamsAndSort() {
     this.route.queryParams
       .subscribe((params) => {

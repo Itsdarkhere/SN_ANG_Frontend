@@ -3,10 +3,26 @@
     <div class="global__nav__inner__marketplace position-relative">
       <label class="w-100 pl-10px marketplace-label">Status</label>
       <div class="mlb-status-grid">
-        <button class="font-weight-semibold fs-14px">All</button>
-        <button class="font-weight-semibold fs-14px">For Sale</button>
-        <button class="font-weight-semibold fs-14px">Has Bids</button>
-        <button class="font-weight-semibold fs-14px">Sold</button>
+        <button class="font-weight-semibold fs-14px" (click)="statusClick('All')" [ngClass]="{ selected: statusAll }">
+          All
+        </button>
+        <button
+          class="font-weight-semibold fs-14px"
+          (click)="statusClick('For Sale')"
+          [ngClass]="{ selected: statusForSale }"
+        >
+          For Sale
+        </button>
+        <button
+          class="font-weight-semibold fs-14px"
+          (click)="statusClick('Has Bids')"
+          [ngClass]="{ selected: statusHasBids }"
+        >
+          Has Bids
+        </button>
+        <button class="font-weight-semibold fs-14px" (click)="statusClick('Sold')" [ngClass]="{ selected: statusSold }">
+          Sold
+        </button>
       </div>
       <label class="w-100 mt-20px pl-10px marketplace-label">Market</label>
       <button
@@ -27,7 +43,7 @@
       </button>
       <label class="w-100 mt-20px pl-10px marketplace-label">Category</label>
       <select
-        class="w-100 p-5px marketplace-select fs-14px"
+        class="w-100 p-5px marketplace-select pr-10px font-weight-semibold fs-14px"
         (ngModelChange)="onSelectChange($event)"
         [ngModel]="selectValue"
       >
@@ -49,19 +65,19 @@
         <p class="pl-5px fs-14px">All</p>
       </button>
       <div class="mlb-status-grid pt-10px">
-        <button>
+        <button (click)="formatClick('Images')" [ngClass]="{ selected: formatImages }">
           <img src="/assets/icons/market_images_icon.svg" class="mb-5px" alt="image-icon" />
           Images
         </button>
-        <button>
+        <button (click)="formatClick('Video')" [ngClass]="{ selected: formatVideo }">
           <img src="/assets/icons/market_video_icon.svg" class="mb-5px" alt="image-icon" />
           Video
         </button>
-        <button>
+        <button (click)="formatClick('Music')" [ngClass]="{ selected: formatMusic }">
           <img src="/assets/icons/market_music_icon.svg" class="mb-5px" alt="image-icon" />
           Music
         </button>
-        <button>
+        <button (click)="formatClick('3D')" [ngClass]="{ selected: format3D }">
           <img src="/assets/icons/market_3d_icon.svg" class="mb-5px" alt="image-icon" />
           3D
         </button>

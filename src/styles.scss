@@ -1606,6 +1606,7 @@ input.bs-timepicker-field {
 
 .global__nav__fixed__marketplace {
     top: 150px;
+    left:  calc((100vw - 1205px)/2);;
     position: fixed;
     @media (max-width: 900px) {
         top: 0;
@@ -3138,17 +3139,27 @@ em {
     justify-content: center;
     align-items: center;
 }
+.flex-end-end {
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+.flex-end-start {
+    justify-content: flex-end;
+    align-items: flex-start;
+}
 
 .flex-center-start {
     justify-content: flex-start;
     align-items: center;
 }
-
 .flex-start-start {
     justify-content: flex-start;
     align-items: start;
 }
-
+.flex-start-end {
+    justify-content: flex-start;
+    align-items: flex-end;
+}
 .flex-center-end {
     justify-content: end;
     align-items: center;

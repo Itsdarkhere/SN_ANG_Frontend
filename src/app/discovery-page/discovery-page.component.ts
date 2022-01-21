@@ -131,15 +131,11 @@ export class DiscoveryPageComponent implements OnInit {
       .subscribe(
         (res) => {
           var arrayHolder = res.VerifiedUsers.sort(() => Math.random() - 0.5);
-          console.log("yesno")
           this.discoveryUserArray = arrayHolder.slice(0, 8);
-          console.log("no")
-
 
           // Some of the users might have deleted their profiles
           // So if fetch in creatorCard fails, we can try again with an additional profile
           this.discoveryExtraUserArray = arrayHolder.slice(8, 10);
-          console.log("yes")
           setTimeout(() => {
             this.usersLoading = false;
           }, 300);

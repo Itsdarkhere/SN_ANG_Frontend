@@ -116,7 +116,7 @@ export class DiscoveryPageComponent implements OnInit {
         }, 300);
       });
   }
-  routeViewAll(category) {
+  routeViewAll(category: string) {
     this.router.navigate([this.globalVars.RouteNames.NFT_PAGE], {
       queryParams: {
         category: category,

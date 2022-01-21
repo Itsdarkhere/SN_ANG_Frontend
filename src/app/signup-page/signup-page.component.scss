@@ -22,14 +22,11 @@
   box-shadow: 1.0368170738220215px 1.0368170738220215px 10.368169784545898px rgba(155, 155, 155, 0.02);
   overflow-y: scroll;
 }
-.singup-card-box {
+.signup-card-box {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 25px;
-  @media (max-width: 500px) {
-    flex-direction: column;
-  }
 }
 .left-btn {
   margin-right: 40px;
@@ -125,4 +122,62 @@
   height: 35px;
   border-radius: 5.669146537780762px;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+// ------------------ mobile
+
+.flex-center-mobile {
+  justify-content: center;
+  margin-top: 1vh;
+  height: 95vh;
+}
+
+.signup-center-height-mobile {
+  width: 95vw;
+  height: 90vh;
+  overflow-y: scroll;
+}
+
+.signup-window-header-mobile {
+  margin-top: 5vh;
+  font-size: 2rem;
+  display: block;
+}
+
+.signup-card-box-mobile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3vh;
+  flex-direction: column;
+}
+
+.profile-type-card-mobile {
+  width: 40vw;
+  height: 20vh;
+  margin-top: 6.5vh;
+  overflow: hidden;
+  background: #ffffff;
+  border: 2px solid #efefef;
+  border-radius: 15.0900793076px;
+  box-shadow: 1.0368170738px 1.0368170738px 20.7363395691px rgb(0 0 0 / 5%);
+}
+
+.signup-card-box-mobile-text {
+  display: block;
+}
+
+.signup-window-btn-mobile {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 250px;
+  bottom: 0;
+  margin-bottom: 5vh;
+}
+
+.signup-window-body-mobile {
+  margin-top: 5vh;
 }

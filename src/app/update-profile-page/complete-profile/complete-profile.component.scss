@@ -439,3 +439,394 @@
   left: 95px;
   width: 275px;
 }
+
+// ------------------------- mobile
+
+.onboarding-card-mobile {
+  width: 90vw;
+  height: 70vh;
+  left: 5vw;
+  top: 9vh;
+  background: #ffffff;
+  border-radius: 29.6169px;
+  position: absolute;
+}
+
+.onboarding-card-header-1-mobile {
+  font-weight: 600;
+  font-size: 1.5rem;
+  position: absolute;
+  left: 2vw;
+  top: 3vh;
+}
+
+.onboarding-card-subheader-mobile {
+  font-size: 1rem;
+  position: absolute;
+  left: 2vw;
+  top: 6vh;
+}
+
+.color-gradient-mobile {
+  left: 2vw;
+  top: 13vh;
+  position: absolute;
+  height: 42vh;
+}
+
+.checkmark-1-mobile {
+  position: absolute;
+  height: 2.5vh;
+  left: 1vw;
+  top: 12vh;
+}
+
+.step-1-header-mobile {
+  position: absolute;
+  left: 7vw;
+  top: 12vh;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.step-1-text-mobile {
+  position: absolute;
+  left: 7vw;
+  top: 15vh;
+  font-size: 15px;
+  width: 50vw;
+}
+
+.onboarding-card-button-mobile {
+  width: 15vw;
+  height: 5vh;
+  border: 3px solid #000000;
+  border-radius: 31.8791942596px;
+  box-shadow: 0.4547150731px 0.4547150731px 2.2735750675px rgb(0 0 0 / 11%);
+  background-color: white;
+  position: absolute;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.onboarding-card-button-1-mobile {
+  top: 15vh;
+  right: 5vw;
+}
+
+.checkmark-2-mobile {
+  position: absolute;
+  height: 2.5vh;
+  left: 1vw;
+  top: 23vh;
+}
+
+.step-2-header-mobile {
+  position: absolute;
+  left: 7vw;
+  top: 23vh;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.step-2-text-mobile {
+  position: absolute;
+  left: 7vw;
+  top: 26vh;
+  font-size: 15px;
+  width: 50vw;
+}
+
+.checkmark-3-mobile {
+  position: absolute;
+  height: 2.5vh;
+  left: 1vw;
+  top: 35vh;
+}
+
+.step-3-header-mobile {
+  position: absolute;
+  left: 7vw;
+  top: 35vh;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.step-3-text-mobile {
+  position: absolute;
+  left: 7vw;
+  top: 38vh;
+  font-size: 15px;
+  width: 50vw;
+}
+
+.checkmark-4-mobile {
+  position: absolute;
+  height: 2.5vh;
+  left: 1vw;
+  top: 45vh;
+}
+
+.step-4-header-mobile {
+  position: absolute;
+  left: 7vw;
+  top: 45vh;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.step-4-text-mobile {
+  position: absolute;
+  left: 7vw;
+  top: 48vh;
+  font-size: 15px;
+  width: 50vw;
+}
+
+.done-mobile {
+  position: absolute;
+  /* width: 5vw; */
+  height: 3vw;
+  left: 0vw;
+  top: 53vh;
+}
+
+.line-break-mobile {
+  position: absolute;
+  width: 80vw;
+  height: 0px;
+  left: 0px;
+  top: 58vh;
+  border: 0.25px solid #c7c7c7;
+}
+
+.support-header-mobile {
+  position: absolute;
+  left: 10vw;
+  top: 60vh;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.support-text-mobile {
+  position: absolute;
+  left: 10vw;
+  top: 63vh;
+  font-size: 15px;
+  width: 45vw;
+}
+
+.onboarding-support-button-mobile {
+  width: 30vw;
+  height: 5vh;
+  border: 3px solid #000000;
+  border-radius: 31.8791942596px;
+  box-shadow: 0.4547150731px 0.4547150731px 2.2735750675px rgb(0 0 0 / 11%);
+  background-color: white;
+  position: absolute;
+  font-weight: bold;
+  font-size: 15px;
+  left: 18vw;
+  top: 72vh;
+}
+
+.mobile-navbar-buffer {
+  height: 100px;
+  bottom: 0;
+  position: absolute;
+  width: 100vw;
+}
+
+@media screen and (max-width: 480px) {
+  .onboarding-card-mobile {
+    width: 90vw;
+    height: 75vh;
+    left: 5vw;
+    top: 9vh;
+    background: #ffffff;
+    border-radius: 29.6169px;
+    position: absolute;
+    overflow: scroll;
+  }
+
+  .onboarding-card-header-1-mobile {
+    font-weight: 600;
+    font-size: 1rem;
+    left: 2vw;
+    top: 3vh;
+  }
+
+  .onboarding-card-subheader-mobile {
+    font-size: 0.75rem;
+    left: 2vw;
+    top: 6vh;
+  }
+
+  .color-gradient-mobile {
+    left: 1.5vw;
+    top: 13vh;
+    position: absolute;
+    height: 107vh;
+    width: 2vw;
+  }
+
+  .checkmark-1-mobile {
+    position: absolute;
+    height: 3vh;
+    left: -1px;
+    top: 12vh;
+  }
+
+  .step-1-header-mobile {
+    left: 7vw;
+    top: 11.5vh;
+    font-size: 1rem;
+    font-weight: bold;
+    display: block;
+  }
+
+  .step-1-text-mobile {
+    left: 7vw;
+    top: 15vh;
+    font-size: 0.75rem;
+    width: 70vw;
+    display: block;
+  }
+
+  .onboarding-card-button-mobile {
+    width: 70vw;
+    height: 5vh;
+    border: 3px solid #000000;
+    border-radius: 31.8791942596px;
+    box-shadow: 0.4547150731px 0.4547150731px 2.2735750675px rgb(0 0 0 / 11%);
+    background-color: white;
+    font-weight: bold;
+    font-size: 15px;
+    display: block;
+  }
+
+  .onboarding-card-button-1-mobile {
+    top: 25vh;
+    left: 7vw;
+  }
+
+  .checkmark-2-mobile {
+    position: absolute;
+    height: 3vh;
+    left: 0vw;
+    top: 37vh;
+  }
+
+  .step-2-header-mobile {
+    position: absolute;
+    left: 7vw;
+    top: 37vh;
+    font-size: 1rem;
+    font-weight: bold;
+    display: block;
+  }
+
+  .step-2-text-mobile {
+    position: absolute;
+    left: 7vw;
+    top: 41vh;
+    font-size: 0.75rem;
+    width: 70vw;
+    display: block;
+  }
+
+  .onboarding-card-button-2 {
+    top: 50vh;
+    left: 7vw;
+  }
+
+  .checkmark-3-mobile {
+    position: absolute;
+    height: 3vh;
+    left: 0vw;
+    top: 68vh;
+  }
+
+  .step-3-header-mobile {
+    position: absolute;
+    left: 7vw;
+    top: 68vh;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .step-3-text-mobile {
+    position: absolute;
+    left: 7vw;
+    top: 72vh;
+    font-size: 0.75rem;
+    width: 70vw;
+  }
+
+  .onboarding-card-button-3 {
+    top: 82vh;
+    left: 7vw;
+  }
+
+  .checkmark-4-mobile {
+    position: absolute;
+    height: 3vh;
+    left: 0vw;
+    top: 93vh;
+  }
+
+  .step-4-header-mobile {
+    position: absolute;
+    left: 7vw;
+    top: 93vh;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .step-4-text-mobile {
+    position: absolute;
+    left: 7vw;
+    top: 97vh;
+    font-size: 0.75rem;
+    width: 70vw;
+  }
+
+  .onboarding-card-button-4 {
+    top: 107vh;
+    left: 7vw;
+  }
+
+  .line-break-mobile {
+    display: none;
+  }
+
+  .support-header-mobile {
+    position: absolute;
+    left: 10vw;
+    top: 125vh;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .support-text-mobile {
+    position: absolute;
+    left: 10vw;
+    top: 129vh;
+    font-size: 0.75rem;
+    width: 45vw;
+  }
+
+  .onboarding-support-button-mobile {
+    width: 70vw;
+    height: 5vh;
+    border: 3px solid #000000;
+    border-radius: 31.8791942596px;
+    box-shadow: 0.4547150731px 0.4547150731px 2.2735750675px rgb(0 0 0 / 11%);
+    background-color: white;
+    position: absolute;
+    font-weight: bold;
+    font-size: 15px;
+    left: 30px;
+    top: 140vh;
+  }
+}

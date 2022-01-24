@@ -305,15 +305,12 @@
     >
       <div class="max-width-445px signup-window">
         <label
+          *ngIf="!this.globalVars.phoneVerified"
           class="font-weight-semiboldn mb-0px mt-20px header-font-rezising text-align-center signup-window-header-mobile"
         >
           Enter verification code
         </label>
         <div class="h-120px mt-20px signup-window-body-mobile">
-          <!-- <label class="fs-18px mb-0px font-weight-semiboldn">Phone number</label>
-        <p style="color: #969696" class="fs-13px font-weight-semibold">
-          By verifying your phone number we know you are a real person!
-        </p> -->
           <div>
             <app-mobile-verification [stepNum]="stepNum" (nextStep)="nextStep()"></app-mobile-verification>
           </div>

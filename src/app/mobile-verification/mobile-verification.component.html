@@ -1,6 +1,6 @@
 <div class="h-100px mobile-verification-component">
   <form
-    *ngIf="stepNum === 4 && !this.globalVars.wantToVerifyPhone"
+    *ngIf="stepNum === 4 && !this.globalVars.wantToVerifyPhone && !this.globalVars.phoneVerified"
     #f="ngForm"
     [formGroup]="phoneForm"
     class="form-group mt-5px"
@@ -46,9 +46,9 @@
     </div>
     <div class="fc-red fs-15px">
       <!-- trigger when they click the button and not while typing -->
-      <div *ngIf="f.form.value.phone && f.form.controls.phone.invalid" class="mt-10px">
+      <!-- <div *ngIf="f.form.value.phone && f.form.controls.phone.invalid" class="mt-10px">
         Please enter a valid phone number
-      </div>
+      </div> -->
 
       <div *ngIf="sendPhoneNumberVerificationTextServerErrors.phoneNumberAlreadyInUse" class="mt-10px">
         This phone number is being used by another account. Please use a different phone number or sign into your other
@@ -71,19 +71,26 @@
     </div>
   </form>
   <form
-    *ngIf="stepNum === 4 && this.globalVars.wantToVerifyPhone"
+    *ngIf="stepNum === 4 && this.globalVars.wantToVerifyPhone && !this.globalVars.phoneVerified"
     #f="ngForm"
     [formGroup]="verificationCodeForm"
     class="form-group mt-5px"
   >
     <div class="mobile-verification-input-button">
-      <input
+      <!-- <input
         class="form-control mobile-input w-259px"
         name="verificationCode"
         formControlName="verificationCode"
         placeholder="Verification code"
         (ngModelChange)="onVerificationCodeInputChanged()"
-      />
+        id="test"
+      /> -->
+      <div id="digits">
+        <input (keyup)="onKey($event)" type="text" name="digit1" id="digit1" class="digit" />
+        <input (keyup)="onKey($event)" type="text" name="digit2" id="digit2" class="digit" />
+        <input (keyup)="onKey($event)" type="text" name="digit3" id="digit3" class="digit" />
+        <input (keyup)="onKey($event)" type="text" name="digit4" id="digit4" class="digit" />
+      </div>
       <div class="d-flex flex-column flex-center">
         <div class="resend-verification-text-block">
           <p class="fs-12px resend-verification-text">Did not get it?</p>
@@ -119,6 +126,25 @@
   <div class="fs-18px">
     <div *ngIf="sendPhoneNumberVerificationTextServerErrors.maxSendAttemptsReached" class="mt-5px fc-red fs-15px">
       You've requested too many verification codes. Please wait 10 minutes and try again.
+    </div>
+  </div>
+
+  <!-- verification complete -->
+  <div *ngIf="this.globalVars.phoneVerified">
+    <img src="../../assets/img/verification-complete.png" class="verification-complete-image" />
+    <label
+      class="font-weight-semiboldn mb-0px mt-20px header-font-rezising text-align-center signup-window-header-mobile"
+    >
+      Phone Number Verified!
+    </label>
+    <div class="w-100 d-flex flex-center">
+      <button
+        (click)="completeVerificationButtonClicked()"
+        class="black-rounded-button basic-button-size color-white fs-15px font-weight-bold signup-window-btn-mobile"
+        id="complete-verfication-button"
+      >
+        Continue
+      </button>
     </div>
   </div>
 </div>

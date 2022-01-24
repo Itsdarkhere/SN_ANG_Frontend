@@ -70,6 +70,8 @@ export class GlobalVarsService {
   isOnboardingComplete: boolean;
   //   wantToVerifyPhone
   wantToVerifyPhone: boolean;
+  //   phoneVerified
+  phoneVerified: boolean;
 
   // Note: I don't think we should have default values for this. I think we should just
   // loading spinner until we get a correct value. That said, I'm not going to fix that
@@ -215,8 +217,8 @@ export class GlobalVarsService {
   // Whether or not to show the Jumio verification flow.
   showJumio = false;
 
-  // Weather or not to show Username insert in signup flow
-  mobileVerified = false;
+  //   // Weather or not to show Username insert in signup flow
+  //   mobileVerified = false;
 
   // Whether or not this node comps profile creation.
   isCompProfileCreation = false;

@@ -51,6 +51,11 @@ export class MobileVerificationComponent implements OnInit {
   sendPhoneNumberVerificationTextServerErrors = new SendPhoneNumberVerificationTextServerErrors();
   submitPhoneNumberVerificationCodeServerErrors = new SubmitPhoneNumberVerificationCodeServerErrors();
 
+  inputValue: any;
+  digitCounter: number;
+  digitCounterString: string;
+  verificationCodeString: string;
+
   constructor(
     public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
@@ -61,6 +66,9 @@ export class MobileVerificationComponent implements OnInit {
 
   ngOnInit(): void {
     this._setScreenToShow();
+
+    this.digitCounter = 1;
+    this.verificationCodeString = "";
   }
 
   _nextStep(verify: boolean) {
@@ -74,6 +82,32 @@ export class MobileVerificationComponent implements OnInit {
     );
 
     this.nextStep.emit();
+  }
+
+  onKey(event: any) {
+    this.onVerificationCodeInputChanged();
+
+    this.inputValue = event.target.value;
+    this.digitCounter = this.digitCounter + 1;
+    this.digitCounterString = this.digitCounter.toString();
+
+    this.verificationCodeString = this.verificationCodeString.concat(this.inputValue.toString());
+
+    if (this.digitCounterString === "5") {
+      console.log(
+        ` ---------------------- verification code string ${this.verificationCodeString} ----------------------- `
+      );
+
+      this.globalVars.phoneVerified = true;
+
+      return;
+    }
+
+    document.getElementById(`digit${this.digitCounterString}`).focus();
+  }
+
+  completeVerificationButtonClicked() {
+    this.router.navigate([RouteNames.COMPLETE_PROFILE]);
   }
 
   _setScreenToShow() {
@@ -239,7 +273,8 @@ export class MobileVerificationComponent implements OnInit {
         this.globalVars.loggedInUser.PublicKeyBase58Check /*UpdaterPublicKeyBase58Check*/,
         this.phoneNumber /*PhoneNumber*/,
         this.phoneNumberCountryCode /*PhoneNumberCountryCode*/,
-        this.verificationCodeForm.value.verificationCode
+        // this.verificationCodeForm.value.verificationCode
+        this.verificationCodeString
       )
       .subscribe(
         (res) => {
@@ -251,8 +286,8 @@ export class MobileVerificationComponent implements OnInit {
             this
           );
           this.globalVars.logEvent("account : create : submit-verification-code: success");
-          this.globalVars.mobileVerified = true;
-          this.globalVars.isVerified = true;
+          //   this.globalVars.mobileVerified = true;
+          this.globalVars.phoneVerified = true;
           this.router.navigate([RouteNames.BROWSE]);
         },
         (err) => {

@@ -40,7 +40,6 @@ button-solid:focus {
   align-items: center;
   @media (max-width: 520px) {
     flex-direction: column;
-    align-items: flex-start;
     .black-rounded-button {
       margin-top: 10px;
     }
@@ -55,6 +54,81 @@ button-solid:focus {
 }
 .h-100px {
   min-height: 100px;
+}
+
+// phone verification digits -----------------------------------
+
+.digit {
+  font-size: 2rem;
+  width: 50px;
+  border: 2px solid #aaa;
+  text-align: center;
+  box-shadow: 0 0 8px rgb(0 0 0 / 25%);
+  margin: 0px 10px;
+}
+
+.digit:focus {
+  border: 2px solid black;
+  outline: none;
+}
+
+/* DECORATION */
+
+.digit:focus {
+  animation-name: zoom;
+  animation-duration: 200ms;
+}
+
+@keyframes zoom {
+  from {
+  }
+  to {
+    transform: scale(2);
+  }
+}
+
+/* body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	background-color: lightgray;
+} */
+
+#digits {
+  padding: 20px;
+  display: inline-block;
+}
+
+.verification-complete-image {
+  width: 50px;
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+}
+
+// phone verification digits -----------------------------------
+
+#create-profile-button {
+  display: block;
+}
+
+#complete-verfication-button {
+  margin-bottom: 5vh;
+  bottom: 0;
+  position: absolute;
+}
+
+.phone-number-text-block {
+  margin-bottom: 5vh;
+  bottom: 0;
+  position: absolute;
+}
+
+#verify-phone-button {
+  margin-bottom: 5vh;
+  bottom: 0;
+  position: absolute;
 }
 
 @media screen and (max-width: 480px) {

@@ -18,7 +18,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
   status: string;
 
   // Status buttons
-  statusAll = false;
+  statusAll = true;
   statusForSale = false;
   statusHasBids = false;
   statusSold = false;

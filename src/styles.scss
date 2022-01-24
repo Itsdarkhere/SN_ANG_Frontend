@@ -1617,7 +1617,7 @@ input.bs-timepicker-field {
     height: 90vh;
     overflow: auto;
     left:  calc((100vw - 1205px)/2);;
-    padding-bottom: 8rem;
+    padding-bottom: 7rem;
 }
 
 .display-none {
@@ -1661,6 +1661,7 @@ input.bs-timepicker-field {
 }
 .mlb-content-format-button.selected {
     font-weight: 500;
+    color: #1B1B1B;
     border: 2.5px solid #222222;
 }
 .market-button-active {

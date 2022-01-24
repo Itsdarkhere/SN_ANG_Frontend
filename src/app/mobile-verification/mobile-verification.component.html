@@ -1,5 +1,10 @@
 <div class="h-100px mobile-verification-component">
-  <form *ngIf="stepNum === 4" #f="ngForm" [formGroup]="phoneForm" class="form-group mt-5px">
+  <form
+    *ngIf="stepNum === 4 && !this.globalVars.wantToVerifyPhone"
+    #f="ngForm"
+    [formGroup]="phoneForm"
+    class="form-group mt-5px"
+  >
     <div class="mobile-verification-input-button">
       <ngx-intl-tel-input
         style="font-size: 15px !important"
@@ -15,21 +20,23 @@
         (ngModelChange)="onPhoneNumberInputChanged()"
         name="phone"
         formControlName="phone"
+        id="enter-phone-number"
       ></ngx-intl-tel-input>
-      <div class="w-100 d-flex flex-center">
+      <div class="w-100 d-flex flex-center phone-number-text-block">
         <!-- <button
           (click)="sendVerificationText()"
           [ngClass]="{ disabled: !phoneForm.valid }"
           class="black-rounded-button mb-20px basic-button-size d-flex color-white flex-center flex-row fs-15px mt-30px font-weight-bold"
         > -->
-        <div class="signup-window-btn">
+        <div class="signup-window-btn-mobile">
           <button
             (click)="sendVerificationText()"
             class="black-rounded-button basic-button-size color-white fs-15px font-weight-bold"
             type="button"
+            id="create-profile-button"
           >
             <label *ngIf="!sendingPhoneNumberVerificationText; else elseBlock" class="mb-0px pointer-events-none">
-              Send verification code
+              Create your profile
             </label>
             <ng-template #elseBlock><i class="fa fa-spinner fa-spin"></i></ng-template>
           </button>
@@ -38,9 +45,10 @@
       </div>
     </div>
     <div class="fc-red fs-15px">
-      <!-- <div *ngIf="f.form.value.phone && f.form.controls.phone.invalid" class="mt-10px">
+      <!-- trigger when they click the button and not while typing -->
+      <div *ngIf="f.form.value.phone && f.form.controls.phone.invalid" class="mt-10px">
         Please enter a valid phone number
-      </div> -->
+      </div>
 
       <div *ngIf="sendPhoneNumberVerificationTextServerErrors.phoneNumberAlreadyInUse" class="mt-10px">
         This phone number is being used by another account. Please use a different phone number or sign into your other
@@ -63,7 +71,7 @@
     </div>
   </form>
   <form
-    *ngIf="this.globalVars.wantToVerifyPhone"
+    *ngIf="stepNum === 4 && this.globalVars.wantToVerifyPhone"
     #f="ngForm"
     [formGroup]="verificationCodeForm"
     class="form-group mt-5px"
@@ -77,22 +85,23 @@
         (ngModelChange)="onVerificationCodeInputChanged()"
       />
       <div class="d-flex flex-column flex-center">
+        <div class="resend-verification-text-block">
+          <p class="fs-12px resend-verification-text">Did not get it?</p>
+          <a href="" style="color: #7c7c7c" class="fs-12px" (click)="resendVerificationCode($event)">Resend the code</a>
+          <i *ngIf="resentVerificationCode" class="far fa-check-circle fc-blue"></i>
+        </div>
         <button
           (click)="submitVerificationCode()"
           [ngClass]="{ 'disabled verify-phone-button': !verificationCodeForm.valid }"
           id="verify-phone-button"
-          class="black-rounded-button small-button-size-2 ml-10px fs-12px"
+          class="black-rounded-button basic-button-size color-white fs-15px font-weight-bold signup-window-btn-mobile"
           type="button"
         >
           <label *ngIf="!submittingPhoneNumberVerificationCode; else elseBlock" class="mb-0px pointer-events-none">
-            Verify your phone
+            Continue
           </label>
           <ng-template #elseBlock><i class="fa fa-spinner fa-spin"></i></ng-template>
         </button>
-        <div *ngIf="false" class="mt-5px">
-          <a href="" style="color: #7c7c7c" class="fs-12px" (click)="resendVerificationCode($event)">Resend</a>
-          <i *ngIf="resentVerificationCode" class="far fa-check-circle fc-blue"></i>
-        </div>
       </div>
     </div>
     <div class="fc-red fs-15px">

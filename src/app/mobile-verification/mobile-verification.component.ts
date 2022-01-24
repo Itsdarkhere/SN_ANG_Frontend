@@ -123,6 +123,7 @@ export class MobileVerificationComponent implements OnInit {
     //     }
     //   });
   }
+
   resendVerificationCode(event) {
     event.stopPropagation();
     event.preventDefault();

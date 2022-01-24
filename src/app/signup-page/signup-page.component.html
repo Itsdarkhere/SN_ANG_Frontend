@@ -153,7 +153,7 @@
     </div>
   </div>
 
-  <!-- if isMobile is true render desktop -->
+  <!-- if isMobile is true render mobile -->
   <div *ngIf="this.globalVars.isMobile()" class="signup-body-container d-flex flex-center-mobile">
     <div
       *ngIf="stepNum === 1 || !globalVars.loggedInUser?.PublicKeyBase58Check"
@@ -221,7 +221,7 @@
         <button
           (click)="nextStep()"
           [disabled]="!creator && !collector"
-          class="black-rounded-button basic-button-size color-white fs-15px font-weight-bold signup-window-btn-mobile"
+          class="creator-colletor-button black-rounded-button basic-button-size color-white fs-15px font-weight-bold signup-window-btn-mobile"
         >
           Continue
         </button>
@@ -271,7 +271,8 @@
       *ngIf="
         stepNum === 4 &&
         globalVars.loggedInUser?.PublicKeyBase58Check &&
-        !globalVars.loggedInUser?.ProfileEntryResponse?.Username
+        !globalVars.loggedInUser?.ProfileEntryResponse?.Username &&
+        !this.globalVars.wantToVerifyPhone
       "
       class="singup-center signup-center-height-mobile disable-scrollbars d-flex flex-column flex-center"
     >
@@ -286,6 +287,33 @@
           <p style="color: #969696" class="fs-13px font-weight-semibold">
             By verifying your phone number we know you are a real person!
           </p>
+          <div>
+            <app-mobile-verification [stepNum]="stepNum" (nextStep)="nextStep()"></app-mobile-verification>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="
+        stepNum === 4 &&
+        globalVars.loggedInUser?.PublicKeyBase58Check &&
+        !globalVars.loggedInUser?.ProfileEntryResponse?.Username &&
+        this.globalVars.wantToVerifyPhone
+      "
+      class="singup-center signup-center-height-mobile disable-scrollbars d-flex flex-column flex-center"
+    >
+      <div class="max-width-445px signup-window">
+        <label
+          class="font-weight-semiboldn mb-0px mt-20px header-font-rezising text-align-center signup-window-header-mobile"
+        >
+          Enter verification code
+        </label>
+        <div class="h-120px mt-20px signup-window-body-mobile">
+          <!-- <label class="fs-18px mb-0px font-weight-semiboldn">Phone number</label>
+        <p style="color: #969696" class="fs-13px font-weight-semibold">
+          By verifying your phone number we know you are a real person!
+        </p> -->
           <div>
             <app-mobile-verification [stepNum]="stepNum" (nextStep)="nextStep()"></app-mobile-verification>
           </div>

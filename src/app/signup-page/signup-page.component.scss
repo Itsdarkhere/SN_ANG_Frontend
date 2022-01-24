@@ -135,12 +135,12 @@
 .signup-center-height-mobile {
   width: 95vw;
   height: 90vh;
-  overflow-y: scroll;
+  overflow: scroll;
 }
 
 .signup-window-header-mobile {
   margin-top: 5vh;
-  font-size: 2rem;
+  font-size: 1.5rem;
   display: block;
 }
 
@@ -153,8 +153,8 @@
 }
 
 .profile-type-card-mobile {
-  width: 40vw;
-  height: 20vh;
+  width: 196px;
+  height: 220px;
   margin-top: 6.5vh;
   overflow: hidden;
   background: #ffffff;
@@ -173,7 +173,7 @@
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  width: 250px;
+  width: 300px;
   bottom: 0;
   margin-bottom: 5vh;
 }
@@ -192,8 +192,8 @@
   }
 
   .profile-type-card-mobile {
-    width: 40vw;
-    height: 20vh;
+    width: 196px;
+    height: 220px;
     margin-top: 2.5vh;
     overflow: hidden;
     background: #ffffff;
@@ -204,5 +204,9 @@
 
   .h-60 {
     height: 45%;
+  }
+
+  .creator-colletor-button {
+    top: 700px;
   }
 }

@@ -172,6 +172,7 @@ export class SignupPageComponent implements OnInit {
   }
   nextStep() {
     if (this.stepNum === 2) {
+      console.log(`stepNum is ${this.stepNum}`);
       this.updateProfileType();
       //   if (!this.globalVars.mobileVerified) {
       //     this.router.navigate([RouteNames.BROWSE]);
@@ -181,16 +182,25 @@ export class SignupPageComponent implements OnInit {
       //   }
       this.SendStepTwoEvent();
       this.stepNum++;
+
+      console.log(`stepNum is ${this.stepNum}`);
+      return;
     }
     if (this.stepNum === 3) {
+      if (!this.invalidEmailEntered) {
+        this._updateEmail();
+      }
+
       this.SendStepThreeEvent();
       this.stepNum++;
+
+      console.log(`stepNum is ${this.stepNum}`);
+      return;
     }
-    if (this.stepNum === 3 && !this.invalidEmailEntered) {
-      this._updateEmail();
-      this.SendStepThreeEvent();
-      this.stepNum++;
-    }
+    // if (this.stepNum === 3 && !this.invalidEmailEntered) {
+    //   this.SendStepThreeEvent();
+    //   //   this.stepNum++;
+    // }
     if (this.stepNum === 4) {
       this.updateProfileType();
       if (this.globalVars.wantToVerifyPhone === false) {
@@ -202,6 +212,7 @@ export class SignupPageComponent implements OnInit {
       //   if (!this.globalVars.mobileVerified) {
       //       this.SendStepFourEvent();
       // }
+      return;
     }
   }
   creatorSelected() {

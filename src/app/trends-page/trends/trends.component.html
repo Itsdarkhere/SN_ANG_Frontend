@@ -6,7 +6,6 @@
 >
   <div class="mrk_top_selector-one px-5px d-flex flex-row">
     <button (click)="setContentType('NFTs')" [ngClass]="{ selected: typeNFTs }">NFTs</button>
-    <button (click)="setContentType('Collections')" [ngClass]="{ selected: typeCollections }">Collections</button>
     <button (click)="setContentType('Creators')" [ngClass]="{ selected: typeCreators }">Creators</button>
   </div>
   <div class="d-flex flex-row">
@@ -29,9 +28,9 @@
     </select>
   </div>
 </div>
-<div class="w-100 d-flex flex-row overflow-visible">
+<div class="w-100 d-flex flex-row">
   <app-marketplace-left-bar *ngIf="!mobile"></app-marketplace-left-bar>
-  <div [ngClass]="mobile ? 'global__content__width' : 'global__center__width'">
+  <div [ngClass]="mobile ? 'global__content__width' : 'global__center__width__marketplace'">
     <div class="nfts-card-list" *ngIf="globalVars.isMarketplaceLoading">
       <div class="nft-col-wrap" *ngFor="let in of counter(50); let i = index">
         <div class="card">

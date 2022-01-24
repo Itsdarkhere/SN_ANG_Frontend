@@ -29,3 +29,27 @@
     height: 42px;
     color: #525252;
 }
+.mrk_lb_selector {
+    height: 50px;
+    background: #f5f5f5;
+    border-radius: 14.796862602233887px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+      padding: 0px 15px 0px 15px;
+      text-align: center;
+      height: 36px;
+      border-radius: 5px;
+      border: none;
+      background-color: #f5f5f5;
+      color: #717171;
+    }
+    button.selected {
+      background: #ffffff;
+      box-shadow: 0.9864575266838074px 0.9864575266838074px 9.864575386047363px rgba(0, 0, 0, 0.1);
+      border: 0.8946940898895264px solid #ffffff;
+      font-weight: 500;
+      color: #2D2D2D;
+    }
+  }

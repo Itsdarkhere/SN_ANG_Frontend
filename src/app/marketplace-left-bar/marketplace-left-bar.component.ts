@@ -24,10 +24,15 @@ export class MarketplaceLeftBarComponent implements OnInit {
   statusSold = false;
 
   // Content format buttons
+  formatAll = true;
   formatImages = false;
   formatVideo = false;
   formatMusic = false;
   format3D = false;
+
+  // Creator Type
+  verifiedCreators = true;
+  allNFTs = false;
 
   // Sorting
   static MOST_RECENT_FIRST = "Most recent first";
@@ -114,7 +119,6 @@ export class MarketplaceLeftBarComponent implements OnInit {
   }
   // Status button clicks
   statusClick(button: string) {
-    console.log(button);
     switch (button) {
       case "All":
         if (this.statusAll) {
@@ -159,33 +163,81 @@ export class MarketplaceLeftBarComponent implements OnInit {
   // Status button clicks
   formatClick(button: string) {
     switch (button) {
+      case "All":
+        if (!this.formatAll) {
+          this.formatAll = true;
+          this.format3D = false;
+          this.formatImages = false;
+          this.formatMusic = false;
+          this.formatVideo = false;
+        }
+        break;
       case "Images":
         if (this.formatImages) {
           this.formatImages = false;
+          // Applies all if all other formats are closed
+          this.formatAllIfNoOtherFormats();
         } else {
           this.formatImages = true;
+          if (this.formatAll) {
+            this.formatAll = false;
+          }
         }
         break;
       case "Video":
         if (this.formatVideo) {
           this.formatVideo = false;
+          // Applies all if all other formats are closed
+          this.formatAllIfNoOtherFormats();
         } else {
           this.formatVideo = true;
+          if (this.formatAll) {
+            this.formatAll = false;
+          }
         }
         break;
       case "Music":
         if (this.formatMusic) {
           this.formatMusic = false;
+          // Applies all if all other formats are closed
+          this.formatAllIfNoOtherFormats();
         } else {
           this.formatMusic = true;
+          if (this.formatAll) {
+            this.formatAll = false;
+          }
         }
         break;
       case "3D":
         if (this.format3D) {
           this.format3D = false;
+          // Applies all if all other formats are closed
+          this.formatAllIfNoOtherFormats();
         } else {
           this.format3D = true;
+          if (this.formatAll) {
+            this.formatAll = false;
+          }
         }
+        break;
+      default:
+        break;
+    }
+  }
+  formatAllIfNoOtherFormats() {
+    if (!this.format3D && !this.formatImages && !this.formatVideo && !this.formatMusic) {
+      this.formatAll = true;
+    }
+  }
+  creatorsClick(creatorType: string) {
+    switch (creatorType) {
+      case "verified":
+        this.verifiedCreators = true;
+        this.allNFTs = false;
+        break;
+      case "all":
+        this.allNFTs = true;
+        this.verifiedCreators = false;
         break;
       default:
         break;

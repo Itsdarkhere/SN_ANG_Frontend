@@ -77,9 +77,6 @@ export class MobileVerificationComponent implements OnInit {
     } else {
       this.globalVars.wantToVerifyPhone = false;
     }
-    console.log(
-      ` ---------------------------- wantToVerifyPhone ${this.globalVars.wantToVerifyPhone} ---------------------------- `
-    );
 
     this.nextStep.emit();
   }
@@ -97,8 +94,6 @@ export class MobileVerificationComponent implements OnInit {
       console.log(
         ` ---------------------- verification code string ${this.verificationCodeString} ----------------------- `
       );
-
-      this.globalVars.phoneVerified = true;
 
       return;
     }
@@ -139,7 +134,6 @@ export class MobileVerificationComponent implements OnInit {
     if (this.phoneForm.invalid) {
       return;
     }
-    // this.globalVars.wantToVerifyPhone = true;
     this.verificationStep = true;
     this.globalVars.logEvent("account : create : send-verification-text");
     this._sendPhoneNumberVerificationText();

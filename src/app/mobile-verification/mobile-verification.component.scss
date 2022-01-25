@@ -131,6 +131,10 @@ button-solid:focus {
   position: absolute;
 }
 
+.verification-complete-container {
+  margin-top: 25vh;
+}
+
 @media screen and (max-width: 480px) {
   #create-profile-button {
     width: 300px !important;

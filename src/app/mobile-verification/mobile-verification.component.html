@@ -49,6 +49,7 @@
       <!-- <div *ngIf="f.form.value.phone && f.form.controls.phone.invalid" class="mt-10px">
         Please enter a valid phone number
       </div> -->
+      <div *ngIf="f.form.controls.phone.invalid" class="mt-10px">Please enter a valid phone number</div>
 
       <div *ngIf="sendPhoneNumberVerificationTextServerErrors.phoneNumberAlreadyInUse" class="mt-10px">
         This phone number is being used by another account. Please use a different phone number or sign into your other
@@ -130,7 +131,7 @@
   </div>
 
   <!-- verification complete -->
-  <div *ngIf="this.globalVars.phoneVerified">
+  <div *ngIf="this.globalVars.phoneVerified" class="verification-complete-container">
     <img src="../../assets/img/verification-complete.png" class="verification-complete-image" />
     <label
       class="font-weight-semiboldn mb-0px mt-20px header-font-rezising text-align-center signup-window-header-mobile"

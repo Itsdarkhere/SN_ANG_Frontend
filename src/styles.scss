@@ -65,7 +65,11 @@ $feed-border-radius: 12px;
         outline: 2px solid red !important;
     }
 }
-
+.not-available-warning-border {
+    &:active {
+        border: 2px solid red !important;
+    }
+}
 .text-primary {
     color: #3549fa !important;
 }

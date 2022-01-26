@@ -37,6 +37,8 @@ export class TrendsComponent implements OnInit {
   typeCollections = false;
   typeCreators = false;
 
+  sortValue = "most recent first";
+
   // display type, card or grid
   // Naming convention for display grid probably is not optimal but couldnt come up with a better one
   displayCard = true;
@@ -60,19 +62,55 @@ export class TrendsComponent implements OnInit {
   ) {
     this.globalVars = _globalVars;
     this.functionPass.listen().subscribe((m: any) => {
-      this.getParamsAndSort();
+      this.sortMarketplace(0, false);
+      this.globalVars.marketplaceOffset = 0;
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     });
   }
 
   ngOnInit(): void {
     if (!this.globalVars.marketplaceDataToShow) {
-      this.loadData();
+      this.sortMarketplace(this.globalVars.marketplaceOffset, false);
     }
     this.setMobileBasedOnViewport();
+    //this.sortMarketplace();
   }
 
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
+  }
+
+  sortMarketplace(offset: number, showMore: boolean) {
+    if (!showMore) {
+      this.globalVars.isMarketplaceLoading = true;
+    }
+    this.backendApi
+      .SortMarketplace(
+        this.globalVars.localNode,
+        "",
+        offset,
+        this.globalVars.auctionStatus,
+        this.globalVars.priceRange,
+        this.globalVars.marketType,
+        this.globalVars.category,
+        this.sortValue,
+        this.globalVars.contentFormat,
+        this.globalVars.creatorsType
+      )
+      .subscribe(
+        (res) => {
+          if (showMore) {
+            this.globalVars.marketplaceDataToShow = this.globalVars.marketplaceDataToShow.concat(res.PostEntryResponse);
+          } else {
+            this.globalVars.marketplaceDataToShow = res.PostEntryResponse;
+          }
+          this.globalVars.isMarketplaceLoading = false;
+        },
+        (err) => {
+          console.log(err.error);
+        }
+      );
   }
 
   getPage(page: number) {
@@ -85,9 +123,9 @@ export class TrendsComponent implements OnInit {
 
     return new Promise((resolve, reject) => {
       resolve(
-        this.globalVars.marketplaceFilteredCollection.slice(
+        this.globalVars.marketplaceDataToShow.slice(
           startIdx,
-          Math.min(endIdx, this.globalVars.marketplaceCollection.length)
+          Math.min(endIdx, this.globalVars.marketplaceDataToShow.length)
         )
       );
     });
@@ -140,181 +178,22 @@ export class TrendsComponent implements OnInit {
           primary: params.primary || "false",
           secondary: params.secondary || "false",
         };
-        this.applySorting(filters);
+        //this.applySorting(filters);
       })
       .unsubscribe();
   }
-
-  applySorting(filters) {
-    // Filter based on status
-    let status = filters.status;
-    let primary = filters.primary;
-    let secondary = filters.secondary;
-    let sort = filters.sort;
-    // Reset start and endIndex
-    this.globalVars.marketplaceStartIndex = 0;
-    this.globalVars.marketplaceEndIndex = 20;
-
-    // Order
-    switch (sort) {
-      case "most_recent_first":
-        // Keep all
-        this.globalVars.marketplaceCollection.sort(
-          (a, b) => b.PostEntryResponse.TimestampNanos - a.PostEntryResponse.TimestampNanos
-        );
-        break;
-      case "oldest_first":
-        this.globalVars.marketplaceCollection.sort(
-          (a, b) => a.PostEntryResponse.TimestampNanos - b.PostEntryResponse.TimestampNanos
-        );
-        break;
-      case "highest_price_first":
-        this.globalVars.marketplaceCollection.sort(
-          (a, b) => b.NFTEntryResponse.MinBidAmountNanos - a.NFTEntryResponse.MinBidAmountNanos
-        );
-        break;
-      case "lowest_price_first":
-        this.globalVars.marketplaceCollection.sort(
-          (a, b) => a.NFTEntryResponse.MinBidAmountNanos - b.NFTEntryResponse.MinBidAmountNanos
-        );
-        break;
-      case "most_likes_first":
-        this.globalVars.marketplaceCollection.sort(
-          (a, b) => b.PostEntryResponse.LikeCount - a.PostEntryResponse.LikeCount
-        );
-        break;
-      case "most_diamonds_first":
-        this.globalVars.marketplaceCollection.sort(
-          (a, b) => b.PostEntryResponse.DiamondCount - a.PostEntryResponse.DiamondCount
-        );
-        break;
-      case "most_comments_first":
-        this.globalVars.marketplaceCollection.sort(
-          (a, b) => b.PostEntryResponse.CommentCount - a.PostEntryResponse.CommentCount
-        );
-        break;
-      case "most_reposts_first":
-        this.globalVars.marketplaceCollection.sort(
-          (a, b) => b.PostEntryResponse.RepostCount - a.PostEntryResponse.RepostCount
-        );
-        break;
-      default:
-        this.globalVars.marketplaceCollection.sort(
-          (a, b) => b.PostEntryResponse.TimestampNanos - a.PostEntryResponse.TimestampNanos
-        );
-        break;
-    }
-    // Only use nftCollections in first filter
-    switch (status) {
-      case "all":
-        // Keep all
-        this.globalVars.marketplaceFilteredCollection = this.globalVars.marketplaceCollection;
-        break;
-      case "has_bids":
-        this.globalVars.marketplaceFilteredCollection = this.globalVars.marketplaceCollection.filter(
-          (nft) => nft.NFTEntryResponse.HighestBidAmountNanos != 0 && nft.NFTEntryResponse.IsForSale
-        );
-        break;
-      case "no_bids":
-        this.globalVars.marketplaceFilteredCollection = this.globalVars.marketplaceCollection.filter(
-          (nft) => nft.NFTEntryResponse.HighestBidAmountNanos === 0 && nft.NFTEntryResponse.IsForSale
-        );
-        break;
-      case "for_sale":
-        this.globalVars.marketplaceFilteredCollection = this.globalVars.marketplaceCollection.filter(
-          (nft) => nft.NFTEntryResponse.IsForSale
-        );
-        break;
-      case "sold":
-        this.globalVars.marketplaceFilteredCollection = this.globalVars.marketplaceCollection.filter(
-          (nft) => !nft.NFTEntryResponse.IsForSale && nft.NFTEntryResponse.LastAcceptedBidAmountNanos > 0
-        );
-        break;
-      default:
-        this.globalVars.marketplaceFilteredCollection = this.globalVars.marketplaceCollection;
-        break;
-    }
-    if (primary === "true" && secondary === "true") {
-      // Keep all
-      this.globalVars.marketplaceDataToShow = this.globalVars.marketplaceFilteredCollection.slice(
-        this.globalVars.marketplaceStartIndex,
-        this.globalVars.marketplaceEndIndex
-      );
-    } else if (primary === "true") {
-      // Get primary
-      this.globalVars.marketplaceFilteredCollection = this.globalVars.marketplaceFilteredCollection.filter(
-        (nft) => nft.NFTEntryResponse.OwnerPublicKeyBase58Check === nft.PostEntryResponse.PosterPublicKeyBase58Check
-      );
-      this.globalVars.marketplaceDataToShow = this.globalVars.marketplaceFilteredCollection.slice(
-        this.globalVars.marketplaceStartIndex,
-        this.globalVars.marketplaceEndIndex
-      );
-      // Get secondary
-    } else if (secondary === "true") {
-      this.globalVars.marketplaceFilteredCollection = this.globalVars.marketplaceFilteredCollection.filter(
-        (nft) => nft.NFTEntryResponse.OwnerPublicKeyBase58Check !== nft.PostEntryResponse.PosterPublicKeyBase58Check
-      );
-      this.globalVars.marketplaceDataToShow = this.globalVars.marketplaceFilteredCollection.slice(
-        this.globalVars.marketplaceStartIndex,
-        this.globalVars.marketplaceEndIndex
-      );
-    } else {
-      // Keep all
-      this.globalVars.marketplaceDataToShow = this.globalVars.marketplaceFilteredCollection.slice(
-        this.globalVars.marketplaceStartIndex,
-        this.globalVars.marketplaceEndIndex
-      );
-    }
-    this.lastPage = Math.floor(this.globalVars.marketplaceFilteredCollection.length / TrendsComponent.PAGE_SIZE);
-    this.globalVars.isMarketplaceLoading = false;
-  }
-
   onScroll() {
-    if (this.globalVars.marketplaceEndIndex <= this.globalVars.marketplaceFilteredCollection.length - 1) {
-      this.globalVars.marketplaceStartIndex = this.globalVars.marketplaceEndIndex;
-      this.globalVars.marketplaceEndIndex += 20;
-      this.globalVars.marketplaceDataToShow = [
-        ...this.globalVars.marketplaceDataToShow,
-        ...this.globalVars.marketplaceFilteredCollection.slice(
-          this.globalVars.marketplaceStartIndex,
-          this.globalVars.marketplaceEndIndex
-        ),
-      ];
-    }
-  }
-
-  loadData(showmore: boolean = false) {
-    if (!showmore) {
-      this.globalVars.isMarketplaceLoading = true;
-    }
-    this.backendApi
-      .GetNFTShowcaseSupernovas(
-        this.globalVars.localNode,
-        this.globalVars.loggedInUser?.PublicKeyBase58Check,
-        this.globalVars.loggedInUser?.PublicKeyBase58Check
-      )
-      .subscribe(
-        (res: any) => {
-          this.globalVars.marketplaceCollection = res.NFTCollections;
-          if (this.globalVars.marketplaceCollection) {
-            this.globalVars.marketplaceCollection = uniqBy(
-              this.globalVars.marketplaceCollection,
-              (nftCollection) => nftCollection.PostEntryResponse.PostHashHex
-            );
-          }
-          this.getParamsAndSort();
-          if (showmore) {
-            document.body.scrollTop = 0; // For Safari
-            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-          }
-        },
-        (error) => {
-          this.globalVars._alertError(error.error.error);
-        }
-      );
+    this.globalVars.marketplaceOffset = this.globalVars.marketplaceOffset + 30;
+    this.sortMarketplace(this.globalVars.marketplaceOffset, true);
   }
 
   counter(i: number) {
     return new Array(i);
+  }
+  sortSelectChange(event) {
+    if (this.sortValue != event) {
+      this.sortValue = event;
+      this.sortMarketplace(0, false);
+    }
   }
 }

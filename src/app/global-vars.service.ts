@@ -138,6 +138,18 @@ export class GlobalVarsService {
   nftsStartIndex = 0;
   nftsEndIndex = 20;
 
+  // Marketplace filtering
+  auctionStatus = "all";
+  priceRange = "all";
+  marketType = "all";
+  category = "all";
+  sortType = "most recent first";
+  contentFormat = "all";
+  creatorsType = "verified";
+
+  // Marketplace Offset
+  marketplaceOffset = 0;
+
   messageResponse = null;
   messageMeta = {
     // <public_key || tstamp> -> messageObj

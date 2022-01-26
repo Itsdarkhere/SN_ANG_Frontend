@@ -17,14 +17,19 @@
         <img src="/assets/icons/market_grid_type_grid_icon.svg" alt="grid icon" />
       </button>
     </div>
-    <select class="p-5px ml-20px mrk_select mrk_top_select_height fs-14px">
-      <option value="Most recent first">Most recent first</option>
-      <option value="Oldest first">Oldest first</option>
-      <option value="Highest price first">Highest price first</option>
-      <option value="Most likes first">Most likes first</option>
-      <option value="Most diamonds first">Most diamonds first</option>
-      <option value="Most comments first">Most comments first</option>
-      <option value="Most reposts first">Most reposts first</option>
+    <select
+      class="p-5px ml-20px mrk_select mrk_top_select_height fs-14px"
+      (ngModelChange)="sortSelectChange($event)"
+      [ngModel]="sortValue"
+    >
+      <option value="most recent first">Most recent first</option>
+      <option value="oldest first">Oldest first</option>
+      <option value="highest price first">Highest price first</option>
+      <option value="lowest price first">Lowest price first</option>
+      <option value="most likes first">Most likes first</option>
+      <option value="most diamonds first">Most diamonds first</option>
+      <option value="most comments first">Most comments first</option>
+      <option value="most reposts first">Most reposts first</option>
     </select>
   </div>
 </div>
@@ -49,20 +54,20 @@
         (scrolled)="onScroll()"
       >
         <div class="nfts-card-list">
-          <div class="nft-col-wrap" *ngFor="let nftCollection of globalVars.marketplaceDataToShow">
+          <div class="nft-col-wrap" *ngFor="let PostEntryResponse of globalVars.marketplaceDataToShow">
             <div class="max-width-350">
               <new-nft-card
-                [post]="nftCollection.PostEntryResponse"
+                [post]="PostEntryResponse"
                 [includePaddingOnPost]="true"
                 [pending]="false"
-                [showReplyingToContent]="nftCollection.PostEntryResponse.parentPost"
-                [parentPost]="nftCollection.PostEntryResponse.parentPost"
+                [showReplyingToContent]="PostEntryResponse"
+                [parentPost]=""
                 [contentShouldLinkToThread]="true"
                 [showNFTDetails]="true"
                 [showExpandedNFTDetails]="true"
                 [setBorder]="true"
-                [nftCollectionHighBid]="nftCollection.HighestBidAmountNanos"
-                [nftCollectionLowBid]="nftCollection.LowestBidAmountNanos"
+                [nftCollectionHighBid]="PostEntryResponse.HighestBidAmountNanos"
+                [nftCollectionLowBid]="PostEntryResponse.LowestBidAmountNanos"
               ></new-nft-card>
             </div>
           </div>

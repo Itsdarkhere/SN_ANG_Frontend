@@ -132,6 +132,8 @@ export class BackendRoutes {
   static RoutePathGetCommunityFavourites = "/api/v0/get-community-favourites";
   static RoutePathGetFreshDrops = "/api/v0/get-fresh-drops";
   static RoutePathGetNFTsByCategory = "/api/v0/get-nfts-by-category";
+  // Marketplace postgres
+  static RoutePathSortMarketplace = "/api/v0/sort-marketplace";
   // Same as the two above but for supernovas uses
   static RoutePathGetMarketplaceRefSupernovas = "/api/v0/get-marketplace-ref-supernovas";
   static RoutePathAddToMarketplaceSupernovas = "/api/v0/add-to-marketplace-supernovas";
@@ -1164,6 +1166,30 @@ export class BackendApiService {
     });
   }
 
+  SortMarketplace(
+    endpoint: string,
+    ReaderPublicKeyBase58Check: string,
+    Offset: number,
+    AuctionStatus: string,
+    PriceRange: string,
+    MarketType: string,
+    Category: string,
+    SortType: string,
+    ContentFormat: string,
+    CreatorsType: string
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathSortMarketplace, {
+      ReaderPublicKeyBase58Check,
+      Offset,
+      AuctionStatus,
+      PriceRange,
+      MarketType,
+      Category,
+      SortType,
+      ContentFormat,
+      CreatorsType,
+    });
+  }
   GetNFTCollectionSummary(endpoint: string, ReaderPublicKeyBase58Check: string, PostHashHex: string): Observable<any> {
     return this.post(endpoint, BackendRoutes.RoutePathGetNFTCollectionSummary, {
       ReaderPublicKeyBase58Check,

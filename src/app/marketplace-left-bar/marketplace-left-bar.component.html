@@ -27,10 +27,13 @@
     <label class="w-100 mt-20px pl-10px marketplace-label">Price</label>
     <select
       class="w-100 p-5px mrk_select mrk_select_height font-weight-semibold fs-14px"
-      (ngModelChange)="onSelectChange($event)"
-      [ngModel]="selectValue"
+      (ngModelChange)="priceSelectChange($event)"
+      [ngModel]="priceValue"
     >
-      <option value="Most recent first">$ Price range</option>
+      <option value="all">0</option>
+      <option value="0.25">0.25</option>
+      <option value="1">1</option>
+      <option value="10">10</option>
     </select>
     <label class="w-100 mt-20px pl-10px marketplace-label">Market</label>
     <button
@@ -49,47 +52,6 @@
       <input type="checkbox" class="marketplace-button-checkbox display-none" [checked]="secondary" />
       <label class="marketplace-checkbox-label fs-14px">Secondary</label>
     </button>
-    <label class="w-100 mt-20px pl-10px marketplace-label">Category</label>
-    <select
-      class="w-100 p-5px mrk_select mrk_select_height font-weight-semibold fs-14px"
-      (ngModelChange)="onSelectChange($event)"
-      [ngModel]="selectValue"
-    >
-      <option value="Photography">Photography</option>
-      <option value="Art">Art</option>
-      <option value="Collectibles">Collectibles</option>
-      <option value="Generative Art">Generative Art</option>
-      <option value="Metaverse & Gaming">Metaverse & Gaming</option>
-      <option value="Music">Music</option>
-      <option value="Profile Picture Collection">Profile Picture Collection</option>
-    </select>
-    <label class="w-100 mt-20px pl-10px marketplace-label">Content format</label>
-    <button
-      class="w-100 mlb-content-format-button d-flex flex-row flex-center-start pl-10px fs-14px"
-      [ngClass]="{ selected: formatAll }"
-      (click)="formatClick('All')"
-    >
-      <img src="/assets/icons/market_globe_icon.svg" class="mr-5px" alt="image-icon" />
-      All
-    </button>
-    <div class="mlb-status-grid pt-10px">
-      <button (click)="formatClick('Images')" [ngClass]="{ selected: formatImages }">
-        <img src="/assets/icons/market_images_icon.svg" class="mb-5px" alt="image-icon" />
-        Images
-      </button>
-      <button (click)="formatClick('Video')" [ngClass]="{ selected: formatVideo }">
-        <img src="/assets/icons/market_video_icon.svg" class="mb-5px" alt="image-icon" />
-        Video
-      </button>
-      <button (click)="formatClick('Music')" [ngClass]="{ selected: formatMusic }">
-        <img src="/assets/icons/market_music_icon.svg" class="mb-5px" alt="image-icon" />
-        Music
-      </button>
-      <button (click)="formatClick('3D')" [ngClass]="{ selected: format3D }">
-        <img src="/assets/icons/market_3d_icon.svg" class="mb-5px" alt="image-icon" />
-        3D
-      </button>
-    </div>
     <label class="w-100 mt-20px pl-10px marketplace-label">Creators</label>
     <div class="mrk_lb_selector px-5px">
       <button
@@ -109,7 +71,51 @@
         All
       </button>
     </div>
-    <button class="marketplace-apply-button fs-12px font-weight-bold">
+    <div class="verifiedAccordion disable-scrollbars" [ngClass]="{ expanded: verifiedCreators }">
+      <label class="w-100 mt-20px pl-10px marketplace-label">Category</label>
+      <select
+        class="w-100 p-5px mrk_select mrk_select_height font-weight-semibold fs-14px"
+        (ngModelChange)="categorySelectChange($event)"
+        [ngModel]="categoryValue"
+      >
+        <option value="all">All</option>
+        <option value="photography">Photography</option>
+        <option value="art">Art</option>
+        <option value="collectibles">Collectibles</option>
+        <option value="generative art">Generative Art</option>
+        <option value="metaverse">Metaverse & Gaming</option>
+        <option value="music">Music</option>
+        <option value="profile picture">Profile Picture Collection</option>
+      </select>
+      <label class="w-100 mt-20px pl-10px marketplace-label">Content format</label>
+      <button
+        class="w-100 mlb-content-format-button d-flex flex-row flex-center-start pl-10px fs-14px"
+        [ngClass]="{ selected: formatAll }"
+        (click)="formatClick('All')"
+      >
+        <img src="/assets/icons/market_globe_icon.svg" class="mr-5px" alt="image-icon" />
+        All
+      </button>
+      <div class="mlb-status-grid pt-10px">
+        <button (click)="formatClick('Images')" [ngClass]="{ selected: formatImages }">
+          <img src="/assets/icons/market_images_icon.svg" class="mb-5px" alt="image-icon" />
+          Images
+        </button>
+        <button (click)="formatClick('Video')" [ngClass]="{ selected: formatVideo }">
+          <img src="/assets/icons/market_video_icon.svg" class="mb-5px" alt="image-icon" />
+          Video
+        </button>
+        <button (click)="formatClick('Music')" [ngClass]="{ selected: formatMusic }">
+          <img src="/assets/icons/market_music_icon.svg" class="mb-5px" alt="image-icon" />
+          Music
+        </button>
+        <button (click)="formatClick('3D')" [ngClass]="{ selected: format3D }">
+          <img src="/assets/icons/market_3d_icon.svg" class="mb-5px" alt="image-icon" />
+          3D
+        </button>
+      </div>
+    </div>
+    <button class="marketplace-apply-button fs-12px font-weight-bold" (click)="apply()">
       <img src="/assets/icons/market_apply_icon.svg" class="mr-5px" alt="image-icon" />
       Apply
     </button>

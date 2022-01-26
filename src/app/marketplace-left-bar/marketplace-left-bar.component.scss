@@ -52,4 +52,15 @@
       font-weight: 500;
       color: #2D2D2D;
     }
-  }
+}
+.verifiedAccordion {
+    height: 0px;
+    min-height: 0px;
+    overflow: hidden;
+    transition: all .3s ease;
+}
+.verifiedAccordion.expanded {
+    min-height: 350px;
+    overflow: auto;
+    transition: all .3s ease;
+}

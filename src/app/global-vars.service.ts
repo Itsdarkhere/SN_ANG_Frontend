@@ -140,7 +140,8 @@ export class GlobalVarsService {
 
   // Marketplace filtering
   auctionStatus = "all";
-  priceRange = "all";
+  lowPrice = 0;
+  highPrice = 0;
   marketType = "all";
   category = "all";
   sortType = "most recent first";

@@ -3,6 +3,8 @@ import { GlobalVarsService } from "../global-vars.service";
 import { Location } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FunctionPassService } from "../function-pass.service";
+import { toInteger } from "lodash";
+import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: "app-marketplace-left-bar",
@@ -34,6 +36,15 @@ export class MarketplaceLeftBarComponent implements OnInit {
   // Creator Type
   verifiedCreators = true;
   allNFTs = false;
+
+  lowPrice: number;
+  highPrice: number;
+  // If set price range can be clicked
+  // price range incorrect
+  priceRangeCorrect = false;
+  priceRangeIncorrect = false;
+
+  isPriceRangeSet = false;
 
   // Sorting
   static MOST_RECENT_FIRST = "Most recent first";
@@ -76,6 +87,38 @@ export class MarketplaceLeftBarComponent implements OnInit {
 
   changeStatus(status) {
     this.status = status;
+  }
+  checkPriceRange() {
+    if (this.lowPrice < this.highPrice && this.lowPrice >= 0) {
+      this.priceRangeCorrect = true;
+      this.priceRangeIncorrect = false;
+    } else if (this.lowPrice && this.highPrice) {
+      this.priceRangeIncorrect = true;
+      this.priceRangeCorrect = false;
+    } else {
+      this.priceRangeIncorrect = false;
+      this.priceRangeCorrect = false;
+    }
+  }
+  setPriceRange() {
+    this.isPriceRangeSet = true;
+    // Postgres reads only nanos
+    this.setPriceRangeInNanos();
+  }
+  setPriceRangeInNanos() {
+    // Unfortunately need to cast to int to remove numbers after ( . )
+    // This does make the query slightly less accurate
+    this.globalVars.lowPrice = toInteger(this.globalVars.usdToNanosNumber(this.lowPrice));
+    this.globalVars.highPrice = toInteger(this.globalVars.usdToNanosNumber(this.highPrice));
+  }
+  resetPriceRange() {
+    this.lowPrice = 0;
+    this.highPrice = 0;
+    this.priceRangeCorrect = false;
+    this.priceRangeIncorrect = false;
+    this.isPriceRangeSet = false;
+    this.globalVars.lowPrice = 0;
+    this.globalVars.highPrice = 0;
   }
   // Status button clicks
   statusClick(button: string) {
@@ -263,6 +306,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
   // Functionpass service is made to pass this argument
   apply() {
     this.globalVars.isMarketplaceLoading = true;
+    this.setPriceRange();
     this.loading = true;
     this.setMarketTypeFilter();
     this.setContentFormatFilter();
@@ -284,12 +328,6 @@ export class MarketplaceLeftBarComponent implements OnInit {
     if (this.categoryValue != event) {
       this.categoryValue = event;
       this.globalVars.category = event;
-    }
-  }
-  priceSelectChange(event) {
-    if (this.priceValue != event) {
-      this.priceValue = event;
-      this.globalVars.priceRange = event;
     }
   }
 }

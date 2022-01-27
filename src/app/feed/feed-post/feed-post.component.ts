@@ -191,6 +191,7 @@ export class FeedPostComponent implements OnInit {
       )
       .subscribe((res) => {
         this.nftEntryResponses = res.NFTEntryResponses;
+        console.log(res);
         this.isAvailableForSale = this.nftEntryResponses[0].IsForSale;
         this.nftEntryResponses.sort((a, b) => a.SerialNumber - b.SerialNumber);
         this.decryptableNFTEntryResponses = this.nftEntryResponses.filter(

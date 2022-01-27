@@ -24,17 +24,38 @@
         Sold
       </button>
     </div>
-    <label class="w-100 mt-20px pl-10px marketplace-label">Price</label>
-    <select
-      class="w-100 p-5px mrk_select mrk_select_height font-weight-semibold fs-14px"
-      (ngModelChange)="priceSelectChange($event)"
-      [ngModel]="priceValue"
-    >
-      <option value="all">0</option>
-      <option value="0.25">0.25</option>
-      <option value="1">1</option>
-      <option value="10">10</option>
-    </select>
+    <label class="w-100 mt-20px pl-10px marketplace-label">Price range</label>
+    <div *ngIf="!isPriceRangeSet; else priceSetBlock">
+      <div class="d-flex flex-row justify-content-between mlb-price-inputs-container">
+        <input
+          [ngClass]="{ correct: priceRangeCorrect, incorrect: priceRangeIncorrect }"
+          (change)="checkPriceRange()"
+          [(ngModel)]="lowPrice"
+          type="number"
+          placeholder="Min"
+        />
+        <input
+          [ngClass]="{ correct: priceRangeCorrect, incorrect: priceRangeIncorrect }"
+          (change)="checkPriceRange()"
+          [(ngModel)]="highPrice"
+          type="number"
+          placeholder="Max"
+        />
+      </div>
+      <!--<button
+        [disabled]="!setPriceRangeAvailable"
+        (click)="setPriceRange()"
+        class="mlb-set-price-button font-weight-bold fs-12px w-100"
+      >
+        Set price range
+      </button>-->
+    </div>
+    <ng-template #priceSetBlock>
+      <div class="mlb-price-set-box w-100 d-flex flex-center-start pl-10px position-relative">
+        <span>{{ lowPrice }}$ to {{ highPrice }}$</span>
+        <button (click)="resetPriceRange()"></button>
+      </div>
+    </ng-template>
     <label class="w-100 mt-20px pl-10px marketplace-label">Market</label>
     <button
       class="w-100 marketplace-filter-button d-flex flex-row align-items-center pl-10px position-relative"

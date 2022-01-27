@@ -109,8 +109,6 @@ export class NewNftCardComponent implements OnInit {
   @Input() hoverable = false;
   @Input() cardStyle: boolean = false;
   @Input() showReplyingTo = false;
-  @Input() nftCollectionHighBid = 0;
-  @Input() nftCollectionLowBid = 0;
   @Input() isForSaleOnly: boolean = false;
   @Input() showNFTDetails = false;
   @Input() showExpandedNFTDetails = false;

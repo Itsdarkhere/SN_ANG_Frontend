@@ -17,9 +17,12 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        &:hover {
+            background-color: var(--secondary);
+        }
     }
     button.selected {
-        border: 2.5px solid #222222;
+        border: 3px solid #222222;
         color: #1B1B1B
     }
 }
@@ -37,13 +40,17 @@
     justify-content: center;
     align-items: center;
     button {
-      padding: 0px 15px 0px 15px;
-      text-align: center;
-      height: 36px;
-      border-radius: 5px;
-      border: none;
-      background-color: #f5f5f5;
-      color: #717171;
+        padding: 0px 15px 0px 15px;
+        text-align: center;
+        height: 36px;
+        border-radius: 5px;
+        border: none;
+        background-color: #f5f5f5;
+        color: #717171;
+        transition-duration: 50ms;
+        &:hover {
+            background-color: var(--secondary);
+        }
     }
     button.selected {
       background: #ffffff;
@@ -63,4 +70,65 @@
     min-height: 350px;
     overflow: auto;
     transition: all .3s ease;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+.mlb-price-inputs-container {
+    input {
+        width: 86px;
+        height: 43px;
+        background-color: #FFFFFF;
+        border: 1.1800000668px solid #aaaaaa;
+        border-radius: 10px;
+        background-image: url("/assets/icons/price_range_dollar.svg");
+        background-repeat: no-repeat;
+        background-position-x: calc(100% - 5px);
+        background-position-y: center;
+        padding-right: 20px;
+        transition-duration: 50ms;
+        &:hover {
+            background-color: var(--secondary);
+        }
+    }
+    input.incorrect {
+        border: 2.5px solid red !important;
+    }
+    input.correct {
+        border: 3px solid #222222;
+        font-weight: 500;
+    }
+}
+.mlb-set-price-button:disabled {
+    //box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
+    border: 2px solid #595959;
+    color: #595959;
+}
+.mlb-price-set-box {
+    height: 42px;
+    background: #ffffff;
+    border: 3px solid #222222;
+    color: #222222;
+    border-radius: 10px;
+    padding-right: 30px;
+    span {
+        width: 100%;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+    }
+    button {
+        position: absolute;
+        right: 5px;
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        background-image: url("/assets/icons/close_round_black.svg");
+        background-size: 20px 20px;
+        background-position: center;
+        background-color: transparent;
+        border: none;
+    }
 }

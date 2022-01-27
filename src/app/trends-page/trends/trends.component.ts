@@ -71,10 +71,10 @@ export class TrendsComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.globalVars.marketplaceDataToShow) {
-      this.sortMarketplace(this.globalVars.marketplaceOffset, false);
+      //this.sortMarketplace(this.globalVars.marketplaceOffset, false);
     }
     this.setMobileBasedOnViewport();
-    //this.sortMarketplace();
+    this.sortMarketplace(0, false);
   }
 
   setMobileBasedOnViewport() {
@@ -90,8 +90,9 @@ export class TrendsComponent implements OnInit {
         this.globalVars.localNode,
         "",
         offset,
+        this.globalVars.lowPrice,
+        this.globalVars.highPrice,
         this.globalVars.auctionStatus,
-        this.globalVars.priceRange,
         this.globalVars.marketType,
         this.globalVars.category,
         this.sortValue,

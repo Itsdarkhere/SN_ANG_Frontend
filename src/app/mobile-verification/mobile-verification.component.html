@@ -95,10 +95,34 @@
         id="test"
       /> -->
       <div id="digits">
-        <input (keyup)="onKey($event)" type="text" name="digit1" id="digit1" class="digit" />
-        <input (keyup)="onKey($event)" type="text" name="digit2" id="digit2" class="digit" />
-        <input (keyup)="onKey($event)" type="text" name="digit3" id="digit3" class="digit" />
-        <input (keyup)="onKey($event)" type="text" name="digit4" id="digit4" class="digit" />
+        <input (keyup)="onKey($event)" type="text" name="digit1" id="digit1" class="digit" maxlength="1" />
+        <input
+          (keyup)="onKey($event)"
+          type="text"
+          name="digit2"
+          id="digit2"
+          class="digit"
+          maxlength="1"
+          style="pointer-events: none"
+        />
+        <input
+          (keyup)="onKey($event)"
+          type="text"
+          name="digit3"
+          id="digit3"
+          class="digit"
+          maxlength="1"
+          style="pointer-events: none"
+        />
+        <input
+          (keyup)="onKey($event)"
+          type="text"
+          name="digit4"
+          id="digit4"
+          class="digit"
+          maxlength="1"
+          style="pointer-events: none"
+        />
       </div>
       <div class="d-flex flex-column flex-center">
         <div class="resend-verification-text-block">
@@ -106,9 +130,16 @@
           <a href="" style="color: #7c7c7c" class="fs-12px" (click)="resendVerificationCode($event)">Resend the code</a>
           <i *ngIf="resentVerificationCode" class="far fa-check-circle fc-blue"></i>
         </div>
-        <button
+        <!-- <button
           (click)="submitVerificationCode()"
           [ngClass]="{ 'disabled verify-phone-button': !verificationCodeForm.valid }"
+          id="verify-phone-button"
+          class="black-rounded-button basic-button-size color-white fs-15px font-weight-bold signup-window-btn-mobile"
+          type="button"
+        > -->
+        <button
+          (click)="submitVerificationCode()"
+          [ngClass]="{ 'disabled verify-phone-button': !this.verificationCodeCorrectLength }"
           id="verify-phone-button"
           class="black-rounded-button basic-button-size color-white fs-15px font-weight-bold signup-window-btn-mobile"
           type="button"

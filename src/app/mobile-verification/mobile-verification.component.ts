@@ -51,10 +51,20 @@ export class MobileVerificationComponent implements OnInit {
   sendPhoneNumberVerificationTextServerErrors = new SendPhoneNumberVerificationTextServerErrors();
   submitPhoneNumberVerificationCodeServerErrors = new SubmitPhoneNumberVerificationCodeServerErrors();
 
-  inputValue: any;
-  digitCounter: number;
-  digitCounterString: string;
+  digitElementFullId: any;
+  digitElementId: string;
+  digitNumberString: string;
+  digitNumberInt: number;
+  firstDigitEntered: boolean;
+  digitOneValue: string;
+  digitTwoValue: string;
+  digitThreeValue: string;
+  digitFourValue: string;
+  //   inputValue: any;
+  //   digitCounter: number;
+  //   digitCounterString: string;
   verificationCodeString: string;
+  verificationCodeCorrectLength: boolean;
 
   isPhoneNumberVerificationTextServerErrorFree: boolean;
 
@@ -69,8 +79,11 @@ export class MobileVerificationComponent implements OnInit {
   ngOnInit(): void {
     this._setScreenToShow();
 
-    this.digitCounter = 1;
+    // this.digitCounter = 1;
+    this.firstDigitEntered = false;
+    this.digitNumberString = "1";
     this.verificationCodeString = "";
+    this.verificationCodeCorrectLength = false;
   }
 
   _nextStep(verify: boolean) {
@@ -86,21 +99,123 @@ export class MobileVerificationComponent implements OnInit {
   onKey(event: any) {
     this.onVerificationCodeInputChanged();
 
-    this.inputValue = event.target.value;
-    this.digitCounter = this.digitCounter + 1;
-    this.digitCounterString = this.digitCounter.toString();
+    let digitString = "digit";
+    this.digitElementId = event.target.id;
+    this.digitNumberString = this.digitElementId.split("digit")[1];
+    console.log(`--------------- digitNumberString is ${this.digitNumberString}`);
 
-    this.verificationCodeString = this.verificationCodeString.concat(this.inputValue.toString());
-
-    if (this.digitCounterString === "5") {
-      console.log(
-        ` ---------------------- verification code string ${this.verificationCodeString} ----------------------- `
-      );
-
-      return;
+    if (event.code === "Backspace") {
+      console.log(` -------------- backspace was clicked ---------------`);
+      if (this.digitNumberString === "1") {
+        this.digitOneValue = "";
+        this.verificationCodeString = "";
+        console.log(` ---------------- digitOneValue is ${this.digitOneValue}`);
+        this.verificationCodeCorrectLength = false;
+        return;
+      } else if (this.digitNumberString === "2") {
+        this.digitTwoValue = "";
+        this.verificationCodeString = "";
+        console.log(` ---------------- digitTwoValue is ${this.digitTwoValue}`);
+        this.verificationCodeCorrectLength = false;
+        return;
+      } else if (this.digitNumberString === "3") {
+        this.digitThreeValue = "";
+        this.verificationCodeString = "";
+        console.log(` ---------------- digitThreeValue is ${this.digitThreeValue}`);
+        this.verificationCodeCorrectLength = false;
+        return;
+      } else {
+        this.digitFourValue = "";
+        this.verificationCodeString = "";
+        console.log(` ---------------- digitFourValue is ${this.digitFourValue}`);
+        this.verificationCodeCorrectLength = false;
+        return;
+      }
     }
 
-    document.getElementById(`digit${this.digitCounterString}`).focus();
+    // if digitNumberString is 1 you know the user has entered in the first number and you need to enable the next digit to be focused
+    if (this.digitNumberString === "1") {
+      // if the other 3 digits are filled out then skip to digit 4
+      if (this.digitTwoValue && this.digitThreeValue && this.digitFourValue) {
+        this.digitNumberString = "4";
+      } else {
+        document.getElementById("digit2").style.pointerEvents = "auto";
+      }
+      this.digitOneValue = event.target.value;
+    }
+
+    if (this.digitNumberString === "2") {
+      // if the other 3 digits are filled out then skip to digit 4
+      if (this.digitOneValue && this.digitThreeValue && this.digitFourValue) {
+        this.digitNumberString = "4";
+      } else {
+        document.getElementById("digit3").style.pointerEvents = "auto";
+      }
+      this.digitTwoValue = event.target.value;
+    }
+
+    if (this.digitNumberString === "3") {
+      // if the other 3 digits are filled out then skip to digit 4
+      if (this.digitOneValue && this.digitTwoValue && this.digitFourValue) {
+        this.digitNumberString = "4";
+      } else {
+        document.getElementById("digit4").style.pointerEvents = "auto";
+      }
+      this.digitThreeValue = event.target.value;
+    }
+
+    if (this.digitNumberString === "4") {
+      document.getElementById("digit2").style.pointerEvents = "auto";
+      document.getElementById("digit3").style.pointerEvents = "auto";
+      document.getElementById("digit4").style.pointerEvents = "auto";
+      this.digitFourValue = (<HTMLInputElement>document.getElementById("digit4")).value;
+
+      console.log(` ------------ is on 4th digit `);
+      console.log(` ------------------ digit 1 ${this.digitOneValue}`);
+      console.log(` ------------------ digit 2 ${this.digitTwoValue}`);
+      console.log(` ------------------ digit 3 ${this.digitThreeValue}`);
+      console.log(` ------------------ digit 4 ${this.digitFourValue}`);
+
+      this.verificationCodeString = this.verificationCodeString.concat(
+        this.digitOneValue,
+        this.digitTwoValue,
+        this.digitThreeValue,
+        this.digitFourValue
+      );
+      console.log(` ------------------ this.verificationCodeString ${this.verificationCodeString}`);
+
+      if (this.verificationCodeString.length === 4) {
+        console.log(` --------------- full verification code entered ------------------ `);
+        this.verificationCodeCorrectLength = true;
+        return;
+      } else {
+        this.verificationCodeCorrectLength = false;
+        return;
+      }
+    }
+
+    this.digitNumberInt = parseInt(this.digitNumberString) + 1;
+    this.digitNumberString = this.digitNumberInt.toString(); //'2'
+    this.digitElementFullId = digitString.concat(this.digitNumberString);
+    console.log(document.getElementById(this.digitElementFullId));
+
+    document.getElementById(this.digitElementFullId).focus();
+
+    // this.inputValue = event.target.value;
+    // this.digitCounter = this.digitCounter + 1;
+    // this.digitCounterString = this.digitCounter.toString();
+
+    // this.verificationCodeString = this.verificationCodeString.concat(this.inputValue.toString());
+
+    // if (this.digitCounterString === "5") {
+    //   console.log(
+    //     ` ---------------------- verification code string ${this.verificationCodeString} ----------------------- `
+    //   );
+
+    //   return;
+    // }
+
+    // document.getElementById(`digit${this.digitCounterString}`).focus();
   }
 
   completeVerificationButtonClicked() {
@@ -181,7 +296,11 @@ export class MobileVerificationComponent implements OnInit {
   }
 
   submitVerificationCode() {
-    if (this.verificationCodeForm.invalid) {
+    // if (this.verificationCodeForm.invalid) {
+    //   return;
+    // }
+
+    if (!this.verificationCodeCorrectLength) {
       return;
     }
 
@@ -217,6 +336,9 @@ export class MobileVerificationComponent implements OnInit {
         (res) => {
           this.screenToShow = MobileVerificationComponent.SUBMIT_PHONE_NUMBER_VERIFICATION_SCREEN;
           this.globalVars.logEvent("account : create : send-verification-text: success");
+
+          this.globalVars.wantToVerifyPhone = true;
+          this.globalVars.phoneVerified = false;
           this.isPhoneNumberVerificationTextServerErrorFree = true;
         },
         (err) => {

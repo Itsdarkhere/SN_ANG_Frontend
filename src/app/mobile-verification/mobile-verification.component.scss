@@ -72,29 +72,6 @@ button-solid:focus {
   outline: none;
 }
 
-/* DECORATION */
-
-.digit:focus {
-  animation-name: zoom;
-  animation-duration: 200ms;
-}
-
-@keyframes zoom {
-  from {
-  }
-  to {
-    transform: scale(2);
-  }
-}
-
-/* body {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 100vh;
-	background-color: lightgray;
-} */
-
 #digits {
   padding: 20px;
   display: inline-block;

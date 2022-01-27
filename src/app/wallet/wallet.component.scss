@@ -12,6 +12,7 @@
 .flex-container-row {
   display: flex;
   flex-direction: row;
+  margin-top: 20px;
 }
 
 .flex-item {
@@ -21,8 +22,7 @@
 
 .flex-container-column {
   display: flex;
-  flex-direction: row;
-  margin-top: 20px;
+  flex-direction: column;
 }
 
 .wallet-text {
@@ -93,4 +93,73 @@
 
 .copy-img:hover {
   cursor: pointer;
+}
+
+.total-balance-gradient-cover {
+  width: 763.77px;
+  height: 174.38px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(182.378px);
+}
+
+.total-balance-gradient {
+  width: 794px;
+  height: 174.38px;
+
+  background: linear-gradient(
+    315.16deg,
+    #eb0055 0.91%,
+    #f82032 11.99%,
+    #f94a39 20.6%,
+    #f3a32b 28.49%,
+    #e2cf20 35.63%,
+    #65d987 45.91%,
+    #33d8ce 54.53%,
+    #008aee 63.71%,
+    #0034ee 70.53%,
+    #4003ee 83.21%,
+    #6d02ee 93.23%,
+    #a200ee 102.2%
+  );
+
+  position: relative;
+}
+
+.total-balance-gradient-cover {
+  width: 100%;
+  opacity: 0.9;
+}
+
+.total-balance-header {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  display: flex;
+  color: #e0e0e0;
+  opacity: 0.8;
+  margin-left: 40px;
+  top: 20px;
+  position: absolute;
+}
+
+.total-balance-deso {
+  font-weight: 600;
+  font-size: 41px;
+  line-height: 80px;
+  color: #ffffff;
+  margin-left: 40px;
+  position: absolute;
+  top: 45px;
+}
+
+.total-balance-usd {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 32px;
+  line-height: 40px;
+  color: #eaeaea;
+  margin-left: 40px;
+  position: absolute;
+  top: 115px;
 }

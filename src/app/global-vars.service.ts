@@ -302,9 +302,9 @@ export class GlobalVarsService {
       this.isCreator = true;
     }
 
-    console.log(
-      ` --------------------------------- creator status is ${this.isCreator} --------------------------------- `
-    );
+    // console.log(
+    //   ` --------------------------------- creator status is ${this.isCreator} --------------------------------- `
+    // );
   }
 
   checkIsVerified() {
@@ -320,7 +320,7 @@ export class GlobalVarsService {
       }
     }
 
-    console.log(` ------------------------------------ isVerified status is ${this.isVerified} ------------------- `);
+    // console.log(` ------------------------------------ isVerified status is ${this.isVerified} ------------------- `);
   }
 
   checkNullUsername() {
@@ -330,7 +330,7 @@ export class GlobalVarsService {
     } else {
       this.username = JSON.stringify(this.loggedInUser?.ProfileEntryResponse["Username"]);
       this.username = this.username.replace(/['"]+/g, "");
-      console.log(` ------------------------ username is ${this.username} ------------------------ `);
+      //   console.log(` ------------------------ username is ${this.username} ------------------------ `);
       if (this.username) {
         this.isNullUsername = false;
       } else {
@@ -338,9 +338,9 @@ export class GlobalVarsService {
       }
     }
 
-    console.log(
-      ` -------------------------------- isNullUsername is ${this.isNullUsername} -------------------------------- `
-    );
+    // console.log(
+    //   ` -------------------------------- isNullUsername is ${this.isNullUsername} -------------------------------- `
+    // );
   }
 
   checkOnboardingCompleted() {
@@ -355,7 +355,7 @@ export class GlobalVarsService {
       this.isOnboardingComplete = false;
     }
 
-    console.log(` ------------------------------ isOnboardingComplete ${this.isOnboardingComplete} ---------------- `);
+    // console.log(` ------------------------------ isOnboardingComplete ${this.isOnboardingComplete} ---------------- `);
   }
 
   async checkOnboardingStatus(): Promise<void> {

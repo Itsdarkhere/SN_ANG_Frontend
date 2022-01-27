@@ -1,18 +1,38 @@
 <div class="wallet-page-container">
-  <div class="flex-container-row">
-    <div class="flex-item">
-      <p class="wallet-text">YOUR WALLET</p>
-      <div class="flex-container-column">
-        <div class="profile-photo" [avatar]="this.globalVars.loggedInUser.PublicKeyBase58Check"></div>
-        <p class="username">@{{ this.globalVars.username }}</p>
+  <div class="flex-container-column">
+    <div class="flex-container-row">
+      <div class="flex-item">
+        <p class="wallet-text">YOUR WALLET</p>
+        <div class="flex-container-row">
+          <div class="profile-photo" [avatar]="this.globalVars.loggedInUser.PublicKeyBase58Check"></div>
+          <p class="username">@{{ this.globalVars.username }}</p>
+        </div>
+      </div>
+      <div class="flex-item">
+        <p class="wallet-text">PUBLIC KEY</p>
+        <div class="flex-container-row public-key-container">
+          <img src="assets/icons/public-key-icon.svg" class="public-key-img" />
+          <p class="public-key-text">{{ shortPublicKey }}</p>
+          <img src="assets/icons/copy-icon.svg" class="copy-img" (click)="copyPublicKey()" />
+        </div>
       </div>
     </div>
-    <div class="flex-item">
-      <p class="wallet-text">PUBLIC KEY</p>
-      <div class="flex-container-column public-key-container">
-        <img src="assets/icons/public-key-icon.svg" class="public-key-img" />
-        <p class="public-key-text">{{ shortPublicKey }}</p>
-        <img src="assets/icons/copy-icon.svg" class="copy-img" (click)="copyPublicKey()" />
+    <div class="flex-container-column total-balance-gradient">
+      <img src="../../assets/img/total-balance-gradient-cover.png" class="total-balance-gradient-cover" />
+      <p class="total-balance-header">Total Balance</p>
+      <div class="total-balance-deso">
+        {{ this.globalVars.nanosToDeSo(this.globalVars.loggedInUser.BalanceNanos, 9) }} $DESO
+        <i
+          *ngIf="globalVars.loggedInUser.UnminedBalanceNanos != 0 && globalVars.showProcessingSpinners"
+          class="fa fa-spinner fc-muted"
+          matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
+          [matTooltip]="unminedDeSoToolTip()"
+          #tooltip="matTooltip"
+          (click)="tooltip.toggle()"
+        ></i>
+      </div>
+      <div class="total-balance-usd">
+        {{ this.globalVars.nanosToUSD(this.globalVars.loggedInUser.BalanceNanos + totalValue(), 2) }}
       </div>
     </div>
   </div>

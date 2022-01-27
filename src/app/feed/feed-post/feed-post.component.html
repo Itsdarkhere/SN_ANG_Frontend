@@ -144,9 +144,9 @@
             queryParamsHandling="merge"
           >
             <span class="text-grey5">
-              ~{{ globalVars.nanosToUSD(postContent.ProfileEntryResponse.CoinPriceDeSoNanos, 2) }}
+              ~{{ this.globalVars.nanosToUSD(postContent.ProfileEntryResponse.CoinPriceDeSoNanos, 2) }}
             </span>
-
+            <!-- <span *ngIf="this.IsBuyNow" class="text-grey5">~{{ this.globalVars.nanosToUSD(BuyNowPriceNanos, 2) }}</span> -->
             <!-- Buy link -->
             Buy
           </a>
@@ -186,7 +186,7 @@
               <div class="d-flex justify-content-between">
                 <div class="post_del_list">
                   <span class="nb" *ngIf="isNFTProfile">Creator</span>
-                  
+
                   <!-- Username-->
                   <a
                     class="fc-default font-weight-bold"

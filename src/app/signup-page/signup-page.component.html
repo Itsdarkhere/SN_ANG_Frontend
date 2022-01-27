@@ -120,6 +120,7 @@
         <div class="w-100 d-flex flex-center">
           <button
             (click)="nextStep()"
+            [disabled]="invalidEmailEntered"
             class="black-rounded-button basic-button-size color-white fs-15px font-weight-bold signup-window-btn"
           >
             Continue
@@ -259,6 +260,7 @@
         <div class="w-100 d-flex flex-center">
           <button
             (click)="nextStep()"
+            [disabled]="invalidEmailEntered"
             class="black-rounded-button basic-button-size color-white fs-15px font-weight-bold signup-window-btn-mobile"
           >
             Continue

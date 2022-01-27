@@ -4029,6 +4029,14 @@ option {
             margin-bottom: 35px;
         }
     }
+    .small-nft-col-wrap {
+        width: calc(100% / 5);
+        min-width: 195px;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
 .nfts-card-list-discovery {
     display: flex;

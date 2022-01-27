@@ -41,8 +41,8 @@ export class TrendsComponent implements OnInit {
 
   // display type, card or grid
   // Naming convention for display grid probably is not optimal but couldnt come up with a better one
-  displayCard = true;
-  displayGrid = false;
+  displayCard = false;
+  displayGrid = true;
 
   infiniteScroller: InfiniteScroller = new InfiniteScroller(
     TrendsComponent.PAGE_SIZE,

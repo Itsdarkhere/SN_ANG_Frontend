@@ -54,8 +54,11 @@
         (scrolled)="onScroll()"
       >
         <div class="nfts-card-list">
-          <div class="nft-col-wrap" *ngFor="let PostEntryResponse of globalVars.marketplaceDataToShow">
-            <div class="max-width-350">
+          <div
+            [ngClass]="displayCard ? 'nft-col-wrap' : 'small-nft-col-wrap'"
+            *ngFor="let PostEntryResponse of globalVars.marketplaceDataToShow"
+          >
+            <div class="max-width-350" *ngIf="displayCard">
               <new-nft-card
                 [post]="PostEntryResponse"
                 [includePaddingOnPost]="true"
@@ -67,6 +70,9 @@
                 [showExpandedNFTDetails]="true"
                 [setBorder]="true"
               ></new-nft-card>
+            </div>
+            <div *ngIf="displayGrid">
+              <app-small-card-component [post]="PostEntryResponse"></app-small-card-component>
             </div>
           </div>
         </div>

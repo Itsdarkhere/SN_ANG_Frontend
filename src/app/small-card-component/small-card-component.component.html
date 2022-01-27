@@ -1,0 +1,81 @@
+<div class="red-box cursor-pointer" (click)="onPostClicked($event)">
+  <div class="red-box-img-cover position-relative">
+    <div
+      *ngIf="post?.PostExtraData['arweaveAudioSrc']"
+      class="card-audio-icon-container pointer-events-none d-flex flex-center top-br-30px"
+    >
+      <img
+        *ngIf="showAudioTypeIcon"
+        [@audioIconNoHover]
+        class="card-audio-icon"
+        src="/assets/icons/music-type-white.svg"
+        alt="icon"
+      />
+      <div
+        *ngIf="!showAudioTypeIcon"
+        [@audioIconHover]
+        class="audio-icon-hover-state d-flex flex-row flex-center font-weight-semiboldn"
+      >
+        <img class="mr-5px" src="/assets/icons/audio-play-small.svg" alt="audio icon small" />
+        <p>PLAY AUDIO</p>
+      </div>
+    </div>
+    <img
+      class="card-img"
+      (mouseenter)="activateOnHoverAudio(false)"
+      (mouseleave)="activateOnHoverAudio(true)"
+      *ngIf="post.ImageURLs && post.ImageURLs[0] && !post.ParentStakeID"
+      data-toggle="modal"
+      src="{{ mapImageURLs(post.ImageURLs[0]) }}"
+    />
+    <div
+      class="w-100 h-100 overflow-hidden top-br-30px background-secondary position-relative d-flex flex-center"
+      *ngIf="!post.ImageURLs && post.PostExtraData['arweaveVideoSrc'] && !post.ParentStakeID"
+    >
+      <div class="card-video-icon-container top-br-30px" [ngClass]="{ opacity_0: !showVideoTypeIcon }">
+        <img class="card-video-icon" src="/assets/icons/video-type-white.svg" alt="icon" />
+      </div>
+      <video
+        *ngIf="post.PostExtraData['arweaveVideoSrc']"
+        id="video-nft-1"
+        (mouseenter)="activateOnHover($event, true)"
+        (mouseleave)="activateOnHover($event, false)"
+        loop
+        [muted]="'muted'"
+        muted
+        class="video-tag"
+        preload="metadata"
+        src="{{ post.PostExtraData['arweaveVideoSrc'] + '#t=0.001' }}"
+      ></video>
+    </div>
+    <div
+      *ngIf="post.VideoURLs && post.VideoURLs[0] && !post.ParentStakeID && !post.PostExtraData['arweaveVideoSrc']"
+      class="w-100 h-100 background-secondary position-relative d-flex flex-center"
+    >
+      <iframe
+        *ngIf="!post.PostExtraData['arweaveVideoSrc']"
+        [src]="post.VideoURLs[0] | sanitizeVideoUrl"
+        allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+        allowfullscreen
+        class="video-tag"
+      ></iframe>
+    </div>
+  </div>
+  <div class="red-box-div" [ngClass]="isForSale ? 'colors-for-sale' : 'colors-sold'">
+    <p *ngIf="post.PostExtraData?.name" class="font-weight-semibold">
+      {{ post.PostExtraData?.name }}
+    </p>
+    <p *ngIf="!post.PostExtraData?.name" class="">{{ post.Body }}</p>
+    <div class="d-flex flex-row">
+      <span>
+        {{ compareBit(globalVars.nanosToDeSo(minBid, 5), globalVars.nanosToDeSo(highBid, 5), showPlaceABid) }}
+      </span>
+      <span *ngIf="isForSale" class="pl-5px small-card-bid-size">
+        {{ highBid === 0 ? globalVars.nanosToDeSo(minBid, 5) : globalVars.nanosToDeSo(highBid, 5) }} DESO
+      </span>
+      <span *ngIf="!isForSale" class="pl-5px small-card-bid-size">
+        {{ globalVars.nanosToDeSo(lastSalePrice, 5) }} DESO
+      </span>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,11 @@
 <div class="h-100px mobile-verification-component">
   <form
-    *ngIf="stepNum === 4 && !this.globalVars.wantToVerifyPhone && !this.globalVars.phoneVerified"
+    *ngIf="
+      stepNum === 4 &&
+      !this.globalVars.wantToVerifyPhone &&
+      !this.globalVars.phoneVerified &&
+      !this.isPhoneNumberVerificationTextServerErrorFree
+    "
     #f="ngForm"
     [formGroup]="phoneForm"
     class="form-group mt-5px"
@@ -45,11 +50,9 @@
       </div>
     </div>
     <div class="fc-red fs-15px">
-      <!-- trigger when they click the button and not while typing -->
-      <!-- <div *ngIf="f.form.value.phone && f.form.controls.phone.invalid" class="mt-10px">
+      <div *ngIf="f.form.value.phone && f.form.controls.phone.invalid" class="mt-10px">
         Please enter a valid phone number
-      </div> -->
-      <div *ngIf="f.form.controls.phone.invalid" class="mt-10px">Please enter a valid phone number</div>
+      </div>
 
       <div *ngIf="sendPhoneNumberVerificationTextServerErrors.phoneNumberAlreadyInUse" class="mt-10px">
         This phone number is being used by another account. Please use a different phone number or sign into your other
@@ -72,7 +75,12 @@
     </div>
   </form>
   <form
-    *ngIf="stepNum === 4 && this.globalVars.wantToVerifyPhone && !this.globalVars.phoneVerified"
+    *ngIf="
+      stepNum === 4 &&
+      this.globalVars.wantToVerifyPhone &&
+      !this.globalVars.phoneVerified &&
+      this.isPhoneNumberVerificationTextServerErrorFree
+    "
     #f="ngForm"
     [formGroup]="verificationCodeForm"
     class="form-group mt-5px"

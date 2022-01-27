@@ -40,6 +40,7 @@ export class SignupPageComponent implements OnInit {
   profileCardUrl: any = "";
   emailAddress = "";
   invalidEmailEntered = true;
+  startedEnteringEmail = false;
   uploadProgress: Observable<number>;
   usernameValidationError: string;
   profileUpdates: ProfileUpdates = {
@@ -72,6 +73,8 @@ export class SignupPageComponent implements OnInit {
     this.mobile = this.globalVars.isMobile();
   }
   _validateEmail(email) {
+    this.startedEnteringEmail = true;
+
     if (this.globalVars.emailRegExp.test(email)) {
       this.invalidEmailEntered = false;
     } else if (email === "") {

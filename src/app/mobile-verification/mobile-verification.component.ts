@@ -56,6 +56,8 @@ export class MobileVerificationComponent implements OnInit {
   digitCounterString: string;
   verificationCodeString: string;
 
+  isPhoneNumberVerificationTextServerErrorFree: boolean;
+
   constructor(
     public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
@@ -137,7 +139,11 @@ export class MobileVerificationComponent implements OnInit {
     this.verificationStep = true;
     this.globalVars.logEvent("account : create : send-verification-text");
     this._sendPhoneNumberVerificationText();
-    this._nextStep(true);
+    if (this.isPhoneNumberVerificationTextServerErrorFree) {
+      this._nextStep(true);
+    } else {
+      return;
+    }
 
     // https://docs.deso.org/identity/window-api/endpoints#verify-phone-number
     // this.identityService
@@ -211,9 +217,15 @@ export class MobileVerificationComponent implements OnInit {
         (res) => {
           this.screenToShow = MobileVerificationComponent.SUBMIT_PHONE_NUMBER_VERIFICATION_SCREEN;
           this.globalVars.logEvent("account : create : send-verification-text: success");
+          this.isPhoneNumberVerificationTextServerErrorFree = true;
         },
         (err) => {
           this._parseSendPhoneNumberVerificationTextServerErrors(err);
+          this.isPhoneNumberVerificationTextServerErrorFree = false;
+          console.log(
+            ` -------------- phoneNumberAlreadyInUseVariable ${this.sendPhoneNumberVerificationTextServerErrors.phoneNumberAlreadyInUse} ------------- `
+          );
+          console.log(` ---------- errorFree? ${this.isPhoneNumberVerificationTextServerErrorFree}`);
         }
       )
       .add(() => {

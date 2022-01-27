@@ -114,13 +114,15 @@
             (ngModelChange)="_validateEmail($event)"
             placeholder="Email Address"
           />
-          <div class="fc-red mt-5px fs-15px" *ngIf="invalidEmailEntered">Please enter a valid email address.</div>
+          <div class="fc-red mt-5px fs-15px" *ngIf="invalidEmailEntered && startedEnteringEmail">
+            Please enter a valid email address.
+          </div>
         </div>
 
         <div class="w-100 d-flex flex-center">
           <button
             (click)="nextStep()"
-            [disabled]="invalidEmailEntered"
+            [disabled]="invalidEmailEntered || !startedEnteringEmail"
             class="black-rounded-button basic-button-size color-white fs-15px font-weight-bold signup-window-btn"
           >
             Continue
@@ -254,13 +256,15 @@
             (ngModelChange)="_validateEmail($event)"
             placeholder="Email Address"
           />
-          <div class="fc-red mt-5px fs-15px" *ngIf="invalidEmailEntered">Please enter a valid email address.</div>
+          <div class="fc-red mt-5px fs-15px" *ngIf="invalidEmailEntered && startedEnteringEmail">
+            Please enter a valid email address.
+          </div>
         </div>
 
         <div class="w-100 d-flex flex-center">
           <button
             (click)="nextStep()"
-            [disabled]="invalidEmailEntered"
+            [disabled]="invalidEmailEntered || !startedEnteringEmail"
             class="black-rounded-button basic-button-size color-white fs-15px font-weight-bold signup-window-btn-mobile"
           >
             Continue

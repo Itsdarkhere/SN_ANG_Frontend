@@ -104,6 +104,19 @@ export class MobileVerificationComponent implements OnInit {
     this.digitNumberString = this.digitElementId.split("digit")[1];
     console.log(`--------------- digitNumberString is ${this.digitNumberString}`);
 
+    console.log(event.code);
+
+    if (
+      event.code === "ArrowLeft" ||
+      event.code === "ArrowRight" ||
+      event.code === "ArrowUp" ||
+      event.code === "ArrowDown" ||
+      event.code === "ShiftLeft" ||
+      event.code === "Tab"
+    ) {
+      return;
+    }
+
     if (event.code === "Backspace") {
       console.log(` -------------- backspace was clicked ---------------`);
       if (this.digitNumberString === "1") {

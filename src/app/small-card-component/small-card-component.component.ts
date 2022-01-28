@@ -83,6 +83,9 @@ export class SmallCardComponentComponent implements OnInit {
   mapImageURLs(imgURL: string): string {
     if (imgURL.startsWith("https://i.imgur.com")) {
       return imgURL.replace("https://i.imgur.com", "https://images.bitclout.com/i.imgur.com");
+    } else if (imgURL.startsWith("https://arweave.net/")) {
+      // Build cloudflare imageString
+      imgURL = "https://supernovas.app/cdn-cgi/image/width=300,height=300,fit=scale-down,quality=80/" + imgURL;
     }
     return imgURL;
   }

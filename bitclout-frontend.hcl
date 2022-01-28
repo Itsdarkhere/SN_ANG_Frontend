@@ -95,6 +95,7 @@ job "supernovas-frontend" {
         https://upload.videodelivery.net;
       script-src 
         'unsafe-eval'
+        ajax.cloudflare.com
         https://supernovas.app
         https://supernovas.app:*
         https://google-analytics.com 

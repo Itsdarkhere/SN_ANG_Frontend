@@ -159,14 +159,14 @@
         You've checked too many codes and hit a rate limit. Please wait 10 minutes and try again.
       </div>
     </div>
+    <div class="fs-18px">
+      <div *ngIf="sendPhoneNumberVerificationTextServerErrors.maxSendAttemptsReached" class="mt-5px fc-red fs-15px">
+        You've requested too many verification codes. Please wait 10 minutes and try again.
+      </div>
+    </div>
   </form>
   <div *ngIf="false" class="fs-10px">
     By proceeding, you agree to receive text messages from bitclout.com (standard rates apply)
-  </div>
-  <div class="fs-18px">
-    <div *ngIf="sendPhoneNumberVerificationTextServerErrors.maxSendAttemptsReached" class="mt-5px fc-red fs-15px">
-      You've requested too many verification codes. Please wait 10 minutes and try again.
-    </div>
   </div>
 
   <!-- verification complete -->

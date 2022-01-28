@@ -574,7 +574,7 @@ export class NewNftCardComponent implements OnInit {
       return imgURL.replace("https://i.imgur.com", "https://images.bitclout.com/i.imgur.com");
     } else if (imgURL.startsWith("https://arweave.net/") && this.globalVars.loggedInUser.IsAdmin) {
       // Build cloudflare imageString
-      imgURL = "/cdn-cgi/image/width=500,height=500,fit=scale-down,quality=85/" + imgURL;
+      imgURL = "https://supernovas.app/cdn-cgi/image/width=500,height=500,fit=scale-down,quality=85/" + imgURL;
     }
     return imgURL;
   }

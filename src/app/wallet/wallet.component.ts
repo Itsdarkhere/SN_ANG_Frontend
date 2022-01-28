@@ -13,7 +13,6 @@ import { environment } from "src/environments/environment";
 @Component({
   selector: "wallet",
   templateUrl: "./wallet.component.html",
-  styleUrls: ["./wallet.component.scss"],
 })
 export class WalletComponent implements OnInit, OnDestroy {
   static PAGE_SIZE = 20;
@@ -45,8 +44,6 @@ export class WalletComponent implements OnInit, OnDestroy {
   balanceEntryToHighlight: BalanceEntryResponse;
 
   nextButtonText: string;
-
-  shortPublicKey: string;
 
   constructor(
     private appData: GlobalVarsService,
@@ -122,25 +119,10 @@ export class WalletComponent implements OnInit, OnDestroy {
       );
     }
     this.titleService.setTitle(`Wallet - ${environment.node.name}`);
-
-    this.truncatePublicKey(this.globalVars.loggedInUser.PublicKeyBase58Check);
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-  }
-
-  truncatePublicKey(publicKey: string) {
-    let publicKeyLength = publicKey.length;
-    let publicKeyLastFour = publicKey.length - 4;
-
-    this.shortPublicKey = publicKey.substring(0, 18);
-    this.shortPublicKey = this.shortPublicKey.concat("...", publicKey.substring(publicKeyLastFour, publicKeyLength));
-  }
-
-  copyPublicKey() {
-    this.globalVars._copyText(this.globalVars.loggedInUser.PublicKeyBase58Check);
-    this.globalVars._alertSuccess("copied public key");
   }
 
   // Thanks to @brabenetz for the solution on forward padding with the ngx-ui-scroll component.

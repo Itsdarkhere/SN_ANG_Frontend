@@ -245,9 +245,6 @@
   box-shadow: 1.0368170738220215px 1.0368170738220215px 2.073634147644043px rgba(0, 0, 0, 0.03);
   transition-duration: 0.3s;
   cursor: pointer;
-  width: 95% !important;
-  margin-left: 5px;
-  padding: 0;
   &:hover {
     border: 1.0368170738220215px solid #c1c1c1;
   }
@@ -973,8 +970,4 @@ input[type="number"] {
 }
 .fake-card-inner-row {
   width: calc(100% - 100px);
-}
-.info-img {
-  height: 30px;
-  width: 30px;
 }

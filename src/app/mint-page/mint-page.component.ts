@@ -86,6 +86,10 @@ export class MintPageComponent implements OnInit {
   imageType = false;
   audioType = false;
 
+  //   Auction type
+  openAuction = false;
+  isBuyNow = false;
+
   extrasOpen = false;
   arweaveClicked = false;
   // Step 2
@@ -99,13 +103,15 @@ export class MintPageComponent implements OnInit {
   KEY: string;
   VALUE: string;
   KVMap = new Map();
-  // Step 4
+  // Step 4 open auction
   MIN_PRICE: number;
   PRICE_USD: any;
   CREATOR_ROYALTY: number;
   COIN_ROYALTY: number;
   UNLOCKABLE_CONTENT = false;
   PUT_FOR_SALE = true;
+  // Step 4 buy now
+  buyNowPriceDESO: number = 0;
 
   @HostListener("window:resize") onResize() {
     this.setMobileBasedOnViewport();
@@ -385,6 +391,7 @@ export class MintPageComponent implements OnInit {
     this.VALUE = "";
   }
 
+  // Content type
   imageTypeSelected() {
     this.imageType = true;
     this.audioType = false;
@@ -396,11 +403,25 @@ export class MintPageComponent implements OnInit {
     this.audioType = false;
     this.imageType = false;
   }
+
   audioTypeSelected() {
     this.audioType = true;
     this.videoType = false;
     this.imageType = false;
   }
+
+  //   Auction type
+  openAuctionSelected() {
+    this.openAuction = true;
+    this.isBuyNow = false;
+  }
+
+  buyNowSelected() {
+    this.isBuyNow = true;
+    this.openAuction = false;
+    console.log(` -------------------- isBuyNow ${this.isBuyNow} openAuction ${this.openAuction} ---------- `);
+  }
+
   updateBidAmountUSD(desoAmount) {
     this.PRICE_USD = this.globalVars.nanosToUSDNumber(desoAmount * 1e9).toFixed(2);
   }
@@ -424,6 +445,10 @@ export class MintPageComponent implements OnInit {
   hasUnreasonableMinBidAmount() {
     //return parseFloat(this.MIN_PRICE) < 0 || this.MIN_PRICE < 0;
     return this.MIN_PRICE < 0;
+  }
+
+  hasUnreasonableBuyNowPrice() {
+    return this.buyNowPriceDESO < 0;
   }
 
   deleteKV(key) {
@@ -486,11 +511,20 @@ export class MintPageComponent implements OnInit {
     return this.NAME_OF_PIECE?.length > 0 && this.NAME_OF_PIECE?.length <= 25;
   }
   isPriced() {
-    return this.isPostMinPriceCorrect() && this.isPostRoyaltyCorrect();
+    if (this.openAuction) {
+      return this.isPostMinPriceCorrect() && this.isPostRoyaltyCorrect();
+    }
+    if (this.isBuyNow) {
+      return this.isBuyNowPriceDESOCorrect() && this.isPostRoyaltyCorrect();
+    }
   }
 
   isPostMinPriceCorrect() {
     return this.isNumber(this.MIN_PRICE) && this.MIN_PRICE >= 0;
+  }
+
+  isBuyNowPriceDESOCorrect() {
+    return this.isNumber(this.buyNowPriceDESO) && this.buyNowPriceDESO >= 0;
   }
 
   isPostRoyaltyCorrect() {
@@ -531,6 +565,11 @@ export class MintPageComponent implements OnInit {
     if (!this.MIN_PRICE) {
       this.MIN_PRICE = 0;
     }
+
+    if (!this.buyNowPriceDESO) {
+      this.buyNowPriceDESO = 0;
+    }
+
     let creatorRoyaltyBasisPoints = 0;
     if (this.CREATOR_ROYALTY) {
       creatorRoyaltyBasisPoints = this.CREATOR_ROYALTY * 100;
@@ -552,6 +591,8 @@ export class MintPageComponent implements OnInit {
         this.UNLOCKABLE_CONTENT, // include unlockable
         this.PUT_FOR_SALE, // put on sale
         Math.trunc(this.MIN_PRICE * 1e9),
+        this.isBuyNow,
+        Math.trunc(this.buyNowPriceDESO * 1e9),
         this.globalVars.defaultFeeRateNanosPerKB
       )
       .subscribe(
@@ -768,4 +809,11 @@ export class MintPageComponent implements OnInit {
       });
     }
   }
+
+  //   testDisabled() {
+  //     console.log(` ---------------- isSubmitPress ${this.isSubmitPress} has to be false------------------ `);
+  //     console.log(` -------------- this.isPostReady() needs to be true ${this.isPostReady()} ----------- `);
+  //     console.log(` ---------------- hasUnreasonableRoyalties() has to be false ${this.hasUnreasonableRoyalties()}`);
+  //     console.log(` --------------- hasUnreasonableBuyNowPrice() has to be false ${this.hasUnreasonableBuyNowPrice()}`);
+  //   }
 }

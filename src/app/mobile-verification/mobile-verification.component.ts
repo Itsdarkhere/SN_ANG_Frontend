@@ -96,13 +96,32 @@ export class MobileVerificationComponent implements OnInit {
     this.nextStep.emit();
   }
 
+  downKey(event: any) {
+    let digitString = "digit";
+    this.digitElementId = event.target.id;
+    this.digitNumberString = this.digitElementId.split("digit")[1];
+
+    if (event.code === "Backspace" && this.digitNumberString !== "1" && event.target.value) {
+      return;
+    }
+
+    if (event.code === "Backspace" && this.digitNumberString !== "1" && !event.target.value) {
+      //   if the user presses backspace and there is no value then focus on the previous digit if they are not on the first digit
+      this.digitNumberInt = parseInt(this.digitNumberString) - 1;
+      this.digitNumberString = this.digitNumberInt.toString();
+      this.digitElementFullId = digitString.concat(this.digitNumberString);
+      console.log(document.getElementById(this.digitElementFullId));
+      document.getElementById(this.digitElementFullId).focus();
+      return;
+    }
+  }
+
   onKey(event: any) {
     this.onVerificationCodeInputChanged();
 
     let digitString = "digit";
     this.digitElementId = event.target.id;
     this.digitNumberString = this.digitElementId.split("digit")[1];
-    console.log(`--------------- digitNumberString is ${this.digitNumberString}`);
 
     console.log(event.code);
 
@@ -118,51 +137,46 @@ export class MobileVerificationComponent implements OnInit {
     }
 
     if (event.code === "Backspace") {
-      console.log(` -------------- backspace was clicked with value ---------------`);
       if (this.digitNumberString === "1") {
         this.digitOneValue = "";
         this.verificationCodeString = "";
-        console.log(` ---------------- digitOneValue is ${this.digitOneValue}`);
         this.verificationCodeCorrectLength = false;
         return;
       } else if (this.digitNumberString === "2") {
         this.digitTwoValue = "";
         this.verificationCodeString = "";
-        console.log(` ---------------- digitTwoValue is ${this.digitTwoValue}`);
         this.verificationCodeCorrectLength = false;
 
-        // if the user presses backspace and there is no value then focus on the previous digit if they are not on the first digit
-        this.digitNumberInt = parseInt(this.digitNumberString) - 1;
-        this.digitNumberString = this.digitNumberInt.toString();
-        this.digitElementFullId = digitString.concat(this.digitNumberString);
-        console.log(document.getElementById(this.digitElementFullId));
-        document.getElementById(this.digitElementFullId).focus();
         return;
       } else if (this.digitNumberString === "3") {
         this.digitThreeValue = "";
         this.verificationCodeString = "";
-        console.log(` ---------------- digitThreeValue is ${this.digitThreeValue}`);
         this.verificationCodeCorrectLength = false;
 
-        // if the user presses backspace and there is no value then focus on the previous digit if they are not on the first digit
-        this.digitNumberInt = parseInt(this.digitNumberString) - 1;
-        this.digitNumberString = this.digitNumberInt.toString();
-        this.digitElementFullId = digitString.concat(this.digitNumberString);
-        console.log(document.getElementById(this.digitElementFullId));
-        document.getElementById(this.digitElementFullId).focus();
         return;
       } else {
         this.digitFourValue = "";
         this.verificationCodeString = "";
-        console.log(` ---------------- digitFourValue is ${this.digitFourValue}`);
         this.verificationCodeCorrectLength = false;
 
-        // if the user presses backspace and there is no value then focus on the previous digit if they are not on the first digit
-        this.digitNumberInt = parseInt(this.digitNumberString) - 1;
-        this.digitNumberString = this.digitNumberInt.toString();
-        this.digitElementFullId = digitString.concat(this.digitNumberString);
-        console.log(document.getElementById(this.digitElementFullId));
-        document.getElementById(this.digitElementFullId).focus();
+        return;
+      }
+    }
+
+    if (this.verificationCodeString.length === 4) {
+      if (
+        event.code === "Digit1" ||
+        event.code === "Digit2" ||
+        event.code === "Digit3" ||
+        event.code === "Digit4" ||
+        event.code === "Digit5" ||
+        event.code === "Digit6" ||
+        event.code === "Digit7" ||
+        event.code === "Digit8" ||
+        event.code === "Digit9" ||
+        event.code === "Digit0"
+      ) {
+        console.log(` ------------- digit 0-9 entered and full verification code already`);
         return;
       }
     }

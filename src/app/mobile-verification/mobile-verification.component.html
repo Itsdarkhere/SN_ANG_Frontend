@@ -95,9 +95,18 @@
         id="test"
       /> -->
       <div id="digits">
-        <input (keyup)="onKey($event)" type="text" name="digit1" id="digit1" class="digit" maxlength="1" />
         <input
           (keyup)="onKey($event)"
+          (keydown)="downKey($event)"
+          type="text"
+          name="digit1"
+          id="digit1"
+          class="digit"
+          maxlength="1"
+        />
+        <input
+          (keyup)="onKey($event)"
+          (keydown)="downKey($event)"
           type="text"
           name="digit2"
           id="digit2"
@@ -107,6 +116,7 @@
         />
         <input
           (keyup)="onKey($event)"
+          (keydown)="downKey($event)"
           type="text"
           name="digit3"
           id="digit3"
@@ -116,6 +126,7 @@
         />
         <input
           (keyup)="onKey($event)"
+          (keydown)="downKey($event)"
           type="text"
           name="digit4"
           id="digit4"

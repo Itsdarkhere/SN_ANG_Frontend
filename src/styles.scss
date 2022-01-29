@@ -4069,6 +4069,36 @@ option {
         }
     }
 }
+
+.creators-card-list {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: 20px -10px 0px;
+    padding: 0px;
+    list-style-type: none;
+    @media screen and (max-width: 676px) {
+        padding: 0px 0px 0 0px;
+    }
+    &.nft_creator_list {
+        @media screen and (max-width: 676px) {
+            padding-top: 0;
+        }
+    }
+    .nft-col-wrap {
+        padding: 0px;
+        width: calc(100% / 4);
+        min-width: 247px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        @media screen and (max-width: 676px) {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    }
+}
 .creator-card-list-discovery {
     display: flex;
     align-items: flex-start;

@@ -39,19 +39,14 @@ export class AppComponent implements OnInit {
         });
         // Save data if user navigates to nft page but clear it otherwise
         // Scroll keeps on return and new data is loaded when coming back from another url
-        if (
-          !(event.url.includes("nft") || event.url.includes("Marketplace")) &&
-          this.globalVars.marketplaceDataToShow
-        ) {
-          this.globalVars.marketplaceDataToShow = null;
-          this.globalVars.marketplaceFilteredCollection = null;
-          this.globalVars.marketplaceCollection = null;
+        if (!(event.url.includes("nft") || event.url.includes("Marketplace")) && this.globalVars.marketplaceNFTsData) {
+          this.globalVars.marketplaceNFTsData = null;
+          this.globalVars.marketplaceCreatorData = null;
           this.globalVars.marketplaceStartIndex = 0;
           this.globalVars.marketplaceEndIndex = 20;
+          // This below handles discovery -> nfts-page data
         } else if (!(event.url.includes("nft") || event.url.includes("nfts")) && this.globalVars.nftsDataToShow) {
           this.globalVars.nftsDataToShow = null;
-          this.globalVars.nftsFilteredCollection = null;
-          this.globalVars.nftsCollection = null;
           this.globalVars.nftsStartIndex = 0;
           this.globalVars.nftsEndIndex = 20;
         }

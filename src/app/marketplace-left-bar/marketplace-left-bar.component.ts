@@ -4,7 +4,6 @@ import { Location } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FunctionPassService } from "../function-pass.service";
 import { toInteger } from "lodash";
-import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: "app-marketplace-left-bar",
@@ -36,37 +35,15 @@ export class MarketplaceLeftBarComponent implements OnInit {
   // Creator Type
   verifiedCreators = true;
   allNFTs = false;
-
+  // Price range
   lowPrice: number;
   highPrice: number;
   // If set price range can be clicked
   // price range incorrect
   priceRangeCorrect = false;
   priceRangeIncorrect = false;
-
+  // Change ui if
   isPriceRangeSet = false;
-
-  // Sorting
-  static MOST_RECENT_FIRST = "Most recent first";
-  static OLDEST_FIRST = "Oldest first";
-  static HIGHEST_PRICE_FIRST = "Highest price first";
-  static LOWEST_PRICE_FIRST = "Lowest price first";
-  static MOST_LIKES_FIRST = "Most likes first";
-  static MOST_DIAMONDS_FIRST = "Most diamonds first";
-  static MOST_COMMENTS_FIRST = "Most comments first";
-  static MOST_REPOSTS_FIRST = "Most reposts first";
-
-  // Status
-  static ALL = "All";
-  static HAS_BIDS = "Has bids";
-  static NO_BIDS = "No bids yet";
-  static FOR_SALE = "For sale";
-  static SOLD = "Sold";
-
-  // Trendscomponent = Marketplace
-  trends: any;
-  // Fake loading animation
-  loading = false;
 
   constructor(
     public globalVars: GlobalVarsService,
@@ -307,13 +284,11 @@ export class MarketplaceLeftBarComponent implements OnInit {
   apply() {
     this.globalVars.isMarketplaceLoading = true;
     this.setPriceRange();
-    this.loading = true;
     this.setMarketTypeFilter();
     this.setContentFormatFilter();
     this.onFilter.emit("");
     this.functionPass.filter("");
     setTimeout(() => {
-      this.loading = false;
       this.globalVars.isMarketplaceLeftBarMobileOpen = false;
     }, 200);
   }

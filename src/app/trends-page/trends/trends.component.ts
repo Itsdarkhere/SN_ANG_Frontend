@@ -5,8 +5,8 @@ import { BackendApiService, NFTCollectionResponse } from "../../backend-api.serv
 import { GlobalVarsService } from "../../global-vars.service";
 import { InfiniteScroller } from "../../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
-import { uniqBy } from "lodash";
 import { FunctionPassService } from "src/app/function-pass.service";
+import { CreatorCardResponse } from "../../backend-api.service";
 
 @Component({
   selector: "trends",
@@ -22,9 +22,6 @@ export class TrendsComponent implements OnInit {
   static WINDOW_VIEWPORT = true;
   static BUFFER_SIZE = 20;
   static PADDING = 0.5;
-  //startIndex = 0;
-  //endIndex = 20;
-  //dataToShow: NFTCollectionResponse[];
   selectedOptionWidth: string;
   pagedRequestsByTab = {};
   lastPageByTab = {};
@@ -32,17 +29,12 @@ export class TrendsComponent implements OnInit {
   index = 0;
   mobile = false;
 
-  // Nfts, creators, collections
-  typeNFTs = true;
-  typeCollections = false;
-  typeCreators = false;
-
   sortValue = "most recent first";
 
   // display type, card or grid
   // Naming convention for display grid probably is not optimal but couldnt come up with a better one
-  displayCard = false;
-  displayGrid = true;
+  displayCard = true;
+  displayGrid = false;
 
   infiniteScroller: InfiniteScroller = new InfiniteScroller(
     TrendsComponent.PAGE_SIZE,
@@ -63,18 +55,17 @@ export class TrendsComponent implements OnInit {
     this.globalVars = _globalVars;
     this.functionPass.listen().subscribe((m: any) => {
       this.sortMarketplace(0, false);
-      this.globalVars.marketplaceOffset = 0;
+      this.globalVars.marketplaceNFTsOffset = 0;
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     });
   }
 
   ngOnInit(): void {
-    if (!this.globalVars.marketplaceDataToShow) {
-      //this.sortMarketplace(this.globalVars.marketplaceOffset, false);
+    if (!this.globalVars.marketplaceNFTsData) {
+      this.sortMarketplace(0, false);
     }
     this.setMobileBasedOnViewport();
-    this.sortMarketplace(0, false);
   }
 
   setMobileBasedOnViewport() {
@@ -102,9 +93,9 @@ export class TrendsComponent implements OnInit {
       .subscribe(
         (res) => {
           if (showMore) {
-            this.globalVars.marketplaceDataToShow = this.globalVars.marketplaceDataToShow.concat(res.PostEntryResponse);
+            this.globalVars.marketplaceNFTsData = this.globalVars.marketplaceNFTsData.concat(res.PostEntryResponse);
           } else {
-            this.globalVars.marketplaceDataToShow = res.PostEntryResponse;
+            this.globalVars.marketplaceNFTsData = res.PostEntryResponse;
           }
           this.globalVars.isMarketplaceLoading = false;
         },
@@ -113,7 +104,26 @@ export class TrendsComponent implements OnInit {
         }
       );
   }
-
+  sortCreators(offset: number, showMore: boolean) {
+    if (!showMore) {
+      this.globalVars.isMarketplaceLoading = true;
+    }
+    this.backendApi.SortCreators(this.globalVars.localNode, offset, "verified").subscribe(
+      (res) => {
+        if (showMore) {
+          this.globalVars.marketplaceCreatorData = this.globalVars.marketplaceCreatorData.concat(
+            res.SortCreatorsResponses
+          );
+        } else {
+          this.globalVars.marketplaceCreatorData = res.SortCreatorsResponses;
+        }
+        this.globalVars.isMarketplaceLoading = false;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
   getPage(page: number) {
     if (this.lastPage != null && page > this.lastPage) {
       return [];
@@ -124,9 +134,9 @@ export class TrendsComponent implements OnInit {
 
     return new Promise((resolve, reject) => {
       resolve(
-        this.globalVars.marketplaceDataToShow.slice(
+        this.globalVars.marketplaceNFTsData.slice(
           startIdx,
-          Math.min(endIdx, this.globalVars.marketplaceDataToShow.length)
+          Math.min(endIdx, this.globalVars.marketplaceNFTsData.length)
         )
       );
     });
@@ -135,12 +145,10 @@ export class TrendsComponent implements OnInit {
   setDisplayType(display: string) {
     switch (display) {
       case "Card":
-        this.displayCard = true;
-        this.displayGrid = false;
+        this.globalVars.marketplaceViewTypeCard = true;
         break;
       case "Grid":
-        this.displayGrid = true;
-        this.displayCard = false;
+        this.globalVars.marketplaceViewTypeCard = false;
         break;
       default:
         break;
@@ -149,22 +157,16 @@ export class TrendsComponent implements OnInit {
   setContentType(content: string) {
     switch (content) {
       case "NFTs":
-        this.typeNFTs = true;
-        // Only one content type at a time
-        this.typeCollections = false;
-        this.typeCreators = false;
-        break;
-      case "Collections":
-        this.typeCollections = true;
-        // Only one content type at a time
-        this.typeNFTs = false;
-        this.typeCreators = false;
+        this.globalVars.marketplaceContentTypeNFTs = true;
+        if (!this.globalVars.marketplaceNFTsData) {
+          this.sortMarketplace(0, false);
+        }
         break;
       case "Creators":
-        this.typeCreators = true;
-        // Only one content type at a time
-        this.typeCollections = false;
-        this.typeNFTs = false;
+        this.globalVars.marketplaceContentTypeNFTs = false;
+        if (!this.globalVars.marketplaceCreatorData) {
+          this.sortCreators(0, false);
+        }
         break;
       default:
         break;
@@ -183,11 +185,14 @@ export class TrendsComponent implements OnInit {
       })
       .unsubscribe();
   }
-  onScroll() {
-    this.globalVars.marketplaceOffset = this.globalVars.marketplaceOffset + 30;
-    this.sortMarketplace(this.globalVars.marketplaceOffset, true);
+  onScrollNFTs() {
+    this.globalVars.marketplaceNFTsOffset = this.globalVars.marketplaceNFTsOffset + 30;
+    this.sortMarketplace(this.globalVars.marketplaceNFTsOffset, true);
   }
-
+  onScrollCreators() {
+    this.globalVars.marketplaceCreatorsOffset = this.globalVars.marketplaceCreatorsOffset + 30;
+    this.sortCreators(this.globalVars.marketplaceCreatorsOffset, true);
+  }
   counter(i: number) {
     return new Array(i);
   }

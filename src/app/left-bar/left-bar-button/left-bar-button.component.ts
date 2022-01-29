@@ -17,7 +17,6 @@ export class LeftBarButtonComponent {
   @Input() queryParams = null;
   notificationCount = 1;
 
-
   constructor(public globalVars: GlobalVarsService) {}
 
   _queryParamsForLink(link: string) {
@@ -30,4 +29,3 @@ export class LeftBarButtonComponent {
     return { stepNum: null, adminTab: null, feedTab: null };
   }
 }
-

@@ -77,11 +77,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
 
     this.route.queryParams.subscribe((queryParams) => {
       if (queryParams.feedTab) {
-        if (queryParams.feedTab === FeedComponent.SHOWCASE_TAB) {
-          this.activeTab = "Showcase";
-        } else {
-          this.activeTab = queryParams.feedTab;
-        }
+        this.activeTab = queryParams.feedTab;
       } else {
         // A default activeTab will be set after we load the follow feed (based on whether
         // the user is following anybody)

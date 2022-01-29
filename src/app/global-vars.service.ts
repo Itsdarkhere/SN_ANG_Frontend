@@ -9,6 +9,7 @@ import {
   TutorialStatus,
   User,
   NFTEntryResponse,
+  CreatorCardResponse,
 } from "./backend-api.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { RouteNames } from "./app-routing.module";
@@ -81,9 +82,6 @@ export class GlobalVarsService {
   // Track if the user is dragging the diamond selector. If so, need to disable text selection in the app.
   userIsDragging = false;
 
-  // Marketplace is loading / filtering
-  isMarketplaceLoading = false;
-
   RouteNames = RouteNames;
 
   pausePolling = false; // TODO: Monkey patch for when polling conflicts with other calls.
@@ -126,15 +124,17 @@ export class GlobalVarsService {
   feeRateDeSoPerKB = 1000 / 1e9;
   postsToShow = [];
   followFeedPosts = [];
-  marketplaceDataToShow: NFTCollectionResponse[];
-  marketplaceFilteredCollection: NFTCollectionResponse[];
-  marketplaceCollection: NFTCollectionResponse[];
+  // Marketplace is loading / filtering
+  isMarketplaceLoading = false;
   marketplaceStartIndex = 0;
   marketplaceEndIndex = 20;
+  marketplaceNFTsData: NFTCollectionResponse[];
+  marketplaceCreatorData: CreatorCardResponse[];
+  // The buttons on the marketplace
+  marketplaceViewTypeCard = true;
+  marketplaceContentTypeNFTs = true;
   // Discovery nfts page
   nftsDataToShow: NFTCollectionResponse[];
-  nftsFilteredCollection: NFTCollectionResponse[];
-  nftsCollection: NFTCollectionResponse[];
   nftsStartIndex = 0;
   nftsEndIndex = 20;
 
@@ -149,7 +149,8 @@ export class GlobalVarsService {
   creatorsType = "verified";
 
   // Marketplace Offset
-  marketplaceOffset = 0;
+  marketplaceNFTsOffset = 0;
+  marketplaceCreatorsOffset = 0;
 
   messageResponse = null;
   messageMeta = {

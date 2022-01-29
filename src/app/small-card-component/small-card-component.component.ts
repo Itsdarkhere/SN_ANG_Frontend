@@ -116,4 +116,10 @@ export class SmallCardComponentComponent implements OnInit {
       queryParamsHandling: "merge",
     });
   }
+  activateOnHover(event, play) {
+    console.log("lol");
+  }
+  activateOnHoverAudio(play) {
+    console.log("lol");
+  }
 }

@@ -1,10 +1,13 @@
 <div
   class="creator-card-container m-10px cursor-pointer"
   *ngIf="!profileDeleted"
+  [ngClass]="sizeSmall ? 'card-size-small' : 'card-size-normal'"
   [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, creatorProfile?.Username]"
 >
-  <div class="creator-card-top-container d-flex flex-center">
+  <div class="creator-card-top-container d-flex flex-center position-relative">
     <div class="creator-card-avatar" [avatar]="creatorProfile?.PublicKeyBase58Check"></div>
+    <div class="shader"></div>
+    <img *ngIf="ImageURLs" src="{{ mapImageURLs(ImageURLs[0]) }}" />
   </div>
   <div class="creator-card-bottom-container p-10px d-flex flex-column flex-center">
     <label class="font-weight-bold fs-12px mb-minus-5px color-light">Creator</label>
@@ -16,7 +19,7 @@
       {{ creatorProfile?.Username }}
       <i *ngIf="creatorProfile?.IsVerified" class="fas fs-14px fa-check-circle fa-md text-primary"></i>
     </p>
-    <div class="cc-bio-box position-relative">
+    <div class="cc-bio-box position-relative" [ngClass]="{ 'mt-10px': sizeSmall }">
       <p class="text-align-center fs-12px color-light">
         {{ creatorProfile?.Description }}
       </p>
@@ -24,7 +27,7 @@
     </div>
     <!--<button class="cc-follow-btn mt-10px font-weight-semiboldn white-rounded-button">Follow</button>-->
     <follow-button
-      *ngIf="!globalVars.hasUserBlockedCreator(creatorProfile?.PublicKeyBase58Check)"
+      *ngIf="!globalVars.hasUserBlockedCreator(creatorProfile?.PublicKeyBase58Check) && !sizeSmall"
       [followButtonClasses]="[
         'cc-follow-btn',
         'mt-10px',

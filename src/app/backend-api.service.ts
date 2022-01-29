@@ -134,6 +134,8 @@ export class BackendRoutes {
   static RoutePathGetNFTsByCategory = "/api/v0/get-nfts-by-category";
   // Marketplace postgres
   static RoutePathSortMarketplace = "/api/v0/sort-marketplace";
+  static RoutePathSortCreators = "/api/v0/sort-creators";
+
   // Same as the two above but for supernovas uses
   static RoutePathGetMarketplaceRefSupernovas = "/api/v0/get-marketplace-ref-supernovas";
   static RoutePathAddToMarketplaceSupernovas = "/api/v0/add-to-marketplace-supernovas";
@@ -202,6 +204,10 @@ export class ProfileEntryResponse {
   Posts?: PostEntryResponse[];
   IsReserved?: boolean;
   IsVerified?: boolean;
+}
+export class CreatorCardResponse {
+  Username: string;
+  ImageURLs: string[];
 }
 
 export enum TutorialStatus {
@@ -1190,6 +1196,12 @@ export class BackendApiService {
       SortType,
       ContentFormat,
       CreatorsType,
+    });
+  }
+  SortCreators(endpoint: string, Offset: number, Verified): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathSortCreators, {
+      Offset,
+      Verified,
     });
   }
   GetNFTCollectionSummary(endpoint: string, ReaderPublicKeyBase58Check: string, PostHashHex: string): Observable<any> {

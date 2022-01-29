@@ -21,9 +21,7 @@
       </div>
     </div>
     <img
-      class="card-img"
-      (mouseenter)="activateOnHoverAudio(false)"
-      (mouseleave)="activateOnHoverAudio(true)"
+      class="card-image"
       *ngIf="post.ImageURLs && post.ImageURLs[0] && !post.ParentStakeID"
       data-toggle="modal"
       src="{{ mapImageURLs(post.ImageURLs[0]) }}"

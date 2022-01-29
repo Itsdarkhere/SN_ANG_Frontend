@@ -423,7 +423,11 @@
   <div *ngIf="!mobile" class="discovery-creator-cards-container w-100">
     <div class="creator-card-list-discovery" *ngIf="!usersLoading">
       <div class="nft-col-wrap" *ngFor="let username of discoveryUserArray">
-        <app-creator-card [username]="username" [extraUserNames]="discoveryExtraUserArray"></app-creator-card>
+        <app-creator-card
+          [username]="username"
+          [sizeSmall]="false"
+          [extraUserNames]="discoveryExtraUserArray"
+        ></app-creator-card>
       </div>
     </div>
     <div class="nfts-card-list-discovery w-100" *ngIf="usersLoading">
@@ -439,23 +443,27 @@
       <app-creator-card
         [username]="discoveryUserArray[0]"
         [extraUserNames]="discoveryExtraUserArray"
+        [sizeSmall]="false"
       ></app-creator-card>
     </div>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
         [username]="discoveryUserArray[1]"
         [extraUserNames]="discoveryExtraUserArray"
+        [sizeSmall]="false"
       ></app-creator-card>
     </div>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
         [username]="discoveryUserArray[2]"
         [extraUserNames]="discoveryExtraUserArray"
+        [sizeSmall]="false"
       ></app-creator-card>
     </div>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
         [username]="discoveryUserArray[3]"
+        [sizeSmall]="false"
         [extraUserNames]="discoveryExtraUserArray"
       ></app-creator-card>
     </div>
@@ -463,23 +471,27 @@
       <app-creator-card
         [username]="discoveryUserArray[4]"
         [extraUserNames]="discoveryExtraUserArray"
+        [sizeSmall]="false"
       ></app-creator-card>
     </div>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
         [username]="discoveryUserArray[5]"
+        [sizeSmall]="false"
         [extraUserNames]="discoveryExtraUserArray"
       ></app-creator-card>
     </div>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
         [username]="discoveryUserArray[6]"
+        [sizeSmall]="false"
         [extraUserNames]="discoveryExtraUserArray"
       ></app-creator-card>
     </div>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
         [username]="discoveryUserArray[7]"
+        [sizeSmall]="false"
         [extraUserNames]="discoveryExtraUserArray"
       ></app-creator-card>
     </div>

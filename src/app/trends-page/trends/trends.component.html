@@ -28,7 +28,7 @@
     <select
       class="p-5px ml-20px mrk_select mrk_top_select_height fs-14px"
       (ngModelChange)="sortSelectChange($event)"
-      [ngModel]="sortValue"
+      [ngModel]="globalVars.marketplaceSortType"
     >
       <option value="most recent first">Most recent first</option>
       <option value="oldest first">Oldest first</option>

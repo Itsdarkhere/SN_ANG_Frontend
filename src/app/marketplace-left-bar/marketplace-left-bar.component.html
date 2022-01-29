@@ -1,31 +1,39 @@
 <!--<div class="marketplace-nav-width position-relative"> Commented out to make position sticky work-->
-<div class="global__nav__sticky__marketplace disable-scrollbars mt-10px">
-  <div class="global__nav__inner__marketplace position-relative">
+<div class="global__nav__sticky__marketplace mt-10px">
+  <div class="global__nav__inner__marketplace disable-scrollbars position-relative">
     <label class="w-100 pl-10px marketplace-label">Status</label>
     <div class="mlb-status-grid">
-      <button class="font-weight-semibold fs-14px" (click)="statusClick('All')" [ngClass]="{ selected: statusAll }">
+      <button
+        class="font-weight-semibold fs-14px"
+        (click)="statusClick('all')"
+        [ngClass]="{ selected: this.statusAll }"
+      >
         All
       </button>
       <button
         class="font-weight-semibold fs-14px"
-        (click)="statusClick('For Sale')"
-        [ngClass]="{ selected: statusForSale }"
+        (click)="statusClick('for sale')"
+        [ngClass]="{ selected: this.statusForSale }"
       >
         For Sale
       </button>
       <button
         class="font-weight-semibold fs-14px"
-        (click)="statusClick('Has Bids')"
-        [ngClass]="{ selected: statusHasBids }"
+        (click)="statusClick('has bids')"
+        [ngClass]="{ selected: this.statusHasBids }"
       >
         Has Bids
       </button>
-      <button class="font-weight-semibold fs-14px" (click)="statusClick('Sold')" [ngClass]="{ selected: statusSold }">
+      <button
+        class="font-weight-semibold fs-14px"
+        (click)="statusClick('sold')"
+        [ngClass]="{ selected: this.statusSold }"
+      >
         Sold
       </button>
     </div>
     <label class="w-100 mt-20px pl-10px marketplace-label">Price range</label>
-    <div *ngIf="!isPriceRangeSet; else priceSetBlock">
+    <div *ngIf="!globalVars.marketplacePriceRangeSet; else priceSetBlock">
       <div class="d-flex flex-row justify-content-between mlb-price-inputs-container">
         <input
           [ngClass]="{ correct: priceRangeCorrect, incorrect: priceRangeIncorrect }"
@@ -42,35 +50,28 @@
           placeholder="Max"
         />
       </div>
-      <!--<button
-        [disabled]="!setPriceRangeAvailable"
-        (click)="setPriceRange()"
-        class="mlb-set-price-button font-weight-bold fs-12px w-100"
-      >
-        Set price range
-      </button>-->
     </div>
     <ng-template #priceSetBlock>
       <div class="mlb-price-set-box w-100 d-flex flex-center-start pl-10px position-relative">
-        <span>{{ lowPrice }}$ to {{ highPrice }}$</span>
+        <span>{{ this.showPriceRange() }}</span>
         <button (click)="resetPriceRange()"></button>
       </div>
     </ng-template>
     <label class="w-100 mt-20px pl-10px marketplace-label">Market</label>
     <button
       class="w-100 marketplace-filter-button d-flex flex-row align-items-center pl-10px position-relative"
-      [ngClass]="primary ? 'market-button-checked' : ''"
-      (click)="togglePrimary()"
+      [ngClass]="marketPrimary ? 'market-button-checked' : ''"
+      (click)="marketClick('primary')"
     >
-      <input type="checkbox" class="marketplace-button-checkbox display-none" [checked]="primary" />
+      <input type="checkbox" class="marketplace-button-checkbox display-none" [checked]="marketPrimary" />
       <label class="marketplace-checkbox-label fs-14px">Primary</label>
     </button>
     <button
       class="w-100 mt-10px marketplace-filter-button d-flex flex-row align-items-center pl-10px position-relative"
-      [ngClass]="secondary ? 'market-button-checked' : ''"
-      (click)="toggleSecondary()"
+      [ngClass]="marketSecondary ? 'market-button-checked' : ''"
+      (click)="marketClick('secondary')"
     >
-      <input type="checkbox" class="marketplace-button-checkbox display-none" [checked]="secondary" />
+      <input type="checkbox" class="marketplace-button-checkbox display-none" [checked]="marketSecondary" />
       <label class="marketplace-checkbox-label fs-14px">Secondary</label>
     </button>
     <label class="w-100 mt-20px pl-10px marketplace-label">Creators</label>
@@ -78,7 +79,7 @@
       <button
         class="fs-12px d-flex flex-row flex-center"
         (click)="creatorsClick('verified')"
-        [ngClass]="{ selected: verifiedCreators }"
+        [ngClass]="{ selected: creatorTypeVerified }"
       >
         <img src="/assets/icons/checkmark_14px.svg" class="mr-5px" alt="image-icon" />
         Verified
@@ -86,18 +87,18 @@
       <button
         class="fs-12px d-flex flex-row flex-center"
         (click)="creatorsClick('all')"
-        [ngClass]="{ selected: allNFTs }"
+        [ngClass]="{ selected: !creatorTypeVerified }"
       >
         <img src="/assets/icons/market_globe_icon.svg" class="mr-5px" alt="image-icon" />
         All
       </button>
     </div>
-    <div class="verifiedAccordion disable-scrollbars" [ngClass]="{ expanded: verifiedCreators }">
+    <div class="verifiedAccordion disable-scrollbars" [ngClass]="{ expanded: globalVars.marketplaceVerifiedCreators }">
       <label class="w-100 mt-20px pl-10px marketplace-label">Category</label>
       <select
         class="w-100 p-5px mrk_select mrk_select_height font-weight-semibold fs-14px"
         (ngModelChange)="categorySelectChange($event)"
-        [ngModel]="categoryValue"
+        [ngModel]="NFTCategory"
       >
         <option value="all">All</option>
         <option value="photography">Photography</option>
@@ -118,15 +119,15 @@
         All
       </button>
       <div class="mlb-status-grid pt-10px">
-        <button (click)="formatClick('Images')" [ngClass]="{ selected: formatImages }">
+        <button (click)="formatClick('images')" [ngClass]="{ selected: formatImages }">
           <img src="/assets/icons/market_images_icon.svg" class="mb-5px" alt="image-icon" />
           Images
         </button>
-        <button (click)="formatClick('Video')" [ngClass]="{ selected: formatVideo }">
+        <button (click)="formatClick('video')" [ngClass]="{ selected: formatVideo }">
           <img src="/assets/icons/market_video_icon.svg" class="mb-5px" alt="image-icon" />
           Video
         </button>
-        <button (click)="formatClick('Music')" [ngClass]="{ selected: formatMusic }">
+        <button (click)="formatClick('music')" [ngClass]="{ selected: formatMusic }">
           <img src="/assets/icons/market_music_icon.svg" class="mb-5px" alt="image-icon" />
           Music
         </button>
@@ -136,6 +137,8 @@
         </button>
       </div>
     </div>
+  </div>
+  <div class="mlb-apply-button-container">
     <button class="marketplace-apply-button fs-12px font-weight-bold" (click)="apply()">
       <img src="/assets/icons/market_apply_icon.svg" class="mr-5px" alt="image-icon" />
       Apply

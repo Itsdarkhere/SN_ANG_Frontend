@@ -101,10 +101,16 @@ input[type=number]::-webkit-outer-spin-button {
         font-weight: 500;
     }
 }
-.mlb-set-price-button:disabled {
-    //box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
-    border: 2px solid #595959;
-    color: #595959;
+.mlb-apply-button-container {
+    width: 100%;
+    background-color: #FFFFFF;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 .mlb-price-set-box {
     height: 42px;

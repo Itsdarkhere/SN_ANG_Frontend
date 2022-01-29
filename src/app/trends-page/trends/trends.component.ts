@@ -29,8 +29,6 @@ export class TrendsComponent implements OnInit {
   index = 0;
   mobile = false;
 
-  sortValue = "most recent first";
-
   // display type, card or grid
   // Naming convention for display grid probably is not optimal but couldnt come up with a better one
   displayCard = true;
@@ -81,14 +79,14 @@ export class TrendsComponent implements OnInit {
         this.globalVars.localNode,
         "",
         offset,
-        this.globalVars.lowPrice,
-        this.globalVars.highPrice,
-        this.globalVars.auctionStatus,
-        this.globalVars.marketType,
-        this.globalVars.category,
-        this.sortValue,
-        this.globalVars.contentFormat,
-        this.globalVars.creatorsType
+        this.globalVars.marketplaceLowPriceNanos,
+        this.globalVars.marketplaceHighPriceNanos,
+        this.globalVars.marketplaceStatus,
+        this.globalVars.marketplaceMarketType,
+        this.globalVars.marketplaceNFTCategory,
+        this.globalVars.marketplaceSortType,
+        this.globalVars.marketplaceContentFormat,
+        this.globalVars.marketplaceVerifiedCreators
       )
       .subscribe(
         (res) => {
@@ -197,8 +195,8 @@ export class TrendsComponent implements OnInit {
     return new Array(i);
   }
   sortSelectChange(event) {
-    if (this.sortValue != event) {
-      this.sortValue = event;
+    if (this.globalVars.marketplaceSortType != event) {
+      this.globalVars.marketplaceSortType = event;
       this.sortMarketplace(0, false);
     }
   }

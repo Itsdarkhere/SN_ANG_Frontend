@@ -133,20 +133,21 @@ export class GlobalVarsService {
   // The buttons on the marketplace
   marketplaceViewTypeCard = true;
   marketplaceContentTypeNFTs = true;
+  marketplaceVerifiedCreators = "verified";
+  marketplaceContentFormat = "all";
+  marketplaceStatus = "all";
+  marketplaceNFTCategory = "all";
+  marketplaceLowPriceNanos = 0;
+  marketplaceHighPriceNanos = 0;
+  marketplaceLowPriceUSD = 0;
+  marketplaceHighPriceUSD = 0;
+  marketplacePriceRangeSet = false;
+  marketplaceMarketType = "all";
+  marketplaceSortType = "most recent first";
   // Discovery nfts page
   nftsDataToShow: NFTCollectionResponse[];
   nftsStartIndex = 0;
   nftsEndIndex = 20;
-
-  // Marketplace filtering
-  auctionStatus = "all";
-  lowPrice = 0;
-  highPrice = 0;
-  marketType = "all";
-  category = "all";
-  sortType = "most recent first";
-  contentFormat = "all";
-  creatorsType = "verified";
 
   // Marketplace Offset
   marketplaceNFTsOffset = 0;

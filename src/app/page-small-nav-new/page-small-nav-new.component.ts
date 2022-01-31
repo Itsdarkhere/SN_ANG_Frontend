@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, HostListener, OnInit } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
 
 @Component({
@@ -17,7 +17,7 @@ export class PageSmallNavNewComponent implements OnInit {
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
   }
-  openMarketplaceMobileFiltering() {
-    this.globalVars.isMarketplaceLeftBarMobileOpen = true;
+  @HostListener("window:resize") onResize() {
+    this.setMobileBasedOnViewport();
   }
 }

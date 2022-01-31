@@ -120,8 +120,36 @@ export class NftPostComponent implements OnInit {
   ngOnInit() {
     console.log("------------------------------ page loaded ------------------------------");
     // this.refreshPosts();
-    // this.configureMetaTags();
+    //this.logString();
   }
+  logString() {
+    let arr = this.string.split(",");
+    if (arr[this.index]) {
+      this.backendApi.GetSingleProfile(this.globalVars.localNode, "", arr[this.index]).subscribe(
+        (res) => {
+          let utf8Encode = new TextEncoder();
+          this.stringer = this.stringer + "('" + res.Profile.Username + "'),";
+          setTimeout(() => {
+            this.index = this.index + 1;
+            this.logString();
+          }, 100);
+        },
+        (error) => {
+          console.log(error);
+          setTimeout(() => {
+            this.index = this.index + 1;
+            this.logString();
+          }, 100);
+        }
+      );
+    } else {
+      console.log(this.stringer);
+    }
+  }
+  stringer = "";
+  index = 0;
+  string =
+    "lazypretty,grabbits,thumby,maimislang,a1iya,pixelscradle,varavyshka,paulmp,telehumans,desolatemasksociety,olibraithwaite,hinatayuriko,thechrisaguirre,nyaupanesougat,sydbottum,zatihni,sabira,badsanta,foxen,desomaze,dewhales,africuz,shants1900,nestingdolls,vasylya,minimi,maensivu,bitcloutcoinmaster,dragonballnft,jennroyster,bitbunnies,desomusicnft,bigmiker35,gawergy,lilover,spunkart,arterida,cloutdragons,mucho237,onelemonhalflemon,lukasjakson,principia,akashjames,dazedchimps,privatecollective,bitmotions,europeannft,artdeso,gaikenftcreations,radpanda,chaoscreatures,jdarmstrong,dotnft,dhuman,fractal_fox,yuichi,sumor,grump,joiet,kryptocats,desorarity,cloutpunk,lildragons,deathblooms,desocupcakes,izy,cloutpups,mattcirca,desosaurus,deart,samhorine,clarasquared,beerbuds,toyrooms,pixelunit,seelz,gjh,aniketghosh,uglyass,deso_castles,phoobiedoo,sirguy,krt,machinespleak,cansy,icecreams,hafirat,xhuman,saintllaines,aylacroft,eva_ignis,popsiclepuppy,mikeezero,digitalize,matreshka,nftrally,dopeheads,zetareticuli,cryptorascals,bitpig,nordian,pebblepeople,petopia,pokervampires,juvonen,jopi_h,ohlala,nikkecee,nokoko,audiobit,prianichek,66shells,artwalker77,joosh,theorigin,briandrever,oulmouman,dmjks,bitclout_artist,doz,behuman,nf3,kyrell,myimagination,desogen,niksmccoy,testdummy,angie_mathot,transhumanist,derliber,retrobit,skullymania,brahmoz,zoran,jasonlevin,neverwelcome,gokuzar,weirdnature,homelessdrawings,striga,elrickerikose,rezzybeans,aikon,disruptepreneur,cloutgnome,arcana,notsoluckyapes,thenomadtruth,shamaali1,uni_rabbits,danielwilson,findesemana,miniclout,miscreant,sambucaartje,lynndelarosa,rbnks,claramouse,nathanwells,betaverse,noventabpm,severedxxheads,cc_,jodybossert,dowhatyoulove,troya,becopro,dankfranks,fan3k,annskully,allhalloween,saintangelo,olivierozoux,derishaviar,edercallejas,deso_gaming,foxista,therealtosch,desoghost,pigeon_punks,longo,desodawgs,paulyhart,cloutrocks,littledinos,meeks,noahphnx,eriavsanuz,randhir,kad,oo_nft,desotrollz,fuckedupcats,billythai1,desocow,skulluck,degendudes,benjibliss,lorisea,desomon,bigcatsclub,scottantonymarks,xuanling11,cdubya,rudil,ikhan,bleep,knights_of_clout,illumemenati,shondrums,sergio_a_o_v,cloutis,goldberry,clayperrymusic,gangstergoats,tartar,misha_cg,kiragold,sull,pixelateme,weird_unicorns,agustinolmedo,ficusfox,tiems,artstory,clobits,rowdyreindeer,janispetke,shadeflowers,niftybunny,diorama,jhaypy,desolatedskunkz,alextoma,david_golzio,nba_scoreending,hotrepublic,haun,atjeremy,thetom,abwatershots,bitquest,deso_kingdoms,sketchact,funkgator,cloutdevil,gaike_poststampart,meg_the_artist,murselat,dazeddesodudes,spoofies,yogicool,txcflwr,monicarizzolli,leopoldploner,denniskarssie,cranialorigami,foretoldfdn,oganart,stargazearts,slick420,desotronz,nataliart,wilks,rhynelf,goose_cocks,menajem,nader,eggheads,bitavatar,skyblack_toons,murkury,arkham,zvillage,cyborgunity,reverbvisions,sirguyos,moontis,photographybymechell,finn_hartmann,tobiasschmid,x_dimension__,bemyportraitmuse,nadyaez,luckyapes,naderpunks,dshade69,compulsivedoodler,chimpescape,astronfts,thirdeyecats,swafs,xtinct,qtnyc,cranues,blxckcherry,degenducks,boogeyman,williamthethird,lanedigitalart,ballsies,bilgute,raminabrahim,thecryptoconnoisseurs,patrickassale,grumkins,clout_cocks,pingwin,meredithmarsone,familyart,manyruffledfeathers,benholfeld,tristan_siokos,gracebaseme,supernovas,nandubatchu,eerie,unicat,irm,anonymous_graphics,fizzler,desobirds,rainmen,angrykitties,artblock,kjartee,thinkdifferent,deso_lands,luckylee,crazyskull,lildixie,brootle,cyrusabrahim,mythica,mechelllord,wootville,burki,digitalfr33dom,childofthedice,artofneferum,mgamentag,sjgfx,clayoglesby,futoshijapanese,nynja5k,devshivam,dr_javier,therainbowland,tipsyelf,bitcloutbunny,thecharliebrown,desolotl,larrycalabreseart,mrpreet,elnegro,lotuschild,mechaenergy,mushmula,nfthree,vadove,childrensworld,fuckeduppunks,arthearts,hauntednight,mp3,lost_robots,jopi,marblesonstream,anku,sinondabeat,mosquitonfts,niloselos,octoposse,pixal,dandevans,edeson,pixelangelo,rarebuddha,fuckaroos,crypt0droids,bytaylormarie,ohdeer,allclothingbrand,deso_crusaders,cloutdog,xsnchzx,stephenkelly,r0ck3r,todcomplex,mystic_essence,fransarthur,gifcollection,nachoaverage,wendyleigh,metaversepostcards,bitcloutkids,oldangusred,katwolfie,nanobots,ghozt,idreessyed,yigitcakar,metazens,markhumes,desolaters,hindinft,ladyhilbert,reynolkb,5un_is_shining,aelis,kanshi,fairytale,thissorryspacesuit,beerselfie,pixalfoundation,alinetas,rickandmortyog,gretta_art,all_things_creative,titsandtattoos,manrikphoto,chimrky,matthewjschultz,tamasantal,ne_nast_e,williamlaurent,carbononion,frekhzfaber,cloutagotchi,malay11,ruffs,infraredartist,deerdick,heiditn,mysticessence,crypto_viking,stickies,nft_mostwanted,itsaditya,kipu";
   clearURL(url) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }

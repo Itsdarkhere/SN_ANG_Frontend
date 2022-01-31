@@ -1,14 +1,18 @@
 <div>
   <div
-    class="left-bar-mobile__flyout-div-marketplace"
+    class="left-bar-mobile__flyout-div-marketplace d-flex flex-center"
     [@leftBarAnimation]
     *ngIf="globalVars.isMarketplaceLeftBarMobileOpen"
   >
-    <div class="w-100 h-100 position-relative d-flex flex-center align-items-start">
-      <app-marketplace-left-bar></app-marketplace-left-bar>
-      <div *ngIf="globalVars.isMarketplaceLeftBarMobileOpen" (click)="_closeMenu()" class="nav_close_marketplace">
-        <img src="assets/img/close_square.svg" alt="" />
-      </div>
+    <div class="position-relative max-width-400px">
+      <app-marketplace-left-bar [flyout]="true"></app-marketplace-left-bar>
+    </div>
+    <div
+      *ngIf="globalVars.isMarketplaceLeftBarMobileOpen"
+      (click)="_closeMenu()"
+      class="nav_close_marketplace cursor-pointer"
+    >
+      <img src="assets/img/close_square.svg" alt="" />
     </div>
   </div>
   <div

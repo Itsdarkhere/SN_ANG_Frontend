@@ -26,11 +26,139 @@
         color: #1B1B1B
     }
 }
+.mlb-flyout-status-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 10px;
+    button {
+        cursor: pointer;
+        width: 1fr;
+        aspect-ratio: 1.5 / 1.3;
+        background-color: #FFFFFF;
+        color: #525252;
+        border: 1.1800000667572021px solid #aaaaaa;
+        border-radius: 7.866666793823242px;
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        &:hover {
+            background-color: var(--secondary);
+        }
+    }
+    button.selected {
+        border: 3px solid #222222;
+        color: #1B1B1B
+    }
+}
+.marketplace-flyout-filter-button {
+    background-color: transparent;
+    aspect-ratio: 1 / 0.15;
+    background: #ffffff;
+    color: #5e5e5e;
+    border: 1.5px solid #aaaaaa;
+    border-radius: 10px;
+    box-shadow: 0.9287535548210144px 1.8575071096420288px 4.643767833709717px rgba(0, 0, 0, 0.06);
+    text-align: start;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    transition-duration: 50ms;
+    &:hover {
+        background-color: var(--secondary);
+    }
+    &.market-button-checked {
+        font-weight: 500;
+        color: #2C2C2C;
+        border: 3px solid #222222;
+    }
+}
+.marketplace-filter-button {
+    background-color: transparent;
+    width: 100%;
+    height: 42px;
+    background: #ffffff;
+    color: #5e5e5e;
+    border: 1.5px solid #aaaaaa;
+    border-radius: 10px;
+    box-shadow: 0.9287535548210144px 1.8575071096420288px 4.643767833709717px rgba(0, 0, 0, 0.06);
+    text-align: start;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    transition-duration: 50ms;
+    &:hover {
+        background-color: var(--secondary);
+    }
+    &.market-button-checked {
+        font-weight: 500;
+        color: #2C2C2C;
+        border: 3px solid #222222;
+    }
+}
+.mlb-flyout-price-inputs-container {
+    input {
+        width: 48%;
+        aspect-ratio: 1 / 0.3;
+        background-color: #FFFFFF;
+        border: 1.1800000668px solid #aaaaaa;
+        border-radius: 10px;
+        background-image: url("/assets/icons/price_range_dollar.svg");
+        background-repeat: no-repeat;
+        background-position-x: calc(100% - 5px);
+        background-position-y: center;
+        padding-right: 20px;
+        transition-duration: 50ms;
+        &:hover {
+            background-color: var(--secondary);
+        }
+    }
+    input.incorrect {
+        border: 2.5px solid red !important;
+    }
+    input.correct {
+        border: 3px solid #222222;
+        font-weight: 500;
+    }
+}
+.w-80-im {
+    width: 80% !important;
+}
 .marketplace-select {
     border: 1.1800000667572021px solid #aaaaaa;
     border-radius: 7.866666793823242px;
     height: 42px;
     color: #525252;
+}
+.mrk_flyout_lb_selector {
+    aspect-ratio: 1 / 0.15;
+    background: #f5f5f5;
+    border-radius: 14.796862602233887px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+        padding: 0px 15px 0px 15px;
+        text-align: center;
+        height: 90%;
+        width: 50%;
+        border-radius: 5px;
+        border: none;
+        background-color: #f5f5f5;
+        color: #717171;
+        transition-duration: 50ms;
+        &:hover {
+            background-color: var(--secondary);
+        }
+    }
+    button.selected {
+      background: #ffffff;
+      box-shadow: 0.9864575266838074px 0.9864575266838074px 9.864575386047363px rgba(0, 0, 0, 0.1);
+      border: 0.8946940898895264px solid #ffffff;
+      font-weight: 500;
+      color: #2D2D2D;
+    }
 }
 .mrk_lb_selector {
     height: 50px;
@@ -60,15 +188,31 @@
       color: #2D2D2D;
     }
 }
+.mobile__nav__inner__marketplace {
+    padding: 10px 10px 90px 10px;
+    background-color: #F9F9F9;
+    border-radius: 15px;
+    //height: 940px;
+    max-height: calc(100vh - 70px);
+    overflow-y: scroll;
+}
 .verifiedAccordion {
-    height: 0px;
-    min-height: 0px;
+    height: 5px;
     overflow: hidden;
     transition: all .3s ease;
 }
 .verifiedAccordion.expanded {
     min-height: 350px;
-    overflow: auto;
+    transition: all .3s ease;
+}
+.verifiedFlyoutAccordion {
+    width: 100%;
+    max-height: 5px;
+    overflow: hidden;
+    transition: all .3s ease;
+}
+.verifiedFlyoutAccordion.expanded {
+    max-height: 600px;
     transition: all .3s ease;
 }
 input[type=number]::-webkit-inner-spin-button, 
@@ -109,8 +253,61 @@ input[type=number]::-webkit-outer-spin-button {
     justify-content: center;
     align-items: center;
     position: absolute;
-    bottom: 0;
+    bottom: 0px;
     left: 0;
+}
+.mlb-flyout-apply-button-container {
+    width: 100%;
+    background-color: #FFFFFF;
+    aspect-ratio: 1 / 0.2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+}
+.box {
+    aspect-ratio: 1.5/1.3;
+}
+@supports not (aspect-ratio: 1 / 1) {
+    .box::before {
+      float: left;
+      padding-top: 100%;
+      content: "";
+    }
+  
+    .box::after {
+      display: block;
+      content: "";
+      clear: both;
+    }
+  }
+.mlb-flyout-price-set-box {
+    aspect-ratio: 1 / 0.15;
+    background: #ffffff;
+    border: 3px solid #222222;
+    color: #222222;
+    border-radius: 10px;
+    padding-right: 30px;
+    span {
+        width: 100%;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+    }
+    button {
+        position: absolute;
+        right: 5px;
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        background-image: url("/assets/icons/close_round_black.svg");
+        background-size: 20px 20px;
+        background-position: center;
+        background-color: transparent;
+        border: none;
+    }
 }
 .mlb-price-set-box {
     height: 42px;

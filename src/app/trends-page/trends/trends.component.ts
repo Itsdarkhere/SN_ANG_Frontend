@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, HostListener, OnInit } from "@angular/core";
 import { Location } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
 import { BackendApiService, NFTCollectionResponse } from "../../backend-api.service";
@@ -65,7 +65,12 @@ export class TrendsComponent implements OnInit {
     }
     this.setMobileBasedOnViewport();
   }
-
+  @HostListener("window:resize") onResize() {
+    this.setMobileBasedOnViewport();
+  }
+  openMarketplaceMobileFiltering() {
+    this.globalVars.isMarketplaceLeftBarMobileOpen = true;
+  }
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
   }
@@ -74,6 +79,7 @@ export class TrendsComponent implements OnInit {
     if (!showMore) {
       this.globalVars.isMarketplaceLoading = true;
     }
+    console.log(this.globalVars.marketplaceSortType);
     this.backendApi
       .SortMarketplace(
         this.globalVars.localNode,
@@ -93,6 +99,7 @@ export class TrendsComponent implements OnInit {
           if (showMore) {
             this.globalVars.marketplaceNFTsData = this.globalVars.marketplaceNFTsData.concat(res.PostEntryResponse);
           } else {
+            console.log(res.PostEntryResponse);
             this.globalVars.marketplaceNFTsData = res.PostEntryResponse;
           }
           this.globalVars.isMarketplaceLoading = false;
@@ -147,24 +154,6 @@ export class TrendsComponent implements OnInit {
         break;
       case "Grid":
         this.globalVars.marketplaceViewTypeCard = false;
-        break;
-      default:
-        break;
-    }
-  }
-  setContentType(content: string) {
-    switch (content) {
-      case "NFTs":
-        this.globalVars.marketplaceContentTypeNFTs = true;
-        if (!this.globalVars.marketplaceNFTsData) {
-          this.sortMarketplace(0, false);
-        }
-        break;
-      case "Creators":
-        this.globalVars.marketplaceContentTypeNFTs = false;
-        if (!this.globalVars.marketplaceCreatorData) {
-          this.sortCreators(0, false);
-        }
         break;
       default:
         break;

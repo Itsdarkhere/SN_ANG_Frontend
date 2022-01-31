@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
 import { Location } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -13,6 +13,7 @@ import { toInteger } from "lodash";
 export class MarketplaceLeftBarComponent implements OnInit {
   // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   @Output() onFilter: EventEmitter<any> = new EventEmitter();
+  @Input() flyout: boolean;
   priceValue: string = "all";
 
   // Content format buttons
@@ -204,9 +205,9 @@ export class MarketplaceLeftBarComponent implements OnInit {
     if (this.marketPrimary && this.marketSecondary) {
       this.globalVars.marketplaceMarketType = "all";
     } else if (!this.marketPrimary && this.marketSecondary) {
-      this.globalVars.marketplaceMarketType = "primary";
-    } else if (this.marketPrimary && !this.marketSecondary) {
       this.globalVars.marketplaceMarketType = "secondary";
+    } else if (this.marketPrimary && !this.marketSecondary) {
+      this.globalVars.marketplaceMarketType = "primary";
     }
   }
   // Set from click
@@ -337,6 +338,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
     this.setCategory();
     this.setContentFormat();
     this.setStatus();
+    this.setCreatorType();
     this.onFilter.emit("");
     this.functionPass.filter("");
     setTimeout(() => {

@@ -85,15 +85,6 @@
 
       <div class="p-15px"></div>
 
-      <a
-        *ngIf="!globalVars?.loggedInUser?.ProfileEntryResponse?.IsVerified"
-        href="https://form.typeform.com/to/sv1kaUT2"
-        target="_blank"
-        class="become_creator"
-      >
-        Become a creator
-      </a>
-
       <left-bar-button
         *ngIf="globalVars.showAdminTools()"
         [link]="'/' + globalVars.RouteNames.ADMIN"

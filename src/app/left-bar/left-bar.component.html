@@ -15,12 +15,15 @@
 
       <div class="pt-15px"></div>
 
-      <left-bar-button
-        [forMobile]="true"
-        [link]="AppRoutingModule.profilePath(globalVars?.loggedInUser?.ProfileEntryResponse?.Username)"
-        [buttonLabel]="'Profile'"
-        [imgSrc]="'assets/icons/user_cicrle.svg'"
-      ></left-bar-button>
+      <div *ngIf="isMobile" class="w-100 d-flex left-bar-button">
+        <!-- <a class="left-bar__dot-inactive" [href]="getHelpMailToAttr()" target="_blank">·</a> -->
+        <a class="cursor-pointer fs-15px text-grey5" (click)="hasProfile()">
+          <div class="icon-cover">
+            <img src="assets/icons/user_cicrle.svg" />
+          </div>
+          Profile
+        </a>
+      </div>
 
       <left-bar-button
         [imgSrc]="'assets/icons/discovery_icon.svg'"

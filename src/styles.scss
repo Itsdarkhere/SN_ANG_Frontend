@@ -688,8 +688,17 @@ $green-font-color: #19b028;
     border-color: $buy-button-blue;
 }
 
+//TODO
+
 .tab-underline-active {
     border-bottom: solid $buy-button-blue 3px;
+}
+
+.tab-box-active {
+    background-color: red;
+    /* padding: 58px; */
+    border-radius: 5em;
+    margin: 4px;
 }
 
 .tab-underline-inactive {

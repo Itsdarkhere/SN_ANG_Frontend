@@ -16,7 +16,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
   @Input() flyout: boolean;
   priceValue: string = "all";
 
-  // Content format buttons
+  // Content format
   formatAll: boolean;
   formatImages: boolean;
   formatVideo: boolean;
@@ -32,12 +32,6 @@ export class MarketplaceLeftBarComponent implements OnInit {
   marketSecondary: boolean;
   // Creator type
   creatorTypeVerified: boolean;
-  // Content format
-  contentFormatAll: boolean;
-  contentFormatImages: boolean;
-  contentFormatVideo: boolean;
-  contentFormatMusic: boolean;
-  contentFormat3D: boolean;
   // Category
   NFTCategory: string;
 
@@ -48,6 +42,24 @@ export class MarketplaceLeftBarComponent implements OnInit {
   // price range incorrect
   priceRangeCorrect = false;
   priceRangeIncorrect = false;
+  // Last sort values, keep last sort values in memory to compare them to current values
+  // This is to enable / disable the apply button accordingly
+  lastSortLowPrice = 0;
+  lastSortHighPrice = 0;
+  lastSortContentFormatAll = true;
+  lastSortContentFormatVideo = false;
+  lastSortContentFormatMusic = false;
+  lastSortContentFormatImages = false;
+  lastSortCreatorTypeVerified = true;
+  lastSortMarketPrimary = true;
+  lastSortMarketSecondary = true;
+  lastSortStatusAll = true;
+  lastSortStatusForSale = false;
+  lastSortStatusHasBids = false;
+  lastSortStatusSold = false;
+  lastSortCategory = "all";
+  // If Apply button is disabled or allowed
+  canUserSort = false;
 
   constructor(
     public globalVars: GlobalVarsService,
@@ -70,19 +82,23 @@ export class MarketplaceLeftBarComponent implements OnInit {
     if (this.lowPrice < this.highPrice && this.lowPrice >= 0) {
       this.priceRangeCorrect = true;
       this.priceRangeIncorrect = false;
-    } else if (this.lowPrice && this.highPrice) {
+    } else if (this.lowPrice == null && this.highPrice == null) {
+      this.priceRangeCorrect = true;
+      this.priceRangeIncorrect = false;
+    } else {
       this.priceRangeIncorrect = true;
       this.priceRangeCorrect = false;
-    } else {
-      this.priceRangeIncorrect = false;
-      this.priceRangeCorrect = false;
     }
+    this.canSort();
   }
   setPriceRangeInNanos() {
     this.globalVars.marketplacePriceRangeSet = true;
     // These are displayed in the ui once price is set
     this.globalVars.marketplaceLowPriceUSD = this.lowPrice;
     this.globalVars.marketplaceHighPriceUSD = this.highPrice;
+    // These are used in the canSort()
+    this.lastSortLowPrice = this.lowPrice;
+    this.lastSortHighPrice = this.highPrice;
     // These are sent to the backend
     // Unfortunately need to cast to int to remove numbers after ( . )
     // This does make the query slightly less accurate
@@ -164,17 +180,39 @@ export class MarketplaceLeftBarComponent implements OnInit {
       default:
         break;
     }
+    // Check if user can sort
+    this.canSort();
   }
   // Set the status, stays in memory
   setStatus() {
     if (this.statusAll) {
       this.globalVars.marketplaceStatus = "all";
+      // Store to use in canSort()
+      this.lastSortStatusAll = true;
+      this.lastSortStatusForSale = false;
+      this.lastSortStatusHasBids = false;
+      this.lastSortStatusSold = false;
     } else if (this.statusForSale) {
       this.globalVars.marketplaceStatus = "for sale";
+      // Store to use in canSort()
+      this.lastSortStatusForSale = true;
+      this.lastSortStatusSold = false;
+      this.lastSortStatusAll = false;
+      this.lastSortStatusHasBids = false;
     } else if (this.statusHasBids) {
       this.globalVars.marketplaceStatus = "has bids";
+      // Store to use in canSort()
+      this.lastSortStatusHasBids = true;
+      this.lastSortStatusAll = false;
+      this.lastSortStatusForSale = false;
+      this.lastSortStatusSold = false;
     } else if (this.statusSold) {
       this.globalVars.marketplaceStatus = "sold";
+      // Store to use in canSort()
+      this.lastSortStatusSold = true;
+      this.lastSortStatusHasBids = false;
+      this.lastSortStatusAll = false;
+      this.lastSortStatusForSale = false;
     }
   }
   marketClick(market: string) {
@@ -199,15 +237,26 @@ export class MarketplaceLeftBarComponent implements OnInit {
       default:
       // Do nothing
     }
+    // Check if user can sort
+    this.canSort();
   }
   // Set marketType TO global memory
   setMarketType() {
     if (this.marketPrimary && this.marketSecondary) {
       this.globalVars.marketplaceMarketType = "all";
+      // Store to compare in canSort()
+      this.lastSortMarketPrimary = true;
+      this.lastSortMarketSecondary = true;
     } else if (!this.marketPrimary && this.marketSecondary) {
       this.globalVars.marketplaceMarketType = "secondary";
+      // Store to compare in canSort()
+      this.lastSortMarketPrimary = false;
+      this.lastSortMarketSecondary = true;
     } else if (this.marketPrimary && !this.marketSecondary) {
       this.globalVars.marketplaceMarketType = "primary";
+      // Store to compare in canSort()
+      this.lastSortMarketPrimary = true;
+      this.lastSortMarketSecondary = false;
     }
   }
   // Set from click
@@ -223,13 +272,19 @@ export class MarketplaceLeftBarComponent implements OnInit {
       default:
         break;
     }
+    // Check if user can sort
+    this.canSort();
   }
   // Set to memory
   setCreatorType() {
     if (this.creatorTypeVerified) {
       this.globalVars.marketplaceVerifiedCreators = "verified";
+      // Store to use in canSort
+      this.lastSortCreatorTypeVerified = true;
     } else {
       this.globalVars.marketplaceVerifiedCreators = "all";
+      // Store to use in canSort
+      this.lastSortCreatorTypeVerified = false;
     }
   }
   // Format button clicks
@@ -282,26 +337,28 @@ export class MarketplaceLeftBarComponent implements OnInit {
         break;
       // These below only get triggered on init
       case "images video":
-        this.contentFormatVideo = true;
-        this.contentFormatImages = true;
-        this.contentFormatAll = false;
-        this.contentFormatMusic = false;
+        this.formatVideo = true;
+        this.formatImages = true;
+        this.formatAll = false;
+        this.formatMusic = false;
         break;
       case "images music":
-        this.contentFormatImages = true;
-        this.contentFormatMusic = true;
-        this.contentFormatVideo = false;
-        this.contentFormatAll = false;
+        this.formatImages = true;
+        this.formatMusic = true;
+        this.formatVideo = false;
+        this.formatAll = false;
         break;
       case "music video":
-        this.contentFormatVideo = true;
-        this.contentFormatMusic = true;
-        this.contentFormatAll = false;
-        this.contentFormatImages = false;
+        this.formatVideo = true;
+        this.formatMusic = true;
+        this.formatAll = false;
+        this.formatImages = false;
         break;
       default:
         break;
     }
+    // Check if user can sort
+    this.canSort();
   }
   // Set format to all if there is no other formats after clicking
   formatAllIfNoOtherFormats() {
@@ -314,20 +371,97 @@ export class MarketplaceLeftBarComponent implements OnInit {
   setContentFormat() {
     if (this.formatAll) {
       this.globalVars.marketplaceContentFormat = "all";
+      // Store to use in canSort
+      this.lastSortContentFormatAll = true;
+      this.lastSortContentFormatImages = false;
+      this.lastSortContentFormatVideo = false;
+      this.lastSortContentFormatMusic = false;
     } else if (this.formatImages && this.formatMusic && this.formatVideo) {
       this.globalVars.marketplaceContentFormat = "all";
+      // Store to use in canSort
+      this.lastSortContentFormatAll = false;
+      this.lastSortContentFormatImages = true;
+      this.lastSortContentFormatVideo = true;
+      this.lastSortContentFormatMusic = true;
     } else if (this.formatImages && this.formatVideo) {
       this.globalVars.marketplaceContentFormat = "images video";
+      // Store to use in canSort
+      this.lastSortContentFormatAll = false;
+      this.lastSortContentFormatMusic = false;
+      this.lastSortContentFormatImages = true;
+      this.lastSortContentFormatVideo = true;
     } else if (this.formatImages && this.formatMusic) {
       this.globalVars.marketplaceContentFormat = "images music";
+      // Store to use in canSort
+      this.lastSortContentFormatAll = false;
+      this.lastSortContentFormatVideo = false;
+      this.lastSortContentFormatMusic = true;
+      this.lastSortContentFormatImages = true;
     } else if (this.formatMusic && this.formatVideo) {
       this.globalVars.marketplaceContentFormat = "music video";
+      // Store to use in canSort
+      this.lastSortContentFormatAll = false;
+      this.lastSortContentFormatImages = false;
+      this.lastSortContentFormatVideo = true;
+      this.lastSortContentFormatMusic = true;
     } else if (this.formatImages) {
       this.globalVars.marketplaceContentFormat = "images";
+      // Store to use in canSort
+      this.lastSortContentFormatImages = true;
+      this.lastSortContentFormatAll = false;
+      this.lastSortContentFormatVideo = false;
+      this.lastSortContentFormatMusic = false;
     } else if (this.formatVideo) {
       this.globalVars.marketplaceContentFormat = "video";
+      // Store to use in canSort
+      this.lastSortContentFormatVideo = true;
+      this.lastSortContentFormatAll = false;
+      this.lastSortContentFormatImages = false;
+      this.lastSortContentFormatMusic = false;
     } else if (this.formatMusic) {
       this.globalVars.marketplaceContentFormat = "music";
+      // Store to use in canSort
+      this.lastSortContentFormatMusic = true;
+      this.lastSortContentFormatAll = false;
+      this.lastSortContentFormatImages = false;
+      this.lastSortContentFormatVideo = false;
+    }
+  }
+  canSort() {
+    // If price is different from last sort
+    if (this.lastSortLowPrice != this.lowPrice || this.lastSortHighPrice != this.highPrice) {
+      this.canUserSort = true;
+      // If market is different from last sort
+    } else if (
+      this.lastSortMarketPrimary != this.marketPrimary ||
+      this.lastSortMarketSecondary != this.marketSecondary
+    ) {
+      this.canUserSort = true;
+      // If category is different from last sort
+    } else if (this.NFTCategory != this.lastSortCategory) {
+      this.canUserSort = true;
+      // If content format is different from last sort
+    } else if (
+      this.lastSortContentFormatAll != this.formatAll ||
+      this.lastSortContentFormatImages != this.formatImages ||
+      this.lastSortContentFormatVideo != this.formatVideo ||
+      this.lastSortContentFormatMusic != this.formatMusic
+    ) {
+      this.canUserSort = true;
+      // If status is different from last time
+    } else if (
+      this.lastSortStatusAll != this.statusAll ||
+      this.lastSortStatusForSale != this.statusForSale ||
+      this.lastSortStatusHasBids != this.statusHasBids ||
+      this.lastSortStatusSold != this.statusSold
+    ) {
+      this.canUserSort = true;
+      // If creator type is different from last time
+    } else if (this.lastSortCreatorTypeVerified != this.creatorTypeVerified) {
+      this.canUserSort = true;
+      // If nothing has changed user cannot sort
+    } else {
+      this.canUserSort = false;
     }
   }
   // Functionpass service is made to pass this argument
@@ -341,6 +475,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
     this.setCreatorType();
     this.onFilter.emit("");
     this.functionPass.filter("");
+    this.canUserSort = false;
     setTimeout(() => {
       this.globalVars.isMarketplaceLeftBarMobileOpen = false;
     }, 200);
@@ -349,10 +484,18 @@ export class MarketplaceLeftBarComponent implements OnInit {
   categorySelectChange(event) {
     if (this.NFTCategory != event) {
       this.NFTCategory = event;
+      // Check if user can sort
+      this.canSort();
     }
   }
   // Set to global memory
   setCategory() {
-    this.globalVars.marketplaceNFTCategory = this.NFTCategory;
+    if (this.globalVars.marketplaceNFTCategory != this.NFTCategory) {
+      this.globalVars.marketplaceNFTCategory = this.NFTCategory;
+      // Store to use in canSort
+      this.lastSortCategory = this.NFTCategory;
+      // Check if user can sort
+      this.canSort();
+    }
   }
 }

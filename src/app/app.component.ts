@@ -42,8 +42,7 @@ export class AppComponent implements OnInit {
         if (!(event.url.includes("nft") || event.url.includes("Marketplace")) && this.globalVars.marketplaceNFTsData) {
           this.globalVars.marketplaceNFTsData = null;
           this.globalVars.marketplaceCreatorData = null;
-          this.globalVars.marketplaceStartIndex = 0;
-          this.globalVars.marketplaceEndIndex = 20;
+          this.globalVars.marketplaceNFTsOffset = 0;
           // This below handles discovery -> nfts-page data
         } else if (!(event.url.includes("nft") || event.url.includes("nfts")) && this.globalVars.nftsDataToShow) {
           this.globalVars.nftsDataToShow = null;

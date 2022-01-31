@@ -113,7 +113,7 @@
       <button
         class="w-100 mlb-content-format-button d-flex flex-row flex-center-start pl-10px fs-14px"
         [ngClass]="{ selected: formatAll }"
-        (click)="formatClick('All')"
+        (click)="formatClick('all')"
       >
         <img src="/assets/icons/market_globe_icon.svg" class="mr-5px" alt="image-icon" />
         All
@@ -139,7 +139,11 @@
     </div>
   </div>
   <div class="mlb-apply-button-container">
-    <button class="marketplace-apply-button fs-12px font-weight-bold" (click)="apply()">
+    <button
+      [disabled]="!canUserSort || priceRangeIncorrect"
+      class="marketplace-apply-button fs-12px font-weight-bold"
+      (click)="apply()"
+    >
       <img src="/assets/icons/market_apply_icon.svg" class="mr-5px" alt="image-icon" />
       Apply
     </button>
@@ -281,7 +285,11 @@
   </div>
 </div>
 <div class="mlb-flyout-apply-button-container" *ngIf="flyout">
-  <button class="marketplace-flyout-apply-button fs-12px font-weight-bold" (click)="apply()">
+  <button
+    [disabled]="!canUserSort || priceRangeIncorrect"
+    class="marketplace-flyout-apply-button fs-12px font-weight-bold"
+    (click)="apply()"
+  >
     <img src="/assets/icons/market_apply_icon.svg" class="mr-5px" alt="image-icon" />
     Apply
   </button>

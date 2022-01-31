@@ -79,7 +79,6 @@ export class TrendsComponent implements OnInit {
     if (!showMore) {
       this.globalVars.isMarketplaceLoading = true;
     }
-    console.log(this.globalVars.marketplaceSortType);
     this.backendApi
       .SortMarketplace(
         this.globalVars.localNode,
@@ -175,10 +174,6 @@ export class TrendsComponent implements OnInit {
   onScrollNFTs() {
     this.globalVars.marketplaceNFTsOffset = this.globalVars.marketplaceNFTsOffset + 30;
     this.sortMarketplace(this.globalVars.marketplaceNFTsOffset, true);
-  }
-  onScrollCreators() {
-    this.globalVars.marketplaceCreatorsOffset = this.globalVars.marketplaceCreatorsOffset + 30;
-    this.sortCreators(this.globalVars.marketplaceCreatorsOffset, true);
   }
   counter(i: number) {
     return new Array(i);

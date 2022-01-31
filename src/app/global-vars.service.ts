@@ -126,8 +126,6 @@ export class GlobalVarsService {
   followFeedPosts = [];
   // Marketplace is loading / filtering
   isMarketplaceLoading = false;
-  marketplaceStartIndex = 0;
-  marketplaceEndIndex = 20;
   marketplaceNFTsData: NFTCollectionResponse[];
   marketplaceCreatorData: CreatorCardResponse[];
   // The buttons on the marketplace
@@ -143,14 +141,12 @@ export class GlobalVarsService {
   marketplacePriceRangeSet = false;
   marketplaceMarketType = "all";
   marketplaceSortType = "most recent first";
+  // Marketplace Offset
+  marketplaceNFTsOffset = 0;
   // Discovery nfts page
   nftsDataToShow: NFTCollectionResponse[];
   nftsStartIndex = 0;
   nftsEndIndex = 20;
-
-  // Marketplace Offset
-  marketplaceNFTsOffset = 0;
-  marketplaceCreatorsOffset = 0;
 
   messageResponse = null;
   messageMeta = {

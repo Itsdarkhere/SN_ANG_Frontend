@@ -1531,6 +1531,10 @@ input.bs-timepicker-field {
         transform: scale(0.95);
     }
 }
+.marketplace-flyout-apply-button:disabled {
+    background-color: #454545;
+    color: #E8E8E8;
+}
 .marketplace-apply-button {
     background: #080808;
     width: 176px;
@@ -1549,6 +1553,10 @@ input.bs-timepicker-field {
         height: 45px;
         margin-left: 0;
     }
+}
+.marketplace-apply-button:disabled {
+    background-color: #454545;
+    color: #E8E8E8;
 }
 
 .marketplace-nav-width {

@@ -30,6 +30,7 @@ import { FeedComponent } from "./feed/feed.component";
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import Swal from "sweetalert2";
 import Timer = NodeJS.Timer;
+import { AngularFirestore } from "@angular/fire/firestore";
 
 export enum ConfettiSvg {
   DIAMOND = "diamond",
@@ -50,6 +51,29 @@ const svgToProps = {
   providedIn: "root",
 })
 export class GlobalVarsService {
+  profileData: any;
+
+  //   isCreator boolean
+  isCreator: boolean;
+  //   isVerified boolean
+  isVerified: boolean;
+  //   isVerifiedRes
+  isVerifiedRes: any;
+  //   isVerifiedStrBool
+  isVerifiedStrBool: string;
+  //   username
+  username: any;
+  //   isNullUsername
+  isNullUsername: boolean;
+  //   isNullUsernameRes
+  isNullUsernameRes: any;
+  //   isOnboardingComplete
+  isOnboardingComplete: boolean;
+  //   wantToVerifyPhone
+  wantToVerifyPhone: boolean;
+  //   phoneVerified
+  phoneVerified: boolean;
+
   // Note: I don't think we should have default values for this. I think we should just
   // loading spinner until we get a correct value. That said, I'm not going to fix that
   // right now, I'm just moving this magic number into a constant.
@@ -62,7 +86,8 @@ export class GlobalVarsService {
     private sanitizer: DomSanitizer,
     private identityService: IdentityService,
     private router: Router,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private firestore: AngularFirestore
   ) {}
 
   static MAX_POST_LENGTH = 560;
@@ -194,8 +219,8 @@ export class GlobalVarsService {
   // Whether or not to show the Jumio verification flow.
   showJumio = false;
 
-  // Weather or not to show Username insert in signup flow
-  mobileVerified = false;
+  //   // Weather or not to show Username insert in signup flow
+  //   mobileVerified = false;
 
   // Whether or not this node comps profile creation.
   isCompProfileCreation = false;
@@ -250,6 +275,105 @@ export class GlobalVarsService {
   buyETHAddress: string = "";
 
   nodes: { [id: number]: DeSoNode };
+
+  //   ------------------------------------ update globalVars for loggedInUser ------------------------------------
+  getCircularReplacer = () => {
+    const seen = new WeakSet();
+    return (key, value) => {
+      if (typeof value === "object" && value !== null) {
+        if (seen.has(value)) {
+          return;
+        }
+        seen.add(value);
+      }
+      return value;
+    };
+  };
+
+  async checkCreatorStatus(): Promise<void> {
+    const publicKey = this.loggedInUser.PublicKeyBase58Check;
+    const firebaseRes = await this.firestore.collection("profile-details").doc(publicKey).get().toPromise();
+    let firebaseResData = JSON.stringify(
+      firebaseRes["_document"]["proto"]["fields"]["creator"]["booleanValue"],
+      this.getCircularReplacer()
+    );
+
+    if (firebaseResData === "false") {
+      this.isCreator = false;
+    } else {
+      this.isCreator = true;
+    }
+
+    // console.log(
+    //   ` --------------------------------- creator status is ${this.isCreator} --------------------------------- `
+    // );
+  }
+
+  checkIsVerified() {
+    this.isVerifiedRes = JSON.stringify(this.loggedInUser?.ProfileEntryResponse);
+    if (this.isVerifiedRes === "null") {
+      this.isVerified = false;
+    } else {
+      this.isVerifiedStrBool = JSON.stringify(this.loggedInUser?.ProfileEntryResponse["IsVerified"]);
+      if (this.isVerifiedStrBool === "true") {
+        this.isVerified = true;
+      } else {
+        this.isVerified = false;
+      }
+    }
+
+    // console.log(` ------------------------------------ isVerified status is ${this.isVerified} ------------------- `);
+  }
+
+  checkNullUsername() {
+    this.isNullUsernameRes = JSON.stringify(this.loggedInUser?.ProfileEntryResponse);
+    if (this.isNullUsernameRes === "null") {
+      this.isNullUsername = true;
+    } else {
+      this.username = JSON.stringify(this.loggedInUser?.ProfileEntryResponse["Username"]);
+      this.username = this.username.replace(/['"]+/g, "");
+      //   console.log(` ------------------------ username is ${this.username} ------------------------ `);
+      if (this.username) {
+        this.isNullUsername = false;
+      } else {
+        this.isNullUsername = true;
+      }
+    }
+
+    // console.log(
+    //   ` -------------------------------- isNullUsername is ${this.isNullUsername} -------------------------------- `
+    // );
+  }
+
+  checkOnboardingCompleted() {
+    //   if they are a creator, have a profile and are verified then onboarding is complete
+    if (this.isCreator === true && this.isNullUsername === false && this.isVerified === true) {
+      this.isOnboardingComplete = true;
+    }
+    // if they are a collector and have a profile then onboarding is complete
+    else if (this.isCreator === false && this.isNullUsername === false) {
+      this.isOnboardingComplete = true;
+    } else {
+      this.isOnboardingComplete = false;
+    }
+
+    // console.log(` ------------------------------ isOnboardingComplete ${this.isOnboardingComplete} ---------------- `);
+  }
+
+  async checkOnboardingStatus(): Promise<void> {
+    //   update loggedInUser global variables
+    await this.checkCreatorStatus();
+
+    //   update checkIsVerified
+    this.checkIsVerified();
+
+    //   update checkNullUsername
+    this.checkNullUsername();
+
+    //   update onboardingcomplete status
+    this.checkOnboardingCompleted();
+  }
+  //   ------------------------------------ end of update globalVars for loggedInUser ------------------------------------
 
   SetupMessages() {
     // If there's no loggedInUser, we set the notification count to zero
@@ -376,7 +500,7 @@ export class GlobalVarsService {
     this.loggedInUser = user;
 
     // Fetch referralLinks for the userList before completing the load.
-    this.backendApi.GetReferralInfoForUser(this.localNode, this.loggedInUser.PublicKeyBase58Check).subscribe(
+    this.backendApi.GetReferralInfoForUser(this.localNode, this.loggedInUser?.PublicKeyBase58Check).subscribe(
       (res: any) => {
         this.loggedInUser.ReferralInfoResponses = res.ReferralInfoResponses;
       },
@@ -911,7 +1035,25 @@ export class GlobalVarsService {
         this.logEvent(`account : ${event} : success`);
         this.backendApi.setIdentityServiceUsers(res.users, res.publicKeyAdded);
         this.updateEverything().add(() => {
-          this.flowRedirect(res);
+          //   var resObj = JSON.stringify(res);
+          //    example resObj = {
+          // 	"users": {
+          // 		"BC1YLjLrMid4cwanamPhQnw7T4Jmat7go1vfKpAZeEF1YHwYDhwj81L": {
+          // 			"hasExtraText": false,
+          // 			"btcDepositAddress": "19py22aHfS3bLsKx36GT4s8dNxzV62zaRY",
+          // 			"ethDepositAddress": "0x2f02418828A695a1b3E65fE7aEE42B36f8608a36",
+          // 			"version": 1,
+          // 			"encryptedSeedHex": "1dff999c97ca05c4c765224e1c9dcae4c31f74186eeacade51659582946344523108ccb262cf39a069fd658c57edc0f6cef6106ef51c3115f80a7ce7033b51f7",
+          // 			"network": "mainnet",
+          // 			"accessLevel": 4,
+          // 			"accessLevelHmac": "03c6894ea148867c2d7c61cc17818fcedd50e1f2db9cd7ccb0581f4641b4a051"
+          // 		}
+          // 	},
+          // 	"publicKeyAdded": "BC1YLjLrMid4cwanamPhQnw7T4Jmat7go1vfKpAZeEF1YHwYDhwj81L",
+          // 	"signedUp": true
+          // }
+          //   console.log(`--------------------- ${resObj} ---------------------`);
+          this.flowRedirect(res.signedUp, res.publicKeyAdded);
         });
       });
   }
@@ -928,7 +1070,9 @@ export class GlobalVarsService {
     return localStorage.getItem("referralCode");
   }
 
-  flowRedirect(signedUp: boolean): void {
+  async flowRedirect(signedUp: boolean, publicKey: string): Promise<void> {
+    //   flowRedirect(signedUp: boolean, publicKey: string): void {
+    // if res.signedUp === false then if /else for creator or collector
     if (signedUp) {
       // If this node supports phone number verification, go to step 3, else proceed to step 4.
       const stepNum = 2;
@@ -936,6 +1080,32 @@ export class GlobalVarsService {
         queryParams: { stepNum },
       });
     } else {
+      //   // call to firebase
+      //   const firebaseRes = await this.firestore.collection("profile-details").doc(publicKey).get().toPromise();
+      //   // cicular replacer since firestore returns circular structure
+      //   const getCircularReplacer = () => {
+      //     const seen = new WeakSet();
+      //     return (key, value) => {
+      //       if (typeof value === "object" && value !== null) {
+      //         if (seen.has(value)) {
+      //           return;
+      //         }
+      //         seen.add(value);
+      //       }
+      //       return value;
+      //     };
+      //   };
+
+      //   console.log(
+      //     `-------------------------- profile data ${JSON.stringify(
+      //       firebaseRes,
+      //       getCircularReplacer()
+      //     )} --------------------------`
+      //   );
+
+      //   // if creator or collector is true then direct to new flow
+
+      // else go to browse tab
       this.router.navigate(["/" + this.RouteNames.BROWSE]);
     }
   }

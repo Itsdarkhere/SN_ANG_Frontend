@@ -39,7 +39,8 @@ export class SignupPageComponent implements OnInit {
   loggedInUserPublicKey = "";
   profileCardUrl: any = "";
   emailAddress = "";
-  invalidEmailEntered = false;
+  invalidEmailEntered = true;
+  startedEnteringEmail = false;
   uploadProgress: Observable<number>;
   usernameValidationError: string;
   profileUpdates: ProfileUpdates = {
@@ -67,12 +68,17 @@ export class SignupPageComponent implements OnInit {
       this.stepNum = params.stepNum ? parseInt(params.stepNum) : 1;
     });
   }
+
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
   }
   _validateEmail(email) {
-    if (email === "" || this.globalVars.emailRegExp.test(email)) {
+    this.startedEnteringEmail = true;
+
+    if (this.globalVars.emailRegExp.test(email)) {
       this.invalidEmailEntered = false;
+    } else if (email === "") {
+      this.invalidEmailEntered = true;
     } else {
       this.invalidEmailEntered = true;
     }
@@ -171,21 +177,31 @@ export class SignupPageComponent implements OnInit {
   }
   nextStep() {
     if (this.stepNum === 2) {
+      this.updateProfileType();
       this.SendStepTwoEvent();
-    }
-    if (this.stepNum === 2 && !this.invalidEmailEntered) {
-      this._updateEmail();
-      this.SendStepThreeEvent();
+      this.stepNum++;
+
+      return;
     }
     if (this.stepNum === 3) {
-      this.updateProfileType();
-      if (!this.globalVars.mobileVerified) {
-        this.router.navigate([RouteNames.BROWSE]);
-      } else {
-        this.SendStepFourEvent();
+      if (!this.invalidEmailEntered) {
+        this._updateEmail();
       }
+
+      this.SendStepThreeEvent();
+      this.stepNum++;
+
+      return;
     }
-    this.stepNum++;
+    if (this.stepNum === 4) {
+      this.updateProfileType();
+      if (this.globalVars.wantToVerifyPhone === false) {
+        this.SendStepFourEvent();
+        this.router.navigate([RouteNames.COMPLETE_PROFILE]);
+      }
+
+      return;
+    }
   }
   creatorSelected() {
     this.creator = true;

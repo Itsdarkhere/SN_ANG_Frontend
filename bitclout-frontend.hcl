@@ -96,6 +96,7 @@ job "supernovas-frontend" {
       script-src 
         'unsafe-eval'
         ajax.cloudflare.com
+        https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194
         https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js
         https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js
         https://supernovas.app
@@ -111,7 +112,8 @@ job "supernovas-frontend" {
         https://kit.fontawesome.com/070ca4195b.js 
         https://ka-f.fontawesome.com/;
       style-src 'self' 'unsafe-inline' 
-        https://fonts.googleapis.com;
+        https://fonts.googleapis.com
+        https://unpkg.com/flickity@2/dist/flickity.min.css;
       media-src 'self'
         https://arweave.net
         https://*.arweave.net;

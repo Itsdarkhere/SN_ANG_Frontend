@@ -58,4 +58,11 @@ export class LeftBarComponent {
   hidecreator() {
     this.applycreator = false;
   }
+  hasProfile() {
+    if (this.globalVars?.loggedInUser?.ProfileEntryResponse?.Username) {
+      this.router.navigate(["/u/" + this.globalVars?.loggedInUser?.ProfileEntryResponse.Username]);
+    } else {
+      this.router.navigate(["/update-profile"]);
+    }
+  }
 }

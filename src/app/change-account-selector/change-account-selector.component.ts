@@ -49,6 +49,9 @@ export class ChangeAccountSelectorComponent {
         }
       });
     });
+    if (this.globalVars.isOnboardingComplete === false) {
+      this.router.navigate(["/" + this.globalVars.RouteNames.BROWSE]);
+    }
   }
 
   _switchToUser(user) {

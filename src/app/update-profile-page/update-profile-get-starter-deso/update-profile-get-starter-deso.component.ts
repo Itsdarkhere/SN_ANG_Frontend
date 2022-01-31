@@ -32,4 +32,16 @@ export class UpdateProfileGetStarterDeSoComponent {
   This helps prevent spam.`
       : `You need to buy DeSo with Bitcoin in order to create a profile.  This helps prevent spam.`;
   }
+
+  buyDESO() {
+    window.open("https://buy.deso.org/", "_blank");
+  }
+
+  verifyProfile() {
+    window.open("https://form.typeform.com/to/sv1kaUT2", "_blank");
+  }
+
+  contactSupport() {
+    window.open("https://intercom.help/supernovas/en", "_blank");
+  }
 }

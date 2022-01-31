@@ -145,9 +145,9 @@
             queryParamsHandling="merge"
           >
             <span class="text-grey5">
-              ~{{ globalVars.nanosToUSD(postContent.ProfileEntryResponse.CoinPriceDeSoNanos, 2) }}
+              ~{{ this.globalVars.nanosToUSD(postContent.ProfileEntryResponse.CoinPriceDeSoNanos, 2) }}
             </span>
-
+            <!-- <span *ngIf="this.IsBuyNow" class="text-grey5">~{{ this.globalVars.nanosToUSD(BuyNowPriceNanos, 2) }}</span> -->
             <!-- Buy link -->
             Buy
           </a>

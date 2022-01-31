@@ -177,6 +177,10 @@ export class FeedPostComponent implements OnInit {
   decryptableNFTEntryResponses: NFTEntryResponse[];
   isLockablePopup: boolean = false;
 
+  IsBuyNow: boolean;
+  BuyNowPriceNanos: number;
+  nftEntryResponse: any;
+
   unlockableTooltip =
     "This NFT will come with content that's encrypted and only unlockable by the winning bidder. Note that if an NFT is being resold, it is not guaranteed that the new unlockable will be the same original unlockable.";
   mOfNNFTTooltip =
@@ -191,7 +195,15 @@ export class FeedPostComponent implements OnInit {
       )
       .subscribe((res) => {
         this.nftEntryResponses = res.NFTEntryResponses;
-        console.log(res);
+        // added buyNow logic
+        this.nftEntryResponse = this.nftEntryResponses[0];
+        if (this.nftEntryResponse.IsBuyNow) {
+          this.IsBuyNow = true;
+        } else {
+          this.IsBuyNow = false;
+        }
+        this.BuyNowPriceNanos = this.nftEntryResponse.BuyNowPriceNanos;
+        // end of buyNow logic
         this.isAvailableForSale = this.nftEntryResponses[0].IsForSale;
         this.nftEntryResponses.sort((a, b) => a.SerialNumber - b.SerialNumber);
         this.decryptableNFTEntryResponses = this.nftEntryResponses.filter(
@@ -281,6 +293,8 @@ export class FeedPostComponent implements OnInit {
     if (this.showNFTDetails && this.postContent.IsNFT && !this.nftEntryResponses?.length) {
       this.getNFTEntries();
     }
+
+    console.log(` -------------------- postContent ${JSON.stringify(this.postContent)} ------------------------ `);
   }
   SendAddToCartEvent() {
     this.analyticsService.eventEmitter("place_a_bid", "transaction", "bid", "click", 10);

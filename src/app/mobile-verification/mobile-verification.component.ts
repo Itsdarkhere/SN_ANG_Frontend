@@ -6,6 +6,11 @@ import { BackendApiService } from "../backend-api.service";
 import { MessagesInboxComponent } from "../messages-page/messages-inbox/messages-inbox.component";
 import { animate, style, transition, trigger } from "@angular/animations";
 
+import { IdentityService } from "../identity.service";
+
+import { ActivatedRoute, Router } from "@angular/router";
+import { AppRoutingModule, RouteNames } from "../app-routing.module";
+
 @Component({
   selector: "app-mobile-verification",
   templateUrl: "./mobile-verification.component.html",
@@ -20,6 +25,9 @@ export class MobileVerificationComponent implements OnInit {
   @Output() backToPreviousSignupStepClicked = new EventEmitter();
   @Output() phoneNumberVerified = new EventEmitter();
   @Output() skipButtonClicked = new EventEmitter();
+
+  @Output("nextStep") nextStep: EventEmitter<any> = new EventEmitter();
+  @Input() stepNum: number;
 
   MessagesInboxComponent = MessagesInboxComponent;
 
@@ -43,10 +51,223 @@ export class MobileVerificationComponent implements OnInit {
   sendPhoneNumberVerificationTextServerErrors = new SendPhoneNumberVerificationTextServerErrors();
   submitPhoneNumberVerificationCodeServerErrors = new SubmitPhoneNumberVerificationCodeServerErrors();
 
-  constructor(public globalVars: GlobalVarsService, private backendApi: BackendApiService) {}
+  digitElementFullId: any;
+  digitElementId: string;
+  digitNumberString: string;
+  digitNumberInt: number;
+  firstDigitEntered: boolean;
+  digitOneValue: string;
+  digitTwoValue: string;
+  digitThreeValue: string;
+  digitFourValue: string;
+  //   inputValue: any;
+  //   digitCounter: number;
+  //   digitCounterString: string;
+  verificationCodeString: string;
+  verificationCodeCorrectLength: boolean;
+
+  isPhoneNumberVerificationTextServerErrorFree: boolean;
+
+  constructor(
+    public globalVars: GlobalVarsService,
+    private backendApi: BackendApiService,
+    private identityService: IdentityService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this._setScreenToShow();
+
+    // this.digitCounter = 1;
+    this.firstDigitEntered = false;
+    this.digitNumberString = "1";
+    this.verificationCodeString = "";
+    this.verificationCodeCorrectLength = false;
+  }
+
+  _nextStep(verify: boolean) {
+    if (verify) {
+      this.globalVars.wantToVerifyPhone = true;
+    } else {
+      this.globalVars.wantToVerifyPhone = false;
+    }
+
+    this.nextStep.emit();
+  }
+
+  downKey(event: any) {
+    let digitString = "digit";
+    this.digitElementId = event.target.id;
+    this.digitNumberString = this.digitElementId.split("digit")[1];
+
+    if (event.code === "Backspace" && this.digitNumberString !== "1" && event.target.value) {
+      return;
+    }
+
+    if (event.code === "Backspace" && this.digitNumberString !== "1" && !event.target.value) {
+      //   if the user presses backspace and there is no value then focus on the previous digit if they are not on the first digit
+      this.digitNumberInt = parseInt(this.digitNumberString) - 1;
+      this.digitNumberString = this.digitNumberInt.toString();
+      this.digitElementFullId = digitString.concat(this.digitNumberString);
+      console.log(document.getElementById(this.digitElementFullId));
+      document.getElementById(this.digitElementFullId).focus();
+      return;
+    }
+  }
+
+  onKey(event: any) {
+    this.onVerificationCodeInputChanged();
+
+    let digitString = "digit";
+    this.digitElementId = event.target.id;
+    this.digitNumberString = this.digitElementId.split("digit")[1];
+
+    console.log(event.code);
+
+    if (
+      event.code === "ArrowLeft" ||
+      event.code === "ArrowRight" ||
+      event.code === "ArrowUp" ||
+      event.code === "ArrowDown" ||
+      event.code === "ShiftLeft" ||
+      event.code === "Tab"
+    ) {
+      return;
+    }
+
+    if (event.code === "Backspace") {
+      if (this.digitNumberString === "1") {
+        this.digitOneValue = "";
+        this.verificationCodeString = "";
+        this.verificationCodeCorrectLength = false;
+        return;
+      } else if (this.digitNumberString === "2") {
+        this.digitTwoValue = "";
+        this.verificationCodeString = "";
+        this.verificationCodeCorrectLength = false;
+
+        return;
+      } else if (this.digitNumberString === "3") {
+        this.digitThreeValue = "";
+        this.verificationCodeString = "";
+        this.verificationCodeCorrectLength = false;
+
+        return;
+      } else {
+        this.digitFourValue = "";
+        this.verificationCodeString = "";
+        this.verificationCodeCorrectLength = false;
+
+        return;
+      }
+    }
+
+    if (this.verificationCodeString.length === 4) {
+      if (
+        event.code === "Digit1" ||
+        event.code === "Digit2" ||
+        event.code === "Digit3" ||
+        event.code === "Digit4" ||
+        event.code === "Digit5" ||
+        event.code === "Digit6" ||
+        event.code === "Digit7" ||
+        event.code === "Digit8" ||
+        event.code === "Digit9" ||
+        event.code === "Digit0"
+      ) {
+        console.log(` ------------- digit 0-9 entered and full verification code already`);
+        return;
+      }
+    }
+
+    // if digitNumberString is 1 you know the user has entered in the first number and you need to enable the next digit to be focused
+    if (this.digitNumberString === "1") {
+      // if the other 3 digits are filled out then skip to digit 4
+      if (this.digitTwoValue && this.digitThreeValue && this.digitFourValue) {
+        this.digitNumberString = "4";
+      } else {
+        document.getElementById("digit2").style.pointerEvents = "auto";
+      }
+      this.digitOneValue = event.target.value;
+    }
+
+    if (this.digitNumberString === "2") {
+      // if the other 3 digits are filled out then skip to digit 4
+      if (this.digitOneValue && this.digitThreeValue && this.digitFourValue) {
+        this.digitNumberString = "4";
+      } else {
+        document.getElementById("digit3").style.pointerEvents = "auto";
+      }
+      this.digitTwoValue = event.target.value;
+    }
+
+    if (this.digitNumberString === "3") {
+      // if the other 3 digits are filled out then skip to digit 4
+      if (this.digitOneValue && this.digitTwoValue && this.digitFourValue) {
+        this.digitNumberString = "4";
+      } else {
+        document.getElementById("digit4").style.pointerEvents = "auto";
+      }
+      this.digitThreeValue = event.target.value;
+    }
+
+    if (this.digitNumberString === "4") {
+      document.getElementById("digit2").style.pointerEvents = "auto";
+      document.getElementById("digit3").style.pointerEvents = "auto";
+      document.getElementById("digit4").style.pointerEvents = "auto";
+      this.digitFourValue = (<HTMLInputElement>document.getElementById("digit4")).value;
+
+      console.log(` ------------ is on 4th digit `);
+      console.log(` ------------------ digit 1 ${this.digitOneValue}`);
+      console.log(` ------------------ digit 2 ${this.digitTwoValue}`);
+      console.log(` ------------------ digit 3 ${this.digitThreeValue}`);
+      console.log(` ------------------ digit 4 ${this.digitFourValue}`);
+
+      this.verificationCodeString = this.verificationCodeString.concat(
+        this.digitOneValue,
+        this.digitTwoValue,
+        this.digitThreeValue,
+        this.digitFourValue
+      );
+      console.log(` ------------------ this.verificationCodeString ${this.verificationCodeString}`);
+
+      if (this.verificationCodeString.length === 4) {
+        console.log(` --------------- full verification code entered ------------------ `);
+        this.verificationCodeCorrectLength = true;
+        return;
+      } else {
+        this.verificationCodeCorrectLength = false;
+        return;
+      }
+    }
+
+    this.digitNumberInt = parseInt(this.digitNumberString) + 1;
+    this.digitNumberString = this.digitNumberInt.toString(); //'2'
+    this.digitElementFullId = digitString.concat(this.digitNumberString);
+    console.log(document.getElementById(this.digitElementFullId));
+
+    document.getElementById(this.digitElementFullId).focus();
+
+    // this.inputValue = event.target.value;
+    // this.digitCounter = this.digitCounter + 1;
+    // this.digitCounterString = this.digitCounter.toString();
+
+    // this.verificationCodeString = this.verificationCodeString.concat(this.inputValue.toString());
+
+    // if (this.digitCounterString === "5") {
+    //   console.log(
+    //     ` ---------------------- verification code string ${this.verificationCodeString} ----------------------- `
+    //   );
+
+    //   return;
+    // }
+
+    // document.getElementById(`digit${this.digitCounterString}`).focus();
+  }
+
+  completeVerificationButtonClicked() {
+    this.router.navigate([RouteNames.COMPLETE_PROFILE]);
   }
 
   _setScreenToShow() {
@@ -81,7 +302,25 @@ export class MobileVerificationComponent implements OnInit {
     this.verificationStep = true;
     this.globalVars.logEvent("account : create : send-verification-text");
     this._sendPhoneNumberVerificationText();
+    if (this.isPhoneNumberVerificationTextServerErrorFree) {
+      this._nextStep(true);
+    } else {
+      return;
+    }
+
+    // https://docs.deso.org/identity/window-api/endpoints#verify-phone-number
+    // this.identityService
+    //   .launchPhoneNumberVerification(this.globalVars?.loggedInUser?.PublicKeyBase58Check)
+    //   .subscribe((res) => {
+    //     if (res.phoneNumberSuccess) {
+    //       this.globalVars.updateEverything().add(() => {
+    //         // this.stepNum = 1;
+    //         this.router.navigate([RouteNames.BROWSE]);
+    //       });
+    //     }
+    //   });
   }
+
   resendVerificationCode(event) {
     event.stopPropagation();
     event.preventDefault();
@@ -105,7 +344,11 @@ export class MobileVerificationComponent implements OnInit {
   }
 
   submitVerificationCode() {
-    if (this.verificationCodeForm.invalid) {
+    // if (this.verificationCodeForm.invalid) {
+    //   return;
+    // }
+
+    if (!this.verificationCodeCorrectLength) {
       return;
     }
 
@@ -141,9 +384,18 @@ export class MobileVerificationComponent implements OnInit {
         (res) => {
           this.screenToShow = MobileVerificationComponent.SUBMIT_PHONE_NUMBER_VERIFICATION_SCREEN;
           this.globalVars.logEvent("account : create : send-verification-text: success");
+
+          this.globalVars.wantToVerifyPhone = true;
+          this.globalVars.phoneVerified = false;
+          this.isPhoneNumberVerificationTextServerErrorFree = true;
         },
         (err) => {
           this._parseSendPhoneNumberVerificationTextServerErrors(err);
+          this.isPhoneNumberVerificationTextServerErrorFree = false;
+          console.log(
+            ` -------------- phoneNumberAlreadyInUseVariable ${this.sendPhoneNumberVerificationTextServerErrors.phoneNumberAlreadyInUse} ------------- `
+          );
+          console.log(` ---------- errorFree? ${this.isPhoneNumberVerificationTextServerErrorFree}`);
         }
       )
       .add(() => {
@@ -197,7 +449,8 @@ export class MobileVerificationComponent implements OnInit {
         this.globalVars.loggedInUser.PublicKeyBase58Check /*UpdaterPublicKeyBase58Check*/,
         this.phoneNumber /*PhoneNumber*/,
         this.phoneNumberCountryCode /*PhoneNumberCountryCode*/,
-        this.verificationCodeForm.value.verificationCode
+        // this.verificationCodeForm.value.verificationCode
+        this.verificationCodeString
       )
       .subscribe(
         (res) => {
@@ -209,7 +462,9 @@ export class MobileVerificationComponent implements OnInit {
             this
           );
           this.globalVars.logEvent("account : create : submit-verification-code: success");
-          this.globalVars.mobileVerified = true;
+          //   this.globalVars.mobileVerified = true;
+          this.globalVars.phoneVerified = true;
+          this.router.navigate([RouteNames.BROWSE]);
         },
         (err) => {
           this._parseSubmitPhoneNumberVerificationCodeServerErrors(err);

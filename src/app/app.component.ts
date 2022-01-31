@@ -157,6 +157,8 @@ export class AppComponent implements OnInit {
         // Only call setLoggedInUser if logged in user has changed.
         if (!_.isEqual(this.globalVars.loggedInUser, loggedInUser) && loggedInUserPublicKey) {
           this.globalVars.setLoggedInUser(loggedInUser);
+
+          this.globalVars.checkOnboardingStatus();
         }
 
         // Setup messages for the logged in user
@@ -343,6 +345,9 @@ export class AppComponent implements OnInit {
 
     this.installDD();
     this.installAmplitude();
+
+    // get LoggedInUser
+    this._updateTopLevelData();
   }
   loadApp() {
     this.identityService.identityServiceUsers = this.backendApi.GetStorage(this.backendApi.IdentityUsersKey) || {};

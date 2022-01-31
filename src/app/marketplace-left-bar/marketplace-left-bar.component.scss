@@ -193,7 +193,7 @@
     background-color: #F9F9F9;
     border-radius: 15px;
     //height: 940px;
-    max-height: calc(100vh - 70px);
+    max-height: calc(80vh - 70px);
     overflow-y: scroll;
 }
 .verifiedAccordion {
@@ -270,19 +270,6 @@ input[type=number]::-webkit-outer-spin-button {
 .box {
     aspect-ratio: 1.5/1.3;
 }
-@supports not (aspect-ratio: 1 / 1) {
-    .box::before {
-      float: left;
-      padding-top: 100%;
-      content: "";
-    }
-  
-    .box::after {
-      display: block;
-      content: "";
-      clear: both;
-    }
-  }
 .mlb-flyout-price-set-box {
     aspect-ratio: 1 / 0.15;
     background: #ffffff;
@@ -333,5 +320,17 @@ input[type=number]::-webkit-outer-spin-button {
         background-position: center;
         background-color: transparent;
         border: none;
+    }
+}
+@supports not (aspect-ratio: 1 / 1) {
+    .box::before {
+      float: left;
+      padding-top: 100%;
+      content: "";
+    }
+    .box::after {
+      display: block;
+      content: "";
+      clear: both;
     }
 }

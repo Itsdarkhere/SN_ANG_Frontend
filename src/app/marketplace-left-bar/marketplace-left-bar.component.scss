@@ -415,14 +415,14 @@ input[type=number]::-webkit-outer-spin-button {
         padding-top: 5px;
         padding-bottom: 5px;
         transition-duration: 50ms;
-    &:hover {
-        background-color: var(--secondary);
-    }
-    &.market-button-checked {
-        font-weight: 500;
-        color: #2C2C2C;
-        border: 3px solid #222222;
-    }
+        &:hover {
+            background-color: var(--secondary);
+        }
+        &.market-button-checked {
+            font-weight: 500;
+            color: #2C2C2C;
+            border: 3px solid #222222;
+        }
     }
     .mrk_flyout_lb_selector {
         height: 50px;
@@ -496,15 +496,18 @@ input[type=number]::-webkit-outer-spin-button {
         left: 0;
     }
     .marketplace-flyout-apply-button {
-        width: 100%;
-        background-color: #FFFFFF;
-        height: 70px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        bottom: 0px;
-        left: 0;
+        background: #080808;
+        width: 176px;
+        height: 45px;
+        border: 1px solid #303030;
+        border-radius: 30px;
+        box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.25);
+        color: #ffffff;
+        transition-duration: transform 0.2s;
+        &:active {
+            transition-duration: transform 0.2s;
+            transform: scale(0.95);
+        }
     }
     .box::before {
       float: left;

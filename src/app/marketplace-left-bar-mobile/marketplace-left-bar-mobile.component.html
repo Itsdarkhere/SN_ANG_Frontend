@@ -1,10 +1,10 @@
 <div>
   <div
-    class="left-bar-mobile__flyout-div-marketplace d-flex flex-center"
+    class="left-bar-mobile__flyout-div-marketplace disable-scrollbars d-flex flex-center"
     [@leftBarAnimation]
     *ngIf="globalVars.isMarketplaceLeftBarMobileOpen"
   >
-    <div class="position-relative max-width-400px">
+    <div class="position-relative disable-scrollbars max-width-400px">
       <app-marketplace-left-bar [flyout]="true"></app-marketplace-left-bar>
     </div>
     <div

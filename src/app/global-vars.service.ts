@@ -274,6 +274,12 @@ export class GlobalVarsService {
 
   nodes: { [id: number]: DeSoNode };
 
+  IsBuyNow: boolean;
+  BuyNowPriceNanos: number;
+
+  NFTRoyaltyToCoinBasisPoints: any;
+  NFTRoyaltyToCreatorBasisPoints: any;
+
   //   ------------------------------------ update globalVars for loggedInUser ------------------------------------
   getCircularReplacer = () => {
     const seen = new WeakSet();

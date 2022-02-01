@@ -57,7 +57,7 @@ export class CompleteProfileComponent {
 
   buyCreatorCoin() {
     if (this.globalVars.isNullUsername === true) {
-      this.globalVars._alertSuccess("You must create a username for your profile in order to buy your creator coin.");
+      this.globalVars._alertError("You must create a username for your profile in order to buy your creator coin.");
       //   alert("You must create a username for your profile in order to buy your creator coin.");
     } else {
       window.open(`https://supernovas.app/u/${this.username}/buy`, "_blank");

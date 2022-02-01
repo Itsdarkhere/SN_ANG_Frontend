@@ -647,7 +647,7 @@
               type="number"
               placeholder="0"
               [(ngModel)]="buyNowPriceDESO"
-              (ngModelChange)="updateBidAmountUSD($event)"
+              (ngModelChange)="updateBuyNowBidAmountUSD($event)"
               class="pl-10px color-text font-weight-bold flex-center pr-10px mint-page-min-price-input m-0px h-100 w-60"
             />
             <button class="mint-page-min-price-label h-100 w-40 fs-23-responsive pt-5px">
@@ -656,9 +656,47 @@
             </button>
           </div>
           <div class="mint-page-deso-to-usd mt-5px ml-20px w-90">
-            <label *ngIf="PRICE_USD" class="mb-0px fs-20-responsive">${{ PRICE_USD }}</label>
+            <label *ngIf="BUY_NOW_PRICE_USD" class="mb-0px fs-20-responsive">${{ BUY_NOW_PRICE_USD }}</label>
           </div>
-          <div class="d-flex flex-row justify-content-space-between">
+
+          <!-- div for add minimum bid -->
+          <div class="flex-container-row mt-5px">
+            <label class="mint-page-sub-heading mb-0px font-weight-bold fs-14-responsive text-align-start ml-5px">
+              Add minimum bid
+            </label>
+            <div class="optional-box">
+              <p class="optional-text">OPTIONAL</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="checkbox-min-bid" (click)="handleMinBidClicked()" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <label class="color-light fs-12-responsive mb-0px ml-5px mt-5px">
+            In addition to the Buy Now Price, you can set up a minimum bid price which is lower than the Buy Now price.
+          </label>
+          <div *ngIf="minBidClicked">
+            <div class="position-relative d-flex flex-row flex-start w-100 mint-page-min-price mt-10px">
+              <input
+                matInput
+                type="number"
+                placeholder="0"
+                [(ngModel)]="MIN_PRICE"
+                (ngModelChange)="updateBidAmountUSD($event)"
+                class="pl-10px color-text font-weight-bold flex-center pr-10px mint-page-min-price-input m-0px h-100 w-60"
+                id="optional-min-bid"
+              />
+              <button class="mint-page-min-price-label h-100 w-40 fs-23-responsive pt-5px">
+                <img src="assets/deso/logo-cropped.png" class="mr-10px mb-5px mint-page-deso-logo" />
+                <label class="mb-0px">$DESO</label>
+              </button>
+            </div>
+            <div class="mint-page-deso-to-usd mt-5px ml-20px w-90">
+              <label *ngIf="PRICE_USD" class="mb-0px fs-20-responsive">${{ PRICE_USD }}</label>
+            </div>
+          </div>
+
+          <div class="d-flex flex-row justify-content-space-between mt-5px">
             <div class="w-40">
               <label class="font-weight-bold ml-5px fs-14-responsive">Creator Royalty</label>
               <div class="d-flex flex-row mint-page-royalty-element position-relative">

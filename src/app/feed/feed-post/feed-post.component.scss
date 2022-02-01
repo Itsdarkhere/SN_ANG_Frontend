@@ -1,5 +1,14 @@
 .nft_sale_btn {
-    &.btn {
-        cursor: pointer;
-    }
+  &.btn {
+    cursor: pointer;
+  }
+}
+
+.buy_now_btn {
+  background: black;
+  color: white;
+}
+
+.buy_now_img {
+  height: 18px;
 }

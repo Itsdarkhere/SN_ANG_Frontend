@@ -112,6 +112,8 @@ export class MintPageComponent implements OnInit {
   PUT_FOR_SALE = true;
   // Step 4 buy now
   buyNowPriceDESO: number = 0;
+  minBidClicked = false;
+  BUY_NOW_PRICE_USD = "0";
 
   @HostListener("window:resize") onResize() {
     this.setMobileBasedOnViewport();
@@ -424,7 +426,24 @@ export class MintPageComponent implements OnInit {
 
   updateBidAmountUSD(desoAmount) {
     this.PRICE_USD = this.globalVars.nanosToUSDNumber(desoAmount * 1e9).toFixed(2);
+    if (this.minBidClicked) {
+      console.log(` ------------- price usd ${this.PRICE_USD}`);
+      console.log(` ------------- buy now price usd ${this.BUY_NOW_PRICE_USD}`);
+      let PRICE_USD_NUM = parseInt(this.PRICE_USD);
+      let BUY_NOW_PRICE_USD_NUM = parseInt(this.BUY_NOW_PRICE_USD);
+
+      if (PRICE_USD_NUM > BUY_NOW_PRICE_USD_NUM) {
+        this.globalVars._alertError("The minimum bid cannot be greater than the buy now price.");
+        this.PRICE_USD = 0;
+        (<HTMLInputElement>document.getElementById("optional-min-bid")).value = "";
+      }
+    }
   }
+
+  updateBuyNowBidAmountUSD(desoAmount) {
+    this.BUY_NOW_PRICE_USD = this.globalVars.nanosToUSDNumber(desoAmount * 1e9).toFixed(2);
+  }
+
   imageUploaded() {
     return this.postImageArweaveSrc?.length > 0;
   }
@@ -568,6 +587,11 @@ export class MintPageComponent implements OnInit {
 
     if (!this.buyNowPriceDESO) {
       this.buyNowPriceDESO = 0;
+    }
+
+    // if we are doing a buy now and there is no min bid option clicked, then set the min price to the buy now price
+    if (this.isBuyNow && !this.minBidClicked) {
+      this.MIN_PRICE = this.buyNowPriceDESO;
     }
 
     let creatorRoyaltyBasisPoints = 0;
@@ -807,6 +831,18 @@ export class MintPageComponent implements OnInit {
         class: "modal-dialog-centered",
         initialState,
       });
+    }
+  }
+
+  handleMinBidClicked() {
+    var checkbox = <HTMLInputElement>document.getElementById("checkbox-min-bid");
+
+    if (checkbox.checked) {
+      console.log("Checkbox is checked..");
+      this.minBidClicked = true;
+    } else {
+      console.log("Checkbox is not checked..");
+      this.minBidClicked = false;
     }
   }
 

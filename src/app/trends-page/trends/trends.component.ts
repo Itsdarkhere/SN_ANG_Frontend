@@ -59,6 +59,9 @@ export class TrendsComponent implements OnInit {
       this.globalVars.marketplaceNFTsOffset = 0;
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+      if (this.mobile) {
+        this.closeMarketplaceMobileFiltering("apply");
+      }
     });
   }
 
@@ -78,8 +81,19 @@ export class TrendsComponent implements OnInit {
     this.disable();
   }
   closeMarketplaceMobileFiltering(string: string) {
-    this.enable();
-    this.globalVars.isMarketplaceLeftBarMobileOpen = false;
+    if (string == "apply") {
+      this.enableNoScroll();
+      this.globalVars.isMarketplaceLeftBarMobileOpen = false;
+    } else {
+      this.enable();
+      this.globalVars.isMarketplaceLeftBarMobileOpen = false;
+    }
+  }
+  // Enable without scrolling, since if user applies we want to scroll to top by default
+  enableNoScroll() {
+    let anotherElement = document.getElementById("market") as HTMLDivElement;
+    anotherElement.style.position = "";
+    anotherElement.style.overflowY = "";
   }
   // Enable scroll
   enable() {

@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { trigger, style, animate, transition } from "@angular/animations";
 import { GlobalVarsService } from "../global-vars.service";
-import { FunctionPassService } from "../function-pass.service";
 
 @Component({
   selector: "app-marketplace-left-bar-mobile",
@@ -24,11 +23,7 @@ export class MarketplaceLeftBarMobileComponent {
   @Output() closeModal = new EventEmitter<string>();
   @Input() inTutorial: boolean = false;
 
-  constructor(public globalVars: GlobalVarsService, private functionPass: FunctionPassService) {
-    this.functionPass.listen().subscribe((m: any) => {
-      this._closeMenu();
-    });
-  }
+  constructor(public globalVars: GlobalVarsService) {}
   _closeMenu() {
     //this.globalVars.isMarketplaceLeftBarMobileOpen = false;
     this.closeModal.emit("close");

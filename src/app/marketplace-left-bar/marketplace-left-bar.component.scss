@@ -322,6 +322,7 @@ input[type=number]::-webkit-outer-spin-button {
         border: none;
     }
 }
+// Fallback for mobile devices that dont support aspect ratio, mostly safari
 @supports not (aspect-ratio: 1 / 1) {
     .mlb-flyout-status-grid {
         width: 100%;

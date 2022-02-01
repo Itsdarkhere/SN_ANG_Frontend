@@ -197,6 +197,11 @@
     max-height: calc(100vh - 70px);
     overflow-y: scroll;
 }
+@supports not (aspect-ratio: 1/1) {
+    .flyout__nav__inner__marketplace {
+        max-height: calc(90vh - 70px);
+    }
+}
 .verifiedAccordion {
     height: 5px;
     overflow: hidden;

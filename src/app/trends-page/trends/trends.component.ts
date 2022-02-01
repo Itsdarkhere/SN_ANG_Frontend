@@ -92,12 +92,14 @@ export class TrendsComponent implements OnInit {
   // Enable without scrolling, since if user applies we want to scroll to top by default
   enableNoScroll() {
     let anotherElement = document.getElementById("market") as HTMLDivElement;
+    anotherElement.style.pointerEvents = "all";
     anotherElement.style.position = "";
     anotherElement.style.overflowY = "";
   }
   // Enable scroll
   enable() {
     let anotherElement = document.getElementById("market") as HTMLDivElement;
+    anotherElement.style.pointerEvents = "all";
     anotherElement.style.position = "";
     anotherElement.style.overflowY = "";
     window.scrollTo(0, this.scrollPosition);
@@ -105,6 +107,7 @@ export class TrendsComponent implements OnInit {
   // Disable scroll
   disable() {
     let anotherElement = document.getElementById("market") as HTMLDivElement;
+    anotherElement.style.pointerEvents = "none";
     anotherElement.style.position = "fixed";
     anotherElement.style.overflowY = "hidden";
     anotherElement.style.top = -this.scrollPosition + 140 + "px";

@@ -760,6 +760,7 @@
         <div
           class="auction_detl"
           *ngIf="
+            !this.globalVars.IsBuyNow &&
             compareBit(
               globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5),
               globalVars.nanosToDeSo(highBid, 5),
@@ -934,35 +935,35 @@
             Close the auction
           </button>
         </div>
+        <div
+          class="d-flex flex-wrap justify-content-between"
+          [ngClass]="{
+            'flex-column': isQuotedContent,
+            'align-items-start': isQuotedContent,
+            'align-items-center': !isQuotedContent
+          }"
+          *ngIf="!UserOwnsSerialNumbers()"
+        >
+          <div class="feed_post_btn_grp d-flex flex-wrap w-100 justify-content-between" *ngIf="hasUserPlacedBids()">
+            <button class="btn blk_fill_btn with_ico small" (click)="openPlaceBidModal($event)">Place new bid</button>
+            <button class="btn blk_line_btn with_ico small" (click)="onBidCancel($event)">Cancel your bid</button>
+          </div>
+
+          <button
+            class="btn nft_place_bid_btn"
+            [ngClass]="{ 'mt-15px': isQuotedContent }"
+            (click)="openPlaceBidModal($event)"
+            *ngIf="showPlaceABid && !hasUserPlacedBids()"
+          >
+            Place your Bid
+          </button>
+        </div>
       </div>
       <!-- this.globalVars.IsBuyNow === true close auction container -->
       <div *ngIf="this.globalVars.IsBuyNow">
         <button class="btn blk_line_btn with_ico big buy_now_btn" (click)="openBuyNowModal($event)">
           <i><img src="assets/icons/buy-now-lightning.svg" alt="" class="buy_now_img" /></i>
           Buy Now
-        </button>
-      </div>
-      <div
-        class="d-flex flex-wrap justify-content-between"
-        [ngClass]="{
-          'flex-column': isQuotedContent,
-          'align-items-start': isQuotedContent,
-          'align-items-center': !isQuotedContent
-        }"
-        *ngIf="!UserOwnsSerialNumbers()"
-      >
-        <div class="feed_post_btn_grp d-flex flex-wrap w-100 justify-content-between" *ngIf="hasUserPlacedBids()">
-          <button class="btn blk_fill_btn with_ico small" (click)="openPlaceBidModal($event)">Place new bid</button>
-          <button class="btn blk_line_btn with_ico small" (click)="onBidCancel($event)">Cancel your bid</button>
-        </div>
-
-        <button
-          class="btn nft_place_bid_btn"
-          [ngClass]="{ 'mt-15px': isQuotedContent }"
-          (click)="openPlaceBidModal($event)"
-          *ngIf="showPlaceABid && !hasUserPlacedBids()"
-        >
-          Place your Bid
         </button>
       </div>
     </div>

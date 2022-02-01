@@ -194,8 +194,8 @@ export class FeedPostComponent implements OnInit {
         this.nftEntryResponses = res.NFTEntryResponses;
         // added buyNow logic
         this.nftEntryResponse = this.nftEntryResponses[0];
-        console.log(this.nftEntryResponse);
         this.updateBuyNow();
+        console.log(this.nftEntryResponse);
         // end of buyNow logic
         this.isAvailableForSale = this.nftEntryResponses[0].IsForSale;
         this.nftEntryResponses.sort((a, b) => a.SerialNumber - b.SerialNumber);
@@ -263,6 +263,8 @@ export class FeedPostComponent implements OnInit {
       this.globalVars.IsBuyNow = false;
     }
     this.globalVars.BuyNowPriceNanos = this.nftEntryResponse.BuyNowPriceNanos;
+    this.globalVars.SerialNumber = this.nftEntryResponse.SerialNumber;
+    console.log(this.globalVars.SerialNumber);
   }
 
   showCreateNFTAuction(): boolean {

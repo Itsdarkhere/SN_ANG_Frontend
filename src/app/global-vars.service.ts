@@ -276,6 +276,7 @@ export class GlobalVarsService {
 
   IsBuyNow: boolean;
   BuyNowPriceNanos: number;
+  SerialNumber: number;
 
   NFTRoyaltyToCoinBasisPoints: any;
   NFTRoyaltyToCreatorBasisPoints: any;

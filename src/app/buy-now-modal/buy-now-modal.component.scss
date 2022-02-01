@@ -156,3 +156,45 @@ input[type="number"] {
   color: white;
   margin-top: 20px;
 }
+
+.buy-now-success-img {
+  height: 100px;
+  width: 100px;
+  margin: 0 auto;
+}
+
+.buy-now-success-header {
+  margin-top: 30px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 48px;
+
+  text-align: center;
+
+  color: #0d0d0d;
+}
+
+.buy-now-success-text {
+  margin: 0 auto;
+  margin-top: 20px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 28px;
+  width: 400px;
+
+  text-align: center;
+
+  color: #070707;
+}
+
+.quote_repost_btn {
+  margin-top: 25px;
+  background: black;
+  color: white;
+}
+
+.close_window_btn {
+  margin-top: 15px;
+}

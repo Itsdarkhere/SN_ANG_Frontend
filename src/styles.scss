@@ -1579,7 +1579,14 @@ input.bs-timepicker-field {
     padding-left: 20px;
     margin-bottom: 0;
 }
-
+.marketplace-flyout-checkbox-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 0;
+}
 .marketplace-checkbox-label:before {
     content: "";
     display: inline-block;
@@ -1593,6 +1600,19 @@ input.bs-timepicker-field {
     background-color: #ffffff;
     border: 1px solid var(--text);
 }
+.marketplace-flyout-checkbox-label:before {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 1.9134812355041504px;
+    box-shadow: 0px 0.6378270387649536px 3.1891350746154785px rgba(203, 210, 218, 0.8);
+    position: absolute;
+    top: calc(50% - 6px);
+    left: 0px;
+    background-color: #ffffff;
+    border: 1px solid var(--text);
+}
 
 .marketplace-button-checkbox:checked+.marketplace-checkbox-label:before {
     content: "\2713";
@@ -1602,6 +1622,15 @@ input.bs-timepicker-field {
     text-align: center;
     line-height: 12px;
 }
+.marketplace-button-checkbox:checked+.marketplace-flyout-checkbox-label:before {
+    content: "\2713";
+    background: #000000;
+    ;
+    color: #ffffff;
+    text-align: center;
+    line-height: 12px;
+}
+
 
 .mrk_select {
     background: #ffffff;
@@ -1885,7 +1914,7 @@ input.bs-timepicker-field {
     padding-top: 5px;
     z-index: 100; // Needs to be higher than the bottom bar and staked posts.
     position: fixed;
-    top: 0;
+    bottom: 0;
     left: 0;
     //max-height: calc(100vh - 100px);
     width: 100%;

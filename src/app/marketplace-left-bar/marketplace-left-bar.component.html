@@ -151,7 +151,7 @@
 </div>
 <!-- Style way aspect ration differently for mobile -->
 <div class="mobile__nav__inner__marketplace w-100 disable-scrollbars position-relative" *ngIf="flyout">
-  <label class="w-100 pl-10px marketplace-label">Status</label>
+  <label class="w-100 pl-10px marketplace-flyout-label">Status</label>
   <div class="mlb-flyout-status-grid">
     <button class="font-weight-semibold fs-14px" (click)="statusClick('all')" [ngClass]="{ selected: this.statusAll }">
       All
@@ -178,7 +178,7 @@
       Sold
     </button>
   </div>
-  <label class="w-100 mt-20px pl-10px marketplace-label">Price range</label>
+  <label class="w-100 mt-20px pl-10px marketplace-flyout-label">Price range</label>
   <div *ngIf="!globalVars.marketplacePriceRangeSet; else priceSetBlock">
     <div class="d-flex flex-row justify-content-between mlb-flyout-price-inputs-container">
       <input
@@ -203,14 +203,14 @@
       <button (click)="resetPriceRange()"></button>
     </div>
   </ng-template>
-  <label class="w-100 mt-20px pl-10px marketplace-label">Market</label>
+  <label class="w-100 mt-20px pl-10px marketplace-flyout-label">Market</label>
   <button
     class="w-100 marketplace-flyout-filter-button d-flex flex-row align-items-center pl-10px position-relative"
     [ngClass]="marketPrimary ? 'market-button-checked' : ''"
     (click)="marketClick('primary')"
   >
     <input type="checkbox" class="marketplace-button-checkbox display-none" [checked]="marketPrimary" />
-    <label class="marketplace-checkbox-label fs-14px">Primary</label>
+    <label class="marketplace-flyout-checkbox-label fs-14px">Primary</label>
   </button>
   <button
     class="w-100 mt-10px marketplace-flyout-filter-button d-flex flex-row align-items-center pl-10px position-relative"
@@ -218,12 +218,12 @@
     (click)="marketClick('secondary')"
   >
     <input type="checkbox" class="marketplace-button-checkbox display-none" [checked]="marketSecondary" />
-    <label class="marketplace-checkbox-label fs-14px">Secondary</label>
+    <label class="marketplace-flyout-checkbox-label fs-14px">Secondary</label>
   </button>
-  <label class="w-100 mt-20px pl-10px marketplace-label">Creators</label>
+  <label class="w-100 mt-20px pl-10px marketplace-flyout-label">Creators</label>
   <div class="mrk_flyout_lb_selector w-100 px-5px">
     <button
-      class="fs-12px d-flex flex-row flex-center"
+      class="d-flex flex-row flex-center"
       (click)="creatorsClick('verified')"
       [ngClass]="{ selected: creatorTypeVerified }"
     >
@@ -231,7 +231,7 @@
       Verified
     </button>
     <button
-      class="fs-12px d-flex flex-row flex-center"
+      class="d-flex flex-row flex-center"
       (click)="creatorsClick('all')"
       [ngClass]="{ selected: !creatorTypeVerified }"
     >
@@ -240,7 +240,7 @@
     </button>
   </div>
   <div class="verifiedFlyoutAccordion disable-scrollbars" [ngClass]="{ expanded: this.creatorTypeVerified }">
-    <label class="w-100 mt-20px pl-10px marketplace-label">Category</label>
+    <label class="w-100 mt-20px pl-10px marketplace-flyout-label">Category</label>
     <select
       class="w-100 p-5px mrk_select_flyout font-weight-semibold fs-14px"
       (ngModelChange)="categorySelectChange($event)"
@@ -255,7 +255,7 @@
       <option value="music">Music</option>
       <option value="profile picture">Profile Picture Collection</option>
     </select>
-    <label class="w-100 mt-20px pl-10px marketplace-label">Content format</label>
+    <label class="w-100 mt-20px pl-10px marketplace-flyout-label">Content format</label>
     <button
       class="w-100 mlb-flyout-content-format-button d-flex flex-row flex-center-start pl-10px fs-14px"
       [ngClass]="{ selected: formatAll }"

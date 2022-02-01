@@ -1640,12 +1640,6 @@ input.bs-timepicker-field {
     padding-right: 10px !important;
 }
 
-.marketplace-label {
-    color: #525252;
-    font-size: 13.00255012512207px;
-    font-weight: 700;
-}
-
 .global__nav__sticky__marketplace {
     position: sticky;
     position: -webkit-sticky;
@@ -1891,11 +1885,11 @@ input.bs-timepicker-field {
     padding-top: 5px;
     z-index: 100; // Needs to be higher than the bottom bar and staked posts.
     position: fixed;
+    top: 0;
+    left: 0;
     //max-height: calc(100vh - 100px);
-    height: 80vh;
-    bottom: 0px;
     width: 100%;
-    right: 0;
+    height: 100vh;
     transform-origin: bottom;
     display: flex;
     justify-content: center;

@@ -7,6 +7,7 @@ import { InfiniteScroller } from "../../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { FunctionPassService } from "src/app/function-pass.service";
 import { CreatorCardResponse } from "../../backend-api.service";
+import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: "trends",
@@ -33,6 +34,8 @@ export class TrendsComponent implements OnInit {
   // Naming convention for display grid probably is not optimal but couldnt come up with a better one
   displayCard = true;
   displayGrid = false;
+  // Scroll Y position
+  scrollPosition: number;
 
   infiniteScroller: InfiniteScroller = new InfiniteScroller(
     TrendsComponent.PAGE_SIZE,
@@ -69,7 +72,28 @@ export class TrendsComponent implements OnInit {
     this.setMobileBasedOnViewport();
   }
   openMarketplaceMobileFiltering() {
+    // Get scroll position before anything else
+    this.scrollPosition = window.scrollY;
     this.globalVars.isMarketplaceLeftBarMobileOpen = true;
+    this.disable();
+  }
+  closeMarketplaceMobileFiltering(string: string) {
+    this.enable();
+    this.globalVars.isMarketplaceLeftBarMobileOpen = false;
+  }
+  // Enable scroll
+  enable() {
+    let anotherElement = document.getElementById("market") as HTMLDivElement;
+    anotherElement.style.position = "";
+    anotherElement.style.overflowY = "";
+    window.scrollTo(0, this.scrollPosition);
+  }
+  // Disable scroll
+  disable() {
+    let anotherElement = document.getElementById("market") as HTMLDivElement;
+    anotherElement.style.position = "fixed";
+    anotherElement.style.overflowY = "hidden";
+    anotherElement.style.top = -this.scrollPosition + 140 + "px";
   }
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();

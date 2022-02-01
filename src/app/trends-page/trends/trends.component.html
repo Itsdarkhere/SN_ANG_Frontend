@@ -34,7 +34,7 @@
     </select>
   </div>
 </div>
-<div class="w-100 d-flex flex-row">
+<div class="w-100 d-flex flex-row" id="market">
   <app-marketplace-left-bar *ngIf="!mobile" [flyout]="false"></app-marketplace-left-bar>
   <div [ngClass]="mobile ? 'global__content__width' : 'global__center__width__marketplace'">
     <div class="nfts-card-list" *ngIf="globalVars.isMarketplaceLoading">
@@ -44,7 +44,6 @@
         </div>
       </div>
     </div>
-
     <div *ngIf="!globalVars.isMarketplaceLoading" class="w-100 d-flex flex-row flex-start-end">
       <div
         class="search-results"
@@ -119,7 +118,9 @@
     ></bottom-bar-mobile>
   </div>
 </div>
-<app-marketplace-left-bar-mobile></app-marketplace-left-bar-mobile>
+<app-marketplace-left-bar-mobile
+  (closeModal)="closeMarketplaceMobileFiltering($event)"
+></app-marketplace-left-bar-mobile>
 <button *ngIf="mobile" class="mobile-filter-button" (click)="openMarketplaceMobileFiltering()">
   <img src="/assets/icons/market_apply_icon.svg" class="mr-5px" alt="image-icon" />
   Filter

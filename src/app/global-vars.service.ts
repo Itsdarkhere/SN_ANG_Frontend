@@ -203,7 +203,7 @@ export class GlobalVarsService {
   isLeftBarMobileOpen = false;
 
   // Whether the left bar (hamburger) menu for mobile Marketplace is currently open
-  isMarketplaceLeftBarMobileOpen = true;
+  isMarketplaceLeftBarMobileOpen = false;
 
   loggedInUserObservable: Observable<LoggedInUserObservableResult>;
   loggedInUserObservers = [] as Observer<LoggedInUserObservableResult>[];

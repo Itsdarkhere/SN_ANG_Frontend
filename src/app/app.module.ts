@@ -198,6 +198,12 @@ import { CreatorCardComponent } from "./creator-card/creator-card.component";
 import { PageSmallNavNewComponent } from "./page-small-nav-new/page-small-nav-new.component";
 import { SmallCardComponentComponent } from "./small-card-component/small-card-component.component";
 import { CompleteProfileComponent } from "./update-profile-page/complete-profile/complete-profile.component";
+import { TestComponent } from './collection-profile/test/test.component';
+import { SuccessPageComponent } from './collection-profile/success-page/success-page.component';
+import { ProfilePageComponent } from './collection-profile/profile-page/profile-page.component';
+import { CreateCollectionPageComponent } from './collection-profile/create-collection-page/create-collection-page.component';
+import { CollectionPageComponent } from './collection-profile/collection-page/collection-page.component';
+import { CollectionCardComponent } from './collection-profile/collection-card/collection-card.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -370,6 +376,12 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     PageSmallNavNewComponent,
     CompleteProfileComponent,
     SmallCardComponentComponent,
+    TestComponent,
+    SuccessPageComponent,
+    ProfilePageComponent,
+    CreateCollectionPageComponent,
+    CollectionPageComponent,
+    CollectionCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -10,7 +10,7 @@
       <img
         *ngIf="this.globalVars.isMobile()"
         src="/assets/img/supernovas-grey-mobile.png"
-        class="ml-30px"
+        class="pl-30px supernovas-logo-mobile"
         alt="grey supernovas logo"
       />
     </a>
@@ -20,7 +20,7 @@
   <div *ngIf="!this.globalVars.isMobile()" class="signup-body-container d-flex flex-center">
     <div
       *ngIf="stepNum === 1 || !globalVars.loggedInUser?.PublicKeyBase58Check"
-      class="singup-center d-flex flex-column flex-center"
+      class="singup-center d-flex flex-column flex-center disable-scrollbars"
     >
       <label class="font-weight-semiboldn text-align-center header-font-rezising">Connect with Deso Identity</label>
       <label style="color: #666666" class="subheading-font-resizing mt-20px max-width-445px text-align-center">
@@ -109,7 +109,7 @@
           </p>
           <input
             type="text"
-            class="signup-input mt-10px"
+            class="signup-input mt-20px"
             [(ngModel)]="emailAddress"
             (ngModelChange)="_validateEmail($event)"
             placeholder="Email Address"
@@ -193,7 +193,7 @@
         <label style="color: #666666" class="fs-20px mt-20px mb-20px text-align-center">
           Choose between creator and collector profile.
         </label>
-        <div class="signup-card-box-mobile">
+        <div class="signup-card-box-mobile position-relative">
           <button
             class="profile-type-card-mobile p-0px"
             (click)="creatorSelected()"
@@ -220,14 +220,14 @@
               <label class="fs-11px pointer-events-none">I want to buy and sell NFT’s.</label>
             </div>
           </button>
+          <button
+            (click)="nextStep()"
+            [disabled]="!creator && !collector"
+            class="creator-colletor-button black-rounded-button basic-button-size color-white fs-15px font-weight-bold signup-window-btn-mobile"
+          >
+            Continue
+          </button>
         </div>
-        <button
-          (click)="nextStep()"
-          [disabled]="!creator && !collector"
-          class="creator-colletor-button black-rounded-button basic-button-size color-white fs-15px font-weight-bold signup-window-btn-mobile"
-        >
-          Continue
-        </button>
       </div>
     </div>
     <div
@@ -251,7 +251,7 @@
           </p>
           <input
             type="text"
-            class="signup-input mt-10px"
+            class="signup-input mt-20px"
             [(ngModel)]="emailAddress"
             (ngModelChange)="_validateEmail($event)"
             placeholder="Email Address"
@@ -265,7 +265,7 @@
           <button
             (click)="nextStep()"
             [disabled]="invalidEmailEntered || !startedEnteringEmail"
-            class="black-rounded-button basic-button-size color-white fs-15px font-weight-bold signup-window-btn-mobile"
+            class="black-rounded-button basic-button-size color-white fs-15px font-weight-bold signup-window-btn-absolute"
           >
             Continue
           </button>

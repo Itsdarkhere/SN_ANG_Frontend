@@ -205,6 +205,9 @@ export class GlobalVarsService {
   // Whether the left bar (hamburger) menu for mobile Marketplace is currently open
   isMarketplaceLeftBarMobileOpen = false;
 
+  // If no erros received on mobile verification
+  isPhoneNumberVerificationTextServerErrorFree: boolean;
+
   loggedInUserObservable: Observable<LoggedInUserObservableResult>;
   loggedInUserObservers = [] as Observer<LoggedInUserObservableResult>[];
 
@@ -303,6 +306,7 @@ export class GlobalVarsService {
   async checkCreatorStatus(): Promise<void> {
     const publicKey = this.loggedInUser.PublicKeyBase58Check;
     const firebaseRes = await this.firestore.collection("profile-details").doc(publicKey).get().toPromise();
+    console.log(firebaseRes);
     let firebaseResData = JSON.stringify(
       firebaseRes["_document"]["proto"]["fields"]["creator"]["booleanValue"],
       this.getCircularReplacer()

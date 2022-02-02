@@ -118,7 +118,8 @@ export class AppComponent implements OnInit {
     if (this.callingUpdateTopLevelData) {
       return new Subscription();
     }
-
+    console.log(this.identityService.identityServiceUsers);
+    console.log(this.identityService);
     const publicKeys = Object.keys(this.identityService.identityServiceUsers);
 
     let loggedInUserPublicKey =

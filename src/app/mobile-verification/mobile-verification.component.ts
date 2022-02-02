@@ -66,7 +66,7 @@ export class MobileVerificationComponent implements OnInit {
   verificationCodeString: string;
   verificationCodeCorrectLength: boolean;
 
-  isPhoneNumberVerificationTextServerErrorFree: boolean;
+  //isPhoneNumberVerificationTextServerErrorFree: boolean;
 
   constructor(
     public globalVars: GlobalVarsService,
@@ -92,7 +92,6 @@ export class MobileVerificationComponent implements OnInit {
     } else {
       this.globalVars.wantToVerifyPhone = false;
     }
-
     this.nextStep.emit();
   }
 
@@ -296,17 +295,21 @@ export class MobileVerificationComponent implements OnInit {
   }
 
   sendVerificationText() {
+    console.log("NEXT STEP");
     if (this.phoneForm.invalid) {
+      console.log("Invalid");
       return;
     }
     this.verificationStep = true;
     this.globalVars.logEvent("account : create : send-verification-text");
     this._sendPhoneNumberVerificationText();
-    if (this.isPhoneNumberVerificationTextServerErrorFree) {
+    /*if (this.isPhoneNumberVerificationTextServerErrorFree) {
       this._nextStep(true);
     } else {
+      console.log("Invalid");
       return;
-    }
+    }*/
+    //return;
 
     // https://docs.deso.org/identity/window-api/endpoints#verify-phone-number
     // this.identityService
@@ -382,20 +385,23 @@ export class MobileVerificationComponent implements OnInit {
       )
       .subscribe(
         (res) => {
+          console.log("SUCCESSS");
+          this.globalVars.isPhoneNumberVerificationTextServerErrorFree = true;
           this.screenToShow = MobileVerificationComponent.SUBMIT_PHONE_NUMBER_VERIFICATION_SCREEN;
           this.globalVars.logEvent("account : create : send-verification-text: success");
 
           this.globalVars.wantToVerifyPhone = true;
           this.globalVars.phoneVerified = false;
-          this.isPhoneNumberVerificationTextServerErrorFree = true;
+          this._nextStep(true);
         },
         (err) => {
+          console.log("ERRRRORS");
           this._parseSendPhoneNumberVerificationTextServerErrors(err);
-          this.isPhoneNumberVerificationTextServerErrorFree = false;
+          this.globalVars.isPhoneNumberVerificationTextServerErrorFree = false;
           console.log(
             ` -------------- phoneNumberAlreadyInUseVariable ${this.sendPhoneNumberVerificationTextServerErrors.phoneNumberAlreadyInUse} ------------- `
           );
-          console.log(` ---------- errorFree? ${this.isPhoneNumberVerificationTextServerErrorFree}`);
+          console.log(` ---------- errorFree? ${this.globalVars.isPhoneNumberVerificationTextServerErrorFree}`);
         }
       )
       .add(() => {

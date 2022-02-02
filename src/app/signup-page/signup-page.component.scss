@@ -11,6 +11,9 @@
 .signup-body-container {
   height: calc(100vh - 80px);
 }
+.supernovas-logo-mobile {
+  max-width: 100%;
+}
 .singup-center {
   max-width: 100%;
   max-height: 100%;
@@ -51,6 +54,7 @@
   height: 100vh;
   text-align: center;
   position: relative;
+  padding-top: 20px;
 }
 .signup-window-header {
   margin-top: 50px;
@@ -64,7 +68,6 @@
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  width: 250px; /* Need a specific value to work */
   bottom: 0;
   margin-bottom: 50px;
 }
@@ -122,6 +125,7 @@
   height: 35px;
   border-radius: 5.669146537780762px;
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+  font-size: 16px;
 }
 
 // ------------------ mobile
@@ -150,12 +154,14 @@
   align-items: center;
   margin-top: 3vh;
   flex-direction: column;
+  padding-bottom: 100px;
+  height: calc(100% - 96px);
 }
 
 .profile-type-card-mobile {
   width: 196px;
   height: 220px;
-  margin-top: 6.5vh;
+  margin-top: 30px;
   overflow: hidden;
   background: #ffffff;
   border: 2px solid #efefef;
@@ -173,15 +179,24 @@
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  width: 300px;
   bottom: 0;
+  width: 300px;
+  max-width: 90%;
   margin-bottom: 5vh;
 }
 
 .signup-window-body-mobile {
   margin-top: 5vh;
 }
-
+.signup-window-btn-absolute {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 0;
+  margin-bottom: 50px;
+}
 @media screen and (max-width: 480px) {
   .signup-card-box-mobile {
     display: flex;
@@ -200,13 +215,5 @@
     border: 2px solid #efefef;
     border-radius: 15.0900793076px;
     box-shadow: 1.0368170738px 1.0368170738px 20.7363395691px rgb(0 0 0 / 5%);
-  }
-
-  .h-60 {
-    height: 45%;
-  }
-
-  .creator-colletor-button {
-    top: 700px;
   }
 }

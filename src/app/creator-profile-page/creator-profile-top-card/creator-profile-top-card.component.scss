@@ -18,7 +18,7 @@
         @media (max-width: 767px) {
             width: 90px;
             height: 90px;
-            border-width: 6px;
+            border-width: 3px;
         }
         img {
             width: 100%;
@@ -52,14 +52,14 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            margin-top: 20px;
-            margin-right: 20px;
+            // margin-top: 20px;
+            // margin-right: 20px;
             @media (max-width: 767px) {
                 margin-bottom: 15px;
                 margin-right: 0;
             }
             div {
-                margin-right: 20px;
+                margin-right: 40px;
                 h6 {
                     font-size: 15px;
                     font-weight: bold;
@@ -82,7 +82,7 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            padding: 15px 0px;
+            // padding: 15px 0px;
             .btn {
                 min-width: 85px;
                 font-weight: bold;
@@ -90,12 +90,18 @@
                     background: var(--button);
                     color: var(--background);
                     box-shadow: 0px 3.824768304824829px 3.824768304824829px rgba(0, 0, 0, 0.25);
+                    padding: .7rem 5rem;
+                    font-size: 0.9rem;
+                    border-radius: 6.25rem;
                 }
                 &.btn-follow {
                     color: var(--button);
                     border: 2px solid var(--button);
                     background: var(--background);
                     margin-left: 20px;
+                    padding: .7rem 5rem;
+                    font-size: 0.9rem;
+                    border-radius: 6.25rem;
                 }
             }
             .follow_ellips {
@@ -107,22 +113,43 @@
         .founder-reward-text {
             font-size: 10px;
         }
+        .followers-section{
+            /* align-items: unset; */
+            background-color: red;
+            position: absolute;
+            width: 560px;
+            height: 270px;
+            left: 718px;
+            top: 242px;
+            /* border: 0.8em solid grey; */
+            border: 0.8em solid rgba(255, 0, 0, 0.2);
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+            border-radius: 2em;
+            padding: 1.5em;
+        }
     }
     .bio-cover {
-        width: 100%;
+        width: 80%;
         padding-top: 20px;
+        display: flex;
+        
         @media (max-width: 767px) {
             width: 100%;
             padding-top: 30px;
         }
         h6 {
-            font-weight: bold;
+            font-weight: 500;
             font-size: 14px;
             margin-bottom: 10px;
+            color: #3D3D3D;
         }
         p {
-            font-size: 14px;
+            font-size: 18px;
             line-height: 1.67;
+            margin-right: 2em;
+            margin-bottom: 1.5em;
+            color: #3D3D3D;
             a {
                 background: #2749f0;
                 background: linear-gradient( 45deg, #ec5454 -4%, #f51ac1 4%, #2749f0 94%, #593eb7 69%);
@@ -150,7 +177,10 @@
     display: flex;
     flex-direction: column;
     justify-content: start;
-    align-items: center;
+    // align-items: center;
+    img {
+        margin-right: 1.3em;
+    }
 }
 .secondary-name {
     margin-top: 10px;
@@ -203,15 +233,21 @@
     }
 }
 .social-link-div {
-    width: 32px;
-    height: 32px;
-    padding-top: 1px;
-    margin-top: 10px;
+    /* width: 32px; */
+    /* height: 32px; */
+    /* padding-top: 1px; */
+    display: inline-flex;
+    margin-top: 19px;
     text-align: center;
-    background: #ffffff;
-    border: 2.2857143878936768px solid #ffffff;
-    border-radius: 50%;
-    box-shadow: 0.7604753971099854px 0.7604753971099854px 3.8023767471313477px rgba(0, 0, 0, 0.25);
+    /* background: #ffffff; */
+    /* border: 2.2857143879px solid #ffffff; */
+    /* border-radius: 50%; */
+    /* box-shadow: 0.7604753971px 0.7604753971px 3.8023767471px rgba(0, 0, 0, 0.25); */
+    color: #9B9B9B;
+    font-weight: 500;
+}
+.social-link-div:hover {
+    color: #737373;
 }
 .profile-button-icon {
     transform: scale(.7);
@@ -224,4 +260,15 @@
     @media (max-width: 767px) {
         flex-direction: column;
     }
+}
+.profile-actions-box{
+    /* margin-top: -227px; */
+    bottom: 10em;
+    position: relative;
+}
+
+.creator-profile-h6{
+    font-size: 12px;
+    color: rgb(148, 148, 148);
+
 }

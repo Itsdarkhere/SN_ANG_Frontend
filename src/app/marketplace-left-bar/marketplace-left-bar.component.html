@@ -154,6 +154,9 @@
   class="flyout__nav__inner__marketplace w-100 disable-scrollbars position-relative pointer-events-all"
   *ngIf="flyout"
 >
+  <div class="nav_close_marketplace d-flex flex-center-end cursor-pointer">
+    <img src="assets/img/close_square.svg" (click)="closeMenu()" alt="" />
+  </div>
   <label class="w-100 pl-10px marketplace-flyout-label">Status</label>
   <div class="mlb-flyout-status-grid">
     <button class="font-weight-semibold fs-14px" (click)="statusClick('all')" [ngClass]="{ selected: this.statusAll }">

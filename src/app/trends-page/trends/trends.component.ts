@@ -1,13 +1,10 @@
 import { Component, HostListener, OnInit } from "@angular/core";
-import { Location } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
-import { BackendApiService, NFTCollectionResponse } from "../../backend-api.service";
+import { BackendApiService } from "../../backend-api.service";
 import { GlobalVarsService } from "../../global-vars.service";
 import { InfiniteScroller } from "../../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { FunctionPassService } from "src/app/function-pass.service";
-import { CreatorCardResponse } from "../../backend-api.service";
-import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: "trends",
@@ -55,12 +52,16 @@ export class TrendsComponent implements OnInit {
   ) {
     this.globalVars = _globalVars;
     this.functionPass.listen().subscribe((m: any) => {
-      this.sortMarketplace(0, false);
-      this.globalVars.marketplaceNFTsOffset = 0;
-      document.body.scrollTop = 0; // For Safari
-      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-      if (this.mobile) {
-        this.closeMarketplaceMobileFiltering("apply");
+      // Function can either just close menu or choose to sort
+      // Marketplace leftbar component
+      if (m == "sort") {
+        this.sortMarketplace(0, false);
+        this.globalVars.marketplaceNFTsOffset = 0;
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        this.closeMarketplaceMobileFiltering("sort");
+      } else if (m == "close") {
+        this.closeMarketplaceMobileFiltering("close");
       }
     });
   }
@@ -81,10 +82,10 @@ export class TrendsComponent implements OnInit {
     this.disable();
   }
   closeMarketplaceMobileFiltering(string: string) {
-    if (string == "apply") {
+    if (string == "sort") {
       this.enableNoScroll();
       this.globalVars.isMarketplaceLeftBarMobileOpen = false;
-    } else {
+    } else if (string == "close") {
       this.enable();
       this.globalVars.isMarketplaceLeftBarMobileOpen = false;
     }

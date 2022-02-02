@@ -6,11 +6,4 @@
   <div class="d-flex flex-center disable-scrollbars max-width-400px">
     <app-marketplace-left-bar [flyout]="true"></app-marketplace-left-bar>
   </div>
-  <div
-    *ngIf="globalVars.isMarketplaceLeftBarMobileOpen"
-    (click)="_closeMenu()"
-    class="nav_close_marketplace cursor-pointer"
-  >
-    <img src="assets/img/close_square.svg" alt="" />
-  </div>
 </div>

@@ -105,10 +105,11 @@ export class DiscoveryPageComponent implements OnInit {
   getCommunityFavourites() {
     this.postsLoading = true;
     this.backendApi
-      .GetCommunityFavourite(
+      .GetNFTsByCategory(
         this.globalVars.localNode,
         "BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w",
-        "BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w"
+        "communityfavourites",
+        0
       )
       .subscribe((res) => {
         // For big image

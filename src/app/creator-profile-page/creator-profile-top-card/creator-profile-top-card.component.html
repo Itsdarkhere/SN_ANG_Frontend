@@ -1,8 +1,5 @@
 <div class="page-creator-top-profile">
-  <div class="profile-top-card-box-1">
-    <div class="profile-img-cover" [avatar]="profile.PublicKeyBase58Check"></div>
-    
-    <div class="profile-actions-box">
+  <div class="profile-actions-box">
       <button
         *ngIf="globalVars.loggedInUser?.PublicKeyBase58Check != profile.PublicKeyBase58Check"
         class="br-30px m-10px pt-5px pb-5px pl-5px pr-5px top-card-button hover-color top-card-button-message"
@@ -19,10 +16,16 @@
         <img src="./assets/icons/profile-share.png" class="profile-button-icon" />
         
       </button>
+  </div>
+
+  <div class="profile-top-card-box-1">
+    <div class="profile-img-cover" [avatar]="profile.PublicKeyBase58Check">
     </div>
   </div>
+
   <div class="user-info">
     <div class="followers_inline_row flex-column">
+
       <div class="name-stats-profile">
         <div class="mt-20px">
           <h5 class="bold usr_nm" *ngIf="profileData?.name">{{ profileData?.name }}</h5>
@@ -50,7 +53,6 @@
         </div>
 
       </div>
-
       <div class="followers-section">
         <div class="followers-row">
           <div
@@ -76,6 +78,7 @@
             <h5>{{ globalVars.nanosToUSD(profile.CoinPriceDeSoNanos, 2) }}</h5>
           </div>
         </div>
+        <br>
         <div class="btn_cover_sec mt-10px">
           <div class="btn-cover">
             <button
@@ -116,8 +119,8 @@
       </div>
 
     </div>
- 
   </div>
+
   <div class="bio-cover">
     <h6>BIO</h6>
     <p [innerHTML]="profile.Description | sanitizeAndAutoLink"></p>

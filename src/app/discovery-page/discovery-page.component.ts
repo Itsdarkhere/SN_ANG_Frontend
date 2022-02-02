@@ -35,6 +35,9 @@ export class DiscoveryPageComponent implements OnInit {
   posts2Loading = false;
   usersLoading = false;
   fakeArray = [1, 2, 3, 4, 5, 6, 7, 8];
+  // Loading users Errored out, this can happen
+  // Cant remember why but yeah
+  errorFetchingUsers = false;
   constructor(private backendApi: BackendApiService, public globalVars: GlobalVarsService, public router: Router) {}
 
   ngOnInit(): void {
@@ -126,10 +129,16 @@ export class DiscoveryPageComponent implements OnInit {
   }
   _loadVerifiedUsers() {
     this.usersLoading = true;
+    console.log("---- WELCOME ------")
+    console.log(this.globalVars.localNode);
     this.backendApi
       .AdminGetVerifiedUsers(this.globalVars.localNode, "BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w")
       .subscribe(
         (res) => {
+          if (res.VerifiedUsers == null) {
+            this.errorFetchingUsers = true;
+            this.usersLoading = false;
+          }
           var arrayHolder = res.VerifiedUsers.sort(() => Math.random() - 0.5);
           this.discoveryUserArray = arrayHolder.slice(0, 8);
 
@@ -142,6 +151,8 @@ export class DiscoveryPageComponent implements OnInit {
         },
         (err) => {
           console.log(err);
+          this.errorFetchingUsers = true;
+          this.usersLoading = false;
         }
       );
   }

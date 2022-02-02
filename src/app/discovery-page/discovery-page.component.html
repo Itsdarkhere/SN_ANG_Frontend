@@ -415,12 +415,12 @@
       ></new-nft-card>
     </div>
   </carousel>-->
-  <div class="discovery-header-box mt-20px">
+  <div class="discovery-header-box mt-20px" *ngIf="!errorFetchingUsers">
     <h2 id="creators" class="font-weight-semiboldn pl-10px" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
       Supernovas verified creators
     </h2>
   </div>
-  <div *ngIf="!mobile" class="discovery-creator-cards-container w-100">
+  <div *ngIf="!mobile && !errorFetchingUsers" class="discovery-creator-cards-container w-100">
     <div class="creator-card-list-discovery" *ngIf="!usersLoading">
       <div class="nft-col-wrap" *ngFor="let username of discoveryUserArray">
         <app-creator-card
@@ -438,7 +438,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="mobile" class="keen-slider" #sliderRef4>
+  <div *ngIf="mobile && !errorFetchingUsers" class="keen-slider" #sliderRef4>
     <div class="keen-slider__slide creator-slide1">
       <app-creator-card
         [username]="discoveryUserArray[0]"
@@ -570,6 +570,6 @@
   <bottom-bar-mobile
     *ngIf="mobile"
     class="global__bottom-bar-mobile scrolled"
-    [showPostButton]="showPostButton"
+    [showPostButton]="true"
   ></bottom-bar-mobile>
 </app-page-small-nav-new>

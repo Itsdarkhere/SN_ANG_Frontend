@@ -95,6 +95,7 @@ class RouteNames {
   public static DISCOVERY = "discovery";
 
   public static COLLECTIONS = "collections";
+  public static COLLECTION_PROFILE = "collection-profile-page";
 }
 
 const routes: Routes = [
@@ -187,18 +188,18 @@ const routes: Routes = [
     pathMatch: "full"
   },
   {
-    path: RouteNames.COLLECTIONS,
-    component: CreateCollectionPageComponent,
-    pathMatch: "full"
-  },
-  {
-    path: RouteNames.COLLECTIONS,
+    path: RouteNames.COLLECTION_PROFILE,
     component: CollectionProfilePageComponent,
     pathMatch: "full"
   },
   {
     path: RouteNames.COLLECTIONS,
     component: CollectionSuccessPageComponent,
+    pathMatch: "full"
+  },
+  {
+    path: RouteNames.COLLECTIONS,
+    component: CreateCollectionPageComponent,
     pathMatch: "full"
   },
   // This NotFound route must be the last one as it catches all paths that were not matched above.

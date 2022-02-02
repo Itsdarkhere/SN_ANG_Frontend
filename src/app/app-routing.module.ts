@@ -38,6 +38,10 @@ import { ActivityComponent } from "./activity/activity.component";
 import { MintPageComponent } from "./mint-page/mint-page.component";
 import { NftPageComponent } from "./discovery-page/nft-page/nft-page.component";
 import { DiscoveryPageComponent } from "./discovery-page/discovery-page.component";
+import { CollectionPageComponent } from "./collection-profile/collection-page/collection-page.component";
+import { CreateCollectionPageComponent } from "./collection-profile/create-collection-page/create-collection-page.component";
+import { CollectionProfilePageComponent } from "./collection-profile/collection-profile-page/collection-profile-page.component";
+import { CollectionSuccessPageComponent } from "./collection-profile/collection-success-page/collection-success-page.component";
 
 class RouteNames {
   // Not sure if we should have a smarter schema for this, e.g. what happens if we have
@@ -89,6 +93,8 @@ class RouteNames {
   public static CREATE_PROFILE = "create-profile";
   public static INVEST = "invest";
   public static DISCOVERY = "discovery";
+
+  public static COLLECTIONS = "collections";
 }
 
 const routes: Routes = [
@@ -173,6 +179,27 @@ const routes: Routes = [
     path: RouteNames.TUTORIAL + "/" + RouteNames.CREATE_POST,
     component: CreatePostTutorialPageComponent,
     pathMatch: "full",
+  },
+  // COLLECTIONS ROUTES
+  {
+    path: RouteNames.COLLECTIONS,
+    component: CollectionPageComponent,
+    pathMatch: "full"
+  },
+  {
+    path: RouteNames.COLLECTIONS,
+    component: CreateCollectionPageComponent,
+    pathMatch: "full"
+  },
+  {
+    path: RouteNames.COLLECTIONS,
+    component: CollectionProfilePageComponent,
+    pathMatch: "full"
+  },
+  {
+    path: RouteNames.COLLECTIONS,
+    component: CollectionSuccessPageComponent,
+    pathMatch: "full"
   },
   // This NotFound route must be the last one as it catches all paths that were not matched above.
   { path: "**", component: NotFoundPageComponent, pathMatch: "full" },

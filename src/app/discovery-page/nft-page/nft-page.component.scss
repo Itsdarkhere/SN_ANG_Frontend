@@ -16,6 +16,12 @@
       max-width: 100%;
     }
 }
+.nfts-page-top {
+  border-bottom: 2px solid var(--border);
+  height: 85px;
+  width: 100%;
+  -webkit-align-items: flex-end;
+}
 .nfts-spacer {
   height: 40px;
 }

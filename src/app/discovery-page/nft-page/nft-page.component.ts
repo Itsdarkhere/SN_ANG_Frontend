@@ -79,6 +79,19 @@ export class NftPageComponent implements OnInit {
       this.loadData(this.offset, false);
     }).unsubscribe;
   }
+  // Choosing between a grid display of NFTs and Card display
+  setDisplayType(display: string) {
+    switch (display) {
+      case "Card":
+        this.globalVars.nftsPageViewTypeCard = true;
+        break;
+      case "Grid":
+        this.globalVars.nftsPageViewTypeCard = false;
+        break;
+      default:
+        break;
+    }
+  }
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
   }

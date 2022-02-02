@@ -205,6 +205,9 @@ export class GlobalVarsService {
   // Whether the left bar (hamburger) menu for mobile Marketplace is currently open
   isMarketplaceLeftBarMobileOpen = false;
 
+  // NFT view type
+  nftsPageViewTypeCard = false;
+
   // If no erros received on mobile verification
   isPhoneNumberVerificationTextServerErrorFree: boolean;
 

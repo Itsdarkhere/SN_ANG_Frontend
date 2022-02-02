@@ -206,7 +206,7 @@ export class GlobalVarsService {
   isMarketplaceLeftBarMobileOpen = false;
 
   // NFT view type
-  nftsPageViewTypeCard = false;
+  nftsPageViewTypeCard = true;
 
   // If no erros received on mobile verification
   isPhoneNumberVerificationTextServerErrorFree: boolean;

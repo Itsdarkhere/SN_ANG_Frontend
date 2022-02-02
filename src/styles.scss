@@ -3169,8 +3169,8 @@ em {
     align-items: flex-end;
 }
 .flex-center-end {
-    justify-content: end;
-    align-items: center;
+    justify-content: end !important;
+    align-items: center !important;
 }
 
 .flex-end-center {

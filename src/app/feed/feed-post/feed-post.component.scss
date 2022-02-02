@@ -4,9 +4,54 @@
   }
 }
 
+.nft_current_bid_both {
+  width: 47%;
+  padding-right: 20px;
+  padding-left: 30px;
+  padding-top: 0;
+  margin: 0 auto;
+  @media screen and (max-width: 767px) {
+    padding-right: 20px;
+    padding-left: 0;
+    width: 42%;
+  }
+  .val {
+    font-size: 28.2247px;
+    font-weight: 600;
+    @media screen and (max-width: 767px) {
+      font-size: 24px;
+    }
+  }
+  .val_st {
+    font-size: 17.4692px;
+    color: var(--textalt);
+    @media screen and (max-width: 767px) {
+      font-size: 14px;
+    }
+  }
+}
+
+.buy_now_text_container {
+  text-align: center;
+}
+
+.flex-container-row {
+  display: flex;
+  flex-direction: row;
+}
+
 .buy_now_btn {
   background: black;
   color: white;
+  flex: 1;
+  margin-right: 10px;
+}
+
+.place_bid_btn_both {
+  background: white;
+  color: black;
+  flex: 1;
+  margin-left: 10px;
 }
 
 .buy_now_img {

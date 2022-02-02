@@ -263,8 +263,16 @@ export class FeedPostComponent implements OnInit {
       this.globalVars.IsBuyNow = false;
     }
     this.globalVars.BuyNowPriceNanos = this.nftEntryResponse.BuyNowPriceNanos;
+    this.globalVars.MinBidAmountNanos = this.nftEntryResponse.MinBidAmountNanos;
     this.globalVars.SerialNumber = this.nftEntryResponse.SerialNumber;
-    console.log(this.globalVars.SerialNumber);
+
+    if (this.globalVars.MinBidAmountNanos < this.globalVars.BuyNowPriceNanos) {
+      this.globalVars.IsMinBidLessThanBuyNow = true;
+    } else {
+      this.globalVars.IsMinBidLessThanBuyNow = false;
+    }
+
+    console.log(` ------------------- IsMinBidLessThanBuyNow ${this.globalVars.IsMinBidLessThanBuyNow}`);
   }
 
   showCreateNFTAuction(): boolean {

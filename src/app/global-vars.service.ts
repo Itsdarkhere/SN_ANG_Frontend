@@ -276,6 +276,8 @@ export class GlobalVarsService {
 
   IsBuyNow: boolean;
   BuyNowPriceNanos: number;
+  MinBidAmountNanos: number;
+  IsMinBidLessThanBuyNow: boolean;
   SerialNumber: number;
 
   NFTRoyaltyToCoinBasisPoints: any;

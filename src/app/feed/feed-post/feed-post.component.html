@@ -629,7 +629,7 @@
       <div></div>
 
       <div *ngIf="showExpandedNFTDetails" class="d-flex nft_current_bid_tpwrapper">
-        <div class="nft_current_bid" [ngClass]="{ 'pt-15px': globalVars.isMobile() }">
+        <div *ngIf="!this.globalVars.IsBuyNow" class="nft_current_bid" [ngClass]="{ 'pt-15px': globalVars.isMobile() }">
           <!-- if this.globalVars.IsBuyNow === false -->
           <div *ngIf="!this.globalVars.IsBuyNow">
             <span class="hq" *ngIf="!decryptableNFTEntryResponses?.length || showUnlockableContent">
@@ -684,17 +684,6 @@
               {{ globalVars.nanosToDeSo(nftLastAcceptedBidAmountNanos, 5) }} DESO
             </div>
           </div>
-          <!-- if this.globalVars.IsBuyNow === true -->
-          <div *ngIf="this.globalVars.IsBuyNow">
-            <span class="hq">BUY NOW PRICE</span>
-            <div class="val">
-              {{ this.globalVars.nanosToUSD(this.globalVars.BuyNowPriceNanos, 2) }}
-            </div>
-            <div class="val_st">
-              {{ this.globalVars.nanosToDeSo(this.globalVars.BuyNowPriceNanos, 5) }}
-              DESO
-            </div>
-          </div>
 
           <div class="val" *ngIf="decryptableNFTEntryResponses?.length && !showUnlockableContent">
             <span class="hq">Owner</span>
@@ -727,6 +716,41 @@
           </div>
         </div>
 
+        <div
+          *ngIf="this.globalVars.IsBuyNow"
+          class="nft_current_bid_both"
+          [ngClass]="{ 'pt-15px': globalVars.isMobile() }"
+        >
+          <!-- if this.globalVars.IsBuyNow === true and IsMinBidLessThanBuyNow === true (they are not equal prices) -->
+          <div
+            *ngIf="this.globalVars.IsBuyNow && this.globalVars.IsMinBidLessThanBuyNow"
+            class="buy_now_text_container"
+          >
+            <span class="hq">BUY NOW PRICE</span>
+            <div class="val">
+              {{ this.globalVars.nanosToUSD(this.globalVars.BuyNowPriceNanos, 2) }}
+            </div>
+            <div class="val_st">
+              {{ this.globalVars.nanosToDeSo(this.globalVars.BuyNowPriceNanos, 5) }}
+              DESO
+            </div>
+          </div>
+          <!-- end of ngIf -->
+
+          <!-- if this.globalVars.IsBuyNow === true and IsMinBidLessThanBuyNow === false (they are equal prices) -->
+          <div *ngIf="this.globalVars.IsBuyNow && !this.globalVars.IsMinBidLessThanBuyNow">
+            <span class="hq">BUY NOW PRICE</span>
+            <div class="val">
+              {{ this.globalVars.nanosToUSD(this.globalVars.BuyNowPriceNanos, 2) }}
+            </div>
+            <div class="val_st">
+              {{ this.globalVars.nanosToDeSo(this.globalVars.BuyNowPriceNanos, 5) }}
+              DESO
+            </div>
+          </div>
+          <!-- end of ngIf -->
+        </div>
+
         <div class="nft_done_by" *ngIf="nftBidData?.BidEntryResponses.length > 0 && !showPlaceABid">
           <span class="hq">Made By</span>
           <div class="d-flex">
@@ -757,6 +781,7 @@
             </div>
           </div>
         </div>
+
         <div
           class="auction_detl"
           *ngIf="
@@ -959,13 +984,33 @@
           </button>
         </div>
       </div>
-      <!-- this.globalVars.IsBuyNow === true close auction container -->
-      <div *ngIf="this.globalVars.IsBuyNow">
+
+      <!-- this.globalVars.IsBuyNow === true close auction container and IsMinBidLessThanBuyNow === true (they are not equal prices) -->
+      <div *ngIf="this.globalVars.IsBuyNow && this.globalVars.IsMinBidLessThanBuyNow">
+        <div class="flex-container-row">
+          <button class="btn blk_line_btn with_ico buy_now_btn" (click)="openBuyNowModal($event)">
+            <i><img src="assets/icons/buy-now-lightning.svg" alt="" class="buy_now_img" /></i>
+            Buy Now
+          </button>
+          <button
+            class="btn blk_line_btn place_bid_btn_both"
+            [ngClass]="{ 'mt-15px': isQuotedContent }"
+            (click)="openPlaceBidModal($event)"
+          >
+            Place a bid
+          </button>
+        </div>
+      </div>
+      <!-- end of ngIf -->
+
+      <!-- this.globalVars.IsBuyNow === true close auction container and IsMinBidLessThanBuyNow === false (they are equal prices) -->
+      <div *ngIf="this.globalVars.IsBuyNow && !this.globalVars.IsMinBidLessThanBuyNow">
         <button class="btn blk_line_btn with_ico big buy_now_btn" (click)="openBuyNowModal($event)">
           <i><img src="assets/icons/buy-now-lightning.svg" alt="" class="buy_now_img" /></i>
           Buy Now
         </button>
       </div>
+      <!-- end of ngIf -->
     </div>
   </ng-container>
 </div>

@@ -8,6 +8,7 @@ import { Router } from "@angular/router";
 import { InfiniteScroller } from "../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { GoogleAnalyticsService } from "../google-analytics.service";
+import { object } from "underscore";
 
 @Component({
   selector: "place-bid-modal",
@@ -55,9 +56,19 @@ export class PlaceBidModalComponent implements OnInit {
         this.post.PostHashHex
       )
       .subscribe((res) => {
-        this.availableSerialNumbers = _.values(res.SerialNumberToNFTEntryResponse).sort(
-          (a, b) => a.SerialNumber - b.SerialNumber
+        // console.log(` ---------------- res ${JSON.stringify(res)}`);
+        let resObjJSON = JSON.stringify(res.SerialNumberToNFTEntryResponse);
+        let resObj = JSON.parse(resObjJSON);
+        // console.log(
+        //   ` ---------------- res.SerialNumberToNFTEntryResponse ${JSON.stringify(res.SerialNumberToNFTEntryResponse)}`
+        // );
+        console.log(resObj);
+        console.log(Object.values(resObj));
+        // this.availableSerialNumbers = _.values(res.SerialNumberToNFTEntryResponse).sort(
+        this.availableSerialNumbers = res.SerialNumberToNFTEntryResponse.values().sort(
+          (a: { SerialNumber: number }, b: { SerialNumber: number }) => a.SerialNumber - b.SerialNumber
         );
+        console.log(` ------------------ availableSerialNumbers ${this.availableSerialNumbers}`);
         this.availableCount = res.NFTCollectionResponse.PostEntryResponse.NumNFTCopiesForSale;
         this.biddableSerialNumbers = this.availableSerialNumbers.filter(
           (nftEntryResponse) =>

@@ -1824,6 +1824,9 @@ input.bs-timepicker-field {
     z-index: 999;
     border-radius: 50%;
     img {
+        position: absolute;
+        right: 0;
+        top: 25px;
         width: 45px;
         height: 45px;
     }

@@ -98,7 +98,9 @@
                 margin-right: 0;
             }
             div {
-                margin-right: 40px;
+                // margin-right: 40px;
+                padding: 1em;
+                border-radius: 1em;
                 h6 {
                     font-size: 15px;
                     font-weight: bold;
@@ -115,6 +117,9 @@
                         font-size: 18px;
                     }
                 }
+            }
+            div:hover {
+                background: #E9E9E9;
             }
         }
         .btn-cover {
@@ -162,7 +167,8 @@
             -webkit-background-clip: padding-box;
             background-clip: padding-box;
             border-radius: 2em;
-            padding: 1.5em;
+            padding: 0.8em;
+            padding-bottom: 1.5em;
             z-index: 10;
 
             .followers-separator{

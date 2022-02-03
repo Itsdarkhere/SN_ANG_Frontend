@@ -72,6 +72,7 @@ job "supernovas-frontend-alpha" {
         node.deso.org
         https://supernovas.app
         https://testnovas.app
+        https://testnovas.app*
         https://arweave.net
         https://*.arweave.net
         https://www.google-analytics.com
@@ -175,8 +176,8 @@ EOF
         
         tags = [
           "internal-proxy.enable=true",
-          "internal-proxy.http.routers.bitclout-frontend.entrypoints=https",
-          "internal-proxy.http.routers.bitclout-frontend.rule=Host(`testnovas.app`)"
+          "internal-proxy.http.routers.bitclout-frontend-alpha.entrypoints=https",
+          "internal-proxy.http.routers.bitclout-frontend-alpha.rule=Host(`testnovas.app`)"
         ]
 
         check {

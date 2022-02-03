@@ -96,6 +96,7 @@ class RouteNames {
   public static COLLECTIONS = "collections";
   public static COLLECTION_PAGE = "collection-page";
   public static CREATE_COLLECTION = "create-collection";
+  public static COLLECTION_SUCCESS_PAGE = "collection-success-page";
 }
 
 const routes: Routes = [
@@ -188,7 +189,7 @@ const routes: Routes = [
     pathMatch: "full"
   },
   {
-    path: RouteNames.COLLECTIONS,
+    path: RouteNames.COLLECTION_SUCCESS_PAGE,
     component: CollectionSuccessPageComponent,
     pathMatch: "full"
   },

@@ -48,10 +48,41 @@
                 }
             }
         }
+
+        .secondary-name {
+            margin-top: 10px;
+            color: #7E7878;
+            font-size: 16px;
+            background: #2749f0;
+            background: linear-gradient(
+                55deg,
+                rgba(255, 0, 0, 1) 0%,
+                rgba(255, 154, 0, 1) 6%,
+                rgba(208, 222, 33, 1) 13%,
+                rgba(79, 220, 74, 1) 20%,
+                rgba(63, 218, 216, 1) 30%,
+                rgba(47, 201, 226, 1) 40%,
+                rgba(28, 127, 238, 1) 60%,
+                rgba(95, 21, 242, 1) 70%,
+                rgba(186, 12, 248, 1) 80%,
+                rgba(251, 7, 217, 1) 90%,
+                rgba(255, 0, 0, 1) 140%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            i {
+                color: #7E7878;
+                /* background: red; */
+                background: #2749f0;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
+        
         .followers-row {
             display: flex;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: space-between;
             // margin-top: 20px;
             // margin-right: 20px;
             @media (max-width: 767px) {
@@ -89,10 +120,11 @@
                 &.btn-buy {
                     background: var(--button);
                     color: var(--background);
-                    box-shadow: 0px 3.824768304824829px 3.824768304824829px rgba(0, 0, 0, 0.25);
-                    padding: .7rem 5rem;
+                    box-shadow: 0px 3.8247683048px 3.8247683048px rgba(0, 0, 0, 0.25);
+                    padding: 0.7rem 5rem;
                     font-size: 0.9rem;
                     border-radius: 6.25rem;
+                    border: 2.5px solid var(--button);
                 }
                 &.btn-follow {
                     color: var(--button);
@@ -124,34 +156,54 @@
             border-radius: 2em;
             padding: 1.5em;
             z-index: 10;
+
+            .followers-separator{
+                margin-top: 1.7rem;
+                margin-bottom: 1.7rem;
+                border: 0;
+                border-top: 1px solid rgba(0,0,0,.1);
+            }
         }
     }
     .bio-cover {
-        width: 80%;
+        width: 100%;
         padding-top: 20px;
         display: flex;
+        flex-flow: row wrap;
         
         @media (max-width: 767px) {
             width: 100%;
             padding-top: 30px;
         }
         h6 {
-            font-weight: 500;
-            font-size: 14px;
+            font-weight: 600;
+            font-size: 16px;
             margin-bottom: 10px;
-            color: #3D3D3D;
+            color: #555555;
+            width: 100%;
         }
         p {
+            width: 70%;
             font-size: 18px;
             line-height: 1.67;
             margin-right: 2em;
-            margin-bottom: 1.5em;
             color: #3D3D3D;
             a {
                 background: #2749f0;
                 background: linear-gradient( 45deg, #ec5454 -4%, #f51ac1 4%, #2749f0 94%, #593eb7 69%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
+            }
+        }
+        .socials-column {
+            width: 25%;
+            margin-top: 0px;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            // align-items: center;
+            img {
+                margin-right: 1.3em;
             }
         }
     }
@@ -169,20 +221,8 @@
 .h-15px {
     height: 15px;
 }
-.socials-column {
-    margin-top: 0px;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    // align-items: center;
-    img {
-        margin-right: 1.3em;
-    }
-}
-.secondary-name {
-    margin-top: 10px;
-    color: #7E7878;
-}
+
+
 .hover-color {
     transition: 0.3s linear;
     &:hover {

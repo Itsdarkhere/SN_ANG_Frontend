@@ -27,9 +27,9 @@
     <div class="followers_inline_row flex-column">
 
       <div class="name-stats-profile">
-        <div class="mt-20px">
+        <div class="mt-65px">
           <h5 class="bold usr_nm" *ngIf="profileData?.name">{{ profileData?.name }}</h5>
-          <h5 class="bold usr_nm" [ngClass]="profileData?.name ? 'secondary-name' : ''">
+          <h5 class="bold usr_nm secondary-name" [ngClass]="profileData?.name ? 'secondary-name' : ''">
             @{{ profile.Username }} &nbsp;
             <ng-container
               *ngIf="profile.IsReserved && !profile.IsVerified"
@@ -47,7 +47,7 @@
               [matTooltip]="'This account is verified'"
               #tooltip="matTooltip"
             >
-              <i class="fas fa-check-circle text-primary"></i>
+              <i class="fas fa-check-circle"></i>
             </ng-container>
           </h5>
         </div>
@@ -78,7 +78,7 @@
             <h5>{{ globalVars.nanosToUSD(profile.CoinPriceDeSoNanos, 2) }}</h5>
           </div>
         </div>
-        <br>
+        <hr class="followers-separator">
         <div class="btn_cover_sec mt-10px">
           <div class="btn-cover">
             <button

@@ -1,101 +1,30 @@
-// .card-box-profile-update {
-//     width: 100%;
-//     padding-bottom: 100px;
-//     // max-width: 1000px;
-//     max-width: 650px;
-//     min-height: 300px;
-//     display: flex;
-//     flex-wrap: wrap;
-//     flex-direction: row;
-//     justify-content: space-between;
-//     align-items: flex-start;
-// }
-// .card-profile-update {
-//     margin-top: 25px;
-//     height: 240px;
-//     min-width: 200px;
-//     width: 23%;
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: flex-start;
-//     align-items: center;
-//     border-radius: 20px;
-//     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
-//     border: .5px solid #FCFCFC;
-//     overflow: hidden;
-// }
-// @media (max-width: 440px) {
-//     .card-profile-update {
-//         height: 220px;
-//         min-width: 180px;
-//     }
-// }
-// .card-profile-header {
-//     width: 95%;
-//     text-align: center;
-//     font-size: 18px;
-//     font-weight: bold;
-//     padding-top: 15px;
-//     padding-bottom: 15px;
-// }
-// .card-profile-desc {
-//     width: 95%;
-//     text-align: center;
-//     font-size: 12px;
-// }
-// .profile-icon {
-//     //padding-bottom: 10px;
-//     fill: white;
-// }
-// .background-profile {
-//     height: 33%;
-//     width: 100%;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     background-size: cover;
-//     background-repeat: no-repeat;
-// }
-// .background-mobile {
-//     background-image: url("/assets/img/phone-background.png");
-// }
-// .background-jumio {
-//     background-image: url("/assets/img/jumio-background.png");
-// }
-// .background-deso {
-//     background-image: url("/assets/img/deso-background.png");
-// }
-// .background-blockchain {
-//     background-image: url("/assets/img/block-background.png");
-// }
-
 .onboarding-card-shadow {
-  width: 700px;
-  height: 1025px;
-  left: 2px;
-  top: -1px;
-  background: #f3f3f3;
-  border-radius: 30.2255px;
+  //   width: 700px;
+  //   height: 1025px;
+  //   left: 2px;
+  //   top: -1px;
+  //   background: #f3f3f3;
+  //   border-radius: 30.2255px;
   position: relative;
 }
 
 .onboarding-card-shadow-hasProfile {
-  width: 700px;
-  height: 645px;
-  left: 2px;
-  top: -1px;
-  background: #f3f3f3;
-  border-radius: 30.2255px;
+  //   width: 700px;
+  //   height: 645px;
+  //   left: 2px;
+  //   top: -1px;
+  //   background: #f3f3f3;
+  //   border-radius: 30.2255px;
   position: relative;
 }
 
 .onboarding-card-shadow-collector {
-  width: 700px;
-  height: 975px;
-  left: 2px;
-  top: -1px;
-  background: #f3f3f3;
-  border-radius: 30.2255px;
+  //   width: 700px;
+  //   height: 975px;
+  //   left: 2px;
+  //   top: -1px;
+  //   background: #f3f3f3;
+  //   border-radius: 30.2255px;
   position: relative;
 }
 
@@ -108,6 +37,11 @@
   background: #ffffff;
   border-radius: 29.6169px;
   position: absolute;
+
+  outline-width: 1ex;
+  outline-color: #f3f3f3;
+  outline-style: solid;
+  margin-top: 20px;
 }
 
 .onboarding-card-hasProfile {
@@ -119,32 +53,53 @@
   background: #ffffff;
   border-radius: 29.6169px;
   position: absolute;
+
+  outline-width: 1ex;
+  outline-color: #f3f3f3;
+  outline-style: solid;
+  margin-top: 20px;
 }
 
 .onboarding-card-collector {
-  width: 680px;
-  height: 945px;
+  width: 819px;
+  height: 885px;
   left: 10px;
   top: 10px;
 
   background: #ffffff;
   border-radius: 29.6169px;
   position: absolute;
+
+  outline-width: 1ex;
+  outline-color: #f3f3f3;
+  outline-style: solid;
+  margin-top: 20px;
 }
 
 .onboarding-card-header-1 {
-  font-weight: 600;
-  font-size: 32px;
   position: absolute;
   left: 58px;
   top: 38px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 33px;
+  line-height: 48px;
+
+  color: #0d0d0d;
 }
 
 .onboarding-card-subheader {
-  font-size: 20px;
   position: absolute;
   left: 58px;
   top: 93px;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 30px;
+
+  color: #2e2e2e;
 }
 
 .onboarding-card-subheader-hasProfile {
@@ -172,7 +127,7 @@
 }
 
 .onboarding-card-button {
-  width: 115px;
+  width: 150px;
   height: 56px;
   border: 3px solid #000000;
   border-radius: 31.879194259643555px;
@@ -196,16 +151,27 @@
   position: absolute;
   left: 95px;
   top: 167px;
-  font-size: 18px;
+
+  font-style: normal;
   font-weight: bold;
+  font-size: 18.5px;
+  line-height: 112.5%;
+
+  color: #262626;
 }
 
 .step-1-text {
   position: absolute;
   left: 95px;
   top: 197px;
-  font-size: 15px;
-  width: 400px;
+  width: 495px;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 137%;
+
+  color: #707070;
 }
 
 .onboarding-card-button-1 {
@@ -226,16 +192,27 @@
   position: absolute;
   left: 95px;
   top: 297px;
-  font-size: 18px;
+
+  font-style: normal;
   font-weight: bold;
+  font-size: 18.5px;
+  line-height: 112.5%;
+
+  color: #262626;
 }
 
 .step-2-text {
   position: absolute;
   left: 95px;
   top: 327px;
-  font-size: 15px;
-  width: 400px;
+  width: 495px;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 137%;
+
+  color: #707070;
 }
 
 .onboarding-card-button-2 {
@@ -256,16 +233,27 @@
   position: absolute;
   left: 95px;
   top: 447px;
-  font-size: 18px;
+
+  font-style: normal;
   font-weight: bold;
+  font-size: 18.5px;
+  line-height: 112.5%;
+
+  color: #262626;
 }
 
 .step-3-text {
   position: absolute;
   left: 95px;
   top: 477px;
-  font-size: 15px;
-  width: 400px;
+  width: 495px;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 137%;
+
+  color: #707070;
 }
 
 .onboarding-card-button-3 {
@@ -365,12 +353,21 @@
 
 .line-break-collector {
   position: absolute;
-  width: 680px;
+  width: 819px;
   height: 0px;
   left: 0px;
   top: 645px;
 
-  border: 0.25px solid #c7c7c7;
+  border: 1px solid rgba(199, 199, 199, 0.25);
+}
+
+.line-break-collector-mobile {
+  position: absolute;
+  width: 100%;
+  height: 0px;
+  left: 0px;
+  top: 620px;
+  border: 1px solid rgba(199, 199, 199, 0.5);
 }
 
 // support
@@ -394,8 +391,12 @@
   position: absolute;
   left: 95px;
   top: 680px;
-  font-size: 24px;
-  font-weight: bold;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 25.5px;
+  line-height: 112.5%;
+  color: #000000;
 }
 
 .support-text {
@@ -418,8 +419,13 @@
   position: absolute;
   left: 95px;
   top: 725px;
-  font-size: 15px;
-  width: 450px;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 137%;
+  width: 580px;
+  color: #707070;
 }
 
 .onboarding-support-button {
@@ -436,9 +442,9 @@
 }
 
 .onboarding-support-button-collector {
-  top: 825px;
+  top: 785px;
   left: 95px;
-  width: 275px;
+  width: 290px;
 }
 
 // ------------------------- mobile -------------------------
@@ -454,18 +460,29 @@
 }
 
 .onboarding-card-header-1-mobile {
-  font-weight: 600;
-  font-size: 1.5rem;
   position: absolute;
-  left: 2vw;
-  top: 3vh;
+  left: 15px;
+  top: 35px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 33px;
+  line-height: 48px;
+
+  color: #0d0d0d;
 }
 
 .onboarding-card-subheader-mobile {
-  font-size: 1rem;
   position: absolute;
-  left: 2vw;
-  top: 6vh;
+  left: 15px;
+  top: 80px;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 30px;
+
+  color: #2e2e2e;
 }
 
 .color-gradient-mobile {
@@ -477,30 +494,41 @@
 
 .checkmark-1-mobile {
   position: absolute;
-  height: 2.5vh;
-  left: 1vw;
-  top: 12vh;
+  height: 30px;
+  left: 9px;
+  top: 140px;
 }
 
 .step-1-header-mobile {
   position: absolute;
-  left: 7vw;
-  top: 12vh;
-  font-size: 18px;
+  left: 60px;
+  top: 145px;
+
+  font-style: normal;
   font-weight: bold;
+  font-size: 18.5px;
+  line-height: 112.5%;
+
+  color: #262626;
 }
 
 .step-1-text-mobile {
   position: absolute;
-  left: 7vw;
-  top: 15vh;
-  font-size: 15px;
-  width: 50vw;
+  left: 60px;
+  top: 175px;
+  width: 415px;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 137%;
+
+  color: #707070;
 }
 
 .onboarding-card-button-mobile {
-  width: 15vw;
-  height: 5vh;
+  width: 175px;
+  height: 55px;
   border: 3px solid #000000;
   border-radius: 31.8791942596px;
   box-shadow: 0.4547150731px 0.4547150731px 2.2735750675px rgb(0 0 0 / 11%);
@@ -511,64 +539,78 @@
 }
 
 .onboarding-card-button-1-mobile {
-  top: 14vh;
-  right: 5vw;
+  top: 175px;
+  right: 40px;
 }
 
 .checkmark-2-mobile {
   position: absolute;
-  height: 2.5vh;
-  left: 1vw;
-  top: 23vh;
+  height: 30px;
+  left: 9px;
+  top: 270px;
 }
 
 .step-2-header-mobile {
   position: absolute;
-  left: 7vw;
-  top: 23vh;
-  font-size: 18px;
+  left: 60px;
+  top: 275px;
+  font-style: normal;
   font-weight: bold;
+  font-size: 18.5px;
+  line-height: 112.5%;
+  color: #262626;
 }
 
 .step-2-text-mobile {
   position: absolute;
-  left: 7vw;
-  top: 26vh;
-  font-size: 15px;
-  width: 50vw;
+  left: 60px;
+  top: 305px;
+  width: 415px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 137%;
+  color: #707070;
 }
 
 .onboarding-card-button-2-mobile {
-  top: 26vh;
-  right: 5vw;
+  top: 305px;
+  right: 40px;
 }
 
 .checkmark-3-mobile {
   position: absolute;
-  height: 2.5vh;
-  left: 1vw;
-  top: 35vh;
+  height: 30px;
+  left: 9px;
+  top: 445px;
 }
 
 .step-3-header-mobile {
   position: absolute;
-  left: 7vw;
-  top: 35vh;
-  font-size: 18px;
+  left: 60px;
+  top: 450px;
+  font-style: normal;
   font-weight: bold;
+  font-size: 18.5px;
+  line-height: 112.5%;
+  color: #262626;
 }
 
 .step-3-text-mobile {
   position: absolute;
-  left: 7vw;
-  top: 38vh;
-  font-size: 15px;
-  width: 50vw;
+  left: 60px;
+  top: 480px;
+  width: 415px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 137%;
+  color: #707070;
 }
 
 .onboarding-card-button-3-mobile {
-  top: 37vh;
-  right: 5vw;
+  top: 480px;
+  right: 40px;
 }
 
 .checkmark-4-mobile {
@@ -600,13 +642,6 @@
 }
 
 .done-mobile {
-  position: absolute;
-  height: 3vw;
-  left: 0vw;
-  top: 53vh;
-}
-
-.done-collector-mobile {
   position: absolute;
   height: 3vw;
   left: 0vw;
@@ -749,64 +784,52 @@
   left: 5vw;
   top: 9vh;
   background: #ffffff;
-  border-radius: 29.6169px;
   position: absolute;
   overflow: scroll;
 }
 
 .color-gradient-collector-mobile {
-  left: 1.5vw;
-  top: 13vh;
+  left: 15px;
+  top: 145px;
   position: absolute;
-  height: 35vh;
-  width: 2vw;
+  height: 445px;
+  width: 16px;
 }
 
 .done-collector-mobile {
   position: absolute;
-  height: 3vw;
-  left: 0vw;
-  top: 46vh;
-}
-
-.line-break-collector {
-  position: absolute;
-  width: 680px;
-  height: 0px;
-  left: 0px;
-  top: 645px;
-  border: 0.25px solid #c7c7c7;
-  display: none;
+  height: 20px;
+  left: 5px;
+  top: 570px;
 }
 
 .support-header-collector-mobile {
   position: absolute;
-  left: 10vw;
-  top: 52vh;
-  font-size: 18px;
-  font-weight: bold;
+  left: 60px;
+  top: 645px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 25.5px;
+  line-height: 112.5%;
+  color: #000000;
 }
 
 .support-text-collector-mobile {
   position: absolute;
-  left: 10vw;
-  top: 55vh;
-  font-size: 15px;
-  width: 45vw;
+  left: 60px;
+  top: 680px;
+  width: 70vw;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 137%;
+  color: #707070;
 }
 
 .onboarding-support-button-collector-mobile {
-  width: 30vw;
-  height: 5vh;
-  border: 3px solid #000000;
-  border-radius: 31.8791942596px;
-  box-shadow: 0.4547150731px 0.4547150731px 2.2735750675px rgb(0 0 0 / 11%);
-  background-color: white;
-  position: absolute;
-  font-weight: bold;
-  font-size: 15px;
-  left: 18vw;
-  top: 62vh;
+  top: 730px;
+  left: 60px;
+  width: 300px;
 }
 
 @media screen and (max-width: 480px) {
@@ -823,16 +846,30 @@
   }
 
   .onboarding-card-header-1-mobile {
+    left: 5px;
+    top: 10px;
+
+    font-style: normal;
     font-weight: 600;
-    font-size: 1rem;
-    left: 2vw;
-    top: 3vh;
+    font-size: 23px;
+    line-height: 33px;
+
+    color: #0d0d0d;
   }
 
   .onboarding-card-subheader-mobile {
-    font-size: 0.75rem;
-    left: 2vw;
-    top: 6vh;
+    left: 5px;
+    top: 45px;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 21px;
+
+    display: flex;
+    align-items: center;
+
+    color: #2e2e2e;
   }
 
   .color-gradient-mobile {
@@ -845,30 +882,35 @@
 
   .checkmark-1-mobile {
     position: absolute;
-    height: 3vh;
+    height: 20px;
     left: -1px;
-    top: 12vh;
+    top: 110px;
   }
 
   .step-1-header-mobile {
-    left: 7vw;
-    top: 11.5vh;
-    font-size: 1rem;
+    left: 40px;
+    top: 110px;
+    font-size: 16px;
     font-weight: bold;
     display: block;
+    line-height: 112.5%;
   }
 
   .step-1-text-mobile {
-    left: 7vw;
-    top: 15vh;
-    font-size: 0.75rem;
-    width: 70vw;
+    left: 40px;
+    top: 140px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    width: 310px;
     display: block;
+    line-height: 137%;
+    color: #707070;
   }
 
   .onboarding-card-button-mobile {
-    width: 70vw;
-    height: 5vh;
+    width: 290px;
+    height: 55px;
     border: 3px solid #000000;
     border-radius: 31.8791942596px;
     box-shadow: 0.4547150731px 0.4547150731px 2.2735750675px rgb(0 0 0 / 11%);
@@ -879,66 +921,78 @@
   }
 
   .onboarding-card-button-1-mobile {
-    top: 25vh;
-    left: 7vw;
+    top: 235px;
+    left: 40px;
   }
 
   .checkmark-2-mobile {
     position: absolute;
-    height: 3vh;
-    left: 0vw;
-    top: 37vh;
+    height: 20px;
+    left: -1px;
+    top: 340px;
   }
 
   .step-2-header-mobile {
-    position: absolute;
-    left: 7vw;
-    top: 37vh;
-    font-size: 1rem;
+    left: 40px;
+    top: 340px;
+    font-size: 16px;
     font-weight: bold;
     display: block;
+    line-height: 112.5%;
+    color: #262626;
   }
 
   .step-2-text-mobile {
-    position: absolute;
-    left: 7vw;
-    top: 41vh;
-    font-size: 0.75rem;
-    width: 70vw;
+    left: 40px;
+    top: 370px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    width: 310px;
     display: block;
+    line-height: 137%;
+    color: #707070;
   }
 
   .onboarding-card-button-2-mobile {
-    top: 56vh;
-    left: 7vw;
+    top: 485px;
+    left: 40px;
   }
 
   .checkmark-3-mobile {
     position: absolute;
-    height: 3vh;
-    left: 0vw;
-    top: 68vh;
+    height: 20px;
+    left: -1px;
+    top: 590px;
   }
 
   .step-3-header-mobile {
     position: absolute;
-    left: 7vw;
-    top: 68vh;
-    font-size: 1rem;
+    left: 40px;
+    top: 590px;
+    font-style: normal;
     font-weight: bold;
+    font-size: 18.5px;
+    line-height: 112.5%;
+    color: #262626;
   }
 
   .step-3-text-mobile {
     position: absolute;
-    left: 7vw;
-    top: 72vh;
-    font-size: 0.75rem;
-    width: 70vw;
+    left: 40px;
+    top: 620px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    width: 310px;
+    display: block;
+    line-height: 137%;
+    color: #707070;
   }
 
   .onboarding-card-button-3-mobile {
-    top: 82vh;
-    left: 7vw;
+    top: 700px;
+    left: 40px;
   }
 
   .checkmark-4-mobile {
@@ -1094,68 +1148,116 @@
 
   //   collector
   .onboarding-card-collector-mobile {
-    width: 90vw;
-    height: 75vh;
-    left: 5vw;
-    top: 9vh;
+    width: 410px;
+    height: 750px;
+    left: 10px;
+    top: 80px;
     background: #ffffff;
-    border-radius: 29.6169px;
     position: absolute;
     overflow: scroll;
   }
 
   .color-gradient-collector-mobile {
-    left: 1.5vw;
-    top: 13vh;
+    left: 5px;
+    top: 112px;
     position: absolute;
-    height: 83vh;
-    width: 2vw;
+    height: 700px;
+    width: 7px;
   }
 
   .done-collector-mobile {
     position: absolute;
-    height: 3vw;
-    left: 0vw;
-    top: 95vh;
+    height: 12px;
+    left: 0px;
+    top: 805px;
   }
 
-  .line-break-collector {
+  .line-break-collector-mobile {
     position: absolute;
-    width: 680px;
+    width: 100%;
     height: 0px;
     left: 0px;
-    top: 645px;
-    border: 0.25px solid #c7c7c7;
-    display: none;
+    top: 840px;
+    border: 1px solid rgba(199, 199, 199, 0.5);
   }
 
   .support-header-collector-mobile {
     position: absolute;
-    left: 10vw;
-    top: 103vh;
-    font-size: 1rem;
-    font-weight: bold;
+    left: 40px;
+    top: 865px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 112.5%;
+    color: #000000;
   }
 
   .support-text-collector-mobile {
     position: absolute;
-    left: 10vw;
-    top: 107vh;
-    font-size: 0.75rem;
-    width: 45vw;
+    left: 40px;
+    top: 890px;
+    width: 70vw;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 8.75px;
+    line-height: 137%;
+    color: #707070;
   }
 
   .onboarding-support-button-collector-mobile {
-    width: 70vw;
-    height: 5vh;
-    border: 3px solid #000000;
-    border-radius: 31.8791942596px;
-    box-shadow: 0.4547150731px 0.4547150731px 2.2735750675px rgb(0 0 0 / 11%);
-    background-color: white;
+    top: 935px;
+    left: 40px;
+    width: 290px;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .onboarding-card-collector-mobile {
+    width: 370px;
+    height: 670px;
+    left: 10px;
+    top: 80px;
+    background: #ffffff;
     position: absolute;
-    font-weight: bold;
-    font-size: 15px;
-    left: 30px;
-    top: 118vh;
+    overflow: scroll;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .onboarding-card-header-1-mobile {
+    font-size: 22px;
+  }
+
+  .onboarding-card-subheader-mobile {
+    font-size: 12px;
+  }
+
+  .step-1-text-mobile {
+    font-size: 13px;
+    width: 290px;
+  }
+
+  .step-2-text-mobile {
+    font-size: 13px;
+    width: 290px;
+  }
+
+  .step-3-text-mobile {
+    font-size: 13px;
+    width: 290px;
+  }
+
+  .onboarding-card-button-mobile {
+    width: 270px;
+  }
+
+  .onboarding-card-collector-mobile {
+    width: 360px;
+    height: 500px;
+    left: 7.5px;
+    top: 80px;
+    background: #ffffff;
+    position: absolute;
+    overflow: scroll;
   }
 }

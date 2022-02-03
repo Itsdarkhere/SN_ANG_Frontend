@@ -198,10 +198,8 @@ import { CreatorCardComponent } from "./creator-card/creator-card.component";
 import { PageSmallNavNewComponent } from "./page-small-nav-new/page-small-nav-new.component";
 import { SmallCardComponentComponent } from "./small-card-component/small-card-component.component";
 import { CompleteProfileComponent } from "./update-profile-page/complete-profile/complete-profile.component";
-import { CreateCollectionPageComponent } from "./collections/create-collection-page/create-collection-page.component";
 import { CollectionPageComponent } from "./collections/collection-page/collection-page.component";
 import { CollectionCardComponent } from "./collections/collection-card/collection-card.component";
-import { CollectionSuccessPageComponent } from './collections/collection-success-page/collection-success-page.component';
 import { CollectionPageHeaderComponent } from './collections/collection-page/collection-page-header/collection-page-header.component';
 import { CollectionPageContentComponent } from './collections/collection-page/collection-page-content/collection-page-content.component';
 import { CollectionPageMenuComponent } from './collections/collection-page/collection-page-menu/collection-page-menu.component';
@@ -381,10 +379,8 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     PageSmallNavNewComponent,
     CompleteProfileComponent,
     SmallCardComponentComponent,
-    CreateCollectionPageComponent,
     CollectionPageComponent,
     CollectionCardComponent,
-    CollectionSuccessPageComponent,
     CollectionPageHeaderComponent,
     CollectionPageContentComponent,
     CollectionPageMenuComponent,

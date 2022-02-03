@@ -91,7 +91,7 @@
   </div>
   <!-- is collector and no profile -->
   <div
-    *ngIf="!this.globalVars.isMobile() && !this.globalVars.isCreator && this.globalVars.isNullUsername"
+    *ngIf="!this.globalVars.isMobile() && this.globalVars.isCollector && this.globalVars.isNullUsername"
     class="onboarding-card-shadow-collector"
   >
     <div class="onboarding-card-collector">
@@ -245,7 +245,7 @@
     </div>
   </div>
   <!-- is collector and no profile -->
-  <div *ngIf="this.globalVars.isMobile() && !this.globalVars.isCreator && this.globalVars.isNullUsername">
+  <div *ngIf="this.globalVars.isMobile() && this.globalVars.isCollector && this.globalVars.isNullUsername">
     <div class="onboarding-card-collector-mobile">
       <p class="onboarding-card-header-1-mobile">Welcome to Supernovas!</p>
       <p class="onboarding-card-subheader-mobile">Complete the last steps to finalize your onboarding 🌈</p>

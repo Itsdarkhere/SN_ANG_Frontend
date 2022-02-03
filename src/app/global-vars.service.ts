@@ -56,6 +56,8 @@ export class GlobalVarsService {
 
   //   isCreator boolean
   isCreator: boolean;
+  //   isCollector boolean
+  isCollector: boolean;
   //   isVerified boolean
   isVerified: boolean;
   //   isVerifiedRes
@@ -310,20 +312,29 @@ export class GlobalVarsService {
     const publicKey = this.loggedInUser.PublicKeyBase58Check;
     const firebaseRes = await this.firestore.collection("profile-details").doc(publicKey).get().toPromise();
     console.log(firebaseRes);
-    let firebaseResData = JSON.stringify(
+
+    let firebaseResDataCreator = JSON.stringify(
       firebaseRes["_document"]["proto"]["fields"]["creator"]["booleanValue"],
       this.getCircularReplacer()
     );
 
-    if (firebaseResData === "false") {
+    let firebaseResDataCollector = JSON.stringify(
+      firebaseRes["_document"]["proto"]["fields"]["collector"]["booleanValue"],
+      this.getCircularReplacer()
+    );
+
+    if (firebaseResDataCreator === "false" || typeof firebaseResDataCreator === "undefined") {
       this.isCreator = false;
-    } else {
-      this.isCreator = true;
+      this.isCollector = true;
     }
 
-    // console.log(
-    //   ` --------------------------------- creator status is ${this.isCreator} --------------------------------- `
-    // );
+    if (firebaseResDataCollector === "false" || typeof firebaseResDataCollector === "undefined") {
+      this.isCreator = true;
+      this.isCollector = false;
+    }
+
+    // console.log(` ---------------- creator status is ${this.isCreator}`);
+    // console.log(` ---------------- collector status is ${this.isCollector}`);
   }
 
   checkIsVerified() {
@@ -363,12 +374,12 @@ export class GlobalVarsService {
   }
 
   checkOnboardingCompleted() {
-    //   if they are a creator, have a profile and are verified then onboarding is complete
+    //   if they are a creator, have a profile (username) and are verified then onboarding is complete
     if (this.isCreator === true && this.isNullUsername === false && this.isVerified === true) {
       this.isOnboardingComplete = true;
     }
-    // if they are a collector and have a profile then onboarding is complete
-    else if (this.isCreator === false && this.isNullUsername === false) {
+    // if they are a collector and have a profile (username) then onboarding is complete
+    else if (this.isCollector === true && this.isNullUsername === false) {
       this.isOnboardingComplete = true;
     } else {
       this.isOnboardingComplete = false;

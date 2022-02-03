@@ -235,7 +235,8 @@
       </div>
     </div>
     <div *ngIf="!biddableSerialNumbers?.length" class="fs-15px text-center">
-      There are no serial numbers available for you to bid on.
+      <p>There are no serial numbers available for you to bid on.</p>
+      <p>{{ this.availableSerialNumbers }}</p>
     </div>
   </div>
 </div>

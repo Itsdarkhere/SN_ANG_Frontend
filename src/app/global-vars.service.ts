@@ -283,6 +283,9 @@ export class GlobalVarsService {
   NFTRoyaltyToCoinBasisPoints: any;
   NFTRoyaltyToCreatorBasisPoints: any;
 
+  clickedBuyNow: boolean;
+  clickedPlaceABid: boolean;
+
   //   ------------------------------------ update globalVars for loggedInUser ------------------------------------
   getCircularReplacer = () => {
     const seen = new WeakSet();

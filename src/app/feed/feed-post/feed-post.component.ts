@@ -271,8 +271,6 @@ export class FeedPostComponent implements OnInit {
     } else {
       this.globalVars.IsMinBidLessThanBuyNow = false;
     }
-
-    console.log(` ------------------- IsMinBidLessThanBuyNow ${this.globalVars.IsMinBidLessThanBuyNow}`);
   }
 
   showCreateNFTAuction(): boolean {
@@ -657,6 +655,13 @@ export class FeedPostComponent implements OnInit {
   }
 
   openPlaceBidModal(event: any) {
+    this.globalVars.clickedBuyNow = false;
+    this.globalVars.clickedPlaceABid = true;
+
+    console.log(` -------- place a bid function hit`);
+    console.log(` ----------- this.globalVars.clickedBuyNow ${this.globalVars.clickedBuyNow}`);
+    console.log(` ----------- this.globalVars.clickedPlaceABid ${this.globalVars.clickedPlaceABid}`);
+
     if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
       SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "place a bid");
       return;
@@ -677,6 +682,9 @@ export class FeedPostComponent implements OnInit {
   }
 
   openBuyNowModal(event: any) {
+    this.globalVars.clickedBuyNow = true;
+    this.globalVars.clickedPlaceABid = false;
+
     if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
       SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "buy now");
       return;

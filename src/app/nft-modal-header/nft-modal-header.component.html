@@ -2,9 +2,12 @@
   <div *ngIf="!this.globalVars.IsBuyNow" class="fs-20px head_txt lh-20px d-flex align-items-center font-weight-500">
     {{ header }}
   </div>
-  <div *ngIf="this.globalVars.IsBuyNow" class="buy-now-header-container">
+  <div *ngIf="this.globalVars.IsBuyNow && this.globalVars.clickedBuyNow" class="buy-now-header-container">
     <img src="../../assets/img/buy-now-lightning-black.png" class="buy-now-lightning-black-img" alt="" />
     <p class="buy-now-modal-header">Buy Now</p>
+  </div>
+  <div *ngIf="this.globalVars.IsBuyNow && this.globalVars.clickedPlaceABid" class="buy-now-header-container">
+    <p class="buy-now-modal-header">Place a Bid</p>
   </div>
   <div class="fs-25px lh-20px close_btn cursor-pointer pr-15px" (click)="bsModalRef.hide()">
     <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">

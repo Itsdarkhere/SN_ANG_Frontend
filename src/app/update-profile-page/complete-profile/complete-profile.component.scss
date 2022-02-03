@@ -29,8 +29,8 @@
 }
 
 .onboarding-card {
-  width: 680px;
-  height: 1002px;
+  width: 819px;
+  height: 1027px;
   left: 10px;
   top: 10px;
 
@@ -45,8 +45,8 @@
 }
 
 .onboarding-card-hasProfile {
-  width: 680px;
-  height: 625px;
+  width: 819px;
+  height: 595px;
   left: 10px;
   top: 10px;
 
@@ -103,11 +103,19 @@
 }
 
 .onboarding-card-subheader-hasProfile {
-  font-size: 20px;
   position: absolute;
   left: 58px;
   top: 93px;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 30px;
+  display: flex;
+  align-items: center;
   width: 550px;
+
+  color: #2e2e2e;
 }
 
 .color-gradient {
@@ -274,8 +282,11 @@
   position: absolute;
   left: 95px;
   top: 577px;
-  font-size: 18px;
+  font-style: normal;
   font-weight: bold;
+  font-size: 18.5px;
+  line-height: 112.5%;
+  color: #262626;
 }
 
 .step-4-header-hasProfile {
@@ -283,33 +294,49 @@
   left: 58px;
   top: 200px;
   font-size: 18px;
+
+  font-style: normal;
   font-weight: bold;
+  font-size: 18.5px;
+  line-height: 112.5%;
+
+  color: #262626;
 }
 
 .step-4-text {
   position: absolute;
   left: 95px;
   top: 607px;
-  font-size: 15px;
-  width: 400px;
+  width: 495px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 137%;
+  color: #707070;
 }
 
 .step-4-text-hasProfile {
   position: absolute;
   left: 58px;
   top: 230px;
-  font-size: 15px;
-  width: 355px;
+  width: 480px;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 137%;
+
+  color: #707070;
 }
 
 .onboarding-card-button-4 {
-  top: 607px;
+  top: 605px;
   right: 50px;
 }
 
 .onboarding-card-button-4-hasProfile {
   top: 230px;
-  right: 30px;
+  right: 50px;
   width: 200px;
 }
 
@@ -333,21 +360,10 @@
 // line-break
 .line-break {
   position: absolute;
-  width: 680px;
+  width: 819px;
   height: 0px;
   left: 0px;
   top: 760px;
-
-  border: 0.25px solid #c7c7c7;
-}
-
-.line-break-hasProfile {
-  position: absolute;
-  width: 680px;
-  height: 0px;
-  left: 0px;
-  top: 350px;
-
   border: 0.25px solid #c7c7c7;
 }
 
@@ -375,16 +391,26 @@
   position: absolute;
   left: 95px;
   top: 785px;
-  font-size: 24px;
-  font-weight: bold;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 25.5px;
+  line-height: 112.5%;
+
+  color: #000000;
 }
 
 .support-header-hasProfile {
   position: absolute;
   left: 95px;
   top: 400px;
-  font-size: 24px;
-  font-weight: bold;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 25.5px;
+  line-height: 112.5%;
+
+  color: #000000;
 }
 
 .support-header-collector {
@@ -411,8 +437,14 @@
   position: absolute;
   left: 95px;
   top: 435px;
-  font-size: 15px;
-  width: 450px;
+  width: 575px;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 137%;
+
+  color: #707070;
 }
 
 .support-text-collector {
@@ -436,7 +468,7 @@
 }
 
 .onboarding-support-button-hasProfile {
-  top: 515px;
+  top: 495px;
   left: 95px;
   width: 275px;
 }
@@ -450,13 +482,13 @@
 // ------------------------- mobile -------------------------
 // creator no profile
 .onboarding-card-mobile {
-  width: 90vw;
-  height: 70vh;
-  left: 5vw;
-  top: 9vh;
+  width: 740px;
+  height: 960px;
+  left: 35px;
+  top: 100px;
   background: #ffffff;
-  border-radius: 29.6169px;
   position: absolute;
+  overflow: scroll;
 }
 
 .onboarding-card-header-1-mobile {
@@ -486,10 +518,11 @@
 }
 
 .color-gradient-mobile {
-  left: 2vw;
-  top: 13vh;
+  left: 15px;
+  top: 145px;
   position: absolute;
-  height: 42vh;
+  height: 570px;
+  width: 16px;
 }
 
 .checkmark-1-mobile {
@@ -615,77 +648,82 @@
 
 .checkmark-4-mobile {
   position: absolute;
-  height: 2.5vh;
-  left: 1vw;
-  top: 45vh;
+  height: 30px;
+  left: 9px;
+  top: 575px;
 }
 
 .step-4-header-mobile {
   position: absolute;
-  left: 7vw;
-  top: 45vh;
-  font-size: 18px;
+  left: 60px;
+  top: 575px;
+  font-style: normal;
   font-weight: bold;
+  font-size: 18.5px;
+  line-height: 112.5%;
+  color: #262626;
 }
 
 .step-4-text-mobile {
   position: absolute;
-  left: 7vw;
-  top: 48vh;
-  font-size: 15px;
-  width: 50vw;
+  left: 60px;
+  top: 605px;
+  width: 415px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 137%;
+  color: #707070;
 }
 
 .onboarding-card-button-4-mobile {
-  top: 50vh;
-  right: 5vw;
+  top: 605px;
+  right: 40px;
 }
 
 .done-mobile {
   position: absolute;
-  height: 3vw;
-  left: 0vw;
-  top: 53vh;
+  height: 20px;
+  left: 5px;
+  top: 700px;
 }
 
 .line-break-mobile {
   position: absolute;
-  width: 80vw;
+  width: 100%;
   height: 0px;
   left: 0px;
-  top: 58vh;
-  border: 0.25px solid #c7c7c7;
-  display: none;
+  top: 745px;
+  border: 1px solid rgba(199, 199, 199, 0.5);
 }
 
 .support-header-mobile {
   position: absolute;
-  left: 10vw;
-  top: 60vh;
-  font-size: 24px;
-  font-weight: bold;
+  left: 60px;
+  top: 765px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 25.5px;
+  line-height: 112.5%;
+  color: #000000;
 }
 
 .support-text-mobile {
   position: absolute;
-  left: 10vw;
-  top: 63vh;
-  font-size: 15px;
-  width: 45vw;
+  left: 60px;
+  top: 800px;
+  width: 70vw;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 137%;
+  color: #707070;
 }
 
 .onboarding-support-button-mobile {
-  width: 30vw;
-  height: 5vh;
-  border: 3px solid #000000;
-  border-radius: 31.8791942596px;
-  box-shadow: 0.4547150731px 0.4547150731px 2.2735750675px rgb(0 0 0 / 11%);
-  background-color: white;
-  position: absolute;
-  font-weight: bold;
-  font-size: 15px;
-  left: 18vw;
-  top: 72vh;
+  top: 845px;
+  left: 60px;
+  width: 300px;
 }
 
 .mobile-navbar-buffer {
@@ -697,92 +735,112 @@
 
 // creator has profile
 .onboarding-card-hasProfile-mobile {
-  width: 90vw;
-  height: 75vh;
-  left: 5vw;
-  top: 9vh;
+  width: 740px;
+  height: 960px;
+  left: 35px;
+  top: 100px;
   background: #ffffff;
-  border-radius: 29.6169px;
   position: absolute;
   overflow: scroll;
 }
 
 .onboarding-card-subheader-hasProfile-mobile {
-  left: 2vw;
-  top: 7vh;
-  font-size: 15px;
-  width: 70vw;
-  display: block;
   position: absolute;
+  left: 15px;
+  top: 80px;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 30px;
+
+  color: #2e2e2e;
 }
 
 .line-break-hasProfile {
   position: absolute;
-  width: 680px;
+  width: 100%;
   height: 0px;
   left: 0px;
   top: 350px;
   border: 0.25px solid #c7c7c7;
-  display: none;
+}
+
+.line-break-hasProfile-mobile {
+  position: absolute;
+  width: 100%;
+  height: 0px;
+  left: 0px;
+  top: 305px;
+  border: 0.25px solid #c7c7c7;
 }
 
 .onboarding-card-button-4-hasProfile-mobile {
-  top: 16vh;
-  right: 5vw;
+  top: 210px;
+  right: 40px;
+  width: 200px;
 }
 
 .step-4-header-hasProfile-mobile {
   position: absolute;
-  left: 7vw;
-  top: 15vh;
-  font-size: 18px;
+  left: 15px;
+  top: 180px;
+
+  font-size: 18.5px;
+  font-style: normal;
   font-weight: bold;
+  line-height: 112.5%;
+
+  color: #262626;
 }
 
 .step-4-text-hasProfile-mobile {
   position: absolute;
-  left: 7vw;
-  top: 18vh;
-  font-size: 15px;
-  width: 50vw;
+  left: 15px;
+  top: 210px;
+  width: 470px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 137%;
+  color: #707070;
 }
 
 .support-header-hasProfile-mobile {
   position: absolute;
-  left: 10vw;
-  top: 28vh;
-  font-size: 24px;
-  font-weight: bold;
+  left: 80px;
+  top: 335px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 25.5px;
+  line-height: 112.5%;
+  color: #000000;
 }
 
 .support-text-hasProfile-mobile {
   position: absolute;
-  left: 10vw;
-  top: 31vh;
-  font-size: 15px;
-  width: 45vw;
+  left: 80px;
+  top: 370px;
+  width: 600px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 137%;
+  color: #707070;
 }
 
 .onboarding-support-button-hasProfile-mobile {
-  width: 15vw;
-  left: 15vw;
-  top: 37vh;
-  height: 5vh;
-  border: 3px solid #000000;
-  border-radius: 31.8791942596px;
-  box-shadow: 0.4547150731px 0.4547150731px 2.2735750675px rgb(0 0 0 / 11%);
-  background-color: white;
-  position: absolute;
-  font-weight: bold;
-  font-size: 15px;
+  top: 430px;
+  left: 80px;
+  width: 300px;
 }
 
 // collector
 .onboarding-card-collector-mobile {
-  width: 90vw;
-  height: 75vh;
-  left: 5vw;
-  top: 9vh;
+  width: 740px;
+  height: 800px;
+  left: 35px;
+  top: 100px;
   background: #ffffff;
   position: absolute;
   overflow: scroll;
@@ -832,15 +890,15 @@
   width: 300px;
 }
 
+// iphone 13 pro max and above
 @media screen and (max-width: 480px) {
   // creator no profile
   .onboarding-card-mobile {
-    width: 90vw;
-    height: 75vh;
-    left: 5vw;
-    top: 9vh;
+    width: 410px;
+    height: 750px;
+    left: 10px;
+    top: 80px;
     background: #ffffff;
-    border-radius: 0px;
     position: absolute;
     overflow: scroll;
   }
@@ -872,12 +930,27 @@
     color: #2e2e2e;
   }
 
+  .onboarding-card-subheader-hasProfile-mobile {
+    left: 5px;
+    top: 45px;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 21px;
+
+    display: flex;
+    align-items: center;
+
+    color: #2e2e2e;
+  }
+
   .color-gradient-mobile {
-    left: 1.5vw;
-    top: 13vh;
+    left: 5px;
+    top: 112px;
     position: absolute;
-    height: 107vh;
-    width: 2vw;
+    height: 870px;
+    width: 7px;
   }
 
   .checkmark-1-mobile {
@@ -997,153 +1070,161 @@
 
   .checkmark-4-mobile {
     position: absolute;
-    height: 3vh;
-    left: 0vw;
-    top: 93vh;
+    height: 20px;
+    left: -1px;
+    top: 790px;
   }
 
   .step-4-header-mobile {
     position: absolute;
-    left: 7vw;
-    top: 93vh;
-    font-size: 1rem;
+    left: 40px;
+    top: 790px;
+    font-style: normal;
     font-weight: bold;
+    font-size: 18.5px;
+    line-height: 112.5%;
+    color: #262626;
   }
 
   .step-4-text-mobile {
     position: absolute;
-    left: 7vw;
-    top: 97vh;
-    font-size: 0.75rem;
-    width: 70vw;
+    left: 40px;
+    top: 820px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    width: 310px;
+    display: block;
+    line-height: 137%;
+    color: #707070;
   }
 
-  .onboarding-card-button-4 {
-    top: 107vh;
-    left: 7vw;
+  .onboarding-card-button-4-mobile {
+    top: 900px;
+    left: 40px;
   }
 
   .done-mobile {
     position: absolute;
-    height: 3vw;
-    left: 0vw;
-    top: 119vh;
+    height: 12px;
+    left: 0px;
+    top: 970px;
   }
 
   .line-break-mobile {
-    display: none;
+    position: absolute;
+    width: 100%;
+    height: 0px;
+    left: 0px;
+    top: 1005px;
+    border: 1px solid rgba(199, 199, 199, 0.5);
   }
 
   .support-header-mobile {
     position: absolute;
-    left: 10vw;
-    top: 125vh;
-    font-size: 1rem;
-    font-weight: bold;
+    left: 40px;
+    top: 1025px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 112.5%;
+    color: #000000;
   }
 
   .support-text-mobile {
     position: absolute;
-    left: 10vw;
-    top: 129vh;
-    font-size: 0.75rem;
-    width: 45vw;
+    left: 40px;
+    top: 1050px;
+    width: 70vw;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 8.75px;
+    line-height: 137%;
+    color: #707070;
   }
 
   .onboarding-support-button-mobile {
-    width: 70vw;
-    height: 5vh;
-    border: 3px solid #000000;
-    border-radius: 31.8791942596px;
-    box-shadow: 0.4547150731px 0.4547150731px 2.2735750675px rgb(0 0 0 / 11%);
-    background-color: white;
-    position: absolute;
-    font-weight: bold;
-    font-size: 15px;
-    left: 30px;
-    top: 140vh;
+    top: 1090px;
+    left: 40px;
+    width: 290px;
   }
 
   // creator has profile
   .onboarding-card-hasProfile-mobile {
-    width: 90vw;
-    height: 75vh;
-    left: 5vw;
-    top: 9vh;
+    width: 410px;
+    height: 750px;
+    left: 10px;
+    top: 80px;
     background: #ffffff;
-    border-radius: 29.6169px;
     position: absolute;
     overflow: scroll;
   }
 
-  .onboarding-card-subheader-hasProfile-mobile {
-    left: 2vw;
-    top: 7vh;
-    font-size: 0.75rem;
-    width: 70vw;
-    display: block;
+  .line-break-hasProfile-mobile {
     position: absolute;
-  }
-
-  .line-break-hasProfile {
-    position: absolute;
-    width: 680px;
+    width: 100%;
     height: 0px;
     left: 0px;
-    top: 350px;
+    top: 320px;
     border: 0.25px solid #c7c7c7;
-    display: none;
   }
 
   .step-4-header-hasProfile-mobile {
     position: absolute;
-    left: 7vw;
-    top: 15vh;
-    font-size: 18px;
+    left: 5px;
+    top: 130px;
+    font-size: 16px;
+    font-style: normal;
     font-weight: bold;
+    line-height: 112.5%;
+    color: #262626;
   }
 
   .step-4-text-hasProfile-mobile {
     position: absolute;
-    left: 7vw;
-    top: 19vh;
-    font-size: 0.75rem;
-    width: 70vw;
+    left: 5px;
+    top: 155px;
+    width: 400px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 137%;
+    color: #707070;
   }
 
   .onboarding-card-button-4-hasProfile-mobile {
-    top: 28vh;
-    right: 7vw;
+    top: 235px;
+    left: 5px;
+    width: 290px;
   }
 
   .support-header-hasProfile-mobile {
     position: absolute;
-    left: 10vw;
-    top: 39vh;
-    font-size: 1rem;
-    font-weight: bold;
+    left: 5px;
+    top: 345px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 112.5%;
+    color: #000000;
   }
 
   .support-text-hasProfile-mobile {
     position: absolute;
-    left: 10vw;
-    top: 42vh;
-    font-size: 0.75rem;
-    width: 45vw;
+    left: 5px;
+    top: 365px;
+    width: 600px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 9px;
+    line-height: 137%;
+    color: #707070;
   }
 
   .onboarding-support-button-hasProfile-mobile {
-    width: 70vw;
-    left: 13vw;
-    top: 52vh;
-    height: 5vh;
-    border: 3px solid #000000;
-    border-radius: 31.8791942596px;
-    box-shadow: 0.4547150731px 0.4547150731px 2.2735750675px rgb(0 0 0 / 11%);
-    background-color: white;
-    position: absolute;
-    font-weight: bold;
-    font-size: 15px;
+    top: 405px;
+    left: 5px;
+    width: 290px;
   }
 
   //   collector
@@ -1211,7 +1292,28 @@
   }
 }
 
+// iphone 13 pro
 @media screen and (max-width: 390px) {
+  .onboarding-card-mobile {
+    width: 370px;
+    height: 670px;
+    left: 10px;
+    top: 80px;
+    background: #ffffff;
+    position: absolute;
+    overflow: scroll;
+  }
+
+  .onboarding-card-hasProfile-mobile {
+    width: 370px;
+    height: 670px;
+    left: 10px;
+    top: 80px;
+    background: #ffffff;
+    position: absolute;
+    overflow: scroll;
+  }
+
   .onboarding-card-collector-mobile {
     width: 370px;
     height: 670px;
@@ -1221,14 +1323,54 @@
     position: absolute;
     overflow: scroll;
   }
+
+  .step-4-text-hasProfile-mobile {
+    font-size: 13px;
+    width: 360px;
+  }
 }
 
-@media screen and (max-width: 375px) {
+// iphone x
+@media screen and (max-width: 375px) and (max-height: 812px) {
+  .onboarding-card-mobile {
+    width: 360px;
+    height: 645px;
+    left: 7.5px;
+    top: 80px;
+    background: #ffffff;
+    position: absolute;
+    overflow: scroll;
+  }
+
+  .onboarding-card-hasProfile-mobile {
+    width: 360px;
+    height: 645px;
+    left: 7.5px;
+    top: 80px;
+    background: #ffffff;
+    position: absolute;
+    overflow: hidden;
+  }
+
+  .onboarding-card-collector-mobile {
+    width: 360px;
+    height: 645px;
+    left: 7.5px;
+    top: 80px;
+    background: #ffffff;
+    position: absolute;
+    overflow: scroll;
+  }
+
   .onboarding-card-header-1-mobile {
     font-size: 22px;
   }
 
   .onboarding-card-subheader-mobile {
+    font-size: 12px;
+  }
+
+  .onboarding-card-subheader-hasProfile-mobile {
     font-size: 12px;
   }
 
@@ -1247,8 +1389,41 @@
     width: 290px;
   }
 
+  .step-4-text-mobile {
+    font-size: 13px;
+    width: 290px;
+  }
+
+  .step-4-text-hasProfile-mobile {
+    font-size: 13px;
+    width: 290px;
+  }
+
   .onboarding-card-button-mobile {
     width: 270px;
+  }
+}
+
+// iphone se
+@media screen and (max-width: 375px) and (max-height: 667px) {
+  .onboarding-card-mobile {
+    width: 360px;
+    height: 500px;
+    left: 7.5px;
+    top: 80px;
+    background: #ffffff;
+    position: absolute;
+    overflow: scroll;
+  }
+
+  .onboarding-card-hasProfile-mobile {
+    width: 360px;
+    height: 500px;
+    left: 7.5px;
+    top: 80px;
+    background: #ffffff;
+    position: absolute;
+    overflow: hidden;
   }
 
   .onboarding-card-collector-mobile {
@@ -1259,5 +1434,46 @@
     background: #ffffff;
     position: absolute;
     overflow: scroll;
+  }
+
+  .onboarding-card-header-1-mobile {
+    font-size: 22px;
+  }
+
+  .onboarding-card-subheader-mobile {
+    font-size: 12px;
+  }
+
+  .onboarding-card-subheader-hasProfile-mobile {
+    font-size: 12px;
+  }
+
+  .step-1-text-mobile {
+    font-size: 13px;
+    width: 290px;
+  }
+
+  .step-2-text-mobile {
+    font-size: 13px;
+    width: 290px;
+  }
+
+  .step-3-text-mobile {
+    font-size: 13px;
+    width: 290px;
+  }
+
+  .step-4-text-mobile {
+    font-size: 13px;
+    width: 290px;
+  }
+
+  .step-4-text-hasProfile-mobile {
+    font-size: 13px;
+    width: 290px;
+  }
+
+  .onboarding-card-button-mobile {
+    width: 270px;
   }
 }

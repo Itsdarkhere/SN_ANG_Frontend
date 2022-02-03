@@ -245,10 +245,10 @@
 .top-card-button {
     border: none;
     font-size: 13px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding:7px;
     font-weight: 500;
-    background: #fcfcfc;
+    background: rgb(59 59 59 / 20%);
+    backdrop-filter: blur(10px);
     box-shadow: 0.9203247427940369px 0.9203247427940369px 1.8406494855880737px rgba(0, 0, 0, 0.25);
 }
 .top-card-button-message {
@@ -289,6 +289,10 @@
 .profile-button-icon {
     transform: scale(.7);
 }
+
+.profile-button-icon svg path{
+    fill: green;
+  }
 .followers_inline_row {
     width: 90%;
     display: flex;

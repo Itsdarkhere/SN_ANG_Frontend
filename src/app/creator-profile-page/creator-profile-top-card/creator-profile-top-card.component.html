@@ -2,7 +2,7 @@
   <div class="profile-actions-box">
       <button
         *ngIf="globalVars.loggedInUser?.PublicKeyBase58Check != profile.PublicKeyBase58Check"
-        class="br-30px m-10px pt-5px pb-5px pl-5px pr-5px top-card-button hover-color top-card-button-message"
+        class="br-30px m-10px pt-5px pb-5px pl-5px pr-5px top-card-button hover-color"
         (click)="messageUser()"
       >
         <img src="./assets/icons/chat-plane-icon.svg" class="profile-button-icon" />
@@ -16,6 +16,9 @@
         <img src="./assets/icons/profile-share.png" class="profile-button-icon" />
         
       </button>
+  </div>
+  <div class="w-100 d-flex flex-center">
+    <img id="banner-image" src="./assets/img/default-banner.png" class="firebase-cover-image" />
   </div>
 
   <div class="profile-top-card-box-1">

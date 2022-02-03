@@ -12,4 +12,8 @@ export class CreateCollectionPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  alertMessage() {
+    alert("It's working!");
+  }
+
 }

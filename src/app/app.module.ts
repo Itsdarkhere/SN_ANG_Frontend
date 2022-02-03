@@ -206,6 +206,9 @@ import { CollectionSuccessPageComponent } from './collections/collection-success
 import { CollectionProfileHeaderComponent } from './collections/collection-profile-page/collection-profile-header/collection-profile-header.component';
 import { CollectionProfileNavComponent } from './collections/collection-profile-page/collection-profile-nav/collection-profile-nav.component';
 import { CollectionProfileContentComponent } from './collections/collection-profile-page/collection-profile-content/collection-profile-content.component';
+import { CollectionPageHeaderComponent } from './collections/collection-page/collection-page-header/collection-page-header.component';
+import { CollectionPageContentComponent } from './collections/collection-page/collection-page-content/collection-page-content.component';
+import { CollectionPageMenuComponent } from './collections/collection-page/collection-page-menu/collection-page-menu.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -386,6 +389,9 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     CollectionProfileHeaderComponent,
     CollectionProfileNavComponent,
     CollectionProfileContentComponent,
+    CollectionPageHeaderComponent,
+    CollectionPageContentComponent,
+    CollectionPageMenuComponent,
   ],
   imports: [
     BrowserModule,

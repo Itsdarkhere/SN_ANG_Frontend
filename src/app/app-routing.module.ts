@@ -40,7 +40,6 @@ import { NftPageComponent } from "./discovery-page/nft-page/nft-page.component";
 import { DiscoveryPageComponent } from "./discovery-page/discovery-page.component";
 import { CollectionPageComponent } from "./collections/collection-page/collection-page.component";
 import { CreateCollectionPageComponent } from "./collections/create-collection-page/create-collection-page.component";
-import { CollectionProfilePageComponent } from "./collections/collection-profile-page/collection-profile-page.component";
 import { CollectionSuccessPageComponent } from "./collections/collection-success-page/collection-success-page.component";
 
 class RouteNames {
@@ -95,7 +94,7 @@ class RouteNames {
   public static DISCOVERY = "discovery";
 
   public static COLLECTIONS = "collections";
-  public static COLLECTION_PROFILE = "collection-profile-page";
+  public static COLLECTION_PAGE = "collection-page";
 }
 
 const routes: Routes = [
@@ -183,13 +182,8 @@ const routes: Routes = [
   },
   // COLLECTIONS ROUTES
   {
-    path: RouteNames.COLLECTIONS,
+    path: RouteNames.COLLECTION_PAGE,
     component: CollectionPageComponent,
-    pathMatch: "full"
-  },
-  {
-    path: RouteNames.COLLECTION_PROFILE,
-    component: CollectionProfilePageComponent,
     pathMatch: "full"
   },
   {

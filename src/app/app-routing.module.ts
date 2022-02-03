@@ -41,6 +41,7 @@ import { DiscoveryPageComponent } from "./discovery-page/discovery-page.componen
 import { CollectionPageComponent } from "./collections/collection-page/collection-page.component";
 import { CreateCollectionPageComponent } from "./collections/create-collection-page/create-collection-page.component";
 import { CollectionSuccessPageComponent } from "./collections/collection-success-page/collection-success-page.component";
+import { CreateCollectionComponent } from "./collections/create-collection/create-collection.component";
 
 class RouteNames {
   // Not sure if we should have a smarter schema for this, e.g. what happens if we have
@@ -189,13 +190,8 @@ const routes: Routes = [
     pathMatch: "full"
   },
   {
-    path: RouteNames.COLLECTION_SUCCESS_PAGE,
-    component: CollectionSuccessPageComponent,
-    pathMatch: "full"
-  },
-  {
     path: RouteNames.CREATE_COLLECTION,
-    component: CreateCollectionPageComponent,
+    component: CreateCollectionComponent,
     pathMatch: "full"
   },
   // This NotFound route must be the last one as it catches all paths that were not matched above.

@@ -5,11 +5,11 @@
         class="br-30px m-10px pt-5px pb-5px pl-5px pr-5px top-card-button hover-color"
         (click)="messageUser()"
       >
-        <img src="./assets/icons/chat-plane-icon.svg" class="profile-button-icon" />
+        <img src="./assets/icons/chat-plane-icon-white.svg" class="profile-button-icon" />
         
       </button>
       <button class="br-30px m-10px pt-5px pb-5px pl-5px pr-5px top-card-button hover-color" (click)="copyURL()">
-        <img src="./assets/icons/wallet-icon.svg" class="profile-button-icon" />
+        <img src="./assets/icons/wallet-icon-white.svg" class="profile-button-icon" />
         
       </button>
       <button class="br-30px m-10px pt-5px pb-5px pl-5px pr-5px top-card-button hover-color" (click)="copyURL()">
@@ -17,9 +17,7 @@
         
       </button>
   </div>
-  <div class="w-100 d-flex flex-center">
-    <img id="banner-image" src="./assets/img/default-banner.png" class="firebase-cover-image" />
-  </div>
+  
 
   <div class="profile-top-card-box-1">
     <div class="profile-img-cover" [avatar]="profile.PublicKeyBase58Check">

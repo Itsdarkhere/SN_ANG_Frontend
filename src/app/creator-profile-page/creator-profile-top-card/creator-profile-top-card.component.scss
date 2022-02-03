@@ -315,6 +315,14 @@
     right: 2em;
     top: 16px;
     position: absolute;
+    @media (max-width: 767px) {
+        right: 1em;
+        top: 8px;
+    }
+    @media (min-width: 901px) and (max-width:992px) {
+        right: 1em;
+        top: 54px;
+    }
 }
 
 .creator-profile-h6{

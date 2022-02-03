@@ -1913,7 +1913,7 @@ export class BackendApiService {
   }
 
   AdminGetVerifiedUsers(endpoint: string, AdminPublicKey: string): Observable<any> {
-    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminGetVerifiedUsers, AdminPublicKey, {
+    return this.post(endpoint, BackendRoutes.RoutePathAdminGetVerifiedUsers, {
       AdminPublicKey,
     });
   }

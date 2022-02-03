@@ -3,6 +3,14 @@
     align-items: flex-start;
     justify-content: space-between;
     flex-direction: column;
+    /* margin: 3em; */
+    padding-right: 2.5em;
+    padding-left: 2.5em;
+    border: 3px solid #F4F4F4;
+    /* border-radius: 3em; */
+    border-top: none;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
     @media (max-width: 767px) {
         flex-wrap: wrap;
         flex-direction: column;
@@ -170,7 +178,8 @@
         padding-top: 20px;
         display: flex;
         flex-flow: row wrap;
-        
+        margin-bottom: 1.5em;
+
         @media (max-width: 767px) {
             width: 100%;
             padding-top: 30px;
@@ -186,7 +195,7 @@
             width: 70%;
             font-size: 18px;
             line-height: 1.67;
-            margin-right: 2em;
+            // margin-right: 2em;
             color: #3D3D3D;
             a {
                 background: #2749f0;

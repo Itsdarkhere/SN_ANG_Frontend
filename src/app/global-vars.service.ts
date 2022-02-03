@@ -356,7 +356,9 @@ export class GlobalVarsService {
   checkNullUsername() {
     this.isNullUsernameRes = JSON.stringify(this.loggedInUser?.ProfileEntryResponse);
     if (this.isNullUsernameRes === "null") {
+      // comment/uncomment line below out for testing
       this.isNullUsername = true;
+      //   this.isNullUsername = false;
     } else {
       this.username = JSON.stringify(this.loggedInUser?.ProfileEntryResponse["Username"]);
       this.username = this.username.replace(/['"]+/g, "");
@@ -364,6 +366,7 @@ export class GlobalVarsService {
       if (this.username) {
         this.isNullUsername = false;
       } else {
+        // comment line below out for testing
         this.isNullUsername = true;
       }
     }

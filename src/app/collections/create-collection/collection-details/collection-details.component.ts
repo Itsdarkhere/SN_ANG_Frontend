@@ -9,12 +9,13 @@ import { FormGroup, FormGroupDirective } from '@angular/forms';
 export class CollectionDetailsComponent implements OnInit {
   constructor(private rootForm: FormGroupDirective) { }
   
-  @Input() collectionDetailsGroup: {};
+  // Nested child form group from root createCollectionForm
+  @Input() formGroupName: string;
   
-  createCollectionForm!: FormGroup;
+  collectionDetailsForm!: FormGroup;
 
   ngOnInit(): void {
-    this.createCollectionForm = this.rootForm.control;
+    this.collectionDetailsForm = this.rootForm.control.get(this.formGroupName) as FormGroup;
   }
 
 }

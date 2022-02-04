@@ -1,7 +1,14 @@
 <div class="create-collection-page">
     <!-- Add Supernovas logo -->
     <div class="create-collection-content-wrapper">
-        <!-- <app-collection-details style="height: 100%; width: 100%; padding: 30px;"></app-collection-details> -->
-        <app-collection-success style="height: 100%; width: 100%; padding: 30px;"></app-collection-success>
+        <form [formGroup]="createCollectionForm">
+            <!-- View 1: Add Collection Details -->
+            <app-collection-details style="height: 100%; width: 100%; padding: 30px;"></app-collection-details>
+
+            <!-- View 2: Select NFTs for Collection -->
+
+            <!-- View 3: Collection Successfully Created -->
+            <!-- <app-collection-success style="height: 100%; width: 100%; padding: 30px;"></app-collection-success> -->
+        </form>
     </div>
 </div>

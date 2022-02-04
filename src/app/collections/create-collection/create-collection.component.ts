@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-create-collection',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateCollectionComponent implements OnInit {
 
-  constructor() { }
+  createCollectionForm = new FormGroup({
+    
+  });
 
   ngOnInit(): void {
+    this.generateCreateCollectionForm();
   }
 
+  public generateCreateCollectionForm(): void {
+
+  }
+
+  // For Debugging
+  public submitCreateCollectionForm(): void {
+    console.log(this.createCollectionForm.value);
+  }
 }

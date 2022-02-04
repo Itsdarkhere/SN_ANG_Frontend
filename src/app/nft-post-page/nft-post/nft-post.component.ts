@@ -36,6 +36,7 @@ import {
 import { CancelBidModalComponent } from "src/app/cancel-bid-modal/cancel-bid-modal.component";
 import { ConfirmationModalComponent } from "src/app/confirmation-modal/confirmation-modal.component";
 import { take } from "rxjs/operators";
+import { EmbedUrlParserService } from "src/lib/services/embed-url-parser-service/embed-url-parser-service";
 
 @Component({
   selector: "nft-post",
@@ -80,6 +81,7 @@ export class NftPostComponent implements OnInit {
   postContent: any;
   reposterProfile: any;
   quotedContent: any;
+  constructedEmbedURL: any;
 
   static ALL_BIDS = "All Bids";
   static MY_BIDS = "My Bids";
@@ -439,7 +441,19 @@ export class NftPostComponent implements OnInit {
     );
     return serialList;
   }
-
+  setEmbedURLForPostContent(): void {
+    EmbedUrlParserService.getEmbedURL(
+      this.backendApi,
+      this.globalVars,
+      this.postContent.PostExtraData["EmbedVideoURL"]
+    ).subscribe((res) => (this.constructedEmbedURL = res));
+  }
+  getEmbedHeight(): number {
+    return EmbedUrlParserService.getEmbedHeight(this.postContent.PostExtraData["EmbedVideoURL"]);
+  }
+  getEmbedWidth(): string {
+    return EmbedUrlParserService.getEmbedWidth(this.postContent.PostExtraData["EmbedVideoURL"]);
+  }
   usersPendingSerialNumbers() {
     const loggedInPubKey = this.globalVars.loggedInUser.PublicKeyBase58Check;
     let serialList = this.nftBidData.NFTEntryResponses.filter(
@@ -720,6 +734,7 @@ export class NftPostComponent implements OnInit {
     } else {
       this.postContent = post;
     }
+    this.setEmbedURLForPostContent();
   }
 
   onMultipleBidsCancellation(event: any): void {

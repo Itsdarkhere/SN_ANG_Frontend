@@ -65,6 +65,7 @@ export class NewNftCardComponent implements OnInit {
     } else {
       this.postContent = post;
     }
+    this.setEmbedURLForPostContent();
   }
   @Input() set blocked(value: boolean) {
     this._blocked = value;
@@ -263,7 +264,7 @@ export class NewNftCardComponent implements OnInit {
     }
 
     this.setMobileBasedOnViewport();
-    this.setEmbedURLForPostContent();
+    //this.setEmbedURLForPostContent();
     if (this.showNFTDetails && this.postContent.IsNFT && !this.nftEntryResponses?.length) {
       this.getNFTEntries();
     }
@@ -550,12 +551,15 @@ export class NewNftCardComponent implements OnInit {
         this.ref.detectChanges();
       });
   }
-  setEmbedURLForPostContent(): void {
+  setEmbedURLForPostContent() {
     EmbedUrlParserService.getEmbedURL(
       this.backendApi,
       this.globalVars,
       this.postContent.PostExtraData["EmbedVideoURL"]
-    ).subscribe((res) => (this.constructedEmbedURL = res));
+    ).subscribe((res) => {
+      this.constructedEmbedURL = res;
+      console.log(res);
+    });
   }
   getEmbedHeight(): number {
     return EmbedUrlParserService.getEmbedHeight(this.postContent.PostExtraData["EmbedVideoURL"]);

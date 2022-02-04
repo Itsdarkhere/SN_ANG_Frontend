@@ -255,6 +255,23 @@
                     class="video-tag"
                   ></iframe>
                 </div>
+                <div
+                  *ngIf="constructedEmbedURL"
+                  class="w-100 h-100 background-secondary position-relative d-flex flex-center"
+                >
+                  <iframe
+                    id="embed-iframe"
+                    [height]="getEmbedHeight()"
+                    class="video-tag"
+                    [ngStyle]="{
+                      'max-width': getEmbedWidth(constructedEmbedURL)
+                    }"
+                    [src]="constructedEmbedURL | sanitizeEmbed"
+                    frameborder="0"
+                    allow="picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; encrypted-media;"
+                    allowfullscreen
+                  ></iframe>
+                </div>
               </div>
             </ng-container>
             <ng-container *ngIf="quotedContent?.IsNFT && profileFeed">
@@ -505,6 +522,23 @@
                   class="video-tag"
                 ></iframe>
               </div>
+              <div
+                *ngIf="constructedEmbedURL"
+                class="w-100 h-100 background-secondary position-relative d-flex flex-center"
+              >
+                <iframe
+                  id="embed-iframe"
+                  [height]="getEmbedHeight()"
+                  class="video-tag"
+                  [ngStyle]="{
+                    'max-width': getEmbedWidth(constructedEmbedURL)
+                  }"
+                  [src]="constructedEmbedURL | sanitizeEmbed"
+                  frameborder="0"
+                  allow="picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; encrypted-media;"
+                  allowfullscreen
+                ></iframe>
+              </div>
             </div>
           </ng-container>
           <ng-container *ngIf="quotedContent?.IsNFT && profileFeed">
@@ -736,6 +770,23 @@
                     allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                     allowfullscreen
                     class="video-tag"
+                  ></iframe>
+                </div>
+                <div
+                  *ngIf="constructedEmbedURL"
+                  class="w-100 h-100 background-secondary position-relative d-flex flex-center"
+                >
+                  <iframe
+                    id="embed-iframe"
+                    [height]="getEmbedHeight()"
+                    class="video-tag"
+                    [ngStyle]="{
+                      'max-width': getEmbedWidth(constructedEmbedURL)
+                    }"
+                    [src]="constructedEmbedURL | sanitizeEmbed"
+                    frameborder="0"
+                    allow="picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; encrypted-media;"
+                    allowfullscreen
                   ></iframe>
                 </div>
               </div>

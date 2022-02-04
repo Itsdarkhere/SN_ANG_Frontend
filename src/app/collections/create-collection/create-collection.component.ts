@@ -9,7 +9,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class CreateCollectionComponent {
   constructor(private fb: FormBuilder) { }
 
-  createCollectionForm =  this.fb.group({
+  createCollectionForm = this.fb.group({
     collectionDetails: this.fb.group({
       collectionName: ["", Validators.required],
       collectionDescription: [""],

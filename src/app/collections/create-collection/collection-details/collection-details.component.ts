@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup, FormGroupDirective } from '@angular/forms';
 
 @Component({
   selector: 'app-collection-details',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./collection-details.component.scss']
 })
 export class CollectionDetailsComponent implements OnInit {
-
-  constructor() { }
+  constructor(private rootForm: FormGroupDirective) { }
+  
+  @Input() collectionDetailsGroup: {};
+  
+  createCollectionForm!: FormGroup;
 
   ngOnInit(): void {
+    this.createCollectionForm = this.rootForm.control;
   }
 
 }

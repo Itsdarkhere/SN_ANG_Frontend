@@ -222,6 +222,8 @@ export class CreatorProfileDetailsComponent implements OnInit {
 
           document.getElementById("banner-image").setAttribute("src", url);
           //this.profileCardUrl = url;
+          document.getElementById("banner-image-blurred").setAttribute("src", url);
+          //this.profileCardUrl = url;
         })
         .catch(() => (this.loading = false))
         //.then((res) => (this.profileCardUrl = res))

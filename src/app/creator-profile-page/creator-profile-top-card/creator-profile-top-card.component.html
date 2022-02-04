@@ -2,18 +2,23 @@
   <div class="profile-actions-box">
       <button
         *ngIf="globalVars.loggedInUser?.PublicKeyBase58Check != profile.PublicKeyBase58Check"
-        class="br-30px m-10px pt-5px pb-5px pl-5px pr-5px top-card-button hover-color"
+        class="br-30px m-10px pt-5px pb-5px pl-5px pr-5px top-card-button hover-color top-card-button-message"
         (click)="messageUser()"
       >
         <img src="./assets/icons/chat-plane-icon-white.svg" class="profile-button-icon" />
+        <div class="dm-button-hover">DM</div>
         
       </button>
-      <button class="br-30px m-10px pt-5px pb-5px pl-5px pr-5px top-card-button hover-color" (click)="copyURL()">
+      <button class="br-30px m-10px pt-5px pb-5px pl-5px pr-5px top-card-button hover-color top-card-button-wallet" 
+      (click)="copyURL()">
         <img src="./assets/icons/wallet-icon-white.svg" class="profile-button-icon" />
+        <div class="wallet-button-hover">Copy wallet address</div>
         
       </button>
-      <button class="br-30px m-10px pt-5px pb-5px pl-5px pr-5px top-card-button hover-color" (click)="copyURL()">
+      <button class="br-30px m-10px pt-5px pb-5px pl-5px pr-5px top-card-button hover-color top-card-button-share" 
+      (click)="copyURL()">
         <img src="./assets/icons/share-white.svg" class="profile-button-icon" />
+        <div class="share-button-hover">Share</div>
         
       </button>
   </div>
@@ -29,7 +34,7 @@
 
       <div class="name-stats-profile">
         <div class="mt-65px">
-          <h5 class="bold usr_nm" *ngIf="profileData?.name">{{ profileData?.name }}</h5>
+          <h5 class="bold usr_nm primary-name" *ngIf="profileData?.name">{{ profileData?.name }}</h5>
           <h5 class="bold usr_nm secondary-name" [ngClass]="profileData?.name ? 'secondary-name' : ''">
             @{{ profile.Username }} &nbsp;
             <ng-container

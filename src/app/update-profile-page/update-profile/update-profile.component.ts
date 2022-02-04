@@ -8,6 +8,7 @@ import { Title } from "@angular/platform-browser";
 import { environment } from "src/environments/environment";
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from "@angular/fire/storage";
 import { AngularFirestore } from "@angular/fire/firestore";
+import { TransactionalEmailService } from "src/app/transactional-email.service";
 import { Observable } from "rxjs";
 
 export type ProfileUpdates = {
@@ -88,7 +89,8 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     private route: ActivatedRoute,
     private backendApi: BackendApiService,
     private router: Router,
-    private titleService: Title
+    private titleService: Title,
+    private emailService: TransactionalEmailService
   ) {}
 
   ngOnInit() {
@@ -97,6 +99,12 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     this.getOnlyProfileSocials();
     this.loadBannerImage();
     this._getUserMetadata();
+    if (
+      this.globalVars?.loggedInUser?.PublicKeyBase58Check === "BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w"
+    ) {
+      console.log("Sending email");
+      this.emailService.SendWelcomeEmail("Valtteri", "link", "valtteri@supernovas.app");
+    }
 
     // console.log(
     //   `----------------------------- can create profile ${this.globalVars.loggedInUser.CanCreateProfile} -----------------------------`

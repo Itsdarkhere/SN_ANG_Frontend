@@ -173,7 +173,17 @@ export class MobileVerificationComponent implements OnInit {
         event.code === "Digit7" ||
         event.code === "Digit8" ||
         event.code === "Digit9" ||
-        event.code === "Digit0"
+        event.code === "Digit0" ||
+        event.code === "Numpad1" ||
+        event.code === "Numpad2" ||
+        event.code === "Numpad3" ||
+        event.code === "Numpad4" ||
+        event.code === "Numpad5" ||
+        event.code === "Numpad6" ||
+        event.code === "Numpad7" ||
+        event.code === "Numpad8" ||
+        event.code === "Numpad9" ||
+        event.code === "Numpad0"
       ) {
         console.log(` ------------- digit 0-9 entered and full verification code already`);
         return;
@@ -234,6 +244,8 @@ export class MobileVerificationComponent implements OnInit {
       if (this.verificationCodeString.length === 4) {
         console.log(` --------------- full verification code entered ------------------ `);
         this.verificationCodeCorrectLength = true;
+        // uncomment out line below for testing phone verification code
+        // this.globalVars.phoneVerified = true;
         return;
       } else {
         this.verificationCodeCorrectLength = false;

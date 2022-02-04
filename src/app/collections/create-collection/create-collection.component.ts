@@ -9,7 +9,14 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class CreateCollectionComponent implements OnInit {
 
   createCollectionForm = new FormGroup({
-    
+    collectionDetails: new FormGroup({
+      collectionName: new FormControl(""),
+      collectionDescription: new FormControl(""),
+      collectionBannerImage: new FormControl("")
+    }),
+    collectionSelections: new FormGroup({
+
+    })
   });
 
   ngOnInit(): void {

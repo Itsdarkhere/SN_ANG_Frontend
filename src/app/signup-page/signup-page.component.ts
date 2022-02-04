@@ -69,20 +69,29 @@ export class SignupPageComponent implements OnInit {
     });
   }
 
+  verifyEmailClicked() {
+    this.startedEnteringEmail = true;
+    var emailAddress = (<HTMLInputElement>document.getElementById("step3EmailAddress")).value;
+    console.log(` --------- verifyEmailClicked and emailAddress is ${emailAddress}`);
+
+    console.log(this.globalVars.emailRegExTest.test(emailAddress));
+
+    if (this.globalVars.emailRegExTest.test(emailAddress)) {
+      this.invalidEmailEntered = false;
+      this.nextStep();
+    } else if (emailAddress === "") {
+      this.invalidEmailEntered = true;
+      return;
+    } else {
+      this.invalidEmailEntered = true;
+      return;
+    }
+  }
+
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
   }
-  _validateEmail(email) {
-    this.startedEnteringEmail = true;
 
-    if (this.globalVars.emailRegExp.test(email)) {
-      this.invalidEmailEntered = false;
-    } else if (email === "") {
-      this.invalidEmailEntered = true;
-    } else {
-      this.invalidEmailEntered = true;
-    }
-  }
   _updateEmail() {
     this.backendApi
       .UpdateUserGlobalMetadata(
@@ -184,6 +193,7 @@ export class SignupPageComponent implements OnInit {
       return;
     }
     if (this.stepNum === 3) {
+      // if the email is valid then update the email
       if (!this.invalidEmailEntered) {
         this._updateEmail();
       }

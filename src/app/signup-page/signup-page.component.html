@@ -111,8 +111,8 @@
             type="text"
             class="signup-input mt-20px"
             [(ngModel)]="emailAddress"
-            (ngModelChange)="_validateEmail($event)"
             placeholder="Email Address"
+            id="step3EmailAddress"
           />
           <div class="fc-red mt-5px fs-15px" *ngIf="invalidEmailEntered && startedEnteringEmail">
             Please enter a valid email address.
@@ -121,8 +121,7 @@
 
         <div class="w-100 d-flex flex-center">
           <button
-            (click)="nextStep()"
-            [disabled]="invalidEmailEntered || !startedEnteringEmail"
+            (click)="verifyEmailClicked()"
             class="black-rounded-button basic-button-size color-white fs-15px font-weight-bold signup-window-btn"
           >
             Continue
@@ -253,8 +252,8 @@
             type="text"
             class="signup-input mt-20px"
             [(ngModel)]="emailAddress"
-            (ngModelChange)="_validateEmail($event)"
             placeholder="Email Address"
+            id="step3EmailAddress"
           />
           <div class="fc-red mt-5px fs-15px" *ngIf="invalidEmailEntered && startedEnteringEmail">
             Please enter a valid email address.
@@ -263,9 +262,8 @@
 
         <div class="w-100 d-flex flex-center">
           <button
-            (click)="nextStep()"
-            [disabled]="invalidEmailEntered || !startedEnteringEmail"
-            class="black-rounded-button basic-button-size color-white fs-15px font-weight-bold signup-window-btn-absolute"
+            (click)="verifyEmailClicked()"
+            class="black-rounded-button basic-button-size color-white fs-15px font-weight-bold signup-window-btn"
           >
             Continue
           </button>

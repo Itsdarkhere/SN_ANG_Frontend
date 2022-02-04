@@ -1,4 +1,4 @@
-.collection-details-container {
+form {
     padding: 30px;
     height: 700px; // update to appropriate (flexible) size
     width: 600px; // update to appropriate (flexible) size
@@ -65,13 +65,9 @@
 
 .collection-details-form {
     width: 100%;
-
-    form {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     label {
         width: 75%;

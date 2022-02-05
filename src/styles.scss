@@ -153,7 +153,7 @@ html {
 html,
 body {
   font-family: "Poppins", sans-serif;
-  min-height: 100%; // allows for scrolling
+  min-height: 100vh; // allows for scrolling
   /* mobile viewport bug fix */
   min-height: -webkit-fill-available;
 }
@@ -164,6 +164,10 @@ body {
 // This works because body has a min-height not a fixed height
 body {
   //overflow: hidden;
+}
+
+html {
+  height: -webkit-fill-available;
 }
 
 h1 {

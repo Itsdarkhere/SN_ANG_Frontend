@@ -111,23 +111,6 @@
   font-size: 11px;
 }
 
-@media (max-width: 450px) {
-  .button-font-resizing {
-    font-size: 18px;
-  }
-  .subheading-font-resizing {
-    font-size: 16px;
-  }
-  .header-font-rezising {
-    font-size: 24px;
-  }
-  .logo-height-main-button {
-    height: 30px;
-  }
-  .signup-main-button {
-    height: 60px;
-  }
-}
 .fc-success {
   color: green;
 }
@@ -151,16 +134,28 @@
 
 // ------------------ mobile
 
+.signup-header-mobile {
+  height: 60px;
+}
+
+.supernovas-grey-logo-mobile {
+  margin-left: 20px;
+  margin-top: 15px;
+}
+
 .signup-center-mobile {
   background: #ffffff;
   border: 3px solid #eeeeee;
   border-radius: 20px;
   box-shadow: 1.0368170738px 1.0368170738px 10.3681697845px rgb(155 155 155 / 2%);
   width: 95vw;
-  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   position: relative;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .flex-center-mobile {
@@ -180,6 +175,34 @@
   grid-template-rows: 1fr;
   justify-items: center;
   margin-top: 3vh;
+}
+
+.step-1-header-mobile {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.step-1-text-mobile {
+  font-size: 16px;
+  width: 445px;
+  max-width: 90%;
+  margin-bottom: 20px;
+}
+
+.signup-main-button-mobile {
+  width: 445px;
+  max-width: 90%;
+  height: 89px;
+  background: #0e0f22;
+  color: white;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.connect-with-deso-text-mobile {
+  margin: 0;
+  margin-left: 20px;
 }
 
 .signup-step-2-card-header-mobile {
@@ -242,6 +265,24 @@
 .signup-window-text-mobile {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+@media (max-width: 450px) {
+  .button-font-resizing {
+    font-size: 18px;
+  }
+  .subheading-font-resizing {
+    font-size: 16px;
+  }
+  .header-font-rezising {
+    font-size: 24px;
+  }
+  .logo-height-main-button {
+    height: 30px;
+  }
+  .signup-main-button-mobile {
+    height: 60px !important;
+  }
 }
 
 // iphone 13 pro max and above

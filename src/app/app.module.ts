@@ -160,6 +160,7 @@ import { SanitizeVideoUrlPipe } from "../lib/pipes/sanitize-video-url-pipe";
 import { AdminNodeFeesComponent } from "./admin/admin-node-fees/admin-node-fees.component";
 import { AdminNodeAddFeesComponent } from "./admin/admin-node-fees/admin-node-add-fee/admin-node-add-fees.component";
 import { IvyCarouselModule } from "angular-responsive-carousel";
+import { CdkStepperModule } from "@angular/cdk/stepper";
 
 // Modular Themes for DeSo by Carsen Klock @carsenk
 import { ThemeModule } from "./theme/theme.module";
@@ -414,6 +415,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     InfiniteScrollModule,
     IvyCarouselModule,
     NgxShimmerLoadingModule,
+    CdkStepperModule,
     AnimateOnScrollModule.forRoot(),
     ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),

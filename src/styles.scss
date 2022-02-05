@@ -150,12 +150,17 @@ html {
   }
 }
 
+:root {
+  --app-height: 100%;
+}
+
 html,
 body {
   font-family: "Poppins", sans-serif;
   min-height: 100vh; // allows for scrolling
   /* mobile viewport bug fix */
   min-height: -webkit-fill-available;
+  height: var(--app-height);
 }
 
 // Fix any random overflow from causing weird

@@ -349,7 +349,13 @@ export class AppComponent implements OnInit {
 
     const setVh = () => {
       const vh = window.innerHeight * 0.01;
+      const pixelHeight = window.innerHeight;
+
       document.documentElement.style.setProperty("--vh", `${vh}px`);
+      document.documentElement.style.setProperty("--pixelHeight", `${pixelHeight}px`);
+
+      console.log(` -------------- pixelHeight is ${pixelHeight} ---------------- `); // 926
+      console.log(` -------------- vh is ${vh} -------------------`); // 9.26
     };
 
     window.addEventListener("load", setVh);

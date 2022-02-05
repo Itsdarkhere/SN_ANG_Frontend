@@ -153,10 +153,8 @@ html {
 html,
 body {
   font-family: "Poppins", sans-serif;
-  min-height: 100vh; // allows for scrolling
+  min-height: 100%; // allows for scrolling
 
-  /* mobile viewport bug fix */
-  min-height: -webkit-fill-available;
   height: calc(var(--vh, 1vh) * 100);
 }
 
@@ -166,10 +164,6 @@ body {
 // This works because body has a min-height not a fixed height
 body {
   //overflow: hidden;
-}
-
-html {
-  height: -webkit-fill-available;
 }
 
 h1 {
@@ -1309,10 +1303,8 @@ $green-font-color: #19b028;
 }
 
 .global__container {
-  min-height: 100vh;
+  min-height: 100%;
   display: flex;
-  /* mobile viewport bug fix */
-  min-height: -webkit-fill-available;
 }
 .global__iframe {
   height: 100vh;

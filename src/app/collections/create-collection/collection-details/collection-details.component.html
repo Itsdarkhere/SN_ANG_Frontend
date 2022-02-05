@@ -1,4 +1,4 @@
-<form [formGroup]="collectionDetailsForm">
+<form>
     <h1 class="create-collection-title">Collection details</h1>
     
     <!-- Collection Banner -->
@@ -14,7 +14,7 @@
     <!-- Collection Information -->
     <div class="collection-details-info">      
         <label for="collection-name">Collection Name:</label>
-        <input type="text" formControlName="collectionName" id="collection-name" autocomplete="off">
+        <input type="text" id="collection-name" autocomplete="off">
         <label for="collection-desc">Collection Description:</label>
         <textarea rows="4" id="collection-desc" autocomplete="off"></textarea>
         <input type="submit" value="Continue">    

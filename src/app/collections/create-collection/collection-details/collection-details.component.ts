@@ -7,15 +7,15 @@ import { FormGroup, FormGroupDirective } from '@angular/forms';
   styleUrls: ['./collection-details.component.scss']
 })
 export class CollectionDetailsComponent implements OnInit {
-  constructor(private rootForm: FormGroupDirective) { }
+  // constructor(private rootForm: FormGroupDirective) { }
   
   // Nested child form group from root createCollectionForm
-  @Input() formGroupName: string;
+  // @Input() formGroupName: string;
   
-  collectionDetailsForm!: FormGroup;
+  // collectionDetailsForm!: FormGroup;
 
   ngOnInit(): void {
-    this.collectionDetailsForm = this.rootForm.control.get(this.formGroupName) as FormGroup;
+    // this.collectionDetailsForm = this.rootForm.control.get(this.formGroupName) as FormGroup;
   }
 
 }

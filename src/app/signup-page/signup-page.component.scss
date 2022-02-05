@@ -11,7 +11,7 @@
 .signup-body-container {
   height: calc(100vh - 60px);
   /* mobile viewport bug fix */
-  min-height: -webkit-fill-available;
+  max-height: -webkit-fill-available;
 }
 .signup-center {
   background: #ffffff;

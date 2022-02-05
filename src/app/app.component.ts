@@ -347,12 +347,13 @@ export class AppComponent implements OnInit {
     this.installDD();
     this.installAmplitude();
 
-    const setAppHeight = () => {
-      const doc = document.documentElement;
-      doc.style.setProperty("--app-height", `${window.innerHeight}px`);
+    const setVh = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
     };
-    window.addEventListener("resize", setAppHeight);
-    setAppHeight();
+
+    window.addEventListener("load", setVh);
+    window.addEventListener("resize", setVh);
 
     // get LoggedInUser
     this._updateTopLevelData();

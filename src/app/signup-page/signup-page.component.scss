@@ -10,6 +10,8 @@
 }
 .signup-body-container {
   height: calc(100vh - 60px);
+  /* mobile viewport bug fix */
+  min-height: -webkit-fill-available;
 }
 .signup-center {
   background: #ffffff;
@@ -166,7 +168,6 @@
 
 .flex-center-mobile {
   justify-content: center;
-  min-height: 400px;
   display: flex;
 }
 

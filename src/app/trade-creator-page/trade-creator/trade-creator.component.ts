@@ -5,14 +5,13 @@
 
 // TODO: creator coin buys: may need tiptips explaining why total != amount * currentPriceElsewhereOnSite
 
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, HostListener, Input, OnInit } from "@angular/core";
 import { GlobalVarsService } from "../../global-vars.service";
 import { BackendApiService, TutorialStatus } from "../../backend-api.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { CreatorCoinTrade } from "../../../lib/trade-creator-page/creator-coin-trade";
 import { AppRoutingModule, RouteNames } from "../../app-routing.module";
 import { Observable, Subscription } from "rxjs";
-import {SwalHelper} from "../../../lib/helpers/swal-helper";
 
 @Component({
   selector: "trade-creator",
@@ -47,6 +46,29 @@ export class TradeCreatorComponent implements OnInit {
 
   // show different header text if we're at the "Invest In Yourself" stage of the tutorial
   investInYourself: boolean = false;
+
+  // NEW UI
+  tabBuy = true;
+  tabSell = false;
+  tabTransfer = false;
+
+  mobile = false;
+
+  tabBuyClick() {
+    this.tabBuy = true;
+    this.tabSell = false;
+    this.tabTransfer = false;
+  }
+  tabSellClick() {
+    this.tabBuy = false;
+    this.tabSell = true;
+    this.tabTransfer = false;
+  }
+  tabTransferClick() {
+    this.tabBuy = false;
+    this.tabSell = false;
+    this.tabTransfer = true;
+  }
 
   _onSlippageError() {
     this.screenToShow = this.TRADE_CREATOR_FORM_SCREEN;
@@ -179,6 +201,7 @@ export class TradeCreatorComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.setMobileBasedOnViewport();
     this.creatorCoinTrade = new CreatorCoinTrade(this.appData);
     if (!this.inTutorial) {
       this._setStateFromActivatedRoute(this.route);
@@ -202,6 +225,15 @@ export class TradeCreatorComponent implements OnInit {
     }
   }
 
+  setMobileBasedOnViewport() {
+    this.mobile = this.globalVars.isMobile();
+  }
+
+  @HostListener("window:resize")
+  onResize() {
+    this.setMobileBasedOnViewport();
+  }
+  
   setUpBuyTutorial(): void {
     let balance = this.appData.loggedInUser?.BalanceNanos;
     const jumioDeSoNanos = this.appData.jumioDeSoNanos > 0 ? this.appData.jumioDeSoNanos : 1e8;

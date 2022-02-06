@@ -43,16 +43,12 @@ import { TradeCreatorPageComponent } from "./trade-creator-page/trade-creator-pa
 import { TradeCreatorComponent } from "./trade-creator-page/trade-creator/trade-creator.component";
 import { BuyDeSoComponent } from "./buy-deso-page/buy-deso/buy-deso.component";
 import { BuyDeSoUSDComponent } from "./buy-deso-page/buy-deso-usd/buy-deso-usd.component";
-import { TradeCreatorFormComponent } from "./trade-creator-page/trade-creator-form/trade-creator-form.component";
-import { TradeCreatorPreviewComponent } from "./trade-creator-page/trade-creator-preview/trade-creator-preview.component";
-import { TradeCreatorCompleteComponent } from "./trade-creator-page/trade-creator-complete/trade-creator-complete.component";
 import { UpdateProfilePageComponent } from "./update-profile-page/update-profile-page.component";
 import { NotificationsPageComponent } from "./notifications-page/notifications-page.component";
 import { SearchBarComponent } from "./search-bar/search-bar.component";
 import { SimpleCenterLoaderComponent } from "./simple-center-loader/simple-center-loader.component";
 import { ChangeAccountSelectorComponent } from "./change-account-selector/change-account-selector.component";
 import { RightBarSignupComponent } from "./right-bar-signup/right-bar-signup.component";
-import { TradeCreatorTableComponent } from "./trade-creator-page/trade-creator-table/trade-creator-table.component";
 import { PostThreadPageComponent } from "./post-thread-page/post-thread-page.component";
 import { PostThreadComponent } from "./post-thread-page/post-thread/post-thread.component";
 import { UpdateProfileComponent } from "./update-profile-page/update-profile/update-profile.component";
@@ -198,6 +194,9 @@ import { CreatorCardComponent } from "./creator-card/creator-card.component";
 import { PageSmallNavNewComponent } from "./page-small-nav-new/page-small-nav-new.component";
 import { SmallCardComponentComponent } from "./small-card-component/small-card-component.component";
 import { CompleteProfileComponent } from "./update-profile-page/complete-profile/complete-profile.component";
+import { TradeCreatorBuyComponent } from './trade-creator-page/trade-creator-buy/trade-creator-buy.component';
+import { TradeCreatorSellComponent } from './trade-creator-page/trade-creator-sell/trade-creator-sell.component';
+import { TradeCreatorTransferComponent } from './trade-creator-page/trade-creator-transfer/trade-creator-transfer.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -242,16 +241,12 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     TradeCreatorComponent,
     BuyDeSoComponent,
     BuyDeSoUSDComponent,
-    TradeCreatorFormComponent,
-    TradeCreatorPreviewComponent,
-    TradeCreatorCompleteComponent,
     UpdateProfilePageComponent,
     NotificationsPageComponent,
     SearchBarComponent,
     SimpleCenterLoaderComponent,
     ChangeAccountSelectorComponent,
     RightBarSignupComponent,
-    TradeCreatorTableComponent,
     PostThreadPageComponent,
     PostThreadComponent,
     UpdateProfileComponent,
@@ -370,6 +365,9 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     PageSmallNavNewComponent,
     CompleteProfileComponent,
     SmallCardComponentComponent,
+    TradeCreatorBuyComponent,
+    TradeCreatorSellComponent,
+    TradeCreatorTransferComponent,
   ],
   imports: [
     BrowserModule,

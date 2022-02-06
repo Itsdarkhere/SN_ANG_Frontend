@@ -73,8 +73,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "deso-frontend:build",
-            "disableHostCheck": true
+            "browserTarget": "deso-frontend:build"
           },
           "configurations": {
             "production": {

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Component, HostListener, Input, OnDestroy, OnInit } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
 import { AppRoutingModule, RouteNames } from "../app-routing.module";
 import { BackendApiService, BalanceEntryResponse, TutorialStatus } from "../backend-api.service";
@@ -9,11 +9,18 @@ import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { Subscription } from "rxjs";
 import { SwalHelper } from "../../lib/helpers/swal-helper";
 import { environment } from "src/environments/environment";
+import { animate, query, stagger, style, transition, trigger } from "@angular/animations";
 
 @Component({
   selector: "wallet",
   templateUrl: "./wallet.component.html",
   styleUrls: ["./wallet.component.scss"],
+  animations: [
+    trigger("tabChangeAnimation", [
+      transition(":enter", [style({ opacity: 0.2 }), animate("500ms linear", style({ opacity: 1 }))]),
+      transition(":leave", [style({ opacity: 1 }), animate("0ms ease", style({ opacity: 0 }))]),
+    ]),
+  ],
 })
 export class WalletComponent implements OnInit, OnDestroy {
   static PAGE_SIZE = 20;
@@ -53,6 +60,8 @@ export class WalletComponent implements OnInit, OnDestroy {
 
   nextButtonText: string;
 
+  mobile = false;
+
   constructor(
     private appData: GlobalVarsService,
     private titleService: Title,
@@ -73,6 +82,7 @@ export class WalletComponent implements OnInit, OnDestroy {
   tutorialStepNumber: number;
 
   ngOnInit() {
+    this.setMobileBasedOnViewport();
     if (this.inTutorial) {
       this.tabs = [WalletComponent.coinsPurchasedTab];
       this.tutorialStatus = this.globalVars.loggedInUser?.TutorialStatus;
@@ -132,6 +142,14 @@ export class WalletComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+  setMobileBasedOnViewport() {
+    this.mobile = this.globalVars.isMobile();
+  }
+
+  @HostListener("window:resize")
+  onResize() {
+    this.setMobileBasedOnViewport();
   }
   copyPublicKey() {
     this.publicKeyCopied = true;

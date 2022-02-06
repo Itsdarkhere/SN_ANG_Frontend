@@ -1,35 +1,39 @@
-<div class="global__top-bar__height" *ngIf="globalVars.isMobile()"></div>
-<div class="wallet-container position-relative mt-20px" [ngClass]="globalVars.isMobile() ? 'w-100' : 'feed-cover'">
-  <div class="wallet-top-section d-flex flex-row justify-content-between py-20px px-40px">
-    <div class="d-flex flex-column">
+<div class="global__top-bar__height" *ngIf="mobile"></div>
+<div class="wallet-container position-relative mt-20px" [ngClass]="mobile ? 'w-100' : 'feed-cover'">
+  <div class="wallet-top-section d-flex flex-row justify-content-between py-20px padding-left-right-7_5-perc">
+    <div class="d-flex flex-column" *ngIf="!mobile">
       <h4 class="font-weight-semiboldn fs-16px" style="color: #565656">YOUR WALLET</h4>
       <div class="font-weight-bold d-flex flex-row fs-24px mt-20px" style="color: #0d0d0d">
         <div class="wallet-avatar" [avatar]="globalVars.loggedInUser.PublicKeyBase58Check"></div>
         <span class="pl-5px">@{{ globalVars.loggedInUser.ProfileEntryResponse.Username }}</span>
       </div>
     </div>
-    <div class="d-flex flex-column">
+    <div class="wallet-pk-box-wrapper position-relative d-flex flex-column" [ngClass]="{ mobile: mobile }">
       <h4 class="font-weight-semiboldn pl-10px fs-16px" style="color: #565656">PUBLIC KEY</h4>
-      <div class="wallet-pk-box d-flex flex-row flex-center mt-20px">
+      <div
+        class="wallet-pk-box d-flex flex-row flex-center-start mt-20px px-5px cursor-pointer"
+        (click)="copyPublicKey()"
+      >
         <img alt="key" src="/assets/icons/key_icon.svg" />
         <span style="color: #424242" class="font-weight-semiboldn fs-16px px-5px">
           {{ globalVars.loggedInUser.PublicKeyBase58Check }}
         </span>
-        <img
-          *ngIf="!publicKeyCopied; else copiedSuccess"
-          class="cursor-pointer"
-          (click)="copyPublicKey()"
-          alt="key"
-          src="/assets/icons/copy_icon.svg"
-        />
-        <ng-template #copiedSuccess>
-          <i class="fas fa-check-circle fa-md align-middle"></i>
-        </ng-template>
+        <div class="wallet-copy-container">
+          <img
+            *ngIf="!publicKeyCopied; else copiedSuccess"
+            class="cursor-pointer"
+            alt="key"
+            src="/assets/icons/copy_icon.svg"
+          />
+          <ng-template #copiedSuccess>
+            <i class="fas fa-check-circle fa-md align-middle"></i>
+          </ng-template>
+        </div>
       </div>
     </div>
   </div>
   <div class="wallet-gradient-container">
-    <div class="wallet-gradient-cover d-flex flex-column flex-start-center px-40px">
+    <div class="wallet-gradient-cover d-flex flex-column flex-start-center padding-left-right-7_5-perc">
       <h4 class="fs-20px font-weight-semiboldn>Total Balance" style="color: #e0e0e0">Total Balance</h4>
       <label class="fs-40px mb-0px font-weight-semiboldn mt-10px" style="color: #ffffff">
         {{ globalVars.nanosToDeSo(globalVars.loggedInUser.BalanceNanos + totalValue(), 2) }} $DESO
@@ -38,13 +42,13 @@
         {{ globalVars.nanosToUSD(globalVars.loggedInUser.BalanceNanos + totalValue(), 2) }}
       </label>
     </div>
-    <div class="wallet-tab-selector px-10px pt-5px">
+    <div class="wallet-tab-selector d-flex flex-center px-10px pt-5px">
       <button (click)="tabDesoClick()" class="br-top-left-30px font-weight-semiboldn" [ngClass]="{ active: tabDeso }">
-        DeSo
+        <label *ngIf="!mobile" class="mb-0px pl-5px">DeSo</label>
       </button>
       <button (click)="tabCreatorCoinClick()" class="font-weight-semiboldn" [ngClass]="{ active: tabCreatorCoin }">
         <img src="/assets/icons/wallet_cc_icon.svg" alt="creator coin icon" />
-        Creator Coins
+        <label *ngIf="!mobile" class="mb-0px pl-5px">Creator Coins</label>
       </button>
       <button
         (click)="tabEarningsClick()"
@@ -52,104 +56,134 @@
         [ngClass]="{ active: tabEarnings }"
       >
         <img src="/assets/icons/wallet_earnings_icon.svg" alt="creator coin icon" />
-        Earnings
+        <label *ngIf="!mobile" class="mb-0px pl-5px">Earnings</label>
       </button>
     </div>
   </div>
-  <div *ngIf="tabDeso" class="wallet-bottom-container px-10px pb-10px">
-    <button class="wallet-coin-button px-40px py-10px w-100 d-flex flex-row justify-content-between">
-      <div class="h-100 d-flex flex-row flex-center">
-        <img class="deso-logo" src="/assets/deso/desologo.svg" alt="deso" />
-        <label class="fs-28px mb-0px pl-10px">Deso</label>
+  <div class="d-flex flex-center background-grey">
+    <div *ngIf="tabDeso" [@tabChangeAnimation] class="wallet-bottom-container">
+      <div class="wallet-crypto-container">
+        <button class="wallet-coin-button padding-left-7_5-perc py-10px w-100 d-flex flex-row justify-content-between">
+          <div class="h-100 d-flex flex-row flex-center">
+            <img class="deso-logo" src="/assets/deso/desologo.svg" alt="deso" />
+            <label class="fs-28px deso-name mb-0px pl-10px">Deso</label>
+          </div>
+          <div class="h-100 d-flex flex-row flex-center" [ngClass]="mobile ? '' : 'w-30'">
+            <div class="d-flex w-100 flex-column flex-start-center mr-10px">
+              <label class="fs-28px balance-usd mb-0px font-weight-semiboldn" style="color: #2d2d2d">
+                {{ globalVars.nanosToUSD(globalVars.loggedInUser.BalanceNanos, 2) }}
+              </label>
+              <label class="fs-20px balance-deso mb-0px" style="color: #6d6d6d">
+                {{ globalVars.nanosToDeSo(globalVars.loggedInUser.BalanceNanos, 2) }} DESO
+              </label>
+            </div>
+            <img class="wallet-button-arrow" src="/assets/icons/chevron_right.svg" alt="arrow right" />
+          </div>
+        </button>
       </div>
-      <div class="h-100 w-30 d-flex flex-row flex-center">
-        <div class="d-flex w-100 flex-column flex-start-center mr-20px">
-          <label class="fs-28px mb-0px font-weight-semiboldn" style="color: #2d2d2d">
-            {{ globalVars.nanosToUSD(globalVars.loggedInUser.BalanceNanos, 2) }}
-          </label>
-          <label class="fs-20px mb-0px" style="color: #6d6d6d">
-            {{ globalVars.nanosToDeSo(globalVars.loggedInUser.BalanceNanos, 2) }} DESO
-          </label>
-        </div>
-        <img class="wallet-button-arrow" src="/assets/icons/chevron_right.svg" alt="arrow right" />
-      </div>
-    </button>
-  </div>
-  <div *ngIf="tabCreatorCoin" class="wallet-bottom-container px-10px pb-10px">
-    <div class="w-100 creator-coin-top-bar">
-      <label class="font-weight-semiboldn mb-0px fs-14px text-align-start pl-20px" style="color: #7a7a7a">
-        CREATOR
-      </label>
-      <label class="font-weight-semiboldn mb-0px fs-14px padding-left-10-perc text-align-start" style="color: #7a7a7a">
-        COIN PRICE
-      </label>
-      <label class="font-weight-semiboldn mb-0px fs-14px padding-left-10-perc text-align-start" style="color: #7a7a7a">
-        VALUE IN USD
-      </label>
     </div>
-    <div class="creator-coin-list disable-scrollbars">
-      <button class="position-relative" *ngFor="let creator of usersYouPurchased">
-        <div class="cc-button-value d-flex flex-row flex-center-start pl-10px">
-          <div [avatar]="creator.ProfileEntryResponse.PublicKeyBase58Check" class="wallet-cc-avatar mr-5px"></div>
-          <label class="font-weight-bold fs-12px mb-0px" style="color: #000000">
-            {{ creator.ProfileEntryResponse.Username }}
-          </label>
-        </div>
-        <label class="cc-button-value text-align-start padding-left-10-perc fs-18px mb-0px" style="color: #2d2d2d">
-          {{ globalVars.nanosToUSD(creator.ProfileEntryResponse.CoinPriceDeSoNanos, 2) }}
+    <div *ngIf="tabCreatorCoin" [@tabChangeAnimation] class="wallet-bottom-container">
+      <div class="w-100 creator-coin-top-bar" [ngClass]="{ w2: mobile }">
+        <label class="font-weight-semiboldn mb-0px fs-14px text-align-start pl-20px" style="color: #7a7a7a">
+          CREATOR
         </label>
-        <span
-          class="cc-button-value font-weight-semiboldn padding-left-10-perc fs-18px mb-0px d-flex flex-center-start flex-row"
-          style="color: #2d2d2d"
+        <label
+          *ngIf="!mobile"
+          class="font-weight-semiboldn mb-0px fs-14px padding-left-10-perc text-align-center"
+          style="color: #7a7a7a"
         >
-          {{ globalVars.usdYouWouldGetIfYouSoldDisplay(creator.BalanceNanos, creator.ProfileEntryResponse.CoinEntry) }}
-        </span>
-        <img class="creator-coin-arrow" src="/assets/icons/chevron_right.svg" alt="arrow right" />
-      </button>
+          COIN PRICE
+        </label>
+        <label
+          class="font-weight-semiboldn mb-0px fs-14px padding-left-10-perc text-align-start"
+          style="color: #7a7a7a"
+        >
+          VALUE IN USD
+        </label>
+      </div>
+      <div class="creator-coin-list disable-scrollbars" [ngClass]="{ w2: mobile }">
+        <button class="position-relative" *ngFor="let creator of usersYouPurchased">
+          <div class="cc-button-value d-flex flex-row flex-center-start pl-10px">
+            <div [avatar]="creator.ProfileEntryResponse.PublicKeyBase58Check" class="wallet-cc-avatar mr-5px"></div>
+            <label class="font-weight-bold fs-12px mb-0px" style="color: #000000">
+              {{ creator.ProfileEntryResponse.Username }}
+            </label>
+          </div>
+          <label
+            *ngIf="!mobile"
+            class="cc-button-value text-align-center padding-left-10-perc fs-18px mb-0px"
+            style="color: #2d2d2d"
+          >
+            {{ globalVars.nanosToUSD(creator.ProfileEntryResponse.CoinPriceDeSoNanos, 2) }}
+          </label>
+          <span
+            class="cc-button-value font-weight-semiboldn padding-left-10-perc fs-18px mb-0px d-flex flex-center-start flex-row"
+            style="color: #2d2d2d"
+          >
+            {{
+              globalVars.usdYouWouldGetIfYouSoldDisplay(creator.BalanceNanos, creator.ProfileEntryResponse.CoinEntry)
+            }}
+          </span>
+          <img class="creator-coin-arrow" src="/assets/icons/chevron_right.svg" alt="arrow right" />
+        </button>
+      </div>
     </div>
-  </div>
-  <div *ngIf="tabEarnings" class="wallet-bottom-container px-10px pb-10px">
-    <div class="earnings-big-box d-flex flex-column flex-center w-100">
-      <div class="d-flex flex-column">
-        <h4 class="font-weight-semiboldn fs-24" style="color: #7b7b7b">ALL-TIME EARNINGS</h4>
-        <div class="d-flex flex-row flex-center">
-          <div class="wallet-earnings-avatar mr-20px" [avatar]="globalVars.loggedInUser.PublicKeyBase58Check"></div>
-          <div class="d-flex flex-column">
-            <label class="font-weight-semiboldn mb-0px fs-40px" style="color: #343434">4.35 $DESO</label>
-            <label class="fs-32px mtm-5px" style="color: #717171">$345.67</label>
+    <div *ngIf="tabEarnings" [@tabChangeAnimation] class="wallet-bottom-container">
+      <div class="earnings-big-box d-flex flex-column flex-center w-100">
+        <div class="d-flex flex-column">
+          <h4 class="fs-24 earnings-heading font-weight-semiboldn" style="color: #7b7b7b">ALL-TIME EARNINGS</h4>
+          <div class="d-flex flex-row flex-center">
+            <div class="wallet-earnings-avatar mr-20px" [avatar]="globalVars.loggedInUser.PublicKeyBase58Check"></div>
+            <div class="d-flex flex-column">
+              <label class="font-weight-semiboldn mb-0px fs-40px earnings-total-deso" style="color: #343434">
+                4.35 $DESO
+              </label>
+              <label class="fs-32px mtm-5px earnings-total-usd" style="color: #717171">$345.67</label>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="earnings-grid-container">
-      <div class="earnings-grid-item">
-        <div class="pr-20px d-flex flex-column flex-start-center">
-          <label class="font-weight-semiboldn fs-20px" style="color: #7b7b7b">NFT SALES</label>
-          <label class="font-weight-semiboldn mb-0px fs-32px" style="color: #343434">4.35 $DESO</label>
-          <label class="fs-26px" style="color: #717171">$345.67</label>
+      <div class="earnings-grid-container">
+        <div class="earnings-grid-item">
+          <div class="pr-20px d-flex flex-column flex-start-center">
+            <label class="font-weight-semiboldn fs-20px earnings-item-one" style="color: #7b7b7b">NFT SALES</label>
+            <label class="font-weight-semiboldn mb-0px fs-32px earnings-item-two" style="color: #343434">
+              4.35 $DESO
+            </label>
+            <label class="fs-26px earnings-item-three" style="color: #717171">$345.67</label>
+          </div>
         </div>
-      </div>
-      <div class="earnings-grid-item">
-        <div class="pr-20px d-flex flex-column flex-start-center">
-          <label class="font-weight-semiboldn fs-20px" style="color: #7b7b7b">NFT ROYALTIES</label>
-          <label class="font-weight-semiboldn mb-0px fs-32px" style="color: #343434">4.35 $DESO</label>
-          <label class="fs-26px" style="color: #717171">$345.67</label>
+        <div class="earnings-grid-item">
+          <div class="pr-20px d-flex flex-column flex-start-center">
+            <label class="font-weight-semiboldn fs-20px earnings-item-one" style="color: #7b7b7b">NFT ROYALTIES</label>
+            <label class="font-weight-semiboldn mb-0px fs-32px earnings-item-two" style="color: #343434">
+              4.35 $DESO
+            </label>
+            <label class="fs-26px earnings-item-three" style="color: #717171">$345.67</label>
+          </div>
         </div>
-      </div>
-      <div class="earnings-grid-item wallet-grid-item-bottom-left">
-        <div class="pr-20px d-flex flex-column flex-start-center">
-          <label class="font-weight-semiboldn fs-20px" style="color: #7b7b7b">FOUNDER REWARDS</label>
-          <label class="font-weight-semiboldn mb-0px fs-32px" style="color: #343434">4.35 $DESO</label>
-          <label class="fs-26px" style="color: #717171">$345.67</label>
+        <div class="earnings-grid-item wallet-grid-item-bottom-left">
+          <div class="pr-20px d-flex flex-column flex-start-center">
+            <label class="font-weight-semiboldn fs-20px earnings-item-one" style="color: #7b7b7b">
+              FOUNDER REWARDS
+            </label>
+            <label class="font-weight-semiboldn mb-0px fs-32px earnings-item-two" style="color: #343434">
+              4.35 $DESO
+            </label>
+            <label class="fs-26px earnings-item-three" style="color: #717171">$345.67</label>
+          </div>
         </div>
-      </div>
-      <div class="earnings-grid-item wallet-grid-item-bottom-right">
-        <div class="pr-20px d-flex flex-column flex-start-center">
-          <label class="font-weight-semiboldn fs-20px" style="color: #7b7b7b">DIAMONDS</label>
-          <label class="font-weight-semiboldn mb-0px fs-32px" style="color: #343434">4.35$DESO</label>
-          <label class="fs-26px" style="color: #717171">$345.67</label>
+        <div class="earnings-grid-item wallet-grid-item-bottom-right">
+          <div class="pr-20px d-flex flex-column flex-start-center">
+            <label class="font-weight-semiboldn fs-20px earnings-item-one" style="color: #7b7b7b">DIAMONDS</label>
+            <label class="font-weight-semiboldn mb-0px fs-32px earnings-item-two" style="color: #343434">
+              4.35$DESO
+            </label>
+            <label class="fs-26px earnings-item-three" style="color: #717171">$345.67</label>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<div class="bottom-bar-height" *ngIf="mobile"></div>

@@ -13,6 +13,7 @@ import { environment } from "src/environments/environment";
 @Component({
   selector: "wallet",
   templateUrl: "./wallet.component.html",
+  styleUrls: ["./wallet.component.scss"],
 })
 export class WalletComponent implements OnInit, OnDestroy {
   static PAGE_SIZE = 20;
@@ -20,12 +21,19 @@ export class WalletComponent implements OnInit, OnDestroy {
   static WINDOW_VIEWPORT = true;
   static PADDING = 0.5;
 
+  // Tab selector
+  tabDeso = false;
+  tabCreatorCoin = true;
+  tabEarnings = false;
+
   @Input() inTutorial: boolean;
 
   globalVars: GlobalVarsService;
   AppRoutingModule = AppRoutingModule;
   hasUnminedCreatorCoins: boolean;
   showTransferredCoins: boolean = false;
+
+  publicKeyCopied = false;
 
   sortedUSDValueFromHighToLow: number = 0;
   sortedPriceFromHighToLow: number = 0;
@@ -97,14 +105,15 @@ export class WalletComponent implements OnInit, OnDestroy {
         this.hasUnminedCreatorCoins = true;
       }
       // If you purchased the coin or the balance entry response if for your creator coin, show it in the purchased tab.
-      if (
+      /*if (
         balanceEntryResponse.HasPurchased ||
         balanceEntryResponse.HODLerPublicKeyBase58Check === balanceEntryResponse.CreatorPublicKeyBase58Check
       ) {
         this.usersYouPurchased.push(balanceEntryResponse);
       } else {
         this.usersYouReceived.push(balanceEntryResponse);
-      }
+      }*/
+      this.usersYouPurchased.push(balanceEntryResponse);
     });
     this.sortWallet("value");
     this._handleTabClick(WalletComponent.coinsPurchasedTab);
@@ -123,6 +132,13 @@ export class WalletComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+  copyPublicKey() {
+    this.publicKeyCopied = true;
+    this.globalVars._copyText(this.globalVars.loggedInUser.PublicKeyBase58Check);
+    setTimeout(() => {
+      this.publicKeyCopied = false;
+    }, 1500);
   }
 
   // Thanks to @brabenetz for the solution on forward padding with the ngx-ui-scroll component.
@@ -146,6 +162,7 @@ export class WalletComponent implements OnInit, OnDestroy {
           this.globalVars.desoNanosYouWouldGetIfYouSold(b.BalanceNanos, b.ProfileEntryResponse.CoinEntry))
       );
     });
+    console.log(hodlings);
   }
 
   // sort by coin price
@@ -210,7 +227,21 @@ export class WalletComponent implements OnInit, OnDestroy {
 
     return result;
   }
-
+  tabDesoClick() {
+    this.tabDeso = true;
+    this.tabCreatorCoin = false;
+    this.tabEarnings = false;
+  }
+  tabCreatorCoinClick() {
+    this.tabCreatorCoin = true;
+    this.tabDeso = false;
+    this.tabEarnings = false;
+  }
+  tabEarningsClick() {
+    this.tabEarnings = true;
+    this.tabCreatorCoin = false;
+    this.tabDeso = false;
+  }
   unminedDeSoToolTip() {
     return (
       "Mining in progress. Feel free to transact in the meantime.\n\n" +

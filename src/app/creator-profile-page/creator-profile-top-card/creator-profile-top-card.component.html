@@ -131,7 +131,7 @@
     <h6>BIO</h6>
     <p [innerHTML]="profile.Description | sanitizeAndAutoLink"></p>
     <div class="socials-column w-10">
-      <div
+      <!-- <div
         *ngIf="!profileBelongsToLoggedInUser() && globalVars.loggedInUser"
         class="fs-15px follow_ellips"
         dropdown
@@ -163,7 +163,7 @@
             {{ globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check) ? "Unblock" : "Block" }} User
           </a>
         </div>
-      </div>
+      </div> -->
       <a
         *ngIf="profileData?.website"
         href="https://{{ trimURL(profileData.website) }}"

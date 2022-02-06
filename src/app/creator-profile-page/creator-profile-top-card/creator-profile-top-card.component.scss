@@ -256,6 +256,11 @@
             img {
                 margin-right: 1.3em;
             }
+            @media (max-width: 767px) {
+                width: 100%;
+                margin-top: 2em;
+                display: block;
+            }
         }
     }
     .link-to-website {
@@ -420,6 +425,19 @@
     /* box-shadow: 0.7604753971px 0.7604753971px 3.8023767471px rgba(0, 0, 0, 0.25); */
     color: #9B9B9B;
     font-weight: 500;
+    @media (max-width: 767px) {     
+        display: inline-flex;
+        margin-top: 10px;
+        text-align: center;
+        color: #9B9B9B;
+        font-weight: 500;
+        padding: 1em;
+        background: white;
+        border-radius: 2em;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 25px 50px -12px;
+        margin-right: 10px;
+    }
+
 }
 .social-link-div:hover {
     color: #737373;

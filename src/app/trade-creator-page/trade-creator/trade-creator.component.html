@@ -5,27 +5,29 @@
   class="d-flex flex-center flex-column mt-20px"
 >
   <div [avatar]="creatorProfile.PublicKeyBase58Check" class="trade-creator-avatar"></div>
-  <h3 class="font-weight-semiboldn fs-38px mt-20px" style="color: #0d0d0d">${{ creatorProfile.Username }} coin</h3>
+  <h3 class="font-weight-semiboldn trade-creator-name-heading mt-20px" style="color: #0d0d0d">
+    ${{ creatorProfile.Username }} coin
+  </h3>
   <div class="d-flex flex-row mt-10px">
-    <span class="fs-32px font-weight-semiboldn" style="color: #9c9c9c">
+    <span class="trade-creator-price-heading font-weight-semiboldn" style="color: #9c9c9c">
       {{ globalVars.nanosToUSD(creatorProfile.CoinPriceDeSoNanos, 2) }}
     </span>
-    <span class="fs-28px pl-5px pt-5px" style="color: #8a8a8a">Coin price</span>
+    <span class="trade-creator-coin-price-heading pl-5px" style="color: #8a8a8a">Coin price</span>
   </div>
   <div class="trade-creator-actions-wrapper mt-20px d-flex flex-column flex-center">
     <div class="trade-creator-tab-selector d-flex flex-center px-10px mt-5px">
       <button (click)="tabBuyClick()" class="br-top-left-30px font-weight-semiboldn" [ngClass]="{ active: tabBuy }">
-        <label *ngIf="!mobile" class="mb-0px pl-5px">Buy</label>
+        <label class="mb-0px pl-5px">Buy</label>
       </button>
       <button (click)="tabSellClick()" class="font-weight-semiboldn" [ngClass]="{ active: tabSell }">
-        <label *ngIf="!mobile" class="mb-0px pl-5px">Sell</label>
+        <label class="mb-0px pl-5px">Sell</label>
       </button>
       <button
         (click)="tabTransferClick()"
         class="br-top-right-30px font-weight-semiboldn"
         [ngClass]="{ active: tabTransfer }"
       >
-        <label *ngIf="!mobile" class="mb-0px pl-5px">Transfer</label>
+        <label class="mb-0px pl-5px">Transfer</label>
       </button>
     </div>
     <app-trade-creator-buy *ngIf="tabBuy" class="w-100 h-100 pb-10px d-flex flex-center"></app-trade-creator-buy>

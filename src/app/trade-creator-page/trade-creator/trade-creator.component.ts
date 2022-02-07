@@ -48,8 +48,8 @@ export class TradeCreatorComponent implements OnInit {
   investInYourself: boolean = false;
 
   // NEW UI
-  tabBuy = true;
-  tabSell = false;
+  tabBuy = false;
+  tabSell = true;
   tabTransfer = false;
 
   mobile = false;

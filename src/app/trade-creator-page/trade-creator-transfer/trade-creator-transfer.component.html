@@ -1,1 +1,38 @@
-<p>trade-creator-transfer works!</p>
+<div class="trade-creator-buy-wrapper position-relative d-flex flex-column flex-center-start w-100 h-100">
+  <div class="trade-creator-spacer"></div>
+  <label class="trade-creator-coins-to-transfer">COINS TO TRANSFER</label>
+  <div class="position-relative trade-creator-input-container d-flex flex-row flex-start w-90 mt-10px">
+    <input
+      matInput
+      type="number"
+      placeholder="0"
+      class="pl-10px color-text font-weight-bold flex-center pr-10px trade-creator-input m-0px h-100 w-80"
+    />
+    <!-- Problems with other elements than button -->
+    <button class="trade-creator-input-label h-100 pt-5px">
+      <div
+        [avatar]="'BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w'"
+        class="trade-creator-transfer-avatar"
+      ></div>
+    </button>
+  </div>
+  <label class="trade-creator-coins-to-transfer mt-20px">TRANSFER TO</label>
+  <search-bar
+    class="sb w-90 mt-10px"
+    [showCloutavista]="false"
+    [isSearchForUsersToSendDESO]="true"
+    [sickSearchBar]="true"
+  ></search-bar>
+  <div class="trade-creator-spacer"></div>
+  <div class="trade-creator-coin-info-box d-flex flex-center flex-column">
+    <div class="coin-info-box-top">
+      <span class="you-receive">You are transferring</span>
+      <span class="amount-of-coins font-weight-semiboldn">123 $Juvonen coins</span>
+    </div>
+    <div class="coin-info-box-bottom">
+      <span class="network-fees">Network fees</span>
+      <span class="amount-of-coins font-weight-semiboldn">0.00 $DESO</span>
+    </div>
+  </div>
+  <button class="black-rounded-button mt-20px trade-creator-button">Buy</button>
+</div>

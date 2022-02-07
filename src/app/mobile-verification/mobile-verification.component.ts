@@ -10,7 +10,8 @@ import { IdentityService } from "../identity.service";
 
 import { ActivatedRoute, Router } from "@angular/router";
 import { AppRoutingModule, RouteNames } from "../app-routing.module";
-import { $ } from "protractor";
+// import { $ } from "protractor";
+declare var $: any;
 
 @Component({
   selector: "app-mobile-verification",
@@ -345,8 +346,9 @@ export class MobileVerificationComponent implements OnInit {
 
     console.log(` ----------------- phone input clicked ----------------- `);
     // this.countrySearchBox.addEventListener("change", this.keepScrollLocked);
-    $("#country-search-box").on("keydown", function () {
+    $("#country-search-box").on("keyup input", function () {
       console.log(`jquery hit`);
+      window.scrollTo(0, 0);
     });
   }
 

@@ -6,7 +6,7 @@
   >
     <div
       class="d-flex h-100 tabs_column_list_inner align-items-center fs-15px pr-35px pl-35px"
-      [ngClass]="{ 'fc-default': tab == this.activeTab, 'tab-box-active': tab == this.activeTab, 'fc-muted': tab != this.activeTab }"
+      [ngClass]="{ 'fc-default': tab == this.activeTab, 'tab-box-active': tab == this.activeTab, 'fc-muted': tab != this.activeTab}"
     >
       {{ tab }}
       <div *ngIf="_isGlobal(tab)" class="bitclout-com">BITCLOUT.COM</div>

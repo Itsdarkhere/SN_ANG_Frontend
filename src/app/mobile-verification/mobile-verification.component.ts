@@ -10,8 +10,6 @@ import { IdentityService } from "../identity.service";
 
 import { ActivatedRoute, Router } from "@angular/router";
 import { AppRoutingModule, RouteNames } from "../app-routing.module";
-// import { $ } from "protractor";
-declare var $: any;
 
 @Component({
   selector: "app-mobile-verification",
@@ -345,22 +343,16 @@ export class MobileVerificationComponent implements OnInit {
     this.phoneInputClickedBlackBorder();
 
     console.log(` ----------------- phone input clicked ----------------- `);
-    // this.countrySearchBox.addEventListener("change", this.keepScrollLocked);
-    $("#country-search-box").on("keyup input", function () {
-      console.log(`jquery hit`);
-      window.scrollTo(0, 0);
-    });
+    this.countrySearchBox.addEventListener("keydown", this.keepScrollLocked);
   }
 
   keepScrollLocked() {
     console.log(" ------------------- keep scroll locked function hit ------------------- ");
     // have to define again since it cannot read from previous function
 
-    // var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");
-    // signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
-    // console.log(signupBodyContainerElement);
-
-    window.scrollTo(0, 0);
+    var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");
+    signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+    console.log(signupBodyContainerElement);
   }
 
   verifyPhoneNumberClicked() {

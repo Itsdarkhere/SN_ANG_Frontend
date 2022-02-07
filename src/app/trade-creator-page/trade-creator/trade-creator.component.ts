@@ -233,7 +233,7 @@ export class TradeCreatorComponent implements OnInit {
   onResize() {
     this.setMobileBasedOnViewport();
   }
-  
+
   setUpBuyTutorial(): void {
     let balance = this.appData.loggedInUser?.BalanceNanos;
     const jumioDeSoNanos = this.appData.jumioDeSoNanos > 0 ? this.appData.jumioDeSoNanos : 1e8;

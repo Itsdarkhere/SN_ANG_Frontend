@@ -197,6 +197,9 @@ import { CompleteProfileComponent } from "./update-profile-page/complete-profile
 import { TradeCreatorBuyComponent } from './trade-creator-page/trade-creator-buy/trade-creator-buy.component';
 import { TradeCreatorSellComponent } from './trade-creator-page/trade-creator-sell/trade-creator-sell.component';
 import { TradeCreatorTransferComponent } from './trade-creator-page/trade-creator-transfer/trade-creator-transfer.component';
+import { BuyDesoComponent } from './transfer-deso/buy-deso/buy-deso.component';
+import { SellDesoComponent } from './transfer-deso/sell-deso/sell-deso.component';
+import { TransferDesoComponent } from './transfer-deso/transfer-deso/transfer-deso.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -368,6 +371,9 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     TradeCreatorBuyComponent,
     TradeCreatorSellComponent,
     TradeCreatorTransferComponent,
+    BuyDesoComponent,
+    SellDesoComponent,
+    TransferDesoComponent,
   ],
   imports: [
     BrowserModule,

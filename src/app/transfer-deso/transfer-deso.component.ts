@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, HostListener } from "@angular/core";
 import { BackendApiService, ProfileEntryResponse } from "../backend-api.service";
 import { GlobalVarsService } from "../global-vars.service";
 import { sprintf } from "sprintf-js";
@@ -41,6 +41,13 @@ export class TransferDeSoComponent implements OnInit {
 
   sendDeSoQRCode: string;
 
+  // NEW UI
+  tabBuy = true;
+  tabSell = false;
+  tabTransfer = false;
+
+  mobile = false;
+
   constructor(
     private backendApi: BackendApiService,
     private globalVarsService: GlobalVarsService,
@@ -55,12 +62,38 @@ export class TransferDeSoComponent implements OnInit {
     });
   }
 
+  tabBuyClick() {
+    this.tabBuy = true;
+    this.tabSell = false;
+    this.tabTransfer = false;
+  }
+  tabSellClick() {
+    this.tabBuy = false;
+    this.tabSell = true;
+    this.tabTransfer = false;
+  }
+  tabTransferClick() {
+    this.tabBuy = false;
+    this.tabSell = false;
+    this.tabTransfer = true;
+  }
+
   ngOnInit() {
+    this.setMobileBasedOnViewport();
     this.feeRateDeSoPerKB = (this.globalVars.defaultFeeRateNanosPerKB / 1e9).toFixed(9);
     this.titleService.setTitle(`Send $DESO - ${environment.node.name}`);
-    this.sendDeSoQRCode = `${this.backendApi._makeRequestURL(location.host, "/" + RouteNames.SEND_DESO)}?public_key=${
+    this.sendDeSoQRCode = `${this.backendApi._makeRequestURL(location.host, "/" + RouteNames.DESO_PAGE)}?public_key=${
       this.globalVars.loggedInUser.PublicKeyBase58Check
     }`;
+  }
+
+  setMobileBasedOnViewport() {
+    this.mobile = this.globalVars.isMobile();
+  }
+
+  @HostListener("window:resize")
+  onResize() {
+    this.setMobileBasedOnViewport();
   }
 
   _clickMaxDeSo() {
@@ -172,13 +205,8 @@ export class TransferDeSoComponent implements OnInit {
               )
               .subscribe(
                 (res: any) => {
-                  const {
-                    TotalInputNanos,
-                    SpendAmountNanos,
-                    ChangeAmountNanos,
-                    FeeNanos,
-                    TransactionIDBase58Check,
-                  } = res;
+                  const { TotalInputNanos, SpendAmountNanos, ChangeAmountNanos, FeeNanos, TransactionIDBase58Check } =
+                    res;
 
                   if (res == null || FeeNanos == null || SpendAmountNanos == null || TransactionIDBase58Check == null) {
                     this.globalVars.logEvent("bitpop : send : error");

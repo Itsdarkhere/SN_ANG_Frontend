@@ -10,6 +10,7 @@
 .signup-body-container {
   height: calc(var(--pixelHeight) - 60px);
   position: fixed;
+  background-color: #f5f5f5;
 }
 .signup-center {
   background: #ffffff;
@@ -159,6 +160,7 @@
   position: relative;
   margin-bottom: 20px;
   margin-left: 2.5vw;
+  margin-right: 2.5vw;
 }
 
 .flex-center-mobile {

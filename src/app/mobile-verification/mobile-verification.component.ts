@@ -68,6 +68,7 @@ export class MobileVerificationComponent implements OnInit {
   wantToVerifyPhoneClicked = false;
 
   phoneInputElement: any;
+  countrySearchBox: any;
 
   //isPhoneNumberVerificationTextServerErrorFree: boolean;
 
@@ -337,11 +338,17 @@ export class MobileVerificationComponent implements OnInit {
 
   phoneInputClicked() {
     this.phoneInputElement = <HTMLInputElement>document.getElementById("phone");
+    this.countrySearchBox = <HTMLInputElement>document.getElementById("country-search-box");
 
     this.phoneInputClickedBlackBorder();
 
     console.log(` ----------------- phone input clicked ----------------- `);
-    this.phoneInputElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+    this.countrySearchBox.addEventListener("keyup", this.keepScrollLocked);
+  }
+
+  keepScrollLocked() {
+    console.log(" ------------------- keep scroll locked function hit ------------------- ");
+    this.countrySearchBox.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
   }
 
   verifyPhoneNumberClicked() {

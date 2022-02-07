@@ -69,21 +69,21 @@ export class SignupPageComponent implements OnInit {
     });
   }
 
+  emailAddressInputClicked() {
+    console.log(` -------------- email address clicked --------------- `);
+  }
+
   verifyEmailClicked() {
     this.startedEnteringEmail = true;
-    var emailAddress = (<HTMLInputElement>document.getElementById("step3EmailAddress")).value;
-    console.log(` --------- verifyEmailClicked and emailAddress is ${emailAddress}`);
-
-    console.log(this.globalVars.emailRegExTest.test(emailAddress));
+    var emailAddressElement = <HTMLInputElement>document.getElementById("step3EmailAddress");
+    var emailAddress = emailAddressElement.value;
 
     if (this.globalVars.emailRegExTest.test(emailAddress)) {
       this.invalidEmailEntered = false;
       this.nextStep();
-    } else if (emailAddress === "") {
-      this.invalidEmailEntered = true;
-      return;
     } else {
       this.invalidEmailEntered = true;
+      emailAddressElement.style.border = "1px solid red";
       return;
     }
   }

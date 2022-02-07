@@ -111,6 +111,10 @@
   font-size: 11px;
 }
 
+#step3EmailAddress:focus {
+  border: 1px solid black;
+}
+
 .fc-success {
   color: green;
 }

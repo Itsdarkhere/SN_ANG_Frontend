@@ -9,6 +9,7 @@
 }
 .signup-body-container {
   height: calc(var(--pixelHeight) - 60px);
+  max-height: 100vh;
 }
 .signup-center {
   background: #ffffff;

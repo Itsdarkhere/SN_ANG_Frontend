@@ -39,8 +39,14 @@ form {
         background-color: rgb(226, 226, 226);
     }
 
-    i {
-        font-size: 15px; // update to appropriate variable
+    input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%; 
+        opacity: 0; 
+        cursor: pointer; 
     }
 
     h2 {

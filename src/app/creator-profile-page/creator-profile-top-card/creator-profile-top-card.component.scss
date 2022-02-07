@@ -54,12 +54,20 @@
                 font-size: 24px;
                 @media (max-width: 767px) {
                     font-size: 22px;
-                    color: var(--link);
+                    // color: var(--link);
+                }
+                @media (max-width: 700px) {
+                    font-size: 18px;
+                    // color: var(--link);
                 }
             }
             &.primary-name {
                 color: var(--light);
                 font-size: 42px;
+                @media (max-width: 700px) {
+                    font-size: 28px;
+                    // color: var(--link);
+                }
             }
         }
 
@@ -93,6 +101,10 @@
                 background: #2749f0;
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
+            }
+            @media (max-width: 700px) {
+                font-size: 18px;
+                // color: var(--link);
             }
         }
         
@@ -245,6 +257,12 @@
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
             }
+            @media (max-width: 767px) {
+                width: 90%;
+                font-size: 16px;
+                /* line-height: 1.67; */
+                color: #3D3D3D;
+            }
         }
         .socials-column {
             width: 25%;
@@ -330,7 +348,7 @@
         border-radius: 1em;
         position: absolute;
         right: -2em;
-        box-shadow: 0px 4px 14px #000000;
+        box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.3);
         font-family: Poppins;
         font-style: normal;
         font-weight: 500;
@@ -358,7 +376,7 @@
         width: 12.5em;
         position: absolute;
         right: -5em;
-        box-shadow: 0px 4px 14px #000000;
+        box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.3);
         font-family: Poppins;
         font-style: normal;
         font-weight: 500;
@@ -385,7 +403,7 @@
         border-radius: 1em;
         position: absolute;
         right: -2.6em;
-        box-shadow: 0px 4px 14px #000000;
+        box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.3);
         font-family: Poppins;
         font-style: normal;
         font-weight: 500;
@@ -410,6 +428,7 @@
     @media (max-width: 700px) {
         flex-direction: column;
         align-items: flex-start;
+        margin-top: -47px;
     }
 }
 .social-link-div {

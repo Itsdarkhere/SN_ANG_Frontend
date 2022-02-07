@@ -349,8 +349,9 @@ export class MobileVerificationComponent implements OnInit {
   keepScrollLocked() {
     console.log(" ------------------- keep scroll locked function hit ------------------- ");
     // have to define again since it cannot read from previous function
-    this.countrySearchBox = <HTMLInputElement>document.getElementById("country-search-box");
-    this.countrySearchBox.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+    var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");
+    signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+    console.log(signupBodyContainerElement);
   }
 
   verifyPhoneNumberClicked() {

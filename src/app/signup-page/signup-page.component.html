@@ -172,7 +172,11 @@
       </a>
     </header>
   </div>
-  <div *ngIf="this.globalVars.isMobile()" class="signup-body-container flex-center-mobile">
+  <div
+    *ngIf="this.globalVars.isMobile()"
+    class="signup-body-container flex-center-mobile"
+    id="signup-body-container-scroll-lock"
+  >
     <div
       *ngIf="stepNum === 1 || !globalVars.loggedInUser?.PublicKeyBase58Check"
       class="signup-center-mobile d-flex flex-column flex-center"

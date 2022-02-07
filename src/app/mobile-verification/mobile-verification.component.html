@@ -11,7 +11,7 @@
     class="form-group mt-5px"
   >
     <div class="mobile-verification-input-button-one mt-20px">
-      <ngx-intl-tel-input
+      <!-- <ngx-intl-tel-input
         style="font-size: 15px !important"
         [cssClass]="'form-control mobile-input sign-up__phone-input'"
         [separateDialCode]="true"
@@ -26,6 +26,22 @@
         name="phone"
         formControlName="phone"
         id="enter-phone-number"
+      ></ngx-intl-tel-input> -->
+      <ngx-intl-tel-input
+        style="font-size: 15px !important"
+        [cssClass]="'form-control mobile-input sign-up__phone-input'"
+        [separateDialCode]="true"
+        [enableAutoCountrySelect]="true"
+        [enablePlaceholder]="true"
+        [searchCountryFlag]="true"
+        [selectFirstCountry]="false"
+        [selectedCountryISO]="CountryISO.UnitedStates"
+        [maxLength]="15"
+        [phoneValidation]="true"
+        (ngModelChange)="updateWantToVerifyPhoneClicked()"
+        name="phone"
+        formControlName="phone"
+        (click)="phoneInputClicked()"
       ></ngx-intl-tel-input>
       <div class="w-100 d-flex flex-center phone-number-text-block">
         <!-- <button
@@ -35,7 +51,7 @@
         > -->
         <div class="signup-window-btn-mobile">
           <button
-            (click)="sendVerificationText()"
+            (click)="verifyPhoneNumberClicked()"
             class="black-rounded-button basic-button-size color-white fs-15px font-weight-bold"
             type="button"
             id="create-profile-button"
@@ -53,7 +69,7 @@
     </div>
     <div class="fc-red fs-15px">
       <!-- if this.phoneForm.value.phone && this.phoneForm.invalid -->
-      <div *ngIf="f.form.value.phone && f.form.controls.phone.invalid" class="mt-10px">
+      <div *ngIf="wantToVerifyPhoneClicked && f.form.value.phone && f.form.controls.phone.invalid" class="mt-10px">
         Please enter a valid phone number
       </div>
 

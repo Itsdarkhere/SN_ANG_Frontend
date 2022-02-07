@@ -65,6 +65,9 @@ export class MobileVerificationComponent implements OnInit {
   //   digitCounterString: string;
   verificationCodeString: string;
   verificationCodeCorrectLength: boolean;
+  wantToVerifyPhoneClicked = false;
+
+  phoneInputElement: any;
 
   //isPhoneNumberVerificationTextServerErrorFree: boolean;
 
@@ -306,10 +309,56 @@ export class MobileVerificationComponent implements OnInit {
     this.screenToShow = MobileVerificationComponent.CREATE_PHONE_NUMBER_VERIFICATION_SCREEN;
   }
 
+  updateWantToVerifyPhoneClicked() {
+    this.wantToVerifyPhoneClicked = false;
+  }
+
+  phoneInputClickedBlackBorder() {
+    this.phoneInputElement.setAttribute("style", "border:1px solid black !important");
+    console.log(this.phoneInputElement.style.border);
+
+    this.phoneInputElement.style.boxShadow = "none";
+    console.log(this.phoneInputElement.style.boxShadow);
+  }
+
+  phoneInputClickedRedBorder() {
+    this.phoneInputElement.setAttribute("style", "border:1px solid red !important");
+    console.log(this.phoneInputElement.style.border);
+
+    this.phoneInputElement.style.boxShadow = "none";
+    console.log(this.phoneInputElement.style.boxShadow);
+  }
+
+  phoneInputClicked() {
+    this.phoneInputElement = <HTMLInputElement>document.getElementById("phone");
+
+    this.phoneInputClickedBlackBorder();
+  }
+
+  verifyPhoneNumberClicked() {
+    this.wantToVerifyPhoneClicked = true;
+
+    //   initialize check error function
+    this.sendPhoneNumberVerificationTextServerErrors = new SendPhoneNumberVerificationTextServerErrors();
+
+    // adding in case the user clicks the button before the input
+    this.phoneInputElement = <HTMLInputElement>document.getElementById("phone");
+
+    this.sendVerificationText();
+  }
+
   sendVerificationText() {
     console.log("NEXT STEP");
     if (this.phoneForm.invalid) {
+      console.log(` ------------------ phoneForm.value.phone ${this.phoneForm.value.phone}`);
+      // if the user hasn't typed anything and have clicked the submit button set the value to a space so it returns the error for the user
+      if (this.phoneForm.value.phone === null) {
+        this.phoneForm.value.phone = " ";
+      }
       console.log("Invalid");
+
+      this.phoneInputClickedRedBorder();
+
       return;
     }
     this.verificationStep = true;
@@ -375,9 +424,9 @@ export class MobileVerificationComponent implements OnInit {
     this.skipButtonClicked.emit();
   }
 
-  onPhoneNumberInputChanged() {
-    this.sendPhoneNumberVerificationTextServerErrors = new SendPhoneNumberVerificationTextServerErrors();
-  }
+  //   onPhoneNumberInputChanged() {
+  //     this.sendPhoneNumberVerificationTextServerErrors = new SendPhoneNumberVerificationTextServerErrors();
+  //   }
 
   onVerificationCodeInputChanged() {
     this.submitPhoneNumberVerificationCodeServerErrors = new SubmitPhoneNumberVerificationCodeServerErrors();
@@ -437,6 +486,7 @@ export class MobileVerificationComponent implements OnInit {
         "Error sending phone number verification text: " + this.backendApi.stringifyError(err)
       );
     }
+    this.phoneInputClickedRedBorder();
   }
 
   _parseSubmitPhoneNumberVerificationCodeServerErrors(err) {

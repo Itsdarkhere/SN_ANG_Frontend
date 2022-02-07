@@ -76,6 +76,14 @@ button-solid:focus {
   vertical-align: center;
 }
 
+.phone-input-border {
+  border: 1px solid black !important;
+}
+
+.phone-input-border:hover {
+  border: 1px solid black !important;
+}
+
 // phone verification digits -----------------------------------
 
 .digit {
@@ -155,6 +163,14 @@ button-solid:focus {
   font-weight: bold;
 }
 
+#phone {
+  border: 1px solid black !important;
+}
+
+// #phone:hover {
+//   border: 1px solid black !important;
+// }
+
 @media screen and (max-width: 480px) {
   #create-profile-button {
     width: 300px !important;
@@ -173,7 +189,7 @@ button-solid:focus {
     flex-direction: column;
   }
 
-  #enter-phone-number {
+  #phone {
     width: 315px;
   }
 

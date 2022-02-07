@@ -343,11 +343,13 @@ export class MobileVerificationComponent implements OnInit {
     this.phoneInputClickedBlackBorder();
 
     console.log(` ----------------- phone input clicked ----------------- `);
-    this.countrySearchBox.addEventListener("keyup", this.keepScrollLocked);
+    this.countrySearchBox.addEventListener("keydown", this.keepScrollLocked);
   }
 
   keepScrollLocked() {
     console.log(" ------------------- keep scroll locked function hit ------------------- ");
+    // have to define again since it cannot read from previous function
+    this.countrySearchBox = <HTMLInputElement>document.getElementById("country-search-box");
     this.countrySearchBox.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
   }
 

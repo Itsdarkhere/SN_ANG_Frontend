@@ -32,15 +32,19 @@ form {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #F2F2F2; // update to appropriate variable
+    background-color: rgba(242, 242, 242, 1.0); // update to appropriate variable
     border-radius: 15px 15px 0 0; // update to appropriate variable
+
+    &:hover {
+        background-color: rgb(226, 226, 226);
+    }
 
     i {
         font-size: 15px; // update to appropriate variable
     }
 
     h2 {
-        padding: 8px 0;
+        padding: 8px 10px;
         font-size: 1rem; // update to appropriate variable
         font-weight: 500; // update to appropriate variable
         color: #7D7D7D; // update to appropriate variable
@@ -52,7 +56,11 @@ form {
         color: #7D7D7D; // update to appropriate variable
     }
 
-    img {
+    .collection-details-header-h2 {
+        display: flex;
+    }
+
+    .profile-image {
         position: absolute;
         height: 70px; // adjust after linking data
         width: 70px; // adjust after linking data
@@ -60,6 +68,11 @@ form {
         bottom: -10px;
         border: 2px solid white;
         border-radius: 10px;
+    }
+
+    .upload-icon {
+        height: 20px;
+        width: 20px;
     }
 }
 

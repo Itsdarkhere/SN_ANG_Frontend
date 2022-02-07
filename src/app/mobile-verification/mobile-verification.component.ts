@@ -339,6 +339,9 @@ export class MobileVerificationComponent implements OnInit {
     this.phoneInputElement = <HTMLInputElement>document.getElementById("phone");
 
     this.phoneInputClickedBlackBorder();
+
+    console.log(` ----------------- phone input clicked ----------------- `);
+    this.phoneInputElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
   }
 
   verifyPhoneNumberClicked() {

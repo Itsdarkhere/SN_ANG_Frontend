@@ -89,6 +89,12 @@ export class MobileVerificationComponent implements OnInit {
     this.verificationCodeCorrectLength = false;
   }
 
+  clickOutsideEventFunction(event: any) {
+    console.log(` ---------- click outside event ------------- `);
+    this.phoneInputElement = <HTMLInputElement>document.getElementById("phone");
+    this.phoneInputElement.setAttribute("style", "border:1px solid #e5e5e5 !important");
+  }
+
   _nextStep(verify: boolean) {
     if (verify) {
       this.globalVars.wantToVerifyPhone = true;

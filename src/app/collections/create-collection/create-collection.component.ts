@@ -10,15 +10,11 @@ export class CreateCollectionComponent {
   constructor(private fb: FormBuilder) { }
 
   createCollectionForm = this.fb.group({
-    views: this.fb.array([
-      this.fb.group({
-        collectionName: ["", Validators.required],
-        collectionDescription: [""],
-        collectionBannerImage: [""]
-      }),
-      this.fb.group({
-  
-      })
+    collectionName: ["", Validators.required],
+    collectionDescription: [""],
+    collectionBannerImage: [""], 
+    collectionSelections: this.fb.array([
+
     ])
-  });      
+  });
 }

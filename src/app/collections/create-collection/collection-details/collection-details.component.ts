@@ -7,6 +7,9 @@ import { FormGroup, FormGroupDirective } from '@angular/forms';
   styleUrls: ['./collection-details.component.scss']
 })
 export class CollectionDetailsComponent implements OnInit {
+
+  @Input() createCollectionForm: FormGroup;
+  
   // constructor(private rootForm: FormGroupDirective) { }
   
   // Nested child form group from root createCollectionForm

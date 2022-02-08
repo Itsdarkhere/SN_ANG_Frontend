@@ -360,14 +360,6 @@ export class AppComponent implements OnInit {
 
     // get LoggedInUser
     this._updateTopLevelData();
-
-    if (this.globalVars.isMobileIphone()) {
-      // testing closing the mobile nav on page load
-      this.globalVars.isLeftBarMobileOpen = false;
-      console.log(
-        ` -------------------- on app load set mobile nav to ${this.globalVars.isLeftBarMobileOpen} --------------- `
-      );
-    }
   }
   loadApp() {
     this.identityService.identityServiceUsers = this.backendApi.GetStorage(this.backendApi.IdentityUsersKey) || {};

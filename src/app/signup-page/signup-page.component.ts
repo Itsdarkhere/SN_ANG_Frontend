@@ -207,6 +207,13 @@ export class SignupPageComponent implements OnInit {
       this.updateProfileType();
       if (this.globalVars.wantToVerifyPhone === false) {
         this.SendStepFourEvent();
+
+        if (this.globalVars.isMobileIphone()) {
+          // testing closing the mobile nav on page load
+          this.globalVars.isLeftBarMobileOpen = false;
+          console.log(` -------------------- on click skip ${this.globalVars.isLeftBarMobileOpen} --------------- `);
+        }
+
         this.router.navigate([RouteNames.COMPLETE_PROFILE]);
       }
 

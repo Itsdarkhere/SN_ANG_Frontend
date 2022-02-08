@@ -33,10 +33,10 @@ export class CompleteProfileComponent {
       this.router.navigate([RouteNames.UPDATE_PROFILE]);
     }
 
-    if (this.globalVars.isMobileIphone()) {
-      // testing closing the mobile nav on page load
-      this.globalVars.isLeftBarMobileOpen = false;
-    }
+    // if (this.globalVars.isMobileIphone()) {
+    //   // testing closing the mobile nav on page load
+    //   this.globalVars.isLeftBarMobileOpen = false;
+    // }
   }
 
   // rounded to nearest integer

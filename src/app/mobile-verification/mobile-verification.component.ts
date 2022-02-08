@@ -356,16 +356,16 @@ export class MobileVerificationComponent implements OnInit {
   }
 
   keepScrollLocked() {
-    console.log(" ------------------- timeout with scrollTo ------------------- ");
+    console.log(" ------------------- scrollIntoView with ngx-intl-tel-input code commented out ------------------- ");
     // have to define again since it cannot read from previous function
 
-    // var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");
-    // signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
-    // console.log(signupBodyContainerElement);
+    var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");
+    signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+    console.log(signupBodyContainerElement);
 
-    window.setTimeout(function () {
-      window.scrollTo(0, 0);
-    }, 0);
+    // window.setTimeout(function () {
+    //   window.scrollTo(0, 0);
+    // }, 0);
   }
 
   verifyPhoneNumberClicked() {

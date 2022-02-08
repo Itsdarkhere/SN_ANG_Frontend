@@ -208,6 +208,7 @@ import { CreateCollectionComponent } from './collections/create-collection/creat
 import { CollectionSuccessComponent } from './collections/create-collection/collection-success/collection-success.component';
 import { CollectionSelectionsComponent } from './collections/create-collection/collection-selections/collection-selections.component';
 import { CollectionDetailsComponent } from './collections/create-collection/collection-details/collection-details.component';
+import { CollectionStepperComponent } from './collections/create-collection/collection-stepper/collection-stepper.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -389,6 +390,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     CollectionSuccessComponent,
     CollectionSelectionsComponent,
     CollectionDetailsComponent,
+    CollectionStepperComponent,
   ],
   imports: [
     BrowserModule,

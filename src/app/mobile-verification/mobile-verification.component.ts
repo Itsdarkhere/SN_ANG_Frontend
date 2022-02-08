@@ -362,8 +362,11 @@ export class MobileVerificationComponent implements OnInit {
   }
 
   keepScrollLocked() {
-    console.log(" ------------------- first keyup event changed to null ------------------- ");
-    // have to define again since it cannot read from previous function
+    this.countrySearchBox.keyup = null;
+
+    console.log(
+      ` ----------------------- keepScrollLocked function fired. keyup event is ${this.countrySearchBox.keyup}`
+    );
 
     var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");
     signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });

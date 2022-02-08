@@ -351,6 +351,10 @@ export class MobileVerificationComponent implements OnInit {
     if (this.globalVars.isMobileIphone()) {
       this.countrySearchBox.keyup = null;
 
+      console.log(
+        ` ----------------------- this.countrySearchBox.keyup should be null. is it? ${this.countrySearchBox.keyup}`
+      );
+
       this.countrySearchBox.addEventListener("keyup", this.keepScrollLocked);
       // touchend is a backup
       // this.countrySearchBox.addEventListener("touchend", this.keepScrollLocked);

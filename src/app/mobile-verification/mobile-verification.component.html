@@ -30,27 +30,27 @@
   ></ngx-intl-tel-input> -->
 
       <!-- kyle's modified code -->
-      <!-- <ngx-intl-tel-input
-    style="font-size: 15px !important"
-    [cssClass]="'form-control mobile-input sign-up__phone-input'"
-    [separateDialCode]="true"
-    [enableAutoCountrySelect]="true"
-    [enablePlaceholder]="true"
-    [searchCountryFlag]="true"
-    [selectFirstCountry]="false"
-    [selectedCountryISO]="CountryISO.UnitedStates"
-    [maxLength]="15"
-    [phoneValidation]="true"
-    (ngModelChange)="updateWantToVerifyPhoneClicked()"
-    name="phone"
-    formControlName="phone"
-    (click)="phoneInputClicked()"
-    [clickOutside]
-    (clickOutside)="clickOutsideEventFunction($event)"
-  ></ngx-intl-tel-input> -->
+      <ngx-intl-tel-input
+        style="font-size: 15px !important"
+        [cssClass]="'form-control mobile-input sign-up__phone-input'"
+        [separateDialCode]="true"
+        [enableAutoCountrySelect]="true"
+        [enablePlaceholder]="true"
+        [searchCountryFlag]="true"
+        [selectFirstCountry]="false"
+        [selectedCountryISO]="CountryISO.UnitedStates"
+        [maxLength]="15"
+        [phoneValidation]="true"
+        (ngModelChange)="updateWantToVerifyPhoneClicked()"
+        name="phone"
+        formControlName="phone"
+        (click)="phoneInputClicked()"
+        [clickOutside]
+        (clickOutside)="clickOutsideEventFunction($event)"
+      ></ngx-intl-tel-input>
 
       <!-- deso identity code -->
-      <ngx-intl-tel-input
+      <!-- <ngx-intl-tel-input
         style="font-size: 15px !important"
         [cssClass]="'form-control sign-up__phone-input'"
         [separateDialCode]="true"
@@ -64,7 +64,7 @@
         (ngModelChange)="onPhoneNumberInputChanged()"
         name="phone"
         formControlName="phone"
-      ></ngx-intl-tel-input>
+      ></ngx-intl-tel-input> -->
 
       <div class="w-100 d-flex flex-center phone-number-text-block">
         <!-- <button

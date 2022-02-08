@@ -357,7 +357,7 @@ export class MobileVerificationComponent implements OnInit {
 
   keepScrollLocked() {
     console.log(
-      " ------------------- keyup is here. position fixed moved. touchend is out. add mobile query. ------------------- "
+      " ------------------- keyup is here. position fixed moved. touchend is out. added mobile query. ------------------- "
     );
     // have to define again since it cannot read from previous function
 
@@ -455,11 +455,9 @@ export class MobileVerificationComponent implements OnInit {
     this.skipButtonClicked.emit();
   }
 
-  onPhoneNumberInputChanged() {
-    console.log(` ---------------------- using deso form and page container css and body 100% css --------------- `);
-
-    this.sendPhoneNumberVerificationTextServerErrors = new SendPhoneNumberVerificationTextServerErrors();
-  }
+  //   onPhoneNumberInputChanged() {
+  //     this.sendPhoneNumberVerificationTextServerErrors = new SendPhoneNumberVerificationTextServerErrors();
+  //   }
 
   onVerificationCodeInputChanged() {
     this.submitPhoneNumberVerificationCodeServerErrors = new SubmitPhoneNumberVerificationCodeServerErrors();

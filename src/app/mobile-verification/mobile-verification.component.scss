@@ -163,20 +163,13 @@ button-solid:focus {
   font-weight: bold;
 }
 
-#phone {
-  border: 1px solid black !important;
-}
+// #phone {
+//   border: 1px solid black !important;
+// }
 
 // #phone:hover {
 //   border: 1px solid black !important;
 // }
-
-.mobile-verification-component {
-  max-width: 610px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0px 10px 50px 10px;
-}
 
 @media screen and (max-width: 480px) {
   #create-profile-button {

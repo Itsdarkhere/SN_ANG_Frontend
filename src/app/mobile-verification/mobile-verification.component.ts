@@ -255,7 +255,7 @@ export class MobileVerificationComponent implements OnInit {
         console.log(` --------------- full verification code entered ------------------ `);
         this.verificationCodeCorrectLength = true;
         // uncomment out line below for testing phone verification code
-        // this.globalVars.phoneVerified = true;
+        this.globalVars.phoneVerified = true;
         return;
       } else {
         this.verificationCodeCorrectLength = false;

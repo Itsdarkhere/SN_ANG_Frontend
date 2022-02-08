@@ -288,6 +288,11 @@ export class MobileVerificationComponent implements OnInit {
   }
 
   completeVerificationButtonClicked() {
+    //   close nav bar because it will open on mobile
+    if (this.globalVars.isMobileIphone()) {
+      this.globalVars.isLeftBarMobileOpen = false;
+    }
+
     this.router.navigate([RouteNames.COMPLETE_PROFILE]);
   }
 

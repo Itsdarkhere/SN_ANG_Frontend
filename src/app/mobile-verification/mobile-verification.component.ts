@@ -353,7 +353,11 @@ export class MobileVerificationComponent implements OnInit {
   keepClickLocked() {
     console.log(` ---------------------- added click event to country code and scroll lock ----------------- `);
 
-    var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");
+    // var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");
+    // signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+    // console.log(signupBodyContainerElement);
+
+    var signupBodyContainerElement = <HTMLInputElement>document.getElementById("main-global-container");
     signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
     console.log(signupBodyContainerElement);
   }
@@ -361,11 +365,11 @@ export class MobileVerificationComponent implements OnInit {
   keepScrollLocked() {
     console.log(` ---------------------- changed scroll element to phone ----------------------- `);
 
-    // var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");
-    // signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
-    // console.log(signupBodyContainerElement);
+    // var phoneVar = <HTMLInputElement>document.getElementById("phone");
+    // phoneVar.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+    // console.log(phoneVar);
 
-    var phoneVar = <HTMLInputElement>document.getElementById("phone");
+    var phoneVar = <HTMLInputElement>document.getElementById("main-global-container");
     phoneVar.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
     console.log(phoneVar);
   }

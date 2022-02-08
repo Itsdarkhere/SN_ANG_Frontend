@@ -11,9 +11,11 @@
   [src]="identityService.sanitizedIdentityServiceURL"
   frameborder="0"
   class="global__iframe"
-  [style.display]="globalVars.requestingStorageAccess ? 'block' : 'none'"></iframe>
+  [style.display]="globalVars.requestingStorageAccess ? 'block' : 'none'"
+></iframe>
 <!--p-0 is important here. Mobile UIs expect that there's no side padding.-->
 <div
+  id="main-global-container"
   class="main global__container"
   [ngClass]="globalVars.userIsDragging ? 'unselectable' : ''"
   *ngIf="!globalVars.requestingStorageAccess"

@@ -155,7 +155,7 @@ export class GlobalVarsService {
   marketplaceCreatorData: CreatorCardResponse[];
   // The buttons on the marketplace
   marketplaceViewTypeCard = true;
-  marketplaceVerifiedCreators = "verified";
+  marketplaceVerifiedCreators = "all";
   marketplaceContentFormat = "all";
   marketplaceStatus = "all";
   marketplaceNFTCategory = "all";

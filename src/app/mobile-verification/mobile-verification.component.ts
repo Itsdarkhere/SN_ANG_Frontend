@@ -320,10 +320,6 @@ export class MobileVerificationComponent implements OnInit {
     this.wantToVerifyPhoneClicked = false;
   }
 
-  onChangeFunctionHit() {
-    console.log(` on change function hit ----------------------- `);
-  }
-
   phoneInputClickedBlackBorder() {
     this.phoneInputElement.setAttribute("style", "border:1px solid black !important");
     console.log(this.phoneInputElement.style.border);
@@ -459,9 +455,11 @@ export class MobileVerificationComponent implements OnInit {
     this.skipButtonClicked.emit();
   }
 
-  //   onPhoneNumberInputChanged() {
-  //     this.sendPhoneNumberVerificationTextServerErrors = new SendPhoneNumberVerificationTextServerErrors();
-  //   }
+  onPhoneNumberInputChanged() {
+    console.log(` ---------------------- using deso identity version --------------- `);
+
+    this.sendPhoneNumberVerificationTextServerErrors = new SendPhoneNumberVerificationTextServerErrors();
+  }
 
   onVerificationCodeInputChanged() {
     this.submitPhoneNumberVerificationCodeServerErrors = new SubmitPhoneNumberVerificationCodeServerErrors();

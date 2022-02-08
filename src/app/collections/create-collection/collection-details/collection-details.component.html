@@ -23,6 +23,6 @@
         <input type="text" formControlName="collectionName" id="collection-name">
         <label for="collection-desc">Collection Description:</label>
         <textarea rows="4" formControlName="collectionDescription" id="collection-desc"></textarea>
-        <button [disabled]="collectionDetails.invalid" cdkStepperNext>Continue</button>
+        <button type="button" [disabled]="collectionDetails.invalid" cdkStepperNext>Continue</button>
     </div>
 </form>

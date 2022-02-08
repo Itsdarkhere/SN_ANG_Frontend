@@ -24,6 +24,7 @@ export class CreateCollectionComponent implements OnInit {
         })
       ])
     });
+    console.log(this.createCollectionForm.controls.views["controls"][0]);
   }
 
   get views(): AbstractControl {

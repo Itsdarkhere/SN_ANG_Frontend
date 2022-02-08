@@ -317,9 +317,7 @@ export class CreatorCoinTrade {
   // DeSo per creator coin
   desoPriceOfCreatorCoin() {
     if (this.isBuyingOwnCoin()) {
-      return (
-        this.desoToSell / ((this.expectedCreatorCoinReturnedNanos + (this.expectedFounderRewardNanos || 0)) / 1e9)
-      );
+      return this.desoToSell / ((this.expectedCreatorCoinReturnedNanos + (this.expectedFounderRewardNanos || 0)) / 1e9);
     }
     if (this.isBuyingCreatorCoin) {
       return this.desoToSell / (this.expectedCreatorCoinReturnedNanos / 1e9);

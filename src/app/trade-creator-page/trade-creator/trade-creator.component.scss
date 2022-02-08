@@ -1,0 +1,45 @@
+.trade-creator-avatar {
+    width: 105px;
+    height: 105px;
+    border: 3.506920576095581px solid #ffffff;
+    border-radius: 50%;
+    box-shadow: 2.715573787689209px 2.715573787689209px 13.577869415283203px rgba(0, 0, 0, 0.1);
+    display: block;
+    background-position: center;
+    background-size: cover;
+}
+.trade-creator-price-heading {
+    font-size: clamp(24px, 5.5vw, 33px);
+}
+.trade-creator-coin-price-heading {
+    margin-top: 3px;
+    font-size: clamp(21px, 5vw, 28px);
+}
+.trade-creator-name-heading {
+    font-size: clamp(26px, 6vw, 38px);
+}
+.trade-creator-actions-wrapper {
+    width: 540px;
+    max-width: 100vw;
+    height: 760px;
+    background-color: #F3F3F3;
+    border-radius: 30px;
+}
+.trade-creator-tab-selector {
+    width: calc(100% - 10px);
+    button {
+        width: calc(100% / 3);
+        height: 70px;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: #727272;
+        font-size: clamp(16px, 4vw, 22px);
+    }
+    button.active {
+        background-color: #FFFFFF;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        color: #171717;
+    }
+}

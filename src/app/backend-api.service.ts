@@ -1240,10 +1240,10 @@ export class BackendApiService {
     });
   }
   // Sends a user a welcoming email
-  SendWelcomeEmail(endpoint: string, Username: string, LinkToProfile: string, Email: string) {
+  SendWelcomeEmail(endpoint: string, Username: string, link_to_profile: string, Email: string) {
     return this.post(endpoint, BackendRoutes.RoutePathSendWelcomeEmail, {
       Username,
-      LinkToProfile,
+      link_to_profile,
       Email,
     });
   }

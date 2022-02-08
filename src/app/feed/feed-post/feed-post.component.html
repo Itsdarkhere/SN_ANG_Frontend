@@ -330,7 +330,7 @@
 
             <!-- Embedded Content -->
             <div
-              *ngIf="constructedEmbedURL"
+              *ngIf="constructedEmbedURL && !isNFTProfile"
               class="feed-post__embed-container"
               [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
             >

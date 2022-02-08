@@ -556,7 +556,7 @@ export class MintPageComponent implements OnInit {
       )
       .subscribe(
         (res) => {
-          this.dropNFT();
+          //this.dropNFT();
           this.globalVars.updateEverything(res.TxnHashHex, this.mintNFTSuccess, this.mintNFTFailure, this);
         },
         (err) => {
@@ -570,13 +570,13 @@ export class MintPageComponent implements OnInit {
   }
 
   // These two below are for adding straight to marketplace once minted, backend has been modified to fit this need
-  dropNFT() {
+  /*dropNFT() {
     // Get the latest drop so that we can update it.
     this.backendApi
       .GetMarketplaceRefSupernovas(
         this.globalVars.localNode,
         this.globalVars.loggedInUser.PublicKeyBase58Check,
-        -1 /*DropNumber*/
+        -1 // Dropnumber
       )
       .subscribe(
         (res: any) => {
@@ -599,9 +599,9 @@ export class MintPageComponent implements OnInit {
         this.globalVars.loggedInUser.PublicKeyBase58Check,
         latestDrop.DropNumber,
         latestDrop.DropTstampNanos,
-        latestDrop.IsActive /*IsActive*/,
-        postHash /*NFTHashHexToAdd*/,
-        "" /*This is not actually needed it does nothing*/
+        latestDrop.IsActive,
+        postHash ,
+        "" 
       )
       .subscribe(
         (res: any) => {
@@ -612,7 +612,7 @@ export class MintPageComponent implements OnInit {
           this.globalVars._alertError(error.error.error);
         }
       );
-  }
+  }*/
   SendMintedEvent() {
     this.analyticsService.eventEmitter("nft_minted", "usage", "activity", "click", 10);
   }

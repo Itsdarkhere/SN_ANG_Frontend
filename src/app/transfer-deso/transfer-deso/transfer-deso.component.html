@@ -1,0 +1,44 @@
+<div class="transfer-deso-wrapper d-flex flex-column flex-center-start h-100">
+  <label class="trade-creator-coins-to-transfer mt-20px">DESO TO TRANSFER</label>
+  <div class="position-relative trade-creator-input-container d-flex flex-row flex-start w-90 mt-5px">
+    <input
+      matInput
+      type="number"
+      placeholder="0"
+      [(ngModel)]="amount"
+      class="pl-10px color-text font-weight-bold flex-center pr-10px trade-creator-input m-0px h-100 w-80"
+    />
+    <!-- Problems with other elements than button -->
+    <button class="trade-creator-input-button h-100 pt-5px">
+      <img src="assets/deso/logo-cropped.png" class="mb-5px trade-creator-deso-logo" />
+    </button>
+  </div>
+  <label class="trade-creator-coins-to-transfer mt-20px">TRANSFER TO</label>
+  <!-- Passing sickSearchBar makes it look like this -->
+  <search-bar
+    class="w-95 mt-5px"
+    [startingSearchText]="startingSearchText"
+    [isSearchForUsersToSendDESO]="true"
+    (creatorToMessage)="_handleCreatorSelectedInSearch($event)"
+    [sickSearchBarAvatarPublicKey]="payToCreator?.PublicKeyBase58Check"
+    [sickSearchBar]="true"
+  ></search-bar>
+  <div class="trade-creator-spacer"></div>
+  <div class="trade-creator-coin-info-box d-flex flex-center flex-column">
+    <div class="coin-info-box-top">
+      <span class="you-receive">You are transferring</span>
+      <span *ngIf="amount > 0" class="amount-of-coins font-weight-semiboldn">{{ amount }} $DESO</span>
+    </div>
+    <div class="coin-info-box-bottom">
+      <span class="network-fees">Network fees</span>
+      <span class="amount-of-coins font-weight-semiboldn">0.00 $DESO</span>
+    </div>
+  </div>
+  <button
+    [disabled]="!publicKey || !(amount > 0)"
+    class="black-rounded-button bounce-button mt-20px trade-creator-button"
+    (click)="emitSendDeso()"
+  >
+    Buy
+  </button>
+</div>

@@ -1,0 +1,138 @@
+.transfer-deso-wrapper {
+    background-color: #ffffff;
+    width: calc(100% - 30px) !important;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    position: relative;
+}
+.trade-creator-buy-wrapper {
+    background-color: #ffffff;
+    width: calc(100% - 30px) !important;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+.trade-creator-button {
+    max-width: 95%;
+    width: 350px;
+    height: 65px;
+    font-size: 18px;
+    font-weight: bold;
+    position: absolute;
+    bottom: 50px;
+}
+.trade-creator-spacer {
+    height: 3.5vw;
+    max-height: 50px;
+    min-height: 20px;
+}
+.trade-creator-input-container {
+    height: 15vw;
+    width: 95%;
+    max-height: 82px;
+    min-height: 54px;
+    border-radius: 16.182809829711914px;
+}
+.trade-creator-coin-info-box {
+    width: 95%;
+    border-radius: 17.278106689453125px;
+    background: #ffffff;
+    box-shadow: 0px 3.4556212425231934px 43.19526672363281px rgba(0, 0, 0, 0.05);
+    color: #656565;
+    position: relative;
+    padding-bottom: 27%;
+    .coin-info-box-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 50%;
+        width: 100%;
+        border-bottom: 1px solid #DADADA;
+        padding-left: 10px;
+        padding-right: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .you-receive {
+            font-size: clamp(12px, 3.5vw, 19px);
+        }
+        .amount-of-coins {
+            font-size: clamp(12px, 3.5vw, 19px);
+        }
+    }
+    .coin-info-box-bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 50%;
+        width: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .network-fees {
+            font-size: clamp(12px, 3.5vw, 19px);
+        }
+        .amount-of-coins {
+            font-size: clamp(12px, 3.5vw, 19px);
+        }
+    }
+
+}
+.trade-creator-input-button {
+    right: 0;
+    position: absolute;
+    background-color: #0e0f22;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    outline: none;
+    border: none;
+    color: var(--background);
+    padding: 0px;
+    //flex-grow: 1;
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+        height: 50%;
+    }
+}
+.trade-creator-deso-logo {
+    height: 25px;
+    margin-right: 5%;
+}
+.trade-creator-input {
+    border: 5px solid #0e0f22;
+    font-size: 42px;
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+}
+.trade-creator-coins-to-transfer {
+    color: #6C6C6C;
+    font-size: clamp(14px, 3.5vw, 16px);
+    width: 95%;
+    text-align: start;
+    margin-bottom: 0px;
+    padding-left: 10px;
+}
+.trade-creator-transfer-avatar {
+    margin-right: 3px;
+    width: 4vw !important;
+    height: 4vw;
+    max-height: 54px !important;
+    min-height: 40px !important;
+    max-width: 54px !important;
+    min-width: 40px !important;
+    border: 2.5px solid #ffffff;
+    border-radius: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}

@@ -318,8 +318,10 @@ export class MobileVerificationComponent implements OnInit {
 
   updateWantToVerifyPhoneClicked() {
     this.wantToVerifyPhoneClicked = false;
+  }
 
-    console.log("ngmodelChange hit ---------------------");
+  onChangeFunctionHit() {
+    console.log(` on change function hit ----------------------- `);
   }
 
   phoneInputClickedBlackBorder() {
@@ -345,7 +347,8 @@ export class MobileVerificationComponent implements OnInit {
     this.phoneInputClickedBlackBorder();
 
     // console.log(` ----------------- phone input clicked ----------------- `);
-    // this.countrySearchBox.addEventListener("keydown", this.keepScrollLocked);
+    this.countrySearchBox.addEventListener("keyup", this.keepScrollLocked);
+    this.countrySearchBox.addEventListener("compositionupdate", this.keepScrollLocked);
   }
 
   keepScrollLocked() {

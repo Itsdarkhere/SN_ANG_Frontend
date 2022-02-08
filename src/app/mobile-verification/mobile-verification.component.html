@@ -44,6 +44,7 @@
         (click)="phoneInputClicked()"
         [clickOutside]
         (clickOutside)="clickOutsideEventFunction($event)"
+        (change)="onChangeFunctionHit()"
       ></ngx-intl-tel-input>
       <div class="w-100 d-flex flex-center phone-number-text-block">
         <!-- <button

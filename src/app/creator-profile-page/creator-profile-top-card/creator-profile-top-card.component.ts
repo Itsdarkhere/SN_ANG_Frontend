@@ -237,7 +237,7 @@ export class CreatorProfileTopCardComponent implements OnInit, OnDestroy {
   }
   copyWalletAddress() {
     navigator.clipboard.writeText(this.profile.PublicKeyBase58Check);
-    document.getElementById("copyWallet").className += " wallet-button-click";
+    // document.getElementById("copyWallet").className += " wallet-button-click";
     
 
   }

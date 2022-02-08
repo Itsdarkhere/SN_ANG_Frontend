@@ -356,14 +356,16 @@ export class MobileVerificationComponent implements OnInit {
   }
 
   keepScrollLocked() {
-    console.log(" ------------------- scrollIntoView() only ------------------- ");
+    console.log(" ------------------- timeout with scrollTo ------------------- ");
     // have to define again since it cannot read from previous function
 
-    var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");
+    // var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");
     // signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
     // console.log(signupBodyContainerElement);
 
-    signupBodyContainerElement.scrollIntoView();
+    window.setTimeout(function () {
+      window.scrollTo(0, 0);
+    }, 0);
   }
 
   verifyPhoneNumberClicked() {

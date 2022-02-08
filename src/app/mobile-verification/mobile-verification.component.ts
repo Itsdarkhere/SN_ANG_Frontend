@@ -349,6 +349,8 @@ export class MobileVerificationComponent implements OnInit {
     // }
 
     if (this.globalVars.isMobileIphone()) {
+      this.countrySearchBox.keyup = null;
+
       this.countrySearchBox.addEventListener("keyup", this.keepScrollLocked);
       // touchend is a backup
       // this.countrySearchBox.addEventListener("touchend", this.keepScrollLocked);
@@ -356,7 +358,7 @@ export class MobileVerificationComponent implements OnInit {
   }
 
   keepScrollLocked() {
-    console.log(" ------------------- scrollIntoView with ngx-intl-tel-input code commented out ------------------- ");
+    console.log(" ------------------- first keyup event changed to null ------------------- ");
     // have to define again since it cannot read from previous function
 
     var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");

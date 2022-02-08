@@ -235,4 +235,8 @@ export class CreatorProfileTopCardComponent implements OnInit, OnDestroy {
     navigator.clipboard.writeText(window.location.href);
     this.globalVars._alertSuccess("URL copied!");
   }
+  copyWalletAddress() {
+    navigator.clipboard.writeText(this.profile.PublicKeyBase58Check);
+
+  }
 }

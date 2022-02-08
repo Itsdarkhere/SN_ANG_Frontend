@@ -384,6 +384,30 @@
         font-size: 13px;
         color: #424242;
     }
+    .wallet-button-click {
+        visibility: visible;
+        position: absolute;
+        background: white;
+        display: flex;
+        justify-content: center;
+        margin-top: 1.5em;
+        align-items: baseline;
+        padding: 0.2em;
+        border-radius: 1em;
+        width: 10.5em;
+        position: absolute;
+        right: -4em;
+        box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.3);
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 13px;
+        color: #424242;
+    }
+    .check-wallet {
+        color:#00DE8E;
+        margin-right: 0.3em;
+    }
 }
 .top-card-button-wallet:hover {
     .wallet-button-hover {

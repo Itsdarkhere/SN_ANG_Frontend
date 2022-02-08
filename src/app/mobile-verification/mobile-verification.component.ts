@@ -350,15 +350,15 @@ export class MobileVerificationComponent implements OnInit {
   }
 
   keepScrollLocked() {
-    console.log(` ---------------------- changed block to start ----------------------- `);
+    console.log(` ---------------------- changed scroll element to phone ----------------------- `);
 
-    var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");
-    signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
-    console.log(signupBodyContainerElement);
+    // var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");
+    // signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+    // console.log(signupBodyContainerElement);
 
-    // window.setTimeout(function () {
-    //   window.scrollTo(0, 0);
-    // }, 0);
+    var phoneVar = <HTMLInputElement>document.getElementById("phone");
+    phoneVar.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+    console.log(phoneVar);
   }
 
   verifyPhoneNumberClicked() {

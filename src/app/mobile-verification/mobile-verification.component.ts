@@ -359,6 +359,7 @@ export class MobileVerificationComponent implements OnInit {
     // have to define again since it cannot read from previous function
 
     var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");
+    signupBodyContainerElement.style.position = "fixed";
     signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
     console.log(signupBodyContainerElement);
   }

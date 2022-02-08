@@ -5,10 +5,47 @@
             <!-- Add logic -->
             <button>Select all</button>
         </div>
+        
+        <!-- Populated NFT Content -->
         <div class="collection-selections-main-content">
             <input type="text" formControlName="selectedNfts" id="selected-Nfts">
+
+            <div *ngIf="this.posts?.length"> 
+                <div 
+                    class="search-results" 
+                    infiniteScroll 
+                    [infiniteScrollDistance]="5" 
+                    [infiniteScrollThrottle]="150"
+                    (scrolled)="onScroll()">
+
+                    <div class="nfts-card-list nft_creator_list">
+                        <div class="nft-col-wrap" *ngFor="let post of dataToShow">
+                            <div class="max-width-350">
+                                <new-nft-card 
+                                    [contentShouldLinkToThread]="true" 
+                                    [loadProfile]="true" 
+                                    [includePaddingOnPost]="true"
+                                    [post]="post" 
+                                    [afterCommentCreatedCallback]="_prependComment.bind(this, post, index)"
+                                    [blocked]="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)" 
+                                    [showNFTDetails]="true"
+                                    [showExpandedNFTDetails]="false" 
+                                    [setBorder]="true" 
+                                    [showAvailableSerialNumbers]="true"
+                                    [cardStyle]="true" 
+                                    [profilePublicKeyBase58Check]="profile.PublicKeyBase58Check"
+                                    (userBlocked)="userBlocked()">
+                                </new-nft-card>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
+
+    <!-- Create Collection Form Navigation -->
     <div class="collection-selections-bottom-bar">
         <!-- Add variable -->
         <p>3 NFTS selected</p>

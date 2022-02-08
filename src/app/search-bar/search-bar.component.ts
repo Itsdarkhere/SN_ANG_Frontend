@@ -30,7 +30,10 @@ export class SearchBarComponent implements OnInit, OnChanges {
   @Input() isSearchForUsersToSendDESO: boolean;
   @Input() startingSearchText: string;
   @Input() placeHolder: string;
+  // These are added when using the custom 'sick search bar'
   @Input() sickSearchBar: boolean;
+  @Input() sickSearchBarAvatarPublicKey: string;
+  // End of sick search bar Inputs
   @Output() creatorToMessage = new EventEmitter<any>();
   searchText: string;
   creators: ProfileEntryResponse[] = [];

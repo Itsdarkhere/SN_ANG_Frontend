@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-buy-deso',
-  templateUrl: './buy-deso.component.html',
-  styleUrls: ['./buy-deso.component.scss']
+  selector: "app-buy-deso",
+  templateUrl: "./buy-deso.component.html",
+  styleUrls: ["./buy-deso.component.scss"],
 })
 export class BuyDesoComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
+  ngOnInit(): void {}
+  openLink(link: string) {
+    window.open(link, "_blank");
   }
-
 }

@@ -17,13 +17,13 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0; 
 }
 .trade-creator-button {
-    max-width: 90%;
+    max-width: 95%;
     width: 350px;
     height: 65px;
     font-size: 18px;
     font-weight: bold;
     position: absolute;
-    bottom: 75px;
+    bottom: 50px;
 }
 .trade-creator-spacer {
     height: 3.5vw;
@@ -32,12 +32,13 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .trade-creator-input-container {
     height: 15vw;
+    width: 95%;
     max-height: 82px;
     min-height: 54px;
     border-radius: 16.182809829711914px;
 }
 .trade-creator-coin-info-box {
-    width: 85%;
+    width: 95%;
     border-radius: 17.278106689453125px;
     background: #ffffff;
     box-shadow: 0px 3.4556212425231934px 43.19526672363281px rgba(0, 0, 0, 0.05);
@@ -57,10 +58,10 @@ input[type=number]::-webkit-outer-spin-button {
         justify-content: space-between;
         align-items: center;
         .you-receive {
-            font-size: clamp(12px, 4vw, 19px);
+            font-size: clamp(12px, 3.5vw, 19px);
         }
         .amount-of-coins {
-            font-size: clamp(12px, 4vw, 19px);
+            font-size: clamp(12px, 3.5vw, 19px);
         }
     }
     .coin-info-box-bottom {
@@ -75,15 +76,15 @@ input[type=number]::-webkit-outer-spin-button {
         justify-content: space-between;
         align-items: center;
         .network-fees {
-            font-size: clamp(12px, 4vw, 19px);
+            font-size: clamp(12px, 3.5vw, 19px);
         }
         .amount-of-coins {
-            font-size: clamp(12px, 4vw, 19px);
+            font-size: clamp(12px, 3.5vw, 19px);
         }
     }
 
 }
-.trade-creator-input-label {
+.trade-creator-input-button {
     right: 0;
     position: absolute;
     background-color: #0e0f22;
@@ -115,8 +116,8 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .trade-creator-coins-to-transfer {
     color: #6C6C6C;
-    font-size: clamp(12px, 3vw, 16.5px);
-    width: 90%;
+    font-size: clamp(14px, 3.5vw, 16px);
+    width: 95%;
     text-align: start;
     margin-bottom: 0px;
     padding-left: 10px;

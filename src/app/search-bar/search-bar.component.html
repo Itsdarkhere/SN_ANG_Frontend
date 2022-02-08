@@ -10,7 +10,8 @@
           <i class="icon-search"></i>
         </span>
         <span *ngIf="sickSearchBar" class="input-group-text search-bar__icon search_bar__icon_sick">
-          <div [avatar]="globalVars.loggedInUser.PublicKeyBase58Check" class="sick-search-avatar"></div>
+          <!-- IF this is null it gets a placeholder so thats fucking nice -->
+          <div [avatar]="sickSearchBarAvatarPublicKey" class="sick-search-avatar"></div>
         </span>
       </div>
       <input

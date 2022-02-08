@@ -127,7 +127,10 @@ export class TransferDeSoComponent implements OnInit {
       );
   }
 
-  _clickSendDeSo() {
+  _clickSendDeSo(object: any) {
+    // Set them here so we can easily pass variables inside function
+    this.payToPublicKey = object?.publicKey;
+    this.transferAmount = object?.amount;
     if (this.globalVars.loggedInUser == null) {
       this.globalVars._alertError("User must be logged in in order to send DeSo");
       return;

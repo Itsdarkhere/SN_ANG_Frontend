@@ -4,8 +4,10 @@
   <div class="deso-page-logo-container d-flex flex-center mt-20px">
     <img src="/assets/icons/deso_page_icon.svg" alt="deso logo in white background" />
   </div>
-  <h3 class="font-weight-semiboldn deso-page-name-heading mt-20px" style="color: #0d0d0d">Deso</h3>
-  <span class="deso-page-price-heading font-weight-semiboldn" style="color: #9c9c9c">$304.54</span>
+  <h3 class="font-weight-semiboldn deso-page-name-heading mt-20px">Deso</h3>
+  <span class="deso-page-price-heading font-weight-semiboldn">
+    {{ globalVars.nanosToUSD(globalVars.loggedInUser.BalanceNanos, 2) }}
+  </span>
   <div class="deso-page-actions-wrapper mt-20px d-flex flex-column flex-center">
     <div class="deso-page-tab-selector d-flex flex-center px-10px mt-5px">
       <button (click)="tabBuyClick()" class="br-top-left-30px font-weight-semiboldn" [ngClass]="{ active: tabBuy }">
@@ -24,7 +26,11 @@
     </div>
     <app-buy-deso *ngIf="tabBuy" class="w-100 h-100 pb-10px d-flex flex-center"></app-buy-deso>
     <app-sell-deso *ngIf="tabSell" class="w-100 h-100 pb-10px d-flex flex-center"></app-sell-deso>
-    <app-transfer-deso *ngIf="tabTransfer" class="w-100 h-100 pb-10px d-flex flex-center"></app-transfer-deso>
+    <app-transfer-deso
+      (sendDeso)="_clickSendDeSo($event)"
+      *ngIf="tabTransfer"
+      class="w-100 h-100 pb-10px d-flex flex-center"
+    ></app-transfer-deso>
   </div>
   <!-- SPACER FOR BOTTOM BAR ON MOBILE -->
   <div class="global__bottom-bar-mobile-height"></div>

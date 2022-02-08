@@ -1,20 +1,32 @@
-import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-collection',
   templateUrl: './create-collection.component.html',
   styleUrls: ['./create-collection.component.scss']
 })
-export class CreateCollectionComponent {
+export class CreateCollectionComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
-  createCollectionForm = this.fb.group({
-    collectionName: ["", Validators.required],
-    collectionDescription: [""],
-    collectionBannerImage: [""], 
-    collectionSelections: this.fb.array([
+  createCollectionForm: FormGroup;
 
-    ])
-  });
+  ngOnInit(): void {
+    this.createCollectionForm = this.fb.group({
+      views: this.fb.array([
+        this.fb.group({
+          collectionName: ["", Validators.required],
+          collectionDescription: [""],
+          collectionBannerImage: [""], 
+        }),
+        this.fb.group({
+          
+        })
+      ])
+    });
+  }
+
+  get views(): AbstractControl {
+    return this.createCollectionForm.get("views");
+  }
 }

@@ -342,19 +342,7 @@ export class MobileVerificationComponent implements OnInit {
 
     this.phoneInputClickedBlackBorder();
 
-    // if (this.globalVars.isMobile()) {
-    //   // keyup works on desktop but prevents from searching to scroll
-    //   //   this.countrySearchBox.addEventListener("keyup", this.keepScrollLocked);
-    //   this.countrySearchBox.addEventListener("touchend", this.keepScrollLocked);
-    // }
-
     if (this.globalVars.isMobileIphone()) {
-      this.countrySearchBox.keyup = null;
-
-      console.log(
-        ` ----------------------- this.countrySearchBox.keyup should be null. is it? ${this.countrySearchBox.keyup}`
-      );
-
       this.countrySearchBox.addEventListener("keyup", this.keepScrollLocked);
       // touchend is a backup
       // this.countrySearchBox.addEventListener("touchend", this.keepScrollLocked);
@@ -362,14 +350,10 @@ export class MobileVerificationComponent implements OnInit {
   }
 
   keepScrollLocked() {
-    this.countrySearchBox.keyup = null;
-
-    console.log(
-      ` ----------------------- keepScrollLocked function fired. keyup event is ${this.countrySearchBox.keyup}`
-    );
+    console.log(` ---------------------- changed block to start ----------------------- `);
 
     var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");
-    signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+    signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
     console.log(signupBodyContainerElement);
 
     // window.setTimeout(function () {

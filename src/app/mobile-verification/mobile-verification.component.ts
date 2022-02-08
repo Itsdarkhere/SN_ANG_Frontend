@@ -347,8 +347,11 @@ export class MobileVerificationComponent implements OnInit {
     this.phoneInputClickedBlackBorder();
 
     // console.log(` ----------------- phone input clicked ----------------- `);
-    this.countrySearchBox.addEventListener("keyup", this.keepScrollLocked);
-    this.countrySearchBox.addEventListener("touchend", this.keepScrollLocked);
+    if (this.globalVars.isMobile()) {
+      // keyup works on desktop but prevents from searching to scroll
+      //   this.countrySearchBox.addEventListener("keyup", this.keepScrollLocked);
+      this.countrySearchBox.addEventListener("touchend", this.keepScrollLocked);
+    }
   }
 
   keepScrollLocked() {
@@ -356,8 +359,9 @@ export class MobileVerificationComponent implements OnInit {
     // have to define again since it cannot read from previous function
 
     var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");
-    signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+    // signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
     console.log(signupBodyContainerElement);
+    window.scrollTo(0, 0);
   }
 
   verifyPhoneNumberClicked() {

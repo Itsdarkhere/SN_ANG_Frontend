@@ -356,14 +356,14 @@ export class MobileVerificationComponent implements OnInit {
   }
 
   keepScrollLocked() {
-    console.log(
-      " ------------------- keyup is here. position fixed moved. touchend is out. added mobile query. ------------------- "
-    );
+    console.log(" ------------------- scrollTo(0,0) ------------------- ");
     // have to define again since it cannot read from previous function
 
-    var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");
-    signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
-    console.log(signupBodyContainerElement);
+    // var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");
+    // signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+    // console.log(signupBodyContainerElement);
+
+    window.scrollTo(0, 0);
   }
 
   verifyPhoneNumberClicked() {

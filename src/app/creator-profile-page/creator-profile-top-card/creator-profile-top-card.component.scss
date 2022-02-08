@@ -383,6 +383,16 @@
         font-weight: 500;
         font-size: 13px;
         color: #424242;
+    }    
+    .wallet-button-hidden {
+        visibility: hidden;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        margin-top: 1.5em;
+        align-items: baseline;
+        padding: 0.2em;
+        right: -4em;
     }
     .wallet-button-click {
         visibility: visible;
@@ -403,7 +413,13 @@
         font-weight: 500;
         font-size: 13px;
         color: #424242;
+        opacity: 100;
+        transition: opacity .2s ease-in;
+        transition-delay: 3s;
+        transition: opacity 0.35s ease-out;
     }
+
+   
     .check-wallet {
         color:#00DE8E;
         margin-right: 0.3em;

@@ -353,9 +353,6 @@ export class AppComponent implements OnInit {
 
       document.documentElement.style.setProperty("--vh", `${vh}px`);
       document.documentElement.style.setProperty("--pixelHeight", `${pixelHeight}px`);
-
-      console.log(` -------------- pixelHeight is ${pixelHeight} ---------------- `); // 926
-      console.log(` -------------- vh is ${vh} -------------------`); // 9.26
     };
 
     window.addEventListener("load", setVh);
@@ -363,6 +360,14 @@ export class AppComponent implements OnInit {
 
     // get LoggedInUser
     this._updateTopLevelData();
+
+    if (this.globalVars.isMobileIphone()) {
+      // testing closing the mobile nav on page load
+      this.globalVars.isLeftBarMobileOpen = false;
+      console.log(
+        ` -------------------- on app load set mobile nav to ${this.globalVars.isLeftBarMobileOpen} --------------- `
+      );
+    }
   }
   loadApp() {
     this.identityService.identityServiceUsers = this.backendApi.GetStorage(this.backendApi.IdentityUsersKey) || {};

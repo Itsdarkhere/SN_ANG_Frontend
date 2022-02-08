@@ -456,7 +456,7 @@ export class MobileVerificationComponent implements OnInit {
   }
 
   onPhoneNumberInputChanged() {
-    console.log(` ---------------------- using deso form and page container css --------------- `);
+    console.log(` ---------------------- using deso form and page container css and body 100% css --------------- `);
 
     this.sendPhoneNumberVerificationTextServerErrors = new SendPhoneNumberVerificationTextServerErrors();
   }

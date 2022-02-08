@@ -352,7 +352,7 @@ export class MobileVerificationComponent implements OnInit {
     //   //   this.countrySearchBox.addEventListener("keyup", this.keepScrollLocked);
     //   this.countrySearchBox.addEventListener("touchend", this.keepScrollLocked);
     // }
-    this.countrySearchBox.addEventListener("keyup", this.keepScrollLocked);
+    // this.countrySearchBox.addEventListener("keyup", this.keepScrollLocked);
     this.countrySearchBox.addEventListener("touchend", this.keepScrollLocked);
   }
 

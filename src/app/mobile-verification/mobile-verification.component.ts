@@ -343,10 +343,19 @@ export class MobileVerificationComponent implements OnInit {
     this.phoneInputClickedBlackBorder();
 
     if (this.globalVars.isMobileIphone()) {
+      this.countrySearchBox.addEventListener("click", this.keepClickLocked);
       this.countrySearchBox.addEventListener("keyup", this.keepScrollLocked);
       // touchend is a backup
       // this.countrySearchBox.addEventListener("touchend", this.keepScrollLocked);
     }
+  }
+
+  keepClickLocked() {
+    console.log(` ---------------------- added click event to country code and scroll lock ----------------- `);
+
+    var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");
+    signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+    console.log(signupBodyContainerElement);
   }
 
   keepScrollLocked() {

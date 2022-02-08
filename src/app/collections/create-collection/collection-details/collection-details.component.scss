@@ -114,11 +114,11 @@ form {
         resize: none;
     }
 
-    input[type=submit] {
+    button {
         margin: 40px 0;
         padding: 10px 75px;
         width: fit-content;
-        background: #313131; // update to appropriate variable
+        background:rgba(49, 49, 49, 1.0); // update to appropriate variable
         border: none;
         border-radius: 60px;
         color: white; // update to appropriate variable
@@ -126,4 +126,9 @@ form {
         font-weight: 600; // update to appropriate variable
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); // update to appropriate variable
     }
+
+    button:disabled {
+        background-color: rgba(49, 49, 49, 0.5);
+    }
+
 }

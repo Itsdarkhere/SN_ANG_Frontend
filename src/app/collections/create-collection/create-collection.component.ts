@@ -29,4 +29,16 @@ export class CreateCollectionComponent implements OnInit {
   get views(): AbstractControl {
     return this.createCollectionForm.get("views");
   }
+
+  get collectionDetails(): AbstractControl {
+    return this.createCollectionForm.controls.views["controls"][0] as FormGroup;
+  }
+
+  get collectionSelections(): AbstractControl {
+    return this.createCollectionForm.controls.views["controls"][1] as FormGroup;
+  }
+
+  submit(): void {
+    console.log(this.createCollectionForm.value);
+  }
 }

@@ -10,7 +10,6 @@
 .signup-body-container {
   height: calc(var(--pixelHeight) - 60px);
   background-color: #f5f5f5;
-  position: fixed;
 }
 .signup-center {
   background: #ffffff;
@@ -291,6 +290,10 @@
 
 // iphone 13 pro max and above
 @media screen and (max-width: 480px) {
+  .signup-body-container {
+    position: fixed;
+  }
+
   .signup-window-header-mobile {
     margin-bottom: 0px;
   }

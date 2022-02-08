@@ -357,7 +357,7 @@ export class MobileVerificationComponent implements OnInit {
   }
 
   keepScrollLocked() {
-    console.log(" ------------------- keyup is here ------------------- ");
+    console.log(" ------------------- keyup is here. position fixed moved. ------------------- ");
     // have to define again since it cannot read from previous function
 
     var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");

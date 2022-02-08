@@ -347,8 +347,11 @@ export class MobileVerificationComponent implements OnInit {
     this.phoneInputClickedBlackBorder();
 
     // console.log(` ----------------- phone input clicked ----------------- `);
-    this.countrySearchBox.addEventListener("keyup", this.keepScrollLocked);
-    this.countrySearchBox.addEventListener("touchend", this.keepScrollLocked);
+    if (this.globalVars.isMobile()) {
+      // keyup works on desktop but prevents from searching to scroll
+      //   this.countrySearchBox.addEventListener("keyup", this.keepScrollLocked);
+      this.countrySearchBox.addEventListener("touchend", this.keepScrollLocked);
+    }
   }
 
   keepScrollLocked() {

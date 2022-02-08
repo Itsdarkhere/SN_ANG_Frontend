@@ -16,24 +16,50 @@
   </div>
   <div class="trade-creator-actions-wrapper mt-20px d-flex flex-column flex-center">
     <div class="trade-creator-tab-selector d-flex flex-center px-10px mt-5px">
-      <button (click)="tabBuyClick()" class="br-top-left-30px font-weight-semiboldn" [ngClass]="{ active: tabBuy }">
+      <button
+        (click)="_handleTabClick('Buy')"
+        class="br-top-left-30px font-weight-semiboldn"
+        [ngClass]="{ active: creatorCoinTrade.tradeType == 'Buy' }"
+      >
         <label class="mb-0px pl-5px">Buy</label>
       </button>
-      <button (click)="tabSellClick()" class="font-weight-semiboldn" [ngClass]="{ active: tabSell }">
+      <button
+        (click)="_handleTabClick('Sell')"
+        class="font-weight-semiboldn"
+        [ngClass]="{ active: creatorCoinTrade.tradeType == 'Sell' }"
+      >
         <label class="mb-0px pl-5px">Sell</label>
       </button>
       <button
-        (click)="tabTransferClick()"
+        (click)="_handleTabClick('Transfer')"
         class="br-top-right-30px font-weight-semiboldn"
-        [ngClass]="{ active: tabTransfer }"
+        [ngClass]="{ active: creatorCoinTrade.tradeType == 'Transfer' }"
       >
         <label class="mb-0px pl-5px">Transfer</label>
       </button>
     </div>
-    <app-trade-creator-buy *ngIf="tabBuy" class="w-100 h-100 pb-10px d-flex flex-center"></app-trade-creator-buy>
-    <app-trade-creator-sell *ngIf="tabSell" class="w-100 h-100 pb-10px d-flex flex-center"></app-trade-creator-sell>
+    <app-trade-creator-buy
+      *ngIf="creatorCoinTrade.tradeType === 'Buy'"
+      (buyClick)="_buyOrSellCreatorCoin()"
+      (invalidateAndUpdateAmounts)="_invalidateAndUpdateAmounts()"
+      [creatorProfile]="creatorProfile"
+      [creatorCoinTrade]="creatorCoinTrade"
+      class="w-100 h-100 pb-10px d-flex flex-center"
+    ></app-trade-creator-buy>
+    <app-trade-creator-sell
+      (sellClick)="_buyOrSellCreatorCoin()"
+      (invalidateAndUpdateAmounts)="_invalidateAndUpdateAmounts()"
+      [creatorProfile]="creatorProfile"
+      [creatorCoinTrade]="creatorCoinTrade"
+      *ngIf="creatorCoinTrade.tradeType === 'Sell'"
+      class="w-100 h-100 pb-10px d-flex flex-center"
+    ></app-trade-creator-sell>
     <app-trade-creator-transfer
-      *ngIf="tabTransfer"
+      (transferClick)="_transferCreatorCoin()"
+      (invalidateAndUpdateAmounts)="_invalidateAndUpdateAmounts()"
+      [creatorProfile]="creatorProfile"
+      [creatorCoinTrade]="creatorCoinTrade"
+      *ngIf="creatorCoinTrade.tradeType === 'Transfer'"
       class="w-100 h-100 pb-10px d-flex flex-center"
     ></app-trade-creator-transfer>
   </div>

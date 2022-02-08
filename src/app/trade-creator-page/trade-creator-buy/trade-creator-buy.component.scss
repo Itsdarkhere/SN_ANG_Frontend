@@ -23,6 +23,9 @@ input[type=number]::-webkit-outer-spin-button {
     max-height: 50px;
     min-height: 20px;
 }
+.errors-fontsize {
+    font-size: clamp(10px, 2vw, 14px);
+}
 .trade-creator-spacer-two {
     height: 2.5vw;
     max-height: 30px;
@@ -84,7 +87,7 @@ input[type=number]::-webkit-outer-spin-button {
     font-size: clamp(18px, 5vw, 28px);
 }
 .trade-creator-deso-logo {
-    height: 25px;
+    height: 50%;
     margin-right: 5%;
 }
 .trade-creator-input {

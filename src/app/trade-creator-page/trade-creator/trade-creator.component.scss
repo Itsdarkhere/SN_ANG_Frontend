@@ -34,6 +34,7 @@
         border: none;
         outline: none;
         color: #727272;
+        font-size: clamp(16px, 4vw, 22px);
     }
     button.active {
         background-color: #FFFFFF;

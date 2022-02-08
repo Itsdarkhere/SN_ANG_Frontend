@@ -63,7 +63,10 @@
   <div class="d-flex flex-center background-grey">
     <div *ngIf="tabDeso" [@tabChangeAnimation] class="wallet-bottom-container">
       <div class="wallet-crypto-container">
-        <button class="wallet-coin-button padding-left-7_5-perc py-10px w-100 d-flex flex-row justify-content-between">
+        <button
+          class="wallet-coin-button padding-left-7_5-perc py-10px w-100 d-flex flex-row justify-content-between"
+          (click)="routeToBuyDeso()"
+        >
           <div class="h-100 d-flex flex-row flex-center">
             <img class="deso-logo" src="/assets/deso/desologo.svg" alt="deso" />
             <label class="fs-28px deso-name mb-0px pl-10px">Deso</label>

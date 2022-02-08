@@ -412,4 +412,7 @@ export class WalletComponent implements OnInit, OnDestroy {
   routeToSellCoin(creator: any) {
     this.router.navigate(["/u/" + creator.ProfileEntryResponse.Username + "/sell"]);
   }
+  routeToBuyDeso() {
+    this.router.navigate([RouteNames.DESO_PAGE]);
+  }
 }

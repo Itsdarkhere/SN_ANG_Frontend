@@ -352,12 +352,12 @@ export class MobileVerificationComponent implements OnInit {
     //   //   this.countrySearchBox.addEventListener("keyup", this.keepScrollLocked);
     //   this.countrySearchBox.addEventListener("touchend", this.keepScrollLocked);
     // }
-    // this.countrySearchBox.addEventListener("keyup", this.keepScrollLocked);
+    this.countrySearchBox.addEventListener("keyup", this.keepScrollLocked);
     this.countrySearchBox.addEventListener("touchend", this.keepScrollLocked);
   }
 
   keepScrollLocked() {
-    console.log(" ------------------- keep scroll locked function hit ------------------- ");
+    console.log(" ------------------- keyup is here ------------------- ");
     // have to define again since it cannot read from previous function
 
     var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");

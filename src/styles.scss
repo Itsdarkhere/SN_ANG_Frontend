@@ -566,12 +566,6 @@ $green-font-color: #19b028;
 .fs-18px {
   font-size: 18px;
 }
-.fs-38px {
-    font-size: 38px;
-}
-.fs-40px {
-    font-size: 40px;
-}
 
 .electric-border {
   border: 2px solid #2b79f5 !important;
@@ -766,10 +760,7 @@ $green-font-color: #19b028;
   padding-left: 35px;
   padding-right: 35px;
 }
-.px-40px {
-    padding-left: 40px;
-    padding-right: 40px;
-}
+
 .p-30px {
   padding: 30px;
 }
@@ -1573,11 +1564,12 @@ input.bs-timepicker-field {
   margin-bottom: 0;
 }
 .marketplace-flyout-checkbox-label {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    margin-bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 0;
 }
 .marketplace-checkbox-label:before {
   content: "";
@@ -2642,13 +2634,7 @@ input.bs-timepicker-field {
 .message__min-height {
   min-height: 30px;
 }
-.bounce-button {
-    transition-duration: transform 0.2s;
-    &:active {
-        transition-duration: transform 0.2s;
-        transform: scale(0.95);
-    }
-}
+
 .message__avatar {
   height: 32px;
   width: 32px;

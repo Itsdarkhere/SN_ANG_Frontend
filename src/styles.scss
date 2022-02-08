@@ -2649,7 +2649,13 @@ input.bs-timepicker-field {
 .message__min-height {
     min-height: 30px;
 }
-
+.bounce-button {
+    transition-duration: transform 0.2s;
+    &:active {
+        transition-duration: transform 0.2s;
+        transform: scale(0.95);
+    }
+}
 .message__avatar {
     height: 32px;
     width: 32px;

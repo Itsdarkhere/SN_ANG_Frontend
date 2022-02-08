@@ -1,7 +1,7 @@
 import { Component, HostListener, Input, OnDestroy, OnInit } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
 import { AppRoutingModule, RouteNames } from "../app-routing.module";
-import { BackendApiService, BalanceEntryResponse, TutorialStatus } from "../backend-api.service";
+import { BackendApiService, BalanceEntryResponse, ProfileEntryResponse, TutorialStatus } from "../backend-api.service";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import { InfiniteScroller } from "../infinite-scroller";
@@ -408,5 +408,8 @@ export class WalletComponent implements OnInit, OnDestroy {
           : this.usersYouPurchased.slice(startIdx, Math.min(endIdx, this.usersYouPurchased.length))
       );
     });
+  }
+  routeToSellCoin(creator: any) {
+    this.router.navigate(["/u/" + creator.ProfileEntryResponse.Username + "/sell"]);
   }
 }

@@ -102,7 +102,7 @@
         </label>
       </div>
       <div class="creator-coin-list disable-scrollbars" [ngClass]="{ w2: mobile }">
-        <button class="position-relative" *ngFor="let creator of usersYouPurchased">
+        <button class="position-relative" (click)="routeToSellCoin(creator)" *ngFor="let creator of usersYouPurchased">
           <div class="cc-button-value d-flex flex-row flex-center-start pl-10px">
             <div [avatar]="creator.ProfileEntryResponse.PublicKeyBase58Check" class="wallet-cc-avatar mr-5px"></div>
             <label class="font-weight-bold fs-12px mb-0px" style="color: #000000">

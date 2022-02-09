@@ -235,7 +235,7 @@ export class FeedPostDropdownComponent {
 
   openCreateNFTAuctionModal(event): void {
     var auctionModalDetails = this.modalService.show(CreateNftAuctionModalComponent, {
-      class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
+      class: "modal-dialog-centered nft_placebid_modal_bx  nft_placebid_modal_bx_right modal-lg",
       initialState: { post: this.post, nftEntryResponses: this.nftEntryResponses },
     });
     let onHiddenEvent = auctionModalDetails.onHidden.pipe(take(1));
@@ -251,7 +251,7 @@ export class FeedPostDropdownComponent {
   openInteractionModalTransfer(event, component): void {
     event.stopPropagation();
     this.modalService.show(component, {
-      class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
+      class: "modal-dialog-centered nft_placebid_modal_bx nft_placebid_modal_bx_rightmodal-lg",
       initialState: {
         post: this.post,
         postHashHex: this.post.PostHashHex,
@@ -267,7 +267,7 @@ export class FeedPostDropdownComponent {
   openInteractionModalBurn(event, component): void {
     event.stopPropagation();
     this.modalService.show(component, {
-      class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
+      class: "modal-dialog-centered nft_placebid_modal_bx nft_placebid_modal_bx_right modal-lg",
       initialState: {
         postHashHex: this.post.PostHashHex,
         decryptable: this.decryptableNFTEntryResponses,

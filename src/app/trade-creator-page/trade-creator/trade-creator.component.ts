@@ -19,7 +19,9 @@ import { FormControl, Validators } from "@angular/forms";
 import { dynamicMinValidator } from "src/lib/validators/dynamic-min-validator";
 import { dynamicMaxValidator } from "src/lib/validators/dynamic-max-validator";
 import { FollowService } from "src/lib/services/follow/follow.service";
-
+import { BsModalService } from "ngx-bootstrap/modal";
+import { ActionResponseModalComponent } from "src/app/action-response-modal/action-response-modal.component";
+import { take } from "rxjs/operators";
 @Component({
   selector: "trade-creator",
   templateUrl: "./trade-creator.component.html",
@@ -93,7 +95,8 @@ export class TradeCreatorComponent implements OnInit {
     private _router: Router,
     private backendApi: BackendApiService,
     private location: Location,
-    private followService: FollowService
+    private followService: FollowService,
+    private modalService: BsModalService
   ) {
     this.appData = globalVars;
     this.router = _router;
@@ -197,6 +200,19 @@ export class TradeCreatorComponent implements OnInit {
   }
 
   ngOnInit() {
+    const actionResponseModalDetails = this.modalService.show(ActionResponseModalComponent, {
+      class: "action-response-modal modal-dialog-centered",
+      initialState: {
+        headingText: "Sold!",
+        modalText: "You sold the Creator Coin successfully.",
+        buttonOneText: "View Wallet",
+      },
+    });
+
+    const onHiddenEvent = actionResponseModalDetails.onHidden.pipe(take(1));
+    onHiddenEvent.subscribe((response) => {
+      console.log(response);
+    });
     this.setMobileBasedOnViewport();
     this.creatorCoinTrade = new CreatorCoinTrade(this.appData);
     this._setStateFromActivatedRoute(this.route);

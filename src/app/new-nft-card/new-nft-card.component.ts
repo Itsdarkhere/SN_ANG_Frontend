@@ -587,7 +587,7 @@ export class NewNftCardComponent implements OnInit {
     }
     event.stopPropagation();
     const modalDetails = this.modalService.show(PlaceBidModalComponent, {
-      class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
+      class: "modal-dialog-centered nft_placebid_modal_bx nft_placebid_modal_bx_right modal-lg",
       initialState: { post: this.postContent },
     });
     const onHideEvent = modalDetails.onHide;
@@ -648,7 +648,7 @@ export class NewNftCardComponent implements OnInit {
   openInteractionModalAccept(event, component): void {
     event.stopPropagation();
     this.modalService.show(component, {
-      class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
+      class: "modal-dialog-centered nft_placebid_modal_bx nft_placebid_modal_bx_right modal-lg",
       initialState: {
         postHashHex: this.post.PostHashHex,
         encryptedText: this.nftEntryResponses[0].EncryptedUnlockableText,

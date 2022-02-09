@@ -714,6 +714,10 @@ export class GlobalVarsService {
     const viewportWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
     return viewportWidth <= 992;
   }
+  isMobileIphone(): boolean {
+    const viewportWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    return viewportWidth <= 480;
+  }
 
   // Calculates the amount of deso one would receive if they sold an amount equal to creatorCoinAmountNano
   // given the current state of a creator's coin as defined by the coinEntry

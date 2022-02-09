@@ -352,7 +352,7 @@ export class NftPostComponent implements OnInit {
 
   sellNFT(): void {
     const sellNFTModalDetails = this.modalService.show(SellNftModalComponent, {
-      class: "modal-dialog-center nft_placebid_modal_bx rt_popups modal-lg",
+      class: "modal-dialog-center nft_placebid_modal_bx nft_placebid_modal_bx_right rt_popups modal-lg",
       initialState: {
         post: this.nftPost,
         nftEntries: this.nftBidData.NFTEntryResponses,
@@ -367,7 +367,7 @@ export class NftPostComponent implements OnInit {
         this.feedPost.getNFTEntries();
       } else if (response === "unlockable content opened") {
         const unlockableModalDetails = this.modalService.show(AddUnlockableModalComponent, {
-          class: "modal-dialog-centered nft_placebid_modal_bx rt_popups",
+          class: "modal-dialog-centered nft_placebid_modal_bx nft_placebid_modal_bx_right rt_popups",
           initialState: {
             post: this.nftPost,
             selectedBidEntries: this.nftBidData.BidEntryResponses.filter((bidEntry) => bidEntry.selected),
@@ -740,7 +740,7 @@ export class NftPostComponent implements OnInit {
   onMultipleBidsCancellation(event: any): void {
     console.log(event);
     const modalDetails = this.modalService.show(CancelBidModalComponent, {
-      class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+      class: "modal-dialog-centered nft_placebid_modal_bx nft_placebid_modal_bx_right  modal-lg",
       initialState: {
         bidEntryResponses: event.cancellableBids,
         postHashHex: event.postHashHex,

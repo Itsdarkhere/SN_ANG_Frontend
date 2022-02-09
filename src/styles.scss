@@ -4593,6 +4593,24 @@ option {
     min-height: 450px !important;
 }
 
+.action-response-modal {
+    max-width: 619px;
+    max-width: calc(100% - 18px);
+    .modal-content {
+        background: var(--background);
+        border: 0;
+        .nft-modal-container {
+            background: var(--background);
+            border: 0;
+            padding: 30px 30px;
+            min-height: 550px;
+        }
+    }
+}
+// Removes modal tilt to right
+.modal-open[style] { 
+    padding-right: 0px !important; 
+}
 .nft_placebid_modal_bx {
     max-width: 619px;
     max-width: calc(100% - 18px);
@@ -5457,7 +5475,7 @@ option {
     }
 }
 
-.nft_placebid_modal_bx,
+.nft_placebid_modal_bx_right,
 .rt_popups,
 .swal2-popup {
     left: 360px;

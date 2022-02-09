@@ -70,7 +70,7 @@ export class DiscoveryComponent implements OnInit {
     }
     event.stopPropagation();
     const modalDetails = this.modalService.show(PlaceBidModalComponent, {
-      class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+      class: "modal-dialog-centered  nft_placebid_modal_bx nft_placebid_modal_bx_right  modal-lg",
       initialState: { post: this.post },
     });
 

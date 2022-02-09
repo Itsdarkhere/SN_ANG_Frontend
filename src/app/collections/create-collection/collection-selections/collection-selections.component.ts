@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { GlobalVarsService } from "../../../global-vars.service";
 import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse, ProfileEntryResponse } from "../../../backend-api.service";
-import { Subscription } from "rxjs";
 import { InfiniteScroller } from "../../../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
 
@@ -12,7 +11,6 @@ import { IAdapter, IDatasource } from "ngx-ui-scroll";
   styleUrls: ['./collection-selections.component.scss']
 })
 export class CollectionSelectionsComponent implements OnInit {
-
   constructor(
     private globalVars: GlobalVarsService,
     private backendApi: BackendApiService
@@ -21,7 +19,6 @@ export class CollectionSelectionsComponent implements OnInit {
   @Input() createCollectionForm: FormGroup;
   @Input() views: FormArray;
   @Input() collectionSelections: FormGroup;
-  @Input() profile: ProfileEntryResponse;
 
   static PAGE_SIZE = 10;
   static BUFFER_SIZE = 5;
@@ -35,19 +32,14 @@ export class CollectionSelectionsComponent implements OnInit {
   startIndex = 0;
   endIndex = 10;
   nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
+  userProfileEntryResponse: {} = ProfileEntryResponse;
   dataToShow: PostEntryResponse[];
   posts: PostEntryResponse[];
   myBids: NFTBidEntryResponse[];
 
   ngOnInit(): void {
+    console.log(this.globalVars.loggedInUser.PublicKeyBase58Check);
     this.getNFTs();
-  }
-
-  profileBelongsToLoggedInUser(): boolean {
-    return (
-      this.globalVars.loggedInUser?.ProfileEntryResponse &&
-      this.globalVars.loggedInUser.ProfileEntryResponse.PublicKeyBase58Check === this.profile.PublicKeyBase58Check
-    );
   }
 
   getNFTs() {
@@ -56,8 +48,8 @@ export class CollectionSelectionsComponent implements OnInit {
       .GetPostsForPublicKey(
         this.globalVars.localNode,
         "",
-        this.profile.Username,
-        this.globalVars.loggedInUser?.PublicKeyBase58Check,
+        this.globalVars.loggedInUser.ProfileEntryResponse.Username,
+        this.globalVars.loggedInUser?.ProfileEntryResponse.PublicKeyBase58Check,
         "",
         10000,
         false /*MediaRequired*/

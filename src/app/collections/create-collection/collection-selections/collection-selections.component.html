@@ -8,37 +8,33 @@
         
         <!-- Populated NFT Content -->
         <div class="collection-selections-main-content">
-            <input type="text" formControlName="selectedNfts" id="selected-Nfts">
+            <input type="text" id="selected-Nfts">
 
-            <div *ngIf="this.posts?.length"> 
+            <div *ngIf="this.posts?.length && !isLoading"> 
                 <div 
-                    class="search-results" 
                     infiniteScroll 
                     [infiniteScrollDistance]="5" 
                     [infiniteScrollThrottle]="150"
                     (scrolled)="onScroll()">
-
-                    <div class="nfts-card-list nft_creator_list">
-                        <div class="nft-col-wrap" *ngFor="let post of dataToShow">
-                            <div class="max-width-350">
-                                <new-nft-card 
-                                    [contentShouldLinkToThread]="true" 
-                                    [loadProfile]="true" 
-                                    [includePaddingOnPost]="true"
-                                    [post]="post" 
-                                    [afterCommentCreatedCallback]="_prependComment.bind(this, post, index)"
-                                    [blocked]="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)" 
-                                    [showNFTDetails]="true"
-                                    [showExpandedNFTDetails]="false" 
-                                    [setBorder]="true" 
-                                    [showAvailableSerialNumbers]="true"
-                                    [cardStyle]="true" 
-                                    [profilePublicKeyBase58Check]="profile.PublicKeyBase58Check"
-                                    (userBlocked)="userBlocked()">
-                                </new-nft-card>
-                            </div>
-                        </div>
-                    </div>
+  
+                    <div class="nft-col-wrap max-width-350" *ngFor="let post of dataToShow">
+                        <!-- Check on card props -->
+                        <ng-container *ngIf="!loggedInUser">
+                            <new-nft-card
+                                formControlName="selectedNfts"
+                                [contentShouldLinkToThread]="false" 
+                                [loadProfile]="true"
+                                [includePaddingOnPost]="true"
+                                [post]="post" 
+                                [showNFTDetails]="true"
+                                [showExpandedNFTDetails]="false" 
+                                [setBorder]="true" 
+                                [showAvailableSerialNumbers]="true"
+                                [cardStyle]="true" 
+                                [profilePublicKeyBase58Check]="userProfileEntryResponse.PublicKeyBase58Check">
+                            </new-nft-card>
+                        </ng-container>
+                    </div> 
                 </div>
             </div>
         </div>

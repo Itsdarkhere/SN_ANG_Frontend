@@ -1,16 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { TradeCreatorBuyComponent } from './trade-creator-buy.component';
+import { TradeCreatorBuyComponent } from "./trade-creator-buy.component";
 
-describe('TradeCreatorBuyComponent', () => {
+describe("TradeCreatorBuyComponent", () => {
   let component: TradeCreatorBuyComponent;
   let fixture: ComponentFixture<TradeCreatorBuyComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TradeCreatorBuyComponent ]
-    })
-    .compileComponents();
+      declarations: [TradeCreatorBuyComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('TradeCreatorBuyComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

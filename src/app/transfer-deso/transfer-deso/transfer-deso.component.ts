@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnChanges, Output } from "@angular/core";
 import { ProfileEntryResponse } from "src/app/backend-api.service";
 import { GlobalVarsService } from "src/app/global-vars.service";
 
@@ -22,6 +22,6 @@ export class TransferDesoComponent {
   }
   _handleCreatorSelectedInSearch(creator: ProfileEntryResponse) {
     this.payToCreator = creator;
-    this.publicKey = creator?.Username || creator?.PublicKeyBase58Check || "";
+    this.publicKey = creator.PublicKeyBase58Check;
   }
 }

@@ -10,6 +10,7 @@ import { environment } from "src/environments/environment";
 import { ActionResponseModalComponent } from "../action-response-modal/action-response-modal.component";
 import { take } from "rxjs/operators";
 import { BsModalService } from "ngx-bootstrap/modal";
+import { Console } from "console";
 
 class Messages {
   static INCORRECT_PASSWORD = `The password you entered was incorrect.`;
@@ -282,6 +283,11 @@ export class TransferDeSoComponent implements OnInit {
     comp.sendingDeSo = false;
   }
 
+  setPublicKeyAndReCalcFee(publicKey: string) {
+    this.payToPublicKey = publicKey;
+    this._updateSendDeSoTxnFee(true);
+  }
+
   _updateSendDeSoTxnFee(force: boolean): Promise<any> {
     if (!this.globalVars.loggedInUser) {
       return;
@@ -358,10 +364,5 @@ export class TransferDeSoComponent implements OnInit {
     // If we get here we have no idea what went wrong so just alert the
     // errorString.
     return JSON.stringify(err);
-  }
-
-  _handleCreatorSelectedInSearch(creator: ProfileEntryResponse) {
-    this.payToCreator = creator;
-    this.payToPublicKey = creator?.Username || creator?.PublicKeyBase58Check || "";
   }
 }

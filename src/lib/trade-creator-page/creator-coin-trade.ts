@@ -56,7 +56,7 @@ export class CreatorCoinTrade {
 
   defaultCurrency() {
     return this.isBuyingCreatorCoin
-      ? CreatorCoinTrade.USD_CURRENCY_STRING
+      ? CreatorCoinTrade.DESO_CURRENCY_STRING
       : CreatorCoinTrade.CREATOR_COIN_CURRENCY_STRING;
   }
 

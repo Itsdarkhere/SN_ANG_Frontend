@@ -2,7 +2,7 @@
     <!-- Add Supernovas logo -->
     
     <ng-container [formGroup]="createCollectionForm" (submit)="submit()">
-        <app-collection-stepper formArrayName="views" [linear]=true>
+        <app-collection-stepper class="full-height-width-container" formArrayName="views" [linear]=true>
             <!-- View 1: Add Collection Details -->
             <!-- Pass parent form to child component -->
             <cdk-step [editable]=true formGroupName="0" [stepControl]="views.get([0])">
@@ -11,7 +11,7 @@
             
             <!-- View 2: Select NFTs for Collection -->
             <cdk-step [editable]=true formGroupName="1" [stepControl]="views.get([1])">
-                <app-collection-selections [collectionSelections]="collectionSelections"></app-collection-selections>
+                <app-collection-selections class="full-height-width-container" [collectionSelections]="collectionSelections"></app-collection-selections>
             </cdk-step>
         </app-collection-stepper>
     </ng-container>

@@ -9,18 +9,18 @@ import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 })
 // Definately make this into a more generally usable modal
 export class ActionResponseModalComponent implements OnInit {
-  constructor(private bsModalRef: BsModalRef, private modalService: BsModalService) {}
+  constructor(public bsModalRef: BsModalRef, private modalService: BsModalService) {}
   @Input() headingText: string;
-  @Input() modalText: string;
+  @Input() mainText: string;
   @Input() buttonOneText: string;
   ngOnInit(): void {}
 
   dissmissReasonOne() {
     this.bsModalRef.hide();
-    this.modalService.setDismissReason("nft sold");
+    this.modalService.setDismissReason("routeToWallet");
   }
   dissmissReasonTwo() {
     this.bsModalRef.hide();
-    this.modalService.setDismissReason("nft sold");
+    this.modalService.setDismissReason("close");
   }
 }

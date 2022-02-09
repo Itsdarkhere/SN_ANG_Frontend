@@ -201,6 +201,7 @@ import { BuyDesoComponent } from "./transfer-deso/buy-deso/buy-deso.component";
 import { SellDesoComponent } from "./transfer-deso/sell-deso/sell-deso.component";
 import { TransferDesoComponent } from "./transfer-deso/transfer-deso/transfer-deso.component";
 import { ActionResponseModalComponent } from "./action-response-modal/action-response-modal.component";
+import { ActionResponseSlideupComponent } from './action-response-slideup/action-response-slideup.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -376,6 +377,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     SellDesoComponent,
     TransferDesoComponent,
     ActionResponseModalComponent,
+    ActionResponseSlideupComponent,
   ],
   imports: [
     BrowserModule,

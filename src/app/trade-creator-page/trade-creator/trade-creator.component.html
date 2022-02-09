@@ -63,7 +63,20 @@
       class="w-100 h-100 pb-10px d-flex flex-center"
     ></app-trade-creator-transfer>
   </div>
+  <app-action-response-slideup
+    [isOpen]="openMobileActionResponse"
+    (closeSlideUp)="closeSlideUp($event)"
+    [headingText]="headingText"
+    [mainText]="mainText"
+    [buttonOneText]="buttonOneText"
+  ></app-action-response-slideup>
 </div>
+<!--
+
+  headingText: "Sold!",
+        modalText: "You sold the Creator Coin successfully.",
+        buttonOneText: "View Wallet",
+-->
 <ng-template #loadingElseBlock>
   <simple-center-loader></simple-center-loader>
 </ng-template>

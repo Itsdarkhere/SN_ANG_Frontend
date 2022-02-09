@@ -87,6 +87,14 @@ export class TradeCreatorComponent implements OnInit {
   creatorCoinTradeBeingCalled: boolean = false;
   showHighLoadWarning: boolean = false;
 
+  // If to open slideup version of the action success screen
+  openMobileActionResponse = false;
+
+  // ActionResponse variables
+  headingText: string;
+  mainText: string;
+  buttonOneText: string;
+
   mobile = false;
 
   constructor(
@@ -112,9 +120,14 @@ export class TradeCreatorComponent implements OnInit {
     this.creatorCoinTrade.showSlippageError = false;
   }
 
+  // Show some sort of success modal
   _onTradeExecuted() {
-    if (!this.inTutorial) {
-      // Logic for trade executed
+    if (this.creatorCoinTrade.tradeType == "Sell") {
+      this.openActionModalOrSlideUp("sell");
+    } else if (this.creatorCoinTrade.tradeType == "Transfer") {
+      this.openActionModalOrSlideUp("transfer");
+    } else if (this.creatorCoinTrade.tradeType == "Buy") {
+      this.openActionModalOrSlideUp("buy");
     }
   }
 
@@ -199,20 +212,52 @@ export class TradeCreatorComponent implements OnInit {
     );
   }
 
-  ngOnInit() {
-    const actionResponseModalDetails = this.modalService.show(ActionResponseModalComponent, {
-      class: "action-response-modal modal-dialog-centered",
-      initialState: {
-        headingText: "Sold!",
-        modalText: "You sold the Creator Coin successfully.",
-        buttonOneText: "View Wallet",
-      },
-    });
+  openActionModalOrSlideUp(tabName: string) {
+    // Set correct texts based on tab
+    if (tabName == "transfer") {
+      this.headingText = "Transferred!";
+      this.mainText = "You transferred the Creator Coin successfully.";
+      this.buttonOneText = "View Wallet";
+    } else if (tabName == "sell") {
+      this.headingText = "Sold!";
+      this.mainText = "You sold the Creator Coin successfully.";
+      this.buttonOneText = "View Wallet";
+    } else if (tabName == "buy") {
+      this.headingText = "Successs!";
+      this.mainText = "You are now an owner of @" + this.creatorCoinTrade.creatorProfile.Username + " coin.";
+      this.buttonOneText = "View Wallet";
+    }
+    // on mobile open slideup
+    // Desktop / tablet open modal
+    if (this.globalVars.isMobileIphone()) {
+      this.openMobileActionResponse = true;
+    } else {
+      const actionResponseModalDetails = this.modalService.show(ActionResponseModalComponent, {
+        class: "action-response-modal modal-dialog-centered",
+        initialState: {
+          headingText: this.headingText,
+          mainText: this.mainText,
+          buttonOneText: this.buttonOneText,
+        },
+      });
+      const onHiddenEvent = actionResponseModalDetails.onHidden.pipe(take(1));
+      onHiddenEvent.subscribe((response) => {
+        if (response == "routeToWallet") {
+          this.router.navigate([RouteNames.WALLET]);
+        }
+      });
+    }
+  }
+  closeSlideUp(closeReason: string) {
+    if (closeReason == "close") {
+      this.openMobileActionResponse = false;
+    } else {
+      this.openMobileActionResponse = false;
+      this.router.navigate([RouteNames.WALLET]);
+    }
+  }
 
-    const onHiddenEvent = actionResponseModalDetails.onHidden.pipe(take(1));
-    onHiddenEvent.subscribe((response) => {
-      console.log(response);
-    });
+  ngOnInit() {
     this.setMobileBasedOnViewport();
     this.creatorCoinTrade = new CreatorCoinTrade(this.appData);
     this._setStateFromActivatedRoute(this.route);
@@ -763,7 +808,8 @@ export class TradeCreatorComponent implements OnInit {
   }
 
   _creatorCoinSuccess = (comp: any) => {
-    comp.appData.celebrate();
+    console.log("Success");
+    //comp.appData.celebrate();
     comp.creatorCoinTradeBeingCalled = false;
     comp.showHighLoadWarning = false;
     this._onTradeExecuted();

@@ -253,6 +253,11 @@ input[type="number"] {
   margin-top: 30px;
 }
 
+.settings-text-mobile {
+  margin-top: 50px;
+}
+
+// iphone 13 pro and above
 @media screen and (max-width: 480px) {
   .update-profile-get-starter-deso-container {
     margin-top: 0px;

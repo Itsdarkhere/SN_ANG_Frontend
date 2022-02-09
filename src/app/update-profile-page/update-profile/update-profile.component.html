@@ -73,7 +73,12 @@
         <simple-center-loader *ngIf="!globalVars.loggedInUser"></simple-center-loader>
         <!-- Form Inputs -->
         <div *ngIf="globalVars.loggedInUser" class="fs-18px disable-scrollbars">
-          <h2 class="font-weight-semiboldn px-15px fs-24px mt-20px mb-20px ml-10px">Settings</h2>
+          <div *ngIf="!this.globalVars.isMobile()">
+            <h2 class="font-weight-semiboldn px-15px fs-24px mt-20px mb-20px ml-10px">Settings</h2>
+          </div>
+          <div *ngIf="this.globalVars.isMobile()">
+            <h2 class="font-weight-semiboldn px-15px fs-24px mb-20px ml-10px settings-text-mobile">Settings</h2>
+          </div>
           <div class="position-relative px-15px">
             <!-- BANNER IMAGE-->
             <div class="mt-10px banner-image-container" style="position: relative">

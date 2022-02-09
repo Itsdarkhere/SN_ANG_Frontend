@@ -7,20 +7,20 @@
         </div>
         
         <!-- Populated NFT Content -->
-        <div class="collection-selections-main-content">
-            <input type="text" id="selected-Nfts">
+        <div class="collection-selections-main-content">   
+            <ng-container *ngIf="this.posts?.length && !isLoading">
+               
+                 <!-- Container with "position: absolute;" allows inner flex content to scroll -->
+                <div class="collection-selections-user-nfts">
+                    <ng-container
+                        infiniteScroll 
+                        [infiniteScrollDistance]="5" 
+                        [infiniteScrollThrottle]="150"
+                        (scrolled)="onScroll()">
 
-            <div *ngIf="this.posts?.length && !isLoading"> 
-                <div 
-                    infiniteScroll 
-                    [infiniteScrollDistance]="5" 
-                    [infiniteScrollThrottle]="150"
-                    (scrolled)="onScroll()">
-  
-                    <div class="nft-col-wrap max-width-350" *ngFor="let post of dataToShow">
-                        <!-- Check on card props -->
-                        <ng-container *ngIf="!loggedInUser">
+                        <div *ngFor="let post of dataToShow">
                             <new-nft-card
+                                [id]="userNfts"
                                 formControlName="selectedNfts"
                                 [contentShouldLinkToThread]="false" 
                                 [loadProfile]="true"
@@ -33,12 +33,12 @@
                                 [cardStyle]="true" 
                                 [profilePublicKeyBase58Check]="userProfileEntryResponse.PublicKeyBase58Check">
                             </new-nft-card>
-                        </ng-container>
-                    </div> 
+                        </div>
+                    </ng-container>
                 </div>
-            </div>
-        </div>
 
+            </ng-container>         
+        </div>
     </div>
 
     <!-- Create Collection Form Navigation -->

@@ -1,6 +1,6 @@
 form {
     height: 700px; // update to appropriate (flexible) size
-    width: 600px; // update to appropriate (flexible) size
+    width: 700px; // update to appropriate (flexible) size
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -39,7 +39,37 @@ form {
 }
 
 .collection-selections-main-content {
-    padding: 20px 50px;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border: 1px solid red;
+    
+    .collection-selections-user-nfts {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        max-width: 100%;
+        display: inline-flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        border: 3px solid blue;
+        overflow: auto;
+    }
+
+    // Targets each user NFT
+    .collection-selections-user-nfts > div {
+        margin-bottom: 20px;
+        min-width: 300px;
+        border: 2px solid orange;
+    }
+
+    @media screen and (max-width: 676px) {   
+        margin-bottom: 35px;
+    } 
 }
 
 .collection-selections-bottom-bar {

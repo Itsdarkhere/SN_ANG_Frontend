@@ -200,6 +200,7 @@ import { TradeCreatorTransferComponent } from './trade-creator-page/trade-creato
 import { BuyDesoComponent } from './transfer-deso/buy-deso/buy-deso.component';
 import { SellDesoComponent } from './transfer-deso/sell-deso/sell-deso.component';
 import { TransferDesoComponent } from './transfer-deso/transfer-deso/transfer-deso.component';
+import { GeneralSuccessModalComponent } from './general-success-modal/general-success-modal.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -374,6 +375,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     BuyDesoComponent,
     SellDesoComponent,
     TransferDesoComponent,
+    GeneralSuccessModalComponent,
   ],
   imports: [
     BrowserModule,

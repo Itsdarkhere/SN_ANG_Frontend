@@ -10,6 +10,8 @@ import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask 
 import { AngularFirestore } from "@angular/fire/firestore";
 import { TransactionalEmailService } from "src/app/transactional-email.service";
 import { Observable } from "rxjs";
+import { BsModalService } from "ngx-bootstrap/modal";
+import { GeneralSuccessModalComponent } from "../../general-success-modal/general-success-modal.component";
 
 export type ProfileUpdates = {
   usernameUpdate: string;
@@ -90,7 +92,8 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     private backendApi: BackendApiService,
     private router: Router,
     private titleService: Title,
-    private emailService: TransactionalEmailService
+    private emailService: TransactionalEmailService,
+    private modalService: BsModalService
   ) {}
 
   ngOnInit() {
@@ -320,8 +323,11 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
       (res) => {
         this.globalVars.profileUpdateTimestamp = Date.now();
         this.globalVars.logEvent("profile : update");
+
         // This updates things like the username that shows up in the dropdown.
         this.globalVars.updateEverything(res.TxnHashHex, this._updateProfileSuccess, this._updateProfileFailure, this);
+
+        this.openGeneralSuccessModal();
       },
       (err) => {
         const parsedError = this.backendApi.parseProfileError(err);
@@ -352,7 +358,7 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
   }
 
   _updateProfileSuccess(comp: UpdateProfileComponent) {
-    comp.globalVars.celebrate();
+    // comp.globalVars.celebrate();
     comp.updateProfileBeingCalled = false;
     comp.profileUpdated = true;
     if (comp.inTutorial) {
@@ -361,25 +367,48 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
       });
       return;
     }
+
+    // this.openGeneralSuccessModal();
+    // console.log(` ----------------- ${comp.globalVars.loggedInUser.UsersWhoHODLYouCount} ---------------------`);
+
     if (comp.globalVars.loggedInUser.UsersWhoHODLYouCount === 0) {
-      SwalHelper.fire({
-        target: comp.globalVars.getTargetComponentSelector(),
-        title: "You’re all set!",
-        showConfirmButton: true,
-        focusConfirm: true,
-        customClass: {
-          confirmButton: "creator-coin-button",
-        },
-        text: `Your profile has been updated.`,
-        confirmButtonText: "Go to my profile",
-      }).then((res) => {
-        if (res.isConfirmed) {
-          comp.router.navigate([
-            AppRoutingModule.profilePath(comp.globalVars.loggedInUser.ProfileEntryResponse.Username),
-          ]);
-        }
-      });
+      // SwalHelper.fire({
+      //   target: comp.globalVars.getTargetComponentSelector(),
+      //   title: "You’re all set!",
+      //   showConfirmButton: true,
+      //   focusConfirm: true,
+      //   customClass: {
+      //     confirmButton: "creator-coin-button",
+      //   },
+      //   text: `Your profile has been updated.`,
+      //   confirmButtonText: "Go to my profile",
+      // }).then((res) => {
+      //   if (res.isConfirmed) {
+      //     comp.router.navigate([
+      //       AppRoutingModule.profilePath(comp.globalVars.loggedInUser.ProfileEntryResponse.Username),
+      //     ]);
+      //   }
+      // });
+      // if this is in and the above code is out we get stuck in a loop
+      //   this.openGeneralSuccessModal();
+      //   console.log(` --------------- fire modal event --------------- `);
+      //   return;
     }
+  }
+
+  openGeneralSuccessModal() {
+    console.log(` ------------------------- general success modal function hit -------------- `);
+
+    this.modalService.show(GeneralSuccessModalComponent, {
+      class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+      initialState: {
+        header: "You're all set!",
+        text: "Your profile has been updated.",
+        buttonText: "Go to my profile",
+      },
+    });
+
+    // globalVars.loggedInUser.ProfileEntryResponse.Username
   }
 
   _updateProfileFailure(comp: UpdateProfileComponent) {

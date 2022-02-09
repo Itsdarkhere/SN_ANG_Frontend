@@ -10,6 +10,7 @@ form {
 }
 
 .collection-selections-main {
+    padding: 0 20px;
     flex: 8;
     width: 100%;
     display: flex;
@@ -42,14 +43,15 @@ form {
     position: relative;
     height: 100%;
     width: 100%;
-    // border: 1px solid red;
     
+    // Targets all NFTs
     .collection-selections-user-nfts {
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
+        padding: 10px 0;
         height: 100%;
         max-width: 100%;
         display: inline-flex;
@@ -57,14 +59,12 @@ form {
         flex-wrap: wrap;
         gap: 30px;
         overflow: auto;
-        // border: 3px solid blue;
     }
 
     // Targets each user NFT
     .collection-selections-user-nfts > div {
         margin-bottom: 20px;
-        min-width: 300px;
-        // border: 2px solid orange;
+        min-width: 275px;
     }
 
     @media screen and (max-width: 676px) {   

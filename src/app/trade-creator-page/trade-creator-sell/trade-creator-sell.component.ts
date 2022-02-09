@@ -27,9 +27,6 @@ export class TradeCreatorSellComponent implements OnInit {
     this.sellClick.emit();
   }
 
-  routeToWalletCC() {
-    this.router.navigate([this.globalVars.RouteNames.WALLET]);
-  }
   _maxAmount() {
     if (this.creatorCoinTrade == null || this.creatorCoinTrade.selectedCurrency == null) {
       return null;
@@ -69,6 +66,9 @@ export class TradeCreatorSellComponent implements OnInit {
     maxAmount = Math.max(0, maxAmount);
 
     return parseFloat(maxAmount.toFixed(9));
+  }
+  sellAll() {
+    // ADD LOGIC
   }
 
   _minAmount() {

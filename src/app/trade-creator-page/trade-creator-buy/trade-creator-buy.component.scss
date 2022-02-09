@@ -92,7 +92,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .trade-creator-input {
     border: 5px solid #0e0f22;
-    font-size: 42px;
+    font-size: clamp(16px, 6vw, 42px);
     border-top-left-radius: 16px;
     border-bottom-left-radius: 16px;
 }

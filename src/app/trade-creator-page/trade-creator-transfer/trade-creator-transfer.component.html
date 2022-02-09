@@ -21,7 +21,7 @@
   <!-- Errors-->
   <div
     *ngIf="creatorCoinTrade.amount.invalid && (creatorCoinTrade.amount.dirty || creatorCoinTrade.amount.touched)"
-    class="text-danger text-left fs-14px mt-2"
+    class="text-danger text-center w-90 fs-14px mt-2"
   >
     <div *ngIf="creatorCoinTrade.amount.errors.required" class="mt-10px">Amount is required</div>
 

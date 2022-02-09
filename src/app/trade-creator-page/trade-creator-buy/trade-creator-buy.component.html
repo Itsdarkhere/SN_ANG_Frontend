@@ -18,7 +18,7 @@
   <!-- ERRORS -->
   <div
     *ngIf="creatorCoinTrade.amount.invalid && (creatorCoinTrade.amount.dirty || creatorCoinTrade.amount.touched)"
-    class="text-danger text-left errors-fontsize mt-2"
+    class="text-danger text-center 2-90 errors-fontsize mt-2"
   >
     <div *ngIf="creatorCoinTrade.amount.errors.required" class="mt-10px">Amount is required</div>
 
@@ -41,7 +41,7 @@
   <!-- ERRORS END -->
   <div class="trade-creator-spacer-two"></div>
   <span class="trade-creator-balance-info">
-    <p class="font-weight-semiboldn">You have {{ creatorCoinTrade.assetToSellBalance() }} DeSo in your wallet</p>
+    <p class="font-weight-semiboldn">You have {{ creatorCoinTrade.assetToSellBalance() }} DeSo</p>
   </span>
   <div class="trade-creator-spacer"></div>
   <div class="trade-creator-coin-info-box d-flex flex-center flex-column">

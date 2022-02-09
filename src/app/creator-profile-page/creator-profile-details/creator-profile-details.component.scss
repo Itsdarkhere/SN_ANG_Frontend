@@ -43,4 +43,9 @@
 .cover-image-blurred-container{
     position: absolute;
     overflow: hidden;
+    // height: 4.5%;
+    z-index: 1;
+    @media (max-width: 40em) {
+        // height: 3.5%;
+    }
 }

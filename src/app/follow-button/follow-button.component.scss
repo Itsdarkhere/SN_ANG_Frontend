@@ -4,12 +4,20 @@
         color: var(--button);
         border: 2.5px solid var(--button);
         background: var(--background);
-        /* margin-left: 20px; */
-        min-width: 100px;
-        display: inline-block;
-        padding: 0.7rem 4rem;
         font-size: 0.9rem;
+        /* padding-left: 50%; */
         border-radius: 6.25rem;
+        /* padding: 10% 80% 10% 80%; */
+        /* width: 100%; */
+        display: inline-block;
+        padding: 0.8em 4.2em;
+        /* margin: 0 0.3em 0.3em 0; */
+        box-sizing: border-box;
+        text-decoration: none;
+        @media all and (max-width:60em) {
+            display:block;
+            margin:0.4em auto;
+        }
     }
     &.follow-black {
         color: var(--background);
@@ -23,3 +31,9 @@
 .lt_loader {
     margin-left: 30px;
 }
+
+.follow-icon {
+    width: 14px;
+    margin-right: 0.2em;
+}
+

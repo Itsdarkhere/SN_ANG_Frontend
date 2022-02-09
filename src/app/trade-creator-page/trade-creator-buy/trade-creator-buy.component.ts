@@ -12,6 +12,7 @@ export class TradeCreatorBuyComponent implements OnInit {
 
   @Input() creatorCoinTrade: CreatorCoinTrade;
   @Input() creatorProfile: ProfileEntryResponse;
+  @Input() buyingCoin: boolean;
   @Output() buyClick = new EventEmitter();
   @Output() invalidateAndUpdateAmounts = new EventEmitter();
 

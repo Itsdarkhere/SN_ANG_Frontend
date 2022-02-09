@@ -28,6 +28,7 @@
     <app-sell-deso *ngIf="tabSell" class="w-100 h-100 pb-10px d-flex flex-center"></app-sell-deso>
     <app-transfer-deso
       (sendDeso)="_clickSendDeSo($event)"
+      [sendingDeSo]="sendingDeSo"
       *ngIf="tabTransfer"
       class="w-100 h-100 pb-10px d-flex flex-center"
     ></app-transfer-deso>
@@ -39,3 +40,10 @@
     <img [src]="sendDeSoQRCode | sanitizeQRCode" />
   </div>
 </div>
+<app-action-response-slideup
+  [isOpen]="openMobileActionResponse"
+  (closeSlideUp)="closeSlideUp($event)"
+  [headingText]="'Transferred!'"
+  [mainText]="'You transferred the DeSo successfully.'"
+  [buttonOneText]="'View Wallet'"
+></app-action-response-slideup>

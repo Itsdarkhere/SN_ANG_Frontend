@@ -41,6 +41,7 @@
     <app-trade-creator-buy
       *ngIf="creatorCoinTrade.tradeType === 'Buy'"
       (buyClick)="_buyOrSellCreatorCoin()"
+      [buyingCoin]="creatorCoinTradeBeingCalled"
       (invalidateAndUpdateAmounts)="_invalidateAndUpdateAmounts()"
       [creatorProfile]="creatorProfile"
       [creatorCoinTrade]="creatorCoinTrade"
@@ -48,6 +49,7 @@
     ></app-trade-creator-buy>
     <app-trade-creator-sell
       (sellClick)="_buyOrSellCreatorCoin()"
+      [sellingCoin]="creatorCoinTradeBeingCalled"
       (invalidateAndUpdateAmounts)="_invalidateAndUpdateAmounts()"
       [creatorProfile]="creatorProfile"
       [creatorCoinTrade]="creatorCoinTrade"
@@ -56,6 +58,7 @@
     ></app-trade-creator-sell>
     <app-trade-creator-transfer
       (transferClick)="_transferCreatorCoin()"
+      [transferingCoin]="creatorCoinTradeBeingCalled"
       (invalidateAndUpdateAmounts)="_invalidateAndUpdateAmounts()"
       [creatorProfile]="creatorProfile"
       [creatorCoinTrade]="creatorCoinTrade"

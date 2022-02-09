@@ -70,6 +70,7 @@
     class="black-rounded-button bounce-button mt-20px trade-creator-button"
     (click)="clickSell()"
   >
-    Sell
+    <i *ngIf="sellingCoin; else elseBlock" class="fa fa-spinner fa-spin"></i>
+    <ng-template #elseBlock>Sell</ng-template>
   </button>
 </div>

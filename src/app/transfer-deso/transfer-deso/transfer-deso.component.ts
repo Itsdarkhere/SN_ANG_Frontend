@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { ProfileEntryResponse } from "src/app/backend-api.service";
 import { GlobalVarsService } from "src/app/global-vars.service";
 
@@ -13,6 +13,7 @@ export class TransferDesoComponent {
   publicKey: string;
   payToCreator: ProfileEntryResponse;
   startingSearchText = "";
+  @Input() sendingDeSo: boolean;
   @Output() sendDeso = new EventEmitter<{ amount: number; publicKey: string }>();
   constructor(public globalVars: GlobalVarsService) {}
 

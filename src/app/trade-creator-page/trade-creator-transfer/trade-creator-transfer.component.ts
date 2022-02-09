@@ -15,6 +15,7 @@ import _ from "lodash";
 export class TradeCreatorTransferComponent implements OnInit {
   @Input() creatorProfile: ProfileEntryResponse;
   @Input() creatorCoinTrade: CreatorCoinTrade;
+  @Input() transferingCoin: boolean;
   @Output() transferClick = new EventEmitter();
   @Output() invalidateAndUpdateAmounts = new EventEmitter();
 

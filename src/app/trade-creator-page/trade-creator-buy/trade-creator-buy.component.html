@@ -56,10 +56,11 @@
     </span>
   </div>
   <button
-    [disabled]="creatorCoinTrade.amount.invalid"
+    [disabled]="creatorCoinTrade.amount.invalid || buyingCoin"
     class="black-rounded-button bounce-button mt-20px trade-creator-button"
     (click)="clickBuy()"
   >
-    Buy
+    <i *ngIf="buyingCoin; else elseBlock" class="fa fa-spinner fa-spin"></i>
+    <ng-template #elseBlock>Buy</ng-template>
   </button>
 </div>

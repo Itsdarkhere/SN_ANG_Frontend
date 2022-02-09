@@ -12,6 +12,7 @@ import _ from "lodash";
 export class TradeCreatorSellComponent implements OnInit {
   @Input() creatorProfile: ProfileEntryResponse;
   @Input() creatorCoinTrade: CreatorCoinTrade;
+  @Input() sellingCoin: boolean;
   @Output() sellClick = new EventEmitter();
   @Output() invalidateAndUpdateAmounts = new EventEmitter();
 

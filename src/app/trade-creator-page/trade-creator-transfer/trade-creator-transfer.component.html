@@ -66,10 +66,11 @@
     </div>
   </div>
   <button
-    [disabled]="creatorCoinTrade.amount.invalid || !selectedProfilePublickey"
+    [disabled]="creatorCoinTrade.amount.invalid || !selectedProfilePublickey || transferingCoin"
     class="black-rounded-button bounce-button mt-20px trade-creator-button"
     (click)="transferEmit()"
   >
-    Transfer
+    <i *ngIf="transferingCoin; else elseBlock" class="fa fa-spinner fa-spin"></i>
+    <ng-template #elseBlock>Transfer</ng-template>
   </button>
 </div>

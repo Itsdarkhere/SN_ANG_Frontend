@@ -326,8 +326,6 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
 
         // This updates things like the username that shows up in the dropdown.
         this.globalVars.updateEverything(res.TxnHashHex, this._updateProfileSuccess, this._updateProfileFailure, this);
-
-        this.openGeneralSuccessModal();
       },
       (err) => {
         const parsedError = this.backendApi.parseProfileError(err);
@@ -368,31 +366,11 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
       return;
     }
 
-    // this.openGeneralSuccessModal();
-    // console.log(` ----------------- ${comp.globalVars.loggedInUser.UsersWhoHODLYouCount} ---------------------`);
-
     if (comp.globalVars.loggedInUser.UsersWhoHODLYouCount === 0) {
-      // SwalHelper.fire({
-      //   target: comp.globalVars.getTargetComponentSelector(),
-      //   title: "You’re all set!",
-      //   showConfirmButton: true,
-      //   focusConfirm: true,
-      //   customClass: {
-      //     confirmButton: "creator-coin-button",
-      //   },
-      //   text: `Your profile has been updated.`,
-      //   confirmButtonText: "Go to my profile",
-      // }).then((res) => {
-      //   if (res.isConfirmed) {
-      //     comp.router.navigate([
-      //       AppRoutingModule.profilePath(comp.globalVars.loggedInUser.ProfileEntryResponse.Username),
-      //     ]);
-      //   }
-      // });
-      // if this is in and the above code is out we get stuck in a loop
-      //   this.openGeneralSuccessModal();
-      //   console.log(` --------------- fire modal event --------------- `);
-      //   return;
+      //   we have to use comp instead of this
+      comp.openGeneralSuccessModal();
+      console.log(` --------------- fire modal event --------------- `);
+      return;
     }
   }
 

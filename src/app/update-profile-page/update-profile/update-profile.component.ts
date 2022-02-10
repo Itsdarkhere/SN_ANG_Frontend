@@ -108,14 +108,12 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
       console.log("Sending email");
       this.emailService.SendWelcomeEmail("Valtteri", "link", "valtteri@supernovas.app");
     }
+  }
 
-    // console.log(
-    //   `----------------------------- can create profile ${this.globalVars.loggedInUser.CanCreateProfile} -----------------------------`
-    // );
-
-    // console.log(
-    //   `----------------------------- PublicKeyBase58Check ${this.globalVars.loggedInUser.PublicKeyBase58Check} -----------------------------`
-    // );
+  unsubscribe() {
+    this.subscriptions[0].unsubscribe();
+    this.subscriptions = [];
+    console.log(` ----------------- unsub hit ---------------- `);
   }
 
   _getUserMetadata() {
@@ -326,6 +324,8 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
 
         // This updates things like the username that shows up in the dropdown.
         this.globalVars.updateEverything(res.TxnHashHex, this._updateProfileSuccess, this._updateProfileFailure, this);
+
+        this.openGeneralSuccessModal();
       },
       (err) => {
         const parsedError = this.backendApi.parseProfileError(err);
@@ -367,9 +367,8 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     }
 
     if (comp.globalVars.loggedInUser.UsersWhoHODLYouCount === 0) {
-      //   we have to use comp instead of this
-      comp.openGeneralSuccessModal();
-      console.log(` --------------- fire modal event --------------- `);
+      //   old logic where swal helper was firing had to move this.openGeneralSuccessModal(); because it was firing twice here
+
       return;
     }
   }
@@ -385,8 +384,6 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
         buttonText: "Go to my profile",
       },
     });
-
-    // globalVars.loggedInUser.ProfileEntryResponse.Username
   }
 
   _updateProfileFailure(comp: UpdateProfileComponent) {

@@ -30,7 +30,6 @@ class Messages {
   styleUrls: ["./transfer-deso.component.scss"],
 })
 export class TransferDeSoComponent implements OnInit {
-  @Input() qrOnly: boolean;
   globalVars: GlobalVarsService;
   transferDeSoError = "";
   startingSearchText = "";
@@ -283,9 +282,9 @@ export class TransferDeSoComponent implements OnInit {
     comp.sendingDeSo = false;
   }
 
-  setPublicKeyAndReCalcFee(publicKey: string) {
-    this.payToPublicKey = publicKey;
-    this._updateSendDeSoTxnFee(true);
+  calculateNetworkFee(pk: string) {
+    this.payToPublicKey = pk;
+    this._updateSendDeSoTxnFee(false);
   }
 
   _updateSendDeSoTxnFee(force: boolean): Promise<any> {
@@ -324,6 +323,8 @@ export class TransferDeSoComponent implements OnInit {
 
           this.transferDeSoError = "";
           this.networkFee = res.FeeNanos / 1e9;
+          console.log(this.networkFee);
+          console.log(res);
           return res;
         },
         (error) => {
@@ -364,5 +365,8 @@ export class TransferDeSoComponent implements OnInit {
     // If we get here we have no idea what went wrong so just alert the
     // errorString.
     return JSON.stringify(err);
+  }
+  routeToBrowse() {
+    this.router.navigate([RouteNames.BROWSE]);
   }
 }

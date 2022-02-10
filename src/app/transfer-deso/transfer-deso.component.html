@@ -1,5 +1,9 @@
 <!-- Top Bar -->
-<div *ngIf="!qrOnly" class="d-flex flex-column flex-center" [ngClass]="mobile ? 'w-100' : 'feed-cover'">
+<div
+  *ngIf="globalVars.loggedInUser; else elseBlock"
+  class="d-flex flex-column flex-center"
+  [ngClass]="mobile ? 'w-100' : 'feed-cover'"
+>
   <div class="global__top-bar__height" *ngIf="mobile"></div>
   <div class="deso-page-logo-container d-flex flex-center mt-20px">
     <img src="/assets/icons/deso_page_icon.svg" alt="deso logo in white background" />
@@ -28,6 +32,9 @@
     <app-sell-deso *ngIf="tabSell" class="w-100 h-100 pb-10px d-flex flex-center"></app-sell-deso>
     <app-transfer-deso
       (sendDeso)="_clickSendDeSo($event)"
+      (getNetworkFee)="_updateSendDeSoTxnFee(false)"
+      [networkFee]="networkFee"
+      (calculateNetworkFee)="calculateNetworkFee($event)"
       [sendingDeSo]="sendingDeSo"
       *ngIf="tabTransfer"
       class="w-100 h-100 pb-10px d-flex flex-center"
@@ -35,11 +42,19 @@
   </div>
   <!-- SPACER FOR BOTTOM BAR ON MOBILE -->
   <div class="global__bottom-bar-mobile-height"></div>
-  <div *ngIf="qrOnly" class="p-15px d-flex flex-column align-items-center">
+  <div class="p-15px d-flex flex-column align-items-center">
     <p class="p-15px">Scan QR code to send {{ globalVars.loggedInUser.ProfileEntryResponse?.Username }} $DESO</p>
     <img [src]="sendDeSoQRCode | sanitizeQRCode" />
   </div>
 </div>
+<ng-template #elseBlock>
+  <div class="w-100 trade-deso-not-logged-in d-flex flex-column flex-center">
+    <label>You must log in to send, buy or transfer DeSo</label>
+    <button class="black-rounded-button basic-button-size font-weight-semiboldn" (click)="routeToBrowse()">
+      Back to feed
+    </button>
+  </div>
+</ng-template>
 <app-action-response-slideup
   [isOpen]="openMobileActionResponse"
   (closeSlideUp)="closeSlideUp($event)"

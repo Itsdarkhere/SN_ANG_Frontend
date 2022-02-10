@@ -626,7 +626,6 @@ export class GlobalVarsService {
     if (this.nanosToDeSoMemo[nanos] && this.nanosToDeSoMemo[nanos][maximumFractionDigits]) {
       return this.nanosToDeSoMemo[nanos][maximumFractionDigits];
     }
-
     this.nanosToDeSoMemo[nanos] = this.nanosToDeSoMemo[nanos] || {};
 
     if (!maximumFractionDigits && nanos > 0) {

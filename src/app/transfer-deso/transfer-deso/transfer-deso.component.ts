@@ -13,6 +13,8 @@ export class TransferDesoComponent {
   publicKey: string;
   payToCreator: ProfileEntryResponse;
   startingSearchText = "";
+  @Input() networkFee: number;
+  @Output() calculateNetworkFee = new EventEmitter();
   @Input() sendingDeSo: boolean;
   @Output() sendDeso = new EventEmitter<{ amount: number; publicKey: string }>();
   constructor(public globalVars: GlobalVarsService) {}
@@ -20,8 +22,14 @@ export class TransferDesoComponent {
   emitSendDeso() {
     this.sendDeso.emit({ amount: this.amount, publicKey: this.publicKey });
   }
+
   _handleCreatorSelectedInSearch(creator: ProfileEntryResponse) {
     this.payToCreator = creator;
     this.publicKey = creator.PublicKeyBase58Check;
+    this.emitCalculateNetworkFee();
+  }
+  // This to work it expects the user to input the uset to send to last
+  emitCalculateNetworkFee() {
+    this.calculateNetworkFee.emit(this.publicKey);
   }
 }

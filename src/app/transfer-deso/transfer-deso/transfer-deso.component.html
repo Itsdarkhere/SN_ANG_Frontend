@@ -27,11 +27,13 @@
   <div class="trade-creator-coin-info-box d-flex flex-center flex-column">
     <div class="coin-info-box-top">
       <span class="you-receive">You are transferring</span>
-      <span *ngIf="amount > 0" class="amount-of-coins font-weight-semiboldn">{{ amount }} $DESO</span>
+      <span *ngIf="amount > 0" class="amount-of-coins font-weight-semiboldn">
+        {{ globalVars.nanosToUSD(amount * 1e9, 2) }} $USD
+      </span>
     </div>
     <div class="coin-info-box-bottom">
       <span class="network-fees">Network fees</span>
-      <span class="amount-of-coins font-weight-semiboldn">0.00 $DESO</span>
+      <span class="amount-of-coins font-weight-semiboldn">{{ globalVars.nanosToDeSo(networkFee * 1e9) }} $DESO</span>
     </div>
   </div>
   <button

@@ -50,6 +50,7 @@
     <app-trade-creator-sell
       (sellClick)="_buyOrSellCreatorCoin()"
       [sellingCoin]="creatorCoinTradeBeingCalled"
+      (sellMax)="_maxButtonClicked()"
       (invalidateAndUpdateAmounts)="_invalidateAndUpdateAmounts()"
       [creatorProfile]="creatorProfile"
       [creatorCoinTrade]="creatorCoinTrade"

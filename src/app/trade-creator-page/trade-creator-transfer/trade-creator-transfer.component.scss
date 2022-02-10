@@ -50,10 +50,10 @@ input[type=number]::-webkit-outer-spin-button {
         justify-content: space-between;
         align-items: center;
         .you-receive {
-            font-size: clamp(12px, 4vw, 19px);
+            font-size: clamp(12px, 3vw, 19px);
         }
         .amount-of-coins {
-            font-size: clamp(12px, 4vw, 19px);
+            font-size: clamp(12px, 3vw, 19px);
         }
     }
     .coin-info-box-bottom {
@@ -68,10 +68,10 @@ input[type=number]::-webkit-outer-spin-button {
         justify-content: space-between;
         align-items: center;
         .network-fees {
-            font-size: clamp(12px, 4vw, 19px);
+            font-size: clamp(12px, 3vw, 19px);
         }
         .amount-of-coins {
-            font-size: clamp(12px, 4vw, 19px);
+            font-size: clamp(12px, 3vw, 19px);
         }
     }
 

@@ -1,12 +1,12 @@
 .sick-search-bar {
     width: calc(100% - 100px) !important;
-    height: 8vw;
+    height: 15vw;
     min-height: 57px;
     max-height: 77px;
     background: #ffffff;
-    border-top: 2.715573787689209px solid #ececec !important;
-    border-bottom: 2.715573787689209px solid #ececec !important;
-    border-right: 2.715573787689209px solid #ececec !important;
+    border-top: 2.7px solid #ececec !important;
+    border-bottom: 2.7px solid #ececec !important;
+    border-right: 2.7px solid #ececec !important;
     border-radius: 40.73360824584961px;
     box-shadow: 0px 1.3577868938446045px 5.431147575378418px rgba(0, 0, 0, 0.1);
     padding-left: 0.75rem !important;
@@ -26,4 +26,7 @@
 .search_bar__icon_sick {
     border-top-left-radius: 40px;
     border-bottom-left-radius: 40px;
+    border-top: 2.7px solid #ececec !important;
+    border-bottom: 2.7px solid #ececec !important;
+    border-left: 2.7px solid #ececec !important;
 }

@@ -39,3 +39,17 @@
         color: #171717;
     }
 }
+// For logged out
+.trade-deso-not-logged-in {
+    height: 600px;
+    padding: 20px;
+    label {
+        font-weight: bold;
+        font-size: clamp(16px, 4vw, 24px);
+        margin-bottom: 40px;
+        text-align: center;
+    }
+    button {
+        max-width: 80vw;
+    }
+}

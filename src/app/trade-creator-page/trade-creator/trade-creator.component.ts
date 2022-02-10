@@ -141,6 +141,10 @@ export class TradeCreatorComponent implements OnInit {
     );
   }
 
+  _maxButtonClicked() {
+    this.creatorCoinTrade.amount.setValue(this._maxAmount().toFixed(9));
+  }
+
   _handleTabClick(tab: string) {
     // Reset the creator coin trade as needed.
     this.creatorCoinTrade.amount.reset();

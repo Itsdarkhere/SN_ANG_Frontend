@@ -1783,10 +1783,7 @@ input.bs-timepicker-field {
     height: $global__top-bar__desktop-height;
   }
   @media (max-width: 991.98px) {
-    margin-top: 30px;
-  }
-  @media (max-width: 390px) {
-    margin-top: 30px;
+    margin-top: 65px;
   }
 }
 
@@ -4163,6 +4160,10 @@ option {
 }
 
 .feed_mobile_gap {
+  @media screen and (max-width: 992px) {
+    margin-top: 7.5px;
+  }
+
   @media screen and (max-width: 676px) {
     padding: 0 10px;
   }

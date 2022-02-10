@@ -110,12 +110,6 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     }
   }
 
-  unsubscribe() {
-    this.subscriptions[0].unsubscribe();
-    this.subscriptions = [];
-    console.log(` ----------------- unsub hit ---------------- `);
-  }
-
   _getUserMetadata() {
     this.loading = true;
     this.backendApi

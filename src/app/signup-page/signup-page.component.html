@@ -161,7 +161,7 @@
 
   <!-- if isMobile is true render mobile -->
   <div *ngIf="this.globalVars.isMobile()">
-    <header class="signup-header-mobile global__top-bar__height d-flex flex-center-start">
+    <header class="signup-header-mobile d-flex flex-center-start">
       <a [routerLink]="'/' + this.globalVars.RouteNames.BROWSE">
         <img
           *ngIf="this.globalVars.isMobile()"

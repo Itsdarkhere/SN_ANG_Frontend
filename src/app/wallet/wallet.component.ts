@@ -33,6 +33,7 @@ export class WalletComponent implements OnInit, OnDestroy {
   tabCreatorCoin = true;
   tabEarnings = false;
 
+  showYouDontOwnCreatorCoins = false;
   @Input() inTutorial: boolean;
 
   globalVars: GlobalVarsService;
@@ -114,16 +115,10 @@ export class WalletComponent implements OnInit, OnDestroy {
       if (balanceEntryResponse.NetBalanceInMempool != 0) {
         this.hasUnminedCreatorCoins = true;
       }
-      // If you purchased the coin or the balance entry response if for your creator coin, show it in the purchased tab.
-      /*if (
-        balanceEntryResponse.HasPurchased ||
-        balanceEntryResponse.HODLerPublicKeyBase58Check === balanceEntryResponse.CreatorPublicKeyBase58Check
-      ) {
-        this.usersYouPurchased.push(balanceEntryResponse);
-      } else {
-        this.usersYouReceived.push(balanceEntryResponse);
-      }*/
       this.usersYouPurchased.push(balanceEntryResponse);
+      if (this.usersYouPurchased) {
+        this.showYouDontOwnCreatorCoins = true;
+      }
     });
     this.sortWallet("value");
     this._handleTabClick(WalletComponent.coinsPurchasedTab);

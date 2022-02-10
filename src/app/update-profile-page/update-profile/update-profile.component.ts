@@ -134,7 +134,6 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
         this.loading = false;
       });
   }
-
   _validateEmail(email) {
     if (email === "" || this.globalVars.emailRegExp.test(email)) {
       this.invalidEmailEntered = false;

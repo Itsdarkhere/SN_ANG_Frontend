@@ -5,7 +5,9 @@
       <h4 class="font-weight-semiboldn fs-16px" style="color: #565656">YOUR WALLET</h4>
       <div class="font-weight-bold d-flex flex-row fs-24px mt-20px" style="color: #0d0d0d">
         <div class="wallet-avatar" [avatar]="globalVars.loggedInUser.PublicKeyBase58Check"></div>
-        <span class="pl-5px">@{{ globalVars.loggedInUser.ProfileEntryResponse.Username }}</span>
+        <span class="pl-5px" *ngIf="globalVars.loggedInUser.ProfileEntryResponse?.Username">
+          @{{ globalVars.loggedInUser.ProfileEntryResponse?.Username }}
+        </span>
       </div>
     </div>
     <div class="wallet-pk-box-wrapper position-relative d-flex flex-column" [ngClass]="{ mobile: mobile }">
@@ -50,14 +52,14 @@
         <img src="/assets/icons/wallet_cc_icon.svg" alt="creator coin icon" />
         <label *ngIf="!mobile" class="mb-0px pl-5px">Creator Coins</label>
       </button>
-      <button
+      <!--<button
         (click)="tabEarningsClick()"
         class="br-top-right-30px font-weight-semiboldn"
         [ngClass]="{ active: tabEarnings }"
       >
         <img src="/assets/icons/wallet_earnings_icon.svg" alt="creator coin icon" />
         <label *ngIf="!mobile" class="mb-0px pl-5px">Earnings</label>
-      </button>
+      </button>-->
     </div>
   </div>
   <div class="d-flex flex-center background-grey">
@@ -86,7 +88,8 @@
       </div>
     </div>
     <div *ngIf="tabCreatorCoin" [@tabChangeAnimation] class="wallet-bottom-container">
-      <div class="w-100 creator-coin-top-bar" [ngClass]="{ w2: mobile }">
+      <div *ngIf="!showYouDontOwnCreatorCoins" class="dont-own-cc">You dont own any creator coins...</div>
+      <div class="w-100 creator-coin-top-bar" *ngIf="showYouDontOwnCreatorCoins" [ngClass]="{ w2: mobile }">
         <label class="font-weight-semiboldn mb-0px fs-14px text-align-start pl-20px" style="color: #7a7a7a">
           CREATOR
         </label>
@@ -104,12 +107,13 @@
           VALUE IN USD
         </label>
       </div>
-      <div class="creator-coin-list disable-scrollbars" [ngClass]="{ w2: mobile }">
+      <div class="creator-coin-list disable-scrollbars" *ngIf="showYouDontOwnCreatorCoins" [ngClass]="{ w2: mobile }">
+        <!-- IF NO COINS ARE OWNED -->
         <button class="position-relative" (click)="routeToSellCoin(creator)" *ngFor="let creator of usersYouPurchased">
           <div class="cc-button-value d-flex flex-row flex-center-start pl-10px">
             <div [avatar]="creator.ProfileEntryResponse.PublicKeyBase58Check" class="wallet-cc-avatar mr-5px"></div>
             <label class="font-weight-bold fs-12px mb-0px" style="color: #000000">
-              {{ creator.ProfileEntryResponse.Username }}
+              {{ creator.ProfileEntryResponse?.Username }}
             </label>
           </div>
           <label
@@ -131,7 +135,7 @@
         </button>
       </div>
     </div>
-    <div *ngIf="tabEarnings" [@tabChangeAnimation] class="wallet-bottom-container">
+    <!--<div *ngIf="tabEarnings" [@tabChangeAnimation] class="wallet-bottom-container">
       <div class="earnings-big-box d-flex flex-column flex-center w-100">
         <div class="d-flex flex-column">
           <h4 class="fs-24 earnings-heading font-weight-semiboldn" style="color: #7b7b7b">ALL-TIME EARNINGS</h4>
@@ -186,7 +190,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
   </div>
 </div>
 <div class="bottom-bar-height" *ngIf="mobile"></div>

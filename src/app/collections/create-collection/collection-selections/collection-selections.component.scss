@@ -15,7 +15,6 @@ form {
     width: 100%;
     display: flex;
     flex-direction: column;
-    border: 2px solid red;
 }
 
 .collection-selections-main-headline {
@@ -55,17 +54,16 @@ form {
         padding: 10px 0;
         height: 100%;
         max-width: 100%;
-        display: inline-flex;
+        display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 30px;
         overflow: auto;
     }
 
     // Targets each user NFT
     .collection-selections-user-nfts > div {
-        margin-bottom: 20px;
-        min-width: 275px;
+        margin-bottom: 15px;
+        min-width: 200px;
     }
 
     @media screen and (max-width: 676px) {   

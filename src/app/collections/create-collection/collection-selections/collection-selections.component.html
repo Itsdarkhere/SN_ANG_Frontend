@@ -19,7 +19,7 @@
                         (scrolled)="onScroll()">
 
                         <div *ngFor="let post of dataToShow">
-                            <new-nft-card
+                            <!-- <new-nft-card
                                 [id]="userNfts"
                                 formControlName="selectedNfts"
                                 [contentShouldLinkToThread]="false" 
@@ -32,13 +32,26 @@
                                 [showAvailableSerialNumbers]="true"
                                 [cardStyle]="true" 
                                 [profilePublicKeyBase58Check]="userProfileEntryResponse.PublicKeyBase58Check">
-                            </new-nft-card>
+                            </new-nft-card> -->
+                            <app-small-card-component
+                                [id]="userNfts"
+                                formControlName="selectedNfts"
+                                [contentShouldLinkToThread]="false" 
+                                [loadProfile]="true"
+                                [includePaddingOnPost]="true"
+                                [post]="post" 
+                                [showNFTDetails]="true"
+                                [showExpandedNFTDetails]="false" 
+                                [setBorder]="true" 
+                                [showAvailableSerialNumbers]="true"
+                                [cardStyle]="true" 
+                                [profilePublicKeyBase58Check]="userProfileEntryResponse.PublicKeyBase58Check">
+                            </app-small-card-component>
                         </div>
-                        <app-nft-card-minimal></app-nft-card-minimal>
                     </ng-container>
                 </div>
                 
-            </ng-container>         
+            </ng-container>
         </div>
     </div>
 

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalVarsService } from "../global-vars.service";
+import { BackendApiService, DeSoNode, NFTEntryResponse, ProfileEntryResponse } from "../backend-api.service";
 
 @Component({
   selector: 'app-nft-card-minimal',

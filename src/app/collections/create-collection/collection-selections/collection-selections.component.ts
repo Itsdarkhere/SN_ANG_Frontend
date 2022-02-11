@@ -24,6 +24,7 @@ export class CollectionSelectionsComponent implements OnInit {
   // static PADDING = 0.5;
   // static MY_BIDS = "My Bids";
   
+  isChecked: boolean = false;
   isLoading = true;
   startIndex = 0;
   endIndex = 10;
@@ -60,6 +61,12 @@ export class CollectionSelectionsComponent implements OnInit {
         this.isLoading = false;
       });
   }
+
+  // onCheckboxClick($event) {
+  //   if($event.target.checked) {
+
+  //   }
+  // }
 
   onChange() {
     // console.log(this.collectionSelections);

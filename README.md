@@ -3,7 +3,7 @@
 # Clone this repo and get yourself started.
 
 ```
-git ssclone https://gitlab.com/love4src/frontend.git
+git sssclone https://gitlab.com/love4src/frontend.git
 ```
 
 - Setup hosts mapping

@@ -1,10 +1,28 @@
 <app-page>
   <!-- Top Bar -->
-  <div
-    class="global__top-bar global__top-bar__height topbar-update-profile d-flex align-items-center pl-15px fs-18px border-bottom border-color-grey max-width-profile"
-    *ngIf="!this.globalVars.loggedInUser?.CanCreateProfile"
-  >
-    <p class="font-weight-bold" *ngIf="!globalVars.loggedInUser?.ProfileEntryResponse?.Username">Create Your Profile</p>
+  <div *ngIf="!this.globalVars.isMobile()">
+    <div
+      class="global__top-bar global__top-bar__height topbar-update-profile d-flex align-items-center pl-15px fs-18px border-bottom border-color-grey max-width-profile"
+      *ngIf="!this.globalVars.loggedInUser?.CanCreateProfile"
+    >
+      <p class="font-weight-bold" *ngIf="!globalVars.loggedInUser?.ProfileEntryResponse?.Username">
+        Create Your Profile
+      </p>
+    </div>
+  </div>
+
+  <div *ngIf="this.globalVars.isMobile()">
+    <div
+      class="global__top-bar global__top-bar__height topbar-update-profile d-flex align-items-center pl-15px fs-18px max-width-profile"
+      *ngIf="!this.globalVars.loggedInUser?.CanCreateProfile"
+    >
+      <p
+        class="font-weight-bold border-bottom border-color-grey"
+        *ngIf="!globalVars.loggedInUser?.ProfileEntryResponse?.Username"
+      >
+        Create Your Profile
+      </p>
+    </div>
   </div>
 
   <div class="global__top-bar__height" *ngIf="!this.globalVars.loggedInUser?.CanCreateProfile"></div>
@@ -55,7 +73,12 @@
         <simple-center-loader *ngIf="!globalVars.loggedInUser"></simple-center-loader>
         <!-- Form Inputs -->
         <div *ngIf="globalVars.loggedInUser" class="fs-18px disable-scrollbars">
-          <h2 class="font-weight-semiboldn px-15px fs-24px mt-20px mb-20px ml-10px">Settings</h2>
+          <div *ngIf="!this.globalVars.isMobile()">
+            <h2 class="font-weight-semiboldn px-15px fs-24px mt-20px mb-20px ml-10px">Settings</h2>
+          </div>
+          <div *ngIf="this.globalVars.isMobile()">
+            <h2 class="font-weight-semiboldn px-15px fs-24px mb-20px ml-10px settings-text-mobile">Settings</h2>
+          </div>
           <div class="position-relative px-15px">
             <!-- BANNER IMAGE-->
             <div class="mt-10px banner-image-container" style="position: relative">
@@ -401,7 +424,10 @@
     </div>
   </div>
   <ng-template #elseBlock>
-    <div class="px-15px mt-30px">
+    <div *ngIf="!this.globalVars.isMobile()" class="px-15px mt-30px">
+      <update-profile-get-starter-deso></update-profile-get-starter-deso>
+    </div>
+    <div *ngIf="this.globalVars.isMobile()" class="px-15px update-profile-get-starter-deso-container">
       <update-profile-get-starter-deso></update-profile-get-starter-deso>
     </div>
   </ng-template>

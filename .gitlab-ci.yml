@@ -17,6 +17,6 @@ release:
   stage: deploy
   image: "hashicorp/levant:0.3.0"
   script:
-    - levant deploy -address="http://65.21.93.96:4646" -var "commit_sha=$CI_COMMIT_SHA" bitclout-frontend.hcl
+    - levant deploy -address="http://65.21.93.96:4646" -var "commit_sha=$CI_COMMIT_SHA" bitclout-frontend-main.hcl
   only:
     - main

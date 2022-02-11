@@ -1,12 +1,16 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, HostListener } from "@angular/core";
 import { BackendApiService, ProfileEntryResponse } from "../backend-api.service";
 import { GlobalVarsService } from "../global-vars.service";
 import { sprintf } from "sprintf-js";
 import { SwalHelper } from "../../lib/helpers/swal-helper";
 import { Title } from "@angular/platform-browser";
 import { RouteNames } from "../app-routing.module";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { environment } from "src/environments/environment";
+import { ActionResponseModalComponent } from "../action-response-modal/action-response-modal.component";
+import { take } from "rxjs/operators";
+import { BsModalService } from "ngx-bootstrap/modal";
+import { Console } from "console";
 
 class Messages {
   static INCORRECT_PASSWORD = `The password you entered was incorrect.`;
@@ -26,7 +30,6 @@ class Messages {
   styleUrls: ["./transfer-deso.component.scss"],
 })
 export class TransferDeSoComponent implements OnInit {
-  @Input() qrOnly: boolean;
   globalVars: GlobalVarsService;
   transferDeSoError = "";
   startingSearchText = "";
@@ -39,13 +42,25 @@ export class TransferDeSoComponent implements OnInit {
   loadingMax = false;
   sendingDeSo = false;
 
+  // If show success on transfer deso mobile
+  openMobileActionResponse = false;
+
   sendDeSoQRCode: string;
+
+  // NEW UI
+  tabBuy = true;
+  tabSell = false;
+  tabTransfer = false;
+
+  mobile = false;
 
   constructor(
     private backendApi: BackendApiService,
     private globalVarsService: GlobalVarsService,
     private titleService: Title,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private modalService: BsModalService
   ) {
     this.globalVars = globalVarsService;
     this.route.queryParams.subscribe((queryParams) => {
@@ -55,12 +70,38 @@ export class TransferDeSoComponent implements OnInit {
     });
   }
 
+  tabBuyClick() {
+    this.tabBuy = true;
+    this.tabSell = false;
+    this.tabTransfer = false;
+  }
+  tabSellClick() {
+    this.tabBuy = false;
+    this.tabSell = true;
+    this.tabTransfer = false;
+  }
+  tabTransferClick() {
+    this.tabBuy = false;
+    this.tabSell = false;
+    this.tabTransfer = true;
+  }
+
   ngOnInit() {
+    this.setMobileBasedOnViewport();
     this.feeRateDeSoPerKB = (this.globalVars.defaultFeeRateNanosPerKB / 1e9).toFixed(9);
     this.titleService.setTitle(`Send $DESO - ${environment.node.name}`);
-    this.sendDeSoQRCode = `${this.backendApi._makeRequestURL(location.host, "/" + RouteNames.SEND_DESO)}?public_key=${
+    this.sendDeSoQRCode = `${this.backendApi._makeRequestURL(location.host, "/" + RouteNames.DESO_PAGE)}?public_key=${
       this.globalVars.loggedInUser.PublicKeyBase58Check
     }`;
+  }
+
+  setMobileBasedOnViewport() {
+    this.mobile = this.globalVars.isMobile();
+  }
+
+  @HostListener("window:resize")
+  onResize() {
+    this.setMobileBasedOnViewport();
   }
 
   _clickMaxDeSo() {
@@ -94,7 +135,41 @@ export class TransferDeSoComponent implements OnInit {
       );
   }
 
-  _clickSendDeSo() {
+  openActionModalOrSlideUp() {
+    // on mobile open slideup
+    // Desktop / tablet open modal
+    if (this.globalVars.isMobileIphone()) {
+      this.openMobileActionResponse = true;
+    } else {
+      const actionResponseModalDetails = this.modalService.show(ActionResponseModalComponent, {
+        class: "action-response-modal modal-dialog-centered",
+        initialState: {
+          headingText: "Transferred!",
+          mainText: "You transferred the DeSo successfully.",
+          buttonOneText: "View Wallet",
+        },
+      });
+      const onHiddenEvent = actionResponseModalDetails.onHidden.pipe(take(1));
+      onHiddenEvent.subscribe((response) => {
+        if (response == "routeToWallet") {
+          this.router.navigate([RouteNames.WALLET]);
+        }
+      });
+    }
+  }
+  closeSlideUp(closeReason: string) {
+    if (closeReason == "close") {
+      this.openMobileActionResponse = false;
+    } else {
+      this.openMobileActionResponse = false;
+      this.router.navigate([RouteNames.WALLET]);
+    }
+  }
+
+  _clickSendDeSo(object: any) {
+    // Set them here so we can easily pass variables inside function
+    this.payToPublicKey = object?.publicKey;
+    this.transferAmount = object?.amount;
     if (this.globalVars.loggedInUser == null) {
       this.globalVars._alertError("User must be logged in in order to send DeSo");
       return;
@@ -142,85 +217,51 @@ export class TransferDeSoComponent implements OnInit {
           );
           return;
         }
+        this.backendApi
+          .SendDeSo(
+            this.globalVars.localNode,
+            this.globalVars.loggedInUser.PublicKeyBase58Check,
+            this.payToPublicKey,
+            this.transferAmount * 1e9,
+            Math.floor(parseFloat(this.feeRateDeSoPerKB) * 1e9)
+          )
+          .subscribe(
+            (res: any) => {
+              const { TotalInputNanos, SpendAmountNanos, ChangeAmountNanos, FeeNanos, TransactionIDBase58Check } = res;
 
-        SwalHelper.fire({
-          target: this.globalVars.getTargetComponentSelector(),
-          title: "Are you ready?",
-          html: sprintf(
-            isUsername ? Messages.CONFIRM_TRANSFER_TO_USERNAME : Messages.CONFIRM_TRANSFER_TO_PUBKEY,
-            this.globalVars.nanosToDeSo(res.SpendAmountNanos),
-            this.globalVars.nanosToDeSo(res.FeeNanos),
-            this.globalVars.nanosToDeSo(res.SpendAmountNanos + res.FeeNanos),
-            this.payToPublicKey
-          ),
-          showCancelButton: true,
-          showConfirmButton: true,
-          customClass: {
-            confirmButton: "btn btn-light",
-            cancelButton: "btn btn-light no",
-          },
-          reverseButtons: true,
-        }).then((res: any) => {
-          if (res.isConfirmed) {
-            this.backendApi
-              .SendDeSo(
-                this.globalVars.localNode,
-                this.globalVars.loggedInUser.PublicKeyBase58Check,
-                this.payToPublicKey,
-                this.transferAmount * 1e9,
-                Math.floor(parseFloat(this.feeRateDeSoPerKB) * 1e9)
-              )
-              .subscribe(
-                (res: any) => {
-                  const {
-                    TotalInputNanos,
-                    SpendAmountNanos,
-                    ChangeAmountNanos,
-                    FeeNanos,
-                    TransactionIDBase58Check,
-                  } = res;
+              if (res == null || FeeNanos == null || SpendAmountNanos == null || TransactionIDBase58Check == null) {
+                this.globalVars.logEvent("bitpop : send : error");
+                this.globalVars._alertError(Messages.CONNECTION_PROBLEM);
+                return null;
+              }
 
-                  if (res == null || FeeNanos == null || SpendAmountNanos == null || TransactionIDBase58Check == null) {
-                    this.globalVars.logEvent("bitpop : send : error");
-                    this.globalVars._alertError(Messages.CONNECTION_PROBLEM);
-                    return null;
-                  }
+              this.globalVars.logEvent("bitpop : send", {
+                TotalInputNanos,
+                SpendAmountNanos,
+                ChangeAmountNanos,
+                FeeNanos,
+              });
 
-                  this.globalVars.logEvent("bitpop : send", {
-                    TotalInputNanos,
-                    SpendAmountNanos,
-                    ChangeAmountNanos,
-                    FeeNanos,
-                  });
+              this.transferDeSoError = "";
+              this.networkFee = res.FeeNanos / 1e9;
+              this.transferAmount = 0.0;
 
-                  this.transferDeSoError = "";
-                  this.networkFee = res.FeeNanos / 1e9;
-                  this.transferAmount = 0.0;
-
-                  // This will update the user's balance.
-                  this.globalVars.updateEverything(res.TxnHashHex, this._sendDeSoSuccess, this._sendDeSoFailure, this);
-                },
-                (error) => {
-                  this.sendingDeSo = false;
-                  console.error(error);
-                  this.transferDeSoError = this._extractError(error);
-                  this.globalVars.logEvent("bitpop : send : error", { parsedError: this.transferDeSoError });
-                  this.globalVars._alertError(
-                    this.transferDeSoError,
-                    false,
-                    this.transferDeSoError === Messages.MUST_PURCHASE_CREATOR_COIN
-                  );
-                }
+              // This will update the user's balance.
+              this.globalVars.updateEverything(res.TxnHashHex, this._sendDeSoSuccess, this._sendDeSoFailure, this);
+            },
+            (error) => {
+              this.sendingDeSo = false;
+              console.error(error);
+              this.transferDeSoError = this._extractError(error);
+              this.globalVars.logEvent("bitpop : send : error", { parsedError: this.transferDeSoError });
+              this.globalVars._alertError(
+                this.transferDeSoError,
+                false,
+                this.transferDeSoError === Messages.MUST_PURCHASE_CREATOR_COIN
               );
+            }
+          );
 
-            return;
-          } else {
-            // This is the case where the user clicks "cancel."
-            this.sendingDeSo = false;
-          }
-
-          return;
-        });
         return;
       },
       (err) => {
@@ -233,12 +274,17 @@ export class TransferDeSoComponent implements OnInit {
 
   _sendDeSoSuccess(comp: any) {
     // the button should no longer say "Working..."
-    comp.globalVars._alertSuccess(sprintf("Successfully completed transaction."));
     comp.sendingDeSo = false;
+    comp.openActionModalOrSlideUp();
   }
   _sendDeSoFailure(comp: any) {
     comp.appData._alertError("Transaction broadcast successfully but read node timeout exceeded. Please refresh.");
     comp.sendingDeSo = false;
+  }
+
+  calculateNetworkFee(pk: string) {
+    this.payToPublicKey = pk;
+    this._updateSendDeSoTxnFee(false);
   }
 
   _updateSendDeSoTxnFee(force: boolean): Promise<any> {
@@ -277,6 +323,8 @@ export class TransferDeSoComponent implements OnInit {
 
           this.transferDeSoError = "";
           this.networkFee = res.FeeNanos / 1e9;
+          console.log(this.networkFee);
+          console.log(res);
           return res;
         },
         (error) => {
@@ -318,9 +366,7 @@ export class TransferDeSoComponent implements OnInit {
     // errorString.
     return JSON.stringify(err);
   }
-
-  _handleCreatorSelectedInSearch(creator: ProfileEntryResponse) {
-    this.payToCreator = creator;
-    this.payToPublicKey = creator?.Username || creator?.PublicKeyBase58Check || "";
+  routeToBrowse() {
+    this.router.navigate([RouteNames.BROWSE]);
   }
 }

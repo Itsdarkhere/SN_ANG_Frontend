@@ -32,7 +32,7 @@
       <button (click)="createProfile()" class="onboarding-card-button onboarding-card-button-2">Create Profile</button>
       <!-- step 3 -->
       <img src="../../../assets/complete-onboarding/checkmark.png" alt="checkmark" class="checkmark-3" />
-      <p class="step-3-header">Welcome to Supernovas!</p>
+      <p class="step-3-header">Invest in your own Creator Coin</p>
       <p class="step-3-text">
         Everyone on Supernovas has their own Creator Coin, which others can invest into. Invest your coin first when the
         price is low.
@@ -91,7 +91,7 @@
   </div>
   <!-- is collector and no profile -->
   <div
-    *ngIf="!this.globalVars.isMobile() && !this.globalVars.isCreator && this.globalVars.isNullUsername"
+    *ngIf="!this.globalVars.isMobile() && this.globalVars.isCollector && this.globalVars.isNullUsername"
     class="onboarding-card-shadow-collector"
   >
     <div class="onboarding-card-collector">
@@ -120,7 +120,7 @@
       <button (click)="createProfile()" class="onboarding-card-button onboarding-card-button-2">Create Profile</button>
       <!-- step 3 -->
       <img src="../../../assets/complete-onboarding/checkmark.png" alt="checkmark" class="checkmark-3" />
-      <p class="step-3-header">Welcome to Supernovas!</p>
+      <p class="step-3-header">Invest in your own Creator Coin</p>
       <p class="step-3-text">
         Everyone on Supernovas has their own Creator Coin, which others can invest into. Invest your coin first when the
         price is low.
@@ -138,6 +138,7 @@
       </button>
     </div>
   </div>
+
   <!-- -------------------------------------- if isMobile is true render mobile -------------------------------------- -->
   <!-- creator, no profile and not verified -->
   <div
@@ -178,7 +179,7 @@
       </button>
       <!-- step 3 -->
       <img src="../../../assets/complete-onboarding/checkmark.png" alt="checkmark" class="checkmark-3-mobile" />
-      <p class="step-3-header-mobile">Welcome to Supernovas!</p>
+      <p class="step-3-header-mobile">Invest in your own Creator Coin</p>
       <p class="step-3-text-mobile">
         Everyone on Supernovas has their own Creator Coin, which others can invest into. Invest your coin first when the
         price is low.
@@ -192,7 +193,7 @@
       <p class="step-4-text-mobile">
         All Supernovas Creators are verified to ensure only authentic work. We'll complete verification within 24 hours.
       </p>
-      <button (click)="verifyProfile()" class="onboarding-card-button-mobile onboarding-card-button-4">
+      <button (click)="verifyProfile()" class="onboarding-card-button-mobile onboarding-card-button-4-mobile">
         Verify Profile
       </button>
       <!-- done -->
@@ -202,7 +203,9 @@
       <!-- support -->
       <p class="support-header-mobile">Need Help? We got you.</p>
       <p class="support-text-mobile">Browse the support articles or reach out to us and we'll get you started!</p>
-      <button (click)="contactSupport()" class="onboarding-support-button-mobile">Supernovas Support</button>
+      <button (click)="contactSupport()" class="onboarding-card-button-mobile onboarding-support-button-mobile">
+        Supernovas Support
+      </button>
     </div>
   </div>
   <!-- creator, has profile, not verified -->
@@ -245,7 +248,7 @@
     </div>
   </div>
   <!-- is collector and no profile -->
-  <div *ngIf="this.globalVars.isMobile() && !this.globalVars.isCreator && this.globalVars.isNullUsername">
+  <div *ngIf="this.globalVars.isMobile() && this.globalVars.isCollector && this.globalVars.isNullUsername">
     <div class="onboarding-card-collector-mobile">
       <p class="onboarding-card-header-1-mobile">Welcome to Supernovas!</p>
       <p class="onboarding-card-subheader-mobile">Complete the last steps to finalize your onboarding 🌈</p>

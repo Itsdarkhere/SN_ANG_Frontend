@@ -69,6 +69,27 @@
   background-image: url("/assets/img/block-background.png");
 }
 
+.finalize-deso-profile-text {
+  padding-top: 100px;
+}
+
+.mobile-create-your-profile-width {
+  width: 96%;
+}
+
+@media screen and (max-width: 480px) {
+  .mobile-create-your-profile-width {
+    width: 92%;
+  }
+
+  .card-box-profile-update {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    justify-items: center;
+  }
+}
+
 // .onboarding-card-shadow {
 //   width: 700px;
 //   height: 1025px;

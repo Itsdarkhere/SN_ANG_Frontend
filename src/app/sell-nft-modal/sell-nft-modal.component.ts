@@ -92,7 +92,7 @@ export class SellNftModalComponent implements OnInit {
           // Hide this modal and open the next one.
           this.bsModalRef.hide();
           this.modalService.show(NftSoldModalComponent, {
-            class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
+            class: "modal-dialog-centered nft_placebid_modal_bx nft_placebid_modal_bx_right modal-lg",
             initialState: { post: this.post },
           });
           this.modalService.setDismissReason("nft sold");

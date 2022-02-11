@@ -1,0 +1,32 @@
+.sick-search-bar {
+    width: calc(100% - 100px) !important;
+    height: 15vw;
+    min-height: 57px;
+    max-height: 77px;
+    background: #ffffff;
+    border-top: 2.7px solid #ececec !important;
+    border-bottom: 2.7px solid #ececec !important;
+    border-right: 2.7px solid #ececec !important;
+    border-radius: 40.73360824584961px;
+    box-shadow: 0px 1.3577868938446045px 5.431147575378418px rgba(0, 0, 0, 0.1);
+    padding-left: 0.75rem !important;
+}
+.sick-search-avatar {
+    margin-left: 10%;
+    width: 4vw !important;
+    max-width: 54px;
+    min-width: 40px;
+    padding-bottom: 80%;
+    border: 1.8031532764434814px solid #ffffff;
+    border-radius: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.search_bar__icon_sick {
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
+    border-top: 2.7px solid #ececec !important;
+    border-bottom: 2.7px solid #ececec !important;
+    border-left: 2.7px solid #ececec !important;
+}

@@ -1,11 +1,6 @@
 <div>
-
   <!-- Tabs -->
-  <tab-selector
-    [tabs]="tabs"
-    [activeTab]="activeTab"
-    (tabClick)="_handleTabClick($event)"
-  ></tab-selector>
+  <tab-selector [tabs]="tabs" [activeTab]="activeTab" (tabClick)="_handleTabClick($event)"></tab-selector>
   <div class="p-15px fs-15px" *ngIf="!loading && activeTab === AdminNodeFeesComponent.FEES">
     <button (click)="addNewFee('ALL')" class="btn btn-outline-primary fs-15px" [disabled]="removingFee">
       Add Fee Recipient To All Transactions
@@ -26,7 +21,7 @@
             [hideFollowLink]="true"
             [singleColumn]="true"
           ></simple-profile-card>
-          <span> {{ globalVars.nanosToDeSo(item.AmountNanos) }} $DESO </span>
+          <span>{{ globalVars.nanosToDeSo(item.AmountNanos) }} $DESO</span>
         </div>
       </div>
     </div>
@@ -37,13 +32,25 @@
       [isSearchForUsersToSendDESO]="true"
       (creatorToMessage)="selectedCreator = $event"
     ></search-bar>
-    <simple-profile-card [profile]="selectedCreator" [hideFollowLink]="true" [singleColumn]="true" *ngIf="selectedCreator"></simple-profile-card>
-    <button (click)="addExemptKey()" class="btn btn-outline-primary fs-15px" [disabled]="addingExemptKey || !selectedCreator?.PublicKeyBase58Check">
+    <simple-profile-card
+      [profile]="selectedCreator"
+      [hideFollowLink]="true"
+      [singleColumn]="true"
+      *ngIf="selectedCreator"
+    ></simple-profile-card>
+    <button
+      (click)="addExemptKey()"
+      class="btn btn-outline-primary fs-15px"
+      [disabled]="addingExemptKey || !selectedCreator?.PublicKeyBase58Check"
+    >
       Exempt From Fees
     </button>
     <div class="py-15px">
       <div class="py-15px">Users exempt from fees:</div>
-      <div *ngFor="let exemptKey of exemptPublicKeyMap | keyvalue" class="d-flex flex-start pr-5px align-items-center fs-18px">
+      <div
+        *ngFor="let exemptKey of exemptPublicKeyMap | keyvalue"
+        class="d-flex flex-start pr-5px align-items-center fs-18px"
+      >
         <i class="fas fa-trash text-danger" (click)="removeExemptKey(exemptKey.key)"></i>
         <simple-profile-card
           [profile]="exemptKey.value || { PublicKeyBase58Check: exemptKey.key }"

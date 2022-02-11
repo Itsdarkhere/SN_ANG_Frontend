@@ -3,7 +3,7 @@ import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { CdkTextareaAutosize } from "@angular/cdk/text-field";
 import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../backend-api.service";
 import { of } from "rxjs";
-import { concatMap, filter, last, map, take } from "rxjs/operators";
+import { concatMap, last, map } from "rxjs/operators";
 import { NftSoldModalComponent } from "../nft-sold-modal/nft-sold-modal.component";
 import { GlobalVarsService } from "../global-vars.service";
 

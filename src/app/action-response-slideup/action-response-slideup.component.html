@@ -1,0 +1,22 @@
+<div>
+  <div [@leftBarAnimation] class="action-response-slideup" *ngIf="isOpen">
+    <div>
+      <h2>{{ headingText }}</h2>
+      <label class="mb-0px">{{ mainText }}</label>
+    </div>
+    <div class="action-response-buttons-container d-flex flex-column w-90">
+      <button class="black-rounded-button action-response-black-button br-37px w-100" (click)="dissmissReasonOne()">
+        {{ buttonOneText }}
+      </button>
+      <button class="white-rounded-button action-response-white-button br-37px w-100" (click)="dissmissReasonTwo()">
+        Close this window
+      </button>
+    </div>
+  </div>
+  <div
+    *ngIf="isOpen"
+    [@translucentBackgroundAnimation]
+    (click)="dissmissReasonTwo()"
+    class="left-bar-mobile__translucent-background"
+  ></div>
+</div>

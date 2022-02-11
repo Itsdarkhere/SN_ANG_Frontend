@@ -68,6 +68,22 @@ button-solid:focus {
   min-height: 100px;
 }
 
+.skip-phone-verification-button {
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  display: flex;
+  vertical-align: center;
+}
+
+.phone-input-border {
+  border: 1px solid black !important;
+}
+
+.phone-input-border:hover {
+  border: 1px solid black !important;
+}
+
 // phone verification digits -----------------------------------
 
 .digit {
@@ -111,7 +127,7 @@ button-solid:focus {
 .phone-number-text-block {
   margin-bottom: 5vh;
   bottom: 0;
-  left: 50%; 
+  left: 50%;
   transform: translate(-50%, 0%);
   position: absolute;
 }
@@ -123,13 +139,41 @@ button-solid:focus {
 }
 
 .verification-complete-container {
-  margin-top: 25vh;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  display: flex;
 }
+
+.verification-complete-container-mobile {
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  display: flex;
+  margin-top: 100px;
+}
+
+.resend-verification-text {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.resend-the-code-text {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+// #phone {
+//   border: 1px solid black !important;
+// }
+
+// #phone:hover {
+//   border: 1px solid black !important;
+// }
 
 @media screen and (max-width: 480px) {
   #create-profile-button {
     width: 300px !important;
-    max-width: 90%;
   }
 
   #verify-phone-button {
@@ -143,11 +187,9 @@ button-solid:focus {
   .mobile-verification-component {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
   }
 
-  #enter-phone-number {
+  #phone {
     width: 315px;
   }
 
@@ -160,5 +202,15 @@ button-solid:focus {
   .resend-verification-text-block {
     margin-top: 5vh;
     margin-bottom: 5vh;
+  }
+
+  .verification-complete-container-mobile {
+    margin-top: 50px;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  #digits {
+    padding: 0px;
   }
 }

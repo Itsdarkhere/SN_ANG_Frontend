@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { GlobalVarsService } from "../../../global-vars.service";
 import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse, ProfileEntryResponse } from "../../../backend-api.service";
 import { InfiniteScroller } from "../../../infinite-scroller";
@@ -16,9 +16,7 @@ export class CollectionSelectionsComponent implements OnInit {
     private backendApi: BackendApiService
   ) {}
 
-  @Input() createCollectionForm: FormGroup;
-  @Input() views: FormArray;
-  @Input() collectionSelections: FormArray;
+  @Input() collectionSelections: FormGroup;
 
   static PAGE_SIZE = 10;
   static BUFFER_SIZE = 5;
@@ -64,7 +62,7 @@ export class CollectionSelectionsComponent implements OnInit {
   }
 
   onChange() {
-    console.log(this.collectionSelections);
+    // console.log(this.collectionSelections);
   }
 
   // getPage(page: number) {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-collection',
@@ -19,10 +19,14 @@ export class CreateCollectionComponent implements OnInit {
           collectionDescription: [""],
           collectionBannerImage: [""], 
         }),
-        this.fb.array([[], Validators.required])
+        // This group may seem extraneous, but is actually necessary because of the way the FormBuilder API works
+        this.fb.group({
+          selectedNfts: this.fb.array([[], Validators.required])
+        })
       ])
     });
-    // console.log(this.createCollectionForm.controls.views["controls"][1]);
+    console.log(this.createCollectionForm.controls.views["controls"][1]);
+    // console.log(this.createCollectionForm.controls.views["controls"][1]["controls"][0]);
   }
 
   get views(): AbstractControl {
@@ -34,7 +38,19 @@ export class CreateCollectionComponent implements OnInit {
   }
 
   get collectionSelections(): AbstractControl {
-    return this.createCollectionForm.controls.views["controls"][1] as FormArray;
+    return this.createCollectionForm.controls.views["controls"][1] as FormGroup;
+  }
+
+  addNftToFormArray() {
+    // this.selectedNfts.push()
+  }
+
+  removeNftFromFormArray() {
+    // this.selectedNfts.removeAt()
+  }
+
+  onChange() {
+    // console.log(this.selectedNfts["controls"][0]);
   }
 
   submit(): void {

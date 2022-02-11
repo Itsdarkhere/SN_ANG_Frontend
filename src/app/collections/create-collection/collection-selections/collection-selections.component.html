@@ -20,8 +20,10 @@
                     > -->
                            
                         <div *ngFor="let post of dataToShow">
-                            <app-small-card-component [post]="post"></app-small-card-component>
-                            <input type="checkbox" formControlName="selectedNfts" (change)="onChange()">      
+                            <ng-container>
+                                <app-small-card-component [post]="post"></app-small-card-component>
+                                <input type="checkbox" (click)="addNftToFormArray" (change)="onChange()">
+                            </ng-container>
                         </div>
                     <!-- </ng-container> -->
                 </div>
@@ -34,6 +36,6 @@
     <div class="collection-selections-bottom-bar">
         <!-- Add variable -->
         <p>3 NFTS selected</p>
-        <button type="submit" [disabled]="collectionSelections.invalid">Create Collection</button>
+        <!-- <button type="submit" [disabled]="collectionSelections.invalid">Create Collection</button> -->
     </div>
 </form>

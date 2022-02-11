@@ -62,9 +62,19 @@ form {
 
     // Targets each user NFT
     .collection-selections-user-nfts > div {
+        position: relative;
         margin-bottom: 15px;
         min-width: 200px;
+
+        input[type="checkbox"] {
+            // visibility: hidden;
+        }
+
+        // input[type="checkbox":checked] {
+
+        // }
     }
+    
 
     @media screen and (max-width: 676px) {   
         margin-bottom: 35px;

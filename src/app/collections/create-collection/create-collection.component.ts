@@ -20,7 +20,7 @@ export class CreateCollectionComponent implements OnInit {
           collectionBannerImage: [""], 
         }),
         this.fb.group({
-          selectedNfts: [""]
+          selectedNfts: ["", Validators.required]
         })
       ])
     });

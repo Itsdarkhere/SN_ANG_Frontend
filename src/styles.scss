@@ -1292,7 +1292,7 @@ $green-font-color: #19b028;
 }
 
 .messages_scroll_height_mobile {
-  height: calc(100vh - 126px) !important;
+  height: calc(100vh - 230px) !important;
 }
 
 .vh-100 {
@@ -2555,7 +2555,7 @@ input.bs-timepicker-field {
   border: 3.6670053005218506px solid #ebebeb;
   border-radius: 24.446701049804688px;
   height: 100vh;
-  max-height: calc(100vh - 80px);
+  max-height: calc(100vh - 190px);
   overflow: hidden;
   width: 100% !important;
 }

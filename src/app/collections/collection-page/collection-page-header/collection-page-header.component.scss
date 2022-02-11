@@ -7,14 +7,22 @@
     justify-content: center;
     border: 1px solid lightgray;
 
+    @media(max-width: 676px) {
+        height: 30rem;
+    }
+
     .banner-image-stats-container {
-        padding: 5rem;
+        padding: 0 5rem;
         height: 100%;
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
         z-index: 1;
+
+        @media(max-width: 676px) {
+            padding: 0 2rem;
+        }
     }
 
     .collection-user-image {
@@ -34,6 +42,20 @@
         border-radius: 20px;
         border: 1px solid rgb(212, 212, 212);
         z-index: 1;
+
+        @media(max-width: 676px) {
+            // Work around for some padding issues
+            position: absolute;
+            left: 50%;
+            bottom: -5rem;
+            transform: translateX(-50%);
+            width: calc(100% - 4rem);
+            flex-wrap: wrap;
+
+            & > div {
+                min-width: 150px;
+            }
+        }
 
         h2 {
             padding: 20px;
@@ -56,11 +78,19 @@
         .collection-floor-price {
             flex: 2;
             display: flex;
+
+            @media(max-width: 676px) {
+                flex: 1;
+            }
         }
 
         .collection-trading-volume {
             flex: 3;
             display: flex;
+
+            @media(max-width: 676px) {
+                flex: 1;
+            }
         }
     }
 
@@ -79,6 +109,12 @@
             height: 100%;
             width: 100%;
             display: flex;
+
+            @media(max-width: 676px) {
+                padding: 40px 2rem;
+                height: fit-content;
+                flex-direction: column;
+            }
             
             h2 {
                 color: #F1F1F1;
@@ -96,9 +132,19 @@
                 align-items: flex-start;
                 justify-content: flex-end;
 
+                @media(max-width: 676px) {
+                    padding: 20px 0 0 0;
+                    height: fit-content;
+
+                }
+
                 h1 {
                     color: white;
                     font-size: 1.5rem;
+
+                    @media(max-width: 676px) {
+                        padding-bottom: 10px;
+                    }
                 }
             }
 

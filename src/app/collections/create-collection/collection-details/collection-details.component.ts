@@ -15,4 +15,9 @@ export class CollectionDetailsComponent implements OnInit {
   ngOnInit(): void {  
   }
 
+  onKeyUp() {
+    console.log(
+      this.collectionDetails.value?.collectionName,
+      this.collectionDetails.value?.collectionDescription);
+  }
 }

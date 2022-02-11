@@ -16,27 +16,12 @@
                         infiniteScroll 
                         [infiniteScrollDistance]="5" 
                         [infiniteScrollThrottle]="150"
-                        (scrolled)="onScroll()">
-                        
-                        
+                        (scrolled)="onScroll()"
+                    >
+                           
                         <div *ngFor="let post of dataToShow">
-                            <!-- <new-nft-card
-                                [id]="userNfts"
-                                formControlName="selectedNfts"
-                                [contentShouldLinkToThread]="false" 
-                                [loadProfile]="true"
-                                [includePaddingOnPost]="true"
-                                [post]="post" 
-                                [showNFTDetails]="true"
-                                [showExpandedNFTDetails]="false" 
-                                [setBorder]="true" 
-                                [showAvailableSerialNumbers]="true"
-                                [cardStyle]="true" 
-                                [profilePublicKeyBase58Check]="userProfileEntryResponse.PublicKeyBase58Check">
-                            </new-nft-card> -->
-                            
                             <app-small-card-component [post]="post"></app-small-card-component>
-                            <input type="checkbox" value="post.value" formControlName="selectedNfts">
+                            <input type="checkbox" value="post.value" formControlName="selectedNfts">      
                         </div>
                     </ng-container>
                 </div>

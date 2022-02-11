@@ -38,7 +38,6 @@ export class CollectionSelectionsComponent implements OnInit {
   myBids: NFTBidEntryResponse[];
 
   ngOnInit(): void {
-    console.log(this.globalVars.loggedInUser.PublicKeyBase58Check);
     this.getNFTs();
   }
 

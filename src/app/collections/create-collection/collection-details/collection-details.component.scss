@@ -98,7 +98,7 @@ form {
 
     input[type=text] {
         margin-bottom: 15px;
-        padding: 5px 0;
+        padding: 8px 10px;
         width: 75%;
         display: block;
         border: 1px solid #B0B0B0; // update to appropriate variable
@@ -107,6 +107,7 @@ form {
     }
 
     textarea {
+        padding: 8px 10px;
         width: 75%;
         display: block;
         border: 1px solid #B0B0B0; // update to appropriate variable
@@ -130,5 +131,4 @@ form {
     button:disabled {
         background-color: rgba(49, 49, 49, 0.1);
     }
-
 }

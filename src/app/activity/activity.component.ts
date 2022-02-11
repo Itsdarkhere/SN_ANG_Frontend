@@ -103,7 +103,7 @@ export class ActivityComponent implements OnInit {
     }
     event.stopPropagation();
     const modalDetails = this.modalService.show(PlaceBidModalComponent, {
-      class: "modal-dialog-centered nft_placebid_modal_bx nft_placebid_modal_bx_right modal-lg",
+      class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
       initialState: { post: postEntryResponse },
     });
     // post: this.postContent

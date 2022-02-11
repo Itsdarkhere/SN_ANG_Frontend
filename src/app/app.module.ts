@@ -194,14 +194,15 @@ import { CreatorCardComponent } from "./creator-card/creator-card.component";
 import { PageSmallNavNewComponent } from "./page-small-nav-new/page-small-nav-new.component";
 import { SmallCardComponentComponent } from "./small-card-component/small-card-component.component";
 import { CompleteProfileComponent } from "./update-profile-page/complete-profile/complete-profile.component";
-import { TradeCreatorBuyComponent } from "./trade-creator-page/trade-creator-buy/trade-creator-buy.component";
-import { TradeCreatorSellComponent } from "./trade-creator-page/trade-creator-sell/trade-creator-sell.component";
-import { TradeCreatorTransferComponent } from "./trade-creator-page/trade-creator-transfer/trade-creator-transfer.component";
-import { BuyDesoComponent } from "./transfer-deso/buy-deso/buy-deso.component";
-import { SellDesoComponent } from "./transfer-deso/sell-deso/sell-deso.component";
-import { TransferDesoComponent } from "./transfer-deso/transfer-deso/transfer-deso.component";
-import { ActionResponseModalComponent } from "./action-response-modal/action-response-modal.component";
 import { ActionResponseSlideupComponent } from './action-response-slideup/action-response-slideup.component';
+import { TradeCreatorBuyComponent } from './trade-creator-page/trade-creator-buy/trade-creator-buy.component';
+import { TradeCreatorSellComponent } from './trade-creator-page/trade-creator-sell/trade-creator-sell.component';
+import { TradeCreatorTransferComponent } from './trade-creator-page/trade-creator-transfer/trade-creator-transfer.component';
+import { BuyDesoComponent } from './transfer-deso/buy-deso/buy-deso.component';
+import { SellDesoComponent } from './transfer-deso/sell-deso/sell-deso.component';
+import { TransferDesoComponent } from './transfer-deso/transfer-deso/transfer-deso.component';
+import { GeneralSuccessModalComponent } from './general-success-modal/general-success-modal.component';
+import { ActionResponseModalComponent } from "./action-response-modal/action-response-modal.component";
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -378,6 +379,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     TransferDesoComponent,
     ActionResponseModalComponent,
     ActionResponseSlideupComponent,
+    GeneralSuccessModalComponent,
   ],
   imports: [
     BrowserModule,

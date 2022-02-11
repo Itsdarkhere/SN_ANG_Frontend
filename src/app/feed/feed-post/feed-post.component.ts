@@ -744,7 +744,8 @@ export class FeedPostComponent implements OnInit {
 
   openCreateNFTAuctionModal(event): void {
     let createNftAuctionDetails = this.modalService.show(CreateNftAuctionModalComponent, {
-      class: "modal-dialog-centered nft_placebid_modal_bx  nft_placebid_modal_bx_right nft_placebid_modal_bx_right modal-lg",
+      class:
+        "modal-dialog-centered nft_placebid_modal_bx  nft_placebid_modal_bx_right nft_placebid_modal_bx_right modal-lg",
       initialState: { post: this.post, nftEntryResponses: this.nftEntryResponses },
     });
     const onHiddenEvent = createNftAuctionDetails.onHidden.pipe(take(1));

@@ -1293,6 +1293,7 @@ $green-font-color: #19b028;
 
 .messages_scroll_height_mobile {
   height: calc(100vh - 230px) !important;
+  overflow-x: hidden;
 }
 
 .vh-100 {

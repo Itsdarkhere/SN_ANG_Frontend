@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-collection',
@@ -19,9 +19,7 @@ export class CreateCollectionComponent implements OnInit {
           collectionDescription: [""],
           collectionBannerImage: [""], 
         }),
-        this.fb.group({
-          selectedNfts: ["", Validators.required]
-        })
+        this.fb.array([[], Validators.required])
       ])
     });
     // console.log(this.createCollectionForm.controls.views["controls"][1]);
@@ -36,7 +34,7 @@ export class CreateCollectionComponent implements OnInit {
   }
 
   get collectionSelections(): AbstractControl {
-    return this.createCollectionForm.controls.views["controls"][1] as FormGroup;
+    return this.createCollectionForm.controls.views["controls"][1] as FormArray;
   }
 
   submit(): void {

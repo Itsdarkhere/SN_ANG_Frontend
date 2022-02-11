@@ -12,18 +12,18 @@
                
                  <!-- Container with "position: absolute;" allows inner flex content to scroll -->
                 <div class="collection-selections-user-nfts">
-                    <ng-container
+                    <!-- <ng-container
                         infiniteScroll 
                         [infiniteScrollDistance]="5" 
                         [infiniteScrollThrottle]="150"
                         (scrolled)="onScroll()"
-                    >
+                    > -->
                            
                         <div *ngFor="let post of dataToShow">
                             <app-small-card-component [post]="post"></app-small-card-component>
-                            <input type="checkbox" value="post.value" formControlName="selectedNfts">      
+                            <input type="checkbox" formControlName="selectedNfts" (change)="onChange()">      
                         </div>
-                    </ng-container>
+                    <!-- </ng-container> -->
                 </div>
                 
             </ng-container>

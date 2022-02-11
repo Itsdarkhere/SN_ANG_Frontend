@@ -18,7 +18,7 @@ export class CollectionSelectionsComponent implements OnInit {
 
   @Input() createCollectionForm: FormGroup;
   @Input() views: FormArray;
-  @Input() collectionSelections: FormGroup;
+  @Input() collectionSelections: FormArray;
 
   static PAGE_SIZE = 10;
   static BUFFER_SIZE = 5;
@@ -63,30 +63,34 @@ export class CollectionSelectionsComponent implements OnInit {
       });
   }
 
-  getPage(page: number) {
-    if (this.lastPage != null && page > this.lastPage) {
-      return [];
-    }
-    const startIdx = page * CollectionSelectionsComponent.PAGE_SIZE;
-    const endIdx = (page + 1) * CollectionSelectionsComponent.PAGE_SIZE;
-
-    return new Promise((resolve, reject) => {
-      resolve(
-        this.activeTab === CollectionSelectionsComponent.MY_BIDS
-          ? this.myBids.slice(startIdx, Math.min(endIdx, this.myBids.length))
-          : this.nftResponse.slice(startIdx, Math.min(endIdx, this.nftResponse.length))
-      );
-    });
+  onChange() {
+    console.log(this.collectionSelections);
   }
 
-  infiniteScroller: InfiniteScroller = new InfiniteScroller(
-    CollectionSelectionsComponent.PAGE_SIZE,
-    this.getPage.bind(this),
-    CollectionSelectionsComponent.WINDOW_VIEWPORT,
-    CollectionSelectionsComponent.BUFFER_SIZE,
-    CollectionSelectionsComponent.PADDING
-  );
-  datasource: IDatasource<IAdapter<any>> = this.infiniteScroller.getDatasource();
+  // getPage(page: number) {
+  //   if (this.lastPage != null && page > this.lastPage) {
+  //     return [];
+  //   }
+  //   const startIdx = page * CollectionSelectionsComponent.PAGE_SIZE;
+  //   const endIdx = (page + 1) * CollectionSelectionsComponent.PAGE_SIZE;
+
+  //   return new Promise((resolve, reject) => {
+  //     resolve(
+  //       this.activeTab === CollectionSelectionsComponent.MY_BIDS
+  //         ? this.myBids.slice(startIdx, Math.min(endIdx, this.myBids.length))
+  //         : this.nftResponse.slice(startIdx, Math.min(endIdx, this.nftResponse.length))
+  //     );
+  //   });
+  // }
+
+  // infiniteScroller: InfiniteScroller = new InfiniteScroller(
+  //   CollectionSelectionsComponent.PAGE_SIZE,
+  //   this.getPage.bind(this),
+  //   CollectionSelectionsComponent.WINDOW_VIEWPORT,
+  //   CollectionSelectionsComponent.BUFFER_SIZE,
+  //   CollectionSelectionsComponent.PADDING
+  // );
+  // datasource: IDatasource<IAdapter<any>> = this.infiniteScroller.getDatasource();
 
   onScroll() {
     if (this.endIndex <= this.posts.length - 1) {

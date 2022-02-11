@@ -109,6 +109,8 @@
   p {
     font-size: 14px;
     text-align: center;
+    width: 70%;
+    margin: auto;
   }
 }
 
@@ -123,9 +125,8 @@
 
 .get-deso-button {
   display: inline-block;
-  background-color: LightSalmon;
   border-radius: 10px;
-  border: 3px double #cccccc;
+  border: 3px double #161724;
   color: white;
   text-align: center;
   font-size: 28px;
@@ -134,10 +135,33 @@
   transition: all 0.5s;
   cursor: pointer;
   margin: 5px;
-  width: 280px;
-  height: 59px;
-  background: #BFBFBF;
+  width: 310px;
+  height: 70px;
+  background: #161724;
   border-radius: 20px;
+}
+
+.coinbase-button {
+  background: #2054ff;
+  border: 3px double #2054ff;
+}
+
+.coinbase-img {
+  display: block;
+  margin: auto;
+  width: 50%;
+}
+
+.deso-img {
+  display: block;
+  margin: auto;
+  width: 50%;
+}
+
+.get-deso-button:hover {
+  box-shadow: rgba(0, 0, 0, 0.068) 0 8px 15px;
+  transform: translateY(-2px);
+  color: #4285f4;
 }
 
 .current-cost-container {

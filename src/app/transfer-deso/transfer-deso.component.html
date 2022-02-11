@@ -42,10 +42,6 @@
   </div>
   <!-- SPACER FOR BOTTOM BAR ON MOBILE -->
   <div class="global__bottom-bar-mobile-height"></div>
-  <div class="p-15px d-flex flex-column align-items-center">
-    <p class="p-15px">Scan QR code to send {{ globalVars.loggedInUser.ProfileEntryResponse?.Username }} $DESO</p>
-    <img [src]="sendDeSoQRCode | sanitizeQRCode" />
-  </div>
 </div>
 <ng-template #elseBlock>
   <div class="w-100 trade-deso-not-logged-in d-flex flex-column flex-center">

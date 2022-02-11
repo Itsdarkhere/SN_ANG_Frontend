@@ -45,14 +45,12 @@
       </label>
     </div>
     <div class="wallet-tab-selector d-flex flex-center px-10px pt-5px">
-      <button (click)="tabDesoClick()" class="br-top-left-30px font-weight-semiboldn" [ngClass]="{ active: tabDeso }">
-        <label *ngIf="!mobile" class="mb-0px pl-5px">
-          <img src="/assets/icons/wallet_deso_icon.svg" class="mb-5px" alt="creator coin icon" />
-          DeSo
-        </label>
+      <button (click)="tabDesoClick()" class="font-weight-semiboldn" [ngClass]="{ active: tabDeso }">
+        <img src="/assets/icons/wallet_deso_icon_black.svg" class="wallet-button-svg mb-5px" alt="creator coin icon" />
+        <label *ngIf="!mobile" class="mb-0px pl-5px">DeSo</label>
       </button>
       <button (click)="tabCreatorCoinClick()" class="font-weight-semiboldn" [ngClass]="{ active: tabCreatorCoin }">
-        <img src="/assets/icons/wallet_cc_icon.svg" alt="creator coin icon" />
+        <img class="wallet-button-svg" src="/assets/icons/wallet_cc_icon_black.svg" alt="creator coin icon" />
         <label *ngIf="!mobile" class="mb-0px pl-5px">Creator Coins</label>
       </button>
       <!--<button

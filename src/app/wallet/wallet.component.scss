@@ -85,12 +85,20 @@
         border: none;
         outline: none;
         color: #727272;
+        .wallet-button-svg {
+            filter: brightness(0) invert(0.5) !important;
+            -webkit-filter: brightness(0) invert(0.5) !important;
+        }
     }
     button.active {
         background-color: #FFFFFF;
         border-top-left-radius: 30px;
         border-top-right-radius: 30px;
         color: #171717;
+        .wallet-button-svg {
+            filter: brightness(100%) !important;
+            -webkit-filter: brightness(100%) !important;
+        }
     }
 }
 .wallet-bottom-container {
@@ -215,6 +223,7 @@
     border-bottom-right-radius: 30px;
     background-color: #ffffff;
     max-height: 100%;
+    overflow: hidden;
     overflow-y: scroll;
     padding-bottom: 3%;
     button {

@@ -29,7 +29,7 @@
   >
     <left-bar-mobile></left-bar-mobile>
 
-    <div class="d-flex flex-column flex-grow-1 vh-100 max-w-100vw">
+    <div class="d-flex flex-column h-100">
       <!-- Thread View Header -->
       <div
         *ngIf="showThreadView"
@@ -76,7 +76,7 @@
         ></messages-inbox>
         <messages-thread-view
           *ngIf="showThreadView"
-          class="w-100"
+          class="w-100 h-100"
           [isMobile]="true"
           [messageThread]="
             globalVars.messageResponse

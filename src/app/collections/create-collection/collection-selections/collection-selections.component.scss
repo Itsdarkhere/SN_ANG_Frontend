@@ -100,4 +100,8 @@ form {
         font-weight: 600; // update to appropriate variable
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); // update to appropriate variable
     }
+
+    button:disabled {
+        background-color: rgba(49, 49, 49, 0.1);
+    }
 }

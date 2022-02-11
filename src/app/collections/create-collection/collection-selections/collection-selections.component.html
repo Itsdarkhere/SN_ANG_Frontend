@@ -8,7 +8,7 @@
         
         <!-- Populated NFT Content -->
         <div class="collection-selections-main-content">
-            <ng-container *ngIf="this.posts?.length && !isLoading">
+            <ng-container *ngIf="this.postData?.length && !isLoading">
                
                  <!-- Container with "position: absolute;" allows inner flex content to scroll -->
                 <div class="collection-selections-user-nfts">
@@ -19,11 +19,9 @@
                         (scrolled)="onScroll()"
                     > -->
                            
-                        <div *ngFor="let post of dataToShow">
-                            <ng-container>
-                                <app-small-card-component [post]="post"></app-small-card-component>
-                                <input type="checkbox" formControlName="selectedNfts" (click)="addNftToFormArray" (change)="onChange()">
-                            </ng-container>
+                        <div *ngFor="let post of postData">
+                            <app-small-card-component [post]="post"></app-small-card-component>
+                            <input type="checkbox" formControlName="selectedNfts" (click)="addNftToFormArray" (change)="onChange()">
                         </div>
                     <!-- </ng-container> -->
                 </div>
@@ -36,6 +34,6 @@
     <div class="collection-selections-bottom-bar">
         <!-- Add variable -->
         <p>3 NFTS selected</p>
-        <!-- <button type="submit" [disabled]="collectionSelections.invalid">Create Collection</button> -->
+        <button type="submit" [disabled]="collectionSelections.invalid">Create Collection</button>
     </div>
 </form>

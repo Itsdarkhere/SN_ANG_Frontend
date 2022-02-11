@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { GlobalVarsService } from "../../../global-vars.service";
-import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse, ProfileEntryResponse } from "../../../backend-api.service";
+import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../../../backend-api.service";
 import { InfiniteScroller } from "../../../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
 
@@ -18,20 +18,20 @@ export class CollectionSelectionsComponent implements OnInit {
 
   @Input() collectionSelections: FormGroup;
 
-  static PAGE_SIZE = 10;
-  static BUFFER_SIZE = 5;
-  static WINDOW_VIEWPORT = true;
-  static PADDING = 0.5;
-  static MY_BIDS = "My Bids";
+  // static PAGE_SIZE = 10;
+  // static BUFFER_SIZE = 5;
+  // static WINDOW_VIEWPORT = true;
+  // static PADDING = 0.5;
+  // static MY_BIDS = "My Bids";
   
-  activeTab: string;
   isLoading = true;
-  lastPage = null;
   startIndex = 0;
   endIndex = 10;
-  nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
-  userProfileEntryResponse: {} = ProfileEntryResponse;
-  dataToShow: PostEntryResponse[];
+  // activeTab: string;
+  // lastPage = null;
+  // nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
+
+  postData: PostEntryResponse[];
   posts: PostEntryResponse[];
   myBids: NFTBidEntryResponse[];
 
@@ -54,7 +54,7 @@ export class CollectionSelectionsComponent implements OnInit {
       .toPromise()
       .then((res) => {
         this.posts = res.Posts.filter((post) => post.IsNFT && post.NumNFTCopiesBurned != post.NumNFTCopies);
-        this.dataToShow = this.posts.slice(this.startIndex, this.endIndex);
+        this.postData = this.posts.slice(this.startIndex, this.endIndex);
       })
       .finally(() => {
         this.isLoading = false;
@@ -94,7 +94,7 @@ export class CollectionSelectionsComponent implements OnInit {
     if (this.endIndex <= this.posts.length - 1) {
       this.startIndex = this.endIndex;
       this.endIndex += 20;
-      this.dataToShow = [...this.dataToShow, ...this.posts.slice(this.startIndex, this.endIndex)];
+      this.postData = [...this.postData, ...this.posts.slice(this.startIndex, this.endIndex)];
     }
   }
 }

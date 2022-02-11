@@ -1,5 +1,7 @@
 <div class="page-creator-top-profile">
-  <div class="profile-actions-box">
+
+  <div class="followers-section">
+    <div class="profile-actions-box">
       <button
         *ngIf="globalVars.loggedInUser?.PublicKeyBase58Check != profile.PublicKeyBase58Check"
         class="br-30px m-10px pt-5px pb-5px pl-5px pr-5px top-card-button hover-color top-card-button-message"
@@ -26,8 +28,6 @@
         
       </button>
   </div>
-
-  <div class="followers-section">
     <div class="followers-row">
       <div
         class="cursor-pointer"

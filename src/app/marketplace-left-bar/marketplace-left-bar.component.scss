@@ -262,7 +262,6 @@ input[type=number]::-webkit-outer-spin-button {
     transform: translate(-50%, -50%);
 }
 // Fallback for mobile devices that dont support aspect ratio, mostly safari (aspect-ratio: 1 / 1) {
-@supports (aspect-ratio: 1 / 1) {
     .mlb-flyout-status-grid {
         width: 100%;
         display: grid;
@@ -465,7 +464,6 @@ input[type=number]::-webkit-outer-spin-button {
       content: "";
       clear: both;
     }
-}
 .marketplace-flyout-checkbox-label {
     font-size: clamp(14px, 4vw, 20px);
 }

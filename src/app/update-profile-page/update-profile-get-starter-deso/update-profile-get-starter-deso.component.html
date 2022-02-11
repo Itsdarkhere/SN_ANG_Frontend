@@ -5,7 +5,7 @@
   >
     <p class="font-weight-bold" *ngIf="!globalVars.loggedInUser?.ProfileEntryResponse?.Username">Create Your Profile</p>
   </div>
-  <div class="fs-15px mt-15px finalize-deso-profile-text">
+  <div class="fs-15px mt-15px finalize-deso-profile-text finalize-profile-box">
     To finalize creating your profile, you need $DESO cryptocurrency.
     <br />
     <br />
@@ -15,20 +15,41 @@
     </span>
     <br />
     <br />
-    <span>Get $DESO by using any of the methods below 👇</span>
+  </div>
+  <div class="get-deso-container">  <span>Get $DESO by using any of the methods below 👇</span>
   </div>
 </div>
-<div *ngIf="!globalVars.isMobile()" class="fs-15px mt-15px">
-  To finalize creating your profile, you need $DESO cryptocurrency.
-  <br />
-  <br />
-  <span *ngIf="globalVars.createProfileFeeNanos > 0">
+
+<!-- DESKTOP -->
+
+
+<div *ngIf="!globalVars.isMobile()" class="fs-15px mt-15px finalize-profile-box">
+  <div>
+    <p class="finalize-profile-title">You're almost there!</p>
+    <p class="finalize-profile-title">You just need some $DESO</p>
+  </div>
+  <span *ngIf="globalVars.createProfileFeeNanos > 0" class="current-cost-container">
     Creating a profile currently costs
     <b>{{ globalVars.createProfileFeeInDeSo() }} DeSo (≈ {{ globalVars.createProfileFeeInUsd() }} USD)</b>
   </span>
-  <br />
-  <br />
-  <span>Get $DESO by using any of the methods below 👇</span>
+</div>
+<div class="get-deso-container">  <span>Get $DESO by using any of the methods below 👇</span>
+</div>
+
+<div class="buttons-box">
+  <div class="get-deso-box">
+    <a class="get-deso-button" href="https://buy.deso.org/" target="_blank">
+
+    </a>
+    <p>Buy $DESO with a credit card, Bitcoin or Ethereum.</p>
+  </div>
+
+  <div class="get-deso-coinbase-box">
+    <a class="get-deso-button coinbase-button" href="https://www.coibase.com/" target="_blank">
+
+    </a>
+    <p>Buy $DESO on Coinbase’s exchange.</p>
+  </div>
 </div>
 <div class="card-box-profile-update">
   <!-- <a class="card-profile-update" [routerLink]="'/' + RouteNames.GET_STARTER_BITCLOUT">

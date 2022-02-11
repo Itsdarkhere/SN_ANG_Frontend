@@ -73,6 +73,89 @@
   padding-top: 100px;
 }
 
+.finalize-profile-box {
+  padding: 1em;
+  background: grey;
+  border-radius: 1em;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 54px;
+  /* display: flex; */
+  align-items: center;
+  color: #2D2D2D;
+  text-align: center;
+  vertical-align: middle;
+  background: #FFFFFF;
+  border: 2px solid #F4F4F4;
+  box-sizing: border-box;
+  box-shadow: 0px 1.81225px 30px 1.81225px rgba(0, 0, 0, 0.05);
+  border-radius: 52px;
+}
+
+.get-deso-container {
+  text-align: center;
+  vertical-align: middle;
+  margin-top: 2.5em;
+  margin-bottom: 2.5em;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.get-deso-box {
+  width: 50%;
+
+  p {
+    font-size: 14px;
+    text-align: center;
+  }
+}
+
+.get-deso-coinbase-box {
+  width: 50%;
+
+  p {
+    font-size: 14px;
+    text-align: center;
+  }
+}
+
+.get-deso-button {
+  display: inline-block;
+  background-color: LightSalmon;
+  border-radius: 10px;
+  border: 3px double #cccccc;
+  color: white;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+  width: 280px;
+  height: 59px;
+  background: #BFBFBF;
+  border-radius: 20px;
+}
+
+.current-cost-container {
+  text-align: center;
+  vertical-align: middle;
+  font-size: 16px;
+  font-weight: 100;
+  color: grey;
+}
+
+.finalize-profile-title {
+  font-weight: 600;
+}
+
+.buttons-box {
+  display: flex;
+  text-align: center;}
+
 .mobile-create-your-profile-width {
   width: 96%;
 }

@@ -1,21 +1,17 @@
-<div *ngIf="globalVars.isMobile()">
+<div *ngIf="globalVars.isMobile()" class="fs-15px mt-15px finalize-profile-box">
   <div
     class="global__top-bar global__top-bar__height topbar-update-profile d-flex align-items-center pl-15px fs-18px border-bottom border-color-grey max-width-profile mobile-create-your-profile-width"
     *ngIf="!this.globalVars.loggedInUser?.CanCreateProfile"
   >
-    <p class="font-weight-bold" *ngIf="!globalVars.loggedInUser?.ProfileEntryResponse?.Username">Create Your Profile</p>
   </div>
-  <div class="fs-15px mt-15px finalize-deso-profile-text finalize-profile-box">
-    To finalize creating your profile, you need $DESO cryptocurrency.
-    <br />
-    <br />
-    <span *ngIf="globalVars.createProfileFeeNanos > 0">
-      Creating a profile currently costs
-      <b>{{ globalVars.createProfileFeeInDeSo() }} DeSo (≈ {{ globalVars.createProfileFeeInUsd() }} USD)</b>
-    </span>
-    <br />
-    <br />
+  <div>
+    <p class="finalize-profile-title">You're almost there!</p>
+    <p class="finalize-profile-title">You just need some $DESO</p>
   </div>
+  <span *ngIf="globalVars.createProfileFeeNanos > 0" class="current-cost-container">
+    Creating a profile currently costs
+    <b>{{ globalVars.createProfileFeeInDeSo() }} DeSo (≈ {{ globalVars.createProfileFeeInUsd() }} USD)</b>
+  </span>
 </div>
 
 <!-- DESKTOP -->

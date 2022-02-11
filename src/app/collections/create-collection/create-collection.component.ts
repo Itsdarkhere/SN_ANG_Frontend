@@ -21,7 +21,7 @@ export class CreateCollectionComponent implements OnInit {
         }),
         // This group may seem extraneous, but is actually necessary because of the way the FormBuilder API works
         this.fb.group({
-          selectedNfts: this.fb.array([[], Validators.required])
+          selectedNfts: ([[], Validators.required])
         })
       ])
     });

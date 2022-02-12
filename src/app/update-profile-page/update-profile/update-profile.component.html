@@ -25,6 +25,7 @@
     </div>
   </div>
 
+
   <div class="global__top-bar__height" *ngIf="!this.globalVars.loggedInUser?.CanCreateProfile"></div>
   <div class="global__top-bar__height" *ngIf="globalVars.isMobile()"></div>
 
@@ -233,7 +234,7 @@
             (click)="contactsOpen = !contactsOpen"
           >
             <div class="d-flex h-100 flex-start-center flex-column">
-              <label class="font-weight-semiboldn mb-5px fs-18px">Contact details</label>
+              <label class="font-weight-semiboldn color-text mb-5px fs-18px">Contact details</label>
               <p style="color: #9e9e9e" class="fs-13px">Email</p>
             </div>
             <div class="h-100 d-flex flex-center">
@@ -267,7 +268,7 @@
             (click)="socialsOpen = !socialsOpen"
           >
             <div class="d-flex h-100 flex-start-center flex-column">
-              <label class="font-weight-semiboldn mb-5px fs-18px">Social links</label>
+              <label class="font-weight-semiboldn color-text mb-5px fs-18px">Social links</label>
               <p style="color: #9e9e9e" class="fs-13px">Add links to your social profiles.</p>
             </div>
             <div class="h-100 d-flex flex-center">
@@ -344,7 +345,7 @@
             (click)="verificationOpen = !verificationOpen"
           >
             <div class="d-flex h-100 flex-start-center flex-column">
-              <label class="font-weight-semiboldn mb-5px fs-18px">Verification</label>
+              <label class="font-weight-semiboldn color-text mb-5px fs-18px">Verification</label>
               <p style="color: #9e9e9e" class="fs-13px text-align-start">
                 Verify your identity with Jumio and you will receive 0.1 $DESO for free.
               </p>
@@ -372,7 +373,7 @@
               (click)="globalVars.launchGetFreeDESOFlow()"
               class="white-rounded-button fs-14px up-jumio-button mt-20px d-flex flex-center pl-10px pr-10px pt-5px pb-5px font-weight-bold"
             >
-              <img class="mr-5px fs-13px" src="../assets/icons/lock.svg" />
+              <img class="mr-5px color-text fs-13px" src="../assets/icons/lock.svg" />
               Verify your ID with Jumio
             </button>
           </div>

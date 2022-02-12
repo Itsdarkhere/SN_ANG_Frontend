@@ -5426,7 +5426,9 @@ option {
     }
   }
 }
-
+.color-text {
+  color: var(--text) !important;
+}
 .blk_fill_btn {
   background: #313131;
   border: 0.128864px solid #000000;

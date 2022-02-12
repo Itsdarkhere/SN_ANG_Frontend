@@ -209,7 +209,7 @@ import { CollectionSelectionsComponent } from './collections/create-collection/c
 import { CollectionDetailsComponent } from './collections/create-collection/collection-details/collection-details.component';
 import { CollectionStepperComponent } from './collections/create-collection/collection-stepper/collection-stepper.component';
 import { NftCardMinimalComponent } from './nft-card-minimal/nft-card-minimal.component';
-import { CollectionPageSidebarComponent } from './collections/collection-page/collection-page-sidebar/collection-page-sidebar.component';
+import { CollectionPageSidebarComponent } from './collections/collection-page/collection-page-content/collection-page-sidebar/collection-page-sidebar.component';
 import { CollectionPageNftViewComponent } from './collections/collection-page/collection-page-content/collection-page-nft-view/collection-page-nft-view.component';
 import { CollectionPageActivityViewComponent } from './collections/collection-page/collection-page-content/collection-page-activity-view/collection-page-activity-view.component';
 

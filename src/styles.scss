@@ -2551,8 +2551,8 @@ input.bs-timepicker-field {
 }
 
 .messages_container_mobile {
-  margin-top: 70px;
   position: fixed;
+  top: 70px;
   right: 0;
   bottom: 0;
   bottom: env(safe-area-inset-bottom);

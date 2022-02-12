@@ -5,9 +5,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid lightgray;
+    border: 1px solid #EFEFEF;
 
-    @media(max-width: 676px) {
+    @media(max-width: 768px) {
         height: 30rem;
     }
 
@@ -20,7 +20,7 @@
         justify-content: space-between;
         z-index: 1;
 
-        @media(max-width: 676px) {
+        @media(max-width: 768px) {
             padding: 0 2rem;
         }
     }
@@ -40,10 +40,10 @@
         display: flex;
         background-color: white;
         border-radius: 20px;
-        border: 1px solid rgb(212, 212, 212);
+        border: 1px solid #EFEFEF;
         z-index: 1;
 
-        @media(max-width: 676px) {
+        @media(max-width: 768px) {
             // Work around for some padding issues
             position: absolute;
             left: 50%;
@@ -79,7 +79,7 @@
             flex: 2;
             display: flex;
 
-            @media(max-width: 676px) {
+            @media(max-width: 768px) {
                 flex: 1;
             }
         }
@@ -88,7 +88,7 @@
             flex: 3;
             display: flex;
 
-            @media(max-width: 676px) {
+            @media(max-width: 768px) {
                 flex: 1;
             }
         }
@@ -110,7 +110,7 @@
             width: 100%;
             display: flex;
 
-            @media(max-width: 676px) {
+            @media(max-width: 768px) {
                 padding: 40px 2rem;
                 height: fit-content;
                 flex-direction: column;
@@ -132,7 +132,7 @@
                 align-items: flex-start;
                 justify-content: flex-end;
 
-                @media(max-width: 676px) {
+                @media(max-width: 768px) {
                     padding: 20px 0 0 0;
                     height: fit-content;
 
@@ -142,7 +142,7 @@
                     color: white;
                     font-size: 1.5rem;
 
-                    @media(max-width: 676px) {
+                    @media(max-width: 768px) {
                         padding-bottom: 10px;
                     }
                 }

@@ -1,0 +1,18 @@
+/* -- COLLECTION PAGE MAIN NFT VIEW -- */
+.collection-page-main-content-area {
+    padding: 2rem;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    border: 1px solid red;
+
+    .collection-page-sidebar {
+        flex: 1;
+    }
+    
+    .nfts-in-collection {
+        height: 100%;
+        flex: 3;
+        border: 1px solid green;
+    }
+}

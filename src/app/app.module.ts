@@ -210,6 +210,8 @@ import { CollectionDetailsComponent } from './collections/create-collection/coll
 import { CollectionStepperComponent } from './collections/create-collection/collection-stepper/collection-stepper.component';
 import { NftCardMinimalComponent } from './nft-card-minimal/nft-card-minimal.component';
 import { CollectionPageSidebarComponent } from './collections/collection-page/collection-page-sidebar/collection-page-sidebar.component';
+import { CollectionPageNftViewComponent } from './collections/collection-page/collection-page-content/collection-page-nft-view/collection-page-nft-view.component';
+import { CollectionPageActivityViewComponent } from './collections/collection-page/collection-page-content/collection-page-activity-view/collection-page-activity-view.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -393,6 +395,8 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     CollectionStepperComponent,
     NftCardMinimalComponent,
     CollectionPageSidebarComponent,
+    CollectionPageNftViewComponent,
+    CollectionPageActivityViewComponent,
   ],
   imports: [
     BrowserModule,

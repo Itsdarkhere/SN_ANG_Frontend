@@ -2564,11 +2564,13 @@ input.bs-timepicker-field {
 }
 
 .messages_container_mobile_with_bottom {
-  margin-top: 70px;
-  position: relative;
+  position: fixed;
+  top: 70px;
+  right: 0;
+  bottom: 0;
   border: 3.6670053005218506px solid #ebebeb;
   border-radius: 24.446701049804688px;
-  max-height: calc(100vh - 145px);
+  max-height: calc(100% - 145px);
   overflow: hidden;
   width: 100% !important;
 }

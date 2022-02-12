@@ -1292,7 +1292,8 @@ $green-font-color: #19b028;
 }
 
 .messages_scroll_height_mobile {
-  height: calc(100vh - 230px) !important;
+  height: calc(100% - 46px);
+  overflow-x: hidden;
 }
 
 .vh-100 {
@@ -1399,7 +1400,7 @@ $green-font-color: #19b028;
 
 .messages-mobile-scrollable-section {
   height: -webkit-fill-available;
-  flex-grow: 1;
+  height: 100%;
   overflow-y: scroll;
 }
 
@@ -2550,22 +2551,26 @@ input.bs-timepicker-field {
 }
 
 .messages_container_mobile {
-  margin-top: 70px;
-  position: relative;
+  position: fixed;
+  top: 70px;
+  right: 0;
+  bottom: 0;
+  bottom: env(safe-area-inset-bottom);
   border: 3.6670053005218506px solid #ebebeb;
   border-radius: 24.446701049804688px;
-  height: 100vh;
-  max-height: calc(100vh - 190px);
+  height: calc(100% - 70px);
   overflow: hidden;
   width: 100% !important;
 }
 
 .messages_container_mobile_with_bottom {
-  margin-top: 70px;
-  position: relative;
+  position: fixed;
+  top: 70px;
+  right: 0;
+  bottom: 0;
   border: 3.6670053005218506px solid #ebebeb;
   border-radius: 24.446701049804688px;
-  max-height: calc(100vh - 145px);
+  max-height: calc(100% - 145px);
   overflow: hidden;
   width: 100% !important;
 }

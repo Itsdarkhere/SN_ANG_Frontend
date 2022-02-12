@@ -1,4 +1,4 @@
-<div class="d-flex flex-column position-relative" [ngClass]="!isMobile ? 'messages-thread-view' : ''">
+<div class="d-flex flex-column h-100 position-relative" [ngClass]="!isMobile ? 'messages-thread-view' : ''">
   <!-- Top Bar -->
   <div
     *ngIf="!isMobile"
@@ -35,7 +35,7 @@
   </div>
 
   <!-- Messages Container -->
-  <div class="w-100 background-messages-light m-0px p-0px" style="overflow: hidden">
+  <div class="w-100 h-100 background-messages-light m-0px p-0px" style="overflow: hidden">
     <div
       *ngIf="messageThread"
       [ngClass]="!isMobile ? 'messages_scroll_height' : 'messages_scroll_height_mobile'"

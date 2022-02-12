@@ -203,13 +203,13 @@ import { CollectionPageComponent } from "./collections/collection-page/collectio
 import { CollectionCardComponent } from "./collections/collection-card/collection-card.component";
 import { CollectionPageHeaderComponent } from './collections/collection-page/collection-page-header/collection-page-header.component';
 import { CollectionPageContentComponent } from './collections/collection-page/collection-page-content/collection-page-content.component';
-import { CollectionPageMenuComponent } from './collections/collection-page/collection-page-menu/collection-page-menu.component';
 import { CreateCollectionComponent } from './collections/create-collection/create-collection.component';
 import { CollectionSuccessComponent } from './collections/create-collection/collection-success/collection-success.component';
 import { CollectionSelectionsComponent } from './collections/create-collection/collection-selections/collection-selections.component';
 import { CollectionDetailsComponent } from './collections/create-collection/collection-details/collection-details.component';
 import { CollectionStepperComponent } from './collections/create-collection/collection-stepper/collection-stepper.component';
 import { NftCardMinimalComponent } from './nft-card-minimal/nft-card-minimal.component';
+import { CollectionPageSidebarComponent } from './collections/collection-page/collection-page-sidebar/collection-page-sidebar.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -386,13 +386,13 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     CollectionCardComponent,
     CollectionPageHeaderComponent,
     CollectionPageContentComponent,
-    CollectionPageMenuComponent,
     CreateCollectionComponent,
     CollectionSuccessComponent,
     CollectionSelectionsComponent,
     CollectionDetailsComponent,
     CollectionStepperComponent,
     NftCardMinimalComponent,
+    CollectionPageSidebarComponent,
   ],
   imports: [
     BrowserModule,

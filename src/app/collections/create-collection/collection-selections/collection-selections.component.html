@@ -19,15 +19,11 @@
                         (scrolled)="onScroll()"
                     > -->
                            
-                        <div *ngFor="let post of postData; let i = index">
-                            <label for="selectedNft">
-                                <app-small-card-component [post]="post"></app-small-card-component>
-                            </label>
-                            <input
-                                id="selectedNft"
-                                type="checkbox" 
-                                formControlName="selectedNfts"
-                            >
+                        <div *ngFor="let post of postData">
+                            <button (click)="onClick()">
+                                <app-nft-card-minimal></app-nft-card-minimal>
+                                <!-- <app-small-card-component [post]="post"></app-small-card-component> -->
+                            </button>
                         </div>
                     <!-- </ng-container> -->
                 </div>

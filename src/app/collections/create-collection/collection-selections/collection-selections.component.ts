@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { GlobalVarsService } from "../../../global-vars.service";
 import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../../../backend-api.service";
@@ -18,59 +18,78 @@ export class CollectionSelectionsComponent implements OnInit {
 
   @Input() collectionSelections: FormGroup;
 
+  nftIsSelected: boolean = false;
+  nftCounter: number = 0;
+
+  onClick() {
+    this.nftIsSelected = !this.nftIsSelected;
+
+    if(this.nftIsSelected) {
+      this.nftCounter += 1;
+      console.log(this.nftCounter);
+      //increment counter
+      //add css classes
+      //emit event to parent to add to array
+    } else {
+      this.nftCounter <= 0 ? this.nftCounter === 0 : this.nftCounter -= 1;
+      console.log(this.nftCounter);
+      //decrement counter
+      //remove css classes
+      //emit event to parent to remove from array
+    }
+  }
+
+  ngOnInit(): void {
+    // this.getUserNFTs();
+  }
+
+  // getUserNFTs() {
+  //   this.backendApi.GetNFTsForUser(this.globalVars.localNode, "", "", false)
+  //   .toPromise().then(res => this.nftData = res);
+  //   console.log(this.nftData);
+  // }
+
+  // getNFTs() {
+  //   this.isLoading = true;
+  //   return this.backendApi
+  //     .GetPostsForPublicKey(
+  //       this.globalVars.localNode,
+  //       "",
+  //       this.globalVars.loggedInUser.ProfileEntryResponse.Username,
+  //       this.globalVars.loggedInUser?.ProfileEntryResponse.PublicKeyBase58Check,
+  //       "",
+  //       10000,
+  //       false /*MediaRequired*/
+  //     )
+  //     .toPromise()
+  //     .then((res) => {
+  //       this.posts = res.Posts.filter(post => post.IsNFT && post.NumNFTCopiesBurned != post.NumNFTCopies);
+  //       this.postData = this.posts.slice(this.startIndex, this.endIndex);
+  //     })
+  //     .finally(() => {
+  //       console.log(this.postData)
+  //       this.isLoading = false;
+  //     });
+  // }
+
+
+  isLoading: boolean = true;
+  // startIndex = 0;
+  // endIndex = 10;
+
+  postData: PostEntryResponse[];
+  // posts: PostEntryResponse[];
+  // myBids: NFTBidEntryResponse[];
+
   // static PAGE_SIZE = 10;
   // static BUFFER_SIZE = 5;
   // static WINDOW_VIEWPORT = true;
   // static PADDING = 0.5;
   // static MY_BIDS = "My Bids";
-  
-  isChecked: boolean = false;
-  isLoading = true;
-  startIndex = 0;
-  endIndex = 10;
+
   // activeTab: string;
   // lastPage = null;
   // nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
-
-  postData: PostEntryResponse[];
-  posts: PostEntryResponse[];
-  myBids: NFTBidEntryResponse[];
-
-  ngOnInit(): void {
-    this.getNFTs();
-  }
-
-  getNFTs() {
-    this.isLoading = true;
-    return this.backendApi
-      .GetPostsForPublicKey(
-        this.globalVars.localNode,
-        "",
-        this.globalVars.loggedInUser.ProfileEntryResponse.Username,
-        this.globalVars.loggedInUser?.ProfileEntryResponse.PublicKeyBase58Check,
-        "",
-        10000,
-        false /*MediaRequired*/
-      )
-      .toPromise()
-      .then((res) => {
-        this.posts = res.Posts.filter((post) => post.IsNFT && post.NumNFTCopiesBurned != post.NumNFTCopies);
-        this.postData = this.posts.slice(this.startIndex, this.endIndex);
-      })
-      .finally(() => {
-        this.isLoading = false;
-      });
-  }
-
-  // onCheckboxClick($event) {
-  //   if($event.target.checked) {
-
-  //   }
-  // }
-
-  onChange() {
-    // console.log(this.collectionSelections);
-  }
 
   // getPage(page: number) {
   //   if (this.lastPage != null && page > this.lastPage) {
@@ -97,11 +116,11 @@ export class CollectionSelectionsComponent implements OnInit {
   // );
   // datasource: IDatasource<IAdapter<any>> = this.infiniteScroller.getDatasource();
 
-  onScroll() {
-    if (this.endIndex <= this.posts.length - 1) {
-      this.startIndex = this.endIndex;
-      this.endIndex += 20;
-      this.postData = [...this.postData, ...this.posts.slice(this.startIndex, this.endIndex)];
-    }
-  }
+  // onScroll() {
+  //   if (this.endIndex <= this.posts.length - 1) {
+  //     this.startIndex = this.endIndex;
+  //     this.endIndex += 20;
+  //     this.postData = [...this.postData, ...this.posts.slice(this.startIndex, this.endIndex)];
+  //   }
+  // }
 }

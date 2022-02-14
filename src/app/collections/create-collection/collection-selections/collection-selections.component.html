@@ -20,9 +20,10 @@
                     > -->
                            
                         <div *ngFor="let post of postData">
-                            <button (click)="onClick()">
+                            <button class="nft-button-select">
                                 <!-- <app-nft-card-minimal></app-nft-card-minimal> -->
-                                <app-small-card-component [post]="post"></app-small-card-component>
+                                <!-- <a class="nft-card-z-index" href="https://supernovas.app">Supernovas</a> -->
+                                <app-small-card-component class="nft-card-z-index" [post]="post"></app-small-card-component>
                             </button>
                         </div>
                     <!-- </ng-container> -->

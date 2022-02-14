@@ -66,19 +66,20 @@ form {
         margin-bottom: 15px;
         min-width: 200px;
 
-        input[type="checkbox"] {
-            // visibility: hidden;
+        .nft-card-z-index {
+            z-index: 100000 !important;
         }
 
-        // input[type="checkbox":checked] {
-
-        // }
+        .nft-button-select {
+            background-color: transparent;
+            z-index: -10 !important;
+        }
     }
     
-
     @media screen and (max-width: 676px) {   
         margin-bottom: 35px;
-    } 
+    }
+
 }
 
 .collection-selections-bottom-bar {

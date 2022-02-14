@@ -1232,11 +1232,11 @@ export class BackendApiService {
     });
   }
   // Sends an inactive user an email
-  SendInactiveUserEmail(endpoint: string, Username: string, LinkToProfile: string, Email: string) {
+  SendInactiveUserEmail(endpoint: string, username: string, link_to_profile: string, email: string) {
     return this.post(endpoint, BackendRoutes.RoutePathSendInactiveUserEmail, {
-      Username,
-      LinkToProfile,
-      Email,
+      username,
+      link_to_profile,
+      email,
     });
   }
   // Sends a user a welcoming email

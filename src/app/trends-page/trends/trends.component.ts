@@ -140,7 +140,6 @@ export class TrendsComponent implements OnInit {
           if (showMore) {
             this.globalVars.marketplaceNFTsData = this.globalVars.marketplaceNFTsData.concat(res.PostEntryResponse);
           } else {
-            console.log(res.PostEntryResponse);
             this.globalVars.marketplaceNFTsData = res.PostEntryResponse;
           }
           this.globalVars.isMarketplaceLoading = false;

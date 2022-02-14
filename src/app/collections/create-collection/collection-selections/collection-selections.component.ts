@@ -20,6 +20,13 @@ export class CollectionSelectionsComponent implements OnInit {
 
   nftIsSelected: boolean = false;
   nftCounter: number = 0;
+  isLoading: boolean = true;
+  startIndex = 0;
+  endIndex = 10;
+
+  postData: PostEntryResponse[];
+  posts: PostEntryResponse[];
+  myBids: NFTBidEntryResponse[];
 
   onClick() {
     this.nftIsSelected = !this.nftIsSelected;
@@ -40,87 +47,73 @@ export class CollectionSelectionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getUserNFTs();
+    console.log(this.globalVars.loggedInUser.ProfileEntryResponse);
+    this.getNFTs();
   }
 
-  // getUserNFTs() {
-  //   this.backendApi.GetNFTsForUser(this.globalVars.localNode, "", "", false)
-  //   .toPromise().then(res => this.nftData = res);
-  //   console.log(this.nftData);
-  // }
+  getNFTs() {
+    this.isLoading = true;
+    return this.backendApi
+      .GetPostsForPublicKey(
+        this.globalVars.localNode,
+        "",
+        this.globalVars.loggedInUser.ProfileEntryResponse.Username,
+        this.globalVars.loggedInUser?.ProfileEntryResponse.PublicKeyBase58Check,
+        "",
+        10000,
+        false /*MediaRequired*/
+      )
+      .toPromise()
+      .then((res) => {
+        this.posts = res.Posts.filter(post => post.IsNFT && post.NumNFTCopiesBurned != post.NumNFTCopies);
+        this.postData = this.posts.slice(this.startIndex, this.endIndex);
+      })
+      .finally(() => {
+        console.log(this.postData)
+        this.isLoading = false;
+      });
+  }
 
-  // getNFTs() {
-  //   this.isLoading = true;
-  //   return this.backendApi
-  //     .GetPostsForPublicKey(
-  //       this.globalVars.localNode,
-  //       "",
-  //       this.globalVars.loggedInUser.ProfileEntryResponse.Username,
-  //       this.globalVars.loggedInUser?.ProfileEntryResponse.PublicKeyBase58Check,
-  //       "",
-  //       10000,
-  //       false /*MediaRequired*/
-  //     )
-  //     .toPromise()
-  //     .then((res) => {
-  //       this.posts = res.Posts.filter(post => post.IsNFT && post.NumNFTCopiesBurned != post.NumNFTCopies);
-  //       this.postData = this.posts.slice(this.startIndex, this.endIndex);
-  //     })
-  //     .finally(() => {
-  //       console.log(this.postData)
-  //       this.isLoading = false;
-  //     });
-  // }
+  static PAGE_SIZE = 10;
+  static BUFFER_SIZE = 5;
+  static WINDOW_VIEWPORT = true;
+  static PADDING = 0.5;
+  static MY_BIDS = "My Bids";
 
+  activeTab: string;
+  lastPage = null;
+  nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
 
-  isLoading: boolean = true;
-  // startIndex = 0;
-  // endIndex = 10;
+  getPage(page: number) {
+    if (this.lastPage != null && page > this.lastPage) {
+      return [];
+    }
+    const startIdx = page * CollectionSelectionsComponent.PAGE_SIZE;
+    const endIdx = (page + 1) * CollectionSelectionsComponent.PAGE_SIZE;
 
-  postData: PostEntryResponse[];
-  // posts: PostEntryResponse[];
-  // myBids: NFTBidEntryResponse[];
+    return new Promise((resolve, reject) => {
+      resolve(
+        this.activeTab === CollectionSelectionsComponent.MY_BIDS
+          ? this.myBids.slice(startIdx, Math.min(endIdx, this.myBids.length))
+          : this.nftResponse.slice(startIdx, Math.min(endIdx, this.nftResponse.length))
+      );
+    });
+  }
 
-  // static PAGE_SIZE = 10;
-  // static BUFFER_SIZE = 5;
-  // static WINDOW_VIEWPORT = true;
-  // static PADDING = 0.5;
-  // static MY_BIDS = "My Bids";
+  infiniteScroller: InfiniteScroller = new InfiniteScroller(
+    CollectionSelectionsComponent.PAGE_SIZE,
+    this.getPage.bind(this),
+    CollectionSelectionsComponent.WINDOW_VIEWPORT,
+    CollectionSelectionsComponent.BUFFER_SIZE,
+    CollectionSelectionsComponent.PADDING
+  );
+  datasource: IDatasource<IAdapter<any>> = this.infiniteScroller.getDatasource();
 
-  // activeTab: string;
-  // lastPage = null;
-  // nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
-
-  // getPage(page: number) {
-  //   if (this.lastPage != null && page > this.lastPage) {
-  //     return [];
-  //   }
-  //   const startIdx = page * CollectionSelectionsComponent.PAGE_SIZE;
-  //   const endIdx = (page + 1) * CollectionSelectionsComponent.PAGE_SIZE;
-
-  //   return new Promise((resolve, reject) => {
-  //     resolve(
-  //       this.activeTab === CollectionSelectionsComponent.MY_BIDS
-  //         ? this.myBids.slice(startIdx, Math.min(endIdx, this.myBids.length))
-  //         : this.nftResponse.slice(startIdx, Math.min(endIdx, this.nftResponse.length))
-  //     );
-  //   });
-  // }
-
-  // infiniteScroller: InfiniteScroller = new InfiniteScroller(
-  //   CollectionSelectionsComponent.PAGE_SIZE,
-  //   this.getPage.bind(this),
-  //   CollectionSelectionsComponent.WINDOW_VIEWPORT,
-  //   CollectionSelectionsComponent.BUFFER_SIZE,
-  //   CollectionSelectionsComponent.PADDING
-  // );
-  // datasource: IDatasource<IAdapter<any>> = this.infiniteScroller.getDatasource();
-
-  // onScroll() {
-  //   if (this.endIndex <= this.posts.length - 1) {
-  //     this.startIndex = this.endIndex;
-  //     this.endIndex += 20;
-  //     this.postData = [...this.postData, ...this.posts.slice(this.startIndex, this.endIndex)];
-  //   }
-  // }
+  onScroll() {
+    if (this.endIndex <= this.posts.length - 1) {
+      this.startIndex = this.endIndex;
+      this.endIndex += 20;
+      this.postData = [...this.postData, ...this.posts.slice(this.startIndex, this.endIndex)];
+    }
+  }
 }

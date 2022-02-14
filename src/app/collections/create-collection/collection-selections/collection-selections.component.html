@@ -8,27 +8,19 @@
         
         <!-- Populated NFT Content -->
         <div class="collection-selections-main-content">
-            <ng-container *ngIf="this.postData?.length && !isLoading">
+            <!-- <ng-container *ngIf="this.postData?.length && !isLoading"> -->
                
                  <!-- Container with "position: absolute;" allows inner flex content to scroll -->
                 <div class="collection-selections-user-nfts">
-                    <!-- <ng-container
-                        infiniteScroll 
-                        [infiniteScrollDistance]="5" 
-                        [infiniteScrollThrottle]="150"
-                        (scrolled)="onScroll()"
-                    > -->
-                           
-                        <div *ngFor="let post of postData">
-                            <button (click)="onClick()">
+                        <!-- <div *ngFor=""> -->
+                            <!-- <button (click)="onClick()"> -->
                                 <app-nft-card-minimal></app-nft-card-minimal>
                                 <!-- <app-small-card-component [post]="post"></app-small-card-component> -->
-                            </button>
-                        </div>
-                    <!-- </ng-container> -->
+                            <!-- </button> -->
+                        <!-- </div> --> 
                 </div>
                 
-            </ng-container>
+            <!-- </ng-container> -->
         </div>
     </div>
 

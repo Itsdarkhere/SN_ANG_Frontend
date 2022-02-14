@@ -1,6 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { BackendApiService, NFTEntryResponse, PostEntryResponse } from '../backend-api.service';
-import { GlobalVarsService } from "../global-vars.service";
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-nft-card-minimal',
@@ -9,15 +7,9 @@ import { GlobalVarsService } from "../global-vars.service";
 })
 export class NftCardMinimalComponent implements OnInit {
 
-  @Input() nftData: PostEntryResponse;
-
-  constructor(
-    public globalVars: GlobalVarsService, 
-    private backendApi: BackendApiService
-  ) { }
-
-  nftEntryResponse: NFTEntryResponse[];
+  constructor() { }
 
   ngOnInit(): void {
   }
+
 }

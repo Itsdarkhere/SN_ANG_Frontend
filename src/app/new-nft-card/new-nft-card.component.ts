@@ -89,7 +89,6 @@ export class NewNftCardComponent implements OnInit {
   //   - https://github.com/regexhq/mentions-regex
   static MENTIONS_REGEX = /\B\@([\w\-]+)/gim;
   @Input() showIconRow = true;
-  @Input() showAdminRow = false;
   @Input() contentShouldLinkToThread: boolean;
   @Input() pending: boolean;
   @Input() owns: boolean;
@@ -116,6 +115,7 @@ export class NewNftCardComponent implements OnInit {
   @Input() setBorder = false;
   @Input() showAvailableSerialNumbers = false;
   @Input() profilePublicKeyBase58Check: string = "";
+  @Input() nftPost: boolean;
   // If card is inside a feed post
   @Input() isQuotedCard = false;
   // If the post is shown in a modal, this is used to hide the modal on post click.
@@ -226,6 +226,7 @@ export class NewNftCardComponent implements OnInit {
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
   }
+
   activateOnHover(event, play) {
     if (play) {
       this.showVideoTypeIcon = false;
@@ -558,7 +559,6 @@ export class NewNftCardComponent implements OnInit {
       this.postContent.PostExtraData["EmbedVideoURL"]
     ).subscribe((res) => {
       this.constructedEmbedURL = res;
-      console.log(res);
     });
   }
   getEmbedHeight(): number {

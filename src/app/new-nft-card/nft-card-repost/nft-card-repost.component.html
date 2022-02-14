@@ -1,1 +1,41 @@
-<p>nft-card-repost works!</p>
+<!--This is a repost card-->
+<div class="nft-repost-container position-relative">
+  <div
+    *ngIf="reposterProfile"
+    class="feed-post__container border d-flex justify-content-left w-100 pb-5px px-15px pt-10px"
+  >
+    <a
+      class="fc-muted font-weight-semibold align-items-center"
+      queryParamsHandling="merge"
+      [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, reposterProfile.Username]"
+    >
+      <i class="icon-repost fs-20px" style="vertical-align: middle"></i>
+      <span style="vertical-align: middle" class="fs-15px">@{{ reposterProfile.Username }} reposted</span>
+    </a>
+    <feed-post-dropdown
+      class="ml-auto"
+      [post]="post"
+      [postContent]="postContent"
+      [nftEntryResponses]="nftEntryResponses"
+      (postHidden)="hidePost()"
+      (userBlocked)="blockUser()"
+      (toggleGlobalFeed)="_addPostToGlobalFeed()"
+    ></feed-post-dropdown>
+  </div>
+  <div class="w-100 d-flex flex-center p-20px position-relative overflow-hidden">
+    <object data="/assets/img/nft-background.svg" class="nft-background" type="image/svg+xml"></object>
+    <ng-content></ng-content>
+  </div>
+  <div class="card-footer-2 d-flex flex-center">
+    <div class="w-80">
+      <!-- Like, Comment, Reclout, Share Buttons -->
+      <feed-post-icon-row
+        [post]="post"
+        [postContent]="post"
+        [parentPost]="parentPost"
+        [afterCommentCreatedCallback]="afterCommentCreatedCallback"
+        [afterRepostCreatedCallback]="afterRepostCreatedCallback"
+      ></feed-post-icon-row>
+    </div>
+  </div>
+</div>

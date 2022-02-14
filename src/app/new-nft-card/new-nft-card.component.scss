@@ -3,55 +3,6 @@
     transition: .2s;
     position: relative;
     transition: transform 0.2s ease;
-    .card-header {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        background: transparent;
-        .profile-img {
-            width: 25px;
-            height: 25px;
-            margin-right: 10px;
-            a {
-                width: 25px;
-                height: 25px;
-                display: block;
-                background-position: center;
-                background-size: cover;
-                border-radius: 50%;
-            }
-        }
-        h6 {
-            display: block;
-            align-items: center;
-            font-size: 13px;
-            font-weight: 600;
-            max-width: 110px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .value-buy-cover {
-            display: inline-block;
-            padding: 1px 1px 1px 6px;
-            border-radius: 15px;
-            background: var(--secalt);
-            margin-left: 8px;
-            font-size: 10px;
-            a {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                .buy_bg {
-                    background-color: #FFFFFF;
-                    padding: 2px 8px;
-                    border-radius: 0 12px 12px 0;
-                    font-size: 11px;
-                    margin-left: 5px;
-                }
-            }
-        }
-    }
     .card-body {
         padding: 0px;
         box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.1);
@@ -205,6 +156,55 @@
         }
     }
 }
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: transparent;
+    .profile-img {
+        width: 25px;
+        height: 25px;
+        margin-right: 10px;
+        a {
+            width: 25px;
+            height: 25px;
+            display: block;
+            background-position: center;
+            background-size: cover;
+            border-radius: 50%;
+        }
+    }
+    h6 {
+        display: block;
+        align-items: center;
+        font-size: 13px;
+        font-weight: 600;
+        max-width: 110px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .value-buy-cover {
+        display: inline-block;
+        padding: 1px 1px 1px 6px;
+        border-radius: 15px;
+        background: var(--secalt);
+        margin-left: 8px;
+        font-size: 10px;
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .buy_bg {
+                background-color: #FFFFFF;
+                padding: 2px 8px;
+                border-radius: 0 12px 12px 0;
+                font-size: 11px;
+                margin-left: 5px;
+            }
+        }
+    }
+}
 .br-mr {
     border-radius: 12px;
 }
@@ -247,6 +247,15 @@
 .top-br-30px {
     border-top-left-radius: 30px !important;
     border-top-right-radius: 30px !important;
+}
+.nft-post-top {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
 }
 .card-video-icon {
     position: absolute;

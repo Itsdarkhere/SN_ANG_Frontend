@@ -293,8 +293,6 @@ export class FeedPostComponent implements OnInit {
     if (this.showNFTDetails && this.postContent.IsNFT && !this.nftEntryResponses?.length) {
       this.getNFTEntries();
     }
-
-    console.log(` -------------------- postContent ${JSON.stringify(this.postContent)} ------------------------ `);
   }
   SendAddToCartEvent() {
     this.analyticsService.eventEmitter("place_a_bid", "transaction", "bid", "click", 10);

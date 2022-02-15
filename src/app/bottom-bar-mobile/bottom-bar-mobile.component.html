@@ -4,18 +4,18 @@
       <div class="icon-cover">
         <img src="assets/icons/feed-icon.svg" alt="" />
       </div>
-      <h6>Feed</h6>
     </bottom-bar-mobile-tab>
 
     <bottom-bar-mobile-tab [link]="'/' + globalVars.RouteNames.TRENDS">
       <div class="icon-cover">
         <img src="assets/icons/marketplace-icon.svg" alt="" />
       </div>
-      <h6>Marketplace</h6>
     </bottom-bar-mobile-tab>
 
     <button class="btn btn-create clout" [matMenuTriggerFor]="createMenu">
-      <span class="nb font-weight-semiboldn">Create</span>
+      <span class="nb font-weight-semiboldn">
+        <img class="noti-img" src="assets/icons/u_plus.png" alt="" />
+      </span>
     </button>
     <mat-menu #createMenu="matMenu" class="create_post_mmnenu">
       <div class="create-menu-cover">
@@ -38,14 +38,12 @@
       <div class="icon-cover">
         <img class="noti-img" src="assets/icons/notification-icon.svg" alt="" />
       </div>
-      <h6>Notifications</h6>
     </bottom-bar-mobile-tab>
 
-    <div class="bottom-bar-nav">
+    <div class="bottom-bar-nav cursor-point-hamburguer">
       <div class="icon-cover" (click)="globalVars.isLeftBarMobileOpen = true">
         <img src="assets/icons/hamburger-icon.svg" class="clout" alt="" />
       </div>
-      <h6>Menu</h6>
     </div>
   </div>
 </div>
@@ -56,21 +54,18 @@
       <div class="icon-cover">
         <img src="assets/icons/feed-icon.svg" alt="" />
       </div>
-      <h6>Feed</h6>
     </bottom-bar-mobile-tab>
 
     <bottom-bar-mobile-tab [link]="'/' + globalVars.RouteNames.TRENDS">
       <div class="icon-cover">
         <img src="assets/icons/marketplace-icon.svg" alt="" />
       </div>
-      <h6>Marketplace</h6>
     </bottom-bar-mobile-tab>
 
-    <div class="bottom-bar-nav">
+    <div class="bottom-bar-nav cursor-point-hamburguer">
       <div class="icon-cover" (click)="globalVars.isLeftBarMobileOpen = true">
         <img src="assets/icons/hamburger-icon.svg" class="clout" alt="" />
       </div>
-      <h6>Menu</h6>
     </div>
   </div>
 </div>

@@ -1,5 +1,4 @@
 <div class="page-creator-top-profile">
-
   <div class="followers-section">
     <div class="profile-actions-box">
       <button
@@ -9,25 +8,26 @@
       >
         <img src="./assets/icons/chat-plane-icon-white.svg" class="profile-button-icon" />
         <div class="dm-button-hover">DM</div>
-        
       </button>
-      <button class="br-30px m-10px pt-5px pb-5px pl-5px pr-5px top-card-button hover-color top-card-button-wallet" 
-      (click)="copyWalletAddress()">
+      <button
+        class="br-30px m-10px pt-5px pb-5px pl-5px pr-5px top-card-button hover-color top-card-button-wallet"
+        (click)="copyWalletAddress()"
+      >
         <img src="./assets/icons/wallet-icon-white.svg" class="profile-button-icon" />
         <div class="wallet-button-hover">Copy wallet address</div>
         <div class="wallet-button-hidden" id="copyWallet">
           <i class="fas fa-check-circle check-wallet"></i>
           <div>Wallet copied!</div>
         </div>
-        
       </button>
-      <button class="br-30px m-10px pt-5px pb-5px pl-5px pr-5px top-card-button hover-color top-card-button-share" 
-      (click)="copyURL()">
+      <button
+        class="br-30px m-10px pt-5px pb-5px pl-5px pr-5px top-card-button hover-color top-card-button-share"
+        (click)="copyURL()"
+      >
         <img src="./assets/icons/share-white.svg" class="profile-button-icon" />
         <div class="share-button-hover">Share</div>
-        
       </button>
-  </div>
+    </div>
     <div class="followers-row">
       <div
         class="cursor-pointer"
@@ -52,7 +52,7 @@
         <h5>{{ globalVars.nanosToUSD(profile.CoinPriceDeSoNanos, 2) }}</h5>
       </div>
     </div>
-    <hr class="followers-separator">
+    <hr class="followers-separator" />
     <div class="btn_cover_sec followers-buy-button-container mt-10px">
       <div class="btn-cover">
         <button
@@ -91,16 +91,13 @@
       </div>
     </div>
   </div>
-  
 
   <div class="profile-top-card-box-1">
-    <div class="profile-img-cover" [avatar]="profile.PublicKeyBase58Check">
-    </div>
+    <div class="profile-img-cover" [avatar]="profile.PublicKeyBase58Check"></div>
   </div>
 
   <div class="user-info">
     <div class="followers_inline_row flex-column">
-
       <div class="name-stats-profile">
         <div class="mt-65px">
           <h5 class="bold usr_nm primary-name" *ngIf="profileData?.name">{{ profileData?.name }}</h5>
@@ -126,10 +123,7 @@
             </ng-container>
           </h5>
         </div>
-
       </div>
-
-
     </div>
   </div>
   <div class="btn_cover_sec followers-buy-button-container-mobile mt-10px">
@@ -170,7 +164,7 @@
     </div>
   </div>
   <div class="bio-cover">
-    <h6>BIO</h6>
+    <!--<h6>BIO</h6>-->
     <p [innerHTML]="profile.Description | sanitizeAndAutoLink"></p>
     <div class="socials-column w-10">
       <!-- <div
@@ -212,7 +206,8 @@
         target="_blank"
         class="social-link-div pr-2px hover-color"
       >
-        <img src="/assets/icons/profile-world-icon.svg" />{{ trimURL(profileData.website) }}
+        <img src="/assets/icons/profile-world-icon.svg" />
+        {{ trimURL(profileData.website) }}
       </a>
       <a
         *ngIf="profileData?.twitter"
@@ -220,7 +215,8 @@
         target="_blank"
         class="social-link-div hover-color"
       >
-        <img src="assets/icons/profile-twitter-icon.svg" />@{{ profileData.twitter }}
+        <img src="assets/icons/profile-twitter-icon.svg" />
+        @{{ profileData.twitter }}
       </a>
       <a
         *ngIf="profileData?.instagram"
@@ -228,7 +224,8 @@
         target="_blank"
         class="social-link-div hover-color"
       >
-        <img src="assets/icons/profile-instagram-icon.svg" />@{{ profileData.instagram }}
+        <img src="assets/icons/profile-instagram-icon.svg" />
+        @{{ profileData.instagram }}
       </a>
       <a
         *ngIf="profileData?.discord"
@@ -236,7 +233,8 @@
         target="_blank"
         class="social-link-div hover-color"
       >
-        <img src="assets/icons/profile-discord-icon.svg" />{{ profileData.discord }}
+        <img src="assets/icons/profile-discord-icon.svg" />
+        {{ profileData.discord }}
       </a>
     </div>
   </div>

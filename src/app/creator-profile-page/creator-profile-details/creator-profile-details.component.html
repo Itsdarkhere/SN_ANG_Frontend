@@ -3,15 +3,13 @@
 <!--Profile not found-->
 <not-found *ngIf="!profile && !loading"></not-found>
 
-<div *ngIf="profile && !loading" class="creator-profile-details-container">
+<div *ngIf="profile && !loading" class="creator-profile-details-container position-relative">
   <div class="w-100 d-flex flex-center">
     <img id="banner-image" src="./assets/img/default-banner.png" class="firebase-cover-image" />
   </div>
 
   <div class="w-100 d-flex flex-center cover-image-blurred-container">
-    <div class="blur-container w-100">
-      <img id="banner-image-blurred" src="./assets/img/default-banner.png" class="firebase-cover-image-blurred" />
-    </div>
+    <img id="banner-image-blurred" src="./assets/img/default-banner.png" class="firebase-cover-image-blurred" />
   </div>
 
   <div class="profile-content-container">

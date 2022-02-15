@@ -13,6 +13,8 @@ import { EmbedUrlParserService } from "src/lib/services/embed-url-parser-service
 })
 export class SmallCardComponentComponent implements OnInit {
   @Input() post: PostEntryResponse;
+  // For create-collection form – see collection-selections.component.html
+  @Input() index: number;
   constructor(public globalVars: GlobalVarsService, private backendApi: BackendApiService, private router: Router) {}
   nftEntryResponses: NFTEntryResponse[];
   availableSerialNumbers: NFTEntryResponse[];

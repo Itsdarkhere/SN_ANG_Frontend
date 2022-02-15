@@ -17,7 +17,9 @@ export class CollectionSelectionsComponent implements OnInit {
   ) {}
 
   @Input() collectionSelections: FormGroup;
-  @Output() selectedNft = new EventEmitter<object>();
+  // @Output() indexOfNft = new EventEmitter<number>();
+  @Output() selectedNft = new EventEmitter<{i: number, post: PostEntryResponse}>();
+  @Output() deselectedNft = new EventEmitter<object>();
 
   static PAGE_SIZE = 10;
   static BUFFER_SIZE = 5;
@@ -27,6 +29,8 @@ export class CollectionSelectionsComponent implements OnInit {
 
   isNftSelected: boolean = false;
   nftCounter: number = 0;
+  // nftIndex: number;
+
   isLoading: boolean = true;
   startIndex = 0;
   endIndex = 10;
@@ -38,8 +42,34 @@ export class CollectionSelectionsComponent implements OnInit {
   myBids: NFTBidEntryResponse[];
   
   ngOnInit(): void {
-    console.log(this.globalVars.loggedInUser?.ProfileEntryResponse);
+    // console.log(this.globalVars.loggedInUser?.ProfileEntryResponse);
     this.getNFTs();
+  }
+
+  // captureIndexValue(i: number) {
+  //   this.nftIndex = i;
+  //   this.indexOfNft.emit(i);
+  //   console.log(this.nftIndex);
+  // }
+
+  addPost(i: number, post: PostEntryResponse) {
+    this.isNftSelected = !this.isNftSelected;
+    this.selectedNft.emit({i, post});
+
+    if(this.isNftSelected) {
+      this.nftCounter += 1;
+      console.log(this.nftCounter);
+      //increment counter
+      //add css classes
+      //emit event to parent to add to array
+    } else {
+      this.nftCounter <= 0 ? this.nftCounter === 0 : this.nftCounter -= 1;
+      console.log(this.nftCounter);
+      //decrement counter
+      //remove css classes
+      //emit event to parent to remove from array
+    }
+    // console.log(post);
   }
 
   getNFTs() {
@@ -60,30 +90,11 @@ export class CollectionSelectionsComponent implements OnInit {
         this.postData = this.posts.slice(this.startIndex, this.endIndex);
       })
       .finally(() => {
-        console.log(this.postData)
+        // console.log(this.postData)
         this.isLoading = false;
       });
   }
 
-  addPost(post: PostEntryResponse) {
-    this.isNftSelected = !this.isNftSelected;
-
-    if(this.isNftSelected) {
-      this.nftCounter += 1;
-      this.selectedNft.emit(post);
-      console.log(this.nftCounter);
-      //increment counter
-      //add css classes
-      //emit event to parent to add to array
-    } else {
-      this.nftCounter <= 0 ? this.nftCounter === 0 : this.nftCounter -= 1;
-      console.log(this.nftCounter);
-      //decrement counter
-      //remove css classes
-      //emit event to parent to remove from array
-    }
-    console.log(post);
-  }
 
   getPage(page: number) {
     if (this.lastPage != null && page > this.lastPage) {

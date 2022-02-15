@@ -208,8 +208,8 @@
     }
 }
 .single-card.card-diff-width {
-    width: 100%;
-    max-width: 300px;
+    width: 100% !important;
+    max-width: 300px !important;
 }
 .br-mr {
     border-radius: 12px;

@@ -30,7 +30,8 @@
             }
             .video-tag {
                 display: block;
-                object-fit: cover;
+                border-top-left-radius: 30px;
+                border-top-right-radius: 30px;
                 width: 100%;
                 height: 100%;
             }

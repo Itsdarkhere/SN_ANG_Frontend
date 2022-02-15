@@ -1,42 +1,39 @@
 <form [formGroup]="collectionSelections" autocomplete="off">
-    <div class="collection-selections-main">
-        <div class="collection-selections-main-headline">
-            <h1>Pick NFTs for Collection</h1>
-            <!-- Add logic -->
-            <button>Select all</button>
-        </div>
-        
-        <!-- Populated NFT Content -->
-        <div class="collection-selections-main-content">
-            <ng-container *ngIf="this.postData?.length && !isLoading">
-               
-                 <!-- Container with "position: absolute;" allows inner flex content to scroll -->
-                <div class="collection-selections-user-nfts">
-                    <!-- <ng-container
+  <div class="collection-selections-main">
+    <div class="collection-selections-main-headline">
+      <h1>Pick NFTs for Collection</h1>
+      <!-- Add logic -->
+      <button>Select all</button>
+    </div>
+
+    <!-- Populated NFT Content -->
+    <div class="collection-selections-main-content">
+      <ng-container *ngIf="this.postData?.length && !isLoading">
+        <!-- Container with "position: absolute;" allows inner flex content to scroll -->
+        <div class="collection-selections-user-nfts">
+          <!-- <ng-container
                         infiniteScroll 
                         [infiniteScrollDistance]="5" 
                         [infiniteScrollThrottle]="150"
                         (scrolled)="onScroll()"
                     > -->
-                           
-                        <div *ngFor="let post of postData">
-                            <button class="nft-button-select">
-                                <!-- <app-nft-card-minimal></app-nft-card-minimal> -->
-                                <!-- <a class="nft-card-z-index" href="https://supernovas.app">Supernovas</a> -->
-                                <app-small-card-component class="nft-card-z-index" [post]="post"></app-small-card-component>
-                            </button>
-                        </div>
-                    <!-- </ng-container> -->
-                </div>
-                
-            </ng-container>
-        </div>
-    </div>
 
-    <!-- Create Collection Form Navigation -->
-    <div class="collection-selections-bottom-bar">
-        <!-- Add variable -->
-        <p>3 NFTS selected</p>
-        <button type="submit" [disabled]="collectionSelections.invalid">Create Collection</button>
+          <div *ngFor="let post of postData">
+            <div>
+              <button class="nft-button-select" (click)="addPost(post)"></button>
+              <app-small-card-component [post]="post"></app-small-card-component>
+            </div>
+          </div>
+          <!-- </ng-container> -->
+        </div>
+      </ng-container>
     </div>
+  </div>
+
+  <!-- Create Collection Form Navigation -->
+  <div class="collection-selections-bottom-bar">
+    <!-- Add variable -->
+    <p>3 NFTS selected</p>
+    <button type="submit" [disabled]="collectionSelections.invalid">Create Collection</button>
+  </div>
 </form>

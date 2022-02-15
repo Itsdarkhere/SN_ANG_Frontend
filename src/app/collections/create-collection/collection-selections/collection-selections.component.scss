@@ -65,14 +65,21 @@ form {
         position: relative;
         margin-bottom: 15px;
         min-width: 200px;
-        
-        .nft-button-select {
-            // background-color: transparent;
-            z-index: 10000 !important;
-        }
-
-        .nft-card-z-index {
-            z-index: 0 !important;
+        div {
+            position: relative;
+            .nft-button-select {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1;
+                width: 100%;
+                height: 100%;
+                background-color: transparent;
+                border: none;
+                outline: none;
+            }
         }
     }
     

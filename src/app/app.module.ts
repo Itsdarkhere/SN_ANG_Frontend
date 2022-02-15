@@ -201,17 +201,17 @@ import { SmallCardComponentComponent } from "./small-card-component/small-card-c
 import { CompleteProfileComponent } from "./update-profile-page/complete-profile/complete-profile.component";
 import { CollectionPageComponent } from "./collections/collection-page/collection-page.component";
 import { CollectionCardComponent } from "./collections/collection-card/collection-card.component";
-import { CollectionPageHeaderComponent } from './collections/collection-page/collection-page-header/collection-page-header.component';
-import { CollectionPageContentComponent } from './collections/collection-page/collection-page-content/collection-page-content.component';
-import { CreateCollectionComponent } from './collections/create-collection/create-collection.component';
-import { CollectionSuccessComponent } from './collections/create-collection/collection-success/collection-success.component';
-import { CollectionSelectionsComponent } from './collections/create-collection/collection-selections/collection-selections.component';
-import { CollectionDetailsComponent } from './collections/create-collection/collection-details/collection-details.component';
-import { CollectionStepperComponent } from './collections/create-collection/collection-stepper/collection-stepper.component';
-import { NftCardMinimalComponent } from './nft-card-minimal/nft-card-minimal.component';
-import { CollectionPageSidebarComponent } from './collections/collection-page/collection-page-content/collection-page-sidebar/collection-page-sidebar.component';
-import { CollectionPageNftViewComponent } from './collections/collection-page/collection-page-content/collection-page-nft-view/collection-page-nft-view.component';
-import { CollectionPageActivityViewComponent } from './collections/collection-page/collection-page-content/collection-page-activity-view/collection-page-activity-view.component';
+import { CollectionPageHeaderComponent } from "./collections/collection-page/collection-page-header/collection-page-header.component";
+import { CollectionPageContentComponent } from "./collections/collection-page/collection-page-content/collection-page-content.component";
+import { CreateCollectionComponent } from "./collections/create-collection/create-collection.component";
+import { CollectionSuccessComponent } from "./collections/create-collection/collection-success/collection-success.component";
+import { CollectionSelectionsComponent } from "./collections/create-collection/collection-selections/collection-selections.component";
+import { CollectionDetailsComponent } from "./collections/create-collection/collection-details/collection-details.component";
+import { CollectionStepperComponent } from "./collections/create-collection/collection-stepper/collection-stepper.component";
+import { NftCardMinimalComponent } from "./nft-card-minimal/nft-card-minimal.component";
+import { CollectionPageSidebarComponent } from "./collections/collection-page/collection-page-content/collection-page-sidebar/collection-page-sidebar.component";
+import { CollectionPageNftViewComponent } from "./collections/collection-page/collection-page-content/collection-page-nft-view/collection-page-nft-view.component";
+import { CollectionPageActivityViewComponent } from "./collections/collection-page/collection-page-content/collection-page-activity-view/collection-page-activity-view.component";
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };

@@ -73,6 +73,10 @@ export class CollectionSelectionsComponent implements OnInit {
         this.isLoading = false;
       });
   }
+  addPost(post: PostEntryResponse) {
+    // Do anything with post
+    console.log(post);
+  }
 
   static PAGE_SIZE = 10;
   static BUFFER_SIZE = 5;

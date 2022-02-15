@@ -10,6 +10,7 @@ export class CreateCollectionComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   createCollectionForm: FormGroup;
+  selectedNfts: Array<object> = [];
 
   ngOnInit(): void {
     this.createCollectionForm = this.fb.group({
@@ -25,7 +26,8 @@ export class CreateCollectionComponent implements OnInit {
         })
       ])
     });
-    console.log(this.createCollectionForm.controls.views["controls"][1]);
+    this.selectedNfts = this.createCollectionForm.controls.views["controls"][1].controls.selectedNfts.value;
+    console.log(this.createCollectionForm.controls.views["controls"][1].controls.selectedNfts);
     // console.log(this.createCollectionForm.controls.views["controls"][1]["controls"][0]);
   }
 
@@ -41,11 +43,15 @@ export class CreateCollectionComponent implements OnInit {
     return this.createCollectionForm.controls.views["controls"][1] as FormGroup;
   }
 
-  addNftToFormArray() {
-    // this.selectedNfts.push()
+  addNftToFormArray(post: object) {
+    if(!this.selectedNfts.includes(post)) {
+      this.selectedNfts.push(post);
+    }
+    console.log(this.selectedNfts);
   }
 
   removeNftFromFormArray() {
+    // if()
     // this.selectedNfts.removeAt()
   }
 

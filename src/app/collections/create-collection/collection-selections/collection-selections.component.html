@@ -1,39 +1,44 @@
 <form [formGroup]="collectionSelections" autocomplete="off">
-  <div class="collection-selections-main">
-    <div class="collection-selections-main-headline">
-      <h1>Pick NFTs for Collection</h1>
-      <!-- Add logic -->
-      <button>Select all</button>
-    </div>
+	<div class="collection-selections-main">
+		<div class="collection-selections-main-headline">
+			<h1>Pick NFTs for Collection</h1>
+			<!-- Add logic -->
+				<button>Select all</button>
+		</div>
 
-    <!-- Populated NFT Content -->
-    <div class="collection-selections-main-content">
-      <ng-container *ngIf="this.postData?.length && !isLoading">
-        <!-- Container with "position: absolute;" allows inner flex content to scroll -->
-        <div class="collection-selections-user-nfts">
-          <!-- <ng-container
+		<!-- Populated NFT Content -->
+		<div class="collection-selections-main-content">
+			<!-- <ng-container *ngIf="this.postData?.length && !isLoading"> -->
+			<!-- Container with "position: absolute;" allows inner flex content to scroll -->
+			<div class="collection-selections-user-nfts">
+				<!-- <ng-container
                         infiniteScroll 
                         [infiniteScrollDistance]="5" 
                         [infiniteScrollThrottle]="150"
                         (scrolled)="onScroll()"
                     > -->
 
-          <div *ngFor="let post of postData">
-            <div>
-              <button class="nft-button-select" (click)="addPost(post)"></button>
-              <app-small-card-component [post]="post"></app-small-card-component>
-            </div>
-          </div>
-          <!-- </ng-container> -->
-        </div>
-      </ng-container>
-    </div>
-  </div>
+				<div *ngFor="let post of postData; index as i;">
+					<div>
+						<button	
+							class="select-nft"
+							[ngClass]="{'nft-is-selected' : isNftSelected}"
+							(click)="addPost(post)">
+						</button>
+						<app-small-card-component [post]="post"></app-small-card-component>
+						{{i}}
+					</div>
+				</div>
+				<!-- </ng-container> -->
+			</div>
+			<!-- </ng-container> -->
+		</div>
+	</div>
 
-  <!-- Create Collection Form Navigation -->
-  <div class="collection-selections-bottom-bar">
-    <!-- Add variable -->
-    <p>3 NFTS selected</p>
-    <button type="submit" [disabled]="collectionSelections.invalid">Create Collection</button>
-  </div>
+	<!-- Create Collection Form Navigation -->
+	<div class="collection-selections-bottom-bar">
+		<!-- Add variable -->
+		<p>3 NFTS selected</p>
+		<button type="submit" [disabled]="collectionSelections.invalid">Create Collection</button>
+	</div>
 </form>

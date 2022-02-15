@@ -17,37 +17,28 @@ export class CollectionSelectionsComponent implements OnInit {
   ) {}
 
   @Input() collectionSelections: FormGroup;
+  @Output() selectedNft = new EventEmitter<object>();
 
-  nftIsSelected: boolean = false;
+  static PAGE_SIZE = 10;
+  static BUFFER_SIZE = 5;
+  static WINDOW_VIEWPORT = true;
+  static PADDING = 0.5;
+  static MY_BIDS = "My Bids";
+
+  isNftSelected: boolean = false;
   nftCounter: number = 0;
   isLoading: boolean = true;
   startIndex = 0;
   endIndex = 10;
-
+  activeTab: string;
+  lastPage = null;
+  nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
   postData: PostEntryResponse[];
   posts: PostEntryResponse[];
   myBids: NFTBidEntryResponse[];
-
-  onClick() {
-    this.nftIsSelected = !this.nftIsSelected;
-
-    if(this.nftIsSelected) {
-      this.nftCounter += 1;
-      console.log(this.nftCounter);
-      //increment counter
-      //add css classes
-      //emit event to parent to add to array
-    } else {
-      this.nftCounter <= 0 ? this.nftCounter === 0 : this.nftCounter -= 1;
-      console.log(this.nftCounter);
-      //decrement counter
-      //remove css classes
-      //emit event to parent to remove from array
-    }
-  }
-
+  
   ngOnInit(): void {
-    console.log(this.globalVars.loggedInUser.ProfileEntryResponse);
+    console.log(this.globalVars.loggedInUser?.ProfileEntryResponse);
     this.getNFTs();
   }
 
@@ -57,7 +48,7 @@ export class CollectionSelectionsComponent implements OnInit {
       .GetPostsForPublicKey(
         this.globalVars.localNode,
         "",
-        this.globalVars.loggedInUser.ProfileEntryResponse.Username,
+        this.globalVars.loggedInUser?.ProfileEntryResponse?.Username,
         this.globalVars.loggedInUser?.ProfileEntryResponse.PublicKeyBase58Check,
         "",
         10000,
@@ -73,20 +64,26 @@ export class CollectionSelectionsComponent implements OnInit {
         this.isLoading = false;
       });
   }
+
   addPost(post: PostEntryResponse) {
-    // Do anything with post
+    this.isNftSelected = !this.isNftSelected;
+
+    if(this.isNftSelected) {
+      this.nftCounter += 1;
+      this.selectedNft.emit(post);
+      console.log(this.nftCounter);
+      //increment counter
+      //add css classes
+      //emit event to parent to add to array
+    } else {
+      this.nftCounter <= 0 ? this.nftCounter === 0 : this.nftCounter -= 1;
+      console.log(this.nftCounter);
+      //decrement counter
+      //remove css classes
+      //emit event to parent to remove from array
+    }
     console.log(post);
   }
-
-  static PAGE_SIZE = 10;
-  static BUFFER_SIZE = 5;
-  static WINDOW_VIEWPORT = true;
-  static PADDING = 0.5;
-  static MY_BIDS = "My Bids";
-
-  activeTab: string;
-  lastPage = null;
-  nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
 
   getPage(page: number) {
     if (this.lastPage != null && page > this.lastPage) {

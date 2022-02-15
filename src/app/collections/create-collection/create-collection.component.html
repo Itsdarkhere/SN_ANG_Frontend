@@ -11,7 +11,12 @@
             
             <!-- View 2: Select NFTs for Collection -->
             <cdk-step [editable]=true [stepControl]="views.get([1])">
-                <app-collection-selections class="full-height-width-container" [collectionSelections]="collectionSelections"></app-collection-selections>
+                <app-collection-selections 
+                    class="full-height-width-container" 
+                    [collectionSelections]="collectionSelections"
+                    (selectedNft)="addNftToFormArray($event)"
+                    
+                ></app-collection-selections>
             </cdk-step>
         </app-collection-stepper>
     </ng-container>

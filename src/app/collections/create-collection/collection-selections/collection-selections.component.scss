@@ -67,7 +67,7 @@ form {
         min-width: 200px;
         div {
             position: relative;
-            .nft-button-select {
+            .select-nft {
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -79,6 +79,11 @@ form {
                 background-color: transparent;
                 border: none;
                 outline: none;
+                border: 1px solid green;
+            }
+
+            .nft-is-selected {
+                border: 2px solid blue;
             }
         }
     }

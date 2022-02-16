@@ -87,7 +87,7 @@ export class MintPageComponent implements OnInit {
   audioType = false;
 
   //   Auction type
-  openAuction = false;
+  openAuction = true;
   isBuyNow = false;
 
   extrasOpen = false;
@@ -111,7 +111,7 @@ export class MintPageComponent implements OnInit {
   UNLOCKABLE_CONTENT = false;
   PUT_FOR_SALE = true;
   // Step 4 buy now
-  buyNowPriceDESO: number = 0;
+  buyNowPriceDESO: number;
   minBidClicked = false;
   BUY_NOW_PRICE_USD = "0";
 

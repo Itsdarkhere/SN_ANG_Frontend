@@ -205,6 +205,7 @@ import { GeneralSuccessModalComponent } from "./general-success-modal/general-su
 import { ActionResponseModalComponent } from "./action-response-modal/action-response-modal.component";
 import { NftCardRepostComponent } from "./new-nft-card/nft-card-repost/nft-card-repost.component";
 import { NftCardPostComponent } from "./new-nft-card/nft-card-post/nft-card-post.component";
+import { BuyNowModalComponent } from './buy-now-modal/buy-now-modal.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -384,6 +385,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     GeneralSuccessModalComponent,
     NftCardRepostComponent,
     NftCardPostComponent,
+    BuyNowModalComponent,
   ],
   imports: [
     BrowserModule,

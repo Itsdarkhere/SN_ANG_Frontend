@@ -1,0 +1,7 @@
+<ng-container *ngFor="let post of postData; index as i;">
+    <div class="collection-nft-container">
+        <button class="select-nft" [ngClass]="{'nft-is-selected' : isNftSelected}" (click)="addPost(post)"></button>
+        <app-small-card-component [index]="i" [post]="post"></app-small-card-component>
+        {{i}}
+    </div>
+</ng-container>

@@ -16,8 +16,9 @@
                         [infiniteScrollThrottle]="150"
                         (scrolled)="onScroll()"
                     > -->
-
-				<div *ngFor="let control of selectedNfts.controls; index as i">
+				
+				<app-collection-nft-form-control class="full-height-width-container"></app-collection-nft-form-control>
+				<!-- <div *ngFor="let control of selectedNfts.controls; index as i">
 					<ng-container>
 						<div>
 							<button
@@ -27,11 +28,13 @@
 								[ngClass]="{'nft-is-selected' : isNftSelected}"
 								(click)="addPost(i, post)">
 							</button>
-							<!-- <app-small-card-component [index]="i" [post]="post"></app-small-card-component> -->
+							<app-small-card-component [index]="i" [post]="post"></app-small-card-component>
 							
 						</div>
 					</ng-container>
-				</div>
+				</div> -->
+
+
 				<!-- <div *ngFor="let post of postData; index as i;">
 					<div>
 						<button

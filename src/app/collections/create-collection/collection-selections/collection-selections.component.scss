@@ -118,3 +118,13 @@ form {
         background-color: rgba(49, 49, 49, 0.1);
     }
 }
+
+.full-height-width-container {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}

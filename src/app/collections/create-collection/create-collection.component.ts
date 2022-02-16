@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PostEntryResponse } from "../../backend-api.service";
 
 @Component({
@@ -11,7 +11,6 @@ export class CreateCollectionComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   createCollectionForm: FormGroup;
-  selectedNftData = {}
 
   ngOnInit(): void {
     this.createCollectionForm = this.fb.group({
@@ -21,15 +20,13 @@ export class CreateCollectionComponent implements OnInit {
           collectionDescription: [""],
           collectionBannerImage: [""], 
         }),
-        // This group may seem extraneous, but is actually necessary because of the way the FormBuilder API works
+        // This group may seem extraneous, but is actually beneficial for our UI structure
         this.fb.group({
-          selectedNfts: this.fb.array([], [Validators.required, Validators.minLength(2)])
+          selectedNfts: this.fb.array([this.mapUserNftsToFormControls([])], [Validators.required, Validators.minLength(2)])
         })
       ])
     });
     console.log(this.collectionSelections.get("selectedNfts"));
-    // this.selectedNfts = this.createCollectionForm.controls.views["controls"][1].controls.selectedNfts.value;
-    // console.log(this.createCollectionForm.controls.views["controls"][1]["controls"][0]);
   }
 
   get views(): AbstractControl {
@@ -44,33 +41,16 @@ export class CreateCollectionComponent implements OnInit {
     return this.createCollectionForm.controls.views["controls"][1] as FormGroup;
   }
 
-  selectedNfts(): FormArray {
+  get selectedNfts(): AbstractControl {
     return this.collectionSelections.get("selectedNfts") as FormArray;
   }
 
-  addNftToFormArray($event: object) {
-    // console.log($event["i"]);
-    if(!this.selectedNfts()["controls"].includes($event["post"])) {
-      this.selectedNfts().insert($event["i"], this.fb.control($event["post"]));
-    }
-    
-    console.log(this.selectedNfts().value);
-    // if($event instanceof nftControls) {
-    //   console.log(this.selectedNfts);
-    // }
-  
-    
-   
-    // if(!this.selectedNfts.contains(post)) {
-    // }
-    // console.log(this.selectedNfts);
-  }
-
-  removeNftFromFormArray(post: object) {
-    // if(this.selectedNfts.includes(post)) {
-      
-    // }
-    // console.log(this.selectedNfts);
+  mapUserNftsToFormControls($event: PostEntryResponse[]){
+    const nftFormControlArray = $event.map(element => {
+      return this.fb.control(false);
+    })
+    console.log($event);
+    return this.fb.array(nftFormControlArray);
   }
 
   submit(): void {

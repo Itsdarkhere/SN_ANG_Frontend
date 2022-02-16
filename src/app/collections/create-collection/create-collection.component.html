@@ -14,8 +14,8 @@
                 <app-collection-selections 
                     class="full-height-width-container" 
                     [collectionSelections]="collectionSelections"
-                    (selectedNft)="addNftToFormArray($event)"  
-                    (deselectedNft)="removeNftFromFormArray($event)"
+                    [selectedNfts]="selectedNfts"
+                    (nftPostData)="mapUserNftsToFormControls($event)"
                 ></app-collection-selections>
             </cdk-step>
         </app-collection-stepper>

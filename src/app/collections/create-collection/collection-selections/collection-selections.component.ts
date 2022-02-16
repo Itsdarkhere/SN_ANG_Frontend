@@ -1,24 +1,26 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { FormArray, FormGroup } from '@angular/forms';
 import { GlobalVarsService } from "../../../global-vars.service";
 import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../../../backend-api.service";
 import { InfiniteScroller } from "../../../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-collection-selections',
   templateUrl: './collection-selections.component.html',
-  styleUrls: ['./collection-selections.component.scss']
+  styleUrls: ['./collection-selections.component.scss'],
+  providers: [{ 
+    provide: NG_VALUE_ACCESSOR, 
+    useExisting: forwardRef(() => CollectionSelectionsComponent), 
+    multi: true }]
 })
-export class CollectionSelectionsComponent implements OnInit {
-  constructor(
-    private globalVars: GlobalVarsService,
-    private backendApi: BackendApiService
-  ) {}
+export class CollectionSelectionsComponent implements ControlValueAccessor, OnInit {
+  constructor(private globalVars: GlobalVarsService, private backendApi: BackendApiService) {}
 
   @Input() collectionSelections: FormGroup;
-  // @Output() indexOfNft = new EventEmitter<number>();
-  @Output() selectedNft = new EventEmitter<{i: number, post: PostEntryResponse}>();
+  @Input() selectedNfts: FormArray;
+  @Output() nftPostData = new EventEmitter<PostEntryResponse[]>();
   @Output() deselectedNft = new EventEmitter<object>();
 
   static PAGE_SIZE = 10;
@@ -29,11 +31,9 @@ export class CollectionSelectionsComponent implements OnInit {
 
   isNftSelected: boolean = false;
   nftCounter: number = 0;
-  // nftIndex: number;
-
   isLoading: boolean = true;
-  startIndex = 0;
-  endIndex = 10;
+  startIndex: number = 0;
+  endIndex: number = 10;
   activeTab: string;
   lastPage = null;
   nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
@@ -46,30 +46,21 @@ export class CollectionSelectionsComponent implements OnInit {
     this.getNFTs();
   }
 
-  // captureIndexValue(i: number) {
-  //   this.nftIndex = i;
-  //   this.indexOfNft.emit(i);
-  //   console.log(this.nftIndex);
-  // }
+  writeValue(obj: any): void {
+    throw new Error('Method not implemented.');
+  }
+  registerOnChange(fn: any): void {
+    throw new Error('Method not implemented.');
+  }
+  registerOnTouched(fn: any): void {
+    throw new Error('Method not implemented.');
+  }
+  setDisabledState?(isDisabled: boolean): void {
+    throw new Error('Method not implemented.');
+  }
 
   addPost(i: number, post: PostEntryResponse) {
-    this.isNftSelected = !this.isNftSelected;
-    this.selectedNft.emit({i, post});
-
-    if(this.isNftSelected) {
-      this.nftCounter += 1;
-      console.log(this.nftCounter);
-      //increment counter
-      //add css classes
-      //emit event to parent to add to array
-    } else {
-      this.nftCounter <= 0 ? this.nftCounter === 0 : this.nftCounter -= 1;
-      console.log(this.nftCounter);
-      //decrement counter
-      //remove css classes
-      //emit event to parent to remove from array
-    }
-    // console.log(post);
+  
   }
 
   getNFTs() {
@@ -90,11 +81,10 @@ export class CollectionSelectionsComponent implements OnInit {
         this.postData = this.posts.slice(this.startIndex, this.endIndex);
       })
       .finally(() => {
-        // console.log(this.postData)
+        this.nftPostData.emit(this.postData);
         this.isLoading = false;
       });
   }
-
 
   getPage(page: number) {
     if (this.lastPage != null && page > this.lastPage) {

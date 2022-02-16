@@ -7,10 +7,9 @@
 		</div>
 
 		<!-- Populated NFT Content -->
-		<div class="collection-selections-main-content">
-			<!-- <ng-container *ngIf="this.postData?.length && !isLoading"> -->
+		<div class="collection-selections-main-content">	
 			<!-- Container with "position: absolute;" allows inner flex content to scroll -->
-			<div formArrayName="selectedNfts" class="collection-selections-user-nfts">
+			<div class="collection-selections-user-nfts">
 				<!-- <ng-container
                         infiniteScroll 
                         [infiniteScrollDistance]="5" 
@@ -18,7 +17,22 @@
                         (scrolled)="onScroll()"
                     > -->
 
-				<div *ngFor="let post of postData; index as i;">
+				<div *ngFor="let control of selectedNfts.controls; index as i">
+					<ng-container>
+						<div>
+							<button
+								[formControl]="control"
+								id="{{i}}"
+								class="select-nft"
+								[ngClass]="{'nft-is-selected' : isNftSelected}"
+								(click)="addPost(i, post)">
+							</button>
+							<!-- <app-small-card-component [index]="i" [post]="post"></app-small-card-component> -->
+							
+						</div>
+					</ng-container>
+				</div>
+				<!-- <div *ngFor="let post of postData; index as i;">
 					<div>
 						<button
 							class="select-nft"
@@ -28,10 +42,10 @@
 						<app-small-card-component [index]="i" [post]="post"></app-small-card-component>
 						{{i}}
 					</div>
-				</div>
+				</div> -->
+
 				<!-- </ng-container> -->
 			</div>
-			<!-- </ng-container> -->
 		</div>
 	</div>
 

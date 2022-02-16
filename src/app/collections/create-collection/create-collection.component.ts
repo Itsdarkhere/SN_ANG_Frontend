@@ -41,6 +41,7 @@ export class CreateCollectionComponent implements OnInit {
     return this.createCollectionForm.controls.views["controls"][1] as FormGroup;
   }
 
+  // Not sure if this function will be needed – consider removing later
   get selectedNfts(): AbstractControl {
     return this.collectionSelections.get("selectedNfts") as FormArray;
   }

@@ -1,58 +1,24 @@
 <form [formGroup]="collectionSelections" autocomplete="off">
+	<!-- Create Collection Content Area -->
 	<div class="collection-selections-main">
 		<div class="collection-selections-main-headline">
 			<h1>Pick NFTs for Collection</h1>
 			<!-- Add logic -->
-				<button>Select all</button>
+			<button>Select all</button>
 		</div>
 
 		<!-- Populated NFT Content -->
 		<div class="collection-selections-main-content">	
 			<!-- Container with "position: absolute;" allows inner flex content to scroll -->
 			<div class="collection-selections-user-nfts">
-				<!-- <ng-container
-                        infiniteScroll 
-                        [infiniteScrollDistance]="5" 
-                        [infiniteScrollThrottle]="150"
-                        (scrolled)="onScroll()"
-                    > -->
-				
+				<!-- <div *ngFor="let control of selectedNfts.controls; index as i"> -->
 				<app-collection-nft-form-control class="full-height-width-container"></app-collection-nft-form-control>
-				<!-- <div *ngFor="let control of selectedNfts.controls; index as i">
-					<ng-container>
-						<div>
-							<button
-								[formControl]="control"
-								id="{{i}}"
-								class="select-nft"
-								[ngClass]="{'nft-is-selected' : isNftSelected}"
-								(click)="addPost(i, post)">
-							</button>
-							<app-small-card-component [index]="i" [post]="post"></app-small-card-component>
-							
-						</div>
-					</ng-container>
-				</div> -->
-
-
-				<!-- <div *ngFor="let post of postData; index as i;">
-					<div>
-						<button
-							class="select-nft"
-							[ngClass]="{'nft-is-selected' : isNftSelected}"
-							(click)="addPost(i, post)">
-						</button>
-						<app-small-card-component [index]="i" [post]="post"></app-small-card-component>
-						{{i}}
-					</div>
-				</div> -->
-
-				<!-- </ng-container> -->
+				<!-- </div> -->
 			</div>
 		</div>
 	</div>
 
-	<!-- Create Collection Form Navigation -->
+	<!-- Create Collection Bottom Bar (Form Navigation) -->
 	<div class="collection-selections-bottom-bar">
 		<!-- Add variable -->
 		<p>3 NFTS selected</p>

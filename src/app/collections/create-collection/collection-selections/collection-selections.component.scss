@@ -15,83 +15,54 @@ form {
     width: 100%;
     display: flex;
     flex-direction: column;
-}
 
-.collection-selections-main-headline {
-    padding: 30px 50px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    
-    h1 {
-        font-size: 1.5rem; // update to appropriate variable
-        font-weight: 600; // update to appropriate variable
-    }
-
-    button {
-        padding: 10px 20px;
-        background: #ECECEC; // update to appropriate variable
-        border: none;
-        border-radius: 60px;
-        color: #626262; // update to appropriate variable
-        font-size: 0.8rem; // update to appropriate variable
-        font-weight: 600; // update to appropriate variable
-    }
-}
-
-.collection-selections-main-content {
-    position: relative;
-    height: 100%;
-    width: 100%;
-    
-    // Targets all NFTs
-    .collection-selections-user-nfts {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        padding: 10px 0;
-        height: 100%;
-        max-width: 100%;
+    .collection-selections-main-headline {
+        padding: 30px 50px;
         display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        overflow: auto;
-    }
-
-    // Targets each user NFT
-    .collection-selections-user-nfts > div {
-        position: relative;
-        margin-bottom: 15px;
-        min-width: 200px;
-        div {
-            position: relative;
-            .select-nft {
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                z-index: 1;
-                width: 100%;
-                height: 100%;
-                background-color: transparent;
-                border: none;
-                outline: none;
-                border: 1px solid green;
-            }
-
-            .nft-is-selected {
-                border: 2px solid blue;
-            }
+        align-items: center;
+        justify-content: space-between;
+        
+        h1 {
+            font-size: 1.5rem; // update to appropriate variable
+            font-weight: 600; // update to appropriate variable
+        }
+    
+        button {
+            padding: 10px 20px;
+            background: #ECECEC; // update to appropriate variable
+            border: none;
+            border-radius: 60px;
+            color: #626262; // update to appropriate variable
+            font-size: 0.8rem; // update to appropriate variable
+            font-weight: 600; // update to appropriate variable
         }
     }
-    
-    @media screen and (max-width: 676px) {   
-        margin-bottom: 35px;
-    }
 
+    .collection-selections-main-content {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        
+        // Targets all NFTs
+        .collection-selections-user-nfts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 10px 0;
+            height: 100%;
+            max-width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            overflow: auto;
+        }
+        
+        @media screen and (max-width: 676px) {   
+            margin-bottom: 35px;
+        }
+    }
 }
 
 .collection-selections-bottom-bar {

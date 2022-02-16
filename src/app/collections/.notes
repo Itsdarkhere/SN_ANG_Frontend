@@ -29,6 +29,15 @@
 //   return this.collectionSelections.get("selectedNfts") as FormArray;
 // }
 
+// [selectedNfts]="selectedNfts"
+// (nftPostData)="mapUserNftsToFormControls($event)"
+
+
+
+
+
+
+
 // LEFTOVER CODE – collection-selections.component.ts
 
 // @Output() selectedNft = new EventEmitter<{i: number, post: PostEntryResponse}>();
@@ -59,3 +68,6 @@
   //}
 
 // <ng-container *ngIf="this.postData?.length && !isLoading"></ng-container>
+
+// @Output() nftPostData = new EventEmitter<PostEntryResponse[]>();
+// @Output() deselectedNft = new EventEmitter<object>();

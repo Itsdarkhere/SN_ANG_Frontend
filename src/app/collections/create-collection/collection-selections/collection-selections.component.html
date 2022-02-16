@@ -12,7 +12,10 @@
 			<!-- Container with "position: absolute;" allows inner flex content to scroll -->
 			<div class="collection-selections-user-nfts">
 				<!-- <div *ngFor="let control of selectedNfts.controls; index as i"> -->
-				<app-collection-nft-form-control class="full-height-width-container"></app-collection-nft-form-control>
+				<app-collection-nft-form-control 
+				class="full-height-width-container"
+				[collectionSelections]="collectionSelections"
+				formControlName="selectedNfts"></app-collection-nft-form-control>
 				<!-- </div> -->
 			</div>
 		</div>

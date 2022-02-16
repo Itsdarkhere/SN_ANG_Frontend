@@ -1,5 +1,5 @@
-import { Component, forwardRef, Input, OnInit, Output } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { GlobalVarsService } from "../../../global-vars.service";
 import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../../../backend-api.service";
 import { InfiniteScroller } from "../../../infinite-scroller";
@@ -9,12 +9,12 @@ import { IAdapter, IDatasource } from "ngx-ui-scroll";
   selector: 'app-collection-nft-form-control',
   templateUrl: './collection-nft-form-control.component.html',
   styleUrls: ['./collection-nft-form-control.component.scss'],
-  // providers: [{ 
-  //   provide: NG_VALUE_ACCESSOR, 
-  //   useExisting: forwardRef(() => ), 
-  //   multi: true }]
+  providers: [{ 
+    provide: NG_VALUE_ACCESSOR, 
+    useExisting: forwardRef(() => CollectionNftFormControlComponent), 
+    multi: true }]
 })
-export class CollectionNftFormControlComponent implements OnInit {
+export class CollectionNftFormControlComponent implements ControlValueAccessor, OnInit {
   constructor(private globalVars: GlobalVarsService, private backendApi: BackendApiService) { }
 
   static PAGE_SIZE = 10;
@@ -22,6 +22,8 @@ export class CollectionNftFormControlComponent implements OnInit {
   static WINDOW_VIEWPORT = true;
   static PADDING = 0.5;
   static MY_BIDS = "My Bids";
+
+  @Input() collectionSelections: FormGroup;
 
   isNftSelected: boolean = false;
   nftCounter: number = 0;
@@ -35,21 +37,41 @@ export class CollectionNftFormControlComponent implements OnInit {
   posts: PostEntryResponse[];
   myBids: NFTBidEntryResponse[];
 
+  selectedNft!: PostEntryResponse;
+  disabled: boolean = false;
+  private onTouched!: Function;
+  private onChanged!: Function;
+
   ngOnInit(): void {
     this.getNFTs();
   }
 
-  writeValue(obj: any): void {
-    throw new Error('Method not implemented.');
+  addPost(post: PostEntryResponse) {
+    this.selectedNft = post;
+    this.onTouched();
+    this.onChanged(post);
+    // this.isNftSelected = !this.isNftSelected;
+    // if(this.isNftSelected) {
+    //   this.nftCounter++
+    //   console.log(this.nftCounter);
+    // } else {
+    //   this.nftCounter--
+    //   console.log(this.nftCounter);
+    // }
+    console.log(post);
+  }
+
+  writeValue(value: PostEntryResponse): void {
+    this.selectedNft = value ?? null;
   }
   registerOnChange(fn: any): void {
-    throw new Error('Method not implemented.');
+    this.onChanged = fn;
   }
   registerOnTouched(fn: any): void {
-    throw new Error('Method not implemented.');
+    this.onTouched = fn;
   }
   setDisabledState?(isDisabled: boolean): void {
-    throw new Error('Method not implemented.');
+    this.disabled = isDisabled;
   }
 
   getNFTs() {
@@ -89,10 +111,6 @@ export class CollectionNftFormControlComponent implements OnInit {
           : this.nftResponse.slice(startIdx, Math.min(endIdx, this.nftResponse.length))
       );
     });
-  }
-
-  addPost(post: PostEntryResponse) {
-    console.log("Post added");
   }
 
   infiniteScroller: InfiniteScroller = new InfiniteScroller(

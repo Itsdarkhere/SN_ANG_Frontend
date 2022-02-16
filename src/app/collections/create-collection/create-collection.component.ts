@@ -22,10 +22,11 @@ export class CreateCollectionComponent implements OnInit {
         }),
         // This group may seem extraneous, but is actually beneficial for our UI structure
         this.fb.group({
-          selectedNfts: this.fb.array([this.mapUserNftsToFormControls([])], [Validators.required, Validators.minLength(2)])
+          selectedNfts: [[], [Validators.required, Validators.minLength(2)]]
         })
       ])
     });
+    this.createCollectionForm.valueChanges.subscribe(console.info);
     // console.log(this.collectionSelections.get("selectedNfts"));
   }
 
@@ -44,14 +45,6 @@ export class CreateCollectionComponent implements OnInit {
   // Not sure if this function will be needed – consider removing later
   get selectedNfts(): AbstractControl {
     return this.collectionSelections.get("selectedNfts") as FormArray;
-  }
-
-  mapUserNftsToFormControls($event: PostEntryResponse[]){
-    const nftFormControlArray = $event.map(element => {
-      return this.fb.control(false);
-    })
-    // console.log($event);
-    return this.fb.array(nftFormControlArray);
   }
 
   submit(): void {

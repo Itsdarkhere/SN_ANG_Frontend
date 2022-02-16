@@ -92,7 +92,6 @@ export class CollectionNftFormControlComponent implements ControlValueAccessor, 
         this.postData = this.posts.slice(this.startIndex, this.endIndex);
       })
       .finally(() => {
-        // this.nftPostData.emit(this.postData);
         this.isLoading = false;
       });
   }

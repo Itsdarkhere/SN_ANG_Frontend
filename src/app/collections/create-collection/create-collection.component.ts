@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PostEntryResponse } from "../../backend-api.service";
 
 @Component({
   selector: 'app-create-collection',
@@ -27,7 +26,6 @@ export class CreateCollectionComponent implements OnInit {
       ])
     });
     this.createCollectionForm.valueChanges.subscribe(console.info);
-    // console.log(this.collectionSelections.get("selectedNfts"));
   }
 
   get views(): AbstractControl {

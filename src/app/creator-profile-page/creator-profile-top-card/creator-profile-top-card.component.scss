@@ -144,9 +144,7 @@
             font-size: 0.9rem;
             border-radius: 6.25rem; 
             white-space: nowrap;
-            @media (max-width: 767px) {
-
-            }
+            width: 100%;
         }
         
     }
@@ -173,15 +171,18 @@
     visibility: hidden;
     display: none;
     z-index: 2;
-    @media (max-width: 767px) {
+    max-width: 380px;
+    @media (max-width: 1200px) {
         visibility: visible;
-        display: grid;
+        display: flex;
+        flex-direction: column;
         width: 100%;
     }
-    .btn {
-        max-width: 380px;
+    .btn-cover {
+        flex-direction: column;
     }
 }
+
 .c-p-top-card-banner-container {
     @media (max-width: 1000px) {
         margin-top: 65px;
@@ -193,10 +194,11 @@
     -webkit-background-clip: padding-box;
     border-radius: clamp(22px, 4.5vw, 40px);
     padding: clamp(3px, 1.5vw, 14px);
-    width: 60%;
+    width: 70%;
     max-width: 560px;
     z-index: 22;
     @media (max-width: 767px) {
+        width: 70%;
         padding: 0.4em;
     }
     .followers-separator{
@@ -229,13 +231,17 @@
             font-size: clamp(10px, 2.5vw, 18px);
             font-weight: bold;
             margin-bottom: 5px;
+            white-space: nowrap;
             @media (max-width: 767px) {
-
+                font-size: clamp(9px, 2vw, 14px);
             }
         }
         h5 {
             font-size: clamp(14px, 2.5vw, 20px);
             font-weight: bold;
+            @media (max-width: 767px) {
+                font-size: clamp(11px, 2.5vw, 16px);
+            }
         }
         @media (max-width: 767px) {
             padding: 3%;
@@ -268,8 +274,12 @@
     box-shadow: 0px 3px 10px 3px rgba(0, 0, 0, 0.1);
     background-repeat: no-repeat;
     background-size: cover;
-    width: 84px;
-    height: 84px;
+    height: 15vw;
+    max-height: 84px;
+    width: 15vw;
+    max-width: 84px;
+    min-height: 70px;
+    min-width: 70px;
     border-width: 3px;
     z-index: 10;
     img {
@@ -429,10 +439,6 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    @media (max-width: 1000px) {
-        flex-direction: column;
-        align-items: flex-start;
-    }
 }
 .social-link-div {
     /* width: 32px; */
@@ -487,6 +493,8 @@
     // max-height: 250px;
     min-height: 200px;
     width: 100%;
+    background-position: center;
+    object-fit: cover;
     @media (max-width: 900px) {
         border-radius: 0;
     }
@@ -517,7 +525,9 @@
 .cover-image-blurred-container{
     position: relative;
     z-index: 1;
-    height: 200px;
+    height: 30vw;
+    max-height: 200px;
+    min-height: 150px;
     overflow: hidden;
     width: 100%;
 }

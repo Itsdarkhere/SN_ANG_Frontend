@@ -143,7 +143,7 @@
       >
         Invest
       </button>
-      <div *ngIf="globalVars.loggedInUser" class="d-inline-block mt-10px fs-15px">
+      <div *ngIf="globalVars.loggedInUser" class="w-100 d-inline-block mt-10px fs-15px">
         <div *ngIf="profileBelongsToLoggedInUser(); else elseBlock">
           <a
             class="btn btn-follow"
@@ -156,6 +156,8 @@
         </div>
         <ng-template #elseBlock>
           <follow-button
+            [followButtonClasses]="['w-100']"
+            [unfollowButtonClasses]="['w-100']"
             *ngIf="!globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)"
             [displayAsLink]="true"
             [followedPubKeyBase58Check]="profile.PublicKeyBase58Check"

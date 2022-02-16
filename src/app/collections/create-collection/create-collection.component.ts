@@ -26,7 +26,7 @@ export class CreateCollectionComponent implements OnInit {
         })
       ])
     });
-    console.log(this.collectionSelections.get("selectedNfts"));
+    // console.log(this.collectionSelections.get("selectedNfts"));
   }
 
   get views(): AbstractControl {
@@ -50,7 +50,7 @@ export class CreateCollectionComponent implements OnInit {
     const nftFormControlArray = $event.map(element => {
       return this.fb.control(false);
     })
-    console.log($event);
+    // console.log($event);
     return this.fb.array(nftFormControlArray);
   }
 

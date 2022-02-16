@@ -36,6 +36,7 @@ import {
 import { CancelBidModalComponent } from "src/app/cancel-bid-modal/cancel-bid-modal.component";
 import { ConfirmationModalComponent } from "src/app/confirmation-modal/confirmation-modal.component";
 import { take } from "rxjs/operators";
+import { EmbedUrlParserService } from "src/lib/services/embed-url-parser-service/embed-url-parser-service";
 
 @Component({
   selector: "nft-post",
@@ -80,6 +81,7 @@ export class NftPostComponent implements OnInit {
   postContent: any;
   reposterProfile: any;
   quotedContent: any;
+  constructedEmbedURL: any;
 
   static ALL_BIDS = "All Bids";
   static MY_BIDS = "My Bids";
@@ -350,7 +352,7 @@ export class NftPostComponent implements OnInit {
 
   sellNFT(): void {
     const sellNFTModalDetails = this.modalService.show(SellNftModalComponent, {
-      class: "modal-dialog-center nft_placebid_modal_bx rt_popups modal-lg",
+      class: "modal-dialog-center nft_placebid_modal_bx nft_placebid_modal_bx_right rt_popups modal-lg",
       initialState: {
         post: this.nftPost,
         nftEntries: this.nftBidData.NFTEntryResponses,
@@ -365,7 +367,7 @@ export class NftPostComponent implements OnInit {
         this.feedPost.getNFTEntries();
       } else if (response === "unlockable content opened") {
         const unlockableModalDetails = this.modalService.show(AddUnlockableModalComponent, {
-          class: "modal-dialog-centered nft_placebid_modal_bx rt_popups",
+          class: "modal-dialog-centered nft_placebid_modal_bx nft_placebid_modal_bx_right rt_popups",
           initialState: {
             post: this.nftPost,
             selectedBidEntries: this.nftBidData.BidEntryResponses.filter((bidEntry) => bidEntry.selected),
@@ -439,7 +441,19 @@ export class NftPostComponent implements OnInit {
     );
     return serialList;
   }
-
+  setEmbedURLForPostContent(): void {
+    EmbedUrlParserService.getEmbedURL(
+      this.backendApi,
+      this.globalVars,
+      this.postContent.PostExtraData["EmbedVideoURL"]
+    ).subscribe((res) => (this.constructedEmbedURL = res));
+  }
+  getEmbedHeight(): number {
+    return EmbedUrlParserService.getEmbedHeight(this.postContent.PostExtraData["EmbedVideoURL"]);
+  }
+  getEmbedWidth(): string {
+    return EmbedUrlParserService.getEmbedWidth(this.postContent.PostExtraData["EmbedVideoURL"]);
+  }
   usersPendingSerialNumbers() {
     const loggedInPubKey = this.globalVars.loggedInUser.PublicKeyBase58Check;
     let serialList = this.nftBidData.NFTEntryResponses.filter(
@@ -720,12 +734,13 @@ export class NftPostComponent implements OnInit {
     } else {
       this.postContent = post;
     }
+    this.setEmbedURLForPostContent();
   }
 
   onMultipleBidsCancellation(event: any): void {
     console.log(event);
     const modalDetails = this.modalService.show(CancelBidModalComponent, {
-      class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+      class: "modal-dialog-centered nft_placebid_modal_bx nft_placebid_modal_bx_right  modal-lg",
       initialState: {
         bidEntryResponses: event.cancellableBids,
         postHashHex: event.postHashHex,

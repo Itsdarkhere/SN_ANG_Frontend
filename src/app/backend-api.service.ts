@@ -12,6 +12,7 @@ import { IdentityService } from "./identity.service";
 import { environment } from "src/environments/environment";
 import { StringMap } from "@angular/compiler/src/compiler_facade_interface";
 import internal from "stream";
+import { NumberSymbol } from "@angular/common";
 
 export class BackendRoutes {
   static ExchangeRateRoute = "/api/v0/get-exchange-rate";
@@ -142,10 +143,18 @@ export class BackendRoutes {
   // Marketplace postgres
   static RoutePathSortMarketplace = "/api/v0/sort-marketplace";
   static RoutePathSortCreators = "/api/v0/sort-creators";
-
   // Same as the two above but for supernovas uses
   static RoutePathGetMarketplaceRefSupernovas = "/api/v0/get-marketplace-ref-supernovas";
   static RoutePathAddToMarketplaceSupernovas = "/api/v0/add-to-marketplace-supernovas";
+  // Transactional Emails
+  static RoutePathSendVerifyEmailEmail = "/api/v0/send-verify-email-email";
+  static RoutePathSendLostNFTEmail = "/api/v0/send-lost-nft-email";
+  static RoutePathSendNewBidEmail = "/api/v0/send-new-bid-email";
+  static RoutePathSendInactiveUserEmail = "/api/v0/send-inactive-user-email";
+  static RoutePathSendWelcomeEmail = "/api/v0/send-welcome-email";
+  static RoutePathSendBidAgainEmail = "/api/v0/send-bid-again-email";
+  static RoutePathSendWonNFTEmail = "/api/v0/send-won-nft-email";
+  static RoutePathSendBidPlacedEmail = "/api/v0/send-bid-placed-email";
   // Admin continues
   static RoutePathAdminResetJumioForPublicKey = "/api/v0/admin/reset-jumio-for-public-key";
   static RoutePathAdminUpdateJumioDeSo = "/api/v0/admin/update-jumio-deso";
@@ -1189,7 +1198,98 @@ export class BackendApiService {
       UserPublicKeyBase58Check,
     });
   }
-
+  // Sends the user an email about email verification
+  SendVerifyEmailEmail(endpoint: string, Username: string, Link: string, Email: string) {
+    return this.post(endpoint, BackendRoutes.RoutePathSendVerifyEmailEmail, {
+      Username,
+      Link,
+      Email,
+    });
+  }
+  // Sends the user an email about someone outbidding them
+  SendLostNFTEmail(endpoint: string, Username: string, ArtName: string, Email: string) {
+    return this.post(endpoint, BackendRoutes.RoutePathSendLostNFTEmail, {
+      Username,
+      ArtName,
+      Email,
+    });
+  }
+  // Sends the user an email about someone making a bid on their nft
+  SendNewNFTBidEmail(
+    endpoint: string,
+    CreatorUsername: string,
+    BidderUsername: string,
+    BidAmount: number,
+    LinkToNFT: string,
+    Email: string
+  ) {
+    return this.post(endpoint, BackendRoutes.RoutePathSendNewBidEmail, {
+      CreatorUsername,
+      BidderUsername,
+      BidAmount,
+      LinkToNFT,
+      Email,
+    });
+  }
+  // Sends an inactive user an email
+  SendInactiveUserEmail(endpoint: string, username: string, link_to_profile: string, email: string) {
+    return this.post(endpoint, BackendRoutes.RoutePathSendInactiveUserEmail, {
+      username,
+      link_to_profile,
+      email,
+    });
+  }
+  // Sends a user a welcoming email
+  SendWelcomeEmail(endpoint: string, Username: string, link_to_profile: string, Email: string) {
+    return this.post(endpoint, BackendRoutes.RoutePathSendWelcomeEmail, {
+      Username,
+      link_to_profile,
+      Email,
+    });
+  }
+  // Sends the user an email about someone outbidding them
+  SendBidAgainEmail(
+    endpoint: string,
+    OutBiddedUsername: string,
+    OutBidderUsername: string,
+    NewBidAmount: number,
+    LinkToNFT: string,
+    Email: string
+  ) {
+    return this.post(endpoint, BackendRoutes.RoutePathSendBidAgainEmail, {
+      OutBiddedUsername,
+      OutBidderUsername,
+      NewBidAmount,
+      LinkToNFT,
+      Email,
+    });
+  }
+  // Sends the user an email about someone outbidding them
+  SendWonNFTEmail(
+    endpoint: string,
+    WinnerUsername: string,
+    ArtName: string,
+    WinningBidAmount: number,
+    LinkToNFT: string,
+    Email: string
+  ) {
+    return this.post(endpoint, BackendRoutes.RoutePathSendWonNFTEmail, {
+      WinnerUsername,
+      ArtName,
+      WinningBidAmount,
+      LinkToNFT,
+      Email,
+    });
+  }
+  // Sends the user an email when they make a bid
+  SendBidPlacedEmail(endpoint: string, Username: string, BidAmount: number, LinkToNFT: string, Email: string) {
+    return this.post(endpoint, BackendRoutes.RoutePathSendBidPlacedEmail, {
+      Username,
+      BidAmount,
+      LinkToNFT,
+      Email,
+    });
+  }
   SortMarketplace(
     endpoint: string,
     ReaderPublicKeyBase58Check: string,
@@ -1913,7 +2013,7 @@ export class BackendApiService {
   }
 
   AdminGetVerifiedUsers(endpoint: string, AdminPublicKey: string): Observable<any> {
-    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminGetVerifiedUsers, AdminPublicKey, {
+    return this.post(endpoint, BackendRoutes.RoutePathAdminGetVerifiedUsers, {
       AdminPublicKey,
     });
   }

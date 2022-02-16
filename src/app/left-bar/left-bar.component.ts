@@ -59,10 +59,17 @@ export class LeftBarComponent {
     this.applycreator = false;
   }
   hasProfile() {
+    //   close nav bar because it will open on mobile
+    if (this.globalVars.isMobileIphone()) {
+      this.globalVars.isLeftBarMobileOpen = false;
+    }
+
     if (this.globalVars?.loggedInUser?.ProfileEntryResponse?.Username) {
       this.router.navigate(["/u/" + this.globalVars?.loggedInUser?.ProfileEntryResponse.Username]);
+      this.globalVars.isLeftBarMobileOpen = false;
     } else {
       this.router.navigate(["/update-profile"]);
+      this.globalVars.isLeftBarMobileOpen = false;
     }
   }
 }

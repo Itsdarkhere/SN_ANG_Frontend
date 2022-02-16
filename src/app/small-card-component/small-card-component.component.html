@@ -48,7 +48,7 @@
     </div>
     <div
       *ngIf="post.VideoURLs && post.VideoURLs[0] && !post.ParentStakeID && !post.PostExtraData['arweaveVideoSrc']"
-      class="w-100 h-100 background-secondary position-relative d-flex flex-center"
+      class="w-100 h-100 overflow-hidden top-br-30px background-secondary position-relative d-flex flex-center"
     >
       <iframe
         *ngIf="!post.PostExtraData['arweaveVideoSrc']"
@@ -56,6 +56,20 @@
         allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
         allowfullscreen
         class="video-tag"
+      ></iframe>
+    </div>
+    <div *ngIf="constructedEmbedURL" class="w-100 h-100 background-secondary position-relative d-flex flex-center">
+      <iframe
+        id="embed-iframe"
+        [height]="getEmbedHeight()"
+        class="video-tag"
+        [ngStyle]="{
+          'max-width': getEmbedWidth(constructedEmbedURL)
+        }"
+        [src]="constructedEmbedURL | sanitizeEmbed"
+        frameborder="0"
+        allow="picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; encrypted-media;"
+        allowfullscreen
       ></iframe>
     </div>
   </div>

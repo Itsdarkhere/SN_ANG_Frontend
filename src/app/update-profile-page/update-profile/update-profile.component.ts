@@ -8,7 +8,10 @@ import { Title } from "@angular/platform-browser";
 import { environment } from "src/environments/environment";
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from "@angular/fire/storage";
 import { AngularFirestore } from "@angular/fire/firestore";
+import { TransactionalEmailService } from "src/app/transactional-email.service";
 import { Observable } from "rxjs";
+import { BsModalService } from "ngx-bootstrap/modal";
+import { GeneralSuccessModalComponent } from "../../general-success-modal/general-success-modal.component";
 
 export type ProfileUpdates = {
   usernameUpdate: string;
@@ -88,7 +91,9 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     private route: ActivatedRoute,
     private backendApi: BackendApiService,
     private router: Router,
-    private titleService: Title
+    private titleService: Title,
+    private emailService: TransactionalEmailService,
+    private modalService: BsModalService
   ) {}
 
   ngOnInit() {
@@ -97,14 +102,12 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     this.getOnlyProfileSocials();
     this.loadBannerImage();
     this._getUserMetadata();
-
-    // console.log(
-    //   `----------------------------- can create profile ${this.globalVars.loggedInUser.CanCreateProfile} -----------------------------`
-    // );
-
-    // console.log(
-    //   `----------------------------- PublicKeyBase58Check ${this.globalVars.loggedInUser.PublicKeyBase58Check} -----------------------------`
-    // );
+    if (
+      this.globalVars?.loggedInUser?.PublicKeyBase58Check === "BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w"
+    ) {
+      console.log("Sending email");
+      this.emailService.SendInactiveUserEmail("Valtteri", "link", "valtteri@supernovas.app");
+    }
   }
 
   _getUserMetadata() {
@@ -126,7 +129,6 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
         this.loading = false;
       });
   }
-
   _validateEmail(email) {
     if (email === "" || this.globalVars.emailRegExp.test(email)) {
       this.invalidEmailEntered = false;
@@ -312,8 +314,11 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
       (res) => {
         this.globalVars.profileUpdateTimestamp = Date.now();
         this.globalVars.logEvent("profile : update");
+
         // This updates things like the username that shows up in the dropdown.
         this.globalVars.updateEverything(res.TxnHashHex, this._updateProfileSuccess, this._updateProfileFailure, this);
+
+        this.openGeneralSuccessModal();
       },
       (err) => {
         const parsedError = this.backendApi.parseProfileError(err);
@@ -344,7 +349,7 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
   }
 
   _updateProfileSuccess(comp: UpdateProfileComponent) {
-    comp.globalVars.celebrate();
+    // comp.globalVars.celebrate();
     comp.updateProfileBeingCalled = false;
     comp.profileUpdated = true;
     if (comp.inTutorial) {
@@ -353,25 +358,25 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
       });
       return;
     }
+
     if (comp.globalVars.loggedInUser.UsersWhoHODLYouCount === 0) {
-      SwalHelper.fire({
-        target: comp.globalVars.getTargetComponentSelector(),
-        title: "You’re all set!",
-        showConfirmButton: true,
-        focusConfirm: true,
-        customClass: {
-          confirmButton: "creator-coin-button",
-        },
-        text: `Your profile has been updated.`,
-        confirmButtonText: "Go to my profile",
-      }).then((res) => {
-        if (res.isConfirmed) {
-          comp.router.navigate([
-            AppRoutingModule.profilePath(comp.globalVars.loggedInUser.ProfileEntryResponse.Username),
-          ]);
-        }
-      });
+      //   old logic where swal helper was firing had to move this.openGeneralSuccessModal(); because it was firing twice here
+
+      return;
     }
+  }
+
+  openGeneralSuccessModal() {
+    console.log(` ------------------------- general success modal function hit -------------- `);
+
+    this.modalService.show(GeneralSuccessModalComponent, {
+      class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+      initialState: {
+        header: "You're all set!",
+        text: "Your profile has been updated.",
+        buttonText: "Go to my profile",
+      },
+    });
   }
 
   _updateProfileFailure(comp: UpdateProfileComponent) {

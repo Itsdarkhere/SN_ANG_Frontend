@@ -1,7 +1,21 @@
 <app-page-small-nav-new>
   <div class="w-100">
     <div class="nfts-spacer" *ngIf="mobile"></div>
-    <h2 class="mt-50px font-weight-semiboldn fs-38px">{{ pageTitle }}</h2>
+    <div class="nfts-page-top pb-10px mt-50px d-flex flex-row justify-content-between">
+      <h2 *ngIf="!mobile" class="font-weight-semiboldn fs-38px">{{ pageTitle }}</h2>
+      <div class="mrk_top_selector-two px-5px d-flex flex-row">
+        <button
+          class="selected"
+          (click)="setDisplayType('Card')"
+          [ngClass]="{ selected: globalVars.nftsPageViewTypeCard }"
+        >
+          <img src="/assets/icons/market_grid_type_card_icon.svg" alt="card icon" />
+        </button>
+        <button (click)="setDisplayType('Grid')" [ngClass]="{ selected: !globalVars.nftsPageViewTypeCard }">
+          <img src="/assets/icons/market_grid_type_grid_icon.svg" alt="grid icon" />
+        </button>
+      </div>
+    </div>
     <!-- Show shimmer Loader Until page completely Load -->
     <div class="nfts-card-list-discovery" *ngIf="nftsPageLoading">
       <div class="nft-col-wrap" *ngFor="let in of counter(50); let i = index">
@@ -19,21 +33,27 @@
         (scrolled)="onScroll()"
       >
         <div class="nfts-card-list-discovery">
-          <div class="nft-col-wrap" *ngFor="let nftCollection of this.globalVars.nftsDataToShow">
-            <div class="max-width-300-plus">
+          <div
+            [ngClass]="globalVars.nftsPageViewTypeCard ? 'nft-col-wrap' : 'small-nft-col-wrap'"
+            *ngFor="let postEntryResponse of this.globalVars.nftsDataToShow"
+          >
+            <div class="max-width-300-plus" *ngIf="globalVars.nftsPageViewTypeCard">
               <new-nft-card
-                [post]="nftCollection"
+                [post]="postEntryResponse"
                 [includePaddingOnPost]="true"
                 [pending]="false"
-                [showReplyingToContent]="nftCollection.parentPost"
-                [parentPost]="nftCollection.parentPost"
+                [showReplyingToContent]="postEntryResponse.parentPost"
+                [parentPost]="postEntryResponseparentPost"
                 [contentShouldLinkToThread]="true"
                 [showNFTDetails]="true"
                 [showExpandedNFTDetails]="true"
                 [setBorder]="true"
-                [nftCollectionHighBid]="nftCollection.HighestBidAmountNanos"
-                [nftCollectionLowBid]="nftCollection.LowestBidAmountNanos"
+                [nftCollectionHighBid]="postEntryResponse.HighestBidAmountNanos"
+                [nftCollectionLowBid]="postEntryResponse.LowestBidAmountNanos"
               ></new-nft-card>
+            </div>
+            <div *ngIf="!globalVars.nftsPageViewTypeCard">
+              <app-small-card-component [post]="postEntryResponse"></app-small-card-component>
             </div>
           </div>
         </div>

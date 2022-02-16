@@ -104,8 +104,8 @@ export class DiscoveryPageComponent implements OnInit {
     this.backendApi
       .GetCommunityFavourite(
         this.globalVars.localNode,
-        this.globalVars.loggedInUser?.PublicKeyBase58Check,
-        this.globalVars.loggedInUser?.PublicKeyBase58Check
+        "BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w",
+        "BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w",
       )
       .subscribe((res) => {
         // For big image
@@ -127,7 +127,7 @@ export class DiscoveryPageComponent implements OnInit {
   _loadVerifiedUsers() {
     this.usersLoading = true;
     this.backendApi
-      .AdminGetVerifiedUsers(this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check)
+      .AdminGetVerifiedUsers(this.globalVars.localNode, "BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w")
       .subscribe(
         (res) => {
           var arrayHolder = res.VerifiedUsers.sort(() => Math.random() - 0.5);
@@ -142,6 +142,7 @@ export class DiscoveryPageComponent implements OnInit {
         },
         (err) => {
           console.log(err);
+          this.usersLoading = false;
         }
       );
   }
@@ -153,8 +154,8 @@ export class DiscoveryPageComponent implements OnInit {
     this.backendApi
       .GetFreshDrops(
         this.globalVars.localNode,
-        this.globalVars.loggedInUser?.PublicKeyBase58Check,
-        this.globalVars.loggedInUser?.PublicKeyBase58Check
+        "BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w",
+        "BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w"
       )
       .subscribe((res) => {
         this.discoveryDataToShow2 = res["PostEntryResponse"].slice(0, 8);

@@ -65,8 +65,12 @@ export class MobileVerificationComponent implements OnInit {
   //   digitCounterString: string;
   verificationCodeString: string;
   verificationCodeCorrectLength: boolean;
+  wantToVerifyPhoneClicked = false;
 
-  isPhoneNumberVerificationTextServerErrorFree: boolean;
+  phoneInputElement: any;
+  countrySearchBox: any;
+
+  //isPhoneNumberVerificationTextServerErrorFree: boolean;
 
   constructor(
     public globalVars: GlobalVarsService,
@@ -86,13 +90,18 @@ export class MobileVerificationComponent implements OnInit {
     this.verificationCodeCorrectLength = false;
   }
 
+  clickOutsideEventFunction(event: any) {
+    console.log(` ---------- click outside event ------------- `);
+    this.phoneInputElement = <HTMLInputElement>document.getElementById("phone");
+    this.phoneInputElement.setAttribute("style", "border:1px solid #e5e5e5 !important");
+  }
+
   _nextStep(verify: boolean) {
     if (verify) {
       this.globalVars.wantToVerifyPhone = true;
     } else {
       this.globalVars.wantToVerifyPhone = false;
     }
-
     this.nextStep.emit();
   }
 
@@ -174,7 +183,17 @@ export class MobileVerificationComponent implements OnInit {
         event.code === "Digit7" ||
         event.code === "Digit8" ||
         event.code === "Digit9" ||
-        event.code === "Digit0"
+        event.code === "Digit0" ||
+        event.code === "Numpad1" ||
+        event.code === "Numpad2" ||
+        event.code === "Numpad3" ||
+        event.code === "Numpad4" ||
+        event.code === "Numpad5" ||
+        event.code === "Numpad6" ||
+        event.code === "Numpad7" ||
+        event.code === "Numpad8" ||
+        event.code === "Numpad9" ||
+        event.code === "Numpad0"
       ) {
         console.log(` ------------- digit 0-9 entered and full verification code already`);
         return;
@@ -235,6 +254,8 @@ export class MobileVerificationComponent implements OnInit {
       if (this.verificationCodeString.length === 4) {
         console.log(` --------------- full verification code entered ------------------ `);
         this.verificationCodeCorrectLength = true;
+        // uncomment out line below for testing phone verification code
+        // this.globalVars.phoneVerified = true;
         return;
       } else {
         this.verificationCodeCorrectLength = false;
@@ -267,6 +288,11 @@ export class MobileVerificationComponent implements OnInit {
   }
 
   completeVerificationButtonClicked() {
+    //   close nav bar because it will open on mobile
+    if (this.globalVars.isMobileIphone()) {
+      this.globalVars.isLeftBarMobileOpen = false;
+    }
+
     this.router.navigate([RouteNames.COMPLETE_PROFILE]);
   }
 
@@ -295,18 +321,92 @@ export class MobileVerificationComponent implements OnInit {
     this.screenToShow = MobileVerificationComponent.CREATE_PHONE_NUMBER_VERIFICATION_SCREEN;
   }
 
+  updateWantToVerifyPhoneClicked() {
+    this.wantToVerifyPhoneClicked = false;
+  }
+
+  phoneInputClickedBlackBorder() {
+    this.phoneInputElement.setAttribute("style", "border:1px solid black !important");
+    console.log(this.phoneInputElement.style.border);
+
+    this.phoneInputElement.style.boxShadow = "none";
+    console.log(this.phoneInputElement.style.boxShadow);
+  }
+
+  phoneInputClickedRedBorder() {
+    this.phoneInputElement.setAttribute("style", "border:1px solid red !important");
+    console.log(this.phoneInputElement.style.border);
+
+    this.phoneInputElement.style.boxShadow = "none";
+    console.log(this.phoneInputElement.style.boxShadow);
+  }
+
+  phoneInputClicked() {
+    this.phoneInputElement = <HTMLInputElement>document.getElementById("phone");
+    this.countrySearchBox = <HTMLInputElement>document.getElementById("country-search-box");
+
+    this.phoneInputClickedBlackBorder();
+
+    if (this.globalVars.isMobileIphone()) {
+      this.countrySearchBox.addEventListener("click", this.keepClickLocked);
+      this.countrySearchBox.addEventListener("keyup", this.keepScrollLocked);
+      // touchend is a backup
+      // this.countrySearchBox.addEventListener("touchend", this.keepScrollLocked);
+    }
+  }
+
+  keepClickLocked() {
+    console.log(` ---------------------- added click event to country code and scroll lock ----------------- `);
+
+    var signupBodyContainerElement = <HTMLInputElement>document.getElementById("signup-body-container-scroll-lock");
+    signupBodyContainerElement.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+    console.log(signupBodyContainerElement);
+  }
+
+  keepScrollLocked() {
+    console.log(` ---------------------- changed scroll element to phone ----------------------- `);
+
+    var phoneVar = <HTMLInputElement>document.getElementById("phone");
+    phoneVar.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+    console.log(phoneVar);
+  }
+
+  verifyPhoneNumberClicked() {
+    this.wantToVerifyPhoneClicked = true;
+
+    //   initialize check error function
+    this.sendPhoneNumberVerificationTextServerErrors = new SendPhoneNumberVerificationTextServerErrors();
+
+    // adding in case the user clicks the button before the input
+    this.phoneInputElement = <HTMLInputElement>document.getElementById("phone");
+
+    this.sendVerificationText();
+  }
+
   sendVerificationText() {
+    console.log("NEXT STEP");
     if (this.phoneForm.invalid) {
+      console.log(` ------------------ phoneForm.value.phone ${this.phoneForm.value.phone}`);
+      // if the user hasn't typed anything and have clicked the submit button set the value to a space so it returns the error for the user
+      if (this.phoneForm.value.phone === null) {
+        this.phoneForm.value.phone = " ";
+      }
+      console.log("Invalid");
+
+      this.phoneInputClickedRedBorder();
+
       return;
     }
     this.verificationStep = true;
     this.globalVars.logEvent("account : create : send-verification-text");
     this._sendPhoneNumberVerificationText();
-    if (this.isPhoneNumberVerificationTextServerErrorFree) {
+    /*if (this.isPhoneNumberVerificationTextServerErrorFree) {
       this._nextStep(true);
     } else {
+      console.log("Invalid");
       return;
-    }
+    }*/
+    //return;
 
     // https://docs.deso.org/identity/window-api/endpoints#verify-phone-number
     // this.identityService
@@ -360,9 +460,9 @@ export class MobileVerificationComponent implements OnInit {
     this.skipButtonClicked.emit();
   }
 
-  onPhoneNumberInputChanged() {
-    this.sendPhoneNumberVerificationTextServerErrors = new SendPhoneNumberVerificationTextServerErrors();
-  }
+  //   onPhoneNumberInputChanged() {
+  //     this.sendPhoneNumberVerificationTextServerErrors = new SendPhoneNumberVerificationTextServerErrors();
+  //   }
 
   onVerificationCodeInputChanged() {
     this.submitPhoneNumberVerificationCodeServerErrors = new SubmitPhoneNumberVerificationCodeServerErrors();
@@ -382,20 +482,23 @@ export class MobileVerificationComponent implements OnInit {
       )
       .subscribe(
         (res) => {
+          console.log("SUCCESSS");
+          this.globalVars.isPhoneNumberVerificationTextServerErrorFree = true;
           this.screenToShow = MobileVerificationComponent.SUBMIT_PHONE_NUMBER_VERIFICATION_SCREEN;
           this.globalVars.logEvent("account : create : send-verification-text: success");
 
           this.globalVars.wantToVerifyPhone = true;
           this.globalVars.phoneVerified = false;
-          this.isPhoneNumberVerificationTextServerErrorFree = true;
+          this._nextStep(true);
         },
         (err) => {
+          console.log("ERRRRORS");
           this._parseSendPhoneNumberVerificationTextServerErrors(err);
-          this.isPhoneNumberVerificationTextServerErrorFree = false;
+          this.globalVars.isPhoneNumberVerificationTextServerErrorFree = false;
           console.log(
             ` -------------- phoneNumberAlreadyInUseVariable ${this.sendPhoneNumberVerificationTextServerErrors.phoneNumberAlreadyInUse} ------------- `
           );
-          console.log(` ---------- errorFree? ${this.isPhoneNumberVerificationTextServerErrorFree}`);
+          console.log(` ---------- errorFree? ${this.globalVars.isPhoneNumberVerificationTextServerErrorFree}`);
         }
       )
       .add(() => {
@@ -419,6 +522,7 @@ export class MobileVerificationComponent implements OnInit {
         "Error sending phone number verification text: " + this.backendApi.stringifyError(err)
       );
     }
+    this.phoneInputClickedRedBorder();
   }
 
   _parseSubmitPhoneNumberVerificationCodeServerErrors(err) {

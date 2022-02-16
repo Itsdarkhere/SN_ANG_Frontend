@@ -65,6 +65,7 @@ export class NewNftCardComponent implements OnInit {
     } else {
       this.postContent = post;
     }
+    this.setEmbedURLForPostContent();
   }
   @Input() set blocked(value: boolean) {
     this._blocked = value;
@@ -88,7 +89,6 @@ export class NewNftCardComponent implements OnInit {
   //   - https://github.com/regexhq/mentions-regex
   static MENTIONS_REGEX = /\B\@([\w\-]+)/gim;
   @Input() showIconRow = true;
-  @Input() showAdminRow = false;
   @Input() contentShouldLinkToThread: boolean;
   @Input() pending: boolean;
   @Input() owns: boolean;
@@ -115,6 +115,8 @@ export class NewNftCardComponent implements OnInit {
   @Input() setBorder = false;
   @Input() showAvailableSerialNumbers = false;
   @Input() profilePublicKeyBase58Check: string = "";
+  @Input() nftPost: boolean;
+  @Input() insidePost: boolean;
   // If card is inside a feed post
   @Input() isQuotedCard = false;
   // If the post is shown in a modal, this is used to hide the modal on post click.
@@ -225,6 +227,7 @@ export class NewNftCardComponent implements OnInit {
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
   }
+
   activateOnHover(event, play) {
     if (play) {
       this.showVideoTypeIcon = false;
@@ -263,7 +266,7 @@ export class NewNftCardComponent implements OnInit {
     }
 
     this.setMobileBasedOnViewport();
-    this.setEmbedURLForPostContent();
+    //this.setEmbedURLForPostContent();
     if (this.showNFTDetails && this.postContent.IsNFT && !this.nftEntryResponses?.length) {
       this.getNFTEntries();
     }
@@ -550,12 +553,14 @@ export class NewNftCardComponent implements OnInit {
         this.ref.detectChanges();
       });
   }
-  setEmbedURLForPostContent(): void {
+  setEmbedURLForPostContent() {
     EmbedUrlParserService.getEmbedURL(
       this.backendApi,
       this.globalVars,
       this.postContent.PostExtraData["EmbedVideoURL"]
-    ).subscribe((res) => (this.constructedEmbedURL = res));
+    ).subscribe((res) => {
+      this.constructedEmbedURL = res;
+    });
   }
   getEmbedHeight(): number {
     return EmbedUrlParserService.getEmbedHeight(this.postContent.PostExtraData["EmbedVideoURL"]);
@@ -583,7 +588,7 @@ export class NewNftCardComponent implements OnInit {
     }
     event.stopPropagation();
     const modalDetails = this.modalService.show(PlaceBidModalComponent, {
-      class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
+      class: "modal-dialog-centered nft_placebid_modal_bx nft_placebid_modal_bx_right modal-lg",
       initialState: { post: this.postContent },
     });
     const onHideEvent = modalDetails.onHide;
@@ -644,7 +649,7 @@ export class NewNftCardComponent implements OnInit {
   openInteractionModalAccept(event, component): void {
     event.stopPropagation();
     this.modalService.show(component, {
-      class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
+      class: "modal-dialog-centered nft_placebid_modal_bx nft_placebid_modal_bx_right modal-lg",
       initialState: {
         postHashHex: this.post.PostHashHex,
         encryptedText: this.nftEntryResponses[0].EncryptedUnlockableText,

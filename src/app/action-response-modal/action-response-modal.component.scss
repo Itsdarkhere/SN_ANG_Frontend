@@ -1,0 +1,32 @@
+h2 {
+    font-size: 36px !important;
+    font-weight: 600;
+    color: var(--topbar);
+    width: 100%;
+    line-height: 1;
+    justify-content: center;
+    margin-bottom: 20px;
+    text-align: center;
+    margin-top: 20px;
+    @media screen and (max-width: 767px) {
+        font-size: 32px !important;
+    }
+}
+label {
+    margin-top: 40px;
+    font-size: clamp(16px, 4vw, 22px);
+}
+.action-response-buttons-container {
+    position: absolute;
+    bottom: 50px;
+    font-size: clamp(16px, 4vw, 20px);
+    font-weight: bold;
+    max-width: 450px;
+    .action-response-black-button {
+        height: 70px;
+        margin-bottom: 20px;
+    }
+    .action-response-white-button {
+        height: 70px;
+    }
+}

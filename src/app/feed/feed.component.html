@@ -1,4 +1,4 @@
-<div class="d-flex flex-column overflow-hidden">
+<div class="d-flex flex-column">
   <div *ngIf="!isMobile">
     <div *ngIf="globalVars.loggedInUser" class="border-bottom border-color-grey formbg create_post_wrapper">
       <feed-create-post
@@ -54,46 +54,59 @@
           -->
         <ng-container *ngIf="post?.IsNFT">
           <div class="mobile_feed_post">
-            <new-nft-card
-              *ngIf="post.ProfileEntryResponse"
-              [contentShouldLinkToThread]="true"
-              [pending]="false"
-              [includePaddingOnPost]="true"
+            <app-nft-card-post
               [post]="post"
               [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-              [blocked]="
-                globalVars.hasUserBlockedCreator(globalVars.loggedInUser?.ProfileEntryResponse?.PublicKeyBase58Check)
-              "
-              [cardStyle]="true"
-              [fromFeed]="true"
-              [showNFTDetails]="true"
-              [profileFeed]="true"
-              (userBlocked)="userBlocked()"
-              [hoverable]="true"
-              [background]="true"
-            ></new-nft-card>
+              [afterRepostCreatedCallback]="prependPostToFeed.bind(this)"
+            >
+              <new-nft-card
+                *ngIf="post.ProfileEntryResponse"
+                [contentShouldLinkToThread]="true"
+                [nftPost]="true"
+                [pending]="false"
+                [includePaddingOnPost]="true"
+                [post]="post"
+                [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+                [blocked]="
+                  globalVars.hasUserBlockedCreator(globalVars.loggedInUser?.ProfileEntryResponse?.PublicKeyBase58Check)
+                "
+                [cardStyle]="true"
+                [fromFeed]="true"
+                [showNFTDetails]="true"
+                [profileFeed]="true"
+                (userBlocked)="userBlocked()"
+                [hoverable]="true"
+                [background]="true"
+              ></new-nft-card>
+            </app-nft-card-post>
           </div>
         </ng-container>
         <ng-container *ngIf="isRepost(post) && post.RepostedPostEntryResponse.IsNFT">
           <div class="mobile_feed_post">
-            <new-nft-card
-              *ngIf="post.ProfileEntryResponse"
-              [contentShouldLinkToThread]="true"
-              [pending]="false"
-              [includePaddingOnPost]="true"
+            <app-nft-card-repost
               [post]="post"
               [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
               [afterRepostCreatedCallback]="prependPostToFeed.bind(this)"
-              [blocked]="
-                globalVars.hasUserBlockedCreator(globalVars.loggedInUser?.ProfileEntryResponse?.PublicKeyBase58Check)
-              "
-              [cardStyle]="true"
-              [fromFeed]="true"
-              [showNFTDetails]="true"
-              [profileFeed]="true"
-              (userBlocked)="userBlocked()"
-              [hoverable]="true"
-            ></new-nft-card>
+            >
+              <new-nft-card
+                *ngIf="post.ProfileEntryResponse"
+                [contentShouldLinkToThread]="true"
+                [pending]="false"
+                [includePaddingOnPost]="true"
+                [post]="post"
+                [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+                [afterRepostCreatedCallback]="prependPostToFeed.bind(this)"
+                [blocked]="
+                  globalVars.hasUserBlockedCreator(globalVars.loggedInUser?.ProfileEntryResponse?.PublicKeyBase58Check)
+                "
+                [cardStyle]="true"
+                [fromFeed]="true"
+                [showNFTDetails]="true"
+                [profileFeed]="true"
+                (userBlocked)="userBlocked()"
+                [hoverable]="true"
+              ></new-nft-card>
+            </app-nft-card-repost>
           </div>
         </ng-container>
         <ng-container *ngIf="!isRepost(post) && post?.RepostedPostEntryResponse?.IsNFT">

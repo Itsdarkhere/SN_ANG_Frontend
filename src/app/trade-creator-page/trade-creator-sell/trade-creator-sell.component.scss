@@ -1,0 +1,162 @@
+.trade-creator-buy-wrapper {
+    background-color: #ffffff;
+    width: calc(100% - 30px) !important;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+.trade-creator-button {
+    max-width: 90%;
+    width: 350px;
+    height: 65px;
+    font-size: 18px;
+    font-weight: bold;
+    position: absolute;
+    bottom: 75px;
+}
+.trade-creator-spacer {
+    height: 3.5vw;
+    max-height: 50px;
+    min-height: 20px;
+}
+.trade-creator-input-container {
+    height: 15vw;
+    max-height: 82px;
+    min-height: 54px;
+    border-radius: 16.182809829711914px;
+    background-color: #0e0f22;
+}
+.trade-creator-coin-info-box {
+    width: 85%;
+    border-radius: 17.278106689453125px;
+    background: #ffffff;
+    box-shadow: 0px 3.4556212425231934px 43.19526672363281px rgba(0, 0, 0, 0.05);
+    color: #656565;
+    position: relative;
+    padding-bottom: 27%;
+    .coin-info-box-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 50%;
+        width: 100%;
+        border-bottom: 1px solid #DADADA;
+        padding-left: 10px;
+        padding-right: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .you-receive {
+            font-size: clamp(12px, 3vw, 19px);
+        }
+        .amount-of-coins {
+            font-size: clamp(12px, 3vw, 19px);
+        }
+    }
+    .coin-info-box-bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 50%;
+        width: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .network-fees {
+            font-size: clamp(12px, 3vw, 19px);
+        }
+        .amount-of-coins {
+            font-size: clamp(12px, 3vw, 19px);
+        }
+    }
+
+}
+.trade-creator-input-label {
+    right: 0;
+    position: absolute;
+    background-color: #0e0f22;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    outline: none;
+    border: none;
+    color: var(--background);
+    padding: 0px;
+    //flex-grow: 1;
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.trade-creator-deso-logo {
+    height: 25px;
+    margin-right: 5%;
+}
+.trade-creator-input {
+    border: 5px solid #0e0f22;
+    font-size: clamp(16px, 6vw, 42px);
+    border-radius: 16px;
+    background-color: #ffffff;
+}
+.trade-creator-transfer-avatar {
+    margin-right: 3px;
+    width: 4vw !important;
+    height: 4vw;
+    max-height: 54px !important;
+    min-height: 40px !important;
+    max-width: 54px !important;
+    min-width: 40px !important;
+    border: 2.5px solid #ffffff;
+    border-radius: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.trade-creator-spacer-two {
+    height: 2.5vw;
+    max-height: 30px;
+    min-height: 20px;
+}
+.trade-creator-coin-sell-info {
+    width: 90%;
+    height: 8vw;
+    max-height: 77px;
+    min-height: 57px;
+    background: #ffffff;
+    border: 2px solid #ececec;
+    border-radius: 30px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+    .sell-info-image-container {
+        width: 10%;
+    }
+    .trade-creator-see-all-button {
+        height: 100%;
+        background-color: transparent;
+        border: none;
+        border-left: 2px solid #ececec;
+        outline: none;
+        color: #393939;
+        font-weight: bold;
+        font-size: clamp(12px, 3vw, 17px);
+    }
+    .sell-info-text-container {
+        .you-own {
+            font-size: clamp(12px, 3vw, 17px);
+            color: #6C6C6C;
+        }
+        .you-own-amount {
+            font-size: clamp(16px, 3vw, 21px);
+            display: block;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width: 90%;
+            text-overflow: ellipsis;
+        }
+    }
+}

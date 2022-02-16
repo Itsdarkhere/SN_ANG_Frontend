@@ -69,20 +69,29 @@ export class SignupPageComponent implements OnInit {
     });
   }
 
+  emailAddressInputClicked() {
+    console.log(` -------------- email address clicked --------------- `);
+  }
+
+  verifyEmailClicked() {
+    this.startedEnteringEmail = true;
+    var emailAddressElement = <HTMLInputElement>document.getElementById("step3EmailAddress");
+    var emailAddress = emailAddressElement.value;
+
+    if (this.globalVars.emailRegExTest.test(emailAddress)) {
+      this.invalidEmailEntered = false;
+      this.nextStep();
+    } else {
+      this.invalidEmailEntered = true;
+      emailAddressElement.style.border = "1px solid red";
+      return;
+    }
+  }
+
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
   }
-  _validateEmail(email) {
-    this.startedEnteringEmail = true;
 
-    if (this.globalVars.emailRegExp.test(email)) {
-      this.invalidEmailEntered = false;
-    } else if (email === "") {
-      this.invalidEmailEntered = true;
-    } else {
-      this.invalidEmailEntered = true;
-    }
-  }
   _updateEmail() {
     this.backendApi
       .UpdateUserGlobalMetadata(
@@ -184,6 +193,7 @@ export class SignupPageComponent implements OnInit {
       return;
     }
     if (this.stepNum === 3) {
+      // if the email is valid then update the email
       if (!this.invalidEmailEntered) {
         this._updateEmail();
       }
@@ -197,6 +207,12 @@ export class SignupPageComponent implements OnInit {
       this.updateProfileType();
       if (this.globalVars.wantToVerifyPhone === false) {
         this.SendStepFourEvent();
+
+        //   close nav bar because it will open on mobile
+        if (this.globalVars.isMobileIphone()) {
+          this.globalVars.isLeftBarMobileOpen = false;
+        }
+
         this.router.navigate([RouteNames.COMPLETE_PROFILE]);
       }
 

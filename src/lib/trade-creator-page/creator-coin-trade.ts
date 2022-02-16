@@ -56,7 +56,7 @@ export class CreatorCoinTrade {
 
   defaultCurrency() {
     return this.isBuyingCreatorCoin
-      ? CreatorCoinTrade.USD_CURRENCY_STRING
+      ? CreatorCoinTrade.DESO_CURRENCY_STRING
       : CreatorCoinTrade.CREATOR_COIN_CURRENCY_STRING;
   }
 
@@ -317,9 +317,7 @@ export class CreatorCoinTrade {
   // DeSo per creator coin
   desoPriceOfCreatorCoin() {
     if (this.isBuyingOwnCoin()) {
-      return (
-        this.desoToSell / ((this.expectedCreatorCoinReturnedNanos + (this.expectedFounderRewardNanos || 0)) / 1e9)
-      );
+      return this.desoToSell / ((this.expectedCreatorCoinReturnedNanos + (this.expectedFounderRewardNanos || 0)) / 1e9);
     }
     if (this.isBuyingCreatorCoin) {
       return this.desoToSell / (this.expectedCreatorCoinReturnedNanos / 1e9);

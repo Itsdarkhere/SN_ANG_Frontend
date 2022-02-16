@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { trigger, style, animate, transition } from "@angular/animations";
 import { GlobalVarsService } from "../global-vars.service";
 
@@ -20,12 +20,7 @@ import { GlobalVarsService } from "../global-vars.service";
   ],
 })
 export class MarketplaceLeftBarMobileComponent {
-  @Output() closeModal = new EventEmitter<string>();
   @Input() inTutorial: boolean = false;
 
   constructor(public globalVars: GlobalVarsService) {}
-  _closeMenu() {
-    //this.globalVars.isMarketplaceLeftBarMobileOpen = false;
-    this.closeModal.emit("close");
-  }
 }

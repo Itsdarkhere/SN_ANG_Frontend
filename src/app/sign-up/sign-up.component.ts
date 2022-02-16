@@ -59,6 +59,11 @@ export class SignUpComponent {
 
   nextPage() {
     this.stepNum += 1;
+    if (this.stepNum > 2) {
+      console.log(this.stepNum === 4);
+      console.log(!this.globalVars.wantToVerifyPhone);
+      console.log(!this.globalVars.phoneVerified);
+    }
     if (this.stepNum != 5) {
       this.router.navigate([], {
         relativeTo: this.route,

@@ -1,0 +1,119 @@
+.trade-creator-buy-wrapper {
+    background-color: #ffffff;
+    width: calc(100% - 30px) !important;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+.trade-creator-button {
+    max-width: 90%;
+    width: 350px;
+    height: 65px;
+    font-size: 18px;
+    font-weight: bold;
+    position: absolute;
+    bottom: 75px;
+}
+.trade-creator-spacer {
+    height: 3.5vw;
+    max-height: 50px;
+    min-height: 20px;
+}
+.errors-fontsize {
+    font-size: clamp(10px, 2vw, 14px);
+}
+.trade-creator-spacer-two {
+    height: 2.5vw;
+    max-height: 30px;
+    min-height: 20px;
+}
+.trade-creator-input-container {
+    height: 15vw;
+    max-height: 82px;
+    min-height: 54px;
+    border-radius: 16.182809829711914px;
+    background-color: #0e0f22;
+}
+.trade-creator-coin-info-box {
+    width: 85%;
+    border-radius: 17.278106689453125px;
+    background: #ffffff;
+    box-shadow: 0px 3.4556212425231934px 43.19526672363281px rgba(0, 0, 0, 0.05);
+    color: #656565;
+    position: relative;
+    padding-bottom: 27%;
+    .coin-info-box-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 50%;
+        width: 100%;
+        border-bottom: 1px solid #DADADA;
+        padding-left: 10px;
+        padding-right: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .you-receive {
+        font-size: clamp(12px, 3vw, 19px);
+    }
+    .amount-of-coins {
+        font-size: clamp(12px, 3vw, 19px);
+    }
+    .founder-reward {
+        font-size: clamp(10px, 3vw, 19px);
+        position: absolute;
+        height: 50%;
+        bottom: 0;
+    }
+
+}
+.trade-creator-input-label {
+    right: 0;
+    position: absolute;
+    background-color: #0e0f22;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    outline: none;
+    border: none;
+    color: var(--background);
+    padding: 0px;
+    flex-grow: 1;
+    height: 100%;
+    font-size: clamp(18px, 5vw, 28px);
+}
+.trade-creator-deso-logo {
+    height: 50%;
+    margin-right: 5%;
+}
+.trade-creator-input {
+    border: 5px solid #0e0f22;
+    font-size: clamp(16px, 6vw, 42px);
+    border-radius: 16px;
+    background-color: #FFFFFF;
+}
+.trade-creator-balance-info {
+    background: #f5f5f5;
+    border-radius: 11.20879077911377px;
+    width: 85%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding-bottom: 12%;
+    min-height: 40px;
+    p {
+        color: #8C8C8C;
+        position: absolute;
+        white-space: nowrap;
+        top: 50%;  
+        left: 50%; 
+        transform: translate(-50%, -50%);
+        font-size: clamp(12px, 4vw, 18px);
+    }
+}

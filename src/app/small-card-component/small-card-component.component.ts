@@ -124,4 +124,10 @@ export class SmallCardComponentComponent implements OnInit {
   activateOnHoverAudio(play) {
     console.log("lol");
   }
+  getEmbedHeight(): number {
+    return EmbedUrlParserService.getEmbedHeight(this.post.PostExtraData["EmbedVideoURL"]);
+  }
+  getEmbedWidth(): string {
+    return EmbedUrlParserService.getEmbedWidth(this.post.PostExtraData["EmbedVideoURL"]);
+  }
 }

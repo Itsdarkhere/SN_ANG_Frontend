@@ -118,7 +118,8 @@ export class AppComponent implements OnInit {
     if (this.callingUpdateTopLevelData) {
       return new Subscription();
     }
-
+    console.log(this.identityService.identityServiceUsers);
+    console.log(this.identityService);
     const publicKeys = Object.keys(this.identityService.identityServiceUsers);
 
     let loggedInUserPublicKey =
@@ -345,6 +346,17 @@ export class AppComponent implements OnInit {
 
     this.installDD();
     this.installAmplitude();
+
+    const setVh = () => {
+      const vh = window.innerHeight * 0.01;
+      const pixelHeight = window.innerHeight;
+
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+      document.documentElement.style.setProperty("--pixelHeight", `${pixelHeight}px`);
+    };
+
+    window.addEventListener("load", setVh);
+    window.addEventListener("resize", setVh);
 
     // get LoggedInUser
     this._updateTopLevelData();

@@ -1,6 +1,5 @@
 .signup-container {
   background-color: #f5f5f5;
-  height: 100vh;
 }
 .signup-header {
   position: absolute;
@@ -9,18 +8,19 @@
   right: 0;
 }
 .signup-body-container {
-  height: calc(100vh - 80px);
+  height: calc(var(--pixelHeight) - 60px);
+  background-color: #f5f5f5;
 }
-.singup-center {
-  max-width: 100%;
-  max-height: 100%;
-  height: 613px;
-  width: 751px;
+.signup-center {
   background: #ffffff;
-  border: 9px solid #eeeeee;
+  border: 3px solid #eeeeee;
   border-radius: 20px;
-  box-shadow: 1.0368170738220215px 1.0368170738220215px 10.368169784545898px rgba(155, 155, 155, 0.02);
-  overflow-y: scroll;
+  box-shadow: 1.0368170738px 1.0368170738px 10.3681697845px rgb(155 155 155 / 2%);
+  width: 95vw;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 .signup-card-box {
   display: flex;
@@ -47,16 +47,20 @@
     justify-content: flex-start;
   }
 }
-.signup-window {
-  height: 100vh;
-  text-align: center;
-  position: relative;
+.justify-content-center {
+  justify-content: center;
+}
+.signup-step-1-subheader {
+  margin: 20px auto 0 auto;
+}
+.signup-step-1-button {
+  margin: 30px auto 0 auto;
 }
 .signup-window-header {
-  margin-top: 50px;
+  margin-top: 20px;
 }
 .signup-window-body {
-  margin-top: 60px;
+  margin: 60px 200px 0 200px;
 }
 .signup-window-btn {
   position: absolute;
@@ -64,7 +68,6 @@
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  width: 250px; /* Need a specific value to work */
   bottom: 0;
   margin-bottom: 50px;
 }
@@ -95,6 +98,178 @@
   color: white;
   border-radius: 20px;
 }
+
+.signup-center-flex-center-mobile {
+  align-items: center;
+  display: flex;
+}
+
+.signup-step-2-card-header {
+  font-size: 15px;
+}
+
+.signup-step-2-card-text {
+  font-size: 11px;
+}
+
+#step3EmailAddress:focus {
+  border: 1px solid black;
+}
+
+.fc-success {
+  color: green;
+}
+.fc-error {
+  color: red;
+}
+.signup-input {
+  height: 35px;
+  border-radius: 5.669146537780762px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+  font-size: 16px;
+}
+
+.signup-step-3-text {
+  font-size: 13px;
+}
+
+.signup-step-4-text {
+  font-size: 13px;
+}
+
+// ------------------ mobile
+
+.signup-header-mobile {
+  height: 60px;
+}
+
+.supernovas-grey-logo-mobile {
+  margin-left: 20px;
+  margin-top: 15px;
+}
+
+.signup-center-mobile {
+  background: #ffffff;
+  border: 3px solid #eeeeee;
+  border-radius: 20px;
+  box-shadow: 1.0368170738px 1.0368170738px 10.3681697845px rgb(155 155 155 / 2%);
+  width: 95vw;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 20px;
+  margin-left: 2.5vw;
+  margin-right: 2.5vw;
+}
+
+.flex-center-mobile {
+  display: flex;
+}
+
+.signup-window-header-mobile {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  display: block;
+}
+
+.signup-card-box-mobile {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  justify-items: center;
+  margin-top: 3vh;
+}
+
+.step-1-header-mobile {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.step-1-text-mobile {
+  font-size: 16px;
+  width: 445px;
+  max-width: 90%;
+  margin-bottom: 20px;
+}
+
+.signup-main-button-mobile {
+  width: 445px;
+  max-width: 90%;
+  height: 89px;
+  background: #0e0f22;
+  color: white;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.connect-with-deso-text-mobile {
+  margin: 0;
+  margin-left: 20px;
+}
+
+.signup-step-2-card-header-mobile {
+  color: black;
+  font-size: 15px;
+}
+
+.signup-step-2-card-text-mobile {
+  color: black;
+  font-size: 11px;
+}
+
+.profile-type-card-mobile {
+  width: 196px;
+  height: 220px;
+  margin-top: 30px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 2px solid #efefef;
+  border-radius: 15.0900793076px;
+  box-shadow: 1.0368170738px 1.0368170738px 20.7363395691px rgb(0 0 0 / 5%);
+}
+
+.signup-card-box-mobile-text {
+  display: block;
+}
+
+.signup-window-btn-mobile {
+  width: 300px;
+  max-width: 90%;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.signup-window-body-mobile {
+  margin: 60px 200px 0 200px;
+}
+.signup-window-btn-absolute {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 0;
+  margin-bottom: 50px;
+}
+
+.signup-step-3-text-mobile {
+  font-size: 13px;
+}
+
+.signup-step-4-text-mobile {
+  font-size: 13px;
+}
+
+.signup-window-text-mobile {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 @media (max-width: 450px) {
   .button-font-resizing {
     font-size: 18px;
@@ -108,93 +283,25 @@
   .logo-height-main-button {
     height: 30px;
   }
-  .signup-main-button {
-    height: 60px;
+  .signup-main-button-mobile {
+    height: 60px !important;
   }
 }
-.fc-success {
-  color: green;
-}
-.fc-error {
-  color: red;
-}
-.signup-input {
-  height: 35px;
-  border-radius: 5.669146537780762px;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
-}
 
-// ------------------ mobile
-
-.flex-center-mobile {
-  justify-content: center;
-  margin-top: 1vh;
-  height: 95vh;
-}
-
-.signup-center-height-mobile {
-  width: 95vw;
-  height: 90vh;
-  overflow: scroll;
-}
-
-.signup-window-header-mobile {
-  margin-top: 5vh;
-  font-size: 1.5rem;
-  display: block;
-}
-
-.signup-card-box-mobile {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 3vh;
-  flex-direction: column;
-}
-
-.profile-type-card-mobile {
-  width: 196px;
-  height: 220px;
-  margin-top: 6.5vh;
-  overflow: hidden;
-  background: #ffffff;
-  border: 2px solid #efefef;
-  border-radius: 15.0900793076px;
-  box-shadow: 1.0368170738px 1.0368170738px 20.7363395691px rgb(0 0 0 / 5%);
-}
-
-.signup-card-box-mobile-text {
-  display: block;
-}
-
-.signup-window-btn-mobile {
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  width: 300px;
-  bottom: 0;
-  margin-bottom: 5vh;
-}
-
-.signup-window-body-mobile {
-  margin-top: 5vh;
-}
-
+// iphone 13 pro max and above
 @media screen and (max-width: 480px) {
-  .signup-card-box-mobile {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 0;
+  .signup-body-container {
+    position: fixed;
+  }
+
+  .signup-window-header-mobile {
+    margin-bottom: 0px;
   }
 
   .profile-type-card-mobile {
-    width: 196px;
-    height: 220px;
-    margin-top: 2.5vh;
+    width: 147px;
+    height: 165px;
+    margin-top: 25px;
     overflow: hidden;
     background: #ffffff;
     border: 2px solid #efefef;
@@ -202,11 +309,73 @@
     box-shadow: 1.0368170738px 1.0368170738px 20.7363395691px rgb(0 0 0 / 5%);
   }
 
-  .h-60 {
-    height: 45%;
+  .signup-window-text-mobile {
+    margin-top: 15px;
+    margin-bottom: 0px;
+    font-size: 16px;
   }
 
-  .creator-colletor-button {
-    top: 700px;
+  .signup-window-body-mobile {
+    margin: 60px 25px 0 25px;
   }
+
+  .signup-step-2-card-header-mobile {
+    font-size: 12px;
+    margin-bottom: 0;
+  }
+
+  .signup-step-2-card-text-mobile {
+    font-size: 9px;
+    margin-bottom: 0;
+  }
+
+  .signup-step-3-text-mobile {
+    font-size: 11px;
+  }
+
+  .signup-step-4-text-mobile {
+    font-size: 10px;
+  }
+}
+
+// iphone 13 pro
+@media screen and (max-width: 390px) {
+  .signup-card-box-mobile {
+    margin-top: 0px;
+  }
+
+  .signup-window-btn-mobile {
+    bottom: 30px;
+  }
+
+  .signup-window-text-mobile {
+    font-size: 13px;
+  }
+
+  .signup-step-4-text-mobile {
+    font-size: 9px;
+  }
+}
+
+// iphone x
+@media screen and (max-width: 375px) and (max-height: 812px) {
+  .signup-card-box-mobile {
+    margin-top: 0;
+  }
+
+  .signup-window-btn-mobile {
+    bottom: 25px;
+  }
+
+  .signup-step-3-text-mobile {
+    font-size: 10px;
+  }
+
+  .signup-window-text-mobile {
+    margin-top: 0px;
+  }
+}
+
+// iphone se
+@media screen and (max-width: 375px) and (max-height: 667px) {
 }

@@ -473,9 +473,16 @@ export class MarketplaceLeftBarComponent implements OnInit {
     this.setContentFormat();
     this.setStatus();
     this.setCreatorType();
-    this.onFilter.emit("");
-    this.functionPass.filter("");
+    this.onFilter.emit("sort");
+    this.functionPass.filter("sort");
     this.canUserSort = false;
+    setTimeout(() => {
+      this.globalVars.isMarketplaceLeftBarMobileOpen = false;
+    }, 200);
+  }
+  closeMenu() {
+    this.functionPass.filter("close");
+    this.onFilter.emit("close");
     setTimeout(() => {
       this.globalVars.isMarketplaceLeftBarMobileOpen = false;
     }, 200);

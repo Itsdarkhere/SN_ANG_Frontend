@@ -1,5 +1,6 @@
 <div app-theme class="nft-modal-container p-15px">
   <div *ngIf="biddableSerialNumbers?.length" [ngClass]="{ 'd-none': !isSelectingSerialNumber }">
+    <nft-modal-header [bsModalRef]="bsModalRef" [header]="'Select an edition'"></nft-modal-header>
     <div class="fs-15px nft_para text-center text-grey5">
       An NFT can have multiple editions, each with its own unique serial number.
     </div>
@@ -54,8 +55,8 @@
         <p class="purchase-price-header">PURCHASE PRICE</p>
         <div class="d-flex flex-row flex-center">
           <img src="../../assets/img/deso-logo.png" class="deso-logo-img" />
-          <p class="buy-now-price-deso">{{ this.globalVars.nanosToDeSo(this.buyNowPriceNanos, 5) }}</p>
-          <p class="buy-now-price-usd">{{ this.globalVars.nanosToUSD(this.buyNowPriceNanos, 2) }}</p>
+          <p class="buy-now-price-deso pt-5px">{{ this.globalVars.nanosToDeSo(buyNowPriceNanos, 5) }}</p>
+          <p class="buy-now-price-usd">{{ this.globalVars.nanosToUSD(buyNowPriceNanos, 2) }}</p>
         </div>
       </div>
       <div class="deso-balance-container">
@@ -82,7 +83,13 @@
           <p class="royalty-fee-number">0.00 $DESO</p>
         </div>
       </div>
-      <button class="btn blk_line_btn with_ico big buy_now_btn purchase_btn" (click)="buyNowNft()">Purchase</button>
+      <button
+        class="blk_line_btn with_ico big black-rounded-button mt-20px-important"
+        [disabled]="this.globalVars.loggedInUser.BalanceNanos < buyNowPriceNanos"
+        (click)="buyNowNft()"
+      >
+        Purchase
+      </button>
     </div>
   </div>
   <div *ngIf="this.buyNowNftSuccess">

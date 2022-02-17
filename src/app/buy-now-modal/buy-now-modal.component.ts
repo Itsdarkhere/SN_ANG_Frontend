@@ -24,13 +24,11 @@ export class BuyNowModalComponent implements OnInit {
   //   @Input() bsModalRef: BsModalRef;
   @Input() postHashHex: string;
   @Input() post: PostEntryResponse;
-  @Input() selectedSerialNumber: NFTEntryResponse;
-  @Input() buyNowPriceNanos: number;
   @Output() closeModal = new EventEmitter<any>();
   @Input() clickedBuyNow: boolean;
   bidAmountDESO: number;
   bidAmountUSD: string;
-  //   selectedSerialNumber: NFTEntryResponse = null;
+  selectedSerialNumber: NFTEntryResponse = null;
   availableCount: number;
   availableSerialNumbers: NFTEntryResponse[];
   biddableSerialNumbers: NFTEntryResponse[];
@@ -45,6 +43,8 @@ export class BuyNowModalComponent implements OnInit {
   errors: string;
   buyingNFT: boolean = false;
   buyNowNftSuccess: boolean = false;
+  buyNowPriceNanos: number;
+  serialNumber: number;
 
   constructor(
     public globalVars: GlobalVarsService,
@@ -104,49 +104,38 @@ export class BuyNowModalComponent implements OnInit {
   }
 
   buyNowNft() {
-    // this.setErrors();
-    // if (this.errors) {
-    //   return;
-    // }
-    // this.saveSelectionDisabled = true;
-    // this.placingBids = true;
+     this.setErrors();
+    if (this.errors) {
+       return;
+    }
+    this.saveSelectionDisabled = true;
+    this.placingBids = true;
 
-    // this.buyingNFT = true;
+     this.buyingNFT = true;
 
-    this.buyNowNftSuccess = true;
-
-    // this.backendApi
-    //   .CreateNFTBid(
-    //     this.globalVars.localNode,
-    //     this.globalVars.loggedInUser.PublicKeyBase58Check,
-    //     this.post.PostHashHex,
-    //     this.globalVars.SerialNumber,
-    //     // Math.trunc(this.bidAmountDESO * 1e9),
-    //     this.globalVars.BuyNowPriceNanos,
-    //     this.globalVars.defaultFeeRateNanosPerKB
-    //   )
-    //   .subscribe(
-    //     (res) => {
-    //       //   if (!this.globalVars.isMobile()) {
-    //       //     // Hide this modal and open the next one.
-    //       //     this.closeModal.emit("nft purchased");
-    //       //   } else {
-    //       //     this.location.back();
-    //       //   }
-    //       //   this.showToast();
-    //       this.buyNowNftSuccess = true;
-    //       console.log(` ---------------------- success bought nft -------------------- `);
-    //       //
-    //     },
-    //     (err) => {
-    //       console.error(err);
-    //       this.buyNowNftSuccess = false;
-    //       this.globalVars._alertError(this.backendApi.parseMessageError(err));
-    //     }
-    //   )
-    //   .add(() => {
-    //     // this.buyingNFT = false;
-    //   });
+     this.backendApi
+       .CreateNFTBid(
+         this.globalVars.localNode,
+         this.globalVars.loggedInUser.PublicKeyBase58Check,
+         this.post.PostHashHex,
+         this.serialNumber,
+         // Math.trunc(this.bidAmountDESO * 1e9),
+         this.buyNowPriceNanos,
+         this.globalVars.defaultFeeRateNanosPerKB
+       )
+       .subscribe(
+         (res) => {
+           this.buyNowNftSuccess = true;
+         },
+         (err) => {
+           console.error(err);
+           this.buyNowNftSuccess = false;
+           this.globalVars._alertError(this.backendApi.parseMessageError(err));
+         }
+       )
+       .add(() => {
+         // this.buyingNFT = false;
+       });
   }
 
   quoteRepost(event, isQuote = true) {
@@ -200,6 +189,8 @@ export class BuyNowModalComponent implements OnInit {
       this.highBid = this.selectedSerialNumber.HighestBidAmountNanos;
       this.lowBid = this.selectedSerialNumber.LowestBidAmountNanos;
       this.minBid = this.selectedSerialNumber.MinBidAmountNanos;
+      this.buyNowPriceNanos = this.selectedSerialNumber.BuyNowPriceNanos;
+      this.serialNumber = this.selectedSerialNumber.SerialNumber;
       this.setErrors();
     }
   }

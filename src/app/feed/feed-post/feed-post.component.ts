@@ -758,7 +758,6 @@ export class FeedPostComponent implements OnInit {
       class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
       initialState: {
         post: this.postContent,
-        buyNowPriceNanos: this.buyNowPriceNanos,
         clickedBuyNow: this.clickedBuyNow,
       },
     });

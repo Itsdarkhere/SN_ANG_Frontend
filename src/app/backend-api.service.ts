@@ -385,7 +385,7 @@ export class NFTEntryResponse {
   IsForSale: boolean;
   MinBidAmountNanos: number;
   LastAcceptedBidAmountNanos: number;
-
+  BuyNowPriceNanos: number;
   HighestBidAmountNanos: number;
   LowestBidAmountNanos: number;
 

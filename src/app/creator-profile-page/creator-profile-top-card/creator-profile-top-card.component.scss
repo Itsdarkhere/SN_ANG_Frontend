@@ -86,6 +86,7 @@
     background: none;
     padding-left: 5%;
     padding-right: 5%;
+    margin-top: 1em;
     h5 {
         display: flex;
         align-items: center;
@@ -185,6 +186,12 @@
         order: 5;
         margin-left: 15px;
         padding-right: 0;
+    }
+    @media (min-width: 1201px) {
+        display: flex;
+        align-items: center; 
+        justify-content: space-between;
+        padding-bottom: 0.7em;
     }
 }
 .followers-buy-button-container{

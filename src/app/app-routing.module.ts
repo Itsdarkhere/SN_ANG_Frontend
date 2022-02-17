@@ -38,8 +38,8 @@ import { ActivityComponent } from "./activity/activity.component";
 import { MintPageComponent } from "./mint-page/mint-page.component";
 import { NftPageComponent } from "./discovery-page/nft-page/nft-page.component";
 import { DiscoveryPageComponent } from "./discovery-page/discovery-page.component";
-import { CollectionPageComponent } from "./collections/collection-page/collection-page.component";
-import { CreateCollectionComponent } from "./collections/create-collection/create-collection.component";
+import { CollectionPageComponent } from "./collection/collection-page/collection-page.component";
+import { CreateCollectionComponent } from "./collection/create-collection/create-collection.component";
 
 class RouteNames {
   // Not sure if we should have a smarter schema for this, e.g. what happens if we have

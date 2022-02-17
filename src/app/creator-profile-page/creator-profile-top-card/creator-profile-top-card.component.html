@@ -39,7 +39,7 @@
               Invest
             </button>
           </div>
-          <div *ngIf="globalVars.loggedInUser" class="w-45 d-inline-block fs-15px">
+          <div *ngIf="globalVars.loggedInUser" class="w-45 d-inline-block fs-15px follow-container">
             <div *ngIf="profileBelongsToLoggedInUser(); else elseBlock">
               <a
                 class="btn btn-follow"
@@ -146,7 +146,7 @@
       >
         Invest
       </button>
-      <div *ngIf="globalVars.loggedInUser" class="w-100 d-inline-block mt-10px fs-15px">
+      <div *ngIf="globalVars.loggedInUser" class="w-100 d-inline-block mt-10px fs-15px follow-container">
         <div *ngIf="profileBelongsToLoggedInUser(); else elseBlock">
           <a
             class="btn btn-follow"

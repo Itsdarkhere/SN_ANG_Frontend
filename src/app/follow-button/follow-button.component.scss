@@ -5,16 +5,16 @@
         border: 2.5px solid var(--button);
         background: var(--background);
         font-size: 0.9rem;
-        /* padding-left: 50%; */
         border-radius: 6.25rem;
-        /* padding: 10% 80% 10% 80%; */
-        /* width: 100%; */
         display: inline-block;
-        padding: 0.8em 4.2em;
-        /* margin: 0 0.3em 0.3em 0; */
+        /* padding: 0.8em 4.2em; */
         box-sizing: border-box;
         text-decoration: none;
         width: 100%;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border-radius: 6.25rem;
+        border: 2.5px solid #313131;
         @media all and (max-width:60em) {
             display:block;
             margin:0.4em auto;
@@ -27,6 +27,7 @@
         font-size: 0.9rem;
         border-radius: 6.25rem;
     }
+    
 }
 
 .lt_loader {

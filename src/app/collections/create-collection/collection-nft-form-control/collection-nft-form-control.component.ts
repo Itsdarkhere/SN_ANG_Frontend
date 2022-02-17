@@ -41,6 +41,7 @@ export class CollectionNftFormControlComponent implements ControlValueAccessor, 
   posts: PostEntryResponse[];
   myBids: NFTBidEntryResponse[];
 
+  nftIndex: number;
   selectedNft!: PostEntryResponse;
   disabled: boolean = false;
   private onTouched!: Function;
@@ -51,16 +52,17 @@ export class CollectionNftFormControlComponent implements ControlValueAccessor, 
     this.getNFTs();
   }
   
-  addPost(post: PostEntryResponse) {
+  addPost(i: number, post: PostEntryResponse) {
     this.onTouched();
+    this.nftIndex = i;
     this.selectedNft = post;
     this.onChanged();
     console.log(this.selectedNft);
   }
 
   writeValue(value: any): void {
-    this.collectionNfts.push(this.fb.group(this.collectionNfts))
     this.selectedNft = value;
+    this.collectionNfts.insert(this.nftIndex, value)
   }
   registerOnChange(fn: any): void {
     this.onChanged = fn;

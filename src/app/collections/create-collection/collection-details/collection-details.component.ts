@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-collection-details',
@@ -7,17 +6,8 @@ import { FormArray, FormGroup } from '@angular/forms';
   styleUrls: ['./collection-details.component.scss']
 })
 export class CollectionDetailsComponent implements OnInit {
-
-  @Input() createCollectionForm: FormGroup;
-  @Input() views: FormArray;
-  @Input() collectionDetails: FormGroup;
+  constructor() {}
 
   ngOnInit(): void {  
-  }
-
-  onKeyUp() {
-    console.log(
-      this.collectionDetails.value?.collectionName,
-      this.collectionDetails.value?.collectionDescription);
   }
 }

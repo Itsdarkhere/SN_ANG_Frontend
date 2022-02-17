@@ -1,4 +1,4 @@
-<form [formGroup]="collectionDetails" autocomplete="off">
+<form autocomplete="off">
     <h1 class="create-collection-title">Collection details</h1>
     
     <!-- Collection Banner -->
@@ -8,7 +8,6 @@
                 type="file"
                 accept="image/png, image/jpeg, image/webp"
                 id="file"
-                formControlName="collectionBannerImage"
             >
             <img src="/assets/icons/upload_grey.svg" alt="upload-icon"/>
             <h2>Click to upload a collection banner image</h2>
@@ -20,9 +19,9 @@
     <!-- Collection Information -->
     <div class="collection-details-info">
         <label for="collection-name">Collection Name:</label>
-        <input type="text" formControlName="collectionName" id="collection-name" (keyup)="onKeyUp()">
+        <input type="text" id="collection-name">
         <label for="collection-desc">Collection Description:</label>
-        <textarea rows="4" formControlName="collectionDescription" id="collection-desc" (keyup)="onKeyUp()"></textarea>
-        <button type="button" [disabled]="collectionDetails.invalid" cdkStepperNext>Continue</button>
+        <textarea rows="4" id="collection-desc"></textarea>
+        <button type="button" cdkStepperNext>Continue</button>
     </div>
 </form>

@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-collection-selections',
@@ -9,10 +8,6 @@ import { FormArray, FormGroup } from '@angular/forms';
 export class CollectionSelectionsComponent implements OnInit {
   constructor() {}
 
-  @Input() collectionSelections: FormGroup;
-  @Input() collectionNfts: FormArray;
-
   ngOnInit(): void {
-    console.log(this.collectionNfts);
   }
 }

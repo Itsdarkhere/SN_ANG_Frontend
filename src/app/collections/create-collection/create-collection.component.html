@@ -1,30 +1,21 @@
 <div class="create-collection-page">
     <!-- Add Supernovas logo -->
     
-    <ng-container [formGroup]="createCollectionForm" (submit)="submit()">
-        <app-collection-stepper formArrayName="views" class="full-height-width-container" [linear]=true>
+    <form #createCollectionForm="ngForm" (submit)="submit()">
+        <app-collection-stepper class="full-height-width-container" [linear]=true>
             <!-- View 1: Add Collection Details -->
             <!-- Pass parent form to child component -->
-            <cdk-step [editable]=true [stepControl]="views.get([0])">
-                <app-collection-details [collectionDetails]="collectionDetails"></app-collection-details>
+            <cdk-step [editable]=true [stepControl]="">
+                <app-collection-details></app-collection-details>
+                <pre > {{createCollectionForm.value | json}} </pre>
             </cdk-step>
             
             <!-- View 2: Select NFTs for Collection -->
-            <cdk-step [editable]=true [stepControl]="views.get([1])">
-                <!-- <ng-container *ngIf="this.selectedNfts?.length && !isLoading"> -->
-
-                    <!-- <ng-container *ngFor="let nftControl of selectedNfts; index as i"> -->
-                        <app-collection-selections 
-                            class="full-height-width-container" 
-                            [collectionSelections]="collectionSelections"
-                            [collectionNfts]="collectionNfts"
-                        ></app-collection-selections>
-                    <!-- </ng-container> -->
-                <!-- </ng-container> -->
-
+            <cdk-step [editable]=true [stepControl]="">
+                <app-collection-selections class="full-height-width-container"></app-collection-selections>
             </cdk-step>
         </app-collection-stepper>
-    </ng-container>
+    </form>
 
     <!-- View 3: Collection Successfully Created -->
     <!-- <app-collection-success></app-collection-success> -->     

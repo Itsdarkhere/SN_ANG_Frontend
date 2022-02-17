@@ -646,15 +646,12 @@
               DESO
             </div>
             <!-- FOR MIN AND HIGH BID-->
-            <div class="val" *ngIf="!(!(ownsEdition || editionHasUnlockable) && !editionForSale && editionHasBeenSold)">
+            <div class="val" *ngIf="editionForSale">
               {{
                 highBid === 0 ? globalVars.nanosToUSD(this.nftMinBidAmountNanos, 2) : globalVars.nanosToUSD(highBid, 2)
               }}
             </div>
-            <div
-              class="val_st"
-              *ngIf="!(!(ownsEdition || editionHasUnlockable) && !editionForSale && editionHasBeenSold)"
-            >
+            <div class="val_st" *ngIf="editionForSale">
               {{
                 highBid === 0
                   ? globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5)

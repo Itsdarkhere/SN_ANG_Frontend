@@ -106,7 +106,7 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
       this.globalVars?.loggedInUser?.PublicKeyBase58Check === "BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w"
     ) {
       console.log("Sending email");
-      this.emailService.SendWelcomeEmail("Valtteri", "link", "valtteri@supernovas.app");
+      this.emailService.SendInactiveUserEmail("Valtteri", "link", "valtteri@supernovas.app");
     }
   }
 

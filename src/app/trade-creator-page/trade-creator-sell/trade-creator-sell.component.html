@@ -46,7 +46,7 @@
       <img alt="waller" src="/assets/icons/wallet-icon.svg" />
     </div>
     <div class="sell-info-text-container pl-10px d-flex flex-column flex-start-center w-70">
-      <span class="you-own">Your own</span>
+      <span class="you-own">You own</span>
       <span class="you-own-amount font-weight-semiboldn">
         {{ creatorCoinTrade.assetToSellBalance() }} ${{ creatorProfile.Username }}
       </span>
@@ -57,7 +57,7 @@
   <div class="trade-creator-coin-info-box d-flex flex-center flex-column">
     <div class="coin-info-box-top">
       <span class="you-receive">You are selling</span>
-      <span class="amount-of-coins">{{ creatorCoinTrade.amount.value }} ${{ creatorProfile.Username }} coins</span>
+      <span class="amount-of-coins font-weight-semiboldn">{{ creatorCoinTrade.amount.value }} ${{ creatorProfile.Username }} coins</span>
     </div>
     <div class="coin-info-box-bottom">
       <span class="network-fees">Your receive</span>

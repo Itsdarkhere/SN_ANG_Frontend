@@ -108,6 +108,8 @@ export class MintNftModalComponent {
         this.includeUnlockable,
         this.putOnSale,
         Math.trunc(this.minBidAmountDESO * 1e9),
+        this.putOnSale,
+        Math.trunc(this.minBidAmountDESO * 1e9),
         this.globalVars.defaultFeeRateNanosPerKB
       )
       .subscribe(

@@ -1,6 +1,8 @@
 <div app-theme class="nft-modal-container p-15px">
   <nft-modal-header
     [header]="isSelectingSerialNumber ? 'Select an edition' : 'Place a bid'"
+    [clickedPlaceABid]="clickedPlaceABid"
+    [isBuyNow]="isBuyNow"
     [bsModalRef]="bsModalRef"
   ></nft-modal-header>
 
@@ -235,7 +237,8 @@
       </div>
     </div>
     <div *ngIf="!biddableSerialNumbers?.length" class="fs-15px text-center">
-      There are no serial numbers available for you to bid on.
+      <p>There are no serial numbers available for you to bid on.</p>
+      <p>{{ this.availableSerialNumbers }}</p>
     </div>
   </div>
 </div>

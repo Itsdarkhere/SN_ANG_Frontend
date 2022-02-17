@@ -20,12 +20,14 @@ import { BsModalService } from "ngx-bootstrap/modal";
 import { DomSanitizer } from "@angular/platform-browser";
 import * as _ from "lodash";
 import { PlaceBidModalComponent } from "../../place-bid-modal/place-bid-modal.component";
+import { BuyNowModalComponent } from "../../buy-now-modal/buy-now-modal.component";
 import { EmbedUrlParserService } from "../../../lib/services/embed-url-parser-service/embed-url-parser-service";
 import { SharedDialogs } from "../../../lib/shared-dialogs";
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 import { UnlockContentModalComponent } from "src/app/unlock-content-modal/unlock-content-modal.component";
 import { CreateNftAuctionModalComponent } from "src/app/create-nft-auction-modal/create-nft-auction-modal.component";
 import { take } from "rxjs/operators";
+import { Console } from "console";
 
 @Component({
   selector: "feed-post",
@@ -151,6 +153,16 @@ export class FeedPostComponent implements OnInit {
   @Output() onSingleBidCancellation = new EventEmitter();
   @Output() onMultipleBidsCancellation = new EventEmitter();
 
+  // BUY NOW
+  isBuyNow: boolean;
+  buyNowPriceNanos: number;
+  buyNowMinBidAmountNanos: number;
+  isMinBidLessThanBuyNow: boolean;
+  serialNumber: number;
+  clickedPlaceABid: boolean;
+  clickedBuyNow: boolean;
+
+  editionNumber: number;
   AppRoutingModule = AppRoutingModule;
   addingPostToGlobalFeed = false;
   repost: any;
@@ -177,15 +189,33 @@ export class FeedPostComponent implements OnInit {
   decryptableNFTEntryResponses: NFTEntryResponse[];
   isLockablePopup: boolean = false;
 
-  IsBuyNow: boolean;
-  BuyNowPriceNanos: number;
   nftEntryResponse: any;
+  buyNowEqualMinBid: boolean;
 
   unlockableTooltip =
     "This NFT will come with content that's encrypted and only unlockable by the winning bidder. Note that if an NFT is being resold, it is not guaranteed that the new unlockable will be the same original unlockable.";
   mOfNNFTTooltip =
     "Each NFT can have multiple editions, each of which has its own unique serial number. This shows how many editions are currently on sale and how many there are in total. Generally, editions with lower serial numbers are more valuable.";
 
+  // NEWLY WRITTEN LOGIC FOR NFT DETAIL
+  ownsEdition: boolean;
+  editionForSale: boolean;
+  editionIsBuyNow: boolean;
+  editionHasBids: boolean;
+  editionHasUnlockable: boolean;
+  editionHasBidByUser: boolean;
+
+  _tabSerialNumberClicked(id: number) {
+    this.editionNumber = id;
+    // Insert selected ser into variable
+    this.nftEntryResponse = this.nftEntryResponses[this.editionNumber - 1];
+
+    // Update buy now related stuff
+    this.updateBuyNow();
+
+    // Update edition specifics
+    this.updateEditionSpecificLogic();
+  }
   getNFTEntries() {
     this.backendApi
       .GetNFTEntriesForNFTPost(
@@ -195,16 +225,18 @@ export class FeedPostComponent implements OnInit {
       )
       .subscribe((res) => {
         this.nftEntryResponses = res.NFTEntryResponses;
-        // added buyNow logic
-        this.nftEntryResponse = this.nftEntryResponses[0];
-        if (this.nftEntryResponse.IsBuyNow) {
-          this.IsBuyNow = true;
-        } else {
-          this.IsBuyNow = false;
-        }
-        this.BuyNowPriceNanos = this.nftEntryResponse.BuyNowPriceNanos;
-        // end of buyNow logic
-        this.isAvailableForSale = this.nftEntryResponses[0].IsForSale;
+        // Set serialnumber of which to use in logic to be one that the user owns
+        // or the first one if user does not own any
+        this.setSerialNumberToUse();
+        // Insert selected ser into variable
+        this.nftEntryResponse = this.nftEntryResponses[this.editionNumber - 1];
+
+        // Update buy now related stuff
+        this.updateBuyNow();
+
+        // Update edition specifics
+        this.updateEditionSpecificLogic();
+
         this.nftEntryResponses.sort((a, b) => a.SerialNumber - b.SerialNumber);
         this.decryptableNFTEntryResponses = this.nftEntryResponses.filter(
           (sn) =>
@@ -254,6 +286,60 @@ export class FeedPostComponent implements OnInit {
         }
       });
   }
+
+  updateEditionSpecificLogic() {
+    this.isAvailableForSale = this.nftEntryResponses[this.editionNumber - 1].IsForSale;
+    // Check if user owns this edition
+    this.ownsEdition =
+      this.nftEntryResponse.OwnerPublicKeyBase58Check == this.globalVars?.loggedInUser?.PublicKeyBase58Check;
+    // Check if this edition is for sale
+    this.editionForSale = this.nftEntryResponses[this.editionNumber - 1].IsForSale;
+    // Check if edition has bids
+    this.editionHasBids = this.nftBidData?.BidEntryResponses.length > 0;
+    // Check if edition has unlockable
+    if (!this.editionIsBuyNow) {
+      this.editionHasUnlockable = this.nftEntryResponse.HasUnlockable;
+    }
+    // Check if user has made a bid on this edition
+    if (!this.ownsEdition) {
+      this.nftBidData.BidEntryResponses.forEach((bid) => {
+        if (bid.PublicKeyBase58Check === this.globalVars.loggedInUser.PublicKeyBase58Check) {
+          this.editionHasBidByUser = true;
+        }
+      });
+    }
+
+    console.log(this.editionForSale);
+    console.log(this.editionHasBids);
+    console.log(this.editionIsBuyNow);
+    console.log(this.editionNumber);
+    console.log(this.ownsEdition);
+    console.log(this.editionHasUnlockable);
+    console.log(this.editionHasBidByUser);
+    console.log(this.globalVars.loggedInUser.ProfileEntryResponse.Username);
+  }
+
+  updateBuyNow() {
+    if (this.nftEntryResponse.IsBuyNow) {
+      this.editionIsBuyNow = true;
+      if (this.editionIsBuyNow && this.nftEntryResponse.BuyNowPriceNanos === this.nftEntryResponse.MinBidAmountNanos) {
+        this.buyNowEqualMinBid = true;
+      } else {
+        this.buyNowEqualMinBid = false;
+      }
+    } else {
+      this.isBuyNow = false;
+    }
+    this.buyNowPriceNanos = this.nftEntryResponse.BuyNowPriceNanos;
+    this.buyNowMinBidAmountNanos = this.nftEntryResponse.MinBidAmountNanos;
+    this.serialNumber = this.nftEntryResponse.SerialNumber;
+    if (this.buyNowMinBidAmountNanos < this.buyNowPriceNanos) {
+      this.isMinBidLessThanBuyNow = true;
+    } else {
+      this.isMinBidLessThanBuyNow = false;
+    }
+  }
+
   showCreateNFTAuction(): boolean {
     return (
       this.post.IsNFT &&
@@ -293,8 +379,8 @@ export class FeedPostComponent implements OnInit {
     if (this.showNFTDetails && this.postContent.IsNFT && !this.nftEntryResponses?.length) {
       this.getNFTEntries();
     }
-
-    console.log(` -------------------- postContent ${JSON.stringify(this.postContent)} ------------------------ `);
+    this.globalVars.NFTRoyaltyToCoinBasisPoints = this.postContent.NFTRoyaltyToCoinBasisPoints / 100;
+    this.globalVars.NFTRoyaltyToCreatorBasisPoints = this.postContent.NFTRoyaltyToCreatorBasisPoints / 100;
   }
   SendAddToCartEvent() {
     this.analyticsService.eventEmitter("place_a_bid", "transaction", "bid", "click", 10);
@@ -634,6 +720,9 @@ export class FeedPostComponent implements OnInit {
   }
 
   openPlaceBidModal(event: any) {
+    this.clickedBuyNow = false;
+    this.clickedPlaceABid = true;
+
     if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
       SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "place a bid");
       return;
@@ -641,7 +730,7 @@ export class FeedPostComponent implements OnInit {
     event.stopPropagation();
     const modalDetails = this.modalService.show(PlaceBidModalComponent, {
       class: "modal-dialog-centered nft_placebid_modal_bx nft_placebid_modal_bx_right modal-lg",
-      initialState: { post: this.postContent },
+      initialState: { post: this.postContent, clickedPlaceABid: this.clickedPlaceABid, isBuyNow: this.isBuyNow },
     });
 
     const onHideEvent = modalDetails.onHide;
@@ -652,6 +741,34 @@ export class FeedPostComponent implements OnInit {
       }
     });
   }
+
+  openBuyNowModal(event: any) {
+    this.clickedBuyNow = true;
+    this.clickedPlaceABid = false;
+
+    if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
+      SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "buy now");
+      return;
+    }
+    event.stopPropagation();
+    const modalDetails = this.modalService.show(BuyNowModalComponent, {
+      class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+      initialState: {
+        post: this.postContent,
+        buyNowPriceNanos: this.buyNowPriceNanos,
+        clickedBuyNow: this.clickedBuyNow,
+      },
+    });
+
+    const onHideEvent = modalDetails.onHide;
+    onHideEvent.subscribe((response) => {
+      if (response === "bid placed") {
+        this.getNFTEntries();
+        this.nftBidPlaced.emit();
+      }
+    });
+  }
+
   ViewUnlockableContent() {
     this.modalService.show(UnlockContentModalComponent, {
       class: "modal-dialog-centered nft_placebid_modal_bx nft_placebid_modal_bx_right modal-lg",
@@ -706,6 +823,21 @@ export class FeedPostComponent implements OnInit {
       (NFTEntryResponse) => NFTEntryResponse.OwnerPublicKeyBase58Check === loggedInPubKey
     );
     return serialList.length > 0;
+  }
+  // If user owns a serial number we want to show stuff related to that serial number
+  setSerialNumberToUse() {
+    const loggedInPubKey = this.globalVars?.loggedInUser?.PublicKeyBase58Check;
+    if (!this.nftEntryResponses) {
+      return false;
+    }
+    let serialList = this.nftEntryResponses.filter(
+      (NFTEntryResponse) => NFTEntryResponse.OwnerPublicKeyBase58Check === loggedInPubKey
+    );
+    if (serialList.length > 0) {
+      this.editionNumber = serialList[0].SerialNumber;
+    } else {
+      this.editionNumber = 1;
+    }
   }
   sellYourBid() {
     this.sellNFT.emit();

@@ -1,0 +1,19 @@
+<!--This is a card for feeds, has a background-->
+<div class="nft-post-container">
+  <div class="w-100 d-flex flex-center p-20px position-relative overflow-hidden padding-top-51px">
+    <object data="/assets/img/nft-background.svg" class="nft-background" type="image/svg+xml"></object>
+    <ng-content></ng-content>
+  </div>
+  <div class="card-footer-2 d-flex flex-center">
+    <div class="w-80">
+      <!-- Like, Comment, Reclout, Share Buttons -->
+      <feed-post-icon-row
+        [post]="post"
+        [postContent]="post"
+        [parentPost]="parentPost"
+        [afterCommentCreatedCallback]="afterCommentCreatedCallback"
+        [afterRepostCreatedCallback]="afterRepostCreatedCallback"
+      ></feed-post-icon-row>
+    </div>
+  </div>
+</div>

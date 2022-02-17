@@ -245,6 +245,9 @@
   box-shadow: 1.0368170738220215px 1.0368170738220215px 2.073634147644043px rgba(0, 0, 0, 0.03);
   transition-duration: 0.3s;
   cursor: pointer;
+  width: 95% !important;
+  margin-left: 5px;
+  padding: 0;
   &:hover {
     border: 1.0368170738220215px solid #c1c1c1;
   }
@@ -703,9 +706,6 @@ input[type="number"] {
 .mint-page-deso-logo {
   height: 25px;
 }
-.color-text {
-  color: var(--text) !important;
-}
 .mt-40px {
   margin-top: 40px;
 }
@@ -970,4 +970,90 @@ input[type="number"] {
 }
 .fake-card-inner-row {
   width: calc(100% - 100px);
+}
+.info-img {
+  height: 30px;
+  width: 30px;
+}
+
+.optional-box {
+  width: 93px;
+  height: 22px;
+
+  background: #e1e1e1;
+  border-radius: 30px;
+  margin-left: 10px;
+}
+
+.optional-text {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 22px;
+  color: #616161;
+  text-align: center;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 38.82px;
+  height: 22px;
+  margin-left: 10px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2.375px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(17px);
+  -ms-transform: translateX(17px);
+  transform: translateX(17px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 22px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }

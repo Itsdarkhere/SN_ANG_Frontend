@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { GlobalVarsService } from "../global-vars.service";
 import { BidPlacedModalComponent } from "../bid-placed-modal/bid-placed-modal.component";
@@ -8,29 +8,33 @@ import { Router } from "@angular/router";
 import { InfiniteScroller } from "../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { GoogleAnalyticsService } from "../google-analytics.service";
-import { object } from "underscore";
+import { Location } from "@angular/common";
+import { ToastrService } from "ngx-toastr";
+import { CommentModalComponent } from "../comment-modal/comment-modal.component";
 
 @Component({
-  selector: "place-bid-modal",
-  templateUrl: "./place-bid-modal.component.html",
-  styleUrls: ["./place-bid-modal.component.scss"],
+  selector: "app-buy-now-modal",
+  templateUrl: "./buy-now-modal.component.html",
+  styleUrls: ["./buy-now-modal.component.scss"],
 })
-export class PlaceBidModalComponent implements OnInit {
+export class BuyNowModalComponent implements OnInit {
   static PAGE_SIZE = 50;
   static BUFFER_SIZE = 10;
   static WINDOW_VIEWPORT = false;
   static PADDING = 0.5;
 
+  //   @Input() bsModalRef: BsModalRef;
   @Input() postHashHex: string;
   @Input() post: PostEntryResponse;
-  @Input() clickedPlaceABid: boolean;
-  @Input() isBuyNow: boolean;
+  @Input() selectedSerialNumber: NFTEntryResponse;
+  @Input() buyNowPriceNanos: number;
+  @Output() closeModal = new EventEmitter<any>();
+  @Input() clickedBuyNow: boolean;
   bidAmountDESO: number;
   bidAmountUSD: string;
-  selectedSerialNumber: NFTEntryResponse = null;
+  //   selectedSerialNumber: NFTEntryResponse = null;
   availableCount: number;
-  //   availableSerialNumbers: NFTEntryResponse[];
-  availableSerialNumbers: any;
+  availableSerialNumbers: NFTEntryResponse[];
   biddableSerialNumbers: NFTEntryResponse[];
   highBid: number = null;
   lowBid: number = null;
@@ -41,6 +45,8 @@ export class PlaceBidModalComponent implements OnInit {
   showSelectedSerialNumbers = false;
   placingBids: boolean = false;
   errors: string;
+  buyingNFT: boolean = false;
+  buyNowNftSuccess: boolean = false;
 
   constructor(
     private analyticsService: GoogleAnalyticsService,
@@ -48,33 +54,13 @@ export class PlaceBidModalComponent implements OnInit {
     private backendApi: BackendApiService,
     private modalService: BsModalService,
     public bsModalRef: BsModalRef,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService,
+    private location: Location
   ) {}
 
-  //   ngOnInit(): void {
-  //     this.backendApi
-  //       .GetNFTCollectionSummary(
-  //         this.globalVars.localNode,
-  //         this.globalVars.loggedInUser.PublicKeyBase58Check,
-  //         this.post.PostHashHex
-  //       )
-  //       .subscribe((res) => {
-  //         this.availableSerialNumbers = _.values(res.SerialNumberToNFTEntryResponse).sort(
-  //           (a, b) => a.SerialNumber - b.SerialNumber
-  //         );
-  //         this.availableCount = res.NFTCollectionResponse.PostEntryResponse.NumNFTCopiesForSale;
-  //         this.biddableSerialNumbers = this.availableSerialNumbers.filter(
-  //           (nftEntryResponse) =>
-  //             nftEntryResponse.OwnerPublicKeyBase58Check !== this.globalVars.loggedInUser.PublicKeyBase58Check
-  //         );
-  //       })
-  //       .add(() => (this.loading = false));
-
-  //     this.SendBidModalOpenedEvent();
-  //   }
-
   ngOnInit(): void {
-    console.log(this.clickedPlaceABid);
+    console.log(this.clickedBuyNow);
     this.backendApi
       .GetNFTCollectionSummary(
         this.globalVars.localNode,
@@ -82,34 +68,11 @@ export class PlaceBidModalComponent implements OnInit {
         this.post.PostHashHex
       )
       .subscribe((res) => {
-        let resObjJSON = JSON.stringify(res.SerialNumberToNFTEntryResponse);
-        let resObj = JSON.parse(resObjJSON);
-
-        console.log(res);
-        // console.log(resObj);
-        let objValues = Object.values(resObj);
-        console.log(objValues);
-
-        // this.availableSerialNumbers = _.values(res.SerialNumberToNFTEntryResponse).sort(
-        this.availableSerialNumbers = objValues.sort(
-          (a: { SerialNumber: number }, b: { SerialNumber: number }) => a.SerialNumber - b.SerialNumber
+        this.availableSerialNumbers = _.values(res.SerialNumberToNFTEntryResponse).sort(
+          (a, b) => a.SerialNumber - b.SerialNumber
         );
-
-        let availableSerialNumbersJSON = JSON.stringify(this.availableSerialNumbers);
-        let availableSerialNumbersObj = JSON.parse(availableSerialNumbersJSON);
-
-        // console.log(` ------------------ type of availableSerialNumbers ${typeof this.availableSerialNumbers}`);
-        // console.log(` ------------------ availableSerialNumbersJSON ${availableSerialNumbersJSON}`);
-        // console.log(` ------------------ availableSerialNumbersObj ${availableSerialNumbersObj.length}`);
-
-        // // log each object in the array since you cannot with availableSerialNumbersObj since it logs [object Object]
-        // for (var i = 0; i < availableSerialNumbersObj.length; i++) {
-        //   console.log(availableSerialNumbersObj[i]);
-        // }
-
         this.availableCount = res.NFTCollectionResponse.PostEntryResponse.NumNFTCopiesForSale;
-        // if the nftEntryResponse OwnerPublicKeyBase58Check doesn't equal the logged in user then you can bid
-        this.biddableSerialNumbers = availableSerialNumbersObj.filter(
+        this.biddableSerialNumbers = this.availableSerialNumbers.filter(
           (nftEntryResponse) =>
             nftEntryResponse.OwnerPublicKeyBase58Check !== this.globalVars.loggedInUser.PublicKeyBase58Check
         );
@@ -118,6 +81,7 @@ export class PlaceBidModalComponent implements OnInit {
 
     this.SendBidModalOpenedEvent();
   }
+
   SendBidModalOpenedEvent() {
     this.analyticsService.eventEmitter("bid_modal_opened", "usage", "activity", "click", 10);
   }
@@ -147,48 +111,97 @@ export class PlaceBidModalComponent implements OnInit {
         : "";
   }
 
-  placeBid() {
-    this.setErrors();
-    if (this.errors) {
-      return;
-    }
-    this.saveSelectionDisabled = true;
-    this.placingBids = true;
-    this.backendApi
-      .CreateNFTBid(
-        this.globalVars.localNode,
-        this.globalVars.loggedInUser.PublicKeyBase58Check,
-        this.post.PostHashHex,
-        this.selectedSerialNumber.SerialNumber,
-        Math.trunc(this.bidAmountDESO * 1e9),
-        this.globalVars.defaultFeeRateNanosPerKB
-      )
-      .subscribe(
-        (res) => {
-          // Hide this modal and open the next one.
-          this.bsModalRef.hide();
-          this.modalService.show(BidPlacedModalComponent, {
-            class: "modal-dialog-centered modal-dialog-bottom rt_popups modal-sm",
-          });
-          this.modalService.setDismissReason("bid placed");
-          this.SendBidPlacedEvent();
-        },
-        (err) => {
-          console.error(err);
-          this.globalVars._alertError(this.backendApi.parseMessageError(err));
-        }
-      )
-      .add(() => {
-        this.placingBids = false;
-        this.saveSelectionDisabled = false;
-      });
+  buyNowNft() {
+    // this.setErrors();
+    // if (this.errors) {
+    //   return;
+    // }
+    // this.saveSelectionDisabled = true;
+    // this.placingBids = true;
+
+    // this.buyingNFT = true;
+
+    this.buyNowNftSuccess = true;
+
+    // this.backendApi
+    //   .CreateNFTBid(
+    //     this.globalVars.localNode,
+    //     this.globalVars.loggedInUser.PublicKeyBase58Check,
+    //     this.post.PostHashHex,
+    //     this.globalVars.SerialNumber,
+    //     // Math.trunc(this.bidAmountDESO * 1e9),
+    //     this.globalVars.BuyNowPriceNanos,
+    //     this.globalVars.defaultFeeRateNanosPerKB
+    //   )
+    //   .subscribe(
+    //     (res) => {
+    //       //   if (!this.globalVars.isMobile()) {
+    //       //     // Hide this modal and open the next one.
+    //       //     this.closeModal.emit("nft purchased");
+    //       //   } else {
+    //       //     this.location.back();
+    //       //   }
+    //       //   this.showToast();
+    //       this.buyNowNftSuccess = true;
+    //       console.log(` ---------------------- success bought nft -------------------- `);
+    //       //
+    //     },
+    //     (err) => {
+    //       console.error(err);
+    //       this.buyNowNftSuccess = false;
+    //       this.globalVars._alertError(this.backendApi.parseMessageError(err));
+    //     }
+    //   )
+    //   .add(() => {
+    //     // this.buyingNFT = false;
+    //   });
   }
+
+  quoteRepost(event, isQuote = true) {
+    // Prevent the post navigation click from occurring.
+    event.stopPropagation();
+
+    if (!this.globalVars.loggedInUser) {
+      // Check if the user has an account.
+      this.globalVars.logEvent("alert : reply : account");
+      this.globalVars._alertError("Cannot Quote repost, create account to post...");
+    } else if (!this.globalVars.doesLoggedInUserHaveProfile()) {
+      // Check if the user has a profile.
+      this.globalVars.logEvent("alert : reply : profile");
+      this.globalVars._alertError("Cannot Quote repost, create profile to post...");
+    } else {
+      const initialState = {
+        // If we are quoting a post, make sure we pass the content so we don't repost a repost.
+        parentPost: this.post,
+        afterCommentCreatedCallback: null,
+        isQuote,
+      };
+      if (!this.post) {
+        this.globalVars._alertError("Cannot Quote repost, create profile to post...");
+        return;
+      }
+      // If the user has an account and a profile, open the modal so they can comment.
+      this.modalService.show(CommentModalComponent, {
+        class: "modal-dialog-centered",
+        initialState,
+      });
+    }
+  }
+
   SendBidPlacedEvent() {
     this.analyticsService.eventEmitter("bid_placed", "usage", "activity", "transaction", 10);
   }
   navigateToBuyDESO(): void {
     this.bsModalRef.hide();
     this.router.navigate(["/" + this.globalVars.RouteNames.BUY_DESO]);
+  }
+  showToast(): void {
+    const link = `/${this.globalVars.RouteNames.NFT}/${this.post.PostHashHex}`;
+    this.toastr.show(`NFT Purchased<a href="${link}" class="toast-link cursor-pointer">View</a>`, null, {
+      toastClass: "info-toast",
+      enableHtml: true,
+      positionClass: "toast-bottom-center",
+    });
   }
 
   saveSelection(): void {
@@ -219,11 +232,11 @@ export class PlaceBidModalComponent implements OnInit {
   }
 
   infiniteScroller: InfiniteScroller = new InfiniteScroller(
-    PlaceBidModalComponent.PAGE_SIZE,
+    BuyNowModalComponent.PAGE_SIZE,
     this.getPage.bind(this),
-    PlaceBidModalComponent.WINDOW_VIEWPORT,
-    PlaceBidModalComponent.BUFFER_SIZE,
-    PlaceBidModalComponent.PADDING
+    BuyNowModalComponent.WINDOW_VIEWPORT,
+    BuyNowModalComponent.BUFFER_SIZE,
+    BuyNowModalComponent.PADDING
   );
   datasource: IDatasource<IAdapter<any>> = this.infiniteScroller.getDatasource();
   lastPage = null;
@@ -232,8 +245,8 @@ export class PlaceBidModalComponent implements OnInit {
     if (this.lastPage != null && page > this.lastPage) {
       return [];
     }
-    const startIdx = page * PlaceBidModalComponent.PAGE_SIZE;
-    const endIdx = (page + 1) * PlaceBidModalComponent.PAGE_SIZE;
+    const startIdx = page * BuyNowModalComponent.PAGE_SIZE;
+    const endIdx = (page + 1) * BuyNowModalComponent.PAGE_SIZE;
 
     return new Promise((resolve, reject) => {
       resolve(this.biddableSerialNumbers.slice(startIdx, Math.min(endIdx, this.biddableSerialNumbers.length)));

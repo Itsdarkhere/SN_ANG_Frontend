@@ -18,7 +18,7 @@
         margin: auto;
         max-width: 100%;
         &.noti-img {
-          width: 20px;
+          width: 18px;
         }
       }
     }
@@ -29,6 +29,8 @@
     }
   }
 }
+
+
 
 .bottom-bar-list-padding {
   display: flex;
@@ -52,7 +54,7 @@
         margin: auto;
         max-width: 100%;
         &.noti-img {
-          width: 20px;
+          width: 18px;
         }
       }
     }
@@ -71,20 +73,26 @@
   background-repeat: no-repeat;
   background-size: 100% 100%;
   border-radius: 80px;
-  padding: 5px;
+  padding: 3px;
   font-size: 12px;
   border: 0;
-  top: -5px;
+  top: -12px;
   position: relative;
   .nb {
     background-color: var(--formbg);
     color: var(--button);
-    height: 52px;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 52px;
+    width: 60px;
     border-radius: 50%;
-    box-shadow: 0 -2px 6px rgb(0 0 0 / 20%) inset;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.2) inset;
   }
 }
+
+.cursor-point-hamburguer {
+  cursor: pointer;
+}
+
+

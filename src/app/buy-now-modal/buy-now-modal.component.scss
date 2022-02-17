@@ -1,0 +1,228 @@
+@import "../../assets/popup-ui.scss";
+.page-place-a-bid {
+  text-align: center;
+  width: 430px;
+  margin: auto;
+  max-width: 100%;
+  .text-red {
+    color: var(--cred);
+    margin-top: 30px;
+    line-height: 1.6;
+  }
+  .text-light {
+    color: var(--grey) !important;
+  }
+}
+
+/* Chrome, Safari, Edge, Opera */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.flex-container-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.purchase-price-container {
+  width: 346px;
+  height: 129px;
+  left: 139px;
+  top: 109px;
+
+  background: #ffffff;
+  border: 5px solid rgba(0, 0, 0, 0.11);
+  box-sizing: border-box;
+  box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.purchase-price-header {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+
+  color: #8e8e8e;
+  margin-top: 10px;
+}
+
+
+.buy-now-price-deso {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 49px;
+
+  color: #0d0d0d;
+}
+
+.buy-now-price-usd {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 21px;
+  line-height: 33px;
+
+  color: #535353;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.deso-logo-img {
+  width: 25px;
+  height: 29px;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.deso-balance-container {
+  background: #eeeeee;
+  border-radius: 11.2088px;
+  width: 377px;
+  height: 37px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+.deso-balance-text {
+  text-align: center;
+  line-height: 37px;
+}
+
+.royalty-fee-container {
+  width: 391px;
+  height: 169px;
+
+  background: #f5f5f5;
+  box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+.royalty-fee-row {
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.royalty-fee-text {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: #656565;
+  flex: 1;
+}
+
+.royalty-fee-number {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 24px;
+  flex: 1;
+  text-align: right;
+  color: #6c6c6c;
+}
+
+.line-divider {
+  width: 365px;
+  height: 0px;
+  border: 1px solid #dadada;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.purchase_btn {
+  background: black;
+  color: white;
+  margin-top: 20px;
+}
+
+.buy-now-success-img {
+  height: 100px;
+  width: 100px;
+  margin: 0 auto;
+}
+
+.buy-now-success-header {
+  margin-top: 30px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 48px;
+
+  text-align: center;
+
+  color: #0d0d0d;
+}
+
+.buy-now-success-text {
+  margin: 0 auto;
+  margin-top: 20px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 28px;
+  width: 400px;
+
+  text-align: center;
+
+  color: #070707;
+}
+
+.quote_repost_btn {
+  margin-top: 25px;
+  background: black;
+  color: white;
+}
+
+.close_window_btn {
+  margin-top: 15px;
+}
+
+@media screen and (max-width: 480px) {
+  .deso-balance-container {
+    background: #eeeeee;
+    border-radius: 11.2088px;
+    width: 350px;
+    height: 37px;
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+
+  .royalty-fee-container {
+    width: 350px;
+    height: 169px;
+    background: #f5f5f5;
+    box-shadow: 0px 4px 50px rgb(0 0 0 / 5%);
+    border-radius: 20px;
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+
+  .buy-now-success-text {
+    margin: 0 auto;
+    margin-top: 20px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 28px;
+    width: 350px;
+    text-align: center;
+    color: #070707;
+  }
+}

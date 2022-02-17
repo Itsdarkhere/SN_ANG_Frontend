@@ -12,10 +12,7 @@
     />
     <!-- Problems with other elements than button -->
     <button class="trade-creator-input-label h-100 pt-5px">
-      <div
-        [avatar]="'BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w'"
-        class="trade-creator-transfer-avatar"
-      ></div>
+      <div [avatar]="globalVars?.loggedInUser?.PublicKeyBase58Check" class="trade-creator-transfer-avatar"></div>
     </button>
   </div>
   <!-- Errors-->

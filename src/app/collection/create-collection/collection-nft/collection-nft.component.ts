@@ -1,40 +1,19 @@
-import { Component, EventEmitter, forwardRef, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { GlobalVarsService } from "../../../global-vars.service";
 import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../../../backend-api.service";
 import { InfiniteScroller } from "../../../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { ControlContainer, NgForm } from '@angular/forms';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-collection-nft',
   templateUrl: './collection-nft.component.html',
   styleUrls: ['./collection-nft.component.scss'],
-  viewProviders: [ { provide: ControlContainer, useExisting: NgForm } ],
-  providers: [
-    { 
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CollectionNftComponent),
-      multi: true
-    }
-  ]
+  viewProviders: [ { provide: ControlContainer, useExisting: NgForm } ]
 })
 
-export class CollectionNftComponent implements ControlValueAccessor, OnInit {
+export class CollectionNftComponent implements OnInit {
   constructor(private globalVars: GlobalVarsService, private backendApi: BackendApiService) {}
-  
-  writeValue(obj: any): void {
-    throw new Error('Method not implemented.');
-  }
-  registerOnChange(fn: any): void {
-    throw new Error('Method not implemented.');
-  }
-  registerOnTouched(fn: any): void {
-    throw new Error('Method not implemented.');
-  }
-  setDisabledState?(isDisabled: boolean): void {
-    throw new Error('Method not implemented.');
-  }
 
   @Output() userNfts: EventEmitter<PostEntryResponse[]> = new EventEmitter();
 
@@ -44,9 +23,7 @@ export class CollectionNftComponent implements ControlValueAccessor, OnInit {
   static PADDING = 0.5;
   static MY_BIDS = "My Bids";
 
-  collectionNft: object[];
   selectedNft: PostEntryResponse;
-  saveNft: boolean; 
   
   isLoading: boolean = true;
   startIndex: number = 0;

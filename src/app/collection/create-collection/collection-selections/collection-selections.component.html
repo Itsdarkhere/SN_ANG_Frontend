@@ -11,7 +11,10 @@
 		<div class="collection-selections-main-content">	
 			<!-- Container with "position: absolute;" allows inner flex content to scroll -->
 			<div class="collection-selections-user-nfts">
-				<app-collection-nft (userNfts)="getUserNfts($event)" class="full-height-width-container"></app-collection-nft>
+				<app-collection-nft 
+					(userNfts)="getUserNfts($event)"
+					class="full-height-width-container"
+				></app-collection-nft>
 			</div>
 		</div>
 	</div>

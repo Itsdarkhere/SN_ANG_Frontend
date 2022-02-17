@@ -627,31 +627,20 @@
       <div></div>
       <div *ngIf="showExpandedNFTDetails" class="d-flex nft_current_bid_tpwrapper">
         <div
-          *ngIf="!editionIsBuyNow && (editionHasBeenSold || editionForSale)"
+          *ngIf="!editionIsBuyNow && editionForSale"
           class="nft_current_bid"
           [ngClass]="{ 'pt-15px': globalVars.isMobile() }"
         >
           <div>
-            <span class="hq" *ngIf="editionForSale && !editionHasBids">MINIMUM BID</span>
-            <span class="hq" *ngIf="editionForSale && editionHasBids">HIGHEST BID</span>
-            <span class="hq" *ngIf="!(ownsEdition || editionHasUnlockable) && !editionForSale && editionHasBeenSold">
-              LAST SOLD FOR
-            </span>
-            <!-- FOR LAST SOLD FOR-->
-            <div class="val" *ngIf="!(ownsEdition || editionHasUnlockable) && !editionForSale && editionHasBeenSold">
-              {{ globalVars.nanosToUSD(this.nftEntryResponse.LastAcceptedBidAmountNanos, 2) }}
-            </div>
-            <div class="val_st" *ngIf="!(ownsEdition || editionHasUnlockable) && !editionForSale && editionHasBeenSold">
-              {{ globalVars.nanosToDeSo(this.nftEntryResponse.LastAcceptedBidAmountNanos, 5) }}
-              DESO
-            </div>
+            <span class="hq" *ngIf="!editionHasBids">MINIMUM BID</span>
+            <span class="hq" *ngIf="editionHasBids">HIGHEST BID</span>
             <!-- FOR MIN AND HIGH BID-->
-            <div class="val" *ngIf="editionForSale">
+            <div class="val">
               {{
                 highBid === 0 ? globalVars.nanosToUSD(this.nftMinBidAmountNanos, 2) : globalVars.nanosToUSD(highBid, 2)
               }}
             </div>
-            <div class="val_st" *ngIf="editionForSale">
+            <div class="val_st">
               {{
                 highBid === 0
                   ? globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5)
@@ -661,7 +650,21 @@
             </div>
           </div>
         </div>
-
+        <div
+          *ngIf="!editionForSale && editionHasBeenSold && !(ownsEdition && editionHasUnlockable)"
+          class="nft_current_bid"
+          [ngClass]="{ 'pt-15px': globalVars.isMobile() }"
+        >
+          <span class="hq">LAST SOLD FOR</span>
+          <!-- FOR LAST SOLD FOR-->
+          <div class="val">
+            {{ globalVars.nanosToUSD(this.nftEntryResponse.LastAcceptedBidAmountNanos, 2) }}
+          </div>
+          <div class="val_st">
+            {{ globalVars.nanosToDeSo(this.nftEntryResponse.LastAcceptedBidAmountNanos, 5) }}
+            DESO
+          </div>
+        </div>
         <div *ngIf="editionIsBuyNow" class="nft_current_bid_both" [ngClass]="{ 'pt-15px': globalVars.isMobile() }">
           <div class="buy_now_text_container">
             <span class="hq">BUY NOW PRICE</span>
@@ -733,11 +736,12 @@
             </div>
           </div>
         </div>
-
-        <div class="auction_detl border_n_pd" *ngIf="!editionForSale && ownsEdition && editionHasUnlockable">
-          <span class="hq">UNLOCKABLE CONTENT</span>
-          <div class="val">Unlocked!</div>
-          <div class="val_st">You are the only one who can view the unlockable content of this NFT.</div>
+        <div class="w-100 d-flex flex-center" *ngIf="!editionForSale && ownsEdition && editionHasUnlockable">
+          <div class="auction_detl border_n_pd">
+            <span class="hq">UNLOCKABLE CONTENT</span>
+            <div class="val">Unlocked!</div>
+            <div class="val_st">You are the only one who can view the unlockable content of this NFT.</div>
+          </div>
         </div>
       </div>
 

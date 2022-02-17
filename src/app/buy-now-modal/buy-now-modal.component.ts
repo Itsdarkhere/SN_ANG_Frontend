@@ -1,13 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { GlobalVarsService } from "../global-vars.service";
-import { BidPlacedModalComponent } from "../bid-placed-modal/bid-placed-modal.component";
 import { BackendApiService, NFTEntryResponse, PostEntryResponse } from "../backend-api.service";
 import * as _ from "lodash";
 import { Router } from "@angular/router";
 import { InfiniteScroller } from "../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
-import { GoogleAnalyticsService } from "../google-analytics.service";
 import { Location } from "@angular/common";
 import { ToastrService } from "ngx-toastr";
 import { CommentModalComponent } from "../comment-modal/comment-modal.component";
@@ -49,7 +47,6 @@ export class BuyNowModalComponent implements OnInit {
   buyNowNftSuccess: boolean = false;
 
   constructor(
-    private analyticsService: GoogleAnalyticsService,
     public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
     private modalService: BsModalService,
@@ -60,7 +57,6 @@ export class BuyNowModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.clickedBuyNow);
     this.backendApi
       .GetNFTCollectionSummary(
         this.globalVars.localNode,
@@ -79,12 +75,8 @@ export class BuyNowModalComponent implements OnInit {
       })
       .add(() => (this.loading = false));
 
-    this.SendBidModalOpenedEvent();
   }
 
-  SendBidModalOpenedEvent() {
-    this.analyticsService.eventEmitter("bid_modal_opened", "usage", "activity", "click", 10);
-  }
   updateBidAmountUSD(desoAmount) {
     this.bidAmountUSD = this.globalVars.nanosToUSDNumber(desoAmount * 1e9).toFixed(2);
     this.setErrors();
@@ -188,9 +180,6 @@ export class BuyNowModalComponent implements OnInit {
     }
   }
 
-  SendBidPlacedEvent() {
-    this.analyticsService.eventEmitter("bid_placed", "usage", "activity", "transaction", 10);
-  }
   navigateToBuyDESO(): void {
     this.bsModalRef.hide();
     this.router.navigate(["/" + this.globalVars.RouteNames.BUY_DESO]);

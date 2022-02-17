@@ -321,17 +321,6 @@ export class FeedPostComponent implements OnInit {
     }
     // Check if edition has been sold before
     this.editionHasBeenSold = this.nftEntryResponse.LastAcceptedBidAmountNanos > 0;
-
-    console.log(this.editionHasBeenSold);
-    console.log(this.editionForSale);
-    console.log(this.editionHasBids);
-    console.log(this.editionIsBuyNow);
-    console.log(this.editionNumber);
-    console.log(this.ownsEdition);
-    console.log(this.editionHasUnlockable);
-    console.log(this.editionHasBidByUser);
-    console.log(this.nftEntryResponses);
-    console.log(this.globalVars.loggedInUser.ProfileEntryResponse.Username);
   }
 
   updateBuyNow() {
@@ -737,7 +726,6 @@ export class FeedPostComponent implements OnInit {
   openPlaceBidModal(event: any) {
     this.clickedBuyNow = false;
     this.clickedPlaceABid = true;
-
     if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
       SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "place a bid");
       return;

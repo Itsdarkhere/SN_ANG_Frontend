@@ -5,7 +5,6 @@
 }
 
 .nft_current_bid_both {
-  width: 47%;
   padding-right: 20px;
   padding-left: 30px;
   padding-top: 0;
@@ -16,7 +15,7 @@
     width: 42%;
   }
   .val {
-    font-size: 28.2247px;
+    font-size: clamp(28px, 6vw, 42px);
     font-weight: 600;
     @media screen and (max-width: 767px) {
       font-size: 24px;
@@ -26,7 +25,7 @@
     color: #EEEEEE;
   }
   .val_st {
-    font-size: 17.4692px;
+    font-size: clamp(17px, 5vw, 22px);
     color: var(--textalt);
     @media screen and (max-width: 767px) {
       font-size: 14px;
@@ -43,7 +42,6 @@
   background: black;
   color: white;
   flex: 1;
-  margin-right: 10px;
 }
 
 .place_bid_btn_both {

@@ -23,6 +23,8 @@ export class PlaceBidModalComponent implements OnInit {
 
   @Input() postHashHex: string;
   @Input() post: PostEntryResponse;
+  @Input() clickedPlaceABid: boolean;
+  @Input() isBuyNow: boolean;
   bidAmountDESO: number;
   bidAmountUSD: string;
   selectedSerialNumber: NFTEntryResponse = null;
@@ -72,6 +74,7 @@ export class PlaceBidModalComponent implements OnInit {
   //   }
 
   ngOnInit(): void {
+    console.log(this.clickedPlaceABid);
     this.backendApi
       .GetNFTCollectionSummary(
         this.globalVars.localNode,

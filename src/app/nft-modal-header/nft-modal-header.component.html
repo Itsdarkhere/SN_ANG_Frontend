@@ -1,12 +1,12 @@
 <div class="w-100 d-flex nft_bid_header justify-content-between py-15px">
-  <div *ngIf="!this.globalVars.IsBuyNow" class="fs-20px head_txt lh-20px d-flex align-items-center font-weight-500">
+  <div *ngIf="!this.isBuyNow" class="fs-20px head_txt lh-20px d-flex align-items-center font-weight-500">
     {{ header }}
   </div>
-  <div *ngIf="this.globalVars.IsBuyNow && this.globalVars.clickedBuyNow" class="buy-now-header-container">
+  <div *ngIf="isBuyNow && clickedBuyNow" class="buy-now-header-container">
     <img src="../../assets/img/buy-now-lightning-black.png" class="buy-now-lightning-black-img" alt="" />
     <p class="buy-now-modal-header">Buy Now</p>
   </div>
-  <div *ngIf="this.globalVars.IsBuyNow && this.globalVars.clickedPlaceABid" class="buy-now-header-container">
+  <div *ngIf="isBuyNow && clickedPlaceABid" class="buy-now-header-container">
     <p class="buy-now-modal-header">Place a Bid</p>
   </div>
   <div class="fs-25px lh-20px close_btn cursor-pointer pr-15px" (click)="bsModalRef.hide()">

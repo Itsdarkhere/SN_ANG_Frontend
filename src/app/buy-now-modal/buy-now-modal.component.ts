@@ -27,7 +27,9 @@ export class BuyNowModalComponent implements OnInit {
   @Input() postHashHex: string;
   @Input() post: PostEntryResponse;
   @Input() selectedSerialNumber: NFTEntryResponse;
+  @Input() buyNowPriceNanos: number;
   @Output() closeModal = new EventEmitter<any>();
+  @Input() clickedBuyNow: boolean;
   bidAmountDESO: number;
   bidAmountUSD: string;
   //   selectedSerialNumber: NFTEntryResponse = null;
@@ -58,6 +60,7 @@ export class BuyNowModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.clickedBuyNow);
     this.backendApi
       .GetNFTCollectionSummary(
         this.globalVars.localNode,
@@ -115,7 +118,6 @@ export class BuyNowModalComponent implements OnInit {
     // }
     // this.saveSelectionDisabled = true;
     // this.placingBids = true;
-    console.log(this.globalVars.SerialNumber);
 
     // this.buyingNFT = true;
 

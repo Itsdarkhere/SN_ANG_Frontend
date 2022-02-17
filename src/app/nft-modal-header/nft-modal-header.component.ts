@@ -10,8 +10,14 @@ import { GlobalVarsService } from "../global-vars.service";
 export class NftModalHeaderComponent implements OnInit {
   @Input() header: string;
   @Input() bsModalRef: BsModalRef;
+  @Input() isBuyNow: boolean;
+  @Input() clickedPlaceABid: boolean;
+  @Input() clickedBuyNow: boolean;
 
   constructor(public globalVars: GlobalVarsService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.clickedBuyNow);
+    console.log(this.isBuyNow);
+  }
 }

@@ -147,7 +147,6 @@
             <span class="text-grey5">
               ~{{ this.globalVars.nanosToUSD(postContent.ProfileEntryResponse.CoinPriceDeSoNanos, 2) }}
             </span>
-            <!-- <span *ngIf="this.glovalVars.IsBuyNow" class="text-grey5">~{{ this.globalVars.nanosToUSD(BuyNowPriceNanos, 2) }}</span> -->
             <!-- Buy link -->
             Buy
           </a>
@@ -204,20 +203,15 @@
                   <span *ngIf="postContent.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">
                     <i class="fas fa-check-circle fa-md align-middle"></i>
                   </span>
+                  <select
+                    class="ml-10px"
+                    *ngIf="isNFTProfile"
+                    (change)="_tabSerialNumberClicked($event.target.value)"
+                    [(ngModel)]="editionNumber"
+                  >
+                    <option *ngFor="let x of nftEntryResponses" [value]="x.SerialNumber">{{ x.SerialNumber }}</option>
+                  </select>
                 </div>
-                <!--<div class="post_del_list edition" *ngIf="isNFTProfile">
-                  <span class="nb">Edition</span>
-                  <div class="ps_dells_val">1</div>
-                </div>
-                <div class="post_del_list minted_on" *ngIf="isNFTProfile">
-                  <span class="nb">Minted on</span>
-                  <div class="ps_dells_val">DeSo</div>
-                </div>
-                <div class="post_del_list market_sc" *ngIf="isNFTProfile">
-                  <span class="nb">Market</span>
-                  <div class="ps_dells_val" *ngIf="primaryMarket()">Primary</div>
-                  <div class="ps_dells_val" *ngIf="!primaryMarket()">Secondary</div>
-                </div>-->
               </div>
               <div class="nft-detail-lock-info-wrap ml-auto" *ngIf="isNFTDetail">
                 <ng-container *ngIf="showNFTDetails && postContent.IsNFT">
@@ -629,11 +623,13 @@
       [ngClass]="{ 'feed-post__blue-border': showLeftSelectedBorder }"
     >
       <div></div>
-
       <div *ngIf="showExpandedNFTDetails" class="d-flex nft_current_bid_tpwrapper">
-        <div *ngIf="!this.globalVars.IsBuyNow" class="nft_current_bid" [ngClass]="{ 'pt-15px': globalVars.isMobile() }">
-          <!-- if this.globalVars.IsBuyNow === false -->
-          <div *ngIf="!this.globalVars.IsBuyNow">
+        <div
+          *ngIf="!editionIsBuyNow && editionForSale"
+          class="nft_current_bid"
+          [ngClass]="{ 'pt-15px': globalVars.isMobile() }"
+        >
+          <div>
             <span class="hq" *ngIf="!decryptableNFTEntryResponses?.length || showUnlockableContent">
               {{
                 compareBit(
@@ -643,8 +639,6 @@
                 )
               }}
             </span>
-            <!--showPlaceAbid was here as 'if' but it didnt work for creator globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5) : globalVars.nanosToDeSo(highBid, 5)-->
-            <!-- Dollar amount - $5,869.56 -->
             <div
               class="val"
               *ngIf="
@@ -686,132 +680,28 @@
               {{ globalVars.nanosToDeSo(nftLastAcceptedBidAmountNanos, 5) }} DESO
             </div>
           </div>
-
-          <div class="val" *ngIf="decryptableNFTEntryResponses?.length && !showUnlockableContent">
-            <span class="hq">Owner</span>
-            <div class="owner_lft align-items-center d-flex">
-              <div
-                class="bid_by_avtar"
-                [avatar]="nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.PublicKeyBase58Check"
-              ></div>
-              <div class="name">
-                <a
-                  class="val"
-                  [routerLink]="
-                    getRouterLink([
-                      '/' + globalVars.RouteNames.USER_PREFIX,
-                      nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.Username
-                    ])
-                  "
-                  queryParamsHandling="merge"
-                >
-                  {{ nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.Username }}
-                </a>
-                <span
-                  *ngIf="nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.IsVerified"
-                  class="ml-1 text-primary"
-                >
-                  <i class="fas fa-check-circle fa-md align-middle"></i>
-                </span>
-              </div>
-            </div>
-          </div>
         </div>
 
-        <div
-          *ngIf="this.globalVars.IsBuyNow"
-          class="nft_current_bid_both"
-          [ngClass]="{ 'pt-15px': globalVars.isMobile() }"
-        >
-          <!-- if this.globalVars.IsBuyNow === true and IsMinBidLessThanBuyNow === true (they are not equal prices) -->
-          <div
-            *ngIf="this.globalVars.IsBuyNow && this.globalVars.IsMinBidLessThanBuyNow"
-            class="buy_now_text_container"
-          >
+        <div *ngIf="editionIsBuyNow" class="nft_current_bid_both" [ngClass]="{ 'pt-15px': globalVars.isMobile() }">
+          <div class="buy_now_text_container">
             <span class="hq">BUY NOW PRICE</span>
             <div class="val">
-              {{ this.globalVars.nanosToUSD(this.globalVars.BuyNowPriceNanos, 2) }}
-            </div>
-            <div class="val_st">
-              {{ this.globalVars.nanosToDeSo(this.globalVars.BuyNowPriceNanos, 5) }}
+              {{ this.globalVars.nanosToDeSo(this.buyNowPriceNanos, 5) }}
               DESO
             </div>
-          </div>
-          <!-- end of ngIf -->
-
-          <!-- if this.globalVars.IsBuyNow === true and IsMinBidLessThanBuyNow === false (they are equal prices) -->
-          <div *ngIf="this.globalVars.IsBuyNow && !this.globalVars.IsMinBidLessThanBuyNow">
-            <span class="hq">BUY NOW PRICE</span>
-            <div class="val">
-              {{ this.globalVars.nanosToUSD(this.globalVars.BuyNowPriceNanos, 2) }}
-            </div>
             <div class="val_st">
-              {{ this.globalVars.nanosToDeSo(this.globalVars.BuyNowPriceNanos, 5) }}
-              DESO
-            </div>
-          </div>
-          <!-- end of ngIf -->
-        </div>
-
-        <div class="nft_done_by" *ngIf="nftBidData?.BidEntryResponses.length > 0 && !showPlaceABid">
-          <span class="hq">Made By</span>
-          <div class="d-flex">
-            <div
-              class="bid_by_avtar"
-              [avatar]="nftBidData?.BidEntryResponses[0]?.ProfileEntryResponse?.PublicKeyBase58Check"
-            ></div>
-            <div class="name">
-              <a
-                class="fc-default font-weight-bold"
-                [routerLink]="
-                  getRouterLink([
-                    '/' + globalVars.RouteNames.USER_PREFIX,
-                    nftBidData?.BidEntryResponses[0]?.ProfileEntryResponse?.Username
-                  ])
-                "
-                queryParamsHandling="merge"
-              >
-                {{ nftBidData?.BidEntryResponses[0]?.ProfileEntryResponse?.Username }}
-              </a>
-
-              <span
-                *ngIf="nftBidData?.BidEntryResponses[0]?.ProfileEntryResponse?.IsVerified"
-                class="ml-1 text-primary"
-              >
-                <i class="fas fa-check-circle fa-md align-middle"></i>
-              </span>
+              {{ this.globalVars.nanosToUSD(this.buyNowPriceNanos, 2) }}
             </div>
           </div>
         </div>
 
-        <div
-          class="auction_detl"
-          *ngIf="
-            !this.globalVars.IsBuyNow &&
-            compareBit(
-              globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5),
-              globalVars.nanosToDeSo(highBid, 5),
-              showPlaceABid
-            ) == 'Minimum Bid' &&
-            showPlaceABid &&
-            (!decryptableNFTEntryResponses?.length || showUnlockableContent)
-          "
-        >
+        <div class="auction_detl" *ngIf="editionForSale && !editionIsBuyNow && !editionHasBids">
           <span class="hq">AUCTION</span>
           <div class="val">Not started yet</div>
           <div class="val_st">The 1st bid starts the auction.</div>
         </div>
 
-        <div
-          class="nft_done_by"
-          *ngIf="
-            compareBit(
-              globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5),
-              globalVars.nanosToDeSo(highBid, 5),
-              showPlaceABid
-            ) == 'Highest Bid'
-          "
-        >
+        <div class="nft_done_by" *ngIf="!editionIsBuyNow && editionHasBids">
           <span class="hq">Made By</span>
           <div class="d-flex">
             <div class="bid_by_avtar" [avatar]="showNFTOwnerInfo?.ProfileEntryResponse?.PublicKeyBase58Check"></div>
@@ -837,21 +727,22 @@
         </div>
 
         <div
-          class="auction_detl"
-          *ngIf="
-            compareBit(
-              globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5),
-              globalVars.nanosToDeSo(highBid, 5),
-              showPlaceABid
-            ) == 'Last Sold for' &&
-            (!decryptableNFTEntryResponses?.length || showUnlockableContent)
-          "
+          class="auction_detl_status"
+          *ngIf="!editionForSale && this.nftEntryResponses[this.editionNumber - 1]?.LastAcceptedBidAmountNanos <= 0"
         >
+          <span class="hq">Status</span>
+          <div class="val">Not For Sale</div>
+          <div class="val_st">The NFT is currently Off the market.</div>
+        </div>
+
+        <div class="auction_detl" *ngIf="!editionForSale && !(ownsEdition && editionHasUnlockable)">
           <span class="hq">Owner</span>
           <div class="d-flex">
             <div
               class="bid_by_avtar"
-              [avatar]="nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.PublicKeyBase58Check"
+              [avatar]="
+                nftBidData?.NFTEntryResponses[this.editionNumber - 1]?.ProfileEntryResponse?.PublicKeyBase58Check
+              "
             ></div>
             <div class="name">
               <a
@@ -859,16 +750,16 @@
                 [routerLink]="
                   getRouterLink([
                     '/' + globalVars.RouteNames.USER_PREFIX,
-                    nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.Username
+                    nftBidData?.NFTEntryResponses[this.editionNumber - 1]?.ProfileEntryResponse?.Username
                   ])
                 "
                 queryParamsHandling="merge"
               >
-                {{ nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.Username }}
+                {{ nftBidData?.NFTEntryResponses[this.editionNumber - 1]?.ProfileEntryResponse?.Username }}
               </a>
 
               <span
-                *ngIf="nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.IsVerified"
+                *ngIf="nftBidData?.NFTEntryResponses[this.editionNumber - 1]?.ProfileEntryResponse?.IsVerified"
                 class="ml-1 text-primary"
               >
                 <i class="fas fa-check-circle fa-md align-middle"></i>
@@ -876,120 +767,97 @@
             </div>
           </div>
         </div>
-        <div
-          class="auction_detl"
-          *ngIf="
-            compareBit(
-              globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5),
-              globalVars.nanosToDeSo(highBid, 5),
-              showPlaceABid
-            ) == 'Owner'
-          "
-        >
-          <span class="hq">Status</span>
-          <div class="val">Not For Sale</div>
-          <div class="val_st">The NFT is currently Off the market.</div>
-        </div>
 
-        <div
-          class="auction_detl border_n_pd"
-          *ngIf="
-            !hasNFTsOnSale() &&
-            postContent.HasUnlockable &&
-            UserOwnsSerialNumbers() &&
-            decryptableNFTEntryResponses?.length
-          "
-        >
+        <div class="auction_detl border_n_pd" *ngIf="!editionForSale && ownsEdition && editionHasUnlockable">
           <!-- <div class="auction_detl border_n_pd" *ngIf="(decryptableNFTEntryResponses?.length && !showUnlockableContent)&&!(nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length>0)"> -->
           <span class="hq">UNLOCKABLE CONTENT</span>
           <div class="val">Unlocked!</div>
           <div class="val_st">You are the only one who can view the unlockable content of this NFT.</div>
         </div>
       </div>
-      <!-- this.globalVars.IsBuyNow === false close auction container -->
-      <div *ngIf="!this.globalVars.IsBuyNow">
-        <div
-          class="d-flex flex-wrap justify-content-between"
-          [ngClass]="{
-            'flex-column': isQuotedContent,
-            'align-items-start': isQuotedContent,
-            'align-items-center': !isQuotedContent
-          }"
-          *ngIf="UserOwnsSerialNumbers()"
+
+      <!-- BUTTONS FOR NFT PROFILE BOX -->
+      <div
+        class="d-flex flex-wrap justify-content-between"
+        [ngClass]="{
+          'flex-column': isQuotedContent,
+          'align-items-start': isQuotedContent,
+          'align-items-center': !isQuotedContent
+        }"
+        *ngIf="ownsEdition"
+      >
+        <button
+          class="btn nft_place_bid_btn"
+          [ngClass]="{ 'mt-15px': isQuotedContent }"
+          (click)="openCreateNFTAuctionModal($event)"
+          *ngIf="!editionHasUnlockable && !editionForSale"
         >
-          <button
-            class="btn nft_place_bid_btn"
-            [ngClass]="{ 'mt-15px': isQuotedContent }"
-            (click)="openCreateNFTAuctionModal($event)"
-            *ngIf="!hasNFTsOnSale() && !(decryptableNFTEntryResponses?.length && postContent.HasUnlockable)"
-          >
-            Put NFT for sale
+          Put NFT for sale
+        </button>
+
+        <div
+          class="feed_post_btn_grp d-flex flex-wrap w-100 justify-content-between"
+          *ngIf="editionForSale && editionHasBids"
+        >
+          <button class="btn blk_fill_btn with_ico small" (click)="sellYourBid()">
+            <i><img src="assets/icons/u_money-bill.svg" alt="" /></i>
+            Sell your NFT
           </button>
-          <!--nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length > 0 && !showPlaceABid-->
-          <div
-            class="feed_post_btn_grp d-flex flex-wrap w-100 justify-content-between"
-            *ngIf="bidsOnMyNFTs > 0 && hasNFTsOnSale()"
-          >
-            <button class="btn blk_fill_btn with_ico small" (click)="sellYourBid()">
-              <i><img src="assets/icons/u_money-bill.svg" alt="" /></i>
-              Sell your NFT
-            </button>
-            <button class="btn blk_line_btn with_ico small" (click)="closeYourAuction()">
-              <i><img src="assets/icons/circle-error.svg" alt="" /></i>
-              Close the auction
-            </button>
-          </div>
-          <!--!isAvailableForSale && decryptableNFTEntryResponses?.length && !showUnlockableContent-->
-          <button
-            class="btn nft_place_bid_btn nft_sale_btn"
-            [ngClass]="{ 'mt-15px': isQuotedContent }"
-            (click)="ViewUnlockableContent($event)"
-            *ngIf="!hasNFTsOnSale() && postContent.HasUnlockable && decryptableNFTEntryResponses?.length"
-          >
-            <!-- <button class="btn nft_place_bid_btn" [ngClass]="{ 'mt-15px': isQuotedContent }" (click)="ViewUnlockableContent($event)" *ngIf="(decryptableNFTEntryResponses?.length && !showUnlockableContent)&&!(nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length>0)"> -->
-            <i><img src="assets/icons/unlock.svg" alt="" /></i>
-            View unlockable content
-          </button>
-          <!--isAvailableForSale &&
-                !showPlaceABid &&
-                !(nftBidData?.BidEntryResponses && nftBidData?.BidEntryResponses?.length > 0)-->
-          <button
-            class="btn blk_line_btn with_ico big"
-            *ngIf="bidsOnMyNFTs === 0 && hasNFTsOnSale()"
-            (click)="closeYourAuction()"
-          >
+          <button class="btn blk_line_btn with_ico small" (click)="closeYourAuction()">
             <i><img src="assets/icons/circle-error.svg" alt="" /></i>
             Close the auction
           </button>
         </div>
-        <div
-          class="d-flex flex-wrap justify-content-between"
-          [ngClass]="{
-            'flex-column': isQuotedContent,
-            'align-items-start': isQuotedContent,
-            'align-items-center': !isQuotedContent
-          }"
-          *ngIf="!UserOwnsSerialNumbers()"
+
+        <button
+          class="btn nft_place_bid_btn nft_sale_btn"
+          [ngClass]="{ 'mt-15px': isQuotedContent }"
+          (click)="ViewUnlockableContent($event)"
+          *ngIf="!editionForSale && editionHasUnlockable"
         >
-          <div class="feed_post_btn_grp d-flex flex-wrap w-100 justify-content-between" *ngIf="hasUserPlacedBids()">
-            <button class="btn blk_fill_btn with_ico small" (click)="openPlaceBidModal($event)">Place new bid</button>
-            <button class="btn blk_line_btn with_ico small" (click)="onBidCancel($event)">Cancel your bid</button>
-          </div>
+          <i><img src="assets/icons/unlock.svg" alt="" /></i>
+          View unlockable content
+        </button>
 
-          <button
-            class="btn nft_place_bid_btn"
-            [ngClass]="{ 'mt-15px': isQuotedContent }"
-            (click)="openPlaceBidModal($event)"
-            *ngIf="showPlaceABid && !hasUserPlacedBids()"
-          >
-            Place your Bid
-          </button>
-        </div>
+        <button
+          class="btn blk_line_btn with_ico big"
+          *ngIf="editionForSale && !editionHasBids"
+          (click)="closeYourAuction()"
+        >
+          <i><img src="assets/icons/circle-error.svg" alt="" /></i>
+          Close the auction
+        </button>
       </div>
+      <div
+        class="d-flex flex-wrap justify-content-between"
+        [ngClass]="{
+          'flex-column': isQuotedContent,
+          'align-items-start': isQuotedContent,
+          'align-items-center': !isQuotedContent
+        }"
+        *ngIf="!ownsEdition"
+      >
+        <div
+          class="feed_post_btn_grp d-flex flex-wrap w-100 justify-content-between"
+          *ngIf="editionForSale && editionHasBidByUser"
+        >
+          <button class="btn blk_fill_btn with_ico small" (click)="openPlaceBidModal($event)">Place new bid</button>
+          <button class="btn blk_line_btn with_ico small" (click)="onBidCancel($event)">Cancel your bid</button>
+        </div>
 
-      <!-- this.globalVars.IsBuyNow === true close auction container and IsMinBidLessThanBuyNow === true (they are not equal prices) -->
-      <div *ngIf="this.globalVars.IsBuyNow && this.globalVars.IsMinBidLessThanBuyNow">
-        <div class="d-flex flex-row">
+        <button
+          class="btn nft_place_bid_btn"
+          [ngClass]="{ 'mt-15px': isQuotedContent }"
+          (click)="openPlaceBidModal($event)"
+          *ngIf="editionForSale && !editionHasBidByUser && !editionIsBuyNow"
+        >
+          Place your Bid
+        </button>
+
+        <div
+          class="w-100 d-flex flex-row"
+          *ngIf="editionForSale && !editionHasBidByUser && editionIsBuyNow && !buyNowEqualMinBid"
+        >
           <button class="btn blk_line_btn with_ico buy_now_btn" (click)="openBuyNowModal($event)">
             <i><img src="assets/icons/buy-now-lightning.svg" alt="" class="buy_now_img" /></i>
             Buy Now
@@ -1002,17 +870,18 @@
             Place a bid
           </button>
         </div>
-      </div>
-      <!-- end of ngIf -->
 
-      <!-- this.globalVars.IsBuyNow === true close auction container and IsMinBidLessThanBuyNow === false (they are equal prices) -->
-      <div *ngIf="this.globalVars.IsBuyNow && !this.globalVars.IsMinBidLessThanBuyNow">
-        <button class="btn blk_line_btn with_ico big buy_now_btn" (click)="openBuyNowModal($event)">
-          <i><img src="assets/icons/buy-now-lightning.svg" alt="" class="buy_now_img" /></i>
-          Buy Now
-        </button>
+        <div
+          *ngIf="editionForSale && !editionHasBidByUser && editionIsBuyNow && buyNowEqualMinBid"
+          class="w-100 d-flex flex-center"
+        >
+          <button class="btn blk_line_btn with_ico big buy_now_btn" (click)="openBuyNowModal($event)">
+            <i><img src="assets/icons/buy-now-lightning.svg" alt="" class="buy_now_img" /></i>
+            Buy Now
+          </button>
+        </div>
       </div>
-      <!-- end of ngIf -->
+      <!-- END OF BUTTONS -->
     </div>
   </ng-container>
 </div>

@@ -297,17 +297,8 @@ export class GlobalVarsService {
 
   nodes: { [id: number]: DeSoNode };
 
-  IsBuyNow: boolean;
-  BuyNowPriceNanos: number;
-  MinBidAmountNanos: number;
-  IsMinBidLessThanBuyNow: boolean;
-  SerialNumber: number;
-
   NFTRoyaltyToCoinBasisPoints: any;
   NFTRoyaltyToCreatorBasisPoints: any;
-
-  clickedBuyNow: boolean;
-  clickedPlaceABid: boolean;
 
   //   ------------------------------------ update globalVars for loggedInUser ------------------------------------
   getCircularReplacer = () => {

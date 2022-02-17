@@ -4457,6 +4457,31 @@ option {
         border-left: 0;
       }
     }
+    .auction_detl_status {
+      width: 58%;
+      @media screen and (max-width: 767px) {
+        padding-left: 20px;
+      }
+      .val {
+        font-size: 20.35px;
+        font-weight: 600;
+        margin-top: 10px;
+        @media screen and (max-width: 767px) {
+          font-size: 16px;
+        }
+      }
+      .val_st {
+        font-size: 10.18px;
+        color: var(--textalt);
+        @media screen and (max-width: 767px) {
+          font-size: 9px;
+        }
+      }
+      &.border_n_pd {
+        padding: 0;
+        border-left: 0;
+      }
+    }
     .nft_done_by {
       width: 58%;
       padding-left: 50px;
@@ -4514,7 +4539,7 @@ option {
       }
     }
     .hq {
-      font-size: 14.69px;
+      font-size: 17px;
       display: block;
       margin-bottom: 10px;
       text-transform: uppercase;

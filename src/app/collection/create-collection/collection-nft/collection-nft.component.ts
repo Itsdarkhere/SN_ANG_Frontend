@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnInit } from '@angular/core';
+import { Component, EventEmitter, forwardRef, OnInit, Output } from '@angular/core';
 import { GlobalVarsService } from "../../../global-vars.service";
 import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../../../backend-api.service";
 import { InfiniteScroller } from "../../../infinite-scroller";
@@ -35,6 +35,8 @@ export class CollectionNftComponent implements ControlValueAccessor, OnInit {
   setDisabledState?(isDisabled: boolean): void {
     throw new Error('Method not implemented.');
   }
+
+  @Output() userNfts: EventEmitter<PostEntryResponse[]> = new EventEmitter();
 
   static PAGE_SIZE = 10;
   static BUFFER_SIZE = 5;
@@ -82,7 +84,7 @@ export class CollectionNftComponent implements ControlValueAccessor, OnInit {
         this.postData = this.posts.slice(this.startIndex, this.endIndex);
       })
       .finally(() => {
-        console.log(this.postData);
+        this.userNfts.emit(this.postData);
         this.isLoading = false;
       });
   }

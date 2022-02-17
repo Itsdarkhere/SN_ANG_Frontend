@@ -10,8 +10,9 @@ export class CollectionSelectionsComponent implements OnInit {
   constructor() {}
 
   @Input() collectionSelections: FormGroup;
-  @Input() selectedNfts: FormArray;
+  @Input() collectionNfts: FormArray;
 
   ngOnInit(): void {
+    console.log(this.collectionNfts);
   }
 }

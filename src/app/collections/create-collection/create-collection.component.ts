@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -11,6 +11,7 @@ export class CreateCollectionComponent implements OnInit {
 
   createCollectionForm: FormGroup;
 
+
   ngOnInit(): void {
     this.createCollectionForm = this.fb.group({
       views: this.fb.array([
@@ -21,10 +22,11 @@ export class CreateCollectionComponent implements OnInit {
         }),
         // This group may seem extraneous, but is actually beneficial for our UI structure
         this.fb.group({
-          selectedNfts: [[], [Validators.required, Validators.minLength(2)]]
+          collectionNfts: this.fb.array([], [Validators.required, Validators.minLength(3)])
         })
       ])
     });
+    console.log(this.createCollectionForm)
     this.createCollectionForm.valueChanges.subscribe(console.info);
   }
 
@@ -41,8 +43,8 @@ export class CreateCollectionComponent implements OnInit {
   }
 
   // Not sure if this function will be needed – consider removing later
-  get selectedNfts(): AbstractControl {
-    return this.collectionSelections.get("selectedNfts") as FormArray;
+  get collectionNfts(): AbstractControl {
+    return this.collectionSelections["controls"] as FormArray;
   }
 
   submit(): void {

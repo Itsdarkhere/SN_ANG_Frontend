@@ -1,5 +1,5 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormArray, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { GlobalVarsService } from "../../../global-vars.service";
 import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../../../backend-api.service";
 import { InfiniteScroller } from "../../../infinite-scroller";
@@ -15,7 +15,10 @@ import { IAdapter, IDatasource } from "ngx-ui-scroll";
     multi: true }]
 })
 export class CollectionNftFormControlComponent implements ControlValueAccessor, OnInit {
-  constructor(private globalVars: GlobalVarsService, private backendApi: BackendApiService) { }
+  constructor(
+    private globalVars: GlobalVarsService, 
+    private backendApi: BackendApiService,
+    private fb: FormBuilder) { }
 
   static PAGE_SIZE = 10;
   static BUFFER_SIZE = 5;
@@ -24,6 +27,7 @@ export class CollectionNftFormControlComponent implements ControlValueAccessor, 
   static MY_BIDS = "My Bids";
 
   @Input() collectionSelections: FormGroup;
+  @Input() collectionNfts: FormArray;
 
   isNftSelected: boolean = false;
   nftCounter: number = 0;
@@ -43,26 +47,20 @@ export class CollectionNftFormControlComponent implements ControlValueAccessor, 
   private onChanged!: Function;
 
   ngOnInit(): void {
+    console.log(this.collectionNfts);
     this.getNFTs();
   }
-
+  
   addPost(post: PostEntryResponse) {
-    this.selectedNft = post;
     this.onTouched();
-    this.onChanged(post);
-    // this.isNftSelected = !this.isNftSelected;
-    // if(this.isNftSelected) {
-    //   this.nftCounter++
-    //   console.log(this.nftCounter);
-    // } else {
-    //   this.nftCounter--
-    //   console.log(this.nftCounter);
-    // }
-    console.log(post);
+    this.selectedNft = post;
+    this.onChanged();
+    console.log(this.selectedNft);
   }
 
-  writeValue(value: PostEntryResponse): void {
-    this.selectedNft = value ?? null;
+  writeValue(value: any): void {
+    this.collectionNfts.push(this.fb.group(this.collectionNfts))
+    this.selectedNft = value;
   }
   registerOnChange(fn: any): void {
     this.onChanged = fn;

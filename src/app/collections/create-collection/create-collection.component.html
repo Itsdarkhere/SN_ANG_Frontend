@@ -11,10 +11,17 @@
             
             <!-- View 2: Select NFTs for Collection -->
             <cdk-step [editable]=true [stepControl]="views.get([1])">
-                <app-collection-selections 
-                    class="full-height-width-container" 
-                    [collectionSelections]="collectionSelections"
-                ></app-collection-selections>
+                <!-- <ng-container *ngIf="this.selectedNfts?.length && !isLoading"> -->
+
+                    <!-- <ng-container *ngFor="let nftControl of selectedNfts; index as i"> -->
+                        <app-collection-selections 
+                            class="full-height-width-container" 
+                            [collectionSelections]="collectionSelections"
+                            [collectionNfts]="collectionNfts"
+                        ></app-collection-selections>
+                    <!-- </ng-container> -->
+                <!-- </ng-container> -->
+
             </cdk-step>
         </app-collection-stepper>
     </ng-container>

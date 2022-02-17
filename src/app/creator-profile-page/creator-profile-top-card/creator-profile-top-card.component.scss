@@ -36,7 +36,7 @@
             width: 70%;
             font-size: 18px;
             line-height: 1.67;
-            // margin-right: 2em;
+            padding-right: 5%;
             color: #3D3D3D;
             a {
                 background: #2749f0;
@@ -49,10 +49,12 @@
                 font-size: 16px;
                 /* line-height: 1.67; */
                 color: #3D3D3D;
+                padding-right: 0%;
+
             }
         }
         .socials-column {
-            width: 25%;
+            width: 30%;
             margin-top: 0px;
             display: flex;
             flex-direction: column;
@@ -107,11 +109,29 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        .new-user-badge {
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            height: 1vh;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100%;
+
+            svg {
+                display: block;
+                margin: auto;
+                height: 25px;
+                width: 25px;
+            }
+        }
     }
     
     .founder-reward-text {
         font-size: 10px;
     }
+
     
 }
 .btn-cover {

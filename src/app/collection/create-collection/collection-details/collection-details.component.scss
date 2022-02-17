@@ -46,16 +46,6 @@ fieldset {
         background-color: rgb(226, 226, 226);
     }
 
-    input {
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 100%;
-        width: 100%; 
-        opacity: 0; 
-        cursor: pointer; 
-    }
-
     h2 {
         padding: 8px 10px;
         font-size: 1rem; // update to appropriate variable
@@ -69,11 +59,21 @@ fieldset {
         color: #7D7D7D; // update to appropriate variable
     }
 
-    .collection-details-header-h2 {
+    .collection-details-h2 {
         display: flex;
+
+        input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%; 
+            opacity: 0; 
+            cursor: pointer; 
+        }
     }
 
-    .profile-image {
+    .display-image {
         position: absolute;
         height: 70px; // adjust after linking data
         width: 70px; // adjust after linking data
@@ -81,6 +81,23 @@ fieldset {
         bottom: -10px;
         border: 2px solid white;
         border-radius: 10px;
+
+        img {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+        }
+
+        input {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+
+            &:hover {
+                background-color: #000000;
+            }
+        }
     }
 
     .upload-icon {

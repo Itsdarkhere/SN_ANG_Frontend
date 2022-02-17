@@ -12,8 +12,16 @@ export class CollectionDetailsComponent {
 
   collectionName: string = "";
   collectionDescription: string = "";
+  collectionBannerImage: File = null;
+  collectionDisplayImage: File = null;
+
+  defaultBanner: File | null = null;
 
   onKeyUp() {
     console.log(this.collectionName, this.collectionDescription);
+  }
+
+  handleBannerFileInput(file: File) {
+    this.defaultBanner = file;
   }
 }

@@ -3,13 +3,29 @@
     
     <!-- Collection Banner -->
     <div class="collection-details-header">
-        <div class="collection-details-header-h2">
-            <input type="file" accept="image/png, image/jpeg, image/webp" id="file">
-            <img src="/assets/icons/upload_grey.svg" alt="upload-icon"/>
+        <!-- Banner Image -->
+        <div class="collection-details-h2">
+            <input 
+                type="file"
+                name="collectionBannerImage"
+                accept="image/png, image/jpeg, image/webp"
+                (change)="handleBannerFileInput($event.target.files)"
+                [(ngModel)]="collectionBannerImage" 
+            >
+            <img src="/assets/icons/upload_grey.svg" alt="Upload Banner Image"/>
             <h2>Click to upload a collection banner image</h2>
         </div>
         <h3>Recommended size is 925 x 250 pixels.</h3>
-        <img src="" class="profile-image" alt="">
+        <!-- Display Image -->
+        <div class="display-image">
+            <input
+                type="file"
+                name="collectionDisplayImage"
+                accept="image/png, image/jpeg, image/webp"
+                [(ngModel)]="collectionDisplayImage" 
+            >
+            <img src="" alt="Upload Collection Image">
+        </div>
     </div>
 
     <!-- Collection Information -->

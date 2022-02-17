@@ -11,6 +11,7 @@ export class CreateCollectionComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  submit(): void {
+  onSubmit(value: any): void {
+    console.log(value);
   }
 }

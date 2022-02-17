@@ -1,7 +1,9 @@
-form {
+fieldset {
     padding: 30px;
-    height: 700px; // update to appropriate (flexible) size
-    width: 600px; // update to appropriate (flexible) size
+    height: 80%; // update to appropriate (flexible) size
+    width: 50%; // update to appropriate (flexible) size
+    min-width: 600px;
+    max-width: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,6 +12,11 @@ form {
     border: 1px solid #F5F5F5; // update to appropriate variable
     border-radius: 45px; // update to appropriate variable
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05); // update to appropriate variable
+    
+    @media screen and (max-width: 676px) {
+        min-width: 300px;
+        width: calc(100% - 2rem);
+    }
 
     h1 {
         font-size: 1.5rem; // update to appropriate variable

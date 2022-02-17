@@ -1,13 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ControlContainer, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-collection-details',
   templateUrl: './collection-details.component.html',
-  styleUrls: ['./collection-details.component.scss']
+  styleUrls: ['./collection-details.component.scss'],
+  viewProviders: [ { provide: ControlContainer, useExisting: NgForm } ]
 })
-export class CollectionDetailsComponent implements OnInit {
+export class CollectionDetailsComponent {
   constructor() {}
 
-  ngOnInit(): void {  
+  collectionName: string = "";
+  collectionDescription: string = "";
+
+  onKeyUp() {
+    console.log(this.collectionName, this.collectionDescription);
   }
 }

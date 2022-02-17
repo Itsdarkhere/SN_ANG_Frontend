@@ -28,6 +28,7 @@ import { UnlockContentModalComponent } from "src/app/unlock-content-modal/unlock
 import { CreateNftAuctionModalComponent } from "src/app/create-nft-auction-modal/create-nft-auction-modal.component";
 import { take } from "rxjs/operators";
 import { Console } from "console";
+import { fadeInItems } from "@angular/material/menu";
 
 @Component({
   selector: "feed-post",
@@ -204,12 +205,17 @@ export class FeedPostComponent implements OnInit {
   editionHasBids: boolean;
   editionHasUnlockable: boolean;
   editionHasBidByUser: boolean;
+  editionHasBeenSold: boolean;
 
   _tabSerialNumberClicked(id: number) {
     this.editionNumber = id;
-    // Insert selected ser into variable
-    this.nftEntryResponse = this.nftEntryResponses[this.editionNumber - 1];
 
+    // Insert selected ser into variable
+    this.nftEntryResponses.forEach((item) => {
+      if (item.SerialNumber == this.editionNumber) {
+        this.nftEntryResponse = item;
+      }
+    });
     // Update buy now related stuff
     this.updateBuyNow();
 
@@ -229,7 +235,12 @@ export class FeedPostComponent implements OnInit {
         // or the first one if user does not own any
         this.setSerialNumberToUse();
         // Insert selected ser into variable
-        this.nftEntryResponse = this.nftEntryResponses[this.editionNumber - 1];
+        // Insert selected ser into variable
+        this.nftEntryResponses.forEach((item) => {
+          if (item.SerialNumber == this.editionNumber) {
+            this.nftEntryResponse = item;
+          }
+        });
 
         // Update buy now related stuff
         this.updateBuyNow();
@@ -288,12 +299,12 @@ export class FeedPostComponent implements OnInit {
   }
 
   updateEditionSpecificLogic() {
-    this.isAvailableForSale = this.nftEntryResponses[this.editionNumber - 1].IsForSale;
+    this.isAvailableForSale = this.nftEntryResponse.IsForSale;
     // Check if user owns this edition
     this.ownsEdition =
       this.nftEntryResponse.OwnerPublicKeyBase58Check == this.globalVars?.loggedInUser?.PublicKeyBase58Check;
     // Check if this edition is for sale
-    this.editionForSale = this.nftEntryResponses[this.editionNumber - 1].IsForSale;
+    this.editionForSale = this.nftEntryResponse.IsForSale;
     // Check if edition has bids
     this.editionHasBids = this.nftBidData?.BidEntryResponses.length > 0;
     // Check if edition has unlockable
@@ -308,7 +319,10 @@ export class FeedPostComponent implements OnInit {
         }
       });
     }
+    // Check if edition has been sold before
+    this.editionHasBeenSold = this.nftEntryResponse.LastAcceptedBidAmountNanos > 0;
 
+    console.log(this.editionHasBeenSold);
     console.log(this.editionForSale);
     console.log(this.editionHasBids);
     console.log(this.editionIsBuyNow);
@@ -316,6 +330,7 @@ export class FeedPostComponent implements OnInit {
     console.log(this.ownsEdition);
     console.log(this.editionHasUnlockable);
     console.log(this.editionHasBidByUser);
+    console.log(this.nftEntryResponses);
     console.log(this.globalVars.loggedInUser.ProfileEntryResponse.Username);
   }
 
@@ -798,13 +813,14 @@ export class FeedPostComponent implements OnInit {
   compareBit(minBid, maxBid, showPlaceABid): string {
     if (!showPlaceABid && !!this.nftEntryResponses) {
       if (
-        this.nftEntryResponses[0]?.IsForSale === false &&
-        this.nftEntryResponses[0]?.LastAcceptedBidAmountNanos === 0 &&
-        this.nftEntryResponses[0]?.OwnerPublicKeyBase58Check === this.postContent.PosterPublicKeyBase58Check
+        this.nftEntryResponse?.IsForSale === false &&
+        this.nftEntryResponse?.LastAcceptedBidAmountNanos === 0 &&
+        this.nftEntryResponse?.OwnerPublicKeyBase58Check === this.postContent.PosterPublicKeyBase58Check
       ) {
         return "Owner";
       }
-      return this.nftEntryResponses[0]?.IsForSale === false ? "Last Sold for" : "Minimum Bid";
+      console.log(this.nftEntryResponse.IsForSale);
+      return this.nftEntryResponse?.IsForSale === false ? "Last Sold for" : "Minimum Bid";
     } else {
       if (Number(maxBid) > 0) {
         return "Highest Bid";

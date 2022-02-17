@@ -209,7 +209,9 @@
                     (change)="_tabSerialNumberClicked($event.target.value)"
                     [(ngModel)]="editionNumber"
                   >
-                    <option *ngFor="let x of nftEntryResponses" [value]="x.SerialNumber">{{ x.SerialNumber }}</option>
+                    <option *ngFor="let x of nftEntryResponses" [value]="x.SerialNumber">
+                      #{{ x.SerialNumber }} {{ x.IsForSale ? "For Sale" : "Not For Sale" }}
+                    </option>
                   </select>
                 </div>
               </div>
@@ -639,7 +641,6 @@
             <div class="val" *ngIf="!(ownsEdition || editionHasUnlockable) && !editionForSale && editionHasBeenSold">
               {{ globalVars.nanosToUSD(this.nftEntryResponse.LastAcceptedBidAmountNanos, 2) }}
             </div>
-            <!-- 123.00 DESO -->
             <div class="val_st" *ngIf="!(ownsEdition || editionHasUnlockable) && !editionForSale && editionHasBeenSold">
               {{ globalVars.nanosToDeSo(this.nftEntryResponse.LastAcceptedBidAmountNanos, 5) }}
               DESO
@@ -650,7 +651,6 @@
                 highBid === 0 ? globalVars.nanosToUSD(this.nftMinBidAmountNanos, 2) : globalVars.nanosToUSD(highBid, 2)
               }}
             </div>
-            <!-- 123.00 DESO -->
             <div
               class="val_st"
               *ngIf="!(!(ownsEdition || editionHasUnlockable) && !editionForSale && editionHasBeenSold)"

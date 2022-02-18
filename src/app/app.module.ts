@@ -208,7 +208,6 @@ import { NftCardMinimalComponent } from "./nft-card-minimal/nft-card-minimal.com
 import { CollectionPageSidebarComponent } from "./collection/collection-page/collection-page-content/collection-page-sidebar/collection-page-sidebar.component";
 import { CollectionPageNftViewComponent } from "./collection/collection-page/collection-page-content/collection-page-nft-view/collection-page-nft-view.component";
 import { CollectionPageActivityViewComponent } from "./collection/collection-page/collection-page-content/collection-page-activity-view/collection-page-activity-view.component";
-import { CollectionNftFormControlComponent } from './collection/create-collection/collection-nft-form-control/collection-nft-form-control.component';
 import { ActionResponseSlideupComponent } from "./action-response-slideup/action-response-slideup.component";
 import { TradeCreatorBuyComponent } from "./trade-creator-page/trade-creator-buy/trade-creator-buy.component";
 import { TradeCreatorSellComponent } from "./trade-creator-page/trade-creator-sell/trade-creator-sell.component";
@@ -401,7 +400,6 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     CollectionPageSidebarComponent,
     CollectionPageNftViewComponent,
     CollectionPageActivityViewComponent,
-    CollectionNftFormControlComponent,
     TradeCreatorBuyComponent,
     TradeCreatorSellComponent,
     TradeCreatorTransferComponent,

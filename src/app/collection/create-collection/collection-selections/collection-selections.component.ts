@@ -1,15 +1,13 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { GlobalVarsService } from "../../../global-vars.service";
 import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../../../backend-api.service";
 import { InfiniteScroller } from "../../../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
-import { ControlContainer, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-collection-selections',
   templateUrl: './collection-selections.component.html',
-  styleUrls: ['./collection-selections.component.scss'],
-  viewProviders: [ { provide: ControlContainer, useExisting: NgForm } ]
+  styleUrls: ['./collection-selections.component.scss']
 })
 export class CollectionSelectionsComponent {
   constructor(private globalVars: GlobalVarsService, private backendApi: BackendApiService) {}
@@ -30,21 +28,16 @@ export class CollectionSelectionsComponent {
   posts: PostEntryResponse[];
   myBids: NFTBidEntryResponse[];
 
-  collectionNfts = [];
-
   ngOnInit(): void {
     this.getNFTs();
   }
 
   addPost(i: number, post: PostEntryResponse) {
-    if (this.collectionNfts) { 
-      this.collectionNfts.push(post);
-      // this.collectionNfts[i] = !this.collectionNfts[i];
+    if (post) { 
     }
     else{
-      // this.collectionNfts[i] = true;
     }
-    console.log(i, this.collectionNfts);
+    console.log(post);
   }
 
   getNFTs() {

@@ -206,7 +206,7 @@
                     </span>
                   </div>
                   <app-nft-edition-dropdown
-                    *ngIf="isNFTProfile"
+                    *ngIf="isNFTProfile && multipleEditions"
                     [nftEntryResponses]="nftEntryResponses"
                     [editionNumber]="editionNumber"
                     (editionSelected)="_tabSerialNumberClicked($event)"

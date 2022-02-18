@@ -206,6 +206,7 @@ export class FeedPostComponent implements OnInit {
   editionHasUnlockable: boolean;
   editionHasBidByUser: boolean;
   editionHasBeenSold: boolean;
+  multipleEditions: boolean;
   loadingEditionDetails = true;
 
   _tabSerialNumberClicked(id: number) {
@@ -301,6 +302,7 @@ export class FeedPostComponent implements OnInit {
   }
 
   updateEditionSpecificLogic() {
+    this.multipleEditions = this.nftEntryResponses.length > 1;
     this.isAvailableForSale = this.nftEntryResponse.IsForSale;
     // Check if user owns this edition
     this.ownsEdition =

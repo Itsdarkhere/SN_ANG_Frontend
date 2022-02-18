@@ -676,7 +676,7 @@
           <label class="color-light fs-12-responsive mb-0px ml-5px mt-5px">
             In addition to the Buy Now Price, you can set up a minimum bid price which is lower than the Buy Now price.
           </label>
-          <div *ngIf="minBidClicked">
+          <div class="buy-now-price-accordion disable-scrollbars" [ngClass]="{ big: minBidClicked }">
             <div class="position-relative d-flex flex-row flex-start w-100 mint-page-min-price mt-10px">
               <input
                 matInput
@@ -771,7 +771,7 @@
               <p class="checkbox-input-text">{{ PUT_FOR_SALE ? "YES" : "NO" }}</p>
             </div>
             <label class="w-80 h-100 cursor-pointer mb-0px pl-10px pr-10px mint-boolean-label fs-11-responsive">
-              Auction without an ending time, where you are able to pick the winning bid.
+              If you don't put the NFT for sale, no one is able to place bids on it.
             </label>
           </button>
         </div>

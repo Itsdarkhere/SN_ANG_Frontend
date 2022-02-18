@@ -20,7 +20,11 @@
           <a class="btn btn-follow" [ngClass]="followLinkClass" (click)="unfollow($event)">Unfollow</a>
         </div>
         <ng-template #isFollowingElseBlock>
-          <a class="btn btn-follow" [ngClass]="followLinkClass" (click)="follow($event)">Follow</a>
+          <a class="btn btn-follow" [ngClass]="followLinkClass" (click)="follow($event)">
+            <img src="./assets/icons/fi_user-plus.png" class="follow-icon" />
+
+            Follow
+          </a>
         </ng-template>
       </ng-template>
     </div>

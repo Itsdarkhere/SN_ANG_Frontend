@@ -45,7 +45,6 @@ export class CreatorProfileDetailsComponent implements OnInit {
   ref: AngularFireStorageReference;
   task: AngularFireUploadTask;
   uploadProgress: Observable<number>;
-  profileData: any;
 
   // emits the UserUnblocked event
   @Output() userUnblocked = new EventEmitter();
@@ -221,6 +220,8 @@ export class CreatorProfileDetailsComponent implements OnInit {
           );
 
           document.getElementById("banner-image").setAttribute("src", url);
+          //this.profileCardUrl = url;
+          document.getElementById("banner-image-blurred").setAttribute("src", url);
           //this.profileCardUrl = url;
         })
         .catch(() => (this.loading = false))

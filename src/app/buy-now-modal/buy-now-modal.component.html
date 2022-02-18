@@ -7,7 +7,7 @@
     <div class="container border-2 border-radius-10 fs-15px px-0px">
       <div class="row no-gutters py-15px create-nft-auction-row-border heads" style="opacity: 50%">
         <div class="col-4 txt text-align-center"><span class="pl-15px">Serial Number</span></div>
-        <div class="col-5 txt mb-0px text-left">Min Bid Amount</div>
+        <div class="col-5 txt mb-0px text-left">Buy Now Price</div>
         <div class="col-3 txt mb-0px text-align-left">Highest Bid</div>
       </div>
       <div style="max-height: 250px; min-height: 250px; overflow-y: scroll" class="">
@@ -23,10 +23,10 @@
           <div class="col-5 mb-0px d-flex justify-content-start align-items-center">
             <div class="d-flex justify-content-around flex-wrap text-left">
               <div class="d-lg-inline-block txt d-block w-100">
-                {{ globalVars.nanosToDeSo(nft.MinBidAmountNanos) }} DESO
+                {{ globalVars.nanosToDeSo(nft.BuyNowPriceNanos) }} DESO
               </div>
               <div class="text-grey7 txt bd d-lg-inline-block d-block w-100">
-                (~{{ globalVars.nanosToUSD(nft.MinBidAmountNanos, 2) }})
+                (~{{ globalVars.nanosToUSD(nft.BuyNowPriceNanos, 2) }})
               </div>
             </div>
           </div>

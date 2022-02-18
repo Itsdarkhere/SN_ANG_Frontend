@@ -206,8 +206,10 @@ export class FeedPostComponent implements OnInit {
   editionHasUnlockable: boolean;
   editionHasBidByUser: boolean;
   editionHasBeenSold: boolean;
+  loadingEditionDetails = true;
 
   _tabSerialNumberClicked(id: number) {
+    this.loadingEditionDetails = true;
     this.editionNumber = id;
 
     // Insert selected ser into variable
@@ -321,6 +323,11 @@ export class FeedPostComponent implements OnInit {
     }
     // Check if edition has been sold before
     this.editionHasBeenSold = this.nftEntryResponse.LastAcceptedBidAmountNanos > 0;
+
+    setTimeout(() => {
+      // Stop shimmer
+      this.loadingEditionDetails = false;
+    }, 350);
   }
 
   updateBuyNow() {

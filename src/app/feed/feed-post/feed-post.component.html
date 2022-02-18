@@ -188,21 +188,23 @@
                   <span class="nb" *ngIf="isNFTProfile">Creator</span>
 
                   <!-- Username-->
-                  <a
-                    class="fc-default font-weight-bold"
-                    [routerLink]="
-                      getRouterLink([
-                        '/' + globalVars.RouteNames.USER_PREFIX,
-                        postContent.ProfileEntryResponse?.Username
-                      ])
-                    "
-                    queryParamsHandling="merge"
-                  >
-                    {{ postContent.ProfileEntryResponse?.Username }}
-                  </a>
-                  <span *ngIf="postContent.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">
-                    <i class="fas fa-check-circle fa-md align-middle"></i>
-                  </span>
+                  <div class="mr-20px d-flex flex-center flex-row">
+                    <a
+                      class="fc-default font-weight-bold"
+                      [routerLink]="
+                        getRouterLink([
+                          '/' + globalVars.RouteNames.USER_PREFIX,
+                          postContent.ProfileEntryResponse?.Username
+                        ])
+                      "
+                      queryParamsHandling="merge"
+                    >
+                      {{ postContent.ProfileEntryResponse?.Username }}
+                    </a>
+                    <span *ngIf="postContent.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">
+                      <i class="fas fa-check-circle fa-md align-middle"></i>
+                    </span>
+                  </div>
                   <app-nft-edition-dropdown
                     *ngIf="isNFTProfile"
                     [nftEntryResponses]="nftEntryResponses"
@@ -615,11 +617,12 @@
   <ng-container *ngIf="isNFTDetail">
     <div
       *ngIf="showNFTDetails && postContent.IsNFT"
-      class="fs-15px w-100 nft_place_bid_sec"
+      class="fs-15px w-100 nft_place_bid_sec overflow-hidden"
       [ngStyle]="{ 'border-radius': setBorder || cardStyle ? '0 0 18px 18px' : '' }"
       [ngClass]="{ 'feed-post__blue-border': showLeftSelectedBorder }"
     >
-      <div *ngIf="showExpandedNFTDetails" class="d-flex nft_current_bid_tpwrapper">
+      <loading-shimmer [tabType]="'NFT_DETAIL'" *ngIf="loadingEditionDetails"></loading-shimmer>
+      <div *ngIf="showExpandedNFTDetails && !loadingEditionDetails" class="d-flex nft_current_bid_tpwrapper">
         <div
           class="w-100 d-flex flex-center"
           *ngIf="!editionForSale && ownsEdition && editionHasUnlockable; else elseBlock"
@@ -750,108 +753,110 @@
       </div>
 
       <!-- BUTTONS FOR NFT PROFILE BOX -->
-      <div
-        class="d-flex flex-wrap justify-content-between"
-        [ngClass]="{
-          'flex-column': isQuotedContent,
-          'align-items-start': isQuotedContent,
-          'align-items-center': !isQuotedContent
-        }"
-        *ngIf="ownsEdition"
-      >
-        <button
-          class="btn nft_place_bid_btn"
-          [ngClass]="{ 'mt-15px': isQuotedContent }"
-          (click)="openCreateNFTAuctionModal($event)"
-          *ngIf="!editionHasUnlockable && !editionForSale"
-        >
-          Put NFT for sale
-        </button>
-
+      <div *ngIf="!loadingEditionDetails">
         <div
-          class="feed_post_btn_grp d-flex flex-wrap w-100 justify-content-between"
-          *ngIf="editionForSale && editionHasBids"
+          class="d-flex flex-wrap justify-content-between"
+          [ngClass]="{
+            'flex-column': isQuotedContent,
+            'align-items-start': isQuotedContent,
+            'align-items-center': !isQuotedContent
+          }"
+          *ngIf="ownsEdition"
         >
-          <button class="btn blk_fill_btn with_ico small" (click)="sellYourBid()">
-            <i><img src="assets/icons/u_money-bill.svg" alt="" /></i>
-            Sell your NFT
+          <button
+            class="btn nft_place_bid_btn"
+            [ngClass]="{ 'mt-15px': isQuotedContent }"
+            (click)="openCreateNFTAuctionModal($event)"
+            *ngIf="!editionHasUnlockable && !editionForSale"
+          >
+            Put NFT for sale
           </button>
-          <button class="btn blk_line_btn with_ico small" (click)="closeYourAuction()">
+
+          <div
+            class="feed_post_btn_grp d-flex flex-wrap w-100 justify-content-between"
+            *ngIf="editionForSale && editionHasBids"
+          >
+            <button class="btn blk_fill_btn with_ico small" (click)="sellYourBid()">
+              <i><img src="assets/icons/u_money-bill.svg" alt="" /></i>
+              Sell your NFT
+            </button>
+            <button class="btn blk_line_btn with_ico small" (click)="closeYourAuction()">
+              <i><img src="assets/icons/circle-error.svg" alt="" /></i>
+              Close the auction
+            </button>
+          </div>
+
+          <button
+            class="btn nft_place_bid_btn nft_sale_btn"
+            [ngClass]="{ 'mt-15px': isQuotedContent }"
+            (click)="ViewUnlockableContent($event)"
+            *ngIf="!editionForSale && editionHasUnlockable"
+          >
+            <i><img src="assets/icons/unlock.svg" alt="" /></i>
+            View unlockable content
+          </button>
+
+          <button
+            class="btn blk_line_btn with_ico big"
+            *ngIf="editionForSale && !editionHasBids"
+            (click)="closeYourAuction()"
+          >
             <i><img src="assets/icons/circle-error.svg" alt="" /></i>
             Close the auction
           </button>
         </div>
-
-        <button
-          class="btn nft_place_bid_btn nft_sale_btn"
-          [ngClass]="{ 'mt-15px': isQuotedContent }"
-          (click)="ViewUnlockableContent($event)"
-          *ngIf="!editionForSale && editionHasUnlockable"
-        >
-          <i><img src="assets/icons/unlock.svg" alt="" /></i>
-          View unlockable content
-        </button>
-
-        <button
-          class="btn blk_line_btn with_ico big"
-          *ngIf="editionForSale && !editionHasBids"
-          (click)="closeYourAuction()"
-        >
-          <i><img src="assets/icons/circle-error.svg" alt="" /></i>
-          Close the auction
-        </button>
-      </div>
-      <div
-        class="d-flex flex-wrap justify-content-between"
-        [ngClass]="{
-          'flex-column': isQuotedContent,
-          'align-items-start': isQuotedContent,
-          'align-items-center': !isQuotedContent
-        }"
-        *ngIf="!ownsEdition"
-      >
         <div
-          class="feed_post_btn_grp d-flex flex-wrap w-100 justify-content-between"
-          *ngIf="editionForSale && editionHasBidByUser"
+          class="d-flex flex-wrap justify-content-between"
+          [ngClass]="{
+            'flex-column': isQuotedContent,
+            'align-items-start': isQuotedContent,
+            'align-items-center': !isQuotedContent
+          }"
+          *ngIf="!ownsEdition"
         >
-          <button class="btn blk_fill_btn with_ico small" (click)="openPlaceBidModal($event)">Place new bid</button>
-          <button class="btn blk_line_btn with_ico small" (click)="onBidCancel($event)">Cancel your bid</button>
-        </div>
+          <div
+            class="feed_post_btn_grp d-flex flex-wrap w-100 justify-content-between"
+            *ngIf="editionForSale && editionHasBidByUser"
+          >
+            <button class="btn blk_fill_btn with_ico small" (click)="openPlaceBidModal($event)">Place new bid</button>
+            <button class="btn blk_line_btn with_ico small" (click)="onBidCancel($event)">Cancel your bid</button>
+          </div>
 
-        <button
-          class="btn nft_place_bid_btn"
-          [ngClass]="{ 'mt-15px': isQuotedContent }"
-          (click)="openPlaceBidModal($event)"
-          *ngIf="editionForSale && !editionHasBidByUser && !editionIsBuyNow"
-        >
-          Place your Bid
-        </button>
-
-        <div
-          class="w-100 d-flex flex-row"
-          *ngIf="editionForSale && !editionHasBidByUser && editionIsBuyNow && !buyNowEqualMinBid"
-        >
-          <button class="btn blk_line_btn with_ico buy_now_btn" (click)="openBuyNowModal($event)">
-            <i><img src="assets/icons/buy-now-lightning.svg" alt="" class="buy_now_img" /></i>
-            Buy Now
-          </button>
           <button
-            class="btn blk_line_btn place_bid_btn_both"
+            class="btn nft_place_bid_btn"
             [ngClass]="{ 'mt-15px': isQuotedContent }"
             (click)="openPlaceBidModal($event)"
+            *ngIf="editionForSale && !editionHasBidByUser && !editionIsBuyNow"
           >
-            Place a bid
+            Place your Bid
           </button>
-        </div>
 
-        <div
-          *ngIf="editionForSale && !editionHasBidByUser && editionIsBuyNow && buyNowEqualMinBid"
-          class="w-100 d-flex flex-center"
-        >
-          <button class="btn blk_line_btn with_ico big buy_now_btn" (click)="openBuyNowModal($event)">
-            <i><img src="assets/icons/buy-now-lightning.svg" alt="" class="buy_now_img" /></i>
-            Buy Now
-          </button>
+          <div
+            class="w-100 d-flex flex-row"
+            *ngIf="editionForSale && !editionHasBidByUser && editionIsBuyNow && !buyNowEqualMinBid"
+          >
+            <button class="btn blk_line_btn with_ico buy_now_btn" (click)="openBuyNowModal($event)">
+              <i><img src="assets/icons/buy-now-lightning.svg" alt="" class="buy_now_img" /></i>
+              Buy Now
+            </button>
+            <button
+              class="btn blk_line_btn place_bid_btn_both"
+              [ngClass]="{ 'mt-15px': isQuotedContent }"
+              (click)="openPlaceBidModal($event)"
+            >
+              Place a bid
+            </button>
+          </div>
+
+          <div
+            *ngIf="editionForSale && !editionHasBidByUser && editionIsBuyNow && buyNowEqualMinBid"
+            class="w-100 d-flex flex-center"
+          >
+            <button class="btn blk_line_btn with_ico big buy_now_btn" (click)="openBuyNowModal($event)">
+              <i><img src="assets/icons/buy-now-lightning.svg" alt="" class="buy_now_img" /></i>
+              Buy Now
+            </button>
+          </div>
         </div>
       </div>
       <!-- END OF BUTTONS -->

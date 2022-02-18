@@ -627,121 +627,132 @@
       <div></div>
       <div *ngIf="showExpandedNFTDetails" class="d-flex nft_current_bid_tpwrapper">
         <div
-          *ngIf="!editionIsBuyNow && (editionHasBeenSold || editionForSale)"
-          class="nft_current_bid"
-          [ngClass]="{ 'pt-15px': globalVars.isMobile() }"
+          class="w-100 d-flex flex-center"
+          *ngIf="!editionForSale && ownsEdition && editionHasUnlockable; else elseBlock"
         >
-          <div>
-            <span class="hq" *ngIf="editionForSale && !editionHasBids">MINIMUM BID</span>
-            <span class="hq" *ngIf="editionForSale && editionHasBids">HIGHEST BID</span>
-            <span class="hq" *ngIf="!(ownsEdition || editionHasUnlockable) && !editionForSale && editionHasBeenSold">
-              LAST SOLD FOR
-            </span>
+          <div class="auction_detl border_n_pd">
+            <span class="hq">UNLOCKABLE CONTENT</span>
+            <div class="val">Unlocked!</div>
+            <div class="val_st">You are the only one who can view the unlockable content of this NFT.</div>
+          </div>
+        </div>
+        <ng-template #elseBlock>
+          <div
+            *ngIf="!editionIsBuyNow && editionForSale"
+            class="nft_current_bid"
+            [ngClass]="{ 'pt-15px': globalVars.isMobile() }"
+          >
+            <div>
+              <span class="hq" *ngIf="!editionHasBids">MINIMUM BID</span>
+              <span class="hq" *ngIf="editionHasBids">HIGHEST BID</span>
+              <!-- FOR MIN AND HIGH BID-->
+              <div class="val">
+                {{
+                  highBid === 0
+                    ? globalVars.nanosToUSD(this.nftMinBidAmountNanos, 2)
+                    : globalVars.nanosToUSD(highBid, 2)
+                }}
+              </div>
+              <div class="val_st">
+                {{
+                  highBid === 0
+                    ? globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5)
+                    : globalVars.nanosToDeSo(highBid, 5)
+                }}
+                DESO
+              </div>
+            </div>
+          </div>
+          <div
+            *ngIf="!editionForSale && editionHasBeenSold"
+            class="nft_current_bid"
+            [ngClass]="{ 'pt-15px': globalVars.isMobile() }"
+          >
+            <span class="hq">LAST SOLD FOR</span>
             <!-- FOR LAST SOLD FOR-->
-            <div class="val" *ngIf="!(ownsEdition || editionHasUnlockable) && !editionForSale && editionHasBeenSold">
+            <div class="val">
               {{ globalVars.nanosToUSD(this.nftEntryResponse.LastAcceptedBidAmountNanos, 2) }}
             </div>
-            <div class="val_st" *ngIf="!(ownsEdition || editionHasUnlockable) && !editionForSale && editionHasBeenSold">
+            <div class="val_st">
               {{ globalVars.nanosToDeSo(this.nftEntryResponse.LastAcceptedBidAmountNanos, 5) }}
               DESO
             </div>
-            <!-- FOR MIN AND HIGH BID-->
-            <div class="val" *ngIf="!(!(ownsEdition || editionHasUnlockable) && !editionForSale && editionHasBeenSold)">
-              {{
-                highBid === 0 ? globalVars.nanosToUSD(this.nftMinBidAmountNanos, 2) : globalVars.nanosToUSD(highBid, 2)
-              }}
-            </div>
-            <div
-              class="val_st"
-              *ngIf="!(!(ownsEdition || editionHasUnlockable) && !editionForSale && editionHasBeenSold)"
-            >
-              {{
-                highBid === 0
-                  ? globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5)
-                  : globalVars.nanosToDeSo(highBid, 5)
-              }}
-              DESO
+          </div>
+          <div *ngIf="editionIsBuyNow" class="nft_current_bid_both" [ngClass]="{ 'pt-15px': globalVars.isMobile() }">
+            <div class="buy_now_text_container">
+              <span class="hq">BUY NOW PRICE</span>
+              <div class="val">
+                {{ this.globalVars.nanosToDeSo(this.buyNowPriceNanos, 5) }}
+                DESO
+              </div>
+              <div class="val_st">
+                {{ this.globalVars.nanosToUSD(this.buyNowPriceNanos, 2) }}
+              </div>
             </div>
           </div>
-        </div>
 
-        <div *ngIf="editionIsBuyNow" class="nft_current_bid_both" [ngClass]="{ 'pt-15px': globalVars.isMobile() }">
-          <div class="buy_now_text_container">
-            <span class="hq">BUY NOW PRICE</span>
-            <div class="val">
-              {{ this.globalVars.nanosToDeSo(this.buyNowPriceNanos, 5) }}
-              DESO
-            </div>
-            <div class="val_st">
-              {{ this.globalVars.nanosToUSD(this.buyNowPriceNanos, 2) }}
+          <div class="auction_detl" *ngIf="editionForSale && !editionIsBuyNow && !editionHasBids">
+            <span class="hq">AUCTION</span>
+            <div class="val">Not started yet</div>
+            <div class="val_st">The 1st bid starts the auction.</div>
+          </div>
+
+          <div class="nft_done_by" *ngIf="!editionIsBuyNow && editionHasBids">
+            <span class="hq">Made By</span>
+            <div class="d-flex">
+              <div class="bid_by_avtar" [avatar]="showNFTOwnerInfo?.ProfileEntryResponse?.PublicKeyBase58Check"></div>
+              <div class="name">
+                <a
+                  class="fc-default font-weight-bold"
+                  [routerLink]="
+                    getRouterLink([
+                      '/' + globalVars.RouteNames.USER_PREFIX,
+                      showNFTOwnerInfo?.ProfileEntryResponse?.Username
+                    ])
+                  "
+                  queryParamsHandling="merge"
+                >
+                  {{ showNFTOwnerInfo?.ProfileEntryResponse?.Username }}
+                </a>
+
+                <span *ngIf="showNFTOwnerInfo?.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">
+                  <i class="fas fa-check-circle fa-md align-middle"></i>
+                </span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="auction_detl" *ngIf="editionForSale && !editionIsBuyNow && !editionHasBids">
-          <span class="hq">AUCTION</span>
-          <div class="val">Not started yet</div>
-          <div class="val_st">The 1st bid starts the auction.</div>
-        </div>
+          <div class="auction_detl_status" *ngIf="!editionForSale && !editionHasBeenSold">
+            <span class="hq">Status</span>
+            <div class="val">Not For Sale</div>
+            <div class="val_st">The NFT is currently Off the market.</div>
+          </div>
 
-        <div class="nft_done_by" *ngIf="!editionIsBuyNow && editionHasBids">
-          <span class="hq">Made By</span>
-          <div class="d-flex">
-            <div class="bid_by_avtar" [avatar]="showNFTOwnerInfo?.ProfileEntryResponse?.PublicKeyBase58Check"></div>
-            <div class="name">
-              <a
-                class="fc-default font-weight-bold"
-                [routerLink]="
-                  getRouterLink([
-                    '/' + globalVars.RouteNames.USER_PREFIX,
-                    showNFTOwnerInfo?.ProfileEntryResponse?.Username
-                  ])
-                "
-                queryParamsHandling="merge"
-              >
-                {{ showNFTOwnerInfo?.ProfileEntryResponse?.Username }}
-              </a>
-
-              <span *ngIf="showNFTOwnerInfo?.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">
-                <i class="fas fa-check-circle fa-md align-middle"></i>
-              </span>
+          <div class="auction_detl" *ngIf="!editionForSale && !(ownsEdition && editionHasUnlockable)">
+            <span class="hq">Owner</span>
+            <div class="d-flex">
+              <div class="bid_by_avtar" [avatar]="nftEntryResponse?.OwnerPublicKeyBase58Check"></div>
+              <div class="name">
+                <a
+                  class="fc-default font-weight-bold"
+                  [routerLink]="
+                    getRouterLink([
+                      '/' + globalVars.RouteNames.USER_PREFIX,
+                      nftEntryResponse?.OwnerPublicKeyBase58Check
+                    ])
+                  "
+                  queryParamsHandling="merge"
+                >
+                  {{ nftEntryResponse?.ProfileEntryResponse?.Username }}
+                </a>
+                <!-- CANT BE DONE -->
+                <span *ngIf="nftEntryResponse?.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">
+                  <i class="fas fa-check-circle fa-md align-middle"></i>
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div class="auction_detl_status" *ngIf="!editionForSale && !editionHasBeenSold">
-          <span class="hq">Status</span>
-          <div class="val">Not For Sale</div>
-          <div class="val_st">The NFT is currently Off the market.</div>
-        </div>
-
-        <div class="auction_detl" *ngIf="!editionForSale && !(ownsEdition && editionHasUnlockable)">
-          <span class="hq">Owner</span>
-          <div class="d-flex">
-            <div class="bid_by_avtar" [avatar]="nftEntryResponse?.OwnerPublicKeyBase58Check"></div>
-            <div class="name">
-              <a
-                class="fc-default font-weight-bold"
-                [routerLink]="
-                  getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX, nftEntryResponse?.OwnerPublicKeyBase58Check])
-                "
-                queryParamsHandling="merge"
-              >
-                {{ nftEntryResponse?.ProfileEntryResponse?.Username }}
-              </a>
-              <!-- CANT BE DONE -->
-              <span *ngIf="nftEntryResponse?.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">
-                <i class="fas fa-check-circle fa-md align-middle"></i>
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div class="auction_detl border_n_pd" *ngIf="!editionForSale && ownsEdition && editionHasUnlockable">
-          <span class="hq">UNLOCKABLE CONTENT</span>
-          <div class="val">Unlocked!</div>
-          <div class="val_st">You are the only one who can view the unlockable content of this NFT.</div>
-        </div>
+        </ng-template>
       </div>
 
       <!-- BUTTONS FOR NFT PROFILE BOX -->

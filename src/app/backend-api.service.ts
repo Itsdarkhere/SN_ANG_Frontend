@@ -383,6 +383,7 @@ export class NFTEntryResponse {
   SerialNumber: number;
   IsPending: boolean;
   IsForSale: boolean;
+  IsBuyNow: boolean;
   MinBidAmountNanos: number;
   LastAcceptedBidAmountNanos: number;
   BuyNowPriceNanos: number;

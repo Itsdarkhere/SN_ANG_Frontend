@@ -162,6 +162,8 @@ export class NewNftCardComponent implements OnInit {
   serialNumbersDisplay: string;
   nftEntryResponses: NFTEntryResponse[];
   decryptableNFTEntryResponses: NFTEntryResponse[];
+  isBuyNow: boolean;
+  buyNowPriceNanos: number;
   unlockableTooltip =
     "This NFT will come with content that's encrypted and only unlockable by the winning bidder. Note that if an NFT is being resold, it is not guaranteed that the new unlockable will be the same original unlockable.";
   mOfNNFTTooltip =
@@ -175,6 +177,10 @@ export class NewNftCardComponent implements OnInit {
       )
       .subscribe((res) => {
         this.nftEntryResponses = res.NFTEntryResponses;
+        if (this.nftEntryResponses[0]) {
+          this.isBuyNow = this.nftEntryResponses[0]?.IsBuyNow;
+          this.buyNowPriceNanos = this.nftEntryResponses[0].BuyNowPriceNanos;
+        }
         this.nftEntryResponses.sort((a, b) => a.SerialNumber - b.SerialNumber);
         this.decryptableNFTEntryResponses = this.nftEntryResponses.filter(
           (sn) =>

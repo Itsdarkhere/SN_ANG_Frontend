@@ -43,7 +43,7 @@ import { take } from "rxjs/operators";
 export class MintPageComponent implements OnInit {
   @Output() postCreated = new EventEmitter();
 
-  step = 4;
+  step = 1;
   mobile = false;
   submittingPost = false;
   postInput = "";
@@ -88,7 +88,7 @@ export class MintPageComponent implements OnInit {
 
   //   Auction type
   openAuction = false;
-  isBuyNow = true;
+  isBuyNow = false;
 
   extrasOpen = false;
   arweaveClicked = false;

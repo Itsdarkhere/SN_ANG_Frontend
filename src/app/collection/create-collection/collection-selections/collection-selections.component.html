@@ -11,10 +11,19 @@
 		<div class="collection-selections-main-content">	
 			<!-- Container with "position: absolute;" allows inner flex content to scroll -->
 			<div class="collection-selections-user-nfts">
-				<app-collection-nft 
-					(userNfts)="getUserNfts($event)"
-					class="full-height-width-container"
-				></app-collection-nft>
+				<ng-container *ngFor="let post of postData; index as i;">
+					<div class="collection-nft-container">
+						<input
+							type="checkbox"
+							name="collectionNfts"
+							value="post[i]"
+							(change)="addPost(i, post)"
+							[checked]="post[i]"
+							[ngModel]="collectionNfts[post[i]]"
+						>
+						<app-small-card-component class="disable-link" [post]="post"></app-small-card-component>
+					</div>
+				</ng-container>
 			</div>
 		</div>
 	</div>

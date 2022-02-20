@@ -109,8 +109,15 @@
     }
 }
 .text-nft-container {
-    overflow: scroll;
-    p {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    div {
+        overflow-y: scroll;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         overflow-wrap: anywhere;
         word-break: break-word;
     }

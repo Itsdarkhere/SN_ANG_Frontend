@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CollectionSelectionsComponent } from './collection-selections.component';
+// import { CollectionSelectionsComponent } from './collection-selections.component';
 
-describe('CollectionSelectionsComponent', () => {
-  let component: CollectionSelectionsComponent;
-  let fixture: ComponentFixture<CollectionSelectionsComponent>;
+// describe('CollectionSelectionsComponent', () => {
+//   let component: CollectionSelectionsComponent;
+//   let fixture: ComponentFixture<CollectionSelectionsComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ CollectionSelectionsComponent ]
-    })
-    .compileComponents();
-  });
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       declarations: [ CollectionSelectionsComponent ]
+//     })
+//     .compileComponents();
+//   });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(CollectionSelectionsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//   beforeEach(() => {
+//     fixture = TestBed.createComponent(CollectionSelectionsComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

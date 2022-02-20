@@ -1,0 +1,3 @@
+For any element in the DOM, you can get its Angular scope with:
+
+angular.element(theElement).scope()

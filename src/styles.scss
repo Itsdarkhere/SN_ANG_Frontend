@@ -4025,6 +4025,9 @@ option {
   margin: 20px -10px 0px;
   padding: 0px;
   list-style-type: none;
+  @media screen and (max-width: 992px) {
+    justify-content: center;
+  }
   @media screen and (max-width: 676px) {
     padding: 0px 0px 0 0px;
   }
@@ -4724,10 +4727,6 @@ option {
 .max-width-300-plus {
   max-width: 300px;
   width: 100%;
-}
-.max-width-350 {
-  width: 100%;
-  max-width: 350px;
 }
 
 .js-app-component__dynamically-added-router-link-class {

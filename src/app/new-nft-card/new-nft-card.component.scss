@@ -447,6 +447,11 @@
 .username-nft-card {
     font-size: 13px !important;
     color: #525252;
+    transition: all 0.2s ease;
+    &:hover {
+        transition: all 0.2s ease;
+        color: #000000;
+    }
 }
 .fs-20px-im {
     font-size: 20px !important;

@@ -2,7 +2,7 @@
   <!-- Top Bar -->
   <div *ngIf="!this.globalVars.isMobile()">
     <div
-      class="global__top-bar global__top-bar__height topbar-update-profile d-flex align-items-center pl-15px fs-18px border-bottom border-color-grey max-width-profile"
+      class="global__top-bar topbar-update-profile d-flex align-items-center pl-15px fs-18px border-bottom border-color-grey max-width-profile"
       *ngIf="!this.globalVars.loggedInUser?.CanCreateProfile"
     >
       <p class="font-weight-bold" *ngIf="!globalVars.loggedInUser?.ProfileEntryResponse?.Username">
@@ -13,7 +13,7 @@
 
   <div *ngIf="this.globalVars.isMobile()">
     <div
-      class="global__top-bar global__top-bar__height topbar-update-profile d-flex align-items-center pl-15px fs-18px max-width-profile"
+      class="global__top-bar topbar-update-profile d-flex align-items-center pl-15px fs-18px max-width-profile"
       *ngIf="!this.globalVars.loggedInUser?.CanCreateProfile"
     >
       <p
@@ -27,7 +27,9 @@
 
 
   <div class="global__top-bar__height" *ngIf="!this.globalVars.loggedInUser?.CanCreateProfile"></div>
-  <div class="global__top-bar__height" *ngIf="globalVars.isMobile()"></div>
+  <div class="" *ngIf="globalVars.isMobile()">
+    
+  </div>
 
   <div
     *ngIf="inTutorial"

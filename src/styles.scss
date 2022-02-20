@@ -2061,6 +2061,8 @@ input.bs-timepicker-field {
   width: 100%;
   z-index: 99;
   border: 1px solid var(--border);
+  overflow-y: scroll !important;
+  max-height: 300px;
 }
 
 .change-account-selector_list-item {

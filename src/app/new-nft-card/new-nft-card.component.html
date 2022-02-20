@@ -210,7 +210,6 @@
                 class="w-100 h-100 background-secondary position-relative d-flex flex-center"
               >
                 <iframe
-                  *ngIf="!postContent.PostExtraData.arweaveVideoSrc"
                   [src]="postContent.VideoURLs[0] | sanitizeVideoUrl"
                   allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                   allowfullscreen
@@ -233,6 +232,17 @@
                   allow="picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; encrypted-media;"
                   allowfullscreen
                 ></iframe>
+              </div>
+              <div
+                class="w-100 h-100 background-secondary d-flex flex-start-center text-nft-container disable-scrollbars p-20px"
+                *ngIf="
+                  !constructedEmbedURL &&
+                  !postContent.VideoURLs &&
+                  !postContent.ImageURLs &&
+                  !postContent.PostExtraData.arweaveVideoSrc
+                "
+              >
+                <p>{{ postContent.Body }}</p>
               </div>
             </div>
           </ng-container>

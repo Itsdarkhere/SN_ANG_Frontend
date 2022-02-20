@@ -285,6 +285,13 @@
         margin-right: 3px;
     }
 }
+.text-nft-container {
+    overflow: scroll;
+    p {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+}
 .audio-icon-hover-state {
     width: 216px;
     height: 49px;

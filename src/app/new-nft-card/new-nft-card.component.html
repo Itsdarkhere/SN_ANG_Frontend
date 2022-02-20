@@ -24,6 +24,7 @@
     <div *ngIf="showThreadConnectionLine" class="feed-post__parent-thread-connector"></div>
   </div>
   <h6
+    class="cursor-pointer"
     [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, postContent.ProfileEntryResponse.Username]"
     queryParamsHandling="merge"
   >

@@ -108,6 +108,13 @@
         color: #737373 !important;
     }
 }
+.text-nft-container {
+    overflow: scroll;
+    p {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+}
 .card-video-icon-container {
     position: absolute;
     top: 0;

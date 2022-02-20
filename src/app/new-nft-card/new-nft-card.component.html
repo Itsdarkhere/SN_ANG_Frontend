@@ -234,7 +234,7 @@
                 ></iframe>
               </div>
               <div
-                class="w-100 h-100 background-secondary d-flex flex-start-center text-nft-container disable-scrollbars p-20px"
+                class="w-100 h-100 background-secondary text-nft-container p-20px"
                 *ngIf="
                   !constructedEmbedURL &&
                   !postContent.VideoURLs &&
@@ -242,7 +242,7 @@
                   !postContent.PostExtraData.arweaveVideoSrc
                 "
               >
-                <p>{{ postContent.Body }}</p>
+                <div class="disable-scrollbars">{{ postContent.Body }}</div>
               </div>
             </div>
           </ng-container>

@@ -205,8 +205,9 @@ import { GeneralSuccessModalComponent } from "./general-success-modal/general-su
 import { ActionResponseModalComponent } from "./action-response-modal/action-response-modal.component";
 import { NftCardRepostComponent } from "./new-nft-card/nft-card-repost/nft-card-repost.component";
 import { NftCardPostComponent } from "./new-nft-card/nft-card-post/nft-card-post.component";
-import { BuyNowModalComponent } from './buy-now-modal/buy-now-modal.component';
-import { NftEditionDropdownComponent } from './feed/nft-edition-dropdown/nft-edition-dropdown.component';
+import { BuyNowModalComponent } from "./buy-now-modal/buy-now-modal.component";
+import { NftEditionDropdownComponent } from "./feed/nft-edition-dropdown/nft-edition-dropdown.component";
+import { SupernovasCenterLoaderComponent } from "./supernovas-center-loader/supernovas-center-loader.component";
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -388,6 +389,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     NftCardPostComponent,
     BuyNowModalComponent,
     NftEditionDropdownComponent,
+    SupernovasCenterLoaderComponent,
   ],
   imports: [
     BrowserModule,

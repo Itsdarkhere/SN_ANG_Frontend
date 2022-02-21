@@ -66,6 +66,9 @@ export class NewNftCardComponent implements OnInit {
       this.postContent = post;
     }
     this.setEmbedURLForPostContent();
+    if (this.postContent.ImageURLs[0]) {
+      this.changeImageURLs(this.postContent.ImageURLs[0]);
+    }
   }
   @Input() set blocked(value: boolean) {
     this._blocked = value;
@@ -164,6 +167,8 @@ export class NewNftCardComponent implements OnInit {
   decryptableNFTEntryResponses: NFTEntryResponse[];
   isBuyNow: boolean;
   buyNowPriceNanos: number;
+  // ImageURL
+  imageURL: string;
   unlockableTooltip =
     "This NFT will come with content that's encrypted and only unlockable by the winning bidder. Note that if an NFT is being resold, it is not guaranteed that the new unlockable will be the same original unlockable.";
   mOfNNFTTooltip =
@@ -586,6 +591,19 @@ export class NewNftCardComponent implements OnInit {
       imgURL = "https://supernovas.app/cdn-cgi/image/width=500,height=500,fit=scale-down,quality=85/" + imgURL;
     }
     return imgURL;
+  }
+  changeImageURLs(imgURL: string): string {
+    if (imgURL.startsWith("https://i.imgur.com")) {
+      return imgURL.replace("https://i.imgur.com", "https://images.bitclout.com/i.imgur.com");
+    } else if (imgURL.startsWith("https://arweave.net/")) {
+      // Build cloudflare imageString
+      imgURL = "https://supernovas.app/cdn-cgi/image/width=500,height=500,fit=scale-down,quality=85/" + imgURL;
+    }
+    this.imageURL = imgURL;
+  }
+  // If image errors, use image straight from link
+  useNormalImage() {
+    this.imageURL = this.postContent.ImageURLs[0];
   }
   openPlaceBidModal(event: any) {
     if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {

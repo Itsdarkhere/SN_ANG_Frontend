@@ -34,6 +34,7 @@
               (click)="openImgModal($event, nftPost.ImageURLs[0])"
               data-toggle="modal"
               class="feed-post__image"
+              (error)="useNormalImage(nftPost.ImageURLs[0])"
               src="{{ mapImageURLs(nftPost.ImageURLs[0]) }}"
             />
           </div>

@@ -251,6 +251,12 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.overflow-ellipsis-price-50-percent {
+    max-width: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 .card-video-icon-container {
     position: absolute;
     top: 0;

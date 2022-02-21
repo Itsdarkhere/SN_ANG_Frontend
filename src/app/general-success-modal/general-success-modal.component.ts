@@ -11,6 +11,10 @@ import { Location } from "@angular/common";
 import { ToastrService } from "ngx-toastr";
 import { CommentModalComponent } from "../comment-modal/comment-modal.component";
 
+import { environment } from "src/environments/environment";
+import { Link, ImmutableXClient, ImmutableMethodResults, ETHTokenType, ImmutableRollupStatus } from "@imtbl/imx-sdk";
+import { ethers } from "ethers";
+
 @Component({
   selector: "app-general-success-modal",
   templateUrl: "./general-success-modal.component.html",
@@ -25,6 +29,7 @@ export class GeneralSuccessModalComponent implements OnInit {
   @Input() header: string;
   @Input() text: string;
   @Input() buttonText: string;
+  @Input() buttonClickedAction: string;
 
   constructor(
     private analyticsService: GoogleAnalyticsService,
@@ -37,6 +42,8 @@ export class GeneralSuccessModalComponent implements OnInit {
     private location: Location
   ) {}
 
+  link = new Link(environment.imx.ROPSTEN_LINK_URL);
+
   ngOnInit(): void {
     this.SendBidModalOpenedEvent();
   }
@@ -45,8 +52,37 @@ export class GeneralSuccessModalComponent implements OnInit {
     this.analyticsService.eventEmitter("bid_modal_opened", "usage", "activity", "click", 10);
   }
 
-  generalSuccessModalButtonClicked() {
-    this.router.navigate(["/u/" + this.globalVars?.loggedInUser?.ProfileEntryResponse.Username]);
+  async linkSetup(): Promise<void> {
+    console.log(` ----------------------- client is ${JSON.stringify(this.globalVars.imxClient)}`);
+    const res = await this.link.setup({});
+    this.globalVars.imxWalletConnected = true;
+    this.globalVars.imxWalletAddress = res.address;
+    console.log(
+      ` ----------------------- walletConnected is ${this.globalVars.imxWalletConnected} ----------------------- `
+    );
+    console.log(` ----------------------- walletAddress ${this.globalVars.imxWalletAddress} ----------------------- `);
+
+    await this.getImxBalance(this.globalVars.imxWalletAddress);
+
+    localStorage.setItem("address", res.address);
+  }
+
+  async getImxBalance(walletAddressInput: string): Promise<void> {
+    this.globalVars.imxBalance = await this.globalVars.imxClient.getBalance({
+      user: walletAddressInput,
+      tokenAddress: "eth",
+    });
+    this.globalVars.imxBalance = this.globalVars.imxBalance.balance.toString();
+    this.globalVars.imxBalance = ethers.utils.formatEther(this.globalVars.imxBalance);
+    console.log(` ----------------------- balance is ${this.globalVars.imxBalance} ETH ----------------------- `);
+  }
+
+  async generalSuccessModalButtonClicked() {
+    if (this.buttonClickedAction === "profileRoute") {
+      this.router.navigate(["/u/" + this.globalVars?.loggedInUser?.ProfileEntryResponse.Username]);
+    } else if (this.buttonClickedAction === "connectWallet") {
+      await this.linkSetup();
+    }
     this.bsModalRef.hide();
   }
 }

@@ -375,6 +375,7 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
         header: "You're all set!",
         text: "Your profile has been updated.",
         buttonText: "Go to my profile",
+        buttonClickedAction: "profileRoute",
       },
     });
   }

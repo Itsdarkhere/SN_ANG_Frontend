@@ -77,6 +77,13 @@ export class GlobalVarsService {
   //   phoneVerified
   phoneVerified: boolean;
 
+  //   ----------------------------- imx global vars -----------------------------
+  imxWalletConnected: boolean;
+  imxWalletAddress: string;
+  imxClient: any;
+  imxBalance: any;
+  //   ----------------------------- end of imx global vars -----------------------------
+
   // Note: I don't think we should have default values for this. I think we should just
   // loading spinner until we get a correct value. That said, I'm not going to fix that
   // right now, I'm just moving this magic number into a constant.
@@ -299,6 +306,10 @@ export class GlobalVarsService {
 
   NFTRoyaltyToCoinBasisPoints: any;
   NFTRoyaltyToCreatorBasisPoints: any;
+
+  //   ------------------------------------ imx functions ------------------------------------
+
+  //   ------------------------------------ end of imx functions ------------------------------------
 
   //   ------------------------------------ update globalVars for loggedInUser ------------------------------------
   getCircularReplacer = () => {

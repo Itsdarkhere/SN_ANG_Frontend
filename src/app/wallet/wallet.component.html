@@ -93,7 +93,7 @@
             <img class="deso-logo" src="../../assets/eth/ethlogo.svg" alt="deso" />
             <label class="fs-28px deso-name mb-0px color-text pl-10px">Ethereum</label>
           </div>
-          <div *ngIf="ethWalletConnected" class="h-100 d-flex flex-row flex-center" [ngClass]="mobile ? '' : 'w-30'">
+          <!-- <div *ngIf="this.globalVars.imxWalletConnected" class="h-100 d-flex flex-row flex-center" [ngClass]="mobile ? '' : 'w-30'">
             <div class="d-flex w-100 flex-column flex-start-center mr-10px">
               <label class="fs-28px balance-usd mb-0px font-weight-semiboldn" style="color: #2d2d2d">
                 {{ globalVars.nanosToUSD(globalVars.loggedInUser.BalanceNanos, 2) }}
@@ -103,17 +103,17 @@
               </label>
             </div>
             <img class="wallet-button-arrow" src="/assets/icons/chevron_right.svg" alt="arrow right" />
-          </div>
+          </div> -->
           <div class="h-100 d-flex flex-row flex-center" [ngClass]="mobile ? '' : 'w-30'">
-            <div *ngIf="!walletConnected">
+            <div *ngIf="!this.globalVars.imxWalletConnected">
               <button
-                (click)="linkSetup()"
+                (click)="openGeneralSuccessModal()"
                 class="black-rounded-button d-flex flex-center connect-wallet-button font-weight-bold fs-15px mt-5px"
               >
                 Connect Wallet
               </button>
             </div>
-            <div *ngIf="walletConnected">
+            <div *ngIf="this.globalVars.imxWalletConnected">
               <button
                 (click)="linkLogOut()"
                 class="black-rounded-button d-flex flex-center connect-wallet-button font-weight-bold fs-15px mt-5px"
@@ -122,27 +122,6 @@
               </button>
             </div>
           </div>
-          <!-- <div
-            *ngIf="!ethWalletConnected"
-            class="h-100 d-flex flex-row flex-center"
-            [ngClass]="mobile ? '' : 'w-30'"
-            (click)="linkLogOut()"
-          >
-            <button
-              class="black-rounded-button d-flex flex-center connect-wallet-button font-weight-bold fs-15px mt-5px"
-              *ngIf="walletConnected"
-            >
-              Log Out
-            </button>
-          </div> -->
-          <!-- <div
-            *ngIf="!ethWalletConnected"
-            class="h-100 d-flex flex-row flex-center"
-            [ngClass]="mobile ? '' : 'w-30'"
-            (click)="depositETH()"
-          >
-            <button>Deposit ETH</button>
-          </div> -->
         </div>
       </div>
     </div>

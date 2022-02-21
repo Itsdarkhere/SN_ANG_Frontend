@@ -13,6 +13,8 @@ import { animate, query, stagger, style, transition, trigger } from "@angular/an
 
 import { Link, ImmutableXClient, ImmutableMethodResults, ETHTokenType, ImmutableRollupStatus } from "@imtbl/imx-sdk";
 import { ethers } from "ethers";
+import { BsModalService } from "ngx-bootstrap/modal";
+import { GeneralSuccessModalComponent } from "../general-success-modal/general-success-modal.component";
 
 @Component({
   selector: "wallet",
@@ -68,10 +70,6 @@ export class WalletComponent implements OnInit, OnDestroy {
 
   //   immutable x vars
   link = new Link(environment.imx.ROPSTEN_LINK_URL);
-  walletConnected = false;
-  walletAddress: string;
-  balance: any;
-  client: any;
   //   end of immutable x vars
 
   constructor(
@@ -79,7 +77,8 @@ export class WalletComponent implements OnInit, OnDestroy {
     private titleService: Title,
     private router: Router,
     private route: ActivatedRoute,
-    private backendApi: BackendApiService
+    private backendApi: BackendApiService,
+    private modalService: BsModalService
   ) {
     this.globalVars = appData;
     this.route.params.subscribe((params) => {
@@ -152,50 +151,66 @@ export class WalletComponent implements OnInit, OnDestroy {
   }
 
   //   -------------------- immutable x functions --------------------
-
-  //   initialise an Immutable X Client to interact with apis more easily
   async buildIMX(): Promise<void> {
     const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";
-    this.client = await ImmutableXClient.build({ publicApiUrl });
+    this.globalVars.imxClient = await ImmutableXClient.build({ publicApiUrl });
     if (localStorage.getItem("address")) {
       console.log("local storage hit -------------------");
-      this.walletAddress = localStorage.getItem("address") as string;
-      this.walletConnected = true;
-      await this.getBalance(this.walletAddress);
+      this.globalVars.imxWalletAddress = localStorage.getItem("address") as string;
+      this.globalVars.imxWalletConnected = true;
+      await this.getImxBalance(this.globalVars.imxWalletAddress);
     }
   }
 
-  async linkSetup(): Promise<void> {
-    console.log(` ----------------------- client is ${JSON.stringify(this.client)}`);
-    const res = await this.link.setup({});
-    this.walletConnected = true;
-    this.walletAddress = res.address;
-    console.log(` ----------------------- walletConnected is ${this.walletConnected} ----------------------- `);
-    console.log(` ----------------------- walletAddress ${this.walletAddress} ----------------------- `);
+  //   async linkSetup(): Promise<void> {
+  //     console.log(` ----------------------- client is ${JSON.stringify(this.globalVars.imxClient)}`);
+  //     const res = await this.link.setup({});
+  //     this.globalVars.imxWalletConnected = true;
+  //     this.globalVars.imxWalletAddress = res.address;
+  //     console.log(
+  //       ` ----------------------- walletConnected is ${this.globalVars.imxWalletConnected} ----------------------- `
+  //     );
+  //     console.log(` ----------------------- walletAddress ${this.globalVars.imxWalletAddress} ----------------------- `);
 
-    await this.getBalance(this.walletAddress);
+  //     await this.getImxBalance(this.globalVars.imxWalletAddress);
 
-    localStorage.setItem("address", res.address);
-  }
+  //     localStorage.setItem("address", res.address);
+  //   }
 
-  async getBalance(walletAddressInput: string): Promise<void> {
-    this.balance = await this.client.getBalance({ user: walletAddressInput, tokenAddress: "eth" });
-    this.balance = this.balance.balance.toString();
-    this.balance = ethers.utils.formatEther(this.balance);
-    console.log(` ----------------------- balance is ${this.balance} ETH ----------------------- `);
+  async getImxBalance(walletAddressInput: string): Promise<void> {
+    this.globalVars.imxBalance = await this.globalVars.imxClient.getBalance({
+      user: walletAddressInput,
+      tokenAddress: "eth",
+    });
+    this.globalVars.imxBalance = this.globalVars.imxBalance.balance.toString();
+    this.globalVars.imxBalance = ethers.utils.formatEther(this.globalVars.imxBalance);
+    console.log(` ----------------------- balance is ${this.globalVars.imxBalance} ETH ----------------------- `);
   }
 
   linkLogOut() {
     localStorage.removeItem("address");
-    this.walletAddress = "undefined";
-    this.walletConnected = false;
+    this.globalVars.imxWalletAddress = "undefined";
+    this.globalVars.imxWalletConnected = false;
   }
 
-  // deposit eth
   async depositETH() {
     await this.link.deposit({
       type: ETHTokenType.ETH,
       amount: "0.01",
+    });
+  }
+
+  openGeneralSuccessModal() {
+    console.log(` ------------------------- general success modal function hit -------------- `);
+
+    this.modalService.show(GeneralSuccessModalComponent, {
+      class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+      initialState: {
+        header: "Connect your Ethereum wallet to Immutable X",
+        text: "By connecting yoru wallet to Immutable X, you are able to mint and trade Ethereum NFT's with zero gas fees.",
+        buttonText: "Connect with Immutable X",
+        buttonClickedAction: "connectWallet",
+      },
     });
   }
   //   -------------------- end of immutable x functions --------------------

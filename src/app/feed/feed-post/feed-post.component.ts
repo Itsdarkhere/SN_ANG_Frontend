@@ -313,7 +313,7 @@ export class FeedPostComponent implements OnInit {
     this.editionHasBids = this.nftBidData?.BidEntryResponses.length > 0;
     // Check if edition has unlockable
     if (!this.editionIsBuyNow) {
-      this.editionHasUnlockable = this.nftEntryResponse.DecryptedUnlockableText == null;
+      this.editionHasUnlockable = this.nftEntryResponse.DecryptedUnlockableText != null;
     }
     // Check if user has made a bid on this edition
     if (!this.ownsEdition) {

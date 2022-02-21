@@ -4,6 +4,7 @@ import { GlobalVarsService } from "../../global-vars.service";
 import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../../backend-api.service";
 import { InfiniteScroller } from "../../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
+import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-create-collection',
@@ -18,15 +19,36 @@ export class CreateCollectionComponent implements AfterViewInit, OnInit {
   // SubmitCollection(createCollectionForm: NgForm): void {   
   //   console.log(createCollectionForm.value);
   // }
-
-  isChecked: boolean = false;
-
-  selectAllCheckboxes: boolean = false;
-
-  collectionNfts: any;
+  // collectionNfts: any;
+  
+  mappedNfts = new Map<object, boolean>();
 
   ngAfterViewInit() {
     
+  }
+
+  isChecked: boolean = false;
+  selectAllCheckboxes: boolean = false;
+
+  setValue($event, postData: any, i: number, post, collectionNfts) {
+    if($event) {
+      console.log(collectionNfts);
+    }
+    // if(postData[i].checked) {
+    //   postData[i].setValue = post;
+    //   console.log(postData[i], post);
+    // }
+    
+      // this.postValue = post;
+      // console.log(this.postValue);
+      // this.postData[i] = post;
+    
+    // this.isChecked = !this.isChecked;
+    // if($event.currentTarget.checked) {
+     
+    //   this.collectionNfts = { nftValue: post };
+    //   console.log(this.collectionNfts);
+    // }
   }
 
   selectAllNfts($event) {
@@ -42,14 +64,7 @@ export class CreateCollectionComponent implements AfterViewInit, OnInit {
       }
   }
   
-
-  setValue($event, post: PostEntryResponse) {
-    // this.isChecked = !this.isChecked;
-    if($event.currentTarget.checked) {
-      this.collectionNfts = { nftValue: post };
-      console.log(this.collectionNfts);
-    }
-  }
+  postValue: any;
 
   ngOnInit(): void {
     this.getNFTs();

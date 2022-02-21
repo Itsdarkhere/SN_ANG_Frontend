@@ -58,11 +58,9 @@
                                     <div class="collection-nft-container">
                                         <input
                                             type="checkbox"
-                                            [checked]="isChecked"
-                                            
-                                            (change)="setValue($event, post)"
                                             name="{{i}}"
-                                            [ngModel]="postData[i]"
+                                            (change)="setValue($event)"
+                                            [ngModel]="[i]"
                                             >
                                         <app-small-card-component class="disable-link" [post]="post"></app-small-card-component>
                                     </div>

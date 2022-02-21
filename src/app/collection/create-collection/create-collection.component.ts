@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Form, FormGroup } from '@angular/forms';
 import { GlobalVarsService } from "../../global-vars.service";
 import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../../backend-api.service";
 import { InfiniteScroller } from "../../infinite-scroller";
@@ -9,8 +10,46 @@ import { IAdapter, IDatasource } from "ngx-ui-scroll";
   templateUrl: './create-collection.component.html',
   styleUrls: ['./create-collection.component.scss']
 })
-export class CreateCollectionComponent implements OnInit {
+export class CreateCollectionComponent implements AfterViewInit, OnInit {
   constructor(private globalVars: GlobalVarsService, private backendApi: BackendApiService) {}
+
+  @ViewChild("createCollectionForm", { static: true }) createCollectionForm: FormGroup;
+
+  // SubmitCollection(createCollectionForm: NgForm): void {   
+  //   console.log(createCollectionForm.value);
+  // }
+
+  isChecked: boolean = false;
+
+  selectAllCheckboxes: boolean = false;
+
+  collectionNfts: any;
+
+  ngAfterViewInit() {
+    
+  }
+
+  selectAllNfts($event) {
+    this.selectAllCheckboxes = !this.selectAllCheckboxes;
+    console.log(this.selectAllCheckboxes);
+
+    if ($event && !this.selectAllCheckboxes) {
+        // this.createCollectionForm.get["collectionNfts"].map(control => control.setValue(true));
+        console.log(this.createCollectionForm.get["collectionNfts"]);
+      } else {
+        this.createCollectionForm.get["collectionNfts"].map(control => control.setValue(false));
+        console.log(this.createCollectionForm.get["collectionNfts"].value);
+      }
+  }
+  
+
+  setValue($event, post: PostEntryResponse) {
+    // this.isChecked = !this.isChecked;
+    if($event.currentTarget.checked) {
+      this.collectionNfts = { nftValue: post };
+      console.log(this.collectionNfts);
+    }
+  }
 
   ngOnInit(): void {
     this.getNFTs();
@@ -21,12 +60,9 @@ export class CreateCollectionComponent implements OnInit {
   collectionBannerImage: File = null;
   collectionDisplayImage: File = null;
 
-  addPost(i: number, post: PostEntryResponse) {
-    console.log(post);
+  onSubmit(createCollectionForm) {
+    console.log(createCollectionForm.value);
   }
-
-
-
 
   static PAGE_SIZE = 10;
   static BUFFER_SIZE = 5;

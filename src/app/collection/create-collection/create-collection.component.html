@@ -1,7 +1,7 @@
 <div class="create-collection-page">
     <!-- Add Supernovas logo -->
     
-    <form class="full-height-width-container">
+    <form #createCollectionForm="ngForm" class="full-height-width-container" (ngSubmit)="onSubmit(createCollectionForm)">
         <app-collection-stepper class="full-height-width-container" [linear]=true>
             
             <!-- View 1: COLLECTION DETAILS -->
@@ -28,10 +28,10 @@
                 
                     <!-- Collection Information -->
                     <div class="collection-details-info">
-                        <label for="collection-name">Collection Name:</label>
-                        <input type="text" id="collection-name" name="collectionName" required>
-                        <label for="collection-desc">Collection Description:</label>
-                        <textarea rows="4" id="collection-desc" name="collectionDescription" required></textarea>
+                        <label for="collectionName">Collection Name:</label>
+                        <input type="text" id="collectionName" name="collectionName" ngModel/>
+                        <label for="collectionDescription">Collection Description:</label>
+                        <textarea rows="4" id="collectionDescription" name="collectionDescription" ngModel></textarea>
                         <button type="button" cdkStepperNext>Continue</button>
                     </div>
                 </fieldset>                
@@ -45,16 +45,23 @@
                         <div class="collection-selections-main-headline">
                             <h1>Pick NFTs for Collection</h1>
                             <!-- Add logic -->
-                            <button>Select all</button>
+                            <button (change)="isChecked = $event.target.checked ? true : false">Select all</button>
                         </div>
                 
                         <!-- Populated NFT Content -->
                         <div class="collection-selections-main-content">	
                             <!-- Container with "position: absolute;" allows inner flex content to scroll -->
-                            <div class="collection-selections-user-nfts">
+                            <div ngModelGroup="collectionNfts" class="collection-selections-user-nfts">
                                 <ng-container *ngFor="let post of postData; index as i;">
                                     <div class="collection-nft-container">
-                                        <input type="checkbox" name="collectionNfts" value="post[i]" (change)="addPost(i, post)">
+                                        <input
+                                            type="checkbox"
+                                            [checked]="isChecked"
+                                            
+                                            (change)="setValue($event, post)"
+                                            name="{{i}}"
+                                            [ngModel]="postData[i]"
+                                            >
                                         <app-small-card-component class="disable-link" [post]="post"></app-small-card-component>
                                     </div>
                                 </ng-container>
@@ -66,7 +73,7 @@
                     <div class="collection-selections-bottom-bar">
                         <!-- Add variable -->
                         <p>3 NFTS selected</p>
-                        <button type="submit">Create Collection</button>
+                        <button type="submit" [disabled]="(!createCollectionForm.form.valid )">Create Collection</button>
                     </div>
                 </fieldset>
             </cdk-step>

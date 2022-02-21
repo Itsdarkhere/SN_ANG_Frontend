@@ -207,7 +207,7 @@ export class WalletComponent implements OnInit, OnDestroy {
       class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
       initialState: {
         header: "Connect your Ethereum wallet to Immutable X",
-        text: "By connecting yoru wallet to Immutable X, you are able to mint and trade Ethereum NFT's with zero gas fees.",
+        text: "By connecting your wallet to Immutable X, you are able to mint and trade Ethereum NFT's with zero gas fees.",
         buttonText: "Connect with Immutable X",
         buttonClickedAction: "connectWallet",
       },

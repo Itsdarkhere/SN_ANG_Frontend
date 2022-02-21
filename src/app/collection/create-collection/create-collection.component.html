@@ -1,5 +1,7 @@
 <div class="create-collection-page">
     <!-- Add Supernovas logo -->
+    <div class="logo">supernovas</div>
+    <a href="/u/:username/" alt="Return to Profile"><div class="exit">✕&nbsp;&nbsp;&nbsp;Return to Profile</div></a>
     
     <form #createCollectionForm="ngForm" class="full-height-width-container" (ngSubmit)="onSubmit(createCollectionForm)">
         <app-collection-stepper class="full-height-width-container" [linear]=true>

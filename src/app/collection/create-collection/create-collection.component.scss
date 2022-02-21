@@ -12,9 +12,6 @@
     position: relative;
     height: 100vh;
     width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background-color: #F5F5F5; // update to appropriate variable
 }
 
@@ -25,6 +22,35 @@
     justify-content: center;
     height: 100%;
     width: 100%;
+}
+
+.logo {
+    position: absolute;
+    top: 1rem;
+    left: 2rem;
+    padding: 0;
+    // padding: 5px 20px;
+    font-size: 1.7rem;
+    font-weight: 600;
+    z-index: 1;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.exit {
+    position: absolute;
+    top: 1.25rem;
+    right: 2rem;
+    padding: 8px 15px;
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.05); // update to appropriate variable
+    font-size: 0.8rem;
+    font-weight: 400;
+    z-index: 1;
+
 }
 
 /* -------------------------------------------------------------------------- */

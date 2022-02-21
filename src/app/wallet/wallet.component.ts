@@ -11,6 +11,9 @@ import { SwalHelper } from "../../lib/helpers/swal-helper";
 import { environment } from "src/environments/environment";
 import { animate, query, stagger, style, transition, trigger } from "@angular/animations";
 
+import { Link, ImmutableXClient, ImmutableMethodResults, ETHTokenType, ImmutableRollupStatus } from "@imtbl/imx-sdk";
+import { ethers } from "ethers";
+
 @Component({
   selector: "wallet",
   templateUrl: "./wallet.component.html",
@@ -62,6 +65,14 @@ export class WalletComponent implements OnInit, OnDestroy {
   nextButtonText: string;
 
   mobile = false;
+
+  //   immutable x vars
+  link = new Link(process.env.REACT_APP_ROPSTEN_LINK_URL);
+  walletConnected = false;
+  walletAddress: string;
+  balance: any;
+  client: any;
+  //   end of immutable x vars
 
   constructor(
     private appData: GlobalVarsService,
@@ -133,7 +144,60 @@ export class WalletComponent implements OnInit, OnDestroy {
       );
     }
     this.titleService.setTitle(`Wallet - ${environment.node.name}`);
+
+    // ran this function to highlight the deso tab first
+    this.tabDesoClick();
+
+    this.buildIMX();
   }
+
+  //   -------------------- immutable x functions --------------------
+
+  //   initialise an Immutable X Client to interact with apis more easily
+  async buildIMX(): Promise<void> {
+    const publicApiUrl: string = process.env.REACT_APP_ROPSTEN_ENV_URL ?? "";
+    this.client = await ImmutableXClient.build({ publicApiUrl });
+    if (localStorage.getItem("address")) {
+      this.walletAddress = localStorage.getItem("address") as string;
+      this.walletConnected = true;
+      this.getWalletBalance();
+      console.log(this.balance);
+    }
+  }
+
+  async linkSetup(): Promise<void> {
+    console.log(` ----------------------- client is ${JSON.stringify(this.client)}`);
+    const res = await this.link.setup({});
+    this.walletConnected = true;
+    this.walletAddress = res.address;
+    console.log(` ----------------------- walletConnected is ${this.walletConnected} ----------------------- `);
+    console.log(` ----------------------- walletAddress ${this.walletAddress} ----------------------- `);
+
+    this.balance = await this.client.getBalance({ user: res.address, tokenAddress: "eth" });
+    console.log(` ----------------------- balance is ${this.balance} ----------------------- `);
+
+    // this.getWalletBalance();
+
+    localStorage.setItem("address", res.address);
+  }
+
+  linkLogOut() {
+    localStorage.removeItem("address");
+    this.walletAddress = "undefined";
+    this.walletConnected = false;
+  }
+
+  getWalletBalance() {
+    const options = { method: "GET", headers: { Accept: "application/json" } };
+    fetch(`https://api.ropsten.x.immutable.com/v1/balances/${this.walletAddress}`, options)
+      .then((response) => response.json())
+      .then((response) => {
+        this.balance = ethers.utils.formatEther(response["imx"]);
+        console.log(this.balance);
+      })
+      .catch((err) => console.error(err));
+  }
+  //   -------------------- end of immutable x functions --------------------
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();

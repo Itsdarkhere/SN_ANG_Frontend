@@ -158,6 +158,7 @@ export class WalletComponent implements OnInit, OnDestroy {
     const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";
     this.client = await ImmutableXClient.build({ publicApiUrl });
     if (localStorage.getItem("address")) {
+      console.log("local storage hit -------------------");
       this.walletAddress = localStorage.getItem("address") as string;
       this.walletConnected = true;
       this.balance = await this.client.getBalance({ user: this.walletAddress, tokenAddress: "eth" });
@@ -185,6 +186,14 @@ export class WalletComponent implements OnInit, OnDestroy {
     localStorage.removeItem("address");
     this.walletAddress = "undefined";
     this.walletConnected = false;
+  }
+
+  // deposit eth
+  async depositETH() {
+    await this.link.deposit({
+      type: ETHTokenType.ETH,
+      amount: "0.01",
+    });
   }
   //   -------------------- end of immutable x functions --------------------
 

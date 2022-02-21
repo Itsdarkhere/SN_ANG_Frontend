@@ -67,7 +67,7 @@ export class WalletComponent implements OnInit, OnDestroy {
   mobile = false;
 
   //   immutable x vars
-  link = new Link(process.env.REACT_APP_ROPSTEN_LINK_URL);
+  link = new Link(environment.imx.ROPSTEN_LINK_URL);
   walletConnected = false;
   walletAddress: string;
   balance: any;
@@ -155,13 +155,13 @@ export class WalletComponent implements OnInit, OnDestroy {
 
   //   initialise an Immutable X Client to interact with apis more easily
   async buildIMX(): Promise<void> {
-    const publicApiUrl: string = process.env.REACT_APP_ROPSTEN_ENV_URL ?? "";
+    const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";
     this.client = await ImmutableXClient.build({ publicApiUrl });
     if (localStorage.getItem("address")) {
       this.walletAddress = localStorage.getItem("address") as string;
       this.walletConnected = true;
-      this.getWalletBalance();
-      console.log(this.balance);
+      this.balance = await this.client.getBalance({ user: this.walletAddress, tokenAddress: "eth" });
+      console.log(JSON.stringify(this.balance));
     }
   }
 
@@ -174,7 +174,7 @@ export class WalletComponent implements OnInit, OnDestroy {
     console.log(` ----------------------- walletAddress ${this.walletAddress} ----------------------- `);
 
     this.balance = await this.client.getBalance({ user: res.address, tokenAddress: "eth" });
-    console.log(` ----------------------- balance is ${this.balance} ----------------------- `);
+    console.log(` ----------------------- balance is ${JSON.stringify(this.balance)} ----------------------- `);
 
     // this.getWalletBalance();
 
@@ -185,17 +185,6 @@ export class WalletComponent implements OnInit, OnDestroy {
     localStorage.removeItem("address");
     this.walletAddress = "undefined";
     this.walletConnected = false;
-  }
-
-  getWalletBalance() {
-    const options = { method: "GET", headers: { Accept: "application/json" } };
-    fetch(`https://api.ropsten.x.immutable.com/v1/balances/${this.walletAddress}`, options)
-      .then((response) => response.json())
-      .then((response) => {
-        this.balance = ethers.utils.formatEther(response["imx"]);
-        console.log(this.balance);
-      })
-      .catch((err) => console.error(err));
   }
   //   -------------------- end of immutable x functions --------------------
 

@@ -25,4 +25,8 @@ export const environment = {
     url: "https://supernovas.app",
     logoAssetDir: "/assets/deso/",
   },
+  imx: {
+    ROPSTEN_LINK_URL: "https://link.ropsten.x.immutable.com",
+    ROPSTEN_ENV_URL: "https://api.ropsten.x.immutable.com/v1",
+  },
 };

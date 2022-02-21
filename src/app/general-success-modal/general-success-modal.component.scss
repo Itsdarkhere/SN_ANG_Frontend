@@ -87,6 +87,9 @@
 }
 
 //  connectedWallet
+.walletConnectedSuccessImg {
+  margin-top: 20px;
+}
 
 .general-success-modal-container-connectedWallet {
   color: #333333;
@@ -138,6 +141,54 @@
   margin-top: 35px;
 }
 
+.general-success-modal-container-connectedWallet-success {
+  color: #333333;
+  background-clip: padding-box;
+  flex-direction: column;
+  width: 619px;
+  height: 631px;
+  display: flex;
+  outline: 0;
+  position: relative;
+  background: #fefefe;
+  border: 0.5px solid #e5e5e5;
+  box-sizing: border-box;
+  box-shadow: 4px 4px 20px 2px rgba(0, 0, 0, 0.16);
+  border-radius: 30px;
+  align-items: center;
+  &.gray_bg {
+    background: #fefefe !important;
+  }
+}
+
+.general-success-modal-header-connectedWallet-success {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 48px;
+  color: #0d0d0d;
+  margin-bottom: 10px;
+  margin-left: 50px;
+  margin-right: 50px;
+  max-width: 565px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.general-success-modal-text-connectedWallet-success {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  color: #474747;
+  margin-bottom: 35px;
+  max-width: 500px;
+  text-align: center;
+  margin-left: 80px;
+  margin-right: 80px;
+  margin-top: 20px;
+}
+
 .close-modal-container {
   position: absolute;
   right: 15px;
@@ -172,4 +223,28 @@
   font-weight: 600;
   font-size: 24px;
   line-height: 120%;
+}
+
+.general-success-modal-button-text-connected {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 112.5%;
+}
+
+.imx-deposit-button {
+  border-radius: 37px;
+  height: 72px;
+  width: 350px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.imx-buy-button {
+  border-radius: 37px;
+  height: 72px;
+  width: 350px;
+  margin-bottom: 70px;
+  background-color: white;
+  color: black;
 }

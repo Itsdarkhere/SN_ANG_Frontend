@@ -161,8 +161,7 @@ export class WalletComponent implements OnInit, OnDestroy {
       console.log("local storage hit -------------------");
       this.walletAddress = localStorage.getItem("address") as string;
       this.walletConnected = true;
-      this.balance = await this.client.getBalance({ user: this.walletAddress, tokenAddress: "eth" });
-      console.log(JSON.stringify(this.balance));
+      await this.getBalance(this.walletAddress);
     }
   }
 
@@ -174,12 +173,16 @@ export class WalletComponent implements OnInit, OnDestroy {
     console.log(` ----------------------- walletConnected is ${this.walletConnected} ----------------------- `);
     console.log(` ----------------------- walletAddress ${this.walletAddress} ----------------------- `);
 
-    this.balance = await this.client.getBalance({ user: res.address, tokenAddress: "eth" });
-    console.log(` ----------------------- balance is ${JSON.stringify(this.balance)} ----------------------- `);
-
-    // this.getWalletBalance();
+    await this.getBalance(this.walletAddress);
 
     localStorage.setItem("address", res.address);
+  }
+
+  async getBalance(walletAddressInput: string): Promise<void> {
+    this.balance = await this.client.getBalance({ user: walletAddressInput, tokenAddress: "eth" });
+    this.balance = this.balance.balance.toString();
+    this.balance = ethers.utils.formatEther(this.balance);
+    console.log(` ----------------------- balance is ${this.balance} ETH ----------------------- `);
   }
 
   linkLogOut() {

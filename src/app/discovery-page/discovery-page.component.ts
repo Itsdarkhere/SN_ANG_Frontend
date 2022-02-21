@@ -104,7 +104,7 @@ export class DiscoveryPageComponent implements OnInit {
     this.backendApi
       .GetCommunityFavourite(
         this.globalVars.localNode,
-        "BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w",
+        this.globalVars?.loggedInUser?.PublicKeyBase58Check,
         "BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w",
       )
       .subscribe((res) => {
@@ -154,7 +154,7 @@ export class DiscoveryPageComponent implements OnInit {
     this.backendApi
       .GetFreshDrops(
         this.globalVars.localNode,
-        "BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w",
+        this.globalVars?.loggedInUser?.PublicKeyBase58Check,
         "BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w"
       )
       .subscribe((res) => {

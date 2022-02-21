@@ -815,7 +815,6 @@ export class FeedPostComponent implements OnInit {
       ) {
         return "Owner";
       }
-      console.log(this.nftEntryResponse.IsForSale);
       return this.nftEntryResponse?.IsForSale === false ? "Last Sold for" : "Minimum Bid";
     } else {
       if (Number(maxBid) > 0) {

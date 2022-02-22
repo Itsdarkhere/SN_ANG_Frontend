@@ -126,6 +126,36 @@
   flex: 1;
 }
 
+.deposit-ethereum-header {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 48px;
+  color: #0d0d0d;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-left: 50px;
+  margin-right: 50px;
+  max-width: 565px;
+  text-align: center;
+  flex: 1;
+}
+
+.buy-ethereum-header {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 48px;
+  color: #0d0d0d;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-left: 50px;
+  margin-right: 50px;
+  max-width: 565px;
+  text-align: center;
+  flex: 1;
+}
+
 .general-success-modal-text-connectedWallet {
   font-style: normal;
   font-weight: 500;
@@ -232,12 +262,28 @@
   line-height: 112.5%;
 }
 
+.want-to-deposit-button {
+  margin-bottom: 20px;
+  border-radius: 37px;
+  height: 75px;
+  width: 350px;
+}
+
 .imx-deposit-button {
   border-radius: 37px;
   height: 72px;
   width: 350px;
-  margin-bottom: 20px;
-  margin-top: 10px;
+  margin-bottom: 30px;
+  margin-top: 40px;
+}
+
+.want-to-buy-button {
+  border-radius: 37px;
+  margin-bottom: 30px;
+  background-color: white;
+  color: black;
+  height: 75px;
+  width: 350px;
 }
 
 .imx-buy-button {
@@ -247,4 +293,179 @@
   margin-bottom: 70px;
   background-color: white;
   color: black;
+}
+
+.mint-page-min-price {
+  height: 61px;
+  width: 400px;
+}
+
+.mint-page-min-price-label {
+  right: 0;
+  position: absolute;
+  background-color: #0e0f22;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  outline: none;
+  border: none;
+  color: var(--background);
+  padding: 0px;
+  flex-grow: 1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+}
+
+.mint-page-min-price-input {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border: 3px solid #0e0f22;
+  width: 70%;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 42px;
+  color: #0d0d0d;
+}
+
+// hide input arrows in chrome, safari, and edge
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+// hide input arrows in firefox
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.eth-logo-deposit-button {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.eth-logo-deposit-icon {
+  height: 40px;
+  margin-right: 100px;
+}
+
+.imx-logo-deposit-icon {
+  height: 30px;
+  margin-right: 10px;
+}
+
+.eth-deposit-text {
+  color: white;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 48px;
+  margin-right: 10px;
+}
+
+.deposit-eth-description {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  text-align: center;
+  color: #767676;
+  margin-bottom: 80px;
+  max-width: 500px;
+  text-align: center;
+  margin-left: 80px;
+  margin-right: 80px;
+  margin-top: 30px;
+}
+
+.buy-eth-description {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  text-align: center;
+  color: #767676;
+  margin-bottom: 30px;
+  max-width: 500px;
+  text-align: center;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+.deposit-eth-label {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  color: #565656;
+  opacity: 0.8;
+  margin-bottom: 0px;
+  margin-left: 10px;
+}
+
+.deposit-eth-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.deposit-eth-icon-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 20px;
+}
+
+.support-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.support-text {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  color: #545454;
+  opacity: 0.8;
+}
+
+.support-arrow {
+  height: 30px;
+}
+
+.moonpay-container {
+  border: 2.5px solid #f3f3f3;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 357px;
+  height: 90px;
+  margin-bottom: 160px;
+}
+
+.moonpay-container-header {
+  display: flex;
+  flex-direction: row;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.moonpay-text {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 21px;
+  color: #535353;
+  margin-top: 7.5px;
+  margin-right: 5px;
+  margin-left: 5px;
 }

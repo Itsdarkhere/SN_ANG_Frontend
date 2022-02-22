@@ -31,6 +31,10 @@ export class GeneralSuccessModalComponent implements OnInit {
   @Input() buttonText: string;
   @Input() buttonClickedAction: string;
 
+  depositButtonClickedStatus: boolean = false;
+  buyEthButtonClickedStatus: boolean = false;
+  depositAmount: any;
+
   constructor(
     private analyticsService: GoogleAnalyticsService,
     public globalVars: GlobalVarsService,
@@ -53,18 +57,20 @@ export class GeneralSuccessModalComponent implements OnInit {
   }
 
   async linkSetup(): Promise<void> {
-    console.log(` ----------------------- client is ${JSON.stringify(this.globalVars.imxClient)}`);
-    const res = await this.link.setup({});
+    // this.buyEthButtonClickedStatus = true;
     this.globalVars.imxWalletConnected = true;
-    this.globalVars.imxWalletAddress = res.address;
-    console.log(
-      ` ----------------------- walletConnected is ${this.globalVars.imxWalletConnected} ----------------------- `
-    );
-    console.log(` ----------------------- walletAddress ${this.globalVars.imxWalletAddress} ----------------------- `);
+    // console.log(` ----------------------- client is ${JSON.stringify(this.globalVars.imxClient)}`);
+    // const res = await this.link.setup({});
+    // this.globalVars.imxWalletConnected = true;
+    // this.globalVars.imxWalletAddress = res.address;
+    // console.log(
+    //   ` ----------------------- walletConnected is ${this.globalVars.imxWalletConnected} ----------------------- `
+    // );
+    // console.log(` ----------------------- walletAddress ${this.globalVars.imxWalletAddress} ----------------------- `);
 
-    await this.getImxBalance(this.globalVars.imxWalletAddress);
+    // await this.getImxBalance(this.globalVars.imxWalletAddress);
 
-    localStorage.setItem("address", res.address);
+    // localStorage.setItem("address", res.address);
   }
 
   async getImxBalance(walletAddressInput: string): Promise<void> {
@@ -84,5 +90,34 @@ export class GeneralSuccessModalComponent implements OnInit {
     } else if (this.buttonClickedAction === "connectWallet") {
       await this.linkSetup();
     }
+  }
+
+  wantToDepositButtonClicked() {
+    this.depositButtonClickedStatus = true;
+  }
+
+  async depositButtonClicked() {
+    this.depositAmount = (<HTMLInputElement>document.getElementById("ethDepositAmount")).value;
+    console.log(this.depositAmount);
+    await this.link.deposit({
+      type: ETHTokenType.ETH,
+      amount: this.depositAmount,
+    });
+    this.bsModalRef.hide();
+    this.globalVars._alertSuccess(
+      "Successfully deposited ETH to Imx. Please give a couple of hours for your Imx balance to update."
+    );
+  }
+
+  wantToBuyEthButtonClicked() {
+    this.buyEthButtonClickedStatus = true;
+  }
+
+  async buyEthButtonClicked() {
+    await this.link.fiatToCrypto({});
+    this.bsModalRef.hide();
+    this.globalVars._alertSuccess(
+      "Successfully purchased ETH on Imx with Moonpay. Please give a couple of hours for your Imx balance to update."
+    );
   }
 }

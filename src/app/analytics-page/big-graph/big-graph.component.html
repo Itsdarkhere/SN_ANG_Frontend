@@ -1,21 +1,43 @@
-<div class="big-graph-container">
-  <div class="w-80 d-flex flex-row justify-content-between">
-    <label class="mb-0px fs-14px font-weight-semiboldn" style="color: #767676">DESO NFT MARKET CAP</label>
-    <label class="mb-0px fs-14px font-weight-semiboldn" style="color: #767676">LAST 7 DAYS</label>
-  </div>
-  <div class="w-80 d-flex flex-row justify-content-between mt-5px">
-    <label style="color: #292929" class="mb-0px font-weight-semiboldn fs-32px">1003.45 $DESO</label>
-    <label style="color: #00b929" class="mb-0px font-weight-semiboldn fs-28px">+12.7%</label>
-  </div>
-  <label style="color: #a0a0a0" class="fs-20px">$10,002,021</label>
-  <div class="mt-20px h-70 w-100">
-    <apx-chart
-      class="h-100 w-100"
-      [series]="series"
-      [xaxis]="xaxis"
-      [yaxis]="yaxis"
-      [dataLabels]="dataLabels"
-      [chart]="chart"
-    ></apx-chart>
-  </div>
+<div class="big-graph-info">
+	<div class="info-section-left">
+		<h3>Deso NFT Market Cap</h3>
+		<div class="deso-price">1003.45 DESO</div>
+		<div class="dollar-price">10,002,021 USD</div>
+	</div>
+	<div class="info-section-right">
+		<h3>Last 7 Days</h3>
+		<div class="rate">+12.7%</div>
+	</div>
 </div>
+<div class="big-graph-chart">
+	<apx-chart
+		[series]="series"
+		[xaxis]="xaxis"
+		[yaxis]="yaxis"
+		[dataLabels]="dataLabels"
+		[chart]="chart"
+	></apx-chart>
+</div>
+
+<!-- <div class="big-graph-container">
+	<div class="w-80 d-flex flex-row justify-content-between">
+		<label class="mb-0px fs-14px font-weight-semiboldn" style="color: #767676">DESO NFT MARKET CAP</label>
+		<label class="mb-0px fs-14px font-weight-semiboldn" style="color: #767676">LAST 7 DAYS</label>
+	</div>
+	<div class="w-80 d-flex flex-row justify-content-between mt-5px">
+		<label style="color: #292929" class="mb-0px font-weight-semiboldn fs-32px">1003.45 $DESO</label>
+		<label style="color: #00b929" class="mb-0px font-weight-semiboldn fs-28px">+12.7%</label>
+	</div>
+	<label style="color: #a0a0a0" class="fs-20px">$10,002,021</label>
+	
+	<div class="mt-20px h-70 w-100">
+		<apx-chart
+			class="h-100 w-100"
+			[series]="series"
+			[xaxis]="xaxis"
+			[yaxis]="yaxis"
+			[dataLabels]="dataLabels"
+			[chart]="chart"
+		></apx-chart>
+	</div>
+</div> -->

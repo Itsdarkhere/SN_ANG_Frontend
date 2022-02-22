@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalVarsService } from 'src/app/global-vars.service';
 
 @Component({
   selector: 'app-top-bids',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopBidsComponent implements OnInit {
 
-  constructor() { }
+  constructor(public globalVars: GlobalVarsService) { }
 
   ngOnInit(): void {
   }

@@ -1,0 +1,27 @@
+.bottom-spacer {
+    height: 100px;
+}
+.analytics-tab-selector {
+    width: 352px;
+    height: 54px;
+    background: #efefef;
+    border-radius: 42.558143615722656px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    button {
+        width: 50%;
+        height: 100%;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        font-size: 18px;
+        color: #444444;
+        border-radius: 42.558143615722656px;
+    }
+    button.selected {
+        background-color: #ffffff;
+        color: #111111;
+    }
+}

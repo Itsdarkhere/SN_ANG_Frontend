@@ -1,0 +1,38 @@
+<div class="activity-left-bar-container">
+  <label>Events</label>
+  <button class="activity-event-button font-weight-semiboldn" [ngClass]="{ active: eventsAll }">
+    <img src="/assets/icons/activity_all_icon.svg" class="mr-5px" alt="image-icon" />
+    All
+  </button>
+  <button class="activity-event-button font-weight-semiboldn" [ngClass]="{ active: eventsMints }">
+    <img src="/assets/icons/activity_mints_icon.svg" class="mr-5px" alt="image-icon" />
+    Mints
+  </button>
+  <button class="activity-event-button font-weight-semiboldn" [ngClass]="{ active: eventsBids }">
+    <img src="/assets/icons/activity_bids_icon.svg" class="mr-5px" alt="image-icon" />
+    Bids
+  </button>
+  <button class="activity-event-button font-weight-semiboldn" [ngClass]="{ active: eventsSales }">
+    <img src="/assets/icons/activity_sales_icon.svg" class="mr-5px" alt="image-icon" />
+    Sales
+  </button>
+  <button class="activity-event-button font-weight-semiboldn" [ngClass]="{ active: eventsListings }">
+    <img src="/assets/icons/activity_listings_icon.svg" class="mr-5px" alt="image-icon" />
+    Listings
+  </button>
+  <label>Creators</label>
+  <div class="activity-lb-creators-selector">
+    <button class="font-weight-semiboldn">
+      <img src="/assets/icons/activity_checkmark_icon.svg" class="mr-5px" alt="image-icon" />
+      Verified
+    </button>
+    <button class="font-weight-semiboldn">
+      <img src="/assets/icons/activity_all_icon.svg" class="mr-5px" alt="image-icon" />
+      All
+    </button>
+  </div>
+  <button class="activity-lb-apply">
+    <img src="/assets/icons/market_apply_icon.svg" class="mr-5px" alt="image-icon" />
+    Apply
+  </button>
+</div>

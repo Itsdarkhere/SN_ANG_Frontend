@@ -1,0 +1,24 @@
+.top-sales-container {
+    width: 100%;
+    height: 712px;
+    background: #ffffff;
+    box-shadow: 0px 0.9258777499198914px 9.258777618408203px rgba(0, 0, 0, 0.05);
+    margin-top: 40px;
+    border-radius: 30px;
+    padding: 5%;
+    .top-sales-cards-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 5%;
+        .nft-item {
+            width: calc(100% / 5);
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+    }
+}

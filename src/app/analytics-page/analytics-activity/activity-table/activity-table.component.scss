@@ -1,0 +1,22 @@
+table {
+    margin-left: 20px;
+    width: 100%;
+    border: 2px solid #ebebeb !important;
+    border-collapse: separate;
+    overflow: hidden;
+    border-radius: 10px !important;
+    min-height: 600px;
+}
+thead {
+    height: 42px;
+    background: #f8f8f8;
+    border: 1px solid #dedede;
+    box-shadow: 0px 1px 5px rgba(117, 117, 117, 0.1),0px 1px 5px rgba(117, 117, 117, 0.1);
+    td {
+        color: #7A7A7A;
+        font-size: 14px;
+    }
+}
+td {
+    padding-left: 20px;
+}

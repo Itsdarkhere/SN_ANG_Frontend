@@ -1,1 +1,9 @@
-<p>top-sales works!</p>
+<div class="top-sales-container">
+  <h3 style="color: #2d2d2d" class="font-weight-semiboldn fs-32px">Top NFT Sales on Deso</h3>
+  <div class="top-sales-cards-container">
+    <div class="nft-item" *ngFor="let post of topSalesPosts">
+      <label style="color: #1f1f1f" class="w-100 text-align-start font-weight-semiboldn fs-18px">1st</label>
+      <app-small-card-component [post]="post"></app-small-card-component>
+    </div>
+  </div>
+</div>

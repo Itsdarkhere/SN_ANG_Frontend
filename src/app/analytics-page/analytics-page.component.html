@@ -1,1 +1,20 @@
-<p>analytics-page works!</p>
+<app-page-small-nav-new>
+  <div class="w-100 h-100 d-flex flex-column">
+    <div class="d-flex flex-row mt-20px w-60 justify-content-between">
+      <h1 class="fs-32px d-flex flex-center">Analytics</h1>
+      <div class="analytics-tab-selector">
+        <button class="font-weight-semiboldn" (click)="changeTab(true)" [ngClass]="{ selected: tabDashboard }">
+          Dashboard
+        </button>
+        <button class="font-weight-semiboldn" (click)="changeTab(false)" [ngClass]="{ selected: tabActivity }">
+          Activity
+        </button>
+      </div>
+    </div>
+    <app-dashboard *ngIf="tabDashboard; else elseBlock"></app-dashboard>
+    <ng-template #elseBlock>
+      <app-analytics-activity></app-analytics-activity>
+    </ng-template>
+    <div class="bottom-spacer"></div>
+  </div>
+</app-page-small-nav-new>

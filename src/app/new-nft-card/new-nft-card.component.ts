@@ -603,7 +603,9 @@ export class NewNftCardComponent implements OnInit {
   }
   // If image errors, use image straight from link
   useNormalImage() {
-    this.imageURL = this.postContent.ImageURLs[0];
+    if (this.postContent.ImageURLs[0]) {
+      this.imageURL = this.postContent.ImageURLs[0];
+    }
   }
   openPlaceBidModal(event: any) {
     if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {

@@ -156,6 +156,7 @@ import { SanitizeVideoUrlPipe } from "../lib/pipes/sanitize-video-url-pipe";
 import { AdminNodeFeesComponent } from "./admin/admin-node-fees/admin-node-fees.component";
 import { AdminNodeAddFeesComponent } from "./admin/admin-node-fees/admin-node-add-fee/admin-node-add-fees.component";
 import { IvyCarouselModule } from "angular-responsive-carousel";
+import { NgApexchartsModule } from "ng-apexcharts";
 
 // Modular Themes for DeSo by Carsen Klock @carsenk
 import { ThemeModule } from "./theme/theme.module";
@@ -208,13 +209,17 @@ import { NftCardPostComponent } from "./new-nft-card/nft-card-post/nft-card-post
 import { BuyNowModalComponent } from "./buy-now-modal/buy-now-modal.component";
 import { NftEditionDropdownComponent } from "./feed/nft-edition-dropdown/nft-edition-dropdown.component";
 import { SupernovasCenterLoaderComponent } from "./supernovas-center-loader/supernovas-center-loader.component";
-import { AnalyticsPageComponent } from './analytics-page/analytics-page.component';
-import { TopBidsComponent } from './analytics-page/top-bids/top-bids.component';
-import { BigGraphComponent } from './analytics-page/big-graph/big-graph.component';
-import { QuickFactsComponent } from './analytics-page/quick-facts/quick-facts.component';
-import { TopSalesComponent } from './analytics-page/top-sales/top-sales.component';
-import { CreatorListComponent } from './analytics-page/creator-list/creator-list.component';
-import { SmallGraphComponent } from './analytics-page/small-graph/small-graph.component';
+import { AnalyticsPageComponent } from "./analytics-page/analytics-page.component";
+import { TopBidsComponent } from "./analytics-page/top-bids/top-bids.component";
+import { BigGraphComponent } from "./analytics-page/big-graph/big-graph.component";
+import { QuickFactsComponent } from "./analytics-page/quick-facts/quick-facts.component";
+import { TopSalesComponent } from "./analytics-page/top-sales/top-sales.component";
+import { CreatorListComponent } from "./analytics-page/creator-list/creator-list.component";
+import { SmallGraphComponent } from "./analytics-page/small-graph/small-graph.component";
+import { DashboardComponent } from "./analytics-page/dashboard/dashboard.component";
+import { AnalyticsActivityComponent } from "./analytics-page/analytics-activity/analytics-activity.component";
+import { ActivityLeftBarComponent } from './analytics-page/analytics-activity/activity-left-bar/activity-left-bar.component';
+import { ActivityTableComponent } from './analytics-page/analytics-activity/activity-table/activity-table.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -404,6 +409,10 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     TopSalesComponent,
     CreatorListComponent,
     SmallGraphComponent,
+    DashboardComponent,
+    AnalyticsActivityComponent,
+    ActivityLeftBarComponent,
+    ActivityTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -430,6 +439,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     InfiniteScrollModule,
     IvyCarouselModule,
     NgxShimmerLoadingModule,
+    NgApexchartsModule,
     AnimateOnScrollModule.forRoot(),
     ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),

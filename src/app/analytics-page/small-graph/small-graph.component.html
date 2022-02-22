@@ -1,1 +1,13 @@
-<p>small-graph works!</p>
+<div class="small-graph-parent-container">
+  <label style="color: #2d2d2d" class="pl-10px fs-24px font-weight-semiboldn">Unique creators</label>
+  <div class="small-graph-container d-flex flex-center">
+    <apx-chart
+      class="h-100 w-100"
+      [series]="series"
+      [xaxis]="xaxis"
+      [yaxis]="yaxis"
+      [dataLabels]="dataLabels"
+      [chart]="chart"
+    ></apx-chart>
+  </div>
+</div>

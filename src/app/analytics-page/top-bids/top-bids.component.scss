@@ -1,0 +1,25 @@
+.top-bid-container {
+    width: 470px;
+    max-width: 100vw;
+    height: 115px;
+    background-color: #ffffff;
+    border-radius: 18.122512817382812px;
+    box-shadow: 0px 1.812251329421997px 30px rgba(0, 0, 0, 0.05);
+    .bid-detail {
+        padding-left: 10px;
+        width: calc(100% / 3);
+        height: 100%;
+    }
+}
+.top-bid-piece {
+    width: 43px;
+    height: 35px;
+    border: 0.11391620337963104px solid #e4e4e4;
+}
+.top-bid-avatar {
+    width: 29px;
+    height: 28px;
+    border: 2.0714285373687744px solid #ffffff;
+    border-radius: 50%;
+    box-shadow: 0.6891809105873108px 0.6891809105873108px 3.4459030628204346px rgba(0, 0, 0, 0.1);
+}

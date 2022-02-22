@@ -3,7 +3,6 @@ import { GlobalVarsService } from "../../global-vars.service";
 import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../../backend-api.service";
 import { InfiniteScroller } from "../../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
-import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-create-collection',
@@ -24,7 +23,24 @@ export class CreateCollectionComponent implements OnInit {
   collectionBannerImage: File = null;
   collectionDisplayImage: File = null;
   stepNumber: number = 1;
+  
+  activeTab: string;
+  isLoading: boolean = true;
+  startIndex: number = 0;
+  endIndex: number = 10;
+  lastPage = null;
+  postData: PostEntryResponse[];
+  posts: PostEntryResponse[];
+  myBids: NFTBidEntryResponse[];
 
+  static PAGE_SIZE = 10;
+  static BUFFER_SIZE = 5;
+  static WINDOW_VIEWPORT = true;
+  static PADDING = 0.5;
+  static MY_BIDS = "My Bids";
+
+
+  nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
 
   async ngOnInit() : Promise<void> {
     await this.getNFTs();
@@ -44,13 +60,24 @@ export class CreateCollectionComponent implements OnInit {
     this.stepNumber++;
     console.log(this.stepNumber);
     if(this.stepNumber === 2) {
-      for(var i = 0; i < this.postData.length; i++) {
-        // <HTMLInputElement>document.getElementById(i).checked = false;
-        var counter = i.toString();
-        let ele = document.getElementById(counter) as HTMLInputElement;
-        ele.checked = false;
-        console.log(i);
+      if(this.postData && (this.isLoading === false)) {
+        for(var i = 0; i < this.postData.length; i++) {
+          // <HTMLInputElement>document.getElementById(i).checked = false;
+          var counter = i.toString();
+          let ele = document.getElementById(counter) as HTMLInputElement;
+          ele.checked = false;
+          console.log(i);
+        }
       }
+      // setTimeout(() => {
+      //   for(var i = 0; i < this.postData.length; i++) {
+      //     // <HTMLInputElement>document.getElementById(i).checked = false;
+      //     var counter = i.toString();
+      //     let ele = document.getElementById(counter) as HTMLInputElement;
+      //     ele.checked = false;
+      //     console.log(i);
+      //   }
+      // }, 10);
     }
   }
 
@@ -76,66 +103,14 @@ export class CreateCollectionComponent implements OnInit {
     }
   }
 
-  checkedNft: any;
-  nftValue: PostEntryResponse = null;
   setPostValue: any;
-
-
 
   setValue($event, post, postData: PostEntryResponse[], i :number) {
     if($event.target.checked) {
       this.setPostValue = postData[i];
       // console.log(post);
     }
-    // if(postData[i].checked) {
-    //   postData[i].setValue = post;
-    //   console.log(postData[i], post);
-    // }
-    
-      // this.postValue = post;
-      // console.log(this.postValue);
-      // this.postData[i] = post;
-    // if($event.currentTarget.checked) {
-     
-    //   this.collectionNfts = { nftValue: post };
-    //   console.log(this.collectionNfts);
-    // }
   }
-
-  // selectAllNfts($event) {
-  //   this.selectAllCheckboxes = !this.selectAllCheckboxes;
-  //   console.log(this.selectAllCheckboxes);
-
-  //   if ($event && !this.selectAllCheckboxes) {
-  //       // this.createCollectionForm.get["collectionNfts"].map(control => control.setValue(true));
-  //       console.log(this.createCollectionForm.get["collectionNfts"]);
-  //     } else {
-  //       this.createCollectionForm.get["collectionNfts"].map(control => control.setValue(false));
-  //       console.log(this.createCollectionForm.get["collectionNfts"].value);
-  //     }
-  // }
-
-  onSubmit(createCollectionForm) {
-    console.log(createCollectionForm.value);
-  }
-
-  static PAGE_SIZE = 10;
-  static BUFFER_SIZE = 5;
-  static WINDOW_VIEWPORT = true;
-  static PADDING = 0.5;
-  static MY_BIDS = "My Bids";
-
-  activeTab: string;
-  isLoading: boolean = true;
-  startIndex: number = 0;
-  endIndex: number = 10;
-  lastPage = null;
-
-  postData: PostEntryResponse[];
-  posts: PostEntryResponse[];
-  myBids: NFTBidEntryResponse[];
-
-  nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
 
   getNFTs() {
     this.isLoading = true;
@@ -173,6 +148,10 @@ export class CreateCollectionComponent implements OnInit {
           : this.nftResponse.slice(startIdx, Math.min(endIdx, this.nftResponse.length))
       );
     });
+  }
+
+  onSubmit(createCollectionForm) {
+    console.log(createCollectionForm.value);
   }
 
   // hasProfile() {

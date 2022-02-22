@@ -4,96 +4,94 @@
     <a href="/u/:username/" alt="Return to Profile"><div class="exit">✕&nbsp;&nbsp;&nbsp;Return to Profile</div></a>
     
     <form #createCollectionForm="ngForm" class="full-height-width-container" (ngSubmit)="onSubmit(createCollectionForm)">
-        <div class="full-height-width-container">
+        <div class="full-height-width-container" *ngIf="postData && isLoading == false">
             
             <!-- View 1: COLLECTION DETAILS -->
-            <ng-container *ngIf="stepNumber === 1">
-                <fieldset class="collection-details-fieldset" autocomplete="off">
-                    <h1 class="create-collection-title">Collection details</h1>
-                    
-                    <!-- Collection Banner -->
-                    <div class="collection-details-header">
-
-                        <!-- Banner Image -->
-                        <div class="collection-details-banner">
-                            <ng-container *ngIf="uploadedBannerImage; else defaultBanner">
-                                <input 
-                                    type="file" 
-                                    name="collectionBannerImage"
-                                    accept="image/png, image/jpeg, image/webp"
-                                    (change)="updateBanner($event)"
-                                    [ngModel]="collectionBannerImage"
-                                >
-                                <img [src]="uploadedBannerImage" class="uploaded-banner-image">
-                            </ng-container>
-
-                            <ng-template #defaultBanner>
-                                <input 
-                                    type="file" 
-                                    name="collectionBannerImage"
-                                    accept="image/png, image/jpeg, image/webp"
-                                    (change)="updateBanner($event)"
-                                    [ngModel]="collectionBannerImage"
-                                >
-                                <div class="banner-text-h2">
-                                    <img src="/assets/icons/upload_grey.svg" alt="Upload Banner Image"/>
-                                    <h2>Click to upload a collection banner image</h2>
-                                </div>
-                                    <h3>Recommended size is 925 x 250 pixels.</h3>
-                            </ng-template>
-                        </div>
-
-                        <!-- Display Image -->
-                        <div class="display-image">
-                            <ng-container *ngIf="uploadedDisplayImage; else defaultDisplay">
-                                <input 
-                                    type="file"
-                                    name="collectionDisplayImage"
-                                    accept="image/png, image/jpeg, image/webp"
-                                    [ngModel]="collectionDisplayImage"
-                                    (change)="updateDisplayImage($event)"
-                                >
-                                <img [src]="uploadedDisplayImage">
-                            </ng-container>
-
-                            <ng-template #defaultDisplay>
-                                <input 
-                                    type="file"
-                                    name="collectionDisplayImage"
-                                    accept="image/png, image/jpeg, image/webp"
-                                    [ngModel]="collectionDisplayImage"
-                                    (change)="updateDisplayImage($event)"
-                                >
-                            </ng-template>
-                        </div>
-                    </div>
+            <fieldset *ngIf="stepNumber === 1" class="collection-details-fieldset" autocomplete="off">
+                <h1 class="create-collection-title">Collection details</h1>
                 
-                    <!-- Collection Information -->
-                    <div class="collection-details-info">
-                        <label for="collectionName">Collection Name:</label>
-                        <input type="text" id="collectionName" name="collectionName" ngModel/>
-                        <label for="collectionDescription">Collection Description:</label>
-                        <textarea rows="4" id="collectionDescription" name="collectionDescription" ngModel></textarea>
-                        <button type="button" (click)="nextStep()" cdkStepperNext>Continue</button>
+                <!-- Collection Banner -->
+                <div class="collection-details-header">
+
+                    <!-- Banner Image -->
+                    <div class="collection-details-banner">
+                        <ng-container *ngIf="uploadedBannerImage; else defaultBanner">
+                            <input 
+                                type="file" 
+                                name="collectionBannerImage"
+                                accept="image/png, image/jpeg, image/webp"
+                                (change)="updateBanner($event)"
+                                [ngModel]="collectionBannerImage"
+                            >
+                            <img [src]="uploadedBannerImage" class="uploaded-banner-image">
+                        </ng-container>
+
+                        <ng-template #defaultBanner>
+                            <input 
+                                type="file" 
+                                name="collectionBannerImage"
+                                accept="image/png, image/jpeg, image/webp"
+                                (change)="updateBanner($event)"
+                                [ngModel]="collectionBannerImage"
+                            >
+                            <div class="banner-text-h2">
+                                <img src="/assets/icons/upload_grey.svg" alt="Upload Banner Image"/>
+                                <h2>Click to upload a collection banner image</h2>
+                            </div>
+                                <h3>Recommended size is 925 x 250 pixels.</h3>
+                        </ng-template>
                     </div>
-                </fieldset>                
-            </ng-container>
+
+                    <!-- Display Image -->
+                    <div class="display-image">
+                        <ng-container *ngIf="uploadedDisplayImage; else defaultDisplay">
+                            <input 
+                                type="file"
+                                name="collectionDisplayImage"
+                                accept="image/png, image/jpeg, image/webp"
+                                [ngModel]="collectionDisplayImage"
+                                (change)="updateDisplayImage($event)"
+                            >
+                            <img [src]="uploadedDisplayImage">
+                        </ng-container>
+
+                        <ng-template #defaultDisplay>
+                            <input 
+                                type="file"
+                                name="collectionDisplayImage"
+                                accept="image/png, image/jpeg, image/webp"
+                                [ngModel]="collectionDisplayImage"
+                                (change)="updateDisplayImage($event)"
+                            >
+                        </ng-template>
+                    </div>
+                </div>
+            
+                <!-- Collection Information -->
+                <div class="collection-details-info">
+                    <label for="collectionName">Collection Name:</label>
+                    <input type="text" id="collectionName" name="collectionName" ngModel/>
+                    <label for="collectionDescription">Collection Description:</label>
+                    <textarea rows="4" id="collectionDescription" name="collectionDescription" ngModel></textarea>
+                    <button type="button" (click)="nextStep()">Continue</button>
+                </div>
+            </fieldset>                
             
             <!-- View 2: SELECT NFTS FOR COLLECTION -->
-            <ng-container *ngIf="stepNumber === 2">
-                <fieldset class="collection-nft-selection-fieldset" autocomplete="off">
-                    <!-- Create Collection Content Area -->
-                    <div class="collection-selections-main">
-                        <div class="collection-selections-main-headline">
-                            <h1>Pick NFTs for Collection</h1>
-                            <!-- Add logic -->
-                            <button (change)="isChecked = $event.target.checked ? true : false">Select all</button>
-                        </div>
-                
-                        <!-- Populated NFT Content -->
-                        <div class="collection-selections-main-content">	
-                            <!-- Container with "position: absolute;" allows inner flex content to scroll -->
-                            <div class="collection-selections-user-nfts">
+            <fieldset *ngIf="stepNumber === 2" class="collection-nft-selection-fieldset" autocomplete="off">
+                <!-- Create Collection Content Area -->
+                <div class="collection-selections-main">
+                    <div class="collection-selections-main-headline">
+                        <h1>Pick NFTs for Collection</h1>
+                        <!-- Add logic -->
+                        <button>Select all</button>
+                    </div>
+            
+                    <!-- Populated NFT Content -->
+                    <div class="collection-selections-main-content">	
+                        <!-- Container with "position: absolute;" allows inner flex content to scroll -->
+                        <div class="collection-selections-user-nfts">
+                            <ng-container *ngIf="isLoading == false">
                                 <ng-container ngModelGroup="collectionNfts" *ngFor="let post of postData; index as i;">
                                     <div class="collection-nft-container">
                                         <input
@@ -102,23 +100,23 @@
                                             name="{{i}}"
                                             (change)="setValue($event, postData, i)"
                                             [ngModel]="postData[i]"
-                                            [checked]=""
+                                            [checked]="false"
                                         >
                                         <app-small-card-component class="disable-link" [post]="post"></app-small-card-component>
                                     </div>
                                 </ng-container>
-                            </div>
+                            </ng-container>
                         </div>
                     </div>
-                
-                    <!-- Create Collection Bottom Bar (Form Navigation) -->
-                    <div class="collection-selections-bottom-bar">
-                        <!-- Add variable -->
-                        <p>3 NFTS selected</p>
-                        <button type="submit" [disabled]="(!createCollectionForm.form.valid )">Create Collection</button>
-                    </div>
-                </fieldset>
-            </ng-container>
+                </div>
+            
+                <!-- Create Collection Bottom Bar (Form Navigation) -->
+                <div class="collection-selections-bottom-bar">
+                    <!-- Add variable -->
+                    <p>3 NFTS selected</p>
+                    <button type="submit">Create Collection</button>
+                </div>
+            </fieldset>
 
         </div>
     </form>

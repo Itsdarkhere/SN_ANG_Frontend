@@ -43,8 +43,24 @@
 
                         <!-- Display Image -->
                         <div class="display-image">
-                            <input type="file" name="collectionDisplayImage" accept="image/png, image/jpeg, image/webp">
-                            <img src="" alt="Upload Collection Image">
+                            <ng-container *ngIf="uploadedDisplayImage; else defaultDisplay">
+                                <input 
+                                    type="file"
+                                    name="collectionDisplayImage"
+                                    accept="image/png, image/jpeg, image/webp"
+                                    (change)="updateDisplayImage($event)"
+                                >
+                                <img [src]="uploadedDisplayImage">
+                            </ng-container>
+
+                            <ng-template #defaultDisplay>
+                                <input 
+                                    type="file"
+                                    name="collectionDisplayImage"
+                                    accept="image/png, image/jpeg, image/webp"
+                                    (change)="updateDisplayImage($event)"
+                                >
+                            </ng-template>
                         </div>
                     </div>
                 

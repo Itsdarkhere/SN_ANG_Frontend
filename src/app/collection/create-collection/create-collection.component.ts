@@ -18,6 +18,7 @@ export class CreateCollectionComponent implements OnInit {
   isChecked: boolean = false;
   selectAllCheckboxes: boolean = false;
   uploadedBannerImage: undefined;
+  uploadedDisplayImage: undefined;
 
   updateBanner($event: any) {
     if($event.target.files) {
@@ -25,6 +26,16 @@ export class CreateCollectionComponent implements OnInit {
       reader.readAsDataURL($event.target.files[0]);
       reader.onload=(event: any) => {
         this.uploadedBannerImage=event.target.result;
+      }
+    }
+  }
+
+  updateDisplayImage($event: any) {
+    if($event.target.files) {
+      let reader = new FileReader();
+      reader.readAsDataURL($event.target.files[0]);
+      reader.onload=(event: any) => {
+        this.uploadedDisplayImage=event.target.result;
       }
     }
   }

@@ -15,10 +15,10 @@
 		</div>
 
 		<!-- Top Bids Component -->
-		<app-dashboard *ngIf="tabDashboard; else elseBlock"></app-dashboard>
+		<app-dashboard *ngIf="tabDashboard; else elseBlock" class="full-height-width-container"></app-dashboard>
 
 		<ng-template #elseBlock>
-			<app-analytics-activity></app-analytics-activity>
+			<app-analytics-activity class="full-height-width-container"></app-analytics-activity>
 		</ng-template>
 	</div>
 </app-page-small-nav-new>

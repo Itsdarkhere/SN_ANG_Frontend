@@ -1,20 +1,86 @@
 .top-bids-container {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    overflow-x: scroll;
-    padding: 10px 5px;
-    background-color: transparent;
-    border: 1px solid red;
+    flex-direction: column;
+    border: 3px solid orange;
+
+    h2 {
+        padding: 10px 0;
+        font-size: 1.4rem;
+        font-weight: 500;
+    }
+
+    .top-bid-horizontal-cards {
+        padding: 10px 5px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        overflow-x: scroll;
+        background-color: transparent;
+        border: 1px solid red;
+
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        /* IE 10+ */
+    }
+
 }
+
+.analytics-main-cards {
+    padding: 2rem 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
 .quick-facts-container {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+    flex-direction: column;
+    border: 3px solid orange;
+
+    h2 {
+        padding: 10px 0;
+        font-size: 1.4rem;
+        font-weight: 500;
+    }
+
+    .quick-facts-cards {
+        padding: 10px 5px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        overflow-x: scroll;
+        background-color: transparent;
+        border: 1px solid red;
+
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        /* IE 10+ */
+    }
+}
+
+.top-sales-container {
+    padding: 2rem;
+    height: 100%;
+    width: 100%;
+}
+
+.creator-list-container {
+    padding: 2rem 0;
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    overflow-x: scroll;
-    padding: 10px 5px;
-    background-color: transparent;
-    border: 1px solid blue;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+
+    h2 {
+        padding: 10px 0;
+        font-size: 1.4rem;
+        font-weight: 500;
+    }
 }

@@ -160,7 +160,7 @@
       </div>
       <div class="nfts-card-list nft_creator_list" *ngIf="activeTab === 'Transfers' && !isLoading">
         <div class="nft-col-wrap" *ngFor="let nftEntry of nftResponse">
-          <div class="max-width-350">
+          <div class="max-width-300-plus">
             <new-nft-card
               *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
               [contentShouldLinkToThread]="true"

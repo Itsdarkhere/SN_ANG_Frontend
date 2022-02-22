@@ -57,7 +57,7 @@
             [ngClass]="globalVars.marketplaceViewTypeCard ? 'nft-col-wrap' : 'small-nft-col-wrap'"
             *ngFor="let PostEntryResponse of globalVars.marketplaceNFTsData"
           >
-            <div class="max-width-350" *ngIf="globalVars.marketplaceViewTypeCard">
+            <div class="max-width-300-plus" *ngIf="globalVars.marketplaceViewTypeCard">
               <new-nft-card
                 [post]="PostEntryResponse"
                 [includePaddingOnPost]="true"

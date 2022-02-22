@@ -2061,6 +2061,8 @@ input.bs-timepicker-field {
   width: 100%;
   z-index: 99;
   border: 1px solid var(--border);
+  overflow-y: scroll !important;
+  max-height: 300px;
 }
 
 .change-account-selector_list-item {
@@ -4025,6 +4027,9 @@ option {
   margin: 20px -10px 0px;
   padding: 0px;
   list-style-type: none;
+  @media screen and (max-width: 992px) {
+    justify-content: center;
+  }
   @media screen and (max-width: 676px) {
     padding: 0px 0px 0 0px;
   }
@@ -4457,6 +4462,31 @@ option {
         border-left: 0;
       }
     }
+    .auction_detl_status {
+      width: 58%;
+      @media screen and (max-width: 767px) {
+        padding-left: 20px;
+      }
+      .val {
+        font-size: 20.35px;
+        font-weight: 600;
+        margin-top: 10px;
+        @media screen and (max-width: 767px) {
+          font-size: 16px;
+        }
+      }
+      .val_st {
+        font-size: 10.18px;
+        color: var(--textalt);
+        @media screen and (max-width: 767px) {
+          font-size: 9px;
+        }
+      }
+      &.border_n_pd {
+        padding: 0;
+        border-left: 0;
+      }
+    }
     .nft_done_by {
       width: 58%;
       padding-left: 50px;
@@ -4514,7 +4544,7 @@ option {
       }
     }
     .hq {
-      font-size: 14.69px;
+      font-size: 17px;
       display: block;
       margin-bottom: 10px;
       text-transform: uppercase;
@@ -4699,10 +4729,6 @@ option {
 .max-width-300-plus {
   max-width: 300px;
   width: 100%;
-}
-.max-width-350 {
-  width: 100%;
-  max-width: 350px;
 }
 
 .js-app-component__dynamically-added-router-link-class {

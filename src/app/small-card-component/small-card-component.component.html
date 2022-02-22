@@ -72,6 +72,12 @@
         allowfullscreen
       ></iframe>
     </div>
+    <div
+      class="w-100 h-100 background-secondary d-flex flex-start-center text-nft-container p-20px"
+      *ngIf="!constructedEmbedURL && !post.VideoURLs && !post.ImageURLs && !post.PostExtraData['arweaveVideoSrc']"
+    >
+      <div class="disable-scrollbars">{{ post.Body }}</div>
+    </div>
   </div>
   <div class="red-box-div" [ngClass]="isForSale ? 'colors-for-sale' : 'colors-sold'">
     <p *ngIf="post.PostExtraData?.name" class="font-weight-semibold">

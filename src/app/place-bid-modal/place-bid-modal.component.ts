@@ -8,6 +8,7 @@ import { Router } from "@angular/router";
 import { InfiniteScroller } from "../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { GoogleAnalyticsService } from "../google-analytics.service";
+import { object } from "underscore";
 
 @Component({
   selector: "place-bid-modal",
@@ -22,11 +23,14 @@ export class PlaceBidModalComponent implements OnInit {
 
   @Input() postHashHex: string;
   @Input() post: PostEntryResponse;
+  @Input() clickedPlaceABid: boolean;
+  @Input() isBuyNow: boolean;
   bidAmountDESO: number;
   bidAmountUSD: string;
   selectedSerialNumber: NFTEntryResponse = null;
   availableCount: number;
-  availableSerialNumbers: NFTEntryResponse[];
+  //   availableSerialNumbers: NFTEntryResponse[];
+  availableSerialNumbers: any;
   biddableSerialNumbers: NFTEntryResponse[];
   highBid: number = null;
   lowBid: number = null;
@@ -47,7 +51,30 @@ export class PlaceBidModalComponent implements OnInit {
     private router: Router
   ) {}
 
+  //   ngOnInit(): void {
+  //     this.backendApi
+  //       .GetNFTCollectionSummary(
+  //         this.globalVars.localNode,
+  //         this.globalVars.loggedInUser.PublicKeyBase58Check,
+  //         this.post.PostHashHex
+  //       )
+  //       .subscribe((res) => {
+  //         this.availableSerialNumbers = _.values(res.SerialNumberToNFTEntryResponse).sort(
+  //           (a, b) => a.SerialNumber - b.SerialNumber
+  //         );
+  //         this.availableCount = res.NFTCollectionResponse.PostEntryResponse.NumNFTCopiesForSale;
+  //         this.biddableSerialNumbers = this.availableSerialNumbers.filter(
+  //           (nftEntryResponse) =>
+  //             nftEntryResponse.OwnerPublicKeyBase58Check !== this.globalVars.loggedInUser.PublicKeyBase58Check
+  //         );
+  //       })
+  //       .add(() => (this.loading = false));
+
+  //     this.SendBidModalOpenedEvent();
+  //   }
+
   ngOnInit(): void {
+    console.log(this.clickedPlaceABid);
     this.backendApi
       .GetNFTCollectionSummary(
         this.globalVars.localNode,
@@ -55,11 +82,34 @@ export class PlaceBidModalComponent implements OnInit {
         this.post.PostHashHex
       )
       .subscribe((res) => {
-        this.availableSerialNumbers = _.values(res.SerialNumberToNFTEntryResponse).sort(
-          (a, b) => a.SerialNumber - b.SerialNumber
+        let resObjJSON = JSON.stringify(res.SerialNumberToNFTEntryResponse);
+        let resObj = JSON.parse(resObjJSON);
+
+        console.log(res);
+        // console.log(resObj);
+        let objValues = Object.values(resObj);
+        console.log(objValues);
+
+        // this.availableSerialNumbers = _.values(res.SerialNumberToNFTEntryResponse).sort(
+        this.availableSerialNumbers = objValues.sort(
+          (a: { SerialNumber: number }, b: { SerialNumber: number }) => a.SerialNumber - b.SerialNumber
         );
+
+        let availableSerialNumbersJSON = JSON.stringify(this.availableSerialNumbers);
+        let availableSerialNumbersObj = JSON.parse(availableSerialNumbersJSON);
+
+        // console.log(` ------------------ type of availableSerialNumbers ${typeof this.availableSerialNumbers}`);
+        // console.log(` ------------------ availableSerialNumbersJSON ${availableSerialNumbersJSON}`);
+        // console.log(` ------------------ availableSerialNumbersObj ${availableSerialNumbersObj.length}`);
+
+        // // log each object in the array since you cannot with availableSerialNumbersObj since it logs [object Object]
+        // for (var i = 0; i < availableSerialNumbersObj.length; i++) {
+        //   console.log(availableSerialNumbersObj[i]);
+        // }
+
         this.availableCount = res.NFTCollectionResponse.PostEntryResponse.NumNFTCopiesForSale;
-        this.biddableSerialNumbers = this.availableSerialNumbers.filter(
+        // if the nftEntryResponse OwnerPublicKeyBase58Check doesn't equal the logged in user then you can bid
+        this.biddableSerialNumbers = availableSerialNumbersObj.filter(
           (nftEntryResponse) =>
             nftEntryResponse.OwnerPublicKeyBase58Check !== this.globalVars.loggedInUser.PublicKeyBase58Check
         );

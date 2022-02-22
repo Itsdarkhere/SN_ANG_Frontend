@@ -143,23 +143,33 @@
           <label class="color-light ml-5px mb-0px mt-5px fs-12-responsive">
             This is the format in which your NFT will be sold.
           </label>
-          <div class="w-100 mt-10px mint-page-auction-selection electric-border">
+          <button
+            (click)="openAuctionSelected()"
+            class="w-100 mt-10px mint-page-auction-selection background-white"
+            [ngClass]="{ 'electric-box-shadow': openAuction, 'm-10px': mobile }"
+          >
             <div class="background-secondary w-30 h-100 flex-center text-align-center">
               <label class="mb-0px p-5px font-weight-bold fs-12-responsive">OPEN AUCTION</label>
             </div>
-            <div class="w-70 mb-0px pl-10px pr-10px fs-10-responsive">
+            <div class="w-70 text-align-start mb-0px pl-10px pr-10px fs-10-responsive">
               An auction without an ending time in which you select the winning bid.
             </div>
-          </div>
+          </button>
+          <button
+            (click)="buyNowSelected()"
+            class="w-100 mt-10px mint-page-auction-selection background-white"
+            [ngClass]="{ 'electric-box-shadow': isBuyNow, 'm-10px': mobile }"
+          >
+            <div class="background-secondary w-30 h-100 flex-center text-align-center">
+              <label class="mb-0px p-5px font-weight-bold fs-12-responsive">BUY NOW</label>
+            </div>
+            <div class="w-70 text-align-start mb-0px pl-10px pr-10px fs-10-responsive">
+              Set a fixed price that your NFT can be immediately sold at.
+            </div>
+          </button>
           <div class="w-100 mint-page-auction-selection mt-10px pointer-events-none">
             <div class="background-secondary w-30 h-100 flex-center text-align-center">
               <label class="mb-0px p-5px color-light font-weight-bold fs-12-responsive">TIMED AUCTION</label>
-            </div>
-            <div class="w-70 mb-0px pl-10px pr-10px fs-10-responsive">Coming soon!</div>
-          </div>
-          <div class="w-100 mt-10px mint-page-auction-selection pointer-events-none">
-            <div class="background-secondary w-30 h-100 flex-center text-align-center">
-              <label class="mb-0px color-light p-5px font-weight-bold fs-12-responsive">BUY NOW</label>
             </div>
             <div class="w-70 mb-0px pl-10px pr-10px fs-10-responsive">Coming soon!</div>
           </div>
@@ -168,6 +178,7 @@
       <button
         class="mb-0px font-weight-bold mint-page-step-2-continue"
         [ngClass]="mobile ? 'w-90' : 'w-80'"
+        [disabled]="!isBuyNow && !openAuction"
         (click)="nextStep()"
       >
         CONTINUE
@@ -476,10 +487,10 @@
         Continue
       </button>
     </div>
-    <!--  STEP 4  -->
+    <!--  STEP 4 open auction -->
     <div
       [@mintSwipeAnimation]="animationType"
-      *ngIf="step === 4"
+      *ngIf="step === 4 && openAuction && !isBuyNow"
       class="mint-page-text-container-no-max h-95"
       [ngClass]="mobile ? 'w-100' : 'w-50'"
     >
@@ -604,6 +615,171 @@
         class="mt-20px font-weight-bold mint-page-step-2-continue"
         [ngClass]="mobile ? 'w-90' : 'w-80'"
         [disabled]="isSubmitPress || !this.isPostReady() || hasUnreasonableRoyalties() || hasUnreasonableMinBidAmount()"
+        (click)="_createPost()"
+      >
+        <label *ngIf="!isSubmitPress" class="mb-0px">Mint your NFT</label>
+        <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i>
+      </button>
+    </div>
+    <!--  STEP 4 buy now -->
+    <div
+      [@mintSwipeAnimation]="animationType"
+      *ngIf="step === 4 && !openAuction && isBuyNow"
+      class="mint-page-text-container-no-max h-95"
+      [ngClass]="mobile ? 'w-100' : 'w-50'"
+    >
+      <div class="mint-page-inner-inner disable-scrollbars" [ngClass]="mobile ? 'w-90' : 'w-80'">
+        <button class="previous-step-button color-light" (click)="previousStep()">
+          <img class="previous-step-arrow mr-5px" src="/assets/icons/arrow-left-lighter.svg" />
+          Back
+        </button>
+        <h2 class="mb-5px font-weight-semiboldn w-100 text-align-start fs-23-responsive ml-5px">Mint your NFT</h2>
+        <div class="w-100 mt-5px">
+          <label class="mint-page-sub-heading mb-0px font-weight-bold w-100 fs-14-responsive text-align-start ml-5px">
+            Buy now price
+          </label>
+          <!-- <button (click)="testDisabled()">test disabled button</button> -->
+          <label class="color-light fs-12-responsive mb-0px ml-5px mt-5px">
+            Set a fixed price that your NFT can be immediately sold at.
+          </label>
+          <div class="position-relative d-flex flex-row flex-start w-100 mint-page-min-price mt-10px">
+            <input
+              matInput
+              type="number"
+              placeholder="0"
+              [(ngModel)]="buyNowPriceDESO"
+              (ngModelChange)="updateBuyNowBidAmountUSD($event)"
+              class="pl-10px color-text font-weight-bold flex-center pr-10px mint-page-min-price-input m-0px h-100 w-60"
+            />
+            <button class="mint-page-min-price-label h-100 w-40 fs-23-responsive pt-5px">
+              <img src="assets/deso/logo-cropped.png" class="mr-10px mb-5px mint-page-deso-logo" />
+              <label class="mb-0px">$DESO</label>
+            </button>
+          </div>
+          <div class="mint-page-deso-to-usd mt-5px ml-20px w-90">
+            <label *ngIf="BUY_NOW_PRICE_USD" class="mb-0px fs-20-responsive">${{ BUY_NOW_PRICE_USD }}</label>
+          </div>
+
+          <!-- div for add minimum bid -->
+          <div class="d-flex flex-row mt-5px">
+            <label class="mint-page-sub-heading mb-0px font-weight-bold fs-14-responsive text-align-start ml-5px">
+              Add minimum bid
+            </label>
+            <div class="optional-box">
+              <p class="optional-text">OPTIONAL</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="checkbox-min-bid" (click)="handleMinBidClicked()" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <label class="color-light fs-12-responsive mb-0px ml-5px mt-5px">
+            In addition to the Buy Now Price, you can set up a minimum bid price which is lower than the Buy Now price.
+          </label>
+          <div class="buy-now-price-accordion disable-scrollbars" [ngClass]="{ big: minBidClicked }">
+            <div class="position-relative d-flex flex-row flex-start w-100 mint-page-min-price mt-10px">
+              <input
+                matInput
+                type="number"
+                placeholder="0"
+                [(ngModel)]="MIN_PRICE"
+                (ngModelChange)="updateBidAmountUSD($event)"
+                class="pl-10px color-text font-weight-bold flex-center pr-10px mint-page-min-price-input m-0px h-100 w-60"
+                id="optional-min-bid"
+              />
+              <button class="mint-page-min-price-label h-100 w-40 fs-23-responsive pt-5px">
+                <img src="assets/deso/logo-cropped.png" class="mr-10px mb-5px mint-page-deso-logo" />
+                <label class="mb-0px">$DESO</label>
+              </button>
+            </div>
+            <div class="mint-page-deso-to-usd mt-5px ml-20px w-90">
+              <label *ngIf="PRICE_USD" class="mb-0px fs-20-responsive">${{ PRICE_USD }}</label>
+            </div>
+          </div>
+
+          <div class="d-flex flex-row justify-content-space-between mt-5px">
+            <div class="w-40">
+              <label class="font-weight-bold ml-5px fs-14-responsive">Creator Royalty</label>
+              <div class="d-flex flex-row mint-page-royalty-element position-relative">
+                <input
+                  type="number"
+                  placeholder="5"
+                  [(ngModel)]="CREATOR_ROYALTY"
+                  class="w-50 color-text font-weight-bold h-100 royalty-element-input"
+                />
+                <button
+                  class="w-50 h-100 background-secondary flex-center royalty-element-label fs-23-responsive font-weight-bold"
+                >
+                  %
+                </button>
+              </div>
+              <label class="color-light fs-12-responsive mt-10px ml-5px">
+                The royalty you as an artist will receive.
+              </label>
+            </div>
+            <div class="w-40">
+              <label class="font-weight-bold ml-5px fs-14-responsive">Coin Royalty</label>
+              <div class="d-flex flex-row mint-page-royalty-element position-relative">
+                <input
+                  type="number"
+                  placeholder="5"
+                  [(ngModel)]="COIN_ROYALTY"
+                  class="w-50 color-text font-weight-bold h-100 royalty-element-input"
+                />
+                <label
+                  class="w-50 h-100 background-secondary flex-center royalty-element-label fs-25px font-weight-bold"
+                >
+                  %
+                </label>
+              </div>
+              <label class="color-light fs-12-responsive mt-10px ml-5px">
+                The royalty your coin holders will receive.
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="w-100">
+          <label class="font-weight-bold text-align-start fs-14-responsive mt-10px ml-5px">
+            <img src="assets/img/lock.png" class="mr-10px" />
+            Add unlockable content
+          </label>
+          <div class="d-flex flex-row mint-page-checkbox-button mint-flex-end position-relative">
+            <div
+              class="mb-0px d-flex flex-row w-20 flex-center background-darker-light mint-page-position-absolute-label fs-14-responsive"
+            >
+              <img src="../../assets/img/info.png" class="info-img mr-10px" alt="info" />
+            </div>
+            <label
+              class="w-80 h-100 mb-0px pl-10px pr-10px mint-boolean-label fs-11-responsive background-darker-light"
+            >
+              You cannot unfortunately cannot add unlockable content to NFTs which are sold with the Buy Now format.
+            </label>
+          </div>
+          <label class="font-weight-bold fs-14-responsive text-align-start ml-5px mt-20px">
+            <img src="assets/icons/marketplace-icon.svg" class="mr-10px" />
+            Put NFT for sale on the Supernovas marketplace
+          </label>
+          <button
+            class="d-flex cursor-pointer mb-15px flex-row mint-page-checkbox-button mint-flex-end position-relative"
+            [ngClass]="PUT_FOR_SALE ? 'electric-border' : ''"
+            (click)="PUT_FOR_SALE = !PUT_FOR_SALE"
+          >
+            <div
+              class="d-flex flex-row flex-center background-darker-light h-100 w-20 mint-page-position-absolute-label fs-14-responsive"
+            >
+              <input type="checkbox" class="mint-page-button-input display-none mr-10px" [checked]="PUT_FOR_SALE" />
+              <p class="checkbox-input-text">{{ PUT_FOR_SALE ? "YES" : "NO" }}</p>
+            </div>
+            <label class="w-80 h-100 cursor-pointer mb-0px pl-10px pr-10px mint-boolean-label fs-11-responsive">
+              If you don't put the NFT for sale, no one is able to place bids on it.
+            </label>
+          </button>
+        </div>
+      </div>
+      <button
+        class="mt-20px font-weight-bold mint-page-step-2-continue"
+        [ngClass]="mobile ? 'w-90' : 'w-80'"
+        [disabled]="isSubmitPress || !this.isPostReady() || hasUnreasonableRoyalties() || hasUnreasonableBuyNowPrice()"
         (click)="_createPost()"
       >
         <label *ngIf="!isSubmitPress" class="mb-0px">Mint your NFT</label>

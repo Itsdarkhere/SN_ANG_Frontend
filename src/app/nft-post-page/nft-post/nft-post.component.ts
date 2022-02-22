@@ -173,6 +173,11 @@ export class NftPostComponent implements OnInit {
     }
     return imgURL;
   }
+  // If image errors, use image straight from link
+  useNormalImage(imgURL: string) {
+    let image = document.getElementById("post-image") as HTMLImageElement;
+    image.src = imgURL;
+  }
   getPost(fetchParents: boolean = true) {
     // Hit the Get Single Post endpoint with specific parameters
     let readerPubKey = "";

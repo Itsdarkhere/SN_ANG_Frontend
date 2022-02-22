@@ -219,6 +219,16 @@ import { GeneralSuccessModalComponent } from "./general-success-modal/general-su
 import { ActionResponseModalComponent } from "./action-response-modal/action-response-modal.component";
 import { NftCardRepostComponent } from "./new-nft-card/nft-card-repost/nft-card-repost.component";
 import { NftCardPostComponent } from "./new-nft-card/nft-card-post/nft-card-post.component";
+import { BuyNowModalComponent } from "./buy-now-modal/buy-now-modal.component";
+import { NftEditionDropdownComponent } from "./feed/nft-edition-dropdown/nft-edition-dropdown.component";
+import { SupernovasCenterLoaderComponent } from "./supernovas-center-loader/supernovas-center-loader.component";
+import { AnalyticsPageComponent } from './analytics-page/analytics-page.component';
+import { TopBidsComponent } from './analytics-page/top-bids/top-bids.component';
+import { BigGraphComponent } from './analytics-page/big-graph/big-graph.component';
+import { QuickFactsComponent } from './analytics-page/quick-facts/quick-facts.component';
+import { TopSalesComponent } from './analytics-page/top-sales/top-sales.component';
+import { CreatorListComponent } from './analytics-page/creator-list/creator-list.component';
+import { SmallGraphComponent } from './analytics-page/small-graph/small-graph.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -411,6 +421,16 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     GeneralSuccessModalComponent,
     NftCardRepostComponent,
     NftCardPostComponent,
+    BuyNowModalComponent,
+    NftEditionDropdownComponent,
+    SupernovasCenterLoaderComponent,
+    AnalyticsPageComponent,
+    TopBidsComponent,
+    BigGraphComponent,
+    QuickFactsComponent,
+    TopSalesComponent,
+    CreatorListComponent,
+    SmallGraphComponent,
   ],
   imports: [
     BrowserModule,

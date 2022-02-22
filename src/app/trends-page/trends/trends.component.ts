@@ -124,7 +124,7 @@ export class TrendsComponent implements OnInit {
     this.backendApi
       .SortMarketplace(
         this.globalVars.localNode,
-        "",
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
         offset,
         this.globalVars.marketplaceLowPriceNanos,
         this.globalVars.marketplaceHighPriceNanos,
@@ -141,6 +141,7 @@ export class TrendsComponent implements OnInit {
             this.globalVars.marketplaceNFTsData = this.globalVars.marketplaceNFTsData.concat(res.PostEntryResponse);
           } else {
             this.globalVars.marketplaceNFTsData = res.PostEntryResponse;
+            console.log(this.globalVars.marketplaceNFTsData);
           }
           this.globalVars.isMarketplaceLoading = false;
         },

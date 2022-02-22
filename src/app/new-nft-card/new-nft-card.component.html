@@ -24,6 +24,7 @@
     <div *ngIf="showThreadConnectionLine" class="feed-post__parent-thread-connector"></div>
   </div>
   <h6
+    class="cursor-pointer"
     [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, postContent.ProfileEntryResponse.Username]"
     queryParamsHandling="merge"
   >
@@ -174,11 +175,13 @@
               </div>
               <img
                 class="card-img"
+                id="nft-card-image"
+                (error)="useNormalImage()"
                 (mouseenter)="activateOnHoverAudio(false)"
                 (mouseleave)="activateOnHoverAudio(true)"
                 *ngIf="postContent.ImageURLs && postContent?.ImageURLs[0] && !post.ParentStakeID"
                 data-toggle="modal"
-                src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
+                src="{{ imageURL }}"
               />
               <div
                 class="w-100 h-100 overflow-hidden top-br-30px background-secondary position-relative d-flex flex-center"
@@ -210,7 +213,6 @@
                 class="w-100 h-100 background-secondary position-relative d-flex flex-center"
               >
                 <iframe
-                  *ngIf="!postContent.PostExtraData.arweaveVideoSrc"
                   [src]="postContent.VideoURLs[0] | sanitizeVideoUrl"
                   allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                   allowfullscreen
@@ -233,6 +235,17 @@
                   allow="picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; encrypted-media;"
                   allowfullscreen
                 ></iframe>
+              </div>
+              <div
+                class="w-100 h-100 background-secondary text-nft-container p-20px"
+                *ngIf="
+                  !constructedEmbedURL &&
+                  !postContent.VideoURLs &&
+                  !postContent.ImageURLs &&
+                  !postContent.PostExtraData.arweaveVideoSrc
+                "
+              >
+                <div class="disable-scrollbars">{{ postContent.Body }}</div>
               </div>
             </div>
           </ng-container>
@@ -314,7 +327,7 @@
           >
             <div class="bid-row">
               <div class="d-flex justify-content-space-between bid_inner_row">
-                <ng-container>
+                <ng-container *ngIf="!isBuyNow">
                   <div class="bid-col">
                     <p class="p-lighter">
                       {{
@@ -335,7 +348,18 @@
                     </div>
                   </div>
                 </ng-container>
-                <ng-container>
+                <ng-container *ngIf="isBuyNow">
+                  <div class="bid-col">
+                    <p class="p-lighter">Price</p>
+                    <div class="d-flex flex-row overflow-hidden">
+                      <p class="font-weight-semiboldn overflow-ellipsis-price-50-percent">
+                        {{ globalVars.nanosToDeSo(buyNowPriceNanos, 5) }}
+                      </p>
+                      <p class="font-weight-semiboldn">DESO</p>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="!isBuyNow">
                   <div class="bid-col">
                     <p class="p-lighter">Edition of</p>
                     <!-- <p class="font-weight-bold">{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} </p> -->
@@ -348,6 +372,14 @@
                       #{{ nftEntry.SerialNumber }}:&nbsp;
                       <span [innerHTML]="nftEntry.DecryptedUnlockableText | sanitizeAndAutoLink"></span>
                     </p>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="isBuyNow">
+                  <div class="bid-col-buy-now">
+                    <button class="nft-card-buy-now-button">
+                      <img src="/assets/icons/buy_now_card_icon.svg" alt="lightning" />
+                      Buy Now
+                    </button>
                   </div>
                 </ng-container>
               </div>

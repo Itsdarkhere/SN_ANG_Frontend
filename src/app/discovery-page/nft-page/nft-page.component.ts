@@ -117,7 +117,7 @@ export class NftPageComponent implements OnInit {
     this.backendApi
       .GetNFTsByCategory(
         this.globalVars.localNode,
-        this.globalVars.loggedInUser?.PublicKeyBase58Check,
+        this.globalVars?.loggedInUser?.PublicKeyBase58Check,
         this.category,
         offset
       )

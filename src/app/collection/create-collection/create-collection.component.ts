@@ -3,7 +3,7 @@ import { GlobalVarsService } from "../../global-vars.service";
 import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../../backend-api.service";
 import { InfiniteScroller } from "../../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
-import { TouchSequence } from 'selenium-webdriver';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-create-collection',
@@ -13,36 +13,79 @@ import { TouchSequence } from 'selenium-webdriver';
 export class CreateCollectionComponent implements OnInit {
   constructor(private globalVars: GlobalVarsService, private backendApi: BackendApiService) {}
 
-  mappedNfts = new Map<object, boolean>();
   createCollectionForm: any;
   isChecked: boolean = false;
   selectAllCheckboxes: boolean = false;
   uploadedBannerImage: undefined;
   uploadedDisplayImage: undefined;
 
+  collectionName: string = "";
+  collectionDescription: string = "";
+  collectionBannerImage: File = null;
+  collectionDisplayImage: File = null;
+  stepNumber: number = 1;
+
+
+  async ngOnInit() : Promise<void> {
+    await this.getNFTs();
+    console.log(this.postData.length);
+    
+    // for(var i = 0; i < this.postData.length; i++) {
+    //   // <HTMLInputElement>document.getElementById(i).checked = false;
+    //   var counter = i.toString();
+    //   let ele = document.getElementById(counter) as HTMLInputElement;
+    //   ele.checked = false;
+    //   console.log(i);
+    // }
+
+  }
+  
+  nextStep() {
+    this.stepNumber++;
+    console.log(this.stepNumber);
+    if(this.stepNumber === 2) {
+      for(var i = 0; i < this.postData.length; i++) {
+        // <HTMLInputElement>document.getElementById(i).checked = false;
+        var counter = i.toString();
+        let ele = document.getElementById(counter) as HTMLInputElement;
+        ele.checked = false;
+        console.log(i);
+      }
+    }
+  }
+
   updateBanner($event: any) {
     if($event.target.files) {
+      this.collectionBannerImage = $event.target.files[0];
       let reader = new FileReader();
       reader.readAsDataURL($event.target.files[0]);
       reader.onload=(event: any) => {
-        this.uploadedBannerImage=event.target.result;
+        this.uploadedBannerImage = event.target.result;
       }
     }
   }
 
   updateDisplayImage($event: any) {
     if($event.target.files) {
+      this.collectionDisplayImage = $event.target.files[0];
       let reader = new FileReader();
       reader.readAsDataURL($event.target.files[0]);
       reader.onload=(event: any) => {
-        this.uploadedDisplayImage=event.target.result;
+        this.uploadedDisplayImage = event.target.result;
       }
     }
   }
-  
-  setValue($event, postData: any, i: number, post, collectionNfts) {
-    if($event) {
-      console.log(collectionNfts);
+
+  checkedNft: any;
+  nftValue: PostEntryResponse = null;
+  setPostValue: any;
+
+
+
+  setValue($event, post, postData: PostEntryResponse[], i :number) {
+    if($event.target.checked) {
+      this.setPostValue = postData[i];
+      // console.log(post);
     }
     // if(postData[i].checked) {
     //   postData[i].setValue = post;
@@ -52,8 +95,6 @@ export class CreateCollectionComponent implements OnInit {
       // this.postValue = post;
       // console.log(this.postValue);
       // this.postData[i] = post;
-    
-    // this.isChecked = !this.isChecked;
     // if($event.currentTarget.checked) {
      
     //   this.collectionNfts = { nftValue: post };
@@ -61,29 +102,18 @@ export class CreateCollectionComponent implements OnInit {
     // }
   }
 
-  selectAllNfts($event) {
-    this.selectAllCheckboxes = !this.selectAllCheckboxes;
-    console.log(this.selectAllCheckboxes);
+  // selectAllNfts($event) {
+  //   this.selectAllCheckboxes = !this.selectAllCheckboxes;
+  //   console.log(this.selectAllCheckboxes);
 
-    if ($event && !this.selectAllCheckboxes) {
-        // this.createCollectionForm.get["collectionNfts"].map(control => control.setValue(true));
-        console.log(this.createCollectionForm.get["collectionNfts"]);
-      } else {
-        this.createCollectionForm.get["collectionNfts"].map(control => control.setValue(false));
-        console.log(this.createCollectionForm.get["collectionNfts"].value);
-      }
-  }
-  
-  postValue: any;
-
-  ngOnInit(): void {
-    this.getNFTs();
-  }
-  
-  collectionName: string = "";
-  collectionDescription: string = "";
-  collectionBannerImage: File = null;
-  collectionDisplayImage: File = null;
+  //   if ($event && !this.selectAllCheckboxes) {
+  //       // this.createCollectionForm.get["collectionNfts"].map(control => control.setValue(true));
+  //       console.log(this.createCollectionForm.get["collectionNfts"]);
+  //     } else {
+  //       this.createCollectionForm.get["collectionNfts"].map(control => control.setValue(false));
+  //       console.log(this.createCollectionForm.get["collectionNfts"].value);
+  //     }
+  // }
 
   onSubmit(createCollectionForm) {
     console.log(createCollectionForm.value);

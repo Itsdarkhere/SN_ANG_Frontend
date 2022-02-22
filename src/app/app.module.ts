@@ -203,7 +203,7 @@ import { CreateCollectionComponent } from "./collection/create-collection/create
 import { CollectionSuccessComponent } from "./collection/create-collection/collection-success/collection-success.component";
 // import { CollectionSelectionsComponent } from "./collection/create-collection/collection-selections/collection-selections.component";
 // import { CollectionDetailsComponent } from "./collection/create-collection/collection-details/collection-details.component";
-import { CollectionStepperComponent } from "./collection/create-collection/collection-stepper/collection-stepper.component";
+// import { CollectionStepperComponent } from "./collection/create-collection/collection-stepper/collection-stepper.component";
 import { NftCardMinimalComponent } from "./nft-card-minimal/nft-card-minimal.component";
 import { CollectionPageSidebarComponent } from "./collection/collection-page/collection-page-content/collection-page-sidebar/collection-page-sidebar.component";
 import { CollectionPageNftViewComponent } from "./collection/collection-page/collection-page-content/collection-page-nft-view/collection-page-nft-view.component";
@@ -395,7 +395,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     CollectionSuccessComponent,
     // CollectionSelectionsComponent,
     // CollectionDetailsComponent,
-    CollectionStepperComponent,
+    // CollectionStepperComponent,
     NftCardMinimalComponent,
     CollectionPageSidebarComponent,
     CollectionPageNftViewComponent,

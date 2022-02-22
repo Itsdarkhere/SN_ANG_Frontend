@@ -4,10 +4,10 @@
     <a href="/u/:username/" alt="Return to Profile"><div class="exit">✕&nbsp;&nbsp;&nbsp;Return to Profile</div></a>
     
     <form #createCollectionForm="ngForm" class="full-height-width-container" (ngSubmit)="onSubmit(createCollectionForm)">
-        <app-collection-stepper class="full-height-width-container" [linear]=true>
+        <div class="full-height-width-container">
             
             <!-- View 1: COLLECTION DETAILS -->
-            <cdk-step [editable]=true>
+            <ng-container *ngIf="stepNumber === 1">
                 <fieldset class="collection-details-fieldset" autocomplete="off">
                     <h1 class="create-collection-title">Collection details</h1>
                     
@@ -22,6 +22,7 @@
                                     name="collectionBannerImage"
                                     accept="image/png, image/jpeg, image/webp"
                                     (change)="updateBanner($event)"
+                                    [ngModel]="collectionBannerImage"
                                 >
                                 <img [src]="uploadedBannerImage" class="uploaded-banner-image">
                             </ng-container>
@@ -32,6 +33,7 @@
                                     name="collectionBannerImage"
                                     accept="image/png, image/jpeg, image/webp"
                                     (change)="updateBanner($event)"
+                                    [ngModel]="collectionBannerImage"
                                 >
                                 <div class="banner-text-h2">
                                     <img src="/assets/icons/upload_grey.svg" alt="Upload Banner Image"/>
@@ -48,6 +50,7 @@
                                     type="file"
                                     name="collectionDisplayImage"
                                     accept="image/png, image/jpeg, image/webp"
+                                    [ngModel]="collectionDisplayImage"
                                     (change)="updateDisplayImage($event)"
                                 >
                                 <img [src]="uploadedDisplayImage">
@@ -58,6 +61,7 @@
                                     type="file"
                                     name="collectionDisplayImage"
                                     accept="image/png, image/jpeg, image/webp"
+                                    [ngModel]="collectionDisplayImage"
                                     (change)="updateDisplayImage($event)"
                                 >
                             </ng-template>
@@ -70,13 +74,13 @@
                         <input type="text" id="collectionName" name="collectionName" ngModel/>
                         <label for="collectionDescription">Collection Description:</label>
                         <textarea rows="4" id="collectionDescription" name="collectionDescription" ngModel></textarea>
-                        <button type="button" cdkStepperNext>Continue</button>
+                        <button type="button" (click)="nextStep()" cdkStepperNext>Continue</button>
                     </div>
                 </fieldset>                
-            </cdk-step>
+            </ng-container>
             
             <!-- View 2: SELECT NFTS FOR COLLECTION -->
-            <cdk-step [editable]=true>
+            <ng-container *ngIf="stepNumber === 2">
                 <fieldset class="collection-nft-selection-fieldset" autocomplete="off">
                     <!-- Create Collection Content Area -->
                     <div class="collection-selections-main">
@@ -89,14 +93,17 @@
                         <!-- Populated NFT Content -->
                         <div class="collection-selections-main-content">	
                             <!-- Container with "position: absolute;" allows inner flex content to scroll -->
-                            <div ngModelGroup="collectionNfts" class="collection-selections-user-nfts">
-                                <ng-container *ngFor="let post of postData; index as i;">
+                            <div class="collection-selections-user-nfts">
+                                <ng-container ngModelGroup="collectionNfts" *ngFor="let post of postData; index as i;">
                                     <div class="collection-nft-container">
                                         <input
-                                            type="checkbox" 
+                                            type="checkbox"
+                                            id="{{i}}"
                                             name="{{i}}"
+                                            (change)="setValue($event, postData, i)"
                                             [ngModel]="postData[i]"
-                                            >
+                                            [checked]=""
+                                        >
                                         <app-small-card-component class="disable-link" [post]="post"></app-small-card-component>
                                     </div>
                                 </ng-container>
@@ -111,9 +118,9 @@
                         <button type="submit" [disabled]="(!createCollectionForm.form.valid )">Create Collection</button>
                     </div>
                 </fieldset>
-            </cdk-step>
+            </ng-container>
 
-        </app-collection-stepper>
+        </div>
     </form>
 
     <!-- View 3: Collection Successfully Created -->

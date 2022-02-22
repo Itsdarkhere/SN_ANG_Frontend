@@ -118,8 +118,33 @@
         color: #7D7D7D; // update to appropriate variable
     }
 
-    .collection-details-h2 {
+    .collection-details-banner {
+        height: 100%;
+        width: 100%;
         display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid red;
+        border-radius: 15px 15px 0 0;
+
+        .banner-text-h2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                height: 20px;
+                width: 20px;
+            }
+        }
+
+        .uploaded-banner-image {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 15px 15px 0 0;
+        }
 
         input {
             position: absolute;
@@ -127,8 +152,8 @@
             top: 0;
             height: 100%;
             width: 100%; 
-            opacity: 0; 
             cursor: pointer; 
+            opacity: 0; 
         }
     }
 
@@ -157,11 +182,6 @@
                 background-color: #000000;
             }
         }
-    }
-
-    .upload-icon {
-        height: 20px;
-        width: 20px;
     }
 }
 

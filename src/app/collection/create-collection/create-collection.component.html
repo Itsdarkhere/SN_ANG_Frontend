@@ -13,13 +13,33 @@
                     
                     <!-- Collection Banner -->
                     <div class="collection-details-header">
+
                         <!-- Banner Image -->
-                        <div class="collection-details-h2">
-                            <input type="file" name="collectionBannerImage" accept="image/png, image/jpeg, image/webp">
-                            <img src="/assets/icons/upload_grey.svg" alt="Upload Banner Image"/>
-                            <h2>Click to upload a collection banner image</h2>
+                        <div class="collection-details-banner">
+                            <ng-container *ngIf="uploadedBannerImage; else defaultBanner">
+                                <input 
+                                    type="file" 
+                                    name="collectionBannerImage"
+                                    accept="image/png, image/jpeg, image/webp"
+                                    (change)="updateBanner($event)"
+                                >
+                                <img [src]="uploadedBannerImage" class="uploaded-banner-image">
+                            </ng-container>
+
+                            <ng-template #defaultBanner>
+                                <input 
+                                    type="file" 
+                                    name="collectionBannerImage"
+                                    accept="image/png, image/jpeg, image/webp"
+                                    (change)="updateBanner($event)"
+                                >
+                                <div class="banner-text-h2">
+                                    <img src="/assets/icons/upload_grey.svg" alt="Upload Banner Image"/>
+                                    <h2>Click to upload a collection banner image</h2>
+                                </div>
+                                    <h3>Recommended size is 925 x 250 pixels.</h3>
+                            </ng-template>
                         </div>
-                        <h3>Recommended size is 925 x 250 pixels.</h3>
 
                         <!-- Display Image -->
                         <div class="display-image">
@@ -57,10 +77,9 @@
                                 <ng-container *ngFor="let post of postData; index as i;">
                                     <div class="collection-nft-container">
                                         <input
-                                            type="checkbox"
+                                            type="checkbox" 
                                             name="{{i}}"
-                                            (change)="setValue($event)"
-                                            [ngModel]="[i]"
+                                            [ngModel]="postData[i]"
                                             >
                                         <app-small-card-component class="disable-link" [post]="post"></app-small-card-component>
                                     </div>

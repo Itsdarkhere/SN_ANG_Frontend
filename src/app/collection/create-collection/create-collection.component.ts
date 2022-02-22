@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Form, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { GlobalVarsService } from "../../global-vars.service";
 import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../../backend-api.service";
 import { InfiniteScroller } from "../../infinite-scroller";
@@ -11,25 +10,25 @@ import { TouchSequence } from 'selenium-webdriver';
   templateUrl: './create-collection.component.html',
   styleUrls: ['./create-collection.component.scss']
 })
-export class CreateCollectionComponent implements AfterViewInit, OnInit {
+export class CreateCollectionComponent implements OnInit {
   constructor(private globalVars: GlobalVarsService, private backendApi: BackendApiService) {}
 
-  @ViewChild("createCollectionForm", { static: true }) createCollectionForm: FormGroup;
-
-  // SubmitCollection(createCollectionForm: NgForm): void {   
-  //   console.log(createCollectionForm.value);
-  // }
-  // collectionNfts: any;
-  
   mappedNfts = new Map<object, boolean>();
-
-  ngAfterViewInit() {
-    
-  }
-
+  createCollectionForm: any;
   isChecked: boolean = false;
   selectAllCheckboxes: boolean = false;
+  uploadedBannerImage: undefined;
 
+  updateBanner($event: any) {
+    if($event.target.files) {
+      let reader = new FileReader();
+      reader.readAsDataURL($event.target.files[0]);
+      reader.onload=(event: any) => {
+        this.uploadedBannerImage=event.target.result;
+      }
+    }
+  }
+  
   setValue($event, postData: any, i: number, post, collectionNfts) {
     if($event) {
       console.log(collectionNfts);

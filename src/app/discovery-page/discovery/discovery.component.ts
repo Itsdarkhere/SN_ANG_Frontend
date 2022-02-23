@@ -9,6 +9,8 @@ import { Subscription } from "rxjs";
 import _ from "lodash";
 import { PlaceBidModalComponent } from "src/app/place-bid-modal/place-bid-modal.component";
 import { SharedDialogs } from "src/lib/shared-dialogs";
+import { Console } from "console";
+import { BuyNowModalComponent } from "src/app/buy-now-modal/buy-now-modal.component";
 
 @Component({
   selector: "app-discovery",
@@ -19,6 +21,7 @@ export class DiscoveryComponent implements OnInit {
   @Input() post: PostEntryResponse;
   @Input() mobile: boolean;
   nftBidData: NFTBidData;
+  isBuyNow: boolean;
   bids: NFTBidEntryResponse[];
   hightestBidOwner: any = {};
   myBidsLength: number;
@@ -38,6 +41,7 @@ export class DiscoveryComponent implements OnInit {
     if (changes.post) {
       if (this.post?.PostHashHex) {
         this.loadBidData();
+        this.getNFTEntries();
       }
     }
   }
@@ -52,6 +56,28 @@ export class DiscoveryComponent implements OnInit {
       imgURL = "https://supernovas.app/cdn-cgi/image/width=600,height=600,fit=scale-down,quality=85/" + imgURL;
     }
     return imgURL;
+  }
+
+  openBuyNowModal(event: any) {
+    if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
+      SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "buy now");
+      return;
+    }
+    event.stopPropagation();
+    const modalDetails = this.modalService.show(BuyNowModalComponent, {
+      class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+      initialState: {
+        post: this.post,
+        clickedBuyNow: true,
+      },
+    });
+
+    const onHideEvent = modalDetails.onHide;
+    onHideEvent.subscribe((response) => {
+      if (response === "bid placed") {
+        this.getNFTEntries();
+      }
+    });
   }
 
   openImgModal(event, imageURL) {
@@ -113,6 +139,18 @@ export class DiscoveryComponent implements OnInit {
       )
       .add(() => {
         this.delayLoading();
+      });
+  }
+
+  getNFTEntries() {
+    this.backendApi
+      .GetNFTEntriesForNFTPost(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser?.PublicKeyBase58Check,
+        this.post.PostHashHex
+      )
+      .subscribe((res) => {
+        this.isBuyNow = res.NFTEntryResponses[0].IsBuyNow;
       });
   }
 

@@ -1,1 +1,55 @@
-<p>imx-page works!</p>
+<app-page>
+  <!-- Top Bar -->
+  <div
+    *ngIf="this.globalVars.loggedInUser"
+    class="d-flex flex-column flex-center"
+    [ngClass]="mobile ? 'w-100' : 'feed-cover'"
+  >
+    <div class="global__top-bar__height" *ngIf="mobile"></div>
+    <div class="deso-page-logo-container d-flex flex-center mt-20px">
+      <img src="/assets/icons/deso_page_icon.svg" alt="deso logo in white background" />
+    </div>
+    <h3 class="font-weight-semiboldn deso-page-name-heading mt-20px">Deso</h3>
+    <span class="deso-page-price-heading font-weight-semiboldn">
+      {{ globalVars.nanosToUSD(globalVars.loggedInUser.BalanceNanos, 2) }}
+    </span>
+    <div class="deso-page-actions-wrapper mt-20px d-flex flex-column flex-center">
+      <div class="deso-page-tab-selector d-flex flex-center px-10px mt-5px">
+        <button (click)="tabBuyClick()" class="br-top-left-30px font-weight-semiboldn" [ngClass]="{ active: tabBuy }">
+          <label class="mb-0px pl-5px">Buy</label>
+        </button>
+        <button (click)="tabSellClick()" class="font-weight-semiboldn" [ngClass]="{ active: tabSell }">
+          <label class="mb-0px pl-5px">Sell</label>
+        </button>
+        <button
+          (click)="tabTransferClick()"
+          class="br-top-right-30px font-weight-semiboldn"
+          [ngClass]="{ active: tabTransfer }"
+        >
+          <label class="mb-0px pl-5px">Transfer</label>
+        </button>
+      </div>
+      <app-buy-deso *ngIf="tabBuy" class="w-100 h-100 pb-10px d-flex flex-center"></app-buy-deso>
+      <app-sell-deso *ngIf="tabSell" class="w-100 h-100 pb-10px d-flex flex-center"></app-sell-deso>
+      <app-transfer-deso
+        (sendDeso)="_clickSendDeSo($event)"
+        (getNetworkFee)="_updateSendDeSoTxnFee(false)"
+        [networkFee]="networkFee"
+        (calculateNetworkFee)="calculateNetworkFee($event)"
+        [sendingDeSo]="sendingDeSo"
+        *ngIf="tabTransfer"
+        class="w-100 h-100 pb-10px d-flex flex-center"
+      ></app-transfer-deso>
+    </div>
+    <!-- SPACER FOR BOTTOM BAR ON MOBILE -->
+    <div class="global__bottom-bar-mobile-height"></div>
+  </div>
+  <ng-template *ngIf="!this.globalVars.loggedInUser">
+    <div class="w-100 trade-deso-not-logged-in d-flex flex-column flex-center">
+      <label>You must log in to send, buy or transfer DeSo</label>
+      <button class="black-rounded-button basic-button-size font-weight-semiboldn" (click)="routeToBrowse()">
+        Back to feed
+      </button>
+    </div>
+  </ng-template>
+</app-page>

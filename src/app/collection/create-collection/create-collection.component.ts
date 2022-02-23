@@ -29,7 +29,7 @@ export class CreateCollectionComponent implements OnInit {
   lastPage = null;
   postData: PostEntryResponse[];
   posts: PostEntryResponse[];
-  selectedPosts: PostEntryResponse[];
+  selectedPosts: PostEntryResponse[] = [];
   myBids: NFTBidEntryResponse[];
 
   static PAGE_SIZE = 10;
@@ -125,12 +125,41 @@ export class CreateCollectionComponent implements OnInit {
       });
   }
 
+  selectAllNFTs() {
+    this.selectedPosts = [];
+    this.postData.forEach((nft) => {
+      this.selectedPosts.push(nft);
+      nft.selected = true;
+    });
+    console.log(this.selectedPosts);
+  }
+
   selectNFT(post: PostEntryResponse) {
     if (post.selected) {
-      post.selected = false;
+      this.removeNFTFromSelected(post);
     } else {
-      post.selected = true;
+      this.addNFTToSelected(post);
     }
+  }
+
+  removeNFTFromSelected(post: PostEntryResponse) {
+    let index = this.selectedPosts.indexOf(post);
+    this.selectedPosts.splice(index, 1);
+    post.selected = false;
+  }
+
+  addNFTToSelected(post: PostEntryResponse) {
+    let tempVar = false;
+    if (this.selectedPosts?.length > 0) {
+      tempVar =
+        this.selectedPosts.filter((p) => {
+          p.PostHashHex == post.PostHashHex;
+        })?.length > 0;
+    }
+    if (!tempVar) {
+      this.selectedPosts.push(post);
+    }
+    post.selected = true;
   }
   getPage(page: number) {
     if (this.lastPage != null && page > this.lastPage) {

@@ -66,14 +66,14 @@
           <div class="collection-selections-main-headline">
             <h1>Pick NFTs for Collection</h1>
             <!-- Add logic -->
-            <button>Select all</button>
+            <button (click)="selectAllNFTs()">Select all</button>
           </div>
 
           <!-- Populated NFT Content -->
           <div class="collection-selections-main-content">
             <div class="collection-selections-user-nfts">
               <ng-container *ngIf="isLoading == false">
-                <div *ngFor="let post of postData; index as i" class="single-nft-container">
+                <div *ngFor="let post of postData; index as i" class="single-nft-container p-10px">
                   <button class="select-nft-button" (click)="selectNFT(post)">
                     <input type="checkbox" [checked]="post.selected" />
                   </button>

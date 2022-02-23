@@ -10,12 +10,25 @@ import { GlobalVarsService } from "../../global-vars.service";
 })
 export class WithdrawEthComponent implements OnInit {
   withdrawAmount: any;
+  pendingWithdrawals: any;
 
   constructor(public globalVars: GlobalVarsService) {}
 
   link = new Link(environment.imx.ROPSTEN_LINK_URL);
 
-  ngOnInit(): void {}
+  async ngOnInit(): Promise<void> {
+    this.pendingWithdrawals = await this.globalVars.imxClient.getWithdrawals({
+      user: this.globalVars.imxWalletAddress,
+      rollup_status: ImmutableRollupStatus.included,
+    });
+    this.pendingWithdrawals = this.pendingWithdrawals["result"];
+    if (this.pendingWithdrawals.length === 0) {
+      console.log("There are no pending withdrawals");
+    } else {
+      console.log("There are pending withdrawals");
+    }
+    console.log(` ------------------ pendingWithdrawals ${this.pendingWithdrawals} -------------- `);
+  }
   openLink(link: string) {
     window.open(link, "_blank");
   }

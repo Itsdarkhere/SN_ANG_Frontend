@@ -6,8 +6,9 @@
     h2 {
         padding: 10px 0;
         color: #333333;
-        font-size: 1.4rem;
+        font-size: 1.5rem;
         font-weight: 600;
+        text-align: center;
     }
 
     .top-bid-horizontal-cards {
@@ -60,8 +61,10 @@
 
     h2 {
         padding: 10px 0;
-        font-size: 1.4rem;
+        color: #333333;
+        font-size: 1.5rem;
         font-weight: 600;
+        text-align: center;
     }
 
     .quick-facts-cards {
@@ -95,13 +98,7 @@
     height: 100%;
     width: 100%;
     gap: 20px;
-
-    h2 {
-        padding: 10px 0;
-        font-size: 1.4rem;
-        font-weight: 500;
-    }
-
+ 
     .creator-list-container {
         position: relative;
         padding: 2rem;
@@ -113,7 +110,7 @@
         background: white;
         border-radius: 20px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-
+        
         @media (max-width: 500px) {
             min-width: 275px;
         }

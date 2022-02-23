@@ -75,6 +75,7 @@ export class DiscoveryComponent implements OnInit {
     const onHideEvent = modalDetails.onHide;
     onHideEvent.subscribe((response) => {
       if (response === "bid placed") {
+        this.loadBidData();
         this.getNFTEntries();
       }
     });

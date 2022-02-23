@@ -309,7 +309,13 @@
             </div>
             <!-- Video -->
             <div
-              *ngIf="postContent.VideoURLs && showNFTOwnerInfo && postContent.VideoURLs[0] && !post.ParentStakeID"
+              *ngIf="
+                postContent.VideoURLs &&
+                showNFTOwnerInfo &&
+                postContent.VideoURLs[0] &&
+                !post.ParentStakeID &&
+                !isNFTProfile
+              "
               class="feed-post__video-container"
               [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
             >

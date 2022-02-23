@@ -64,15 +64,16 @@
               !nftPost.ParentStakeID &&
               !nftPost.PostExtraData.arweaveVideoSrc
             "
-            class="feed-post__video-container w-100"
+            class="d-flex flex-center w-100"
             [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
           >
             <iframe
               [src]="nftPost.VideoURLs[0] | sanitizeVideoUrl"
               allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
               allowfullscreen
-              class="feed-post__video"
+              class="w-100 br-10px"
             ></iframe>
+            <!--feed-post__video-->
           </div>
           <div *ngIf="constructedEmbedURL" class="d-flex flex-center w-100">
             <iframe

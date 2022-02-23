@@ -1,14 +1,13 @@
 .analytics-page-container {
+    padding-bottom: 5rem;
     position: relative;
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
 
     .analytics-page-headline {
         padding: 4rem 0;
-        border: 1px solid green;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -53,5 +52,4 @@
     flex-direction: column;
     height: 100%;
     width: 100%;
-    border: 1px solid blue;
 }

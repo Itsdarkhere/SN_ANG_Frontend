@@ -9,7 +9,7 @@
     <div class="eth-page-logo-container d-flex flex-center mt-20px">
       <img src="/assets/eth/ethlogo.svg" alt="eth logo" />
     </div>
-    <h3 class="font-weight-semiboldn eth-page-name-heading mt-20px">Ethereum</h3>
+    <h3 class="font-weight-semiboldn eth-page-name-heading mt-20px">ETH on IMX</h3>
     <span class="eth-page-price-heading font-weight-semiboldn">
       {{ this.globalVars.imxBalance }}
     </span>
@@ -30,7 +30,7 @@
         </button>
       </div>
       <app-deposit-eth *ngIf="tabDeposit" class="w-100 h-100 pb-10px d-flex flex-center"></app-deposit-eth>
-      <app-buy-deso *ngIf="tabBuy" class="w-100 h-100 pb-10px d-flex flex-center"></app-buy-deso>
+      <app-buy-eth *ngIf="tabBuy" class="w-100 h-100 pb-10px d-flex flex-center"></app-buy-eth>
       <app-transfer-deso
         (sendDeso)="_clickSendDeSo($event)"
         (getNetworkFee)="_updateSendDeSoTxnFee(false)"

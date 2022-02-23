@@ -217,6 +217,7 @@ import { CreatorListComponent } from './analytics-page/creator-list/creator-list
 import { SmallGraphComponent } from './analytics-page/small-graph/small-graph.component';
 import { ImxPageComponent } from './imx-page/imx-page.component';
 import { DepositEthComponent } from './imx-page/deposit-eth/deposit-eth.component';
+import { BuyEthComponent } from './imx-page/buy-eth/buy-eth.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -408,6 +409,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     SmallGraphComponent,
     ImxPageComponent,
     DepositEthComponent,
+    BuyEthComponent,
   ],
   imports: [
     BrowserModule,

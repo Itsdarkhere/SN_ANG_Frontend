@@ -82,6 +82,8 @@ export class GlobalVarsService {
   imxWalletAddress: string;
   imxClient: any;
   imxBalance: any;
+  wantToDepositEth: boolean;
+  wantToBuyEth: boolean;
   //   ----------------------------- end of imx global vars -----------------------------
 
   // Note: I don't think we should have default values for this. I think we should just

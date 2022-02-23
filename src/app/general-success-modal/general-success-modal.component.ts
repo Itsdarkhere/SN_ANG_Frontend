@@ -93,6 +93,7 @@ export class GeneralSuccessModalComponent implements OnInit {
 
   wantToDepositButtonClicked() {
     this.depositButtonClickedStatus = true;
+    this.globalVars.wantToDepositEth = true;
     this.bsModalRef.hide();
     this.router.navigate([RouteNames.IMX_PAGE]);
   }
@@ -112,6 +113,7 @@ export class GeneralSuccessModalComponent implements OnInit {
 
   wantToBuyEthButtonClicked() {
     this.buyEthButtonClickedStatus = true;
+    this.globalVars.wantToBuyEth = true;
     this.bsModalRef.hide();
     this.router.navigate([RouteNames.IMX_PAGE]);
   }

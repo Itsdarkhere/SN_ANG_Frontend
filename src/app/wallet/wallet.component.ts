@@ -92,6 +92,8 @@ export class WalletComponent implements OnInit, OnDestroy {
   tutorialHeaderText: string = "";
   tutorialStepNumber: number;
 
+  imxBalanceFull: string;
+
   ngOnInit() {
     this.setMobileBasedOnViewport();
     if (this.inTutorial) {
@@ -160,6 +162,7 @@ export class WalletComponent implements OnInit, OnDestroy {
       this.globalVars.imxWalletConnected = true;
       await this.getImxBalance(this.globalVars.imxWalletAddress);
     }
+    this.imxBalanceFull = this.globalVars.imxBalance + " ETH";
   }
 
   //   async linkSetup(): Promise<void> {
@@ -489,5 +492,8 @@ export class WalletComponent implements OnInit, OnDestroy {
   }
   routeToBuyDeso() {
     this.router.navigate([RouteNames.DESO_PAGE]);
+  }
+  routeToImxPage() {
+    this.router.navigate([RouteNames.IMX_PAGE]);
   }
 }

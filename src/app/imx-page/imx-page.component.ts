@@ -111,6 +111,13 @@ export class ImxPageComponent implements OnInit {
     }
 
     this.imxWalletAddressShort = this.globalVars.imxWalletAddress.slice(0, 24) + "...";
+
+    if (this.globalVars.wantToDepositEth === true) {
+      this.tabDepositClick();
+    }
+    if (this.globalVars.wantToBuyEth === true) {
+      this.tabBuyClick();
+    }
   }
 
   copyEthKey() {

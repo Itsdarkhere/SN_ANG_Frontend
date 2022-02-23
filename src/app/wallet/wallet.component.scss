@@ -325,6 +325,23 @@
     transition: 0.2s;
   }
 }
+
+.ethBalance {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28.0519px;
+  line-height: 72px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #2d2d2d;
+}
+
+.imxBalanceContainer {
+  margin-right: 50px;
+}
+
 @media screen and (max-width: 767px) {
   .earnings-heading {
     font-size: 20px;

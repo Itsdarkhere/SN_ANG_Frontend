@@ -1,11 +1,13 @@
 .top-bids-container {
+    padding-bottom: 2rem;
     display: flex;
     flex-direction: column;
 
     h2 {
         padding: 10px 0;
+        color: #333333;
         font-size: 1.4rem;
-        font-weight: 500;
+        font-weight: 600;
     }
 
     .top-bid-horizontal-cards {
@@ -13,8 +15,9 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        overflow-x: scroll;
+        gap: 15px;
         background-color: transparent;
+        overflow-x: scroll;
 
         scrollbar-width: none;
         /* Firefox */

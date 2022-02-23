@@ -106,15 +106,11 @@
  
     .creator-list-full-height-width {
         position: relative;
-        padding: 2rem;
-        display: flex;
-        flex-direction: column;
         height: fit-content;
         flex: 1;
         min-width: 400px;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
         
         @media (max-width: 500px) {
             min-width: 275px;

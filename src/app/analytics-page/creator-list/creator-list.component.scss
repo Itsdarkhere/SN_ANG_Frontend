@@ -1,32 +1,35 @@
-h2 {
-    padding: 10px 0;
-    color: #333333;
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-align: center;
+.top-creator-headline {
+    display: flex;
+    justify-content: space-between;
+
+    h2 {
+        padding: 20px 0;
+        color: #333333;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
 }
 
 table {
-    // border: 2px solid #ebebeb !important;
-    border-collapse: separate;
+    border-radius: 8px;
+    border: none;
     width: 100%;
+    // Fake border :)
+    box-shadow:  0 0 1px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 0, 0, 0.05);
+    // Hide thead corners
+    overflow: hidden;
 
-    thead {
-        height: fit-content;
-        background: #f8f8f8;
-        border: 1px solid #dedede;
-        box-shadow: 0px 1px 5px rgba(117, 117, 117, 0.1),0px 1px 5px rgba(117, 117, 117, 0.1);
-        
+    thead {    
         tr {
-            padding: 10px 0;
-            height: fit-content;
-            background-color: #EAEAEA;
+            display: flex;
+            background: #F8F8F8;
         }
 
         td {
-            padding: 10px 20px;
+            flex: 1;
+            padding: 15px 20px;
             font-weight: 500;
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: #7A7A7A;
             text-transform: uppercase;
         }
@@ -34,12 +37,37 @@ table {
 
     tbody {
         tr {
+            display: flex;
+            border-bottom: 1px solid #F2F2F2;
         }
 
-        .nft-sales {
+        td {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .creator-and-investor-info {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            img {
+                height: 25px;
+                width: 25px;
+                border: 2px solid white;
+                border-radius: 50%;
+            }
+
+            p {
+                font-size: 0.9rem;
+                font-weight: 500;
+            }
+        }
+
+        .sales-and-investments {
             display: flex;
             color: #CCCCCC;
-            font-size: 1rem;
+            font-size: 0.9rem;
             text-transform: uppercase;
 
             p {

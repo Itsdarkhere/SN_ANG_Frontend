@@ -681,7 +681,11 @@
               DESO
             </div>
           </div>
-          <div *ngIf="editionIsBuyNow" class="nft_current_bid_both" [ngClass]="{ 'pt-15px': globalVars.isMobile() }">
+          <div
+            *ngIf="editionIsBuyNow && editionForSale"
+            class="nft_current_bid_both"
+            [ngClass]="{ 'pt-15px': globalVars.isMobile() }"
+          >
             <div class="buy_now_text_container">
               <span class="hq">BUY NOW PRICE</span>
               <div class="val">
@@ -700,7 +704,7 @@
             <div class="val_st">The 1st bid starts the auction.</div>
           </div>
 
-          <div class="nft_done_by" *ngIf="!editionIsBuyNow && editionHasBids">
+          <div class="nft_done_by" *ngIf="!editionIsBuyNow && editionHasBids && editionForSale">
             <span class="hq">Made By</span>
             <div class="d-flex">
               <div class="bid_by_avtar" [avatar]="showNFTOwnerInfo?.ProfileEntryResponse?.PublicKeyBase58Check"></div>

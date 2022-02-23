@@ -1,5 +1,5 @@
 .top-bids-container {
-    padding-bottom: 2rem;
+    padding: 2rem 0;
     display: flex;
     flex-direction: column;
 
@@ -54,13 +54,14 @@
 }
 
 .quick-facts-container {
+    padding: 2rem 0;
     display: flex;
     flex-direction: column;
 
     h2 {
         padding: 10px 0;
         font-size: 1.4rem;
-        font-weight: 500;
+        font-weight: 600;
     }
 
     .quick-facts-cards {
@@ -68,8 +69,9 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        overflow-x: scroll;
+        gap: 15px;
         background-color: transparent;
+        overflow-x: scroll;
 
         scrollbar-width: none;
         /* Firefox */

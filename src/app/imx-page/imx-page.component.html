@@ -31,15 +31,7 @@
       </div>
       <app-deposit-eth *ngIf="tabDeposit" class="w-100 h-100 pb-10px d-flex flex-center"></app-deposit-eth>
       <app-buy-eth *ngIf="tabBuy" class="w-100 h-100 pb-10px d-flex flex-center"></app-buy-eth>
-      <app-transfer-deso
-        (sendDeso)="_clickSendDeSo($event)"
-        (getNetworkFee)="_updateSendDeSoTxnFee(false)"
-        [networkFee]="networkFee"
-        (calculateNetworkFee)="calculateNetworkFee($event)"
-        [sendingDeSo]="sendingDeSo"
-        *ngIf="tabWithdraw"
-        class="w-100 h-100 pb-10px d-flex flex-center"
-      ></app-transfer-deso>
+      <app-withdraw-eth *ngIf="tabWithdraw" class="w-100 h-100 pb-10px d-flex flex-center"></app-withdraw-eth>
     </div>
     <!-- SPACER FOR BOTTOM BAR ON MOBILE -->
     <div class="global__bottom-bar-mobile-height"></div>

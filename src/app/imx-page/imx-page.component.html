@@ -22,11 +22,11 @@
           <label class="mb-0px pl-5px">Buy</label>
         </button>
         <button
-          (click)="tabTransferClick()"
+          (click)="tabWithdrawClick()"
           class="br-top-right-30px font-weight-semiboldn"
-          [ngClass]="{ active: tabTransfer }"
+          [ngClass]="{ active: tabWithdraw }"
         >
-          <label class="mb-0px pl-5px">Transfer</label>
+          <label class="mb-0px pl-5px">Withdraw</label>
         </button>
       </div>
       <app-deposit-eth *ngIf="tabDeposit" class="w-100 h-100 pb-10px d-flex flex-center"></app-deposit-eth>
@@ -37,7 +37,7 @@
         [networkFee]="networkFee"
         (calculateNetworkFee)="calculateNetworkFee($event)"
         [sendingDeSo]="sendingDeSo"
-        *ngIf="tabTransfer"
+        *ngIf="tabWithdraw"
         class="w-100 h-100 pb-10px d-flex flex-center"
       ></app-transfer-deso>
     </div>
@@ -46,7 +46,7 @@
   </div>
   <ng-template *ngIf="!this.globalVars.loggedInUser">
     <div class="w-100 trade-deso-not-logged-in d-flex flex-column flex-center">
-      <label>You must log in to send, buy or transfer Ethereum</label>
+      <label>You must log in to deposit, buy or withdraw Ethereum</label>
       <button class="black-rounded-button basic-button-size font-weight-semiboldn" (click)="routeToBrowse()">
         Back to feed
       </button>

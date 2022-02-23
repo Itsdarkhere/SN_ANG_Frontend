@@ -53,7 +53,7 @@ export class ImxPageComponent implements OnInit {
   // NEW UI
   tabDeposit = true;
   tabBuy = false;
-  tabTransfer = false;
+  tabWithdraw = false;
 
   mobile = false;
 
@@ -76,17 +76,17 @@ export class ImxPageComponent implements OnInit {
   tabBuyClick() {
     this.tabBuy = true;
     this.tabDeposit = false;
-    this.tabTransfer = false;
+    this.tabWithdraw = false;
   }
   tabDepositClick() {
     this.tabBuy = false;
     this.tabDeposit = true;
-    this.tabTransfer = false;
+    this.tabWithdraw = false;
   }
-  tabTransferClick() {
+  tabWithdrawClick() {
     this.tabBuy = false;
     this.tabDeposit = false;
-    this.tabTransfer = true;
+    this.tabWithdraw = true;
   }
 
   async ngOnInit() {

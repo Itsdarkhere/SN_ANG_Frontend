@@ -12,6 +12,9 @@ import { take } from "rxjs/operators";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { Console } from "console";
 
+import { ethers } from "ethers";
+import { Link, ImmutableXClient, ImmutableMethodResults, ETHTokenType, ImmutableRollupStatus } from "@imtbl/imx-sdk";
+
 class Messages {
   static INCORRECT_PASSWORD = `The password you entered was incorrect.`;
   static CONNECTION_PROBLEM = `There is currently a connection problem. Is your connection to your node healthy?`;
@@ -86,13 +89,22 @@ export class ImxPageComponent implements OnInit {
     this.tabTransfer = true;
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.setMobileBasedOnViewport();
     this.feeRateDeSoPerKB = (this.globalVars.defaultFeeRateNanosPerKB / 1e9).toFixed(9);
     this.titleService.setTitle(`Send $DESO - ${environment.node.name}`);
     this.sendDeSoQRCode = `${this.backendApi._makeRequestURL(location.host, "/" + RouteNames.DESO_PAGE)}?public_key=${
       this.globalVars.loggedInUser.PublicKeyBase58Check
     }`;
+
+    const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";
+    this.globalVars.imxClient = await ImmutableXClient.build({ publicApiUrl });
+    if (localStorage.getItem("address")) {
+      console.log(` ----------------- address in local storage is ${localStorage.getItem("address")}`);
+      this.globalVars.imxWalletAddress = localStorage.getItem("address");
+      console.log(` --------------- imxWalletAddress is ${this.globalVars.imxWalletAddress}`);
+      this.getImxBalance(this.globalVars.imxWalletAddress);
+    }
   }
 
   setMobileBasedOnViewport() {
@@ -368,5 +380,16 @@ export class ImxPageComponent implements OnInit {
   }
   routeToBrowse() {
     this.router.navigate([RouteNames.BROWSE]);
+  }
+
+  async getImxBalance(walletAddressInput: string): Promise<void> {
+    console.log(` ----------------------- imxClient is ${this.globalVars.imxClient} `);
+    this.globalVars.imxBalance = await this.globalVars.imxClient.getBalance({
+      user: walletAddressInput,
+      tokenAddress: "eth",
+    });
+    this.globalVars.imxBalance = this.globalVars.imxBalance.balance.toString();
+    this.globalVars.imxBalance = ethers.utils.formatEther(this.globalVars.imxBalance);
+    console.log(` ----------------------- balance is ${this.globalVars.imxBalance} ETH ----------------------- `);
   }
 }

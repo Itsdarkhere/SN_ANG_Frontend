@@ -6,15 +6,15 @@
     [ngClass]="mobile ? 'w-100' : 'feed-cover'"
   >
     <div class="global__top-bar__height" *ngIf="mobile"></div>
-    <div class="deso-page-logo-container d-flex flex-center mt-20px">
-      <img src="/assets/icons/deso_page_icon.svg" alt="deso logo in white background" />
+    <div class="eth-page-logo-container d-flex flex-center mt-20px">
+      <img src="/assets/eth/ethlogo.svg" alt="eth logo" />
     </div>
-    <h3 class="font-weight-semiboldn deso-page-name-heading mt-20px">Deso</h3>
-    <span class="deso-page-price-heading font-weight-semiboldn">
-      {{ globalVars.nanosToUSD(globalVars.loggedInUser.BalanceNanos, 2) }}
+    <h3 class="font-weight-semiboldn eth-page-name-heading mt-20px">Ethereum</h3>
+    <span class="eth-page-price-heading font-weight-semiboldn">
+      {{ this.globalVars.imxBalance }}
     </span>
-    <div class="deso-page-actions-wrapper mt-20px d-flex flex-column flex-center">
-      <div class="deso-page-tab-selector d-flex flex-center px-10px mt-5px">
+    <div class="eth-page-actions-wrapper mt-20px d-flex flex-column flex-center">
+      <div class="eth-page-tab-selector d-flex flex-center px-10px mt-5px">
         <button (click)="tabDepositClick()" class="font-weight-semiboldn" [ngClass]="{ active: tabDeposit }">
           <label class="mb-0px pl-5px">Deposit</label>
         </button>
@@ -46,7 +46,7 @@
   </div>
   <ng-template *ngIf="!this.globalVars.loggedInUser">
     <div class="w-100 trade-deso-not-logged-in d-flex flex-column flex-center">
-      <label>You must log in to send, buy or transfer DeSo</label>
+      <label>You must log in to send, buy or transfer Ethereum</label>
       <button class="black-rounded-button basic-button-size font-weight-semiboldn" (click)="routeToBrowse()">
         Back to feed
       </button>

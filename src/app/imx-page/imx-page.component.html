@@ -15,11 +15,11 @@
     </span>
     <div class="deso-page-actions-wrapper mt-20px d-flex flex-column flex-center">
       <div class="deso-page-tab-selector d-flex flex-center px-10px mt-5px">
+        <button (click)="tabDepositClick()" class="font-weight-semiboldn" [ngClass]="{ active: tabDeposit }">
+          <label class="mb-0px pl-5px">Deposit</label>
+        </button>
         <button (click)="tabBuyClick()" class="br-top-left-30px font-weight-semiboldn" [ngClass]="{ active: tabBuy }">
           <label class="mb-0px pl-5px">Buy</label>
-        </button>
-        <button (click)="tabSellClick()" class="font-weight-semiboldn" [ngClass]="{ active: tabSell }">
-          <label class="mb-0px pl-5px">Sell</label>
         </button>
         <button
           (click)="tabTransferClick()"
@@ -29,8 +29,8 @@
           <label class="mb-0px pl-5px">Transfer</label>
         </button>
       </div>
+      <app-deposit-eth *ngIf="tabDeposit" class="w-100 h-100 pb-10px d-flex flex-center"></app-deposit-eth>
       <app-buy-deso *ngIf="tabBuy" class="w-100 h-100 pb-10px d-flex flex-center"></app-buy-deso>
-      <app-sell-deso *ngIf="tabSell" class="w-100 h-100 pb-10px d-flex flex-center"></app-sell-deso>
       <app-transfer-deso
         (sendDeso)="_clickSendDeSo($event)"
         (getNetworkFee)="_updateSendDeSoTxnFee(false)"

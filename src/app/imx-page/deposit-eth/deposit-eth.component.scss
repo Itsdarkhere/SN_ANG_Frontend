@@ -1,0 +1,51 @@
+.sell-deso-wrapper {
+  background-color: #ffffff;
+  width: calc(100% - 30px) !important;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  position: relative;
+}
+.sell-deso-help {
+  color: #545454;
+  font-size: clamp(12px, 4vw, 18px);
+  position: absolute;
+  bottom: 50px;
+  cursor: pointer;
+  img {
+    margin-bottom: 3px;
+  }
+}
+.deso-sell-subheading {
+  color: #6c6c6c;
+  padding-left: 10px;
+  margin-bottom: 5px;
+  font-size: clamp(14px, 3.5vw, 16px);
+  width: 95%;
+  text-align: start;
+}
+.deso-sell-exchange-container {
+  border-radius: 11.918519020080566px;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1);
+  width: 95%;
+  height: 20vw;
+  max-height: 120px;
+  padding-left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  label {
+    color: #1652f0;
+    font-weight: 600;
+    margin-bottom: 0;
+    font-size: clamp(16px, 4vw, 30px);
+    cursor: pointer;
+  }
+  p {
+    color: #535353;
+    font-size: clamp(14px, 3.5vw, 18px);
+  }
+}

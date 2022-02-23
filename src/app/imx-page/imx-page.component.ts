@@ -48,8 +48,8 @@ export class ImxPageComponent implements OnInit {
   sendDeSoQRCode: string;
 
   // NEW UI
-  tabBuy = true;
-  tabSell = false;
+  tabDeposit = true;
+  tabBuy = false;
   tabTransfer = false;
 
   mobile = false;
@@ -72,17 +72,17 @@ export class ImxPageComponent implements OnInit {
 
   tabBuyClick() {
     this.tabBuy = true;
-    this.tabSell = false;
+    this.tabDeposit = false;
     this.tabTransfer = false;
   }
-  tabSellClick() {
+  tabDepositClick() {
     this.tabBuy = false;
-    this.tabSell = true;
+    this.tabDeposit = true;
     this.tabTransfer = false;
   }
   tabTransferClick() {
     this.tabBuy = false;
-    this.tabSell = false;
+    this.tabDeposit = false;
     this.tabTransfer = true;
   }
 

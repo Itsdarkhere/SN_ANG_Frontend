@@ -331,6 +331,10 @@ export class PostEntryResponse {
   NFTRoyaltyToCreatorBasisPoints: number;
   HotnessScore: number;
   PostMultiplier: number;
+  // This is full on supernovas
+  // Enables us to select
+  // Now used in create-collection
+  selected: boolean;
 }
 
 export class DiamondsPost {

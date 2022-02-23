@@ -14,6 +14,7 @@ import { CommentModalComponent } from "../comment-modal/comment-modal.component"
 import { environment } from "src/environments/environment";
 import { Link, ImmutableXClient, ImmutableMethodResults, ETHTokenType, ImmutableRollupStatus } from "@imtbl/imx-sdk";
 import { ethers } from "ethers";
+import { AppRoutingModule, RouteNames } from "../app-routing.module";
 
 @Component({
   selector: "app-general-success-modal",
@@ -94,6 +95,8 @@ export class GeneralSuccessModalComponent implements OnInit {
 
   wantToDepositButtonClicked() {
     this.depositButtonClickedStatus = true;
+    this.bsModalRef.hide();
+    this.router.navigate([RouteNames.IMX_PAGE]);
   }
 
   async depositButtonClicked() {
@@ -111,6 +114,8 @@ export class GeneralSuccessModalComponent implements OnInit {
 
   wantToBuyEthButtonClicked() {
     this.buyEthButtonClickedStatus = true;
+    this.bsModalRef.hide();
+    this.router.navigate([RouteNames.IMX_PAGE]);
   }
 
   async buyEthButtonClicked() {

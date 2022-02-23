@@ -57,6 +57,10 @@ export class ImxPageComponent implements OnInit {
 
   mobile = false;
 
+  ethKeyCopied = false;
+
+  imxWalletAddressShort: string;
+
   constructor(
     private backendApi: BackendApiService,
     private globalVarsService: GlobalVarsService,
@@ -105,6 +109,16 @@ export class ImxPageComponent implements OnInit {
       console.log(` --------------- imxWalletAddress is ${this.globalVars.imxWalletAddress}`);
       this.getImxBalance(this.globalVars.imxWalletAddress);
     }
+
+    this.imxWalletAddressShort = this.globalVars.imxWalletAddress.slice(0, 24) + "...";
+  }
+
+  copyEthKey() {
+    this.ethKeyCopied = true;
+    this.globalVars._copyText(this.globalVars.imxWalletAddress);
+    setTimeout(() => {
+      this.ethKeyCopied = false;
+    }, 1500);
   }
 
   setMobileBasedOnViewport() {
@@ -391,5 +405,13 @@ export class ImxPageComponent implements OnInit {
     this.globalVars.imxBalance = this.globalVars.imxBalance.balance.toString();
     this.globalVars.imxBalance = ethers.utils.formatEther(this.globalVars.imxBalance);
     console.log(` ----------------------- balance is ${this.globalVars.imxBalance} ETH ----------------------- `);
+  }
+
+  linkLogOut() {
+    console.log("log button hit --------------------");
+    localStorage.removeItem("address");
+    this.globalVars.imxWalletAddress = "undefined";
+    this.globalVars.imxWalletConnected = false;
+    this.router.navigate([RouteNames.WALLET]);
   }
 }

@@ -53,3 +53,31 @@
     max-width: 80vw;
   }
 }
+
+.wallet-pk-box {
+  height: 42px;
+  background: #ffffff;
+  border: 1.6561809778px solid #ffffff;
+  border-radius: 49.6854286194px;
+  box-shadow: 1.6561809778px 1.6561809778px 8.2809047699px rgb(0 0 0 / 10%);
+}
+
+.imx-page-header-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 20px;
+  justify-content: space-around;
+}
+
+#disconnect-button:hover {
+  cursor: pointer;
+}
+
+.key-icon {
+  padding-left: 10px;
+}
+
+.wallet-copy-container {
+  padding-right: 10px;
+}

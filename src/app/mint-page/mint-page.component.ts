@@ -13,6 +13,7 @@ import { CommentModalComponent } from "../comment-modal/comment-modal.component"
 import { GoogleAnalyticsService } from "../google-analytics.service";
 import { ArweaveJsService } from "../arweave-js.service";
 import { take } from "rxjs/operators";
+import { GeneralSuccessModalComponent } from "../general-success-modal/general-success-modal.component";
 
 @Component({
   selector: "app-mint-page",
@@ -85,8 +86,9 @@ export class MintPageComponent implements OnInit {
   desoBlockchain = false;
   ethereumBlockchain = false;
 
-  //   desoWalletAddressShort
+  //   WalletAddressShort
   desoWalletAddressShort: string;
+  ethWalletAddresShort: string;
 
   // Content type
   videoType = false;
@@ -141,6 +143,25 @@ export class MintPageComponent implements OnInit {
   ngOnInit(): void {
     this.setMobileBasedOnViewport();
     this.desoWalletAddressShort = this.globalVars.loggedInUser.PublicKeyBase58Check.slice(0, 15) + "...";
+    if (this.globalVars.imxWalletConnected) {
+      this.ethWalletAddresShort = this.globalVars.imxWalletAddress.slice(0, 15) + "...";
+    }
+  }
+  connectEthWallet() {
+    this.openGeneralSuccessModal();
+  }
+  openGeneralSuccessModal() {
+    console.log(` ------------------------- general success modal function hit -------------- `);
+
+    this.modalService.show(GeneralSuccessModalComponent, {
+      class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+      initialState: {
+        header: "Connect your Ethereum wallet to Immutable X",
+        text: "By connecting your wallet to Immutable X, you are able to mint and trade Ethereum NFT's with zero gas fees.",
+        buttonText: "Connect with Immutable X",
+        buttonClickedAction: "connectWallet",
+      },
+    });
   }
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();

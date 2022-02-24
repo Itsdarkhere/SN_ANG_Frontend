@@ -185,6 +185,10 @@
   height: 25px;
   margin-right: 10px;
 }
+.eth-logo-header {
+  height: 25px;
+  margin-right: 10px;
+}
 .deso-wallet-connected {
   height: 15px;
 }
@@ -208,6 +212,13 @@
   line-height: 112.5%;
   color: rgba(255, 255, 255, 0.85);
 }
+.deso-wallet-connected-text-not-connected {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 112.5%;
+  color: rgba(24, 24, 24, 0.95);
+}
 .blockchain-type-card-mint {
   width: 349.33px;
   height: 235.37px;
@@ -219,10 +230,19 @@
   flex-direction: column;
   display: flex;
 }
-.blockchain-type-card-header {
+.deso-blockchain-type-card-header {
   width: 100%;
   height: 30%;
   background: #0d1a2e;
+  border-radius: 16.0713px 16.0713px 0px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.eth-blockchain-type-card-header {
+  background: #181818;
+  width: 100%;
+  height: 30%;
   border-radius: 16.0713px 16.0713px 0px 0px;
   display: flex;
   flex-direction: row;
@@ -240,12 +260,29 @@
   align-items: center;
   flex-direction: row;
 }
+.eth-header-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
 .blockchain-header-text {
   font-style: normal;
   font-weight: 600;
   font-size: 22.9068px;
   line-height: 34px;
   color: #ffffff;
+}
+.deso-wallet-container-not-connected {
+  background: white;
+  border: 2.29068px solid #ffffff;
+  box-shadow: 0.260887px 0.260887px 1.30444px 0.130444px rgba(0, 0, 0, 0.11);
+  border-radius: 18.2903px;
+  height: 40px;
+  width: 150px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 .deso-wallet-container {
   background: #0c0c0c;
@@ -278,11 +315,17 @@
   margin-top: 15px;
   width: 300px;
 }
-.blockchain-line-separator {
+.deso-blockchain-line-separator {
   width: 320px;
   border: 0.5px solid #dadada;
   transform: rotate(0.16deg);
   margin-top: 10px;
+}
+.eth-blockchain-line-separator {
+  width: 320px;
+  border: 0.5px solid #dadada;
+  transform: rotate(0.16deg);
+  margin-top: 28px;
 }
 .gas-fees-container {
   display: flex;

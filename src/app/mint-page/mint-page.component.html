@@ -22,7 +22,7 @@
             (click)="desoBlockchainSelected()"
             [ngClass]="{ 'electric-box-shadow': desoBlockchain, 'm-10px': mobile }"
           >
-            <div class="blockchain-type-card-header">
+            <div class="deso-blockchain-type-card-header">
               <div class="blockchain-type-card-header-container">
                 <div class="deso-header-container">
                   <img src="/assets/deso/logo-cropped.png" alt="deso logo" class="deso-logo-header" />
@@ -46,31 +46,81 @@
                 Mint on the Deso blockchain, where your NFT will be for sale on your Supernovas profile, and every
                 application which is connected the decentralized social network of Deso.
               </p>
-              <div class="blockchain-line-separator"></div>
+              <div class="deso-blockchain-line-separator"></div>
               <div class="gas-fees-container">
                 <p class="gas-fees-text">Gas Fees</p>
                 <p class="gas-fees-amount">0.001</p>
               </div>
             </div>
-            <!-- <div class="h-60 w-100 d-flex flex-center background-color-secondary">
-              <img src="/assets/icons/image-type.svg" alt="creator icon" />
-            </div>
-            <div class="h-40 w-100 mt-10px d-flex flex-column">
-              <label class="fs-15px font-weight-bold pointer-events-none">DESO</label>
-              <label class="fs-11px pointer-events-none">PNG, JPEG files are supported.</label>
-            </div> -->
           </button>
+          <!-- eth wallet is not connected -->
+          <button
+            class="blockchain-type-card-mint p-0px"
+            (click)="ethereumBlockchainSelected()"
+            *ngIf="!this.globalVars.imxWalletConnected"
+          >
+            <div class="eth-blockchain-type-card-header">
+              <div class="blockchain-type-card-header-container">
+                <div class="eth-header-container">
+                  <img src="/assets/eth/ethlogo-white.svg" alt="deso logo" class="eth-logo-header" />
+                  <p class="blockchain-header-text">Eth</p>
+                </div>
+                <!-- wallet is not connected -->
+                <button class="deso-wallet-container-not-connected" (click)="connectEthWallet()">
+                  <div class="deso-wallet-connected-container">
+                    <p class="deso-wallet-connected-text-not-connected">Connect Wallet</p>
+                  </div>
+                </button>
+              </div>
+            </div>
+            <div class="blockchain-type-card-body">
+              <p class="blockchain-body-text">
+                Mint on the Ethereum blockchain with zero gas fees by using Immutable X. Your NFT will be for sale on
+                Supernovas and other marketplaces which use Immutable.
+              </p>
+              <div class="eth-blockchain-line-separator"></div>
+              <div class="gas-fees-container">
+                <p class="gas-fees-text">Gas Fees</p>
+                <p class="gas-fees-amount">0.00 ETH</p>
+              </div>
+            </div>
+          </button>
+          <!-- eth wallet is connected -->
           <button
             class="blockchain-type-card-mint p-0px"
             (click)="ethereumBlockchainSelected()"
             [ngClass]="{ 'electric-box-shadow': ethereumBlockchain, 'm-10px': mobile }"
+            *ngIf="this.globalVars.imxWalletConnected"
           >
-            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
-              <img src="/assets/icons/video-type.svg" alt="creator icon" />
+            <div class="eth-blockchain-type-card-header">
+              <div class="blockchain-type-card-header-container">
+                <div class="eth-header-container">
+                  <img src="/assets/eth/ethlogo-white.svg" alt="deso logo" class="eth-logo-header" />
+                  <p class="blockchain-header-text">Eth</p>
+                </div>
+                <div class="deso-wallet-container">
+                  <img
+                    src="/assets/deso/deso-wallet-connected.svg"
+                    alt="wallet-connected"
+                    class="deso-wallet-connected"
+                  />
+                  <div class="deso-wallet-connected-container">
+                    <p class="deso-wallet-connected-address">{{ this.ethWalletAddresShort }}</p>
+                    <p class="deso-wallet-connected-text">Wallet Connected</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="h-40 w-100 mt-10px d-flex flex-column">
-              <label class="fs-15px font-weight-bold pointer-events-none">Ethereum</label>
-              <label class="fs-11px pointer-events-none">MP4 files are supported.</label>
+            <div class="blockchain-type-card-body">
+              <p class="blockchain-body-text">
+                Mint on the Ethereum blockchain with zero gas fees by using Immutable X. Your NFT will be for sale on
+                Supernovas and other marketplaces which use Immutable.
+              </p>
+              <div class="eth-blockchain-line-separator"></div>
+              <div class="gas-fees-container">
+                <p class="gas-fees-text">Gas Fees</p>
+                <p class="gas-fees-amount">0.00 ETH</p>
+              </div>
             </div>
           </button>
           <button

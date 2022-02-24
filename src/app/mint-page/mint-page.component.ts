@@ -81,6 +81,10 @@ export class MintPageComponent implements OnInit {
   isCoverImageUploaded = false;
   isUploadConfirmed = false;
 
+  //   Blockchain type
+  desoBlockchain = false;
+  ethereumBlockchain = false;
+
   // Content type
   videoType = false;
   imageType = false;
@@ -391,6 +395,17 @@ export class MintPageComponent implements OnInit {
     this.KVMap.set(this.KEY.trim(), this.VALUE.trim());
     this.KEY = "";
     this.VALUE = "";
+  }
+
+  //   Blockchain type
+  desoBlockchainSelected() {
+    this.desoBlockchain = true;
+    this.ethereumBlockchain = false;
+  }
+
+  ethereumBlockchainSelected() {
+    this.desoBlockchain = false;
+    this.ethereumBlockchain = true;
   }
 
   // Content type

@@ -8,44 +8,58 @@
   <div class="d-flex mt-20px" [ngClass]="mobile ? 'messages_container_mobile' : 'messages_container'">
     <!--  STEP 1  -->
     <div *ngIf="step === 1" class="mint-page-text-container flex-start-center w-100">
-      <div class="w-100 h-100 mb-50px d-flex flex-column flex-center-start overflow-y-auto disable-scrollbars">
+      <!-- choose blockchain -->
+      <div class="w-100 h-100 d-flex flex-column flex-center-start overflow-y-auto disable-scrollbars">
         <div class="w-90 mt-20px">
-          <h2 class="font-weight-semiboldn w-100 text-align-start ml-5px fs-33-responsive">Choose content type</h2>
+          <h2 class="font-weight-semiboldn w-100 text-align-start ml-5px fs-33-responsive">Choose Blockchain</h2>
           <label
             class="mt-20px color-light mint-page-sub-heading w-100 mb-0px text-align-start fs-20-responsive ml-5px"
           >
-            You can mint either image or video NFTs on Supernovas. Maximum file size is 200Mb.
+            Pick the blockchain you want to mint your NFT on.
           </label>
         </div>
         <div class="mint-content-type-container pb-20px w-90" [ngClass]="mobile ? 'justify-content-around' : ''">
           <button
-            class="content-type-card p-0px"
-            (click)="imageTypeSelected()"
-            [ngClass]="{ 'electric-box-shadow': imageType, 'm-10px': mobile }"
+            class="blockchain-type-card-mint p-0px"
+            (click)="desoBlockchainSelected()"
+            [ngClass]="{ 'electric-box-shadow': desoBlockchain, 'm-10px': mobile }"
           >
-            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+            <div class="blockchain-type-card-header">
+              <div class="blockchain-type-card-header-container">
+                <img src="/assets/deso/logo-cropped.png" alt="deso logo" class="deso-logo-header" />
+                <p class="blockchain-header-text">Deso</p>
+              </div>
+            </div>
+            <div class="blockchain-type-card-body">
+              <p class="blockchain-body-text">
+                Mint on Ethereum blockchain with zero gas fees by using Immutable X. Your NFT will be for sale on
+                Supernovas and other marketplaces which use Immutable X.
+              </p>
+              <p>Gas Fees</p>
+            </div>
+            <!-- <div class="h-60 w-100 d-flex flex-center background-color-secondary">
               <img src="/assets/icons/image-type.svg" alt="creator icon" />
             </div>
             <div class="h-40 w-100 mt-10px d-flex flex-column">
-              <label class="fs-15px font-weight-bold pointer-events-none">Image</label>
+              <label class="fs-15px font-weight-bold pointer-events-none">DESO</label>
               <label class="fs-11px pointer-events-none">PNG, JPEG files are supported.</label>
-            </div>
+            </div> -->
           </button>
           <button
-            class="content-type-card p-0px"
-            (click)="videoTypeSelected()"
-            [ngClass]="{ 'electric-box-shadow': videoType, 'm-10px': mobile }"
+            class="blockchain-type-card-mint p-0px"
+            (click)="ethereumBlockchainSelected()"
+            [ngClass]="{ 'electric-box-shadow': ethereumBlockchain, 'm-10px': mobile }"
           >
             <div class="h-60 w-100 d-flex flex-center background-color-secondary">
               <img src="/assets/icons/video-type.svg" alt="creator icon" />
             </div>
             <div class="h-40 w-100 mt-10px d-flex flex-column">
-              <label class="fs-15px font-weight-bold pointer-events-none">Video</label>
+              <label class="fs-15px font-weight-bold pointer-events-none">Ethereum</label>
               <label class="fs-11px pointer-events-none">MP4 files are supported.</label>
             </div>
           </button>
           <button
-            class="content-type-card not-available-warning p-0px"
+            class="blockchain-type-card-mint not-available-warning p-0px"
             *ngIf="!globalVars.showAdminTools()"
             [ngClass]="{ 'electric-box-shadow': audioType, 'm-10px': mobile }"
           >
@@ -59,7 +73,7 @@
           </button>
           <button
             *ngIf="globalVars.showAdminTools()"
-            class="content-type-card p-0px"
+            class="content-type-card-mint p-0px"
             (click)="audioTypeSelected()"
             [ngClass]="{ 'electric-box-shadow': audioType, 'm-10px': mobile }"
           >
@@ -71,7 +85,73 @@
               <label class="fs-11px color-light pointer-events-none">Coming soon!</label>
             </div>
           </button>
-          <button class="content-type-card not-available-warning p-0px" *ngIf="!mobile">
+        </div>
+      </div>
+      <!-- choose content type -->
+      <div class="w-100 h-100 mb-50px d-flex flex-column flex-center-start overflow-y-auto disable-scrollbars">
+        <div class="w-90 mt-20px">
+          <h2 class="font-weight-semiboldn w-100 text-align-start ml-5px fs-33-responsive">Choose content type</h2>
+          <label
+            class="mt-20px color-light mint-page-sub-heading w-100 mb-0px text-align-start fs-20-responsive ml-5px"
+          >
+            You can mint either image or video NFTs on Supernovas. Maximum file size is 200Mb.
+          </label>
+        </div>
+        <div class="mint-content-type-container pb-20px w-90" [ngClass]="mobile ? 'justify-content-around' : ''">
+          <button
+            class="content-type-card-mint p-0px"
+            (click)="imageTypeSelected()"
+            [ngClass]="{ 'electric-box-shadow': imageType, 'm-10px': mobile }"
+          >
+            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+              <img src="/assets/icons/image-type.svg" alt="creator icon" />
+            </div>
+            <div class="h-40 w-100 mt-10px d-flex flex-column">
+              <label class="fs-15px font-weight-bold pointer-events-none">Image</label>
+              <label class="fs-11px pointer-events-none">PNG, JPEG files are supported.</label>
+            </div>
+          </button>
+          <button
+            class="content-type-card-mint p-0px"
+            (click)="videoTypeSelected()"
+            [ngClass]="{ 'electric-box-shadow': videoType, 'm-10px': mobile }"
+          >
+            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+              <img src="/assets/icons/video-type.svg" alt="creator icon" />
+            </div>
+            <div class="h-40 w-100 mt-10px d-flex flex-column">
+              <label class="fs-15px font-weight-bold pointer-events-none">Video</label>
+              <label class="fs-11px pointer-events-none">MP4 files are supported.</label>
+            </div>
+          </button>
+          <button
+            class="content-type-card-mint not-available-warning p-0px"
+            *ngIf="!globalVars.showAdminTools()"
+            [ngClass]="{ 'electric-box-shadow': audioType, 'm-10px': mobile }"
+          >
+            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+              <img src="/assets/icons/music-type.svg" alt="creator icon" />
+            </div>
+            <div class="h-40 w-100 mt-10px d-flex flex-column">
+              <label class="fs-15px color-light font-weight-bold pointer-events-none">Audio</label>
+              <label class="fs-11px color-light pointer-events-none">Coming soon!</label>
+            </div>
+          </button>
+          <button
+            *ngIf="globalVars.showAdminTools()"
+            class="content-type-card-mint p-0px"
+            (click)="audioTypeSelected()"
+            [ngClass]="{ 'electric-box-shadow': audioType, 'm-10px': mobile }"
+          >
+            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+              <img src="/assets/icons/music-type.svg" alt="creator icon" />
+            </div>
+            <div class="h-40 w-100 mt-10px d-flex flex-column">
+              <label class="fs-15px color-light font-weight-bold pointer-events-none">Audio</label>
+              <label class="fs-11px color-light pointer-events-none">Coming soon!</label>
+            </div>
+          </button>
+          <button class="content-type-card-mint not-available-warning p-0px" *ngIf="!mobile">
             <div class="h-60 w-100 d-flex flex-center background-color-secondary">
               <img src="/assets/icons/3D-type.png" alt="creator icon" />
             </div>

@@ -72,6 +72,8 @@
   <p class="withdraw-eth-description">
     Success! Your ETH withdrawal is being prepared. This process can take up to 24 hours.
   </p>
+  <label class="eth-being-prepared-label">ETH BEING PREPARED</label>
+  <p class="eth-being-prepared-withdraw-amount">{{ this.withdrawAmount }} ETH</p>
 </div>
 
 <!-- ready withdrawals -->
@@ -94,6 +96,7 @@
     />
   </div>
   <p class="withdraw-eth-description">Your ETH is ready to be withdrawn!</p>
+  <p class="eth-ready-withdraw-amount">{{ this.withdrawAmount }} ETH</p>
   <button class="imx-complete-withdraw-button" (click)="completeWithdrawal()">
     <div class="withdraw-eth-text">Withdraw from Immutable X</div>
   </button>
@@ -116,7 +119,8 @@
     />
   </div>
   <p class="withdraw-eth-description">Withdrawal Completed Successfully</p>
+  <p class="eth-ready-withdraw-amount">{{ this.withdrawAmount }} ETH</p>
   <button class="imx-complete-withdraw-button" (click)="withdrawAgain()">
-    <div class="withdraw-eth-text">Withdraw from Immutable X</div>
+    <div class="withdraw-eth-text">Withdraw Again</div>
   </button>
 </div>

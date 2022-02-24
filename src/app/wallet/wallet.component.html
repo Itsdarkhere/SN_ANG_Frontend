@@ -53,14 +53,6 @@
         <img class="wallet-button-svg" src="/assets/icons/wallet_cc_icon_black.svg" alt="creator coin icon" />
         <label *ngIf="!mobile" class="mb-0px pl-5px">Creator Coins</label>
       </button>
-      <!--<button
-        (click)="tabEarningsClick()"
-        class="br-top-right-30px font-weight-semiboldn"
-        [ngClass]="{ active: tabEarnings }"
-      >
-        <img src="/assets/icons/wallet_earnings_icon.svg" alt="creator coin icon" />
-        <label *ngIf="!mobile" class="mb-0px pl-5px">Earnings</label>
-      </button>-->
     </div>
   </div>
   <div class="d-flex flex-center background-grey">
@@ -86,43 +78,42 @@
             <img class="wallet-button-arrow" src="/assets/icons/chevron_right.svg" alt="arrow right" />
           </div>
         </button>
+        <!-- if wallet is not connected -->
         <button
           class="wallet-coin-button padding-left-7_5-perc py-10px w-100 d-flex flex-row justify-content-between"
-          (click)="routeToImxPage()"
+          *ngIf="!this.globalVars.imxWalletConnected"
         >
           <div class="h-100 d-flex flex-row flex-center">
             <img class="deso-logo" src="../../assets/eth/ethlogo.svg" alt="eth" />
             <label class="fs-28px deso-name mb-0px color-text pl-10px">Ethereum</label>
           </div>
-          <!-- <div *ngIf="this.globalVars.imxWalletConnected" class="h-100 d-flex flex-row flex-center" [ngClass]="mobile ? '' : 'w-30'">
-            <div class="d-flex w-100 flex-column flex-start-center mr-10px">
-              <label class="fs-28px balance-usd mb-0px font-weight-semiboldn" style="color: #2d2d2d">
-                {{ globalVars.nanosToUSD(globalVars.loggedInUser.BalanceNanos, 2) }}
-              </label>
-              <label class="fs-20px balance-deso mb-0px" style="color: #6d6d6d">
-                {{ globalVars.nanosToDeSo(globalVars.loggedInUser.BalanceNanos, 2) }} ETH
-              </label>
-            </div>
-            <img class="wallet-button-arrow" src="/assets/icons/chevron_right.svg" alt="arrow right" />
-          </div> -->
           <div class="h-100 d-flex flex-row flex-center">
-            <div *ngIf="!this.globalVars.imxWalletConnected">
-              <button
-                (click)="openGeneralSuccessModal()"
-                class="black-rounded-button d-flex flex-center connect-wallet-button font-weight-bold fs-15px mt-5px"
-              >
-                Connect Wallet
-              </button>
-            </div>
-            <div *ngIf="this.globalVars.imxWalletConnected">
-              <div class="h-100 d-flex flex-row flex-center">
-                <div class="d-flex w-100 flex-column flex-start-center mr-10px imxBalanceContainer">
-                  <label class="fs-28px eth-balance mb-0px font-weight-semiboldn" style="color: #2d2d2d">
-                    {{ this.imxBalanceFull }}
-                  </label>
-                </div>
-                <img class="wallet-button-arrow" src="/assets/icons/chevron_right.svg" alt="arrow right" />
+            <button
+              (click)="openGeneralSuccessModal()"
+              class="black-rounded-button d-flex flex-center connect-wallet-button font-weight-bold fs-15px mt-5px"
+            >
+              Connect Wallet
+            </button>
+          </div>
+        </button>
+        <!-- if wallet is connected -->
+        <button
+          class="wallet-coin-button padding-left-7_5-perc py-10px w-100 d-flex flex-row justify-content-between"
+          (click)="routeToImxPage()"
+          *ngIf="this.globalVars.imxWalletConnected"
+        >
+          <div class="h-100 d-flex flex-row flex-center">
+            <img class="deso-logo" src="../../assets/eth/ethlogo.svg" alt="eth" />
+            <label class="fs-28px deso-name mb-0px color-text pl-10px">Ethereum</label>
+          </div>
+          <div class="h-100 d-flex flex-row flex-center">
+            <div class="h-100 d-flex flex-row flex-center">
+              <div class="d-flex w-100 flex-column flex-start-center mr-10px imxBalanceContainer">
+                <label class="fs-28px eth-balance mb-0px font-weight-semiboldn" style="color: #2d2d2d">
+                  {{ this.imxBalanceFull }}
+                </label>
               </div>
+              <img class="wallet-button-arrow" src="/assets/icons/chevron_right.svg" alt="arrow right" />
             </div>
           </div>
         </button>
@@ -176,62 +167,6 @@
         </button>
       </div>
     </div>
-    <!--<div *ngIf="tabEarnings" [@tabChangeAnimation] class="wallet-bottom-container">
-      <div class="earnings-big-box d-flex flex-column flex-center w-100">
-        <div class="d-flex flex-column">
-          <h4 class="fs-24 earnings-heading font-weight-semiboldn" style="color: #7b7b7b">ALL-TIME EARNINGS</h4>
-          <div class="d-flex flex-row flex-center">
-            <div class="wallet-earnings-avatar mr-20px" [avatar]="globalVars.loggedInUser.PublicKeyBase58Check"></div>
-            <div class="d-flex flex-column">
-              <label class="font-weight-semiboldn mb-0px fs-40px earnings-total-deso" style="color: #343434">
-                4.35 $DESO
-              </label>
-              <label class="fs-32px mtm-5px earnings-total-usd" style="color: #717171">$345.67</label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="earnings-grid-container">
-        <div class="earnings-grid-item">
-          <div class="pr-20px d-flex flex-column flex-start-center">
-            <label class="font-weight-semiboldn fs-20px earnings-item-one" style="color: #7b7b7b">NFT SALES</label>
-            <label class="font-weight-semiboldn mb-0px fs-32px earnings-item-two" style="color: #343434">
-              4.35 $DESO
-            </label>
-            <label class="fs-26px earnings-item-three" style="color: #717171">$345.67</label>
-          </div>
-        </div>
-        <div class="earnings-grid-item">
-          <div class="pr-20px d-flex flex-column flex-start-center">
-            <label class="font-weight-semiboldn fs-20px earnings-item-one" style="color: #7b7b7b">NFT ROYALTIES</label>
-            <label class="font-weight-semiboldn mb-0px fs-32px earnings-item-two" style="color: #343434">
-              4.35 $DESO
-            </label>
-            <label class="fs-26px earnings-item-three" style="color: #717171">$345.67</label>
-          </div>
-        </div>
-        <div class="earnings-grid-item wallet-grid-item-bottom-left">
-          <div class="pr-20px d-flex flex-column flex-start-center">
-            <label class="font-weight-semiboldn fs-20px earnings-item-one" style="color: #7b7b7b">
-              FOUNDER REWARDS
-            </label>
-            <label class="font-weight-semiboldn mb-0px fs-32px earnings-item-two" style="color: #343434">
-              4.35 $DESO
-            </label>
-            <label class="fs-26px earnings-item-three" style="color: #717171">$345.67</label>
-          </div>
-        </div>
-        <div class="earnings-grid-item wallet-grid-item-bottom-right">
-          <div class="pr-20px d-flex flex-column flex-start-center">
-            <label class="font-weight-semiboldn fs-20px earnings-item-one" style="color: #7b7b7b">DIAMONDS</label>
-            <label class="font-weight-semiboldn mb-0px fs-32px earnings-item-two" style="color: #343434">
-              4.35$DESO
-            </label>
-            <label class="fs-26px earnings-item-three" style="color: #717171">$345.67</label>
-          </div>
-        </div>
-      </div>
-    </div>-->
   </div>
 </div>
 <div class="bottom-bar-height" *ngIf="mobile"></div>

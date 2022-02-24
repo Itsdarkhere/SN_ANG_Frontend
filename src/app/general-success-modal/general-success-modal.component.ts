@@ -98,31 +98,11 @@ export class GeneralSuccessModalComponent implements OnInit {
     this.router.navigate([RouteNames.IMX_PAGE]);
   }
 
-  async depositButtonClicked() {
-    this.depositAmount = (<HTMLInputElement>document.getElementById("ethDepositAmount")).value;
-    console.log(this.depositAmount);
-    await this.link.deposit({
-      type: ETHTokenType.ETH,
-      amount: this.depositAmount,
-    });
-    this.bsModalRef.hide();
-    this.globalVars._alertSuccess(
-      "Successfully deposited ETH to Imx. Please give a couple of hours for your Imx balance to update."
-    );
-  }
-
   wantToBuyEthButtonClicked() {
     this.buyEthButtonClickedStatus = true;
     this.globalVars.wantToBuyEth = true;
     this.bsModalRef.hide();
+    console.log(` want to buy clicked from modal ${this.globalVars.wantToBuyEth}`);
     this.router.navigate([RouteNames.IMX_PAGE]);
-  }
-
-  async buyEthButtonClicked() {
-    await this.link.fiatToCrypto({});
-    this.bsModalRef.hide();
-    this.globalVars._alertSuccess(
-      "Successfully purchased ETH on Imx with Moonpay. Please give a couple of hours for your Imx balance to update."
-    );
   }
 }

@@ -24,6 +24,11 @@ export class WithdrawEthComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.checkPendingWithdrawals();
     await this.checkReadyWithdrawals();
+
+    // uncomment for testing
+    // this.pendingWithdrawals = false;
+    // this.readyWithdrawals = true;
+    this.completeWithdrawalSuccess = true;
   }
 
   async prepareWithdrawButtonClicked() {
@@ -42,6 +47,7 @@ export class WithdrawEthComponent implements OnInit {
       type: ETHTokenType.ETH,
       amount: this.withdrawAmount,
     });
+    localStorage.setItem("imxDepositAmount", this.withdrawAmount);
     await this.checkPendingWithdrawals();
   }
 
@@ -57,6 +63,7 @@ export class WithdrawEthComponent implements OnInit {
     } else {
       console.log("There are pending withdrawals");
       this.pendingWithdrawals = true;
+      this.withdrawAmount = localStorage.getItem("imxDepositAmount");
     }
   }
 
@@ -73,6 +80,7 @@ export class WithdrawEthComponent implements OnInit {
     } else {
       console.log("There are withdrawals ready");
       this.readyWithdrawals = true;
+      this.withdrawAmount = localStorage.getItem("imxDepositAmount");
     }
   }
 
@@ -82,6 +90,7 @@ export class WithdrawEthComponent implements OnInit {
     });
     if (this.completeWithdrawalResponse["transactionId"]) {
       this.completeWithdrawalSuccess = true;
+      this.withdrawAmount = localStorage.getItem("imxDepositAmount");
     } else {
       this.completeWithdrawalSuccess = false;
     }
@@ -92,6 +101,7 @@ export class WithdrawEthComponent implements OnInit {
   }
 
   withdrawAgain() {
+    this.withdrawAmount = localStorage.removeItem("imxDepositAmount");
     this.pendingWithdrawals = false;
     this.readyWithdrawals = false;
     this.completeWithdrawalSuccess = false;

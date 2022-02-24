@@ -502,6 +502,41 @@ input[type="number"] {
   margin-left: 10px;
 }
 
+.eth-being-prepared-label {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  color: #565656;
+  opacity: 0.8;
+  margin-bottom: 0px;
+  margin-left: 10px;
+}
+
+.eth-being-prepared-withdraw-amount {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 54px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #6b6b6b;
+}
+
+.eth-ready-withdraw-amount {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 54px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #0d0d0d;
+}
+
 .withdraw-eth-container {
   display: flex;
   flex-direction: column;

@@ -65,7 +65,6 @@
                   <img src="/assets/eth/ethlogo-white.svg" alt="deso logo" class="eth-logo-header" />
                   <p class="blockchain-header-text">Eth</p>
                 </div>
-                <!-- wallet is not connected -->
                 <button class="deso-wallet-container-not-connected" (click)="connectEthWallet()">
                   <div class="deso-wallet-connected-container">
                     <p class="deso-wallet-connected-text-not-connected">Connect Wallet</p>
@@ -123,37 +122,42 @@
               </div>
             </div>
           </button>
+          <!-- Solana coming soon -->
           <button
             class="blockchain-type-card-mint not-available-warning p-0px"
             *ngIf="!globalVars.showAdminTools()"
             [ngClass]="{ 'electric-box-shadow': audioType, 'm-10px': mobile }"
           >
-            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
-              <img src="/assets/icons/music-type.svg" alt="creator icon" />
+            <div class="sol-blockchain-type-card-header">
+              <div class="blockchain-type-card-header-container">
+                <div class="eth-header-container">
+                  <img src="/assets/sol/sol-logo.svg" alt="deso logo" class="sol-logo-header" />
+                  <p class="blockchain-header-text">Sol</p>
+                </div>
+                <!-- wallet is not connected -->
+                <button class="deso-wallet-container-not-connected">
+                  <div class="deso-wallet-connected-container">
+                    <p class="deso-wallet-connected-text-not-connected">Connect Wallet</p>
+                  </div>
+                </button>
+              </div>
             </div>
-            <div class="h-40 w-100 mt-10px d-flex flex-column">
-              <label class="fs-15px color-light font-weight-bold pointer-events-none">Audio</label>
-              <label class="fs-11px color-light pointer-events-none">Coming soon!</label>
-            </div>
-          </button>
-          <button
-            *ngIf="globalVars.showAdminTools()"
-            class="content-type-card-mint p-0px"
-            (click)="audioTypeSelected()"
-            [ngClass]="{ 'electric-box-shadow': audioType, 'm-10px': mobile }"
-          >
-            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
-              <img src="/assets/icons/music-type.svg" alt="creator icon" />
-            </div>
-            <div class="h-40 w-100 mt-10px d-flex flex-column">
-              <label class="fs-15px color-light font-weight-bold pointer-events-none">Audio</label>
-              <label class="fs-11px color-light pointer-events-none">Coming soon!</label>
+            <div class="blockchain-type-card-body">
+              <p class="blockchain-body-text">Coming Soon!</p>
+              <div class="sol-blockchain-line-separator"></div>
+              <div class="gas-fees-container">
+                <p class="gas-fees-text">Gas Fees</p>
+                <p class="gas-fees-amount">SOL</p>
+              </div>
             </div>
           </button>
         </div>
       </div>
-      <!-- choose content type -->
-      <div class="w-100 h-100 mb-50px d-flex flex-column flex-center-start overflow-y-auto disable-scrollbars">
+      <!-- deso choose content type -->
+      <div
+        *ngIf="this.desoBlockchain"
+        class="w-100 h-100 mb-50px d-flex flex-column flex-center-start overflow-y-auto disable-scrollbars"
+      >
         <div class="w-90 mt-20px">
           <h2 class="font-weight-semiboldn w-100 text-align-start ml-5px fs-33-responsive">Choose content type</h2>
           <label class="mb-20px color-light mint-page-sub-heading w-100 text-align-start fs-20-responsive ml-5px">
@@ -221,6 +225,80 @@
             <div class="h-40 w-100 mt-10px d-flex flex-column">
               <label class="fs-15px color-light font-weight-bold pointer-events-none">3D</label>
               <label class="fs-11px color-light pointer-events-none">Coming soon!</label>
+            </div>
+          </button>
+        </div>
+      </div>
+      <!-- eth choose content type -->
+      <div
+        *ngIf="this.ethereumBlockchain && this.globalVars.imxWalletConnected"
+        class="w-100 h-100 mb-50px d-flex flex-column flex-center-start overflow-y-auto disable-scrollbars"
+      >
+        <div class="w-90 mt-20px">
+          <h2 class="font-weight-semiboldn w-100 text-align-start ml-5px fs-33-responsive">Choose content type</h2>
+          <label class="mb-20px color-light mint-page-sub-heading w-100 text-align-start fs-20-responsive ml-5px">
+            You can mint an image NFT on Supernovas. Maximum file size is 200Mb.
+          </label>
+        </div>
+        <div class="mint-content-type-container pb-20px w-90" [ngClass]="mobile ? 'justify-content-around' : ''">
+          <button
+            class="content-type-card-mint p-0px"
+            (click)="imageTypeSelected()"
+            [ngClass]="{ 'electric-box-shadow': imageType, 'm-10px': mobile }"
+          >
+            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+              <img src="/assets/icons/image-type.svg" alt="creator icon" />
+            </div>
+            <div class="h-40 w-100 mt-10px d-flex flex-column">
+              <label class="fs-15px font-weight-bold pointer-events-none">Image</label>
+              <label class="fs-11px pointer-events-none">PNG, JPEG files are supported.</label>
+            </div>
+          </button>
+          <button
+            class="content-type-card-mint p-0px not-available-warning"
+            [ngClass]="{ 'electric-box-shadow': videoType, 'm-10px': mobile }"
+          >
+            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+              <img src="/assets/icons/video-type.svg" alt="creator icon" />
+            </div>
+            <div class="h-40 w-100 mt-10px d-flex flex-column">
+              <label class="fs-15px color-light font-weight-bold pointer-events-none">Video</label>
+              <label class="fs-11px color-light pointer-events-none">Video is not supported on ETH.</label>
+            </div>
+          </button>
+          <button
+            class="content-type-card-mint not-available-warning p-0px"
+            *ngIf="!globalVars.showAdminTools()"
+            [ngClass]="{ 'electric-box-shadow': audioType, 'm-10px': mobile }"
+          >
+            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+              <img src="/assets/icons/music-type.svg" alt="creator icon" />
+            </div>
+            <div class="h-40 w-100 mt-10px d-flex flex-column">
+              <label class="fs-15px color-light font-weight-bold pointer-events-none">Audio</label>
+              <label class="fs-11px color-light pointer-events-none">Audio is not supported on ETH.</label>
+            </div>
+          </button>
+          <button
+            *ngIf="globalVars.showAdminTools()"
+            class="content-type-card-mint p-0px"
+            [ngClass]="{ 'electric-box-shadow': audioType, 'm-10px': mobile }"
+          >
+            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+              <img src="/assets/icons/music-type.svg" alt="creator icon" />
+            </div>
+            <div class="h-40 w-100 mt-10px d-flex flex-column">
+              <label class="fs-15px color-light font-weight-bold pointer-events-none">Audio</label>
+              <label class="fs-11px color-light pointer-events-none">Audio is not supported on ETH.</label>
+            </div>
+          </button>
+          <button class="content-type-card-mint not-available-warning p-0px" *ngIf="!mobile">
+            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
+              <img src="/assets/icons/3D-type.png" alt="creator icon" />
+            </div>
+            <div class="h-40 w-100 mt-10px d-flex flex-column">
+              <label class="fs-15px color-light font-weight-bold pointer-events-none">3D</label>
+              <label class="fs-11px color-light pointer-events-none">3D is not support on ETH.</label>
             </div>
           </button>
         </div>

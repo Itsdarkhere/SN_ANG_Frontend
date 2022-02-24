@@ -143,7 +143,10 @@ export class MintPageComponent implements OnInit {
   ngOnInit(): void {
     this.setMobileBasedOnViewport();
     this.desoWalletAddressShort = this.globalVars.loggedInUser.PublicKeyBase58Check.slice(0, 15) + "...";
-    if (this.globalVars.imxWalletConnected) {
+    if (localStorage.getItem("address")) {
+      console.log("local storage hit -------------------");
+      this.globalVars.imxWalletConnected = true;
+      this.globalVars.imxWalletAddress = localStorage.getItem("address") as string;
       this.ethWalletAddresShort = this.globalVars.imxWalletAddress.slice(0, 15) + "...";
     }
   }

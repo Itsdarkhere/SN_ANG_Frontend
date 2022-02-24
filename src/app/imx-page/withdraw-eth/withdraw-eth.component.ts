@@ -28,7 +28,7 @@ export class WithdrawEthComponent implements OnInit {
     // uncomment for testing
     // this.pendingWithdrawals = false;
     // this.readyWithdrawals = true;
-    this.completeWithdrawalSuccess = true;
+    // this.completeWithdrawalSuccess = true;
   }
 
   async prepareWithdrawButtonClicked() {

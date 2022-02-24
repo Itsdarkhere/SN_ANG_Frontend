@@ -12,9 +12,7 @@
       <div class="w-100 h-100 d-flex flex-column flex-center-start overflow-y-auto disable-scrollbars">
         <div class="w-90 mt-20px">
           <h2 class="font-weight-semiboldn w-100 text-align-start ml-5px fs-33-responsive">Choose Blockchain</h2>
-          <label
-            class="mt-20px color-light mint-page-sub-heading w-100 mb-0px text-align-start fs-20-responsive ml-5px"
-          >
+          <label class="mb-20px color-light mint-page-sub-heading w-100 text-align-start fs-20-responsive ml-5px">
             Pick the blockchain you want to mint your NFT on.
           </label>
         </div>
@@ -26,16 +24,33 @@
           >
             <div class="blockchain-type-card-header">
               <div class="blockchain-type-card-header-container">
-                <img src="/assets/deso/logo-cropped.png" alt="deso logo" class="deso-logo-header" />
-                <p class="blockchain-header-text">Deso</p>
+                <div class="deso-header-container">
+                  <img src="/assets/deso/logo-cropped.png" alt="deso logo" class="deso-logo-header" />
+                  <p class="blockchain-header-text">Deso</p>
+                </div>
+                <div class="deso-wallet-container">
+                  <img
+                    src="/assets/deso/deso-wallet-connected.svg"
+                    alt="wallet-connected"
+                    class="deso-wallet-connected"
+                  />
+                  <div class="deso-wallet-connected-container">
+                    <p class="deso-wallet-connected-address">{{ this.desoWalletAddressShort }}</p>
+                    <p class="deso-wallet-connected-text">Wallet Connected</p>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="blockchain-type-card-body">
               <p class="blockchain-body-text">
-                Mint on Ethereum blockchain with zero gas fees by using Immutable X. Your NFT will be for sale on
-                Supernovas and other marketplaces which use Immutable X.
+                Mint on the Deso blockchain, where your NFT will be for sale on your Supernovas profile, and every
+                application which is connected the decentralized social network of Deso.
               </p>
-              <p>Gas Fees</p>
+              <div class="blockchain-line-separator"></div>
+              <div class="gas-fees-container">
+                <p class="gas-fees-text">Gas Fees</p>
+                <p class="gas-fees-amount">0.001</p>
+              </div>
             </div>
             <!-- <div class="h-60 w-100 d-flex flex-center background-color-secondary">
               <img src="/assets/icons/image-type.svg" alt="creator icon" />
@@ -91,9 +106,7 @@
       <div class="w-100 h-100 mb-50px d-flex flex-column flex-center-start overflow-y-auto disable-scrollbars">
         <div class="w-90 mt-20px">
           <h2 class="font-weight-semiboldn w-100 text-align-start ml-5px fs-33-responsive">Choose content type</h2>
-          <label
-            class="mt-20px color-light mint-page-sub-heading w-100 mb-0px text-align-start fs-20-responsive ml-5px"
-          >
+          <label class="mb-20px color-light mint-page-sub-heading w-100 text-align-start fs-20-responsive ml-5px">
             You can mint either image or video NFTs on Supernovas. Maximum file size is 200Mb.
           </label>
         </div>

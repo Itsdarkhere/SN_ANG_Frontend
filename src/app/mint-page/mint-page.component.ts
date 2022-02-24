@@ -85,6 +85,9 @@ export class MintPageComponent implements OnInit {
   desoBlockchain = false;
   ethereumBlockchain = false;
 
+  //   desoWalletAddressShort
+  desoWalletAddressShort: string;
+
   // Content type
   videoType = false;
   imageType = false;
@@ -137,6 +140,7 @@ export class MintPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.setMobileBasedOnViewport();
+    this.desoWalletAddressShort = this.globalVars.loggedInUser.PublicKeyBase58Check.slice(0, 15) + "...";
   }
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();

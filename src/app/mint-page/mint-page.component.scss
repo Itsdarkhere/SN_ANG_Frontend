@@ -185,6 +185,29 @@
   height: 25px;
   margin-right: 10px;
 }
+.deso-wallet-connected {
+  height: 15px;
+}
+.deso-wallet-connected-container {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-left: 10px;
+}
+.deso-wallet-connected-address {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 112.5%;
+  color: #ffffff;
+}
+.deso-wallet-connected-text {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 112.5%;
+  color: rgba(255, 255, 255, 0.85);
+}
 .blockchain-type-card-mint {
   width: 349.33px;
   height: 235.37px;
@@ -199,7 +222,7 @@
 .blockchain-type-card-header {
   width: 100%;
   height: 30%;
-  background: #181818;
+  background: #0d1a2e;
   border-radius: 16.0713px 16.0713px 0px 0px;
   display: flex;
   flex-direction: row;
@@ -210,6 +233,12 @@
   align-items: center;
   flex-direction: row;
   width: 300px;
+  justify-content: space-between;
+}
+.deso-header-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
 }
 .blockchain-header-text {
   font-style: normal;
@@ -217,6 +246,18 @@
   font-size: 22.9068px;
   line-height: 34px;
   color: #ffffff;
+}
+.deso-wallet-container {
+  background: #0c0c0c;
+  border: 2.29068px solid #ffffff;
+  box-shadow: 0.260887px 0.260887px 1.30444px 0.130444px rgba(0, 0, 0, 0.11);
+  border-radius: 18.2903px;
+  height: 40px;
+  width: 150px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 .blockchain-type-card-body {
   width: 100%;
@@ -232,9 +273,37 @@
   font-size: 13.7441px;
   line-height: 128.5%;
   display: flex;
-  align-items: center;
   color: #3f3f3f;
+  text-align: left;
+  margin-top: 15px;
   width: 300px;
+}
+.blockchain-line-separator {
+  width: 320px;
+  border: 0.5px solid #dadada;
+  transform: rotate(0.16deg);
+  margin-top: 10px;
+}
+.gas-fees-container {
+  display: flex;
+  text-align: left;
+  margin-top: 7.5px;
+  width: 300px;
+  justify-content: space-between;
+}
+.gas-fees-text {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12.7726px;
+  line-height: 23px;
+  color: #656565;
+}
+.gas-fees-amount {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12.7726px;
+  line-height: 23px;
+  color: #656565;
 }
 .fs-11px {
   font-size: 11px;

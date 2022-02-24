@@ -6,8 +6,8 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./analytics-page.component.scss"],
 })
 export class AnalyticsPageComponent implements OnInit {
-  tabDashboard = true;
-  tabActivity = false;
+  tabDashboard = false;
+  tabActivity = true;
   constructor() {}
 
   ngOnInit(): void {}

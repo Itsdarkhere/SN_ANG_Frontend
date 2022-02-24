@@ -527,7 +527,25 @@ export class MintPageComponent implements OnInit {
       }
     }
   }
+  nextStepEth() {
+    this.animationType = "next";
+    this.changeRef.detectChanges();
+    if (this.step + 1 < 6) {
+      this.step++;
+      // Arweave needs a boost to start itself
+      if (this.step === 4 && this.videoType) {
+        this.loadArweaveVideo();
+      }
+    }
+  }
   previousStep() {
+    this.animationType = "prev";
+    this.changeRef.detectChanges();
+    if (this.step - 1 > 0) {
+      this.step--;
+    }
+  }
+  previousStepEth() {
     this.animationType = "prev";
     this.changeRef.detectChanges();
     if (this.step - 1 > 0) {

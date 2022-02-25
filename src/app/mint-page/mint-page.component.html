@@ -153,7 +153,8 @@
           </button>
         </div>
       </div>
-      <!-- deso choose content type -->
+
+      <!-- ------------------------------ deso choose content type ------------------------------ -->
       <div
         *ngIf="this.desoBlockchain"
         class="w-100 h-100 mb-50px d-flex flex-column flex-center-start overflow-y-auto disable-scrollbars"
@@ -229,7 +230,7 @@
           </button>
         </div>
       </div>
-      <!-- eth choose content type -->
+      <!-- ------------------------------ eth choose content type ------------------------------ -->
       <div
         *ngIf="this.ethereumBlockchain && this.globalVars.imxWalletConnected"
         class="w-100 h-100 mb-50px d-flex flex-column flex-center-start overflow-y-auto disable-scrollbars"
@@ -1302,7 +1303,7 @@
               placeholder="Art description"
             ></textarea>
           </div>
-          <!-- <div class="w-100 mt-10px">
+          <div class="w-100 mt-10px">
             <label class="mint-page-sub-heading font-weight-bold w-100 text-align-start mb-0px fs-14-responsive ml-5px">
               Category
             </label>
@@ -1323,71 +1324,12 @@
               <option value="Photography">Photography</option>
             </select>
           </div>
-          <button
-            (click)="extrasOpen = !extrasOpen"
-            class="mint-page-sub-heading p-0px optional-extras-button font-weight-bold mint-page-flex-start text-align-start mb-20px mt-15px fs-14-responsive ml-5px"
-          >
-            Additional details
-            <img
-              class="ml-10px extras-icon"
-              [ngClass]="extrasOpen ? 'upside-down-icon' : ''"
-              src="/assets/icons/chevron-down.svg"
-            />
-            <label class="mb-0px mint-page-optional fs-10-responsive ml-10px">Optional</label>
-          </button>
-          <div class="accordion" [ngClass]="extrasOpen ? 'big' : ''">
-            <label
-              class="mint-page-sub-heading fs-14-responsive font-weight-bold w-100 text-align-start mt-15px mb-0px ml-5px"
-            >
-              Properties
-            </label>
-            <label class="color-light fs-12-responsive ml-5px">
-              Insert up to 10 key value combinations. These are individual characteristics that differentiate NFT’s from
-              one another in a collection. For example, “key” could be “hair” and “value” could be “blue.”
-            </label>
-            <div class="d-flex flex-row justify-content-space-between">
-              <div class="w-40">
-                <label class="fs-14-responsive font-weight-bold ml-5px">Key</label>
-                <input
-                  type="text"
-                  class="br-6px fs-12-responsive mint-page-input-minh"
-                  maxlength="20"
-                  [(ngModel)]="KEY"
-                  placeholder="Add key"
-                />
-              </div>
-              <div class="w-40">
-                <label class="fs-14-responsive font-weight-bold ml-5px">Value</label>
-                <input
-                  type="text"
-                  maxlength="20"
-                  class="w-100 br-6px fs-12-responsive mint-page-input-minh"
-                  [(ngModel)]="VALUE"
-                  placeholder="Add value"
-                />
-              </div>
-              <div class="add-button-container hover-scale fs-12-responsive">
-                <button class="extras-add-button" [disabled]="!hasKeyValue() || this.KVMap.size > 9" (click)="addKV()">
-                  + Add
-                </button>
-              </div>
-            </div>
-            <div class="w-100 kv-container">
-              <div class="d-flex flex-row mt-10px" *ngFor="let values of KVMap | keyvalue">
-                <button class="key-value-box fs-14px d-flex flex-row" (click)="deleteKV(values.key)">
-                  {{ values.key + ": " + values.value }}
-                  <img class="ml-5px close-icon-kv" src="/assets/icons/close.svg" />
-                </button>
-                <div class="w-10px"></div>
-              </div>
-            </div>
-          </div> -->
         </div>
         <button
           class="mb-0px font-weight-bold mint-page-step-2-continue"
           *ngIf="videoType || imageType"
           [ngClass]="mobile ? 'w-90' : 'w-80'"
-          (click)="nextStep()"
+          (click)="nextStepEth()"
           [disabled]="
             !isDescribed() ||
             !(postImageArweaveSrc?.length > 0 || postVideoDESOSrc?.length > 0) ||
@@ -1397,19 +1339,76 @@
         >
           Continue
         </button>
+      </div>
+      <!-- step 3 -->
+      <div
+        [@mintSwipeAnimation]="animationType"
+        *ngIf="step === 3"
+        class="mint-page-text-container-no-max h-95"
+        [ngClass]="mobile ? 'w-100' : 'w-50'"
+      >
+        <div class="mint-page-inner-inner disable-scrollbars" [ngClass]="mobile ? 'w-90' : 'w-80'">
+          <button class="previous-step-button color-light" (click)="previousStepEth()">
+            <img class="previous-step-arrow mr-5px" src="/assets/icons/arrow-left-lighter.svg" />
+            Back
+          </button>
+          <h2 class="mb-5px font-weight-semiboldn w-100 text-align-start fs-23-responsive ml-5px">Mint your NFT</h2>
+          <div class="w-100 mt-5px">
+            <label class="mint-page-sub-heading mb-0px font-weight-bold w-100 fs-14-responsive text-align-start ml-5px">
+              Selling Price
+            </label>
+            <!-- <button (click)="testDisabled()">test disabled button</button> -->
+            <label class="color-light fs-12-responsive mb-0px ml-5px mt-5px">
+              Set the price collectors are able to buy your NFT in Ethereum.
+            </label>
+            <div class="position-relative d-flex flex-row flex-start w-100 mint-page-min-price mt-10px">
+              <input
+                matInput
+                type="number"
+                placeholder="0"
+                [(ngModel)]="buyNowPriceDESO"
+                (ngModelChange)="updateBuyNowBidAmountUSD($event)"
+                class="pl-10px color-text font-weight-bold flex-center pr-10px mint-page-min-price-input m-0px h-100 w-60"
+              />
+              <button class="mint-page-min-price-label h-100 w-40 fs-23-responsive pt-5px">
+                <img src="assets/eth/ethlogo-white.svg" class="mr-10px mb-5px mint-page-deso-logo" />
+                <label class="mb-0px">ETH</label>
+              </button>
+            </div>
+
+            <div class="d-flex flex-row justify-content-space-between mt-5px">
+              <div class="w-40">
+                <label class="font-weight-bold ml-5px fs-14-responsive">Creator Royalty</label>
+                <div class="d-flex flex-row mint-page-royalty-element position-relative">
+                  <input
+                    type="number"
+                    placeholder="5"
+                    [(ngModel)]="CREATOR_ROYALTY"
+                    class="w-50 color-text font-weight-bold h-100 royalty-element-input"
+                  />
+                  <button
+                    class="w-50 h-100 background-secondary flex-center royalty-element-label fs-23-responsive font-weight-bold"
+                  >
+                    %
+                  </button>
+                </div>
+                <label class="color-light fs-12-responsive mt-10px ml-5px">
+                  The royalty you as an artist will receive.
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
         <button
-          class="mb-0px font-weight-bold mint-page-step-2-continue"
-          *ngIf="audioType"
+          class="mt-20px font-weight-bold mint-page-step-2-continue"
           [ngClass]="mobile ? 'w-90' : 'w-80'"
-          (click)="nextStep()"
           [disabled]="
-            !isDescribed() ||
-            !(postImageArweaveSrc?.length > 0 && postAudioArweaveSrc?.length > 0) ||
-            !isNamed() ||
-            !isCategorized()
+            isSubmitPress || !this.isPostReady() || hasUnreasonableRoyalties() || hasUnreasonableBuyNowPrice()
           "
+          (click)="_createPost()"
         >
-          Continue
+          <label *ngIf="!isSubmitPress" class="mb-0px">Mint your NFT</label>
+          <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i>
         </button>
       </div>
     </div>

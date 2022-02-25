@@ -238,6 +238,7 @@ export class MintPageComponent implements OnInit {
           this.postVideoArweaveSrc = null;
           this.isUploading = false;
           this.isUploaded = this.postImageArweaveSrc.length > 0;
+          console.log(` ---------------------------- arweave res is ${res} --------------------------- `);
         }, 2000);
       },
       (err) => {
@@ -531,6 +532,9 @@ export class MintPageComponent implements OnInit {
     this.animationType = "next";
     this.changeRef.detectChanges();
     if (this.step + 1 < 6) {
+      if (this.step === 2) {
+        this.uploadEthMetadata();
+      }
       this.step++;
       // Arweave needs a boost to start itself
       if (this.step === 4 && this.videoType) {
@@ -551,6 +555,39 @@ export class MintPageComponent implements OnInit {
     if (this.step - 1 > 0) {
       this.step--;
     }
+  }
+
+  uploadEthMetadata() {
+    let metadataObj = {
+      name: this.NAME_OF_PIECE,
+      description: this.DESCRIPTION,
+      image: this.postImageArweaveSrc,
+    };
+    let metadataObjJson = JSON.stringify(metadataObj);
+    let metadataFile = new File([metadataObjJson], "metadata.txt", {
+      type: "text/plain",
+    });
+    console.log(metadataObjJson);
+
+    this.arweave.UploadImage(metadataFile).subscribe(
+      (res) => {
+        setTimeout(() => {
+          let metadataUrl = "https://arweave.net/" + res;
+          // this.postImageArweaveSrc = url;
+          // this.postVideoArweaveSrc = null;
+          this.isUploading = false;
+          this.isUploaded = this.postImageArweaveSrc.length > 0;
+          console.log(
+            ` ---------------------------- arweave metadata url is ${metadataUrl} --------------------------- `
+          );
+        }, 2000);
+      },
+      (err) => {
+        this.isUploading = false;
+        this.isUploaded = false;
+        this.globalVars._alertError("Failed to upload metadata to arweave: " + err.message);
+      }
+    );
   }
 
   pollForReadyToStream(): void {

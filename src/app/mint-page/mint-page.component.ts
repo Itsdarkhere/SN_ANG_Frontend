@@ -124,6 +124,9 @@ export class MintPageComponent implements OnInit {
   minBidClicked = false;
   BUY_NOW_PRICE_USD = "0";
 
+  //   step 3 eth
+  sellingPriceETH: any;
+
   @HostListener("window:resize") onResize() {
     this.setMobileBasedOnViewport();
   }
@@ -488,6 +491,10 @@ export class MintPageComponent implements OnInit {
     this.BUY_NOW_PRICE_USD = this.globalVars.nanosToUSDNumber(desoAmount * 1e9).toFixed(2);
   }
 
+  updateSellingPriceETH(price) {
+    this.sellingPriceETH = price;
+  }
+
   imageUploaded() {
     return this.postImageArweaveSrc?.length > 0;
   }
@@ -533,7 +540,7 @@ export class MintPageComponent implements OnInit {
     this.changeRef.detectChanges();
     if (this.step + 1 < 6) {
       if (this.step === 2) {
-        this.uploadEthMetadata();
+        // this.uploadEthMetadata();
       }
       this.step++;
       // Arweave needs a boost to start itself

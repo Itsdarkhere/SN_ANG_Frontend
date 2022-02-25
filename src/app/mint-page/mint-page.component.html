@@ -1353,7 +1353,7 @@
             Back
           </button>
           <h2 class="mb-5px font-weight-semiboldn w-100 text-align-start fs-23-responsive ml-5px">Mint your NFT</h2>
-          <div class="w-100 mt-5px">
+          <div class="w-100 mt-20px">
             <label class="mint-page-sub-heading mb-0px font-weight-bold w-100 fs-14-responsive text-align-start ml-5px">
               Selling Price
             </label>
@@ -1366,17 +1366,17 @@
                 matInput
                 type="number"
                 placeholder="0"
-                [(ngModel)]="buyNowPriceDESO"
-                (ngModelChange)="updateBuyNowBidAmountUSD($event)"
+                [(ngModel)]="sellingPriceETH"
+                (ngModelChange)="updateSellingPriceETH($event)"
                 class="pl-10px color-text font-weight-bold flex-center pr-10px mint-page-min-price-input m-0px h-100 w-60"
               />
               <button class="mint-page-min-price-label h-100 w-40 fs-23-responsive pt-5px">
-                <img src="assets/eth/ethlogo-white.svg" class="mr-10px mb-5px mint-page-deso-logo" />
-                <label class="mb-0px">ETH</label>
+                <img src="assets/eth/ethlogo-white.svg" class="mr-10px mb-5px eth-price-logo" />
+                <label class="mb-0px eth-price-text">ETH</label>
               </button>
             </div>
 
-            <div class="d-flex flex-row justify-content-space-between mt-5px">
+            <div class="d-flex flex-row justify-content-space-between mt-30px">
               <div class="w-40">
                 <label class="font-weight-bold ml-5px fs-14-responsive">Creator Royalty</label>
                 <div class="d-flex flex-row mint-page-royalty-element position-relative">
@@ -1397,6 +1397,18 @@
                 </label>
               </div>
             </div>
+
+            <div class="mt-30px imx-fee-container">
+              <div class="imx-fee-container-line-1">
+                <p class="imx-fee-container-line-1-text">Immutable X Fee</p>
+                <p class="imx-fee-container-line-1-text">0.00 ETH</p>
+              </div>
+              <div class="imx-fee-container-line-break"></div>
+              <div class="imx-fee-container-line-2">
+                <p class="imx-fee-container-line-2-text">Supernovas Service Fee</p>
+                <p class="imx-fee-container-line-2-text">0.00 ETH</p>
+              </div>
+            </div>
           </div>
         </div>
         <button
@@ -1410,6 +1422,116 @@
           <label *ngIf="!isSubmitPress" class="mb-0px">Mint your NFT</label>
           <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i>
         </button>
+      </div>
+      <!--  LEFT SIDE DESKTOP STEPS 1 - 2-->
+      <div *ngIf="!mobile && step === 2" class="mint-page-image-container d-flex flex-column flex-center">
+        <!-- ALLOW IF ARWEAVE PROBLEMS -->
+        <div *ngIf="false" class="mint-warning-box">
+          <label class="mb-0px font-weight-semiboldn">
+            Arweave network is experiencing issues, content might take a few minutes until its visible
+          </label>
+        </div>
+        <label
+          class="mb-0px illuminate-color pr-20px pl-20px text-align-center"
+          *ngIf="!postImageArweaveSrc && !postVideoDESOSrc && !audioType"
+        >
+          Illuminate the digital universe with your imagination.
+          <br />
+          And never stop.
+        </label>
+        <label class="mb-0px illuminate-color pr-20px pl-20px text-align-center" *ngIf="audioType && step === 2">
+          Illuminate the digital universe with your imagination.
+          <br />
+          And never stop.
+        </label>
+        <div class="mint-page__image-container m-w-80" *ngIf="postImageArweaveSrc">
+          <i class="icon-close feed-post__image-delete" (click)="postImageArweaveSrc = null"></i>
+          <img class="feed-post__image br-0px" src="{{ postImageArweaveSrc }}" />
+        </div>
+      </div>
+      <!-- LEFT SIDE DESKTOP STEPS >= 4 -->
+      <div *ngIf="!mobile && step > 2" class="mint-page-image-container d-flex flex-center">
+        <div [@cardAppearAnimation] class="fake-card">
+          <!-- LEFT SIDE DESKTOP STEPS 3 - 4 -->
+          <div class="fake-card-image-box">
+            <div class="w-100 z-index-100 h-100 background-secondary position-relative d-flex flex-center">
+              <img *ngIf="postImageArweaveSrc" class="fake-card-image" src="{{ postImageArweaveSrc }}" />
+              <div
+                *ngIf="videoType || audioType"
+                class="fake-card-video-icon-container d-flex flex-center"
+                [ngClass]="{ opacity_0: !showVideoTypeIcon }"
+              >
+                <img
+                  class="fake-card-video-icon"
+                  *ngIf="!arweaveVideoLoading && videoType"
+                  src="/assets/icons/video-type-white.svg"
+                  alt="icon"
+                />
+                <img
+                  class="fake-card-video-icon"
+                  *ngIf="audioType"
+                  src="/assets/icons/music-type-white.svg"
+                  alt="icon"
+                />
+                <i class="fa fa-spinner fa-spin fa-2x" *ngIf="arweaveVideoLoading"></i>
+              </div>
+              <video
+                *ngIf="postVideoArweaveSrc && videoType"
+                id="fake-video-nft-1"
+                (mouseenter)="activateOnHover(true)"
+                (mouseleave)="activateOnHover(false)"
+                [muted]="'muted'"
+                class="fake-card-video-tag"
+                src="{{ postVideoArweaveSrc }}"
+              ></video>
+            </div>
+          </div>
+          <div class="caption-cover w-100">
+            <p class="font-weight-semibold fs-20px-im">
+              {{ NAME_OF_PIECE }}
+            </p>
+            <div class="d-flex flex-row">
+              <div class="card-header p-0px" style="border-bottom: 0px">
+                <div class="profile-img">
+                  <a [avatar]="globalVars.loggedInUser.ProfileEntryResponse.PublicKeyBase58Check"></a>
+                </div>
+              </div>
+              <div class="d-flex flex-column">
+                <p class="creator-text-nft-card font-weight-bold">CREATOR</p>
+                <div class="username-nft-card font-weight-bold">
+                  {{ globalVars.loggedInUser.ProfileEntryResponse.Username }}
+                  <i
+                    *ngIf="globalVars.loggedInUser.ProfileEntryResponse.IsVerified"
+                    class="fas fa-check-circle pl-5px fa-md text-primary"
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bid-cover flex-wrap colors-not-sold">
+            <div class="bid-row">
+              <div class="d-flex bid_inner_row">
+                <ng-container>
+                  <div class="bid-col">
+                    <p class="p-lighter">Selling Price</p>
+                    <p class="font-weight-semiboldn">{{ sellingPriceETH }} ETH</p>
+                  </div>
+                </ng-container>
+                <ng-container>
+                  <div
+                    class="ml-50px bid-col"
+                    matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
+                    [matTooltip]="mOfNNFTTooltip"
+                    #NFTMOfNTooltip="matTooltip"
+                  >
+                    <p class="p-lighter">Edition of</p>
+                    <p class="font-weight-bold">1</p>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

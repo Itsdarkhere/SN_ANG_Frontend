@@ -266,6 +266,7 @@
     background-color: #0000004d;
     transition: opacity 0.2s linear;
 }
+// Can't tell what this is doing/if it's necessary
 .card-audio-icon-container {
     position: absolute;
     top: 0;
@@ -305,11 +306,14 @@
         word-break: break-word;
     }
 }
+
+// This is the audio play button that appears on hover in the large marketplace view
 .audio-icon-hover-state {
     width: 216px;
     height: 49px;
     background: #000000;
     border-radius: 30px;
+    border: 1px solid blue;
     p {
         color: #FFFFFF;
     }

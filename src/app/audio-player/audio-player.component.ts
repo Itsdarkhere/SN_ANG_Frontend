@@ -20,19 +20,27 @@ export class AudioPlayerComponent implements OnInit {
     this.setMobileBasedOnViewport();
     // Sets volume color correctly on init
     Amplitude.init({
-      songs: [
-        {
+      songs: [{
           name: this.songName,
           artist: this.creator,
           url: this.audioSrc,
-        },
-      ],
+      }],
+      volume: 35,
+      debug: true
     });
+    Amplitude.setDebug(true);
     // The conditional rendering makes this not work without timeout
     setTimeout(() => {
       this.volumeColor();
     }, 100);
   }
+
+  setVolume($event: Event) {
+    const playerVolume = $event.target as HTMLInputElement;
+    Amplitude.setVolume(playerVolume.value);
+    console.log(playerVolume.value);
+  }
+
   volumeColor() {
     let volumeRange = document.getElementById("volume-slider") as HTMLInputElement;
     var value = (parseFloat(volumeRange.value) / 100) * 100;

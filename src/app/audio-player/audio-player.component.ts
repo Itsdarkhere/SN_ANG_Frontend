@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnChanges, OnInit } from "@angular/core";
+import { Component, HostListener, Input, OnChanges, OnDestroy, OnInit } from "@angular/core";
 import Amplitude from "amplitudejs/dist/amplitude.js";
 import { GlobalVarsService } from "../global-vars.service";
 import { parse } from "path/posix";
@@ -8,7 +8,7 @@ import { parse } from "path/posix";
   templateUrl: "./audio-player.component.html",
   styleUrls: ["./audio-player.component.scss"],
 })
-export class AudioPlayerComponent implements OnInit {
+export class AudioPlayerComponent implements OnInit, OnDestroy {
   constructor(private globalVars: GlobalVarsService) {}
   @Input() songName: any;
   @Input() creator: any;
@@ -35,6 +35,13 @@ export class AudioPlayerComponent implements OnInit {
     }, 100);
   }
 
+  // Stop audio after navigating away from post page
+  ngOnDestroy(): void {
+    Amplitude.stop();
+    console.log("destroyed");
+  }
+
+  // Set player volume level from slider on desktop
   setVolume($event: Event) {
     const playerVolume = $event.target as HTMLInputElement;
     Amplitude.setVolume(playerVolume.value);

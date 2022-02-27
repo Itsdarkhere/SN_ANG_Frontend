@@ -88,7 +88,9 @@
         </div>
       </ng-template>
 
-      <button type="button" class="inlrg" (click)="openImgModal($event, nftPost.ImageURLs[0])" data-toggle="modal">
+      <!-- Button for fullscreen image view -->
+      <!-- Removed for audio NFTs -->
+      <button *ngIf="!nftPost.PostExtraData.arweaveAudioSrc" type="button" class="inlrg" (click)="openImgModal($event, nftPost.ImageURLs[0])" data-toggle="modal">
         <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g filter="url(#filter0_d_231_296)">
             <path
@@ -123,6 +125,7 @@
           </defs>
         </svg>
       </button>
+
     </div>
     <div class="nft_bx nft_feed_post_wt_design post">
       <div *ngIf="nftPost && nftBidData" class="position-relative">

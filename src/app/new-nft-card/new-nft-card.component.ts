@@ -31,17 +31,19 @@ import { animate, style, transition, trigger } from "@angular/animations";
   styleUrls: ["./new-nft-card.component.scss"],
   animations: [
     trigger("audioIconNoHover", [
-      transition(":enter", [style({ opacity: "0" }), animate("400ms ease", style({ opacity: "1" }))]),
-      transition(":leave", [style({ opacity: "1" }), animate("400ms ease", style({ opacity: "0" }))]),
+      transition(":enter", [style({ opacity: "0" }), animate("800ms ease", style({ opacity: "1" }))]),
+      transition(":leave", [style({ opacity: "1" }), animate("800ms ease", style({ opacity: "0" }))]),
     ]),
     trigger("audioIconHover", [
-      transition(":leave", [
-        style({ transform: "translateY(0%)", opacity: "1" }),
-        animate("400ms ease", style({ transform: "translateY(100%)", opacity: "0" })),
-      ]),
       transition(":enter", [
-        style({ transform: "translateY(100%)" }),
-        animate("400ms ease", style({ transform: "translateY(0%)" })),
+        style({ opacity: "0" }), animate("800ms ease", style({ opacity: "1" }))
+        // style({ transform: "translateY(100%)" }),
+        // animate("400ms ease", style({ transform: "translateY(0%)" })),
+      ]),
+      transition(":leave", [
+        style({ opacity: "1" }), animate("800ms ease", style({ opacity: "0" }))
+        // style({ transform: "translateY(0%)", opacity: "1" }),
+        // animate("400ms ease", style({ transform: "translateY(100%)", opacity: "0" })),
       ]),
     ]),
   ],

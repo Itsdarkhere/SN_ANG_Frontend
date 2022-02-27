@@ -102,12 +102,6 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     this.getOnlyProfileSocials();
     this.loadBannerImage();
     this._getUserMetadata();
-    if (
-      this.globalVars?.loggedInUser?.PublicKeyBase58Check === "BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w"
-    ) {
-      console.log("Sending email");
-      this.emailService.SendInactiveUserEmail("Valtteri", "link", "valtteri@supernovas.app");
-    }
   }
 
   _getUserMetadata() {

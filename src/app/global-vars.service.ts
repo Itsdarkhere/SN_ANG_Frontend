@@ -174,6 +174,8 @@ export class GlobalVarsService {
   nftsDataToShow: NFTCollectionResponse[];
   nftsStartIndex = 0;
   nftsEndIndex = 20;
+  // Collection page
+  collectionNFTsLoading = true;
 
   messageResponse = null;
   messageMeta = {

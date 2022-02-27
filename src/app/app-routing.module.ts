@@ -93,7 +93,7 @@ class RouteNames {
   public static DISCOVERY = "discovery";
 
   public static COLLECTIONS = "collections";
-  public static COLLECTION_PAGE = "collection-page";
+  public static COLLECTION = "collection";
   public static CREATE_COLLECTION = "create-collection";
   public static COLLECTION_SUCCESS_PAGE = "collection-success-page";
 }
@@ -183,14 +183,14 @@ const routes: Routes = [
   },
   // COLLECTIONS ROUTES
   {
-    path: RouteNames.COLLECTION_PAGE,
+    path: RouteNames.COLLECTION + "/:username/:collection",
     component: CollectionPageComponent,
-    pathMatch: "full"
+    pathMatch: "full",
   },
   {
     path: RouteNames.CREATE_COLLECTION,
     component: CreateCollectionComponent,
-    pathMatch: "full"
+    pathMatch: "full",
   },
   // This NotFound route must be the last one as it catches all paths that were not matched above.
   { path: "**", component: NotFoundPageComponent, pathMatch: "full" },

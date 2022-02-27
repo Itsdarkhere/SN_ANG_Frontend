@@ -54,14 +54,33 @@
             display: flex;
             align-items: center;
             background-color: #F5F5F5;
-            border-radius: 5px;
+            border-radius: 16px;
 
             .collection-content-tab {
+                border: none;
+                outline: none;
                 padding: 10px 20px;
                 height: 80%;
+                border-radius: 10px;
+                font-size: 17px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: transparent;
+                color: #717171;
+                img {
+                    -webkit-filter: brightness(150%);
+                    filter: brightness(150%);
+                }
+            }
+            .collection-content-tab.selected {
+                color: #2D2D2D;
                 background-color: white;
-                border-radius: 5px;
-                font-weight: 500;
+                font-weight: 600;
+                img {
+                    -webkit-filter: none;
+                    filter: none;
+                }
             }
         }
     }
@@ -74,41 +93,6 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
-
-        .collection-view-tabs-container {
-            padding: 5px;
-            width: fit-content;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            background-color: #F5F5F5;
-            border-radius: 5px;
-
-            @media(max-width: 676px) {
-                display: none;
-            }
-
-            .default-view-tab {
-                padding: 10px;
-                background-color: white;
-                border-radius: 5px;
-            }
-
-            .grid-view-tab {
-                padding: 10px;
-            }
-        }
-
-        /* -- FILTER -- */
-        .collection-view-filter {
-            margin-left: 20px;
-            padding: 10px;
-            height: fit-content;
-            width: fit-content;
-            border-radius: 5px;
-            border: none;
-            box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-        }
     }
 }
 

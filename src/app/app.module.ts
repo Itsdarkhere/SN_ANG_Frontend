@@ -229,6 +229,7 @@ import { QuickFactsComponent } from "./analytics-page/quick-facts/quick-facts.co
 import { TopSalesComponent } from "./analytics-page/top-sales/top-sales.component";
 import { CreatorListComponent } from "./analytics-page/creator-list/creator-list.component";
 import { SmallGraphComponent } from "./analytics-page/small-graph/small-graph.component";
+import { CollectionFailureComponent } from './collection/create-collection/collection-failure/collection-failure.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -431,6 +432,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     TopSalesComponent,
     CreatorListComponent,
     SmallGraphComponent,
+    CollectionFailureComponent,
   ],
   imports: [
     BrowserModule,

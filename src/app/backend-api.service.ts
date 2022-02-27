@@ -140,6 +140,9 @@ export class BackendRoutes {
   static RoutePathGetCommunityFavourites = "/api/v0/get-community-favourites";
   static RoutePathGetFreshDrops = "/api/v0/get-fresh-drops";
   static RoutePathGetNFTsByCategory = "/api/v0/get-nfts-by-category";
+  // Collection
+  static RoutePathCreateCollection = "/api/v0/create-collection";
+  static RoutePathSortCollection = "/api/v0/sort-collection";
   // Marketplace postgres
   static RoutePathSortMarketplace = "/api/v0/sort-marketplace";
   static RoutePathSortCreators = "/api/v0/sort-creators";
@@ -1331,6 +1334,42 @@ export class BackendApiService {
       SortType,
       ContentFormat,
       CreatorsType,
+    });
+  }
+  SortCollection(
+    endpoint: string,
+    ReaderPublicKeyBase58Check: string,
+    Username: string,
+    CollectionName: string,
+    Offset: number,
+    Status: string,
+    Market: string,
+    OrderByType: string
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathSortCollection, {
+      ReaderPublicKeyBase58Check,
+      Username,
+      CollectionName,
+      Offset,
+      Status,
+      Market,
+      OrderByType,
+    });
+  }
+  CreateCollection(
+    endpoint: string,
+    PostHashHexArray: string[],
+    Username: string,
+    CollectionName: string,
+    CollectionDescription: string,
+    CollectionBannerLocation: string
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathCreateCollection, {
+      PostHashHexArray,
+      Username,
+      CollectionName,
+      CollectionDescription,
+      CollectionBannerLocation,
     });
   }
   SortCreators(endpoint: string, Offset: number, Verified): Observable<any> {

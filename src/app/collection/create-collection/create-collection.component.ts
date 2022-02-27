@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { GlobalVarsService } from "../../global-vars.service";
 import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../../backend-api.service";
+import { Router } from "@angular/router";
+import { ArweaveJsService } from "src/app/arweave-js.service";
 
 @Component({
   selector: "app-create-collection",
@@ -8,19 +10,27 @@ import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResp
   styleUrls: ["./create-collection.component.scss"],
 })
 export class CreateCollectionComponent implements OnInit {
-  constructor(private globalVars: GlobalVarsService, private backendApi: BackendApiService) {}
+  constructor(
+    private globalVars: GlobalVarsService,
+    private backendApi: BackendApiService,
+    private router: Router,
+    private arweave: ArweaveJsService
+  ) {}
 
   createCollectionForm: any;
   isChecked: boolean = false;
   selectAllCheckboxes: boolean = false;
-  uploadedBannerImage: undefined;
+  uploadedBannerImage: string;
   uploadedDisplayImage: undefined;
+  uploadingBannerImage = false;
+
+  creatingCollection = false;
 
   collectionName: string = "";
   collectionDescription: string = "";
   collectionBannerImage: File = null;
   collectionDisplayImage: File = null;
-  stepNumber: number = 2;
+  stepNumber: number = 1;
 
   activeTab: string;
   isLoading: boolean = true;
@@ -42,45 +52,44 @@ export class CreateCollectionComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.getNFTs();
-    console.log(this.postData.length);
-
-    // for(var i = 0; i < this.postData.length; i++) {
-    //   // <HTMLInputElement>document.getElementById(i).checked = false;
-    //   var counter = i.toString();
-    //   let ele = document.getElementById(counter) as HTMLInputElement;
-    //   ele.checked = false;
-    //   console.log(i);
-    // }
   }
 
   nextStep() {
     this.stepNumber++;
-    if (this.stepNumber === 2) {
-      if (this.postData && this.isLoading === false) {
-        for (var i = 0; i < this.postData.length; i++) {
-          // <HTMLInputElement>document.getElementById(i).checked = false;
-          var counter = i.toString();
-          let ele = document.getElementById(counter) as HTMLInputElement;
-          ele.checked = false;
-          console.log(i);
-        }
-      }
-    }
   }
 
   canContinueStepOne() {
     return !(this.collectionDescription.length > 0) || !(this.collectionName.length > 0);
   }
 
-  updateBanner($event: any) {
-    if ($event.target.files) {
-      this.collectionBannerImage = $event.target.files[0];
-      let reader = new FileReader();
-      reader.readAsDataURL($event.target.files[0]);
-      reader.onload = (event: any) => {
-        this.uploadedBannerImage = event.target.result;
-      };
+  handleImageInput(files: FileList) {
+    // Dont upload while uploading
+    if (this.uploadingBannerImage) {
+      return;
     }
+    let file = files[0];
+    if (!file.type || !file.type.startsWith("image/")) {
+      this.globalVars._alertError("File selected does not have an image file type.");
+      return;
+    }
+    if (file.size > (1024 * 1024 * 1024) / 5) {
+      this.globalVars._alertError("File is too large. Please choose a file of a size less than 200MB");
+      return;
+    }
+    this.uploadingBannerImage = true;
+    this.arweave.UploadImage(file).subscribe(
+      (res) => {
+        setTimeout(() => {
+          let url = "https://arweave.net/" + res;
+          this.uploadedBannerImage = url;
+          this.uploadingBannerImage = false;
+        }, 2000);
+      },
+      (err) => {
+        this.uploadingBannerImage = false;
+        this.globalVars._alertError("Failed to upload image to arweave: " + err.message);
+      }
+    );
   }
 
   updateDisplayImage($event: any) {
@@ -123,6 +132,51 @@ export class CreateCollectionComponent implements OnInit {
       .finally(() => {
         this.isLoading = false;
       });
+  }
+  // After this -> if successfull show success screen
+  createCollection() {
+    if (!this.creatingCollection) {
+      this.creatingCollection = true;
+    }
+    let hashHexArr: string[] = [];
+    this.selectedPosts.forEach((post) => {
+      hashHexArr.push(post.PostHashHex);
+    });
+    this.backendApi
+      .CreateCollection(
+        this.globalVars.localNode,
+        hashHexArr,
+        this.globalVars.loggedInUser.ProfileEntryResponse.Username,
+        this.collectionName,
+        this.collectionDescription,
+        this.uploadedBannerImage
+      )
+      .subscribe(
+        (res) => {
+          console.log(JSON.stringify(res));
+          this.creatingCollection = false;
+          this.nextStep();
+        },
+        (error) => {
+          this.creatingCollection = false;
+          this.nextStep();
+        }
+      );
+  }
+
+  hasProfile() {
+    //   close nav bar because it will open on mobile
+    if (this.globalVars.isMobileIphone()) {
+      this.globalVars.isLeftBarMobileOpen = false;
+    }
+
+    if (this.globalVars?.loggedInUser?.ProfileEntryResponse?.Username) {
+      this.router.navigate(["/u/" + this.globalVars?.loggedInUser?.ProfileEntryResponse.Username]);
+      this.globalVars.isLeftBarMobileOpen = false;
+    } else {
+      this.router.navigate(["/update-profile"]);
+      this.globalVars.isLeftBarMobileOpen = false;
+    }
   }
 
   selectAllNFTs() {

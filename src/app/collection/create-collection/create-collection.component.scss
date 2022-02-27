@@ -237,6 +237,10 @@
 
 .single-nft-container {
     position: relative;
+    height: 214px !important;
+}
+.selected-border {
+    border: 2px solid #3549FA;
 }
 .select-nft-button {
     position: absolute;
@@ -248,11 +252,22 @@
     background-color: transparent;
     border: none;
     outline: none;
-    input {
+    .checkbox-container {
+        border-radius: 30px;
         position: absolute;
-        width: 20px;
-        right: 25px;
-        top: 25px;
+        width: 27px;
+        height: 27px;
+        border-radius: 50%;
+        background: #ffffff;
+        border: 1px solid #4a4a4a;
+        box-shadow: 1.9333332777023315px 1.9333332777023315px 9.666666984558105px rgba(0, 0, 0, 0.1);
+        right: 15px;
+        top: 15px;
+    }
+    .checkbox-container.selected {
+        border: none;
+        background-image: url("/assets/icons/select_verified_icon.svg");
+        background-position: center;
     }
 }
 
@@ -300,7 +315,7 @@
         position: relative;
         height: 100%;
         width: 100%;
-        
+        overflow-y: scroll;
         // Targets all NFTs
         .collection-selections-user-nfts {
             position: absolute;
@@ -309,14 +324,14 @@
             right: 0;
             bottom: 0;
             padding: 10px 0;
+            display: flex;
             height: 100%;
             max-width: 100%;
             display: flex;
+            align-items: flex-start;
             justify-content: flex-start;
             flex-wrap: wrap;
-            .single-nft-container {
-                width: auto;
-            }
+            list-style-type: none;
         }
         
         @media screen and (max-width: 676px) {   

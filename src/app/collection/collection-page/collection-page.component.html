@@ -1,4 +1,11 @@
 <app-page-small-nav-new>
-  <app-collection-page-header></app-collection-page-header>
-  <app-collection-page-content></app-collection-page-content>
+  <app-collection-page-header
+    [collectionBannerLocation]="collectionBannerLocation"
+    [collectionCreatorPK]="collectionCreatorPK"
+    [collectionName]="collectionName"
+  ></app-collection-page-header>
+  <app-collection-page-content
+    [collectionNFTs]="collectionNFTs"
+    [collectionDescription]="collectionDescription"
+  ></app-collection-page-content>
 </app-page-small-nav-new>

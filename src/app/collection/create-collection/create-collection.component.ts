@@ -25,6 +25,8 @@ export class CreateCollectionComponent implements OnInit {
   uploadingBannerImage = false;
 
   creatingCollection = false;
+  createCollectionError: string;
+  createCollectionFailed = false;
 
   collectionName: string = "";
   collectionDescription: string = "";
@@ -55,6 +57,13 @@ export class CreateCollectionComponent implements OnInit {
   }
 
   nextStep() {
+    this.stepNumber++;
+  }
+
+  nextSuccessOrError(success: boolean) {
+    if (!success) {
+      this.createCollectionFailed = true;
+    }
     this.stepNumber++;
   }
 
@@ -153,13 +162,13 @@ export class CreateCollectionComponent implements OnInit {
       )
       .subscribe(
         (res) => {
-          console.log(JSON.stringify(res));
+          this.createCollectionError = JSON.stringify(res);
           this.creatingCollection = false;
-          this.nextStep();
+          this.nextSuccessOrError(true);
         },
         (error) => {
           this.creatingCollection = false;
-          this.nextStep();
+          this.nextSuccessOrError(false);
         }
       );
   }

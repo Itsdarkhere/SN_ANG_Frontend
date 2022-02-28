@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-collection-failure',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./collection-failure.component.scss']
 })
 export class CollectionFailureComponent implements OnInit {
-
+  @Input() error: string;
   constructor() { }
 
   ngOnInit(): void {

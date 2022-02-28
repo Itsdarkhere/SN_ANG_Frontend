@@ -163,9 +163,10 @@
             <p [ngClass]="quotedContent ? 'pt-10px' : ''" [innerHTML]="postContent.Body | sanitizeAndAutoLink"></p>
           </div>
 
-          <!-- Audio and video NFT stuff -->
+          <!-- Audio and video NFT stuff, add 3D here? -->
           <ng-container>
             <div class="img-cover position-relative" [ngClass]="{ 'change-height-img-cover': isQuotedCard }">
+              <!-- Audio starts here -->
               <div
                 *ngIf="postContent?.PostExtraData?.arweaveAudioSrc"
                 class="card-audio-icon-container pointer-events-none d-flex flex-center top-br-30px"
@@ -186,6 +187,7 @@
                   <p>PLAY AUDIO</p>
                 </div>
               </div>
+
               <img
                 class="card-img"
                 id="nft-card-image"
@@ -196,6 +198,8 @@
                 data-toggle="modal"
                 src="{{ imageURL }}"
               />
+
+              <!-- Video starts here -->
               <div
                 class="w-100 h-100 overflow-hidden top-br-30px background-secondary position-relative d-flex flex-center"
                 *ngIf="!postContent.ImageURLs && postContent.PostExtraData.arweaveVideoSrc && !post.ParentStakeID"
@@ -216,6 +220,7 @@
                   src="{{ postContent.PostExtraData.arweaveVideoSrc + '#t=0.001' }}"
                 ></video>
               </div>
+
               <div
                 *ngIf="
                   postContent.VideoURLs &&
@@ -260,6 +265,8 @@
               >
                 <div class="disable-scrollbars">{{ postContent.Body }}</div>
               </div>
+
+              <!-- Add 3D here? -->
             </div>
           </ng-container>
 
@@ -526,7 +533,7 @@
           ></feed-post-icon-row>
         </div>
       </div>
-      
+
     </div>
   </div>
 </div>

@@ -72,6 +72,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
             this.collectionNFTs = res?.PostEntryResponse;
             this.collectionBannerLocation = res?.CollectionBannerLocation;
             console.log(this.collectionBannerLocation);
+            console.log(res);
             this.collectionDescription = res?.CollectionDescription;
             this.globalVars.collectionNFTsLoading = false;
             if (this.collectionNFTs[0]) {

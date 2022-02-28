@@ -143,6 +143,7 @@ export class BackendRoutes {
   // Collection
   static RoutePathCreateCollection = "/api/v0/create-collection";
   static RoutePathSortCollection = "/api/v0/sort-collection";
+  static RoutePathGetUserCollectionsData = "/api/v0/get-user-collections-data";
   // Marketplace postgres
   static RoutePathSortMarketplace = "/api/v0/sort-marketplace";
   static RoutePathSortCreators = "/api/v0/sort-creators";
@@ -338,6 +339,9 @@ export class PostEntryResponse {
   // Enables us to select
   // Now used in create-collection
   selected: boolean;
+  // This enables us to disable nfts on create-collection
+  // So that user does not add duplicates on collections
+  disabled: boolean;
 }
 
 export class DiamondsPost {
@@ -1354,6 +1358,13 @@ export class BackendApiService {
       Status,
       Market,
       OrderByType,
+    });
+  }
+  // get all rows from collections that have the username as the creator
+  // Used to filter duplicate posts and collection names inside collection creation
+  GetUserCollectionsData(endpoint: string, Username: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetUserCollectionsData, {
+      Username,
     });
   }
   CreateCollection(

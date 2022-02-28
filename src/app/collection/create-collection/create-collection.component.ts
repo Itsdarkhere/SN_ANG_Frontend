@@ -3,6 +3,7 @@ import { GlobalVarsService } from "../../global-vars.service";
 import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../../backend-api.service";
 import { Router } from "@angular/router";
 import { ArweaveJsService } from "src/app/arweave-js.service";
+import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: "app-create-collection",
@@ -44,6 +45,12 @@ export class CreateCollectionComponent implements OnInit {
   selectedPosts: PostEntryResponse[] = [];
   myBids: NFTBidEntryResponse[];
 
+  userCollectionNames: string[];
+  userCollectionHashes: string[];
+
+  collectionNameHasError = false;
+  collectionNameError: string;
+
   static PAGE_SIZE = 10;
   static BUFFER_SIZE = 5;
   static WINDOW_VIEWPORT = true;
@@ -53,10 +60,14 @@ export class CreateCollectionComponent implements OnInit {
   nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
 
   async ngOnInit(): Promise<void> {
+    this.getUserCollectionsData();
     await this.getNFTs();
   }
 
   nextStep() {
+    if (this.stepNumber + 1 == 2) {
+      this.disableNFTsAlreadyInCollection();
+    }
     this.stepNumber++;
   }
 
@@ -69,6 +80,56 @@ export class CreateCollectionComponent implements OnInit {
 
   canContinueStepOne() {
     return !(this.collectionDescription.length > 0) || !(this.collectionName.length > 0);
+  }
+
+  checkCollectionName() {
+    const alphaOnlyPattern = new RegExp("^[a-zA-Z]+$");
+    if (this.collectionName == "") {
+      this.collectionNameError = "Collection must have a name.";
+      this.collectionNameHasError = true;
+      return;
+    }
+    if (!alphaOnlyPattern.test(this.collectionName)) {
+      this.collectionNameError = "Collection name must be A-Z only with no spaces.";
+      this.collectionNameHasError = true;
+      return;
+    }
+    if (this.userCollectionNames?.length > 0) {
+      let match = this.userCollectionNames.some((item) => item.toLowerCase() == this.collectionName.toLowerCase());
+      if (match) {
+        this.collectionNameError = "Cant create another collection with the same name as an existing collection.";
+        this.collectionNameHasError = true;
+        return;
+      }
+    }
+    this.collectionNameError = "";
+    this.collectionNameHasError = false;
+  }
+
+  getUserCollectionsData() {
+    this.backendApi
+      .GetUserCollectionsData(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.ProfileEntryResponse.Username.toLowerCase()
+      )
+      .subscribe(
+        (res) => {
+          this.userCollectionHashes = [];
+          this.userCollectionNames = [];
+          if (res.UserCollectionData == null) {
+            return;
+          }
+          res.UserCollectionData.forEach((element) => {
+            // Use to make sure user does not create collection with the same name as an existing one
+            this.userCollectionNames = this.userCollectionNames.concat(element.Collection);
+            // Use to filter out nfts with the same postHashHex
+            this.userCollectionHashes = this.userCollectionHashes.concat(element.PostHashHex);
+          });
+        },
+        (error) => {
+          console.log("ERROR: ", error);
+        }
+      );
   }
 
   handleImageInput(files: FileList) {
@@ -122,7 +183,6 @@ export class CreateCollectionComponent implements OnInit {
   }
 
   getNFTs() {
-    this.isLoading = true;
     return this.backendApi
       .GetPostsForPublicKey(
         this.globalVars.localNode,
@@ -137,9 +197,6 @@ export class CreateCollectionComponent implements OnInit {
       .then((res) => {
         this.posts = res.Posts.filter((post) => post.IsNFT && post.NumNFTCopiesBurned != post.NumNFTCopies);
         this.postData = this.posts.slice(this.startIndex, this.endIndex);
-      })
-      .finally(() => {
-        this.isLoading = false;
       });
   }
   // After this -> if successfull show success screen
@@ -155,8 +212,8 @@ export class CreateCollectionComponent implements OnInit {
       .CreateCollection(
         this.globalVars.localNode,
         hashHexArr,
-        this.globalVars.loggedInUser.ProfileEntryResponse.Username,
-        this.collectionName,
+        this.globalVars.loggedInUser.ProfileEntryResponse.Username.toLowerCase(),
+        this.collectionName.toLowerCase(),
         this.collectionDescription,
         this.uploadedBannerImage
       )
@@ -191,8 +248,10 @@ export class CreateCollectionComponent implements OnInit {
   selectAllNFTs() {
     this.selectedPosts = [];
     this.postData.forEach((nft) => {
-      this.selectedPosts.push(nft);
-      nft.selected = true;
+      if (!nft.disabled) {
+        this.selectedPosts.push(nft);
+        nft.selected = true;
+      }
     });
     console.log(this.selectedPosts);
   }
@@ -203,6 +262,21 @@ export class CreateCollectionComponent implements OnInit {
     } else {
       this.addNFTToSelected(post);
     }
+  }
+
+  disableNFTsAlreadyInCollection() {
+    this.isLoading = true;
+    this.postData.forEach((post) => {
+      if (this.userCollectionHashes.includes(post.PostHashHex)) {
+        post.disabled = true;
+      }
+    });
+    this.postData.sort((a, b) => {
+      if (a.disabled == b.disabled) return 0;
+      if (b.disabled) return -1;
+      return 1;
+    });
+    this.isLoading = false;
   }
 
   removeNFTFromSelected(post: PostEntryResponse) {
@@ -238,9 +312,5 @@ export class CreateCollectionComponent implements OnInit {
           : this.nftResponse.slice(startIdx, Math.min(endIdx, this.nftResponse.length))
       );
     });
-  }
-
-  onSubmit(createCollectionForm) {
-    console.log(createCollectionForm.value);
   }
 }

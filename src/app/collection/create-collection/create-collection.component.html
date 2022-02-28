@@ -4,7 +4,7 @@
   <a (click)="hasProfile()" alt="Return to Profile"><div class="exit">✕&nbsp;&nbsp;&nbsp;Return to Profile</div></a>
 
   <div class="full-height-width-container">
-    <div class="full-height-width-container" *ngIf="postData && isLoading == false">
+    <div class="full-height-width-container" *ngIf="postData">
       <!-- View 1: COLLECTION DETAILS -->
       <div *ngIf="stepNumber === 1" class="collection-details-fieldset">
         <h1 class="create-collection-title">Collection details</h1>
@@ -35,7 +35,16 @@
         <!-- Collection Information -->
         <div class="collection-details-info">
           <label for="collectionName">Collection Name:</label>
-          <input type="text" id="collectionName" [(ngModel)]="collectionName" name="collectionName" />
+          <input
+            type="text"
+            id="collectionName"
+            [(ngModel)]="collectionName"
+            (change)="checkCollectionName()"
+            name="collectionName"
+          />
+          <div *ngIf="collectionNameHasError" class="collection-name-error">
+            {{ collectionNameError }}
+          </div>
           <label for="collectionDescription">Collection Description:</label>
           <textarea
             rows="4"
@@ -47,7 +56,7 @@
             type="button"
             class="black-rounded-button"
             (click)="nextStep()"
-            [disabled]="canContinueStepOne() || uploadingBannerImage"
+            [disabled]="canContinueStepOne() || uploadingBannerImage || collectionNameHasError"
           >
             Continue
           </button>
@@ -67,9 +76,9 @@
           <!-- Populated NFT Content -->
           <div class="collection-selections-main-content">
             <div class="collection-selections-user-nfts" *ngIf="isLoading == false">
-              <span *ngFor="let post of postData; index as i" class="single-nft-container m-10px">
-                <button class="select-nft-button" (click)="selectNFT(post)">
-                  <div class="checkbox-container" [ngClass]="{ selected: post.selected }"></div>
+              <span *ngFor="let post of postData" class="single-nft-container m-10px">
+                <button class="select-nft-button" (click)="selectNFT(post)" [disabled]="post.disabled">
+                  <div *ngIf="!post.disabled" class="checkbox-container" [ngClass]="{ selected: post.selected }"></div>
                 </button>
                 <app-small-card-component [selectedBorder]="post.selected" [post]="post"></app-small-card-component>
               </span>

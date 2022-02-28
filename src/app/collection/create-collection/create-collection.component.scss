@@ -214,7 +214,15 @@
         border-radius: 5px;
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); // update to appropriate variable
     }
-
+    .collection-name-error {
+        width: 75%;
+        height: auto;
+        min-height: 50px;
+        color: red;
+        font-weight: 500;
+        font-size: 0.8rem;
+        text-align: center;
+    }
     textarea {
         padding: 8px 10px;
         width: 75%;
@@ -244,14 +252,13 @@
 }
 .select-nft-button {
     position: absolute;
-    right: 0;
-    left: 0;
-    top: 0;
-    bottom: 0;
+    height: 100%;
+    width: 100%;
     z-index: 2;
     background-color: transparent;
     border: none;
     outline: none;
+    border-radius: 20px;
     .checkbox-container {
         border-radius: 30px;
         position: absolute;
@@ -268,6 +275,9 @@
         border: none;
         background-image: url("/assets/icons/select_verified_icon.svg");
         background-position: center;
+    }
+    &:disabled {
+        background-color: rgba(0, 0, 0, 0.6) !important;
     }
 }
 

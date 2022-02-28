@@ -40,7 +40,7 @@
           #autosize="cdkTextareaAutosize"
         ></textarea>
         <div id="menu" #menu class="menu" role="listbox"></div>
-         <!-- Embedded Content -->
+        <!-- Embedded Content -->
         <div class="feed-post__embed-container" *ngIf="constructedEmbedURL">
           <i
             class="icon-close feed-post__image-delete"
@@ -77,7 +77,6 @@
         ></iframe>
       </div>
 
-     
       <!-- Video Upload Progress bar -->
       <div class="d-flex flex-column align-items-center" *ngIf="videoUploadPercentage !== null">
         <div>Uploading: {{ videoUploadPercentage }}% Complete</div>
@@ -94,7 +93,9 @@
   </div>
 </div>
 <!-- Image Upload + Post Buttons -->
-<div class="modal-bottom-action d-flex justify-content-end align-items-center pr-15px pb-15px mt-10px position-relative">
+<div
+  class="modal-bottom-action d-flex justify-content-end align-items-center pr-15px pb-15px mt-10px position-relative"
+>
   <span
     class="mr-15px roboto-regular feed-create-post__character-counter fs-15px"
     [ngClass]="{

@@ -65,13 +65,26 @@
         <button
           *ngIf="
             globalVars?.loggedInUser?.PublicKeyBase58Check != post?.PosterPublicKeyBase58Check &&
-            post?.NumNFTCopiesForSale > 0
+            post?.NumNFTCopiesForSale > 0 &&
+            !isBuyNow
           "
           type="button"
           class="fill_btn"
           (click)="openPlaceBidModal($event)"
         >
           {{ myBidsLength > 0 ? "Bid again" : "Place a Bid" }}
+        </button>
+        <button
+          *ngIf="
+            globalVars?.loggedInUser?.PublicKeyBase58Check != post?.PosterPublicKeyBase58Check &&
+            post?.NumNFTCopiesForSale > 0 &&
+            isBuyNow
+          "
+          type="button"
+          class="fill_btn"
+          (click)="openBuyNowModal($event)"
+        >
+          Buy Now
         </button>
         <div
           class="discovery-follow-parent"

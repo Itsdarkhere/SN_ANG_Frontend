@@ -41,7 +41,7 @@ import { animate, style, transition, trigger } from "@angular/animations";
         // animate("400ms ease", style({ transform: "translateY(0%)" })),
       ]),
       transition(":leave", [
-        style({ opacity: "1" }), animate("800ms ease", style({ opacity: "0" }))
+        // style({ opacity: "1" }), animate("800ms ease", style({ opacity: "0" }))
         // style({ transform: "translateY(0%)", opacity: "1" }),
         // animate("400ms ease", style({ transform: "translateY(100%)", opacity: "0" })),
       ]),

@@ -43,6 +43,8 @@
     (togglePostPin)="_pinPostToGlobalFeed($event)"
   ></feed-post-dropdown>
 </div>
+
+<!-- Other card states start here (?) -->
 <div
   class="single-card br-30px"
   [ngClass]="{
@@ -52,6 +54,7 @@
     'card-diff-width': insidePost
   }"
 >
+
   <div class="w-100">
     <!-- <code>{{post | json}}</code> -->
     <div
@@ -67,6 +70,8 @@
         This post was removed by the author.
       </a>
     </div>
+
+    <!-- Posts are burned -->
     <div
       *ngIf="allCopiesBurned()"
       class="p-15px background-color-grey d-flex align-items-center justify-content-center fs-15px"
@@ -80,6 +85,7 @@
         All copies of the NFT have been burned...
       </a>
     </div>
+
     <div
       *ngIf="globalVars.hasUserBlockedCreator(post.PosterPublicKeyBase58Check)"
       class="p-15px background-color-grey d-flex align-items-center justify-content-center fs-15px"
@@ -98,6 +104,7 @@
         blocked. Click here to visit their profile to unblock them.
       </a>
     </div>
+
     <div
       *ngIf="
         !post.IsHidden &&
@@ -108,11 +115,10 @@
       class="d-flex flex-column js-feed-post position-relative"
       [ngStyle]="{ 'border-radius': setBorder ? '18px 18px 0 0' : '' }"
     >
-      <a
-        (click)="onPostClicked($event)"
-        class="link--unstyled"
-        [ngClass]="{ 'cursor-inherit': !contentShouldLinkToThread }"
-      >
+      <!-- FYI this a tag is huge -->
+      <a (click)="onPostClicked($event)" class="link--unstyled" [ngClass]="{ 'cursor-inherit': !contentShouldLinkToThread }">
+
+        <!-- Not sure what this does -->
         <div
           *ngIf="showReplyingTo && post.ParentStakeID != ''"
           class="pl-15px pt-5px align-items-center"
@@ -126,6 +132,8 @@
             replying to {{ post.ParentPosts[0].ProfileEntryResponse.Username }}
           </a>
         </div>
+
+        <!-- Post is hidden -->
         <div
           *ngIf="postContent.IsHidden"
           class="p-10px background-color-grey d-flex align-items-center justify-content-center fs-15px"
@@ -146,11 +154,16 @@
             The original post was removed by its author.
           </a>
         </div>
+
+        <!-- FYI this is also huge -->
         <!--This is a plain card, for collections and marketplace-->
         <div class="card-body">
+
           <div class="caption-cover" [class.auto-h]="profileFeed" *ngIf="quotedContent?.IsNFT && profileFeed">
             <p [ngClass]="quotedContent ? 'pt-10px' : ''" [innerHTML]="postContent.Body | sanitizeAndAutoLink"></p>
           </div>
+
+          <!-- Audio and video NFT stuff -->
           <ng-container>
             <div class="img-cover position-relative" [ngClass]="{ 'change-height-img-cover': isQuotedCard }">
               <div
@@ -249,6 +262,8 @@
               </div>
             </div>
           </ng-container>
+
+          <!-- For reposts? -->
           <ng-container *ngIf="quotedContent?.IsNFT && profileFeed">
             <div class="w-100 position-relative overflow-hidden d-flex flex-center p-20px border">
               <object data="/assets/img/nft-background.svg" class="nft-background" type="image/svg+xml"></object>
@@ -268,6 +283,7 @@
               ></new-nft-card>
             </div>
           </ng-container>
+
           <ng-container *ngIf="!quotedContent?.IsNFT && profileFeed">
             <feed-post
               *ngIf="quotedContent && showQuotedContent"
@@ -283,6 +299,8 @@
               [cardStyle]="true"
             ></feed-post>
           </ng-container>
+
+          <!-- Not sure what this is for -->
           <div class="caption-cover" *ngIf="!(quotedContent?.IsNFT && profileFeed)">
             <p *ngIf="postContent.PostExtraData?.name" class="font-weight-semibold fs-20px-im pt-5px">
               {{ postContent.PostExtraData?.name }}
@@ -320,6 +338,8 @@
               </div>
             </div>
           </div>
+
+          <!-- Bid information -->
           <div
             class="bid-cover flex-wrap"
             [ngClass]="showPlaceABid || forSale() ? 'colors-not-sold' : 'colors-sold'"
@@ -385,6 +405,8 @@
               </div>
             </div>
           </div>
+
+          <!-- Not sure what this is for, more bid stuff (?) -->
           <div
             class="bid-cover flex-row justify-content-space-between"
             [ngClass]="!showPlaceABid || pending ? 'colors-sold' : 'colors-not-sold'"
@@ -399,9 +421,12 @@
             </ng-container>
             <button class="accept-transfer" (click)="openAcceptModal($event)">Accept transfer</button>
           </div>
+
+          <!-- Is this unfinished? -->
           <div *ngIf="!showInteractionDetails" class="card-footer">
             <!-- Like, Comment, Reclout, Share Buttons -->
           </div>
+
           <div class="w-80 footer-icons-container">
             <feed-post-icon-row
               *ngIf="showIconRow"
@@ -413,7 +438,10 @@
             ></feed-post-icon-row>
           </div>
         </div>
+      <!-- This is the end of the huge a tag -->
       </a>
+
+
       <!--
       This HTML is used on the main post in a thread in order to show detailed info
       about the interactions with that thread.  TODO: We should probably break the
@@ -422,6 +450,7 @@
     -->
       <div class="feed-post__blue-border px-30px pb-5px" *ngIf="showInteractionDetails">
         <div class="container w-100 p-0px">
+          
           <!-- DESKTOP -->
           <div
             class="row no-gutters d-none d-lg-block py-10px fs-15px border-top border-bottom border-color-light-grey cursor-pointer"
@@ -445,6 +474,7 @@
               </span>
             </div>
           </div>
+
           <!-- MOBILE -->
           <div
             class="row no-gutters d-lg-none py-10px fs-15px border-top border-bottom border-color-light-grey cursor-pointer"
@@ -469,7 +499,9 @@
             </div>
           </div>
         </div>
+
       </div>
+
       <div
         *ngIf="showInteractionDetails"
         class="feed-post__container d-flex justify-content-left w-100"
@@ -494,6 +526,7 @@
           ></feed-post-icon-row>
         </div>
       </div>
+      
     </div>
   </div>
 </div>

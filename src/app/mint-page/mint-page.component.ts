@@ -495,6 +495,11 @@ export class MintPageComponent implements OnInit {
     this.sellingPriceETH = price;
   }
 
+  updateRoyaltyETH(royalty) {
+    this.CREATOR_ROYALTY = royalty;
+    console.log(this.CREATOR_ROYALTY);
+  }
+
   imageUploaded() {
     return this.postImageArweaveSrc?.length > 0;
   }
@@ -507,6 +512,21 @@ export class MintPageComponent implements OnInit {
     let isSumUnreasonable = Number(this.CREATOR_ROYALTY) + Number(this.COIN_ROYALTY) > 100;
     return isEitherUnreasonable || isSumUnreasonable;
   }
+  hasUnreasonableEthRoyalties() {
+    if (this.CREATOR_ROYALTY === undefined) {
+      return true;
+    } else if (Number(this.CREATOR_ROYALTY) < 0 || Number(this.CREATOR_ROYALTY) > 100) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // //   for testing
+  //   logPriceAndRoyalty() {
+  //     console.log(this.sellingPriceETH);
+  //     console.log(this.CREATOR_ROYALTY);
+  //   }
 
   uploadFile(event: any): void {
     this._handleFilesInput(event[0]);
@@ -522,7 +542,11 @@ export class MintPageComponent implements OnInit {
   }
 
   hasUnreasonableEthSalePrice() {
-    return this.sellingPriceETH < 0;
+    if (this.sellingPriceETH === undefined) {
+      return true;
+    } else {
+      return this.sellingPriceETH < 0;
+    }
   }
 
   deleteKV(key) {

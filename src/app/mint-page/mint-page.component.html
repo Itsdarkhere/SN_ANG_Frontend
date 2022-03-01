@@ -1432,6 +1432,7 @@
                     type="number"
                     placeholder="5"
                     [(ngModel)]="CREATOR_ROYALTY"
+                    (ngModelChange)="updateRoyaltyETH($event)"
                     class="w-50 color-text font-weight-bold h-100 royalty-element-input"
                   />
                   <button
@@ -1445,6 +1446,7 @@
                 </label>
               </div>
             </div>
+            <!-- <button (click)="logPriceAndRoyalty()">Click me</button> -->
 
             <div class="mt-30px imx-fee-container">
               <div class="imx-fee-container-line-1">
@@ -1462,9 +1464,7 @@
         <button
           class="mt-20px font-weight-bold mint-page-step-2-continue"
           [ngClass]="mobile ? 'w-90' : 'w-80'"
-          [disabled]="
-            hasUnreasonableRoyalties() || hasUnreasonableEthSalePrice()
-          "
+          [disabled]="hasUnreasonableEthSalePrice() || hasUnreasonableEthRoyalties()"
           (click)="_createPostEth()"
         >
           <label *ngIf="!isSubmitPress" class="mb-0px">Put for Sale</label>
@@ -1484,11 +1484,11 @@
             Back
           </button>
           <div class="w-100 mt-20px m eth-step-2-container">
-            <img class="eth-minted-success-img" src="/assets/eth/walletConnectedSuccess.svg" />
+            <img class="eth-sale-success-img" src="/assets/eth/walletConnectedSuccess.svg" />
             <h2
               class="mb-5px font-weight-semiboldn w-100 text-align-start fs-23-responsive ml-5px eth-minted-step-2-header"
             >
-              Congratulations!
+              Congratulations! 🎉
             </h2>
             <label
               class="mint-page-sub-heading mb-0px w-100 fs-14-responsive text-align-start ml-5px eth-minted-step-2-body"

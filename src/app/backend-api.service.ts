@@ -193,6 +193,10 @@ export class BackendRoutes {
   static RoutePathAdminGetTransactionFeeMap = "/api/v0/admin/get-transaction-fee-map";
   static RoutePathAdminAddExemptPublicKey = "/api/v0/admin/add-exempt-public-key";
   static RoutePathAdminGetExemptPublicKeys = "/api/v0/admin/get-exempt-public-keys";
+
+  // IMX SUPERNOVAS
+  static RoutePathGetIMXMetadataById = "/api/v0/imx/metadata";
+  static RoutePathInsertIMXMetadata = "/api/v0/insert/imx";
 }
 
 export class Transaction {
@@ -766,6 +770,30 @@ export class BackendApiService {
         })
       );
     return this.signAndSubmitTransaction(endpoint, req, SenderPublicKeyBase58Check);
+  }
+
+  InsertIMXMetadata(
+    endpoint: string,
+    Name: string,
+    Description: string,
+    Image: string,
+    Image_url: string,
+    Token_1: number
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathInsertIMXMetadata, {
+      Name,
+      Description,
+      Image,
+      Image_url,
+      Token_1,
+    });
+  }
+
+  GetIMXMetadatById(endpoint: string): Observable<any> {
+    return this.httpClient.get<any>(this.GetIMXMetadataURL(endpoint), {});
+  }
+  GetIMXMetadataURL(endpoint: string): string {
+    return this._makeRequestURL(endpoint, BackendRoutes.RoutePathGetIMXMetadataById + "/1");
   }
 
   // User-related functions.

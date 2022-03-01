@@ -521,6 +521,10 @@ export class MintPageComponent implements OnInit {
     return this.buyNowPriceDESO < 0;
   }
 
+  hasUnreasonableEthSalePrice() {
+    return this.sellingPriceETH < 0;
+  }
+
   deleteKV(key) {
     this.KVMap.delete(key);
   }
@@ -900,6 +904,30 @@ export class MintPageComponent implements OnInit {
     }
 
     this.submitPost();
+  }
+  _createPostEth() {
+    // // Check if the user has an account.
+    // if (!this.globalVars?.loggedInUser) {
+    //   this.globalVars.logEvent("alert : post : account");
+    //   //SharedDialogs.showCreateAccountToPostDialog(this.globalVars);
+    //   return;
+    // }
+
+    // // Check if the user has a profile.
+    // if (!this.globalVars?.doesLoggedInUserHaveProfile()) {
+    //   this.globalVars.logEvent("alert : post : profile");
+    //   //SharedDialogs.showCreateProfileToPostDialog(this.router);
+    //   return;
+    // }
+
+    // // Check if the user's profile is verified
+    // if (!this.globalVars.loggedInUser.ProfileEntryResponse?.IsVerified) {
+    //   this.globalVars.logEvent("alert : post : no-verification");
+    //   return;
+    // }
+
+    // this.submitPost();
+    this.nextStepEth();
   }
   mapToObj(m) {
     return Array.from(m).reduce((obj, [key, value]) => {

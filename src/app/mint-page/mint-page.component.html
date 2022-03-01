@@ -1337,7 +1337,7 @@
             !isCategorized()
           "
         >
-          Continue
+          Mint your NFT
         </button>
       </div>
       <!-- step 3 -->
@@ -1352,7 +1352,55 @@
             <img class="previous-step-arrow mr-5px" src="/assets/icons/arrow-left-lighter.svg" />
             Back
           </button>
-          <h2 class="mb-5px font-weight-semiboldn w-100 text-align-start fs-23-responsive ml-5px">Mint your NFT</h2>
+          <div class="w-100 mt-20px m eth-step-2-container">
+            <img class="eth-minted-success-img" src="/assets/eth/mintedSuccess.svg" />
+            <h2
+              class="mb-5px font-weight-semiboldn w-100 text-align-start fs-23-responsive ml-5px eth-minted-step-2-header"
+            >
+              Your NFT was minted!
+            </h2>
+            <label
+              class="mint-page-sub-heading mb-0px w-100 fs-14-responsive text-align-start ml-5px eth-minted-step-2-body"
+            >
+              Your NFT is now minted and you can put it on sale on the Supernovas marketplace.
+            </label>
+            <label class="color-light fs-12-responsive mb-0px ml-5px mt-5px eth-minted-step-2-body">
+              Put the NFT for sale by clicking below, or do it later through the NFT profile.
+            </label>
+          </div>
+        </div>
+        <button
+          class="mt-20px font-weight-bold mint-page-step-2-continue eth-minted-step-2-sale-now-button"
+          [ngClass]="mobile ? 'w-90' : 'w-80'"
+          (click)="nextStepEth()"
+        >
+          <label *ngIf="!isSubmitPress" class="mb-0px">Put your NFT on Sale</label>
+          <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i>
+        </button>
+        <button
+          class="mt-20px font-weight-bold mint-page-step-2-continue eth-minted-step-2-sale-later-button"
+          [ngClass]="mobile ? 'w-90' : 'w-80'"
+          (click)="_createPost()"
+        >
+          <label *ngIf="!isSubmitPress" class="mb-0px">Sell the NFT later</label>
+          <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i>
+        </button>
+      </div>
+      <!-- step 4 -->
+      <div
+        [@mintSwipeAnimation]="animationType"
+        *ngIf="step === 4"
+        class="mint-page-text-container-no-max h-95"
+        [ngClass]="mobile ? 'w-100' : 'w-50'"
+      >
+        <div class="mint-page-inner-inner disable-scrollbars" [ngClass]="mobile ? 'w-90' : 'w-80'">
+          <button class="previous-step-button color-light" (click)="previousStepEth()">
+            <img class="previous-step-arrow mr-5px" src="/assets/icons/arrow-left-lighter.svg" />
+            Back
+          </button>
+          <h2 class="mb-5px font-weight-semiboldn w-100 text-align-start fs-23-responsive ml-5px">
+            Put your NFT for Sale
+          </h2>
           <div class="w-100 mt-20px">
             <label class="mint-page-sub-heading mb-0px font-weight-bold w-100 fs-14-responsive text-align-start ml-5px">
               Selling Price
@@ -1415,11 +1463,54 @@
           class="mt-20px font-weight-bold mint-page-step-2-continue"
           [ngClass]="mobile ? 'w-90' : 'w-80'"
           [disabled]="
-            isSubmitPress || !this.isPostReady() || hasUnreasonableRoyalties() || hasUnreasonableBuyNowPrice()
+            hasUnreasonableRoyalties() || hasUnreasonableEthSalePrice()
           "
+          (click)="_createPostEth()"
+        >
+          <label *ngIf="!isSubmitPress" class="mb-0px">Put for Sale</label>
+          <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i>
+        </button>
+      </div>
+      <!-- step 5 -->
+      <div
+        [@mintSwipeAnimation]="animationType"
+        *ngIf="step === 5"
+        class="mint-page-text-container-no-max h-95"
+        [ngClass]="mobile ? 'w-100' : 'w-50'"
+      >
+        <div class="mint-page-inner-inner disable-scrollbars" [ngClass]="mobile ? 'w-90' : 'w-80'">
+          <button class="previous-step-button color-light" (click)="previousStepEth()">
+            <img class="previous-step-arrow mr-5px" src="/assets/icons/arrow-left-lighter.svg" />
+            Back
+          </button>
+          <div class="w-100 mt-20px m eth-step-2-container">
+            <img class="eth-minted-success-img" src="/assets/eth/walletConnectedSuccess.svg" />
+            <h2
+              class="mb-5px font-weight-semiboldn w-100 text-align-start fs-23-responsive ml-5px eth-minted-step-2-header"
+            >
+              Congratulations!
+            </h2>
+            <label
+              class="mint-page-sub-heading mb-0px w-100 fs-14-responsive text-align-start ml-5px eth-minted-step-2-body"
+            >
+              Your NFT is now for sale on Supernovas!
+            </label>
+          </div>
+        </div>
+        <button
+          class="mt-20px font-weight-bold mint-page-step-2-continue eth-minted-step-2-sale-now-button"
+          [ngClass]="mobile ? 'w-90' : 'w-80'"
+          (click)="nextStepEth()"
+        >
+          <label *ngIf="!isSubmitPress" class="mb-0px">Quote Repost on Supernovas</label>
+          <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i>
+        </button>
+        <button
+          class="mt-20px font-weight-bold mint-page-step-2-continue eth-minted-step-2-sale-later-button"
+          [ngClass]="mobile ? 'w-90' : 'w-80'"
           (click)="_createPost()"
         >
-          <label *ngIf="!isSubmitPress" class="mb-0px">Mint your NFT</label>
+          <label *ngIf="!isSubmitPress" class="mb-0px">Sell the NFT later</label>
           <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i>
         </button>
       </div>

@@ -6,6 +6,7 @@
     ></div>
   </div>
   <div class="d-flex mt-20px" [ngClass]="mobile ? 'messages_container_mobile' : 'messages_container'">
+    
     <!--  STEP 1  -->
     <div *ngIf="step === 1" class="mint-page-text-container flex-start-center w-100">
       <div class="w-100 h-100 mb-50px d-flex flex-column flex-center-start overflow-y-auto disable-scrollbars">
@@ -18,6 +19,7 @@
           </label>
         </div>
         <div class="mint-content-type-container pb-20px w-90" [ngClass]="mobile ? 'justify-content-around' : ''">
+          <!-- Image NFT Mint -->
           <button
             class="content-type-card p-0px"
             (click)="imageTypeSelected()"
@@ -31,6 +33,8 @@
               <label class="fs-11px pointer-events-none">PNG, JPEG files are supported.</label>
             </div>
           </button>
+
+          <!-- Video NFT Mint -->
           <button
             class="content-type-card p-0px"
             (click)="videoTypeSelected()"
@@ -57,6 +61,8 @@
               <label class="fs-11px color-light pointer-events-none">Coming soon!</label>
             </div>
           </button> -->
+
+          <!-- Audio NFT Mint -->
           <button
             *ngIf="!globalVars.showAdminTools()"
             class="content-type-card p-0px"
@@ -68,20 +74,25 @@
             </div>
             <div class="h-40 w-100 mt-10px d-flex flex-column">
               <label class="fs-15px color-light font-weight-bold pointer-events-none">Audio</label>
-              <label class="fs-11px color-light pointer-events-none">Coming soon!</label>
+              <label class="fs-11px color-light pointer-events-none">FLAC, WAV, MP3, M4A files are supported.</label>
             </div>
           </button>
-          <button class="content-type-card not-available-warning p-0px" *ngIf="!mobile">
+
+          <!-- 3D NFT Mint -->
+          <!-- Is this currently active? -->
+          <button (click)="modelTypeSelected()" class="content-type-card not-available-warning p-0px" *ngIf="!mobile">
             <div class="h-60 w-100 d-flex flex-center background-color-secondary">
               <img src="/assets/icons/3D-type.png" alt="creator icon" />
             </div>
             <div class="h-40 w-100 mt-10px d-flex flex-column">
               <label class="fs-15px color-light font-weight-bold pointer-events-none">3D</label>
-              <label class="fs-11px color-light pointer-events-none">Coming soon!</label>
+              <label class="fs-11px color-light pointer-events-none">GLTF, GLB files are supported</label>
             </div>
           </button>
+
         </div>
       </div>
+
       <button
         class="mb-0px font-weight-bold mint-page-step-2-continue"
         [ngClass]="mobile ? 'w-90' : 'w-80'"
@@ -90,6 +101,7 @@
       >
         CONTINUE
       </button>
+
     </div>
     <!-- STEP 2 -->
     <div
@@ -827,7 +839,9 @@
         <br />
         And never stop.
       </label>
-      <div *ngIf="audioType && !postImageArweaveSrc && step === 3" class="w-100 h-50 d-flex flex-center">
+
+      <!-- What is !postImageArweaveSrc evaluating here? -->
+      <div *ngIf="audioType && !postImageArweaveSrc && step === 3; else showNftCoverArt" class="w-100 h-50 d-flex flex-center">
         <label
           dropUpload
           (onFileDropped)="dropFileCoverImage($event)"
@@ -862,10 +876,14 @@
           class="br-6px"
         />
       </div>
-      <div class="mint-page__image-container m-w-80" *ngIf="postImageArweaveSrc">
-        <i class="icon-close feed-post__image-delete" (click)="postImageArweaveSrc = null"></i>
-        <img class="feed-post__image br-0px" src="{{ postImageArweaveSrc }}" />
-      </div>
+
+      <ng-template #showNftCoverArt>
+        <div class="mint-page__image-container m-w-80" *ngIf="postImageArweaveSrc">
+          <i class="icon-close feed-post__image-delete" (click)="setPostImageSrc()"></i>
+          <img class="feed-post__image br-0px" src="{{ postImageArweaveSrc }}" />
+        </div>
+      </ng-template>
+
       <!-- Video Player -->
       <div *ngIf="postVideoDESOSrc && readyToStream" class="feed-post__video-container m-w-80">
         <iframe

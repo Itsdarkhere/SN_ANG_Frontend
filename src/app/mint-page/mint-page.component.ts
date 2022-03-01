@@ -85,6 +85,7 @@ export class MintPageComponent implements OnInit {
   videoType = false;
   imageType = false;
   audioType = false;
+  modelType = false;
 
   //   Auction type
   openAuction = false;
@@ -148,6 +149,10 @@ export class MintPageComponent implements OnInit {
       this.globalVars._alertError("No content type selected...");
     }
   }
+  setPostImageSrc() {
+    // this.audioCoverImage = undefined;
+    // console.log(this.audioCoverImage);
+  }
   _handleFileInput(file: File): void {
     const fileToUpload = file;
     if (this.videoType) {
@@ -178,9 +183,11 @@ export class MintPageComponent implements OnInit {
       this.globalVars._alertError("No content type selected...");
     }
   }
+
   // For audio cover image
   _handleFilesInputCoverImage(files: FileList): void {
     const fileToUpload = files.item(0);
+    console.log(fileToUpload);
     if (this.audioType) {
       this.handleImageInputCoverImage(fileToUpload);
     } else {
@@ -398,19 +405,30 @@ export class MintPageComponent implements OnInit {
     this.imageType = true;
     this.audioType = false;
     this.videoType = false;
+    this.modelType = false;
   }
 
   videoTypeSelected() {
     this.videoType = true;
     this.audioType = false;
     this.imageType = false;
+    this.modelType = false;
   }
 
   audioTypeSelected() {
     this.audioType = true;
     this.videoType = false;
     this.imageType = false;
+    this.modelType = false;
   }
+
+  modelTypeSelected() {
+    this.modelType = true;
+    this.audioType = false;
+    this.videoType = false;
+    this.imageType = false;
+  }
+
 
   //   Auction type
   openAuctionSelected() {

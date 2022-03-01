@@ -218,8 +218,8 @@ import { CreatorListComponent } from "./analytics-page/creator-list/creator-list
 import { SmallGraphComponent } from "./analytics-page/small-graph/small-graph.component";
 import { DashboardComponent } from "./analytics-page/dashboard/dashboard.component";
 import { AnalyticsActivityComponent } from "./analytics-page/analytics-activity/analytics-activity.component";
-import { ActivityLeftBarComponent } from './analytics-page/analytics-activity/activity-left-bar/activity-left-bar.component';
-import { ActivityTableComponent } from './analytics-page/analytics-activity/activity-table/activity-table.component';
+import { ActivityLeftBarComponent } from "./analytics-page/analytics-activity/activity-left-bar/activity-left-bar.component";
+import { ActivityTableComponent } from "./analytics-page/analytics-activity/activity-table/activity-table.component";
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };

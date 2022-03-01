@@ -1,23 +1,25 @@
 <app-page-small-nav-new>
+
   <div class="mint-page-progress">
     <div
       class="mint-page-progress-inner"
       [ngClass]="{ 'step-2': step === 2, 'step-3': step === 3, 'step-4': step === 4, 'step-5': step === 5 }"
     ></div>
   </div>
+
   <div class="d-flex mt-20px" [ngClass]="mobile ? 'messages_container_mobile' : 'messages_container'">
     
     <!--  STEP 1  -->
     <div *ngIf="step === 1" class="mint-page-text-container flex-start-center w-100">
       <div class="w-100 h-100 mb-50px d-flex flex-column flex-center-start overflow-y-auto disable-scrollbars">
+
         <div class="w-90 mt-20px">
           <h2 class="font-weight-semiboldn w-100 text-align-start ml-5px fs-33-responsive">Choose content type</h2>
-          <label
-            class="mt-20px color-light mint-page-sub-heading w-100 mb-0px text-align-start fs-20-responsive ml-5px"
-          >
+          <label class="mt-20px color-light mint-page-sub-heading w-100 mb-0px text-align-start fs-20-responsive ml-5px">
             You can mint either image or video NFTs on Supernovas. Maximum file size is 200Mb.
           </label>
         </div>
+
         <div class="mint-content-type-container pb-20px w-90" [ngClass]="mobile ? 'justify-content-around' : ''">
           <!-- Image NFT Mint -->
           <button
@@ -73,20 +75,25 @@
               <img src="/assets/icons/music-type.svg" alt="creator icon" />
             </div>
             <div class="h-40 w-100 mt-10px d-flex flex-column">
-              <label class="fs-15px color-light font-weight-bold pointer-events-none">Audio</label>
-              <label class="fs-11px color-light pointer-events-none">FLAC, WAV, MP3, M4A files are supported.</label>
+              <label class="fs-15px font-weight-bold pointer-events-none">Audio</label>
+              <label class="fs-11px pointer-events-none">FLAC, WAV, MP3, M4A files are supported.</label>
             </div>
           </button>
 
           <!-- 3D NFT Mint -->
           <!-- Is this currently active? -->
-          <button (click)="modelTypeSelected()" class="content-type-card not-available-warning p-0px" *ngIf="!mobile">
+          <button
+            *ngIf="!mobile"
+            class="content-type-card p-0px"
+            (click)="modelTypeSelected()"
+            [ngClass]="{ 'electric-box-shadow': modelType, 'm-10px': mobile }">
+
             <div class="h-60 w-100 d-flex flex-center background-color-secondary">
               <img src="/assets/icons/3D-type.png" alt="creator icon" />
             </div>
             <div class="h-40 w-100 mt-10px d-flex flex-column">
               <label class="fs-15px color-light font-weight-bold pointer-events-none">3D</label>
-              <label class="fs-11px color-light pointer-events-none">GLTF, GLB files are supported</label>
+              <label class="fs-11px color-light pointer-events-none">GLB, GLTF files are supported</label>
             </div>
           </button>
 
@@ -96,13 +103,14 @@
       <button
         class="mb-0px font-weight-bold mint-page-step-2-continue"
         [ngClass]="mobile ? 'w-90' : 'w-80'"
-        [disabled]="!videoType && !imageType && !audioType"
+        [disabled]="!videoType && !imageType && !audioType && !modelType"
         (click)="nextStep()"
       >
         CONTINUE
       </button>
 
     </div>
+
     <!-- STEP 2 -->
     <div
       [@mintSwipeAnimation]="animationType"
@@ -818,6 +826,7 @@
         </button>
       </div>
     </div>
+    
     <!--  LEFT SIDE DESKTOP STEPS 1 - 2-->
     <div *ngIf="!mobile && 1 < step && step < 4" class="mint-page-image-container d-flex flex-column flex-center">
       <!-- ALLOW IF ARWEAVE PROBLEMS -->

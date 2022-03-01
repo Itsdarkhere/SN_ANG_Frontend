@@ -6,7 +6,6 @@
     ></div>
   </div>
   <div class="d-flex mt-20px" [ngClass]="mobile ? 'messages_container_mobile' : 'messages_container'">
-    
     <!--  STEP 1  -->
     <div *ngIf="step === 1" class="mint-page-text-container flex-start-center w-100">
       <div class="w-100 h-100 mb-50px d-flex flex-column flex-center-start overflow-y-auto disable-scrollbars">
@@ -70,11 +69,11 @@
             [ngClass]="{ 'electric-box-shadow': audioType, 'm-10px': mobile }"
           >
             <div class="h-60 w-100 d-flex flex-center background-color-secondary">
-              <img src="/assets/icons/music-type.svg" alt="creator icon" />
+              <img class="mint-step1-audio-icon" src="/assets/icons/music-type.svg" alt="creator icon" />
             </div>
             <div class="h-40 w-100 mt-10px d-flex flex-column">
-              <label class="fs-15px color-light font-weight-bold pointer-events-none">Audio</label>
-              <label class="fs-11px color-light pointer-events-none">FLAC, M4A, MP3, WAV files are supported.</label>
+              <label class="fs-15px font-weight-bold pointer-events-none">Audio</label>
+              <label class="fs-11px pointer-events-none">FLAC, M4A, MP3, WAV files are supported.</label>
             </div>
           </button>
 
@@ -89,7 +88,6 @@
               <label class="fs-11px color-light pointer-events-none">GLTF, GLB files are supported</label>
             </div>
           </button>
-
         </div>
       </div>
 
@@ -101,7 +99,6 @@
       >
         CONTINUE
       </button>
-
     </div>
     <!-- STEP 2 -->
     <div
@@ -841,7 +838,10 @@
       </label>
 
       <!-- What is !postImageArweaveSrc evaluating here? -->
-      <div *ngIf="audioType && !postImageArweaveSrc && step === 3; else showNftCoverArt" class="w-100 h-50 d-flex flex-center">
+      <div
+        *ngIf="audioType && !postImageArweaveSrc && step === 3; else showNftCoverArt"
+        class="w-100 h-50 d-flex flex-center"
+      >
         <label
           dropUpload
           (onFileDropped)="dropFileCoverImage($event)"

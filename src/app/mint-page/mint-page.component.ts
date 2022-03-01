@@ -575,7 +575,7 @@ export class MintPageComponent implements OnInit {
     this.changeRef.detectChanges();
     if (this.step + 1 < 6) {
       if (this.step === 2) {
-        // this.uploadEthMetadata();
+        this.uploadEthMetadata();
       }
       if (this.step === 4) {
         await this.sellNFT();
@@ -621,7 +621,12 @@ export class MintPageComponent implements OnInit {
       .subscribe((res) => {
         console.log(res["Response"]);
         this.token_id = res["Response"];
-        this.mintv2(this.token_id);
+
+        if (this.CREATOR_ROYALTY === undefined || this.CREATOR_ROYALTY === 0) {
+          this.mintv2(this.token_id);
+        } else {
+          this.mintv2WithRoyalties(this.token_id, this.CREATOR_ROYALTY);
+        }
       });
 
     // this.mintv2(2);
@@ -711,12 +716,69 @@ export class MintPageComponent implements OnInit {
     console.log(`Token minted: ${JSON.stringify(result)}`);
   }
 
+  async mintv2WithRoyalties(token_id: any, royalty: number) {
+    // initialise a client with the minter for your NFT smart contract
+    const provider = new ethers.providers.JsonRpcProvider(
+      `https://eth-ropsten.alchemyapi.io/v2/${environment.imx.ALCHEMY_API_KEY}`
+    );
+    const minterPrivateKey: string = environment.imx.MINTER_PK ?? ""; // registered minter for your contract
+    const minter = new ethers.Wallet(minterPrivateKey).connect(provider);
+    const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";
+    const starkContractAddress: string = environment.imx.ROPSTEN_STARK_CONTRACT_ADDRESS ?? "";
+    const registrationContractAddress: string = environment.imx.ROPSTEN_REGISTRATION_ADDRESS ?? "";
+    const minterClient = await ImmutableXClient.build({
+      publicApiUrl,
+      signer: minter,
+      starkContractAddress,
+      registrationContractAddress,
+    });
+
+    // mint any number of NFTs to specified wallet address (must be registered on Immutable X first)
+    const token_address: string = environment.imx.TOKEN_ADDRESS ?? ""; // contract registered by Immutable
+    const royaltyRecieverAddress: string = environment.imx.ROYALTY_ADDRESS ?? "";
+    const tokenReceiverAddress: string = this.globalVars.imxWalletAddress ?? "";
+
+    token_id = token_id.toString();
+    var mintBlueprintv2 = `https://supernovas.app/api/v0/imx/metadata/${token_id}`;
+
+    const result = await minterClient.mintV2([
+      {
+        users: [
+          {
+            etherKey: tokenReceiverAddress.toLowerCase(),
+            tokens: [
+              {
+                id: token_id,
+                blueprint: mintBlueprintv2,
+                // overriding royalties for specific token
+                royalties: [
+                  {
+                    recipient: tokenReceiverAddress.toLowerCase(),
+                    percentage: royalty,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        contractAddress: token_address.toLowerCase(),
+
+        // globally set royalties
+        // royalties: [
+        //   {
+        //     recipient: royaltyRecieverAddress.toLowerCase(),
+        //     percentage: 0.0,
+        //   },
+        // ],
+      },
+    ]);
+    console.log(`Token minted with royalty: ${JSON.stringify(result)}`);
+  }
+
   async sellNFT() {
     if (this.sellingPriceETH === 0 || this.sellingPriceETH === undefined) {
       this.globalVars._alertError("The selling price must be greater then 0.");
     }
-
-    this.token_id = 4;
 
     const sellOrderId = await this.link.sell({
       amount: this.sellingPriceETH,

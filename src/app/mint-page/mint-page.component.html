@@ -1324,6 +1324,29 @@
               <option value="Photography">Photography</option>
             </select>
           </div>
+          <div class="d-flex flex-row justify-content-space-between mt-30px">
+            <div class="w-40">
+              <label class="font-weight-bold ml-5px fs-14-responsive">Creator Royalty</label>
+              <div class="d-flex flex-row mint-page-royalty-element position-relative">
+                <input
+                  type="number"
+                  placeholder="5"
+                  [(ngModel)]="CREATOR_ROYALTY"
+                  (ngModelChange)="updateRoyaltyETH($event)"
+                  class="w-50 color-text font-weight-bold h-100 royalty-element-input"
+                />
+                <button
+                  class="w-50 h-100 background-secondary flex-center royalty-element-label fs-23-responsive font-weight-bold"
+                >
+                  %
+                </button>
+              </div>
+              <label class="color-light fs-12-responsive mt-10px ml-5px">
+                The royalty you as an artist will receive.
+              </label>
+            </div>
+          </div>
+          <!-- <button (click)="logPriceAndRoyalty()">Click me</button> -->
         </div>
         <button
           class="mb-0px font-weight-bold mint-page-step-2-continue"
@@ -1334,7 +1357,8 @@
             !isDescribed() ||
             !(postImageArweaveSrc?.length > 0 || postVideoDESOSrc?.length > 0) ||
             !isNamed() ||
-            !isCategorized()
+            !isCategorized() ||
+            hasUnreasonableEthRoyalties()
           "
         >
           Mint your NFT
@@ -1424,30 +1448,6 @@
               </button>
             </div>
 
-            <div class="d-flex flex-row justify-content-space-between mt-30px">
-              <div class="w-40">
-                <label class="font-weight-bold ml-5px fs-14-responsive">Creator Royalty</label>
-                <div class="d-flex flex-row mint-page-royalty-element position-relative">
-                  <input
-                    type="number"
-                    placeholder="5"
-                    [(ngModel)]="CREATOR_ROYALTY"
-                    (ngModelChange)="updateRoyaltyETH($event)"
-                    class="w-50 color-text font-weight-bold h-100 royalty-element-input"
-                  />
-                  <button
-                    class="w-50 h-100 background-secondary flex-center royalty-element-label fs-23-responsive font-weight-bold"
-                  >
-                    %
-                  </button>
-                </div>
-                <label class="color-light fs-12-responsive mt-10px ml-5px">
-                  The royalty you as an artist will receive.
-                </label>
-              </div>
-            </div>
-            <!-- <button (click)="logPriceAndRoyalty()">Click me</button> -->
-
             <div class="mt-30px imx-fee-container">
               <div class="imx-fee-container-line-1">
                 <p class="imx-fee-container-line-1-text">Immutable X Fee</p>
@@ -1464,7 +1464,7 @@
         <button
           class="mt-20px font-weight-bold mint-page-step-2-continue"
           [ngClass]="mobile ? 'w-90' : 'w-80'"
-          [disabled]="hasUnreasonableEthSalePrice() || hasUnreasonableEthRoyalties()"
+          [disabled]="hasUnreasonableEthSalePrice()"
           (click)="nextStepEth()"
         >
           <label *ngIf="!isSubmitPress" class="mb-0px">Put for Sale</label>
@@ -1510,7 +1510,7 @@
           [ngClass]="mobile ? 'w-90' : 'w-80'"
           (click)="_createPost()"
         >
-          <label *ngIf="!isSubmitPress" class="mb-0px">Sell the NFT later</label>
+          <label *ngIf="!isSubmitPress" class="mb-0px">See your NFT</label>
           <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i>
         </button>
       </div>

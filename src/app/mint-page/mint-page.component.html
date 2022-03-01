@@ -1465,7 +1465,7 @@
           class="mt-20px font-weight-bold mint-page-step-2-continue"
           [ngClass]="mobile ? 'w-90' : 'w-80'"
           [disabled]="hasUnreasonableEthSalePrice() || hasUnreasonableEthRoyalties()"
-          (click)="_createPostEth()"
+          (click)="nextStepEth()"
         >
           <label *ngIf="!isSubmitPress" class="mb-0px">Put for Sale</label>
           <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i>

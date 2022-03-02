@@ -52,6 +52,8 @@
  *
  */
 
+import "@google/model-viewer";
+
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */

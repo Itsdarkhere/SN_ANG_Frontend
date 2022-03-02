@@ -13,6 +13,7 @@ import { CommentModalComponent } from "../comment-modal/comment-modal.component"
 import { GoogleAnalyticsService } from "../google-analytics.service";
 import { ArweaveJsService } from "../arweave-js.service";
 import { take } from "rxjs/operators";
+import _ from "lodash";
 
 @Component({
   selector: "app-mint-page",
@@ -145,9 +146,9 @@ export class MintPageComponent implements OnInit {
     this._handleFileInput(event[0]);
   }
 
-  // For audio cover image
+  // For audio or 3d model cover image
   dropFileCoverImage(event: any): void {
-    if (this.audioType) {
+    if (this.audioType || this.modelType) {
       this.handleImageInputCoverImage(event[0]);
     } else {
       this.globalVars._alertError("No content type selected...");
@@ -191,11 +192,11 @@ export class MintPageComponent implements OnInit {
     }
   }
 
-  // For audio cover image
+  // For audio or 3d model cover image
   _handleFilesInputCoverImage(files: FileList): void {
     const fileToUpload = files.item(0);
     console.log(fileToUpload);
-    if (this.audioType) {
+    if (this.audioType || this.modelType) {
       this.handleImageInputCoverImage(fileToUpload);
     } else {
       this.globalVars._alertError("No content type selected...");
@@ -280,6 +281,7 @@ export class MintPageComponent implements OnInit {
             this.postVideoArweaveSrc = url;
             this.postImageArweaveSrc = null;
             this.postAudioArweaveSrc = null;
+            this.postModelArweaveSrc = null;
           }, 2000);
         },
         (err) => {
@@ -797,6 +799,18 @@ export class MintPageComponent implements OnInit {
         properties: JSON.stringify(Array.from(this.KVMap)),
         // Needed to display video on Supernovas from Arview
         arweaveAudioSrc: this.postAudioArweaveSrc,
+      };
+    } else if (this.modelType) {
+      bodyObj = {
+        Body: this.DESCRIPTION,
+        ImageURLs: [this.postImageArweaveSrc].filter((n) => n),
+      };
+      postExtraData = {
+        name: this.NAME_OF_PIECE,
+        category: this.CATEGORY,
+        properties: JSON.stringify(Array.from(this.KVMap)),
+       // need to create this
+        arweaveModelSrc: this.postModelArweaveSrc,
       };
     } else {
       bodyObj = {

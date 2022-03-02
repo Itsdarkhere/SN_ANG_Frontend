@@ -220,6 +220,7 @@ import { DashboardComponent } from "./analytics-page/dashboard/dashboard.compone
 import { AnalyticsActivityComponent } from "./analytics-page/analytics-activity/analytics-activity.component";
 import { ActivityLeftBarComponent } from './analytics-page/analytics-activity/activity-left-bar/activity-left-bar.component';
 import { ActivityTableComponent } from './analytics-page/analytics-activity/activity-table/activity-table.component';
+import { ModelComponent } from './mint-page/model/model.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -413,6 +414,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     AnalyticsActivityComponent,
     ActivityLeftBarComponent,
     ActivityTableComponent,
+    ModelComponent,
   ],
   imports: [
     BrowserModule,

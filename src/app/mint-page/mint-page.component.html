@@ -981,8 +981,8 @@
       </div>
 
       <!-- 3D Model Preview -->
-      <div *ngIf="modelType && postModelArweaveSrc && step === 3" class="mint-page-image-container d-flex flex-column flex-center">
-
+      <div *ngIf="modelType && postModelArweaveSrc && step === 3" class="mint-page-image-container" style="height: 100%; width: 100%;">
+        <app-model [postModelArweaveSrc]="postModelArweaveSrc"></app-model>
       </div>
 
       <!-- <ng-template #defaultModelBlock>

@@ -16,7 +16,7 @@
         <div class="w-90 mt-20px">
           <h2 class="font-weight-semiboldn w-100 text-align-start ml-5px fs-33-responsive">Choose content type</h2>
           <label class="mt-20px color-light mint-page-sub-heading w-100 mb-0px text-align-start fs-20-responsive ml-5px">
-            You can mint either image or video NFTs on Supernovas. Maximum file size is 200Mb.
+            You can mint either image, video, or audio NFTs on Supernovas. Maximum file size is 200Mb.
           </label>
         </div>
 
@@ -32,7 +32,7 @@
             </div>
             <div class="h-40 w-100 mt-10px d-flex flex-column">
               <label class="fs-15px font-weight-bold pointer-events-none">Image</label>
-              <label class="fs-11px pointer-events-none">PNG, JPEG files are supported.</label>
+              <label class="fs-11px pointer-events-none">JPEG, PNG files are supported.</label>
             </div>
           </button>
 
@@ -76,7 +76,7 @@
             </div>
             <div class="h-40 w-100 mt-10px d-flex flex-column">
               <label class="fs-15px font-weight-bold pointer-events-none">Audio</label>
-              <label class="fs-11px pointer-events-none">FLAC, WAV, MP3, M4A files are supported.</label>
+              <label class="fs-11px pointer-events-none">FLAC, M4A, MP3, WAV files are supported.</label>
             </div>
           </button>
 
@@ -204,6 +204,7 @@
         CONTINUE
       </button>
     </div>
+
     <!--  STEP 3  -->
     <div
       [@mintSwipeAnimation]="animationType"
@@ -211,12 +212,15 @@
       class="mint-page-text-container-no-max h-100"
       [ngClass]="mobile ? 'w-100' : 'w-50'"
     >
+
       <div class="mint-page-inner-inner disable-scrollbars" [ngClass]="mobile ? 'w-90' : 'w-80'">
+
         <button class="previous-step-button color-light" (click)="previousStep()">
           <img class="previous-step-arrow mr-5px" src="/assets/icons/arrow-left-lighter.svg" />
           Back
         </button>
         <h2 class="mb-0px fs-23-responsive font-weight-semiboldn w-100 text-align-start ml-5px">NFT details</h2>
+
         <!-- IMAGE TYPE -->
         <div class="w-100" *ngIf="imageType">
           <label class="mint-page-sub-heading font-weight-bold w-100 text-align-start mt-10px ml-5px fs-14-responsive">
@@ -256,6 +260,7 @@
             class="br-6px"
           />
         </div>
+
         <!-- VIDEO TYPE -->
         <div class="w-100" *ngIf="videoType">
           <label class="mint-page-sub-heading font-weight-bold w-100 text-align-start mt-10px ml-5px fs-14-responsive">
@@ -295,7 +300,8 @@
             class="br-6px"
           />
         </div>
-        <!-- Audio TYPE -->
+
+        <!-- AUDIO TYPE -->
         <div class="w-100" *ngIf="audioType">
           <label class="mint-page-sub-heading font-weight-bold w-100 text-align-start mt-10px ml-5px fs-14-responsive">
             {{ mobile ? "Upload audio & cover image" : "Upload audio" }}
@@ -370,10 +376,54 @@
             />
           </div>
         </div>
-        <div class="w-100">
+
+        <!-- 3D MODEL TYPE -->
+        <div class="w-100" *ngIf="modelType">
+          <label class="mint-page-sub-heading font-weight-bold w-100 text-align-start mt-10px ml-5px fs-14-responsive">
+            Upload an 3D model
+          </label>
+
           <label
-            class="mint-page-sub-heading fs-14-responsive font-weight-bold w-100 text-align-start mt-10px mb-0px ml-5px"
+            dropUpload
+            (onFileDropped)="dropFile($event)"
+            for="file-upload"
+            class="mint-page-custom-file-upload mb-0px background-secondary d-flex flex-row flex-center position-relative"
           >
+
+            <div
+              class="text-align-center d-flex flex-column flex-center"
+              *ngIf="!isUploading && !(postVideoDESOSrc?.length > 0 || postImageArweaveSrc?.length > 0)"
+            >
+              <span class="font-weight-semiboldn fs-14-responsive">
+                <img src="/assets/icons/upload.svg" alt="upload-icon" class="mr-5px" />
+                Upload a 3D model
+              </span>
+              <p class="fs-12px p-5px" [ngClass]="mobile ? 'w-90' : 'w-80'" style="color: #7e7e7e">
+                You can upload files up to 200MB. The file is stored on decentralized storage, so it will be available
+                forever.
+              </p>
+            </div>
+
+            <div class="d-flex flex-row flex-center" *ngIf="postModelArweaveSrc?.length > 0">
+              <i class="fa fa-check mr-10px"></i>
+              <p>3D model uploaded</p>
+            </div>
+
+            <i *ngIf="isUploading" class="fa fa-spinner fa-spin"></i>
+          </label>
+
+          <input
+            #imageInput
+            type="file"
+            accept=".glb, .gltf"
+            id="file-upload"
+            (change)="_handleFilesInput($event.target.files)"
+            class="br-6px"
+          />
+        </div>
+
+        <div class="w-100">
+          <label class="mint-page-sub-heading fs-14-responsive font-weight-bold w-100 text-align-start mt-10px mb-0px ml-5px">
             Name your art piece
           </label>
           <label class="color-light ml-5px fs-12-responsive">Give your NFT a name in 25 characters or less.</label>
@@ -385,6 +435,7 @@
             placeholder="Name of art"
           />
         </div>
+
         <div class="w-100 mt-10px">
           <label class="mint-page-sub-heading font-weight-bold w-100 text-align-start mb-0px ml-5px fs-14-responsive">
             Description
@@ -397,6 +448,7 @@
             placeholder="Art description"
           ></textarea>
         </div>
+
         <div class="w-100 mt-10px">
           <label class="mint-page-sub-heading font-weight-bold w-100 text-align-start mb-0px fs-14-responsive ml-5px">
             Category
@@ -418,6 +470,7 @@
             <option value="Photography">Photography</option>
           </select>
         </div>
+
         <button
           (click)="extrasOpen = !extrasOpen"
           class="mint-page-sub-heading p-0px optional-extras-button font-weight-bold mint-page-flex-start text-align-start mb-20px mt-15px fs-14-responsive ml-5px"
@@ -430,6 +483,8 @@
           />
           <label class="mb-0px mint-page-optional fs-10-responsive ml-10px">Optional</label>
         </button>
+
+        <!-- Key Value Traits -->
         <div class="accordion" [ngClass]="extrasOpen ? 'big' : ''">
           <label
             class="mint-page-sub-heading fs-14-responsive font-weight-bold w-100 text-align-start mt-15px mb-0px ml-5px"
@@ -477,21 +532,25 @@
             </div>
           </div>
         </div>
+
       </div>
+
+      <!-- Continue Button Validators -->
       <button
         class="mb-0px font-weight-bold mint-page-step-2-continue"
-        *ngIf="videoType || imageType"
+        *ngIf="videoType || imageType || modelType"
         [ngClass]="mobile ? 'w-90' : 'w-80'"
         (click)="nextStep()"
         [disabled]="
           !isDescribed() ||
-          !(postImageArweaveSrc?.length > 0 || postVideoDESOSrc?.length > 0) ||
+          !(postImageArweaveSrc?.length > 0 || postVideoDESOSrc?.length > 0 || postModelArweaveSrc?.length > 0) ||
           !isNamed() ||
           !isCategorized()
         "
       >
         Continue
       </button>
+
       <button
         class="mb-0px font-weight-bold mint-page-step-2-continue"
         *ngIf="audioType"
@@ -506,7 +565,9 @@
       >
         Continue
       </button>
+
     </div>
+
     <!--  STEP 4 open auction -->
     <div
       [@mintSwipeAnimation]="animationType"
@@ -641,6 +702,7 @@
         <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i>
       </button>
     </div>
+
     <!--  STEP 4 buy now -->
     <div
       [@mintSwipeAnimation]="animationType"
@@ -806,6 +868,7 @@
         <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i>
       </button>
     </div>
+
     <!--  STEP 5  -->
     <div *ngIf="step === 5" class="mint-page-text-container" [ngClass]="mobile ? 'w-100' : 'w-50'">
       <div
@@ -829,12 +892,14 @@
     
     <!--  LEFT SIDE DESKTOP STEPS 1 - 2-->
     <div *ngIf="!mobile && 1 < step && step < 4" class="mint-page-image-container d-flex flex-column flex-center">
+
       <!-- ALLOW IF ARWEAVE PROBLEMS -->
       <div *ngIf="false" class="mint-warning-box">
         <label class="mb-0px font-weight-semiboldn">
           Arweave network is experiencing issues, content might take a few minutes until its visible
         </label>
       </div>
+
       <label
         class="mb-0px illuminate-color pr-20px pl-20px text-align-center"
         *ngIf="!postImageArweaveSrc && !postVideoDESOSrc && !audioType"
@@ -843,12 +908,16 @@
         <br />
         And never stop.
       </label>
-      <label class="mb-0px illuminate-color pr-20px pl-20px text-align-center" *ngIf="audioType && step === 2">
+      
+      <label 
+        class="mb-0px illuminate-color pr-20px pl-20px text-align-center"
+        *ngIf="audioType && step === 2">
         Illuminate the digital universe with your imagination.
         <br />
         And never stop.
       </label>
 
+      <!-- Audio Cover Image Preview -->
       <!-- What is !postImageArweaveSrc evaluating here? -->
       <div *ngIf="audioType && !postImageArweaveSrc && step === 3; else showNftCoverArt" class="w-100 h-50 d-flex flex-center">
         <label
@@ -910,10 +979,31 @@
         <div>Video Processing In Progress</div>
         <simple-center-loader [height]="150"></simple-center-loader>
       </div>
+
+      <!-- 3D Model Preview -->
+      <div *ngIf="modelType && postModelArweaveSrc && step === 3" class="mint-page-image-container d-flex flex-column flex-center">
+
+      </div>
+
+      <!-- <ng-template #defaultModelBlock>
+        <label class="mb-0px illuminate-color pr-20px pl-20px text-align-center">
+          Illuminate the digital universe with your imagination.
+          <br />
+          And never stop.
+        </label>
+        <label class="mb-0px illuminate-color pr-20px pl-20px text-align-center" *ngIf="audioType && step === 2">
+          Illuminate the digital universe with your imagination.
+          <br />
+          And never stop.
+        </label>
+      </ng-template> -->
+
     </div>
+
     <!-- LEFT SIDE DESKTOP STEPS >= 4 -->
     <div *ngIf="!mobile && step >= 4" class="mint-page-image-container d-flex flex-center">
       <div [@cardAppearAnimation] class="fake-card">
+
         <!-- LEFT SIDE DESKTOP STEPS 3 - 4 -->
         <div class="fake-card-image-box">
           <div class="w-100 z-index-100 h-100 background-secondary position-relative d-flex flex-center">
@@ -943,6 +1033,7 @@
             ></video>
           </div>
         </div>
+
         <div class="caption-cover w-100">
           <p class="font-weight-semibold fs-20px-im">
             {{ NAME_OF_PIECE }}
@@ -965,6 +1056,7 @@
             </div>
           </div>
         </div>
+
         <div class="bid-cover flex-wrap colors-not-sold">
           <div class="bid-row">
             <div class="d-flex bid_inner_row">
@@ -988,7 +1080,9 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
+
   </div>
 </app-page-small-nav-new>

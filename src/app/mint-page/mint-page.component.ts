@@ -154,11 +154,6 @@ export class MintPageComponent implements OnInit {
     }
   }
 
-  setPostImageSrc() {
-    // this.audioCoverImage = undefined;
-    // console.log(this.audioCoverImage);
-  }
-
   _handleFileInput(file: File): void {
     const fileToUpload = file;
     if (this.videoType) {

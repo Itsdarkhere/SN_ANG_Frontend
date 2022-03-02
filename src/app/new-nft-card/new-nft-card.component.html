@@ -323,7 +323,7 @@
           <div
             class="bid-cover flex-wrap"
             [ngClass]="showPlaceABid || forSale() ? 'colors-not-sold' : 'colors-sold'"
-            *ngIf="showNFTDetails && postContent.IsNFT && !pending"
+            *ngIf="showNFTDetails && postContent.IsNFT && !pending && !postContent.PostExtraData.isEthereumNFT"
           >
             <div class="bid-row">
               <div class="d-flex justify-content-space-between bid_inner_row">
@@ -388,7 +388,7 @@
           <div
             class="bid-cover flex-row justify-content-space-between"
             [ngClass]="!showPlaceABid || pending ? 'colors-sold' : 'colors-not-sold'"
-            *ngIf="showNFTDetails && postContent.IsNFT && pending"
+            *ngIf="showNFTDetails && postContent.IsNFT && pending && !postContent.PostExtraData.isEthereumNFT"
           >
             <ng-container>
               <div class="bid-col">
@@ -398,6 +398,12 @@
               </div>
             </ng-container>
             <button class="accept-transfer" (click)="openAcceptModal($event)">Accept transfer</button>
+          </div>
+          <!-- is ethereum nft -->
+          <div class="bid-cover colors-not-sold is-ethereum-nft" *ngIf="postContent.PostExtraData.isEthereumNFT">
+            <div class="bid-col">
+              <p class="eth-nft-not-for-sale-text">Ethereum NFT not for sale</p>
+            </div>
           </div>
           <div *ngIf="!showInteractionDetails" class="card-footer">
             <!-- Like, Comment, Reclout, Share Buttons -->

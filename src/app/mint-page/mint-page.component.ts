@@ -575,10 +575,12 @@ export class MintPageComponent implements OnInit {
     this.changeRef.detectChanges();
     if (this.step + 1 < 6) {
       if (this.step === 2) {
-        this.uploadEthMetadata();
+        // this.uploadEthMetadata();
       }
       if (this.step === 4) {
-        await this.sellNFT();
+        // await this.sellNFT();
+        // add post function
+        await this.createEthPost();
       }
       this.step++;
       // Arweave needs a boost to start itself
@@ -787,6 +789,60 @@ export class MintPageComponent implements OnInit {
     });
 
     console.log(sellOrderId);
+  }
+
+  async createEthPost() {
+    let bodyObj = {};
+    let postExtraData = {};
+
+    bodyObj = {
+      Body: this.DESCRIPTION,
+      ImageURLs: [this.postImageArweaveSrc].filter((n) => n),
+    };
+    postExtraData = {
+      // add ethereum: true boolean
+      name: this.NAME_OF_PIECE,
+      category: this.CATEGORY,
+      properties: JSON.stringify(Array.from(this.KVMap)),
+      isEthereumNFT: JSON.stringify(true),
+    };
+    if (environment.node.id) {
+      postExtraData["Node"] = environment.node.id.toString();
+    }
+
+    this.backendApi
+      .SubmitPost(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        "",
+        "",
+        "" /*Title*/,
+        bodyObj /*BodyObj*/,
+        "",
+        // PostExtraData
+        postExtraData,
+        "",
+        false /*IsHidden*/,
+        this.globalVars.defaultFeeRateNanosPerKB /*MinFeeRateNanosPerKB*/
+      )
+      .subscribe(
+        (response) => {
+          this.globalVars.logEvent(`post : create`);
+          this.postHashHex = response.PostEntryResponse.PostHashHex;
+          // this.post = response.PostEntryResponse;
+          console.log(
+            ` ---------------------------- response is ${JSON.stringify(response)} ---------------------------- `
+          );
+          console.log(` ---------------------------- postHashHex ${this.postHashHex} ---------------------------- `);
+        },
+        (err) => {
+          const parsedError = this.backendApi.parsePostError(err);
+          this.globalVars._alertError(parsedError);
+          this.globalVars.logEvent(`post : create : error`, { parsedError });
+          this.isSubmitPress = false;
+          this.changeRef.detectChanges();
+        }
+      );
   }
 
   pollForReadyToStream(): void {

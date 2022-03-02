@@ -17,6 +17,7 @@ import { GeneralSuccessModalComponent } from "../general-success-modal/general-s
 
 import { ethers } from "ethers";
 import { Link, ImmutableXClient, ImmutableMethodResults, MintableERC721TokenType } from "@imtbl/imx-sdk";
+import { json } from "stream/consumers";
 
 @Component({
   selector: "app-mint-page",
@@ -127,6 +128,8 @@ export class MintPageComponent implements OnInit {
   minBidClicked = false;
   BUY_NOW_PRICE_USD = "0";
 
+  // step 2 eth
+  isEthNFTForSale: boolean;
   //   step 3 eth
   sellingPriceETH: any;
   token_id: any;
@@ -577,10 +580,15 @@ export class MintPageComponent implements OnInit {
       if (this.step === 2) {
         // this.uploadEthMetadata();
       }
+      if (this.step === 3) {
+        this.isEthNFTForSale = true;
+      }
       if (this.step === 4) {
         // await this.sellNFT();
         // add post function
-        await this.createEthPost();
+        console.log("step 4 before createEthPost");
+        await this.createEthPost(this.sellingPriceETH);
+        console.log("step 4 after createEthPost");
       }
       this.step++;
       // Arweave needs a boost to start itself
@@ -604,14 +612,12 @@ export class MintPageComponent implements OnInit {
     }
   }
 
-  uploadEthMetadata() {
-    // let metadataObj = {
-    //   name: this.NAME_OF_PIECE,
-    //   description: this.DESCRIPTION,
-    //   image: this.postImageArweaveSrc,
-    // };
-    // let metadataObjJson = JSON.stringify(metadataObj);
+  async sellNFTLater() {
+    this.isEthNFTForSale = false;
+    await this.createEthPost("none");
+  }
 
+  uploadEthMetadata() {
     this.backendApi
       .InsertIMXMetadata(
         this.globalVars.localNode,
@@ -630,33 +636,6 @@ export class MintPageComponent implements OnInit {
           this.mintv2WithRoyalties(this.token_id, this.CREATOR_ROYALTY);
         }
       });
-
-    // this.mintv2(2);
-
-    // let metadataFile = new File([metadataObjJson], "metadata.txt", {
-    //   type: "text/plain",
-    // });
-    // console.log(metadataObjJson);
-
-    // this.arweave.UploadImage(metadataFile).subscribe(
-    //   (res) => {
-    //     setTimeout(() => {
-    //       let metadataUrl = "https://arweave.net/" + res;
-    //       // this.postImageArweaveSrc = url;
-    //       // this.postVideoArweaveSrc = null;
-    //       this.isUploading = false;
-    //       this.isUploaded = this.postImageArweaveSrc.length > 0;
-    //       console.log(
-    //         ` ---------------------------- arweave metadata url is ${metadataUrl} --------------------------- `
-    //       );
-    //     }, 2000);
-    //   },
-    //   (err) => {
-    //     this.isUploading = false;
-    //     this.isUploaded = false;
-    //     this.globalVars._alertError("Failed to upload metadata to arweave: " + err.message);
-    //   }
-    // );
   }
 
   async mintv2(token_id: any) {
@@ -791,7 +770,7 @@ export class MintPageComponent implements OnInit {
     console.log(sellOrderId);
   }
 
-  async createEthPost() {
+  async createEthPost(salePrice: any) {
     let bodyObj = {};
     let postExtraData = {};
 
@@ -805,6 +784,8 @@ export class MintPageComponent implements OnInit {
       category: this.CATEGORY,
       properties: JSON.stringify(Array.from(this.KVMap)),
       isEthereumNFT: JSON.stringify(true),
+      isEthereumNFTForSale: JSON.stringify(this.isEthNFTForSale),
+      ethereumNFTSalePrice: JSON.stringify(salePrice),
     };
     if (environment.node.id) {
       postExtraData["Node"] = environment.node.id.toString();
@@ -843,6 +824,10 @@ export class MintPageComponent implements OnInit {
           this.changeRef.detectChanges();
         }
       );
+  }
+
+  viewEthPost() {
+    this.router.navigate(["/" + this.globalVars.RouteNames.POSTS + "/" + this.postHashHex]);
   }
 
   pollForReadyToStream(): void {

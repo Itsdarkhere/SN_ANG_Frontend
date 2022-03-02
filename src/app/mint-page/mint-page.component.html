@@ -1404,7 +1404,7 @@
         <button
           class="mt-20px font-weight-bold mint-page-step-2-continue eth-minted-step-2-sale-later-button"
           [ngClass]="mobile ? 'w-90' : 'w-80'"
-          (click)="_createPost()"
+          (click)="sellNFTLater()"
         >
           <label *ngIf="!isSubmitPress" class="mb-0px">Sell the NFT later</label>
           <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i>
@@ -1508,7 +1508,7 @@
         <button
           class="mt-20px font-weight-bold mint-page-step-2-continue eth-minted-step-2-sale-later-button"
           [ngClass]="mobile ? 'w-90' : 'w-80'"
-          (click)="_createPost()"
+          (click)="viewEthPost()"
         >
           <label *ngIf="!isSubmitPress" class="mb-0px">See your NFT</label>
           <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i>

@@ -399,8 +399,40 @@
             </ng-container>
             <button class="accept-transfer" (click)="openAcceptModal($event)">Accept transfer</button>
           </div>
-          <!-- is ethereum nft -->
-          <div class="bid-cover colors-not-sold is-ethereum-nft" *ngIf="postContent.PostExtraData.isEthereumNFT">
+          <!-- is ethereum nft and is for sale-->
+          <div
+            class="bid-cover colors-not-sold is-ethereum-nft"
+            *ngIf="postContent.PostExtraData.isEthereumNFT && postContent.PostExtraData.isEthereumNFTForSale"
+          >
+            <div class="bid-row">
+              <div class="d-flex justify-content-space-between bid_inner_row">
+                <ng-container>
+                  <div class="bid-col">
+                    <p class="p-lighter eth-price-text-align-left">Price</p>
+                    <div class="d-flex flex-row overflow-hidden">
+                      <p class="font-weight-semiboldn overflow-ellipsis-price-50-percent">
+                        {{ postContent.PostExtraData.ethereumNFTSalePrice }}
+                      </p>
+                      <p class="font-weight-semiboldn">ETH</p>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-container>
+                  <div class="bid-col-buy-now">
+                    <button class="nft-card-buy-now-button">
+                      <img src="/assets/icons/buy_now_card_icon.svg" alt="lightning" />
+                      Buy Now
+                    </button>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <!-- is ethereum nft and not for sale-->
+          <div
+            class="bid-cover colors-not-sold is-ethereum-nft"
+            *ngIf="postContent.PostExtraData.isEthereumNFT && !postContent.PostExtraData.isEthereumNFTForSale"
+          >
             <div class="bid-col">
               <p class="eth-nft-not-for-sale-text">Ethereum NFT not for sale</p>
             </div>

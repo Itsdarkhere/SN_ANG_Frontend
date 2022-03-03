@@ -68,6 +68,7 @@
     "keen-slider": "^6.6.3",
     "lodash": "^4.17.15",
     "ng-apexcharts": "^1.6.0",
+    "ng-lottie": "^0.3.2",
     "ng2-animate-on-scroll": "^2.2.1",
     "ngx-bootstrap": "^6.2.0",
     "ngx-infinite-scroll": "^10.0.1",

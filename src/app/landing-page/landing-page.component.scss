@@ -631,12 +631,13 @@
 
 .landing-desktop .artist-card {
   align-items: flex-end;
- // background-image: url("../img/felix-1-10-1@1x.png");
+  background-image: url("/assets/img/flxgs.jpg");
   background-position: 50% 50%;
   background-size: cover;
   display: flex;
   margin-top: 78px;
   min-width: 459px;
+  border-radius: 50px;
 }
 
 .landing-desktop .overlap-group10 {
@@ -2447,6 +2448,10 @@
   margin-left: 87px;
   margin-top: 0.03px;
   min-width: 284px;
+  background-image: url("/assets/img/flxgs.jpg");
+  border-radius: 31px;
+  background-position: center;
+  background-size: cover;
 }
 
 .landing-ipad .overlap-group14-1 {

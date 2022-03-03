@@ -157,6 +157,7 @@ import { AdminNodeFeesComponent } from "./admin/admin-node-fees/admin-node-fees.
 import { AdminNodeAddFeesComponent } from "./admin/admin-node-fees/admin-node-add-fee/admin-node-add-fees.component";
 import { IvyCarouselModule } from "angular-responsive-carousel";
 import { NgApexchartsModule } from "ng-apexcharts";
+import { LottieAnimationViewModule } from 'ng-lottie';
 
 // Modular Themes for DeSo by Carsen Klock @carsenk
 import { ThemeModule } from "./theme/theme.module";
@@ -442,6 +443,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     NgApexchartsModule,
     AnimateOnScrollModule.forRoot(),
     ToastrModule.forRoot(),
+    LottieAnimationViewModule.forRoot(),
     BsDropdownModule.forRoot(),
     PopoverModule.forRoot(),
     RatingModule.forRoot(),

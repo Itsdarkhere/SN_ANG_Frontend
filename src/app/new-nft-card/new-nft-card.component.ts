@@ -340,7 +340,16 @@ export class NewNftCardComponent implements OnInit {
     if (event.target.tagName.toLowerCase() === "a") {
       return true;
     }
-    const route = this.postContent.IsNFT ? this.globalVars.RouteNames.NFT : this.globalVars.RouteNames.POSTS;
+
+    let route: string;
+    if (this.post.IsNFT) {
+      route = this.globalVars.RouteNames.NFT;
+    } else if (this.postContent?.PostExtraData?.isEthereumNFT) {
+      route = this.globalVars.RouteNames.ETH_NFT;
+    } else {
+      route = this.globalVars.RouteNames.POSTS;
+    }
+
     // identify ctrl+click (or) cmd+clik and opens feed in new tab
     if (event.ctrlKey) {
       const url = this.router.serializeUrl(

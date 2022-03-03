@@ -219,6 +219,8 @@ import { ImxPageComponent } from './imx-page/imx-page.component';
 import { DepositEthComponent } from './imx-page/deposit-eth/deposit-eth.component';
 import { BuyEthComponent } from './imx-page/buy-eth/buy-eth.component';
 import { WithdrawEthComponent } from './imx-page/withdraw-eth/withdraw-eth.component';
+import { EthNftPostPageComponent } from './eth-nft-post-page/eth-nft-post-page.component';
+import { EthNftPostComponent } from './eth-nft-post-page/eth-nft-post/eth-nft-post.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -412,6 +414,8 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     DepositEthComponent,
     BuyEthComponent,
     WithdrawEthComponent,
+    EthNftPostPageComponent,
+    EthNftPostComponent,
   ],
   imports: [
     BrowserModule,

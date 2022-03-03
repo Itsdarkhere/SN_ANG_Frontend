@@ -1,8 +1,12 @@
 <div class="collection-page-header">
-  <img class="collection-banner" src="{{ mapArweaveURLs(collectionBannerLocation) }}" alt="collection banner image" />
+  <img
+    class="collection-banner"
+    src="{{ mapArweaveURLs(collectionBannerLocation, 500, 200) }}"
+    alt="collection banner image"
+  />
   <div class="banner-image-stats-container">
     <!-- Change this to use image from arweave -->
-    <div class="collection-user-image" [avatar]="collectionCreatorPK"></div>
+    <img class="collection-user-image" src="{{ mapArweaveURLs(collectionBannerLocation, 100, 100) }}" />
     <div class="collection-user-stats">
       <div class="collection-pieces">
         <h2>Pieces</h2>

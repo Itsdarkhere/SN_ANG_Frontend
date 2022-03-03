@@ -1380,7 +1380,8 @@ export class BackendApiService {
     Username: string,
     CollectionName: string,
     CollectionDescription: string,
-    CollectionBannerLocation: string
+    CollectionBannerLocation: string,
+    CollectionProfilePicLocation: string
   ): Observable<any> {
     return this.post(endpoint, BackendRoutes.RoutePathCreateCollection, {
       PostHashHexArray,
@@ -1388,6 +1389,7 @@ export class BackendApiService {
       CollectionName,
       CollectionDescription,
       CollectionBannerLocation,
+      CollectionProfilePicLocation,
     });
   }
   SortCreators(endpoint: string, Offset: number, Verified): Observable<any> {

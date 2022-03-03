@@ -9,6 +9,7 @@ import { GlobalVarsService } from "src/app/global-vars.service";
 })
 export class CollectionPageHeaderComponent implements OnChanges {
   @Input() collectionBannerLocation: string;
+  @Input() collectionProfilePicLocation: string;
   @Input() collectionCreatorPK: string;
   @Input() collectionName: string;
   @Input() collectionCreator: string;
@@ -34,10 +35,11 @@ export class CollectionPageHeaderComponent implements OnChanges {
     );
   }
   // Use this to load / resize / speed up arweavve images, add params to url for additional benefits
-  mapArweaveURLs(imgURL: string): string {
+  mapArweaveURLs(imgURL: string, w: number, h: number): string {
     if (imgURL.startsWith("https://arweave.net/")) {
       // Build cloudflare imageString
-      imgURL = "https://supernovas.app/cdn-cgi/image/width=500,height=200,fit=scale-down,quality=85/" + imgURL;
+      imgURL =
+        "https://supernovas.app/cdn-cgi/image/width=" + w + ",height=" + h + ",fit=scale-down,quality=85/" + imgURL;
     }
     return imgURL;
   }

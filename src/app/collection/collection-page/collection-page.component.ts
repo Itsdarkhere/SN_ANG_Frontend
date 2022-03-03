@@ -21,6 +21,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   collectionCollection = true;
   collectionDescription: string;
   collectionBannerLocation: string;
+  collectionProfilePicLocation: string;
   // Params for query
   collectionMarketType = "all";
   collectionStatus = "all";
@@ -68,8 +69,10 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
       .subscribe(
         (res) => {
           if (!loadMore) {
+            console.log(res);
             this.collectionNFTs = res?.PostEntryResponse;
             this.collectionBannerLocation = res?.CollectionBannerLocation;
+            this.collectionProfilePicLocation = res?.CollectionProfilePicLocation;
             this.collectionDescription = res?.CollectionDescription;
             this.globalVars.collectionNFTsLoading = false;
             if (this.collectionNFTs[0]) {

@@ -150,11 +150,7 @@ export class CreateCollectionComponent implements OnInit {
     this.arweave.UploadImage(file).subscribe(
       (res) => {
         setTimeout(() => {
-          // https://supernovas.app/cdn-cgi/image/width=500,height=500,fit=scale-down,quality=85/
-          // Thats the cloudflare part to increase speed, etc
-          let url =
-            "https://supernovas.app/cdn-cgi/image/width=500,height=160,fit=scale-down,quality=85/https://arweave.net/" +
-            res;
+          let url = "https://arweave.net/" + res;
           this.uploadedBannerImage = url;
           this.uploadingBannerImage = false;
         }, 2000);
@@ -184,11 +180,7 @@ export class CreateCollectionComponent implements OnInit {
     this.arweave.UploadImage(file).subscribe(
       (res) => {
         setTimeout(() => {
-          // https://supernovas.app/cdn-cgi/image/width=500,height=500,fit=scale-down,quality=85/
-          // Thats the cloudflare part to increase speed, etc
-          let url =
-            "https://supernovas.app/cdn-cgi/image/width=100,height=100,fit=scale-down,quality=85/https://arweave.net/" +
-            res;
+          let url = "https://arweave.net/" + res;
           this.uploadedProfileImage = url;
           this.uploadingProfileImage = false;
         }, 2000);
@@ -214,8 +206,8 @@ export class CreateCollectionComponent implements OnInit {
       .GetPostsForPublicKey(
         this.globalVars.localNode,
         "",
-        "cloutpunk", //this.globalVars.loggedInUser?.ProfileEntryResponse?.Username,
-        "BC1YLiuKfzE6HjurKQi156kzhUo8LGQWDUvudhkEPuqDZWe1NrdeLmV", //this.globalVars.loggedInUser?.ProfileEntryResponse.PublicKeyBase58Check,
+        this.globalVars.loggedInUser?.ProfileEntryResponse?.Username, //this.globalVars.loggedInUser?.ProfileEntryResponse?.Username,
+        this.globalVars.loggedInUser?.ProfileEntryResponse.PublicKeyBase58Check, //this.globalVars.loggedInUser?.ProfileEntryResponse.PublicKeyBase58Check,
         "",
         10000,
         false /*MediaRequired*/
@@ -242,7 +234,8 @@ export class CreateCollectionComponent implements OnInit {
         this.globalVars.loggedInUser.ProfileEntryResponse.Username.toLowerCase(),
         this.collectionName.toLowerCase(),
         this.collectionDescription,
-        this.uploadedBannerImage
+        this.uploadedBannerImage,
+        this.uploadedProfileImage
       )
       .subscribe(
         (res) => {

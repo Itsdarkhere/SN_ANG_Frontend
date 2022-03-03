@@ -39,6 +39,7 @@ import { MintPageComponent } from "./mint-page/mint-page.component";
 import { NftPageComponent } from "./discovery-page/nft-page/nft-page.component";
 import { DiscoveryPageComponent } from "./discovery-page/discovery-page.component";
 import { AnalyticsPageComponent } from './analytics-page/analytics-page.component';
+import { LandingPageComponent } from "./landing-page/landing-page.component";
 
 
 
@@ -81,7 +82,7 @@ class RouteNames {
   public static TOS = "terms-of-service";
   public static ADMIN = "admin";
   public static GET_STARTER_DESO = "get-starter-deso";
-  public static LANDING = "/";
+  public static LANDING = "home";
   public static DIAMONDS = "diamonds";
   public static TRENDS = "Marketplace";
   public static REFERRALS = "referrals";
@@ -96,8 +97,9 @@ class RouteNames {
 }
 
 const routes: Routes = [
+  { path: RouteNames.LANDING, component: LandingPageComponent, pathMatch: "full" },
   { path: "", redirectTo: RouteNames.BROWSE, pathMatch: "full" },
-  { path: RouteNames.ANALYTICS, component: AnalyticsPageComponent, pathMatch: "full" },
+  { path: RouteNames.ANALYTICS, component: LandingPageComponent, pathMatch: "full" },
   { path: RouteNames.ACTIVITY, component: ActivityComponent, pathMatch: "full" },
   { path: RouteNames.SIGNUP, component: SignupPageComponent, pathMatch: "full" },
   { path: RouteNames.NFT_PAGE, component: NftPageComponent, pathMatch: "full" },

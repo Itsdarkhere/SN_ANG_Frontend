@@ -144,6 +144,7 @@ export class BackendRoutes {
   static RoutePathCreateCollection = "/api/v0/create-collection";
   static RoutePathSortCollection = "/api/v0/sort-collection";
   static RoutePathGetUserCollectionsData = "/api/v0/get-user-collections-data";
+  static RoutePathGetCollectionInfo = "/api/v0/get-collection-info";
   // Marketplace postgres
   static RoutePathSortMarketplace = "/api/v0/sort-marketplace";
   static RoutePathSortCreators = "/api/v0/sort-creators";
@@ -1365,6 +1366,12 @@ export class BackendApiService {
   GetUserCollectionsData(endpoint: string, Username: string): Observable<any> {
     return this.post(endpoint, BackendRoutes.RoutePathGetUserCollectionsData, {
       Username,
+    });
+  }
+  GetCollectionInfo(endpoint: string, CollectionName: string, CollectionCreatorName: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetCollectionInfo, {
+      CollectionName,
+      CollectionCreatorName,
     });
   }
   CreateCollection(

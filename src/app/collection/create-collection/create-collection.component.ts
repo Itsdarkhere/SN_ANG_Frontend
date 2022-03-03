@@ -3,7 +3,6 @@ import { GlobalVarsService } from "../../global-vars.service";
 import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../../backend-api.service";
 import { Router } from "@angular/router";
 import { ArweaveJsService } from "src/app/arweave-js.service";
-import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: "app-create-collection",
@@ -22,8 +21,9 @@ export class CreateCollectionComponent implements OnInit {
   isChecked: boolean = false;
   selectAllCheckboxes: boolean = false;
   uploadedBannerImage: string;
-  uploadedDisplayImage: undefined;
   uploadingBannerImage = false;
+  uploadedProfileImage: string;
+  uploadingProfileImage = false;
 
   creatingCollection = false;
   createCollectionError: string;
@@ -150,7 +150,11 @@ export class CreateCollectionComponent implements OnInit {
     this.arweave.UploadImage(file).subscribe(
       (res) => {
         setTimeout(() => {
-          let url = "https://arweave.net/" + res;
+          // https://supernovas.app/cdn-cgi/image/width=500,height=500,fit=scale-down,quality=85/
+          // Thats the cloudflare part to increase speed, etc
+          let url =
+            "https://supernovas.app/cdn-cgi/image/width=500,height=160,fit=scale-down,quality=85/https://arweave.net/" +
+            res;
           this.uploadedBannerImage = url;
           this.uploadingBannerImage = false;
         }, 2000);
@@ -162,15 +166,38 @@ export class CreateCollectionComponent implements OnInit {
     );
   }
 
-  updateDisplayImage($event: any) {
-    if ($event.target.files) {
-      this.collectionDisplayImage = $event.target.files[0];
-      let reader = new FileReader();
-      reader.readAsDataURL($event.target.files[0]);
-      reader.onload = (event: any) => {
-        this.uploadedDisplayImage = event.target.result;
-      };
+  handleProfileImageInput(files: FileList) {
+    // Dont upload while uploading
+    if (this.uploadingProfileImage) {
+      return;
     }
+    let file = files[0];
+    if (!file.type || !file.type.startsWith("image/")) {
+      this.globalVars._alertError("File selected does not have an image file type.");
+      return;
+    }
+    if (file.size > (1024 * 1024 * 1024) / 5) {
+      this.globalVars._alertError("File is too large. Please choose a file of a size less than 200MB");
+      return;
+    }
+    this.uploadingProfileImage = true;
+    this.arweave.UploadImage(file).subscribe(
+      (res) => {
+        setTimeout(() => {
+          // https://supernovas.app/cdn-cgi/image/width=500,height=500,fit=scale-down,quality=85/
+          // Thats the cloudflare part to increase speed, etc
+          let url =
+            "https://supernovas.app/cdn-cgi/image/width=100,height=100,fit=scale-down,quality=85/https://arweave.net/" +
+            res;
+          this.uploadedProfileImage = url;
+          this.uploadingProfileImage = false;
+        }, 2000);
+      },
+      (err) => {
+        this.uploadingProfileImage = false;
+        this.globalVars._alertError("Failed to upload image to arweave: " + err.message);
+      }
+    );
   }
 
   setPostValue: any;
@@ -187,8 +214,8 @@ export class CreateCollectionComponent implements OnInit {
       .GetPostsForPublicKey(
         this.globalVars.localNode,
         "",
-        this.globalVars.loggedInUser?.ProfileEntryResponse?.Username,
-        this.globalVars.loggedInUser?.ProfileEntryResponse.PublicKeyBase58Check,
+        "cloutpunk", //this.globalVars.loggedInUser?.ProfileEntryResponse?.Username,
+        "BC1YLiuKfzE6HjurKQi156kzhUo8LGQWDUvudhkEPuqDZWe1NrdeLmV", //this.globalVars.loggedInUser?.ProfileEntryResponse.PublicKeyBase58Check,
         "",
         10000,
         false /*MediaRequired*/
@@ -196,7 +223,7 @@ export class CreateCollectionComponent implements OnInit {
       .toPromise()
       .then((res) => {
         this.posts = res.Posts.filter((post) => post.IsNFT && post.NumNFTCopiesBurned != post.NumNFTCopies);
-        this.postData = this.posts.slice(this.startIndex, this.endIndex);
+        this.postData = this.posts.slice(this.startIndex, 300);
       });
   }
   // After this -> if successfull show success screen

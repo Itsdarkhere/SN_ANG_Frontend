@@ -50,7 +50,6 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
   sortCollection(status: string, marketType: string, orderByType: string, offset: number, loadMore: boolean) {
     if (!loadMore) {
       this.globalVars.collectionNFTsLoading = true;
@@ -71,8 +70,6 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
           if (!loadMore) {
             this.collectionNFTs = res?.PostEntryResponse;
             this.collectionBannerLocation = res?.CollectionBannerLocation;
-            console.log(this.collectionBannerLocation);
-            console.log(res);
             this.collectionDescription = res?.CollectionDescription;
             this.globalVars.collectionNFTsLoading = false;
             if (this.collectionNFTs[0]) {

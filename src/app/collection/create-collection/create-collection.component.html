@@ -29,7 +29,16 @@
           </div>
 
           <!-- Display Image -->
-          <div class="display-image" [avatar]="globalVars?.loggedInUser?.PublicKeyBase58Check"></div>
+          <div class="display-image">
+            <input
+              type="file"
+              name="collectionProfileImage"
+              accept="image/png, image/jpeg, image/webp"
+              (change)="handleProfileImageInput($event.target.files)"
+            />
+            <img *ngIf="uploadedProfileImage" [src]="uploadedProfileImage" class="uploaded-profile-image" />
+            <i *ngIf="uploadingProfileImage" class="fa fa-spinner fa-spin"></i>
+          </div>
         </div>
 
         <!-- Collection Information -->

@@ -2,10 +2,7 @@
 
 @import url("https://fonts.googleapis.com/css?family=Poppins:400,700,500,600");
 
-/* The following line is used to measure usage of this code in production. For more info see our usage billing page */
-@import url("https://px.animaapp.com/620d127003b37bcb0fb46efe.620d127303b37bcb0fb46f01.nlNAzjl.hcp.png");
-
-:root { 
+:host { 
   --black: #000000;
   --bon-jour: #e0e0e0;
   --bon-jour-2: #e1e1e1;
@@ -41,7 +38,7 @@
 }
 .poppins-medium-star-dust-18px {
   color: var(--star-dust);
-  font-family: var(--font-family-poppins);
+  font-family: "Poppins", Helvetica;
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
@@ -2798,7 +2795,7 @@
   background-color: var(--licorice-2);
   border: 2.7px solid var(--cod-gray);
   border-radius: 32.21px;
-  box-shadow: 0px 2.15px 2.15px #00000040;
+  box-shadow: 0px 8.15px 20.15px #00000017;
   display: flex;
   flex-direction: column;
   left: 1083px;
@@ -2958,7 +2955,7 @@
   backdrop-filter: blur(44.62px) brightness(100%);
   background-color: var(--eerie-black);
   border-radius: 26.5px;
-  box-shadow: 0px 1.8px 1.8px #00000040;
+  box-shadow: 0px 8.15px 20.15px #00000017;
   display: flex;
   flex-direction: column;
   left: 706px;

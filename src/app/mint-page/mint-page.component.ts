@@ -578,16 +578,16 @@ export class MintPageComponent implements OnInit {
     this.changeRef.detectChanges();
     if (this.step + 1 < 6) {
       if (this.step === 2) {
-        // this.uploadEthMetadata();
+        this.uploadEthMetadata();
       }
       if (this.step === 3) {
         this.isEthNFTForSale = true;
       }
       if (this.step === 4) {
-        // await this.sellNFT();
+        await this.sellNFT();
         // add post function
         console.log("step 4 before createEthPost");
-        await this.createEthPost(this.sellingPriceETH);
+        await this.createEthPost();
         console.log("step 4 after createEthPost");
       }
       this.step++;
@@ -614,7 +614,7 @@ export class MintPageComponent implements OnInit {
 
   async sellNFTLater() {
     this.isEthNFTForSale = false;
-    await this.createEthPost("none");
+    await this.createEthPost();
   }
 
   uploadEthMetadata() {
@@ -770,7 +770,7 @@ export class MintPageComponent implements OnInit {
     console.log(sellOrderId);
   }
 
-  async createEthPost(salePrice: any) {
+  async createEthPost() {
     let bodyObj = {};
     let postExtraData = {};
 
@@ -784,8 +784,9 @@ export class MintPageComponent implements OnInit {
       category: this.CATEGORY,
       properties: JSON.stringify(Array.from(this.KVMap)),
       isEthereumNFT: JSON.stringify(true),
-      isEthereumNFTForSale: JSON.stringify(this.isEthNFTForSale),
-      ethereumNFTSalePrice: JSON.stringify(salePrice),
+      //   isEthereumNFTForSale: JSON.stringify(this.isEthNFTForSale),
+      //   ethereumNFTSalePrice: JSON.stringify(salePrice),
+      tokenId: JSON.stringify(this.token_id),
     };
     if (environment.node.id) {
       postExtraData["Node"] = environment.node.id.toString();

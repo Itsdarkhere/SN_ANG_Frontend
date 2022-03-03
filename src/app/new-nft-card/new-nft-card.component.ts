@@ -25,6 +25,8 @@ import { TransferModalComponent } from "../transfer-modal/transfer-modal.compone
 import { GoogleAnalyticsService } from "../google-analytics.service";
 import { environment } from "src/environments/environment";
 import { animate, style, transition, trigger } from "@angular/animations";
+import { ethers } from "ethers";
+
 @Component({
   selector: "new-nft-card",
   templateUrl: "./new-nft-card.component.html",
@@ -169,6 +171,11 @@ export class NewNftCardComponent implements OnInit {
   buyNowPriceNanos: number;
   // ImageURL
   imageURL: string;
+
+  isEthereumNFTForSale: any;
+  ethereumNFTSalePrice: any;
+  token_id: any;
+
   unlockableTooltip =
     "This NFT will come with content that's encrypted and only unlockable by the winning bidder. Note that if an NFT is being resold, it is not guaranteed that the new unlockable will be the same original unlockable.";
   mOfNNFTTooltip =
@@ -257,7 +264,7 @@ export class NewNftCardComponent implements OnInit {
   onResize() {
     this.setMobileBasedOnViewport();
   }
-  ngOnInit() {
+  async ngOnInit() {
     if (!this.post.RepostCount) {
       this.post.RepostCount = 0;
     }
@@ -281,7 +288,34 @@ export class NewNftCardComponent implements OnInit {
     if (this.showNFTDetails && this.postContent.IsNFT && !this.nftEntryResponses?.length) {
       this.getNFTEntries();
     }
+
+    // if the post is an Ethereum NFT, check if it's for sale
+    if (this.postContent.PostExtraData.isEthereumNFT) {
+      console.log("isEthereumNFT hit");
+      await this.updateEthNFTForSaleStatus();
+      console.log("upadated ETH NFT for Sale Status");
+    }
   }
+
+  async updateEthNFTForSaleStatus() {
+    const options = { method: "GET", headers: { Accept: "*/*" } };
+
+    let res = await fetch(
+      `https://api.ropsten.x.immutable.com/v1/orders?status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
+      options
+    );
+
+    res = await res.json();
+
+    for (var i = 0; i < res["result"].length; i++) {
+      if (this.postContent.PostExtraData.tokenId == res["result"][i]["sell"]["data"]["token_id"]) {
+        this.isEthereumNFTForSale = true;
+        this.ethereumNFTSalePrice = res["result"][i]["buy"]["data"]["quantity"];
+        this.ethereumNFTSalePrice = ethers.utils.formatEther(this.ethereumNFTSalePrice);
+      }
+    }
+  }
+
   allCopiesBurned() {
     if (this.post.NumNFTCopies === 0 && this.post.NumNFTCopiesBurned === 0) {
       return false;

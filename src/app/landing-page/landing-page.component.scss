@@ -1736,9 +1736,9 @@
 
 .landing-desktop .image-1 {
   height: 72px;
-  left: 13px;
+  left: 3px;
   position: absolute;
-  top: 18px;
+  top: 7px;
   width: 70px;
 }
 
@@ -2148,7 +2148,14 @@
   text-align: right;
   width: 212px;
 }
-/* screen - landing-ipad */
+
+.landing-desktop .img-testimonial {
+  position: absolute;
+    width: 13%;
+    top: 8%;
+    left: 4.5%;
+}
+/* screen - landing-ipad ------------------------*/
 
 .landing-ipad {
   align-items: center;
@@ -5015,6 +5022,7 @@
   top: 11px;
   width: 42px;
 }
+
 
 .landing-mobile .image-16 {
   height: 43px;

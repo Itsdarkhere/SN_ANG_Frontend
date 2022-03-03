@@ -97,9 +97,9 @@ class RouteNames {
 }
 
 const routes: Routes = [
-  { path: RouteNames.LANDING, component: LandingPageComponent, pathMatch: "full" },
   { path: "", redirectTo: RouteNames.BROWSE, pathMatch: "full" },
-  { path: RouteNames.ANALYTICS, component: LandingPageComponent, pathMatch: "full" },
+  { path: RouteNames.LANDING, component: LandingPageComponent, pathMatch: "full" },
+  { path: RouteNames.ANALYTICS, component: AnalyticsPageComponent, pathMatch: "full" },
   { path: RouteNames.ACTIVITY, component: ActivityComponent, pathMatch: "full" },
   { path: RouteNames.SIGNUP, component: SignupPageComponent, pathMatch: "full" },
   { path: RouteNames.NFT_PAGE, component: NftPageComponent, pathMatch: "full" },

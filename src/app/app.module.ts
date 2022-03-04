@@ -157,8 +157,8 @@ import { AdminNodeFeesComponent } from "./admin/admin-node-fees/admin-node-fees.
 import { AdminNodeAddFeesComponent } from "./admin/admin-node-fees/admin-node-add-fee/admin-node-add-fees.component";
 import { IvyCarouselModule } from "angular-responsive-carousel";
 import { NgApexchartsModule } from "ng-apexcharts";
-import { LottieAnimationViewModule } from 'ng-lottie';
-
+import { LottieModule } from "ngx-lottie";
+import player from "lottie-web";
 // Modular Themes for DeSo by Carsen Klock @carsenk
 import { ThemeModule } from "./theme/theme.module";
 import { Theme } from "./theme/symbols";
@@ -229,6 +229,7 @@ const legendsTheme: Theme = { key: "light", name: "Legends Theme" };
 const cakeTheme: Theme = { key: "light", name: "Cake Theme" };
 const greenishTheme: Theme = { key: "light", name: "Green Theme" };
 const coderTheme: Theme = { key: "light", name: "Coder Theme" };
+
 
 @NgModule({
   declarations: [
@@ -441,9 +442,9 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     IvyCarouselModule,
     NgxShimmerLoadingModule,
     NgApexchartsModule,
+    LottieModule.forRoot({ player: playerFactory }),
     AnimateOnScrollModule.forRoot(),
     ToastrModule.forRoot(),
-    LottieAnimationViewModule.forRoot(),
     BsDropdownModule.forRoot(),
     PopoverModule.forRoot(),
     RatingModule.forRoot(),
@@ -461,3 +462,9 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
+// Note we need a separate function as it's required
+// by the AOT compiler.
+export function playerFactory() {
+  return player;
+}

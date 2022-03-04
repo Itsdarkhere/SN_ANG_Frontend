@@ -30,6 +30,9 @@ import { take } from "rxjs/operators";
 import { Console } from "console";
 import { fadeInItems } from "@angular/material/menu";
 
+import { environment } from "src/environments/environment";
+import { ethers } from "ethers";
+
 @Component({
   selector: "feed-post",
   templateUrl: "./feed-post.component.html",
@@ -208,6 +211,47 @@ export class FeedPostComponent implements OnInit {
   editionHasBeenSold: boolean;
   multipleEditions: boolean;
   loadingEditionDetails = true;
+  loadingEthNFTDetails = true;
+
+  isEthereumNFTForSale: any;
+  ethereumNFTSalePrice: any;
+
+  async updateEthNFTForSaleStatus() {
+    const options = { method: "GET", headers: { Accept: "*/*" } };
+
+    console.log(environment.imx.TOKEN_ADDRESS);
+
+    let res = await fetch(
+      `https://api.ropsten.x.immutable.com/v1/orders?status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
+      options
+    );
+
+    res = await res.json();
+
+    // console.log(typeof this.nftPost.PostExtraData["tokenId"]);
+    // console.log(res);
+
+    if (res["result"]["length"] === 0) {
+      console.log("There are no NFTs for sale");
+      this.isEthereumNFTForSale = false;
+      this.loadingEthNFTDetails = false;
+      console.log(` ---------------- is nft for sale ${this.isEthereumNFTForSale}`);
+      console.log(` ---------------- loading nft details ${this.loadingEthNFTDetails}`);
+      return;
+    }
+
+    for (var i = 0; i < res["result"].length; i++) {
+      if (this.postContent.PostExtraData["tokenId"] == res["result"][i]["sell"]["data"]["token_id"]) {
+        this.isEthereumNFTForSale = true;
+        this.ethereumNFTSalePrice = res["result"][i]["buy"]["data"]["quantity"];
+        this.ethereumNFTSalePrice = ethers.utils.formatEther(this.ethereumNFTSalePrice);
+      }
+    }
+
+    this.loadingEthNFTDetails = false;
+    console.log(" ----------------- updated sale price function run ----------------- ");
+    console.log(this.ethereumNFTSalePrice);
+  }
 
   _tabSerialNumberClicked(id: number) {
     this.loadingEditionDetails = true;
@@ -384,7 +428,7 @@ export class FeedPostComponent implements OnInit {
       )?.length
     );
   }
-  ngOnInit() {
+  async ngOnInit() {
     if (!this.post.RepostCount) {
       this.post.RepostCount = 0;
     }
@@ -394,7 +438,10 @@ export class FeedPostComponent implements OnInit {
     }
     this.globalVars.NFTRoyaltyToCoinBasisPoints = this.postContent.NFTRoyaltyToCoinBasisPoints / 100;
     this.globalVars.NFTRoyaltyToCreatorBasisPoints = this.postContent.NFTRoyaltyToCreatorBasisPoints / 100;
+
+    await this.updateEthNFTForSaleStatus();
   }
+
   SendAddToCartEvent() {
     this.analyticsService.eventEmitter("place_a_bid", "transaction", "bid", "click", 10);
   }

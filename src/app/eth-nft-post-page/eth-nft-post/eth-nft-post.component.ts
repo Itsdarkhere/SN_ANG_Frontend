@@ -131,38 +131,6 @@ export class EthNftPostComponent implements OnInit {
     //this.logString();
   }
 
-  async updateEthNFTForSaleStatus() {
-    const options = { method: "GET", headers: { Accept: "*/*" } };
-
-    console.log(environment.imx.TOKEN_ADDRESS);
-
-    let res = await fetch(
-      `https://api.ropsten.x.immutable.com/v1/orders?status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
-      options
-    );
-
-    res = await res.json();
-
-    // console.log(typeof this.nftPost.PostExtraData["tokenId"]);
-    // console.log(res);
-
-    if (res["result"]["length"] === 0) {
-      console.log("There are no NFTs for sale");
-      this.isEthereumNFTForSale = false;
-    }
-
-    for (var i = 0; i < res["result"].length; i++) {
-      if (this.nftPost.PostExtraData["tokenId"] == res["result"][i]["sell"]["data"]["token_id"]) {
-        this.isEthereumNFTForSale = true;
-        this.ethereumNFTSalePrice = res["result"][i]["buy"]["data"]["quantity"];
-        this.ethereumNFTSalePrice = ethers.utils.formatEther(this.ethereumNFTSalePrice);
-      }
-    }
-
-    console.log(" ----------------- updated sale price function run ----------------- ");
-    console.log(this.ethereumNFTSalePrice);
-  }
-
   logString() {
     let arr = this.string.split(",");
     if (arr[this.index]) {
@@ -284,7 +252,6 @@ export class EthNftPostComponent implements OnInit {
         this.configureMetaTags();
 
         console.log(` ------------------- this.nftPost ${JSON.stringify(this.nftPost)} ------------------- `);
-        await this.updateEthNFTForSaleStatus();
       },
       (err) => {
         // TODO: post threads: rollbar

@@ -112,7 +112,7 @@
         </div>
       </div>
       <!-- View 3: Collection Successfully Created -->
-      <app-collection-success *ngIf="stepNumber === 3 && !createCollectionFailed"></app-collection-success>
+      <app-collection-success *ngIf="stepNumber === 3 && !createCollectionFailed" [collectionName]="this.collectionName.toLowerCase()"></app-collection-success>
       <app-collection-failure
         [error]="createCollectionError"
         *ngIf="stepNumber === 3 && createCollectionFailed"

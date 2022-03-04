@@ -92,6 +92,8 @@ job "supernovas-frontend" {
         pay.testwyre.com
         pay.sendwyre.com
         https://videodelivery.net
+        https://assets5.lottiefiles.com/packages/lf20_fbmcwfmt.json
+        https://assets6.lottiefiles.com/packages/lf20_u3kvgiiw.json
         https://upload.videodelivery.net;
       script-src 
         'unsafe-eval'

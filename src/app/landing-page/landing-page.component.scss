@@ -343,6 +343,15 @@
   width: 1728px;
 }
 
+.lottie-animation-shapes {
+  z-index: 22;
+  left: -453px;
+  position: relative;
+  top: -87px;
+  width: 150%;
+}
+
+
 .landing-desktop .image-1 {
   position: absolute;
     width: 79%;
@@ -1656,6 +1665,8 @@
   min-height: 192px;
   min-width: 771px;
   text-align: center;
+  line-height: normal;
+
 }
 
 .landing-desktop .testimonial-container {
@@ -3566,6 +3577,7 @@ transform: translate(0, -5px);
   min-height: 365px;
   text-align: center;
   width: 580px;
+  line-height: normal;
 }
 
 .landing-ipad .testimonial-container-3 {
@@ -4188,8 +4200,8 @@ transform: translate(0, -5px);
   position: absolute;
   top: 0;
   width: 47px;
-  border: 2px solid red;
-  background-color: red;
+  // border: 2px solid red;
+  // background-color: red;
 }
 
 .landing-mobile .lottie-animation-3 video {
@@ -4564,6 +4576,8 @@ transform: translate(0, -5px);
   text-align: center;
   top: 4192px;
   width: 320px;
+  line-height: normal;
+
 }
 
 .landing-mobile .dao-container-2 {

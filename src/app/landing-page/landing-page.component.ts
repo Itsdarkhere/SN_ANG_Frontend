@@ -36,6 +36,9 @@ export class LandingPageComponent implements OnInit {
   options7: AnimationOptions = {
     path: "https://assets5.lottiefiles.com/packages/lf20_fbmcwfmt.json",
   };
+  options8: AnimationOptions = {
+    path: "https://assets1.lottiefiles.com/packages/lf20_e7ykij7u.json",
+  };
   featuredCreators = [
     {
       name: "elonmusk",

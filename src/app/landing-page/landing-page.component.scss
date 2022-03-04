@@ -1925,6 +1925,15 @@
   pointer-events:none
 }
 
+.landing-ipad .ellipse-18-2 {
+  height: 706px;
+  margin-left: 0;
+  margin-top: 0;
+  transform: rotate(18.55deg);
+  width: 729px;
+  pointer-events:none
+}
+
 .landing-desktop .welcome-to-web3 {
   color: var(--black);
   cursor: pointer;
@@ -2003,6 +2012,11 @@
   margin-left: 84px;
   text-align: center;
   width: 110px;
+  transition: all 0.2s ease-in-out;
+}
+
+.landing-desktop .collectors:hover {
+transform: translate(0, -5px);
 }
 
 .landing-desktop .testimonials {
@@ -2012,6 +2026,11 @@
   margin-left: 84px;
   text-align: center;
   width: 146px;
+  transition: all 0.2s ease-in-out;
+}
+
+.landing-desktop .testimonials:hover {
+transform: translate(0, -5px);
 }
 
 .landing-desktop .frame-24 {
@@ -2156,6 +2175,7 @@
   min-height: 31px;
   text-align: right;
   width: 212px;
+  text-decoration: none;
 }
 
 .landing-desktop .img-testimonial {
@@ -3259,6 +3279,11 @@
   margin-top: 15px;
   min-width: 221px;
   padding: 4.6px 23.6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.landing-ipad .button-5:hover {
+  transform: translate(0, -5px);
 }
 
 .landing-ipad .overlap-group-10 {
@@ -3330,6 +3355,11 @@
   margin-top: 21px;
   min-width: 221px;
   padding: 4.6px 23.6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.landing-ipad .button-6:hover {
+  transform: translate(0, -5px);
 }
 
 .landing-ipad .creator-card-container-1 {
@@ -3423,6 +3453,11 @@
   margin-top: 19px;
   min-width: 221px;
   padding: 4.6px 23.6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.landing-ipad .button-7:hover {
+  transform: translate(0, -5px);
 }
 
 .landing-ipad .creator-card-11 {
@@ -3478,6 +3513,11 @@
   margin-top: 18px;
   min-width: 221px;
   padding: 4.6px 23.6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.landing-ipad .button-8:hover {
+  transform: translate(0, -5px);
 }
 
 .landing-ipad .what-people-say-about-supernovas-1 {
@@ -3844,6 +3884,11 @@
   margin-left: 70px;
   text-align: center;
   width: 71px;
+  transition: all 0.2s ease-in-out;
+}
+
+.landing-ipad .collectors:hover {
+  transform: translate(0, -5px);
 }
 
 .landing-ipad .testimonials-1 {
@@ -3853,6 +3898,11 @@
   margin-left: 70px;
   text-align: center;
   width: 95px;
+  transition: all 0.2s ease-in-out;
+}
+
+.landing-ipad .testimonials:hover {
+transform: translate(0, -5px);
 }
 
 .landing-ipad .button-container-1 {

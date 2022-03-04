@@ -32,6 +32,7 @@ import { fadeInItems } from "@angular/material/menu";
 
 import { environment } from "src/environments/environment";
 import { ethers } from "ethers";
+import { Link, ImmutableXClient, ImmutableMethodResults } from "@imtbl/imx-sdk";
 
 @Component({
   selector: "feed-post",
@@ -215,6 +216,30 @@ export class FeedPostComponent implements OnInit {
 
   isEthereumNFTForSale: any;
   ethereumNFTSalePrice: any;
+  ownsEthNFT: boolean;
+  sellOrderId: any;
+
+  async ownsEthNFTStatus() {
+    const options = { method: "GET", headers: { Accept: "application/json" } };
+
+    let res = await fetch(
+      `https://api.ropsten.x.immutable.com/v1/assets/0xb027e9bc2ee4edcb2e01646c4b01224f54aaa566/${this.postContent.PostExtraData["tokenId"]}`,
+      options
+    );
+
+    res = await res.json();
+
+    let ethNftOwner = res["user"];
+
+    if (localStorage.getItem("address")) {
+      this.globalVars.imxWalletAddress = localStorage.getItem("address");
+    }
+
+    if (ethNftOwner === this.globalVars.imxWalletAddress) {
+      this.ownsEthNFT = true;
+      console.log("The wallet owns the NFT");
+    }
+  }
 
   async updateEthNFTForSaleStatus() {
     const options = { method: "GET", headers: { Accept: "*/*" } };
@@ -245,6 +270,10 @@ export class FeedPostComponent implements OnInit {
         this.isEthereumNFTForSale = true;
         this.ethereumNFTSalePrice = res["result"][i]["buy"]["data"]["quantity"];
         this.ethereumNFTSalePrice = ethers.utils.formatEther(this.ethereumNFTSalePrice);
+        this.sellOrderId = res["result"][i]["order_id"];
+        console.log(this.sellOrderId);
+      } else {
+        this.isEthereumNFTForSale = false;
       }
     }
 
@@ -440,6 +469,7 @@ export class FeedPostComponent implements OnInit {
     this.globalVars.NFTRoyaltyToCreatorBasisPoints = this.postContent.NFTRoyaltyToCreatorBasisPoints / 100;
 
     await this.updateEthNFTForSaleStatus();
+    await this.ownsEthNFTStatus();
   }
 
   SendAddToCartEvent() {
@@ -902,6 +932,15 @@ export class FeedPostComponent implements OnInit {
   }
   closeYourAuction() {
     this.closeAuction.emit();
+  }
+  async closeYourETHAuction() {
+    const link = new Link(environment.imx.ROPSTEN_LINK_URL);
+    await link.cancel({
+      orderId: this.sellOrderId,
+    });
+    this.globalVars._alertSuccess("Your NFT auction has been cancelled.");
+    // give the owner the option to list nft for sale again. you need to change it to false
+    this.isEthereumNFTForSale = false;
   }
   getRouterLink(val: any): any {
     return this.inTutorial ? [] : val;

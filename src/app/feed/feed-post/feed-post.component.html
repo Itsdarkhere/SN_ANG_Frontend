@@ -537,17 +537,17 @@
       [ngStyle]="{ 'border-radius': setBorder || cardStyle ? '0 0 18px 18px' : '' }"
       [ngClass]="{ 'feed-post__blue-border': showLeftSelectedBorder }"
     >
+      <!-- currenlty loading eth nft -->
       <loading-shimmer [tabType]="'NFT_DETAIL'" *ngIf="loadingEthNFTDetails"></loading-shimmer>
+
+      <!-- loaded and eth nft is not for sale -->
       <div *ngIf="!loadingEthNFTDetails && !isEthereumNFTForSale" class="d-flex nft_current_bid_tpwrapper">
-        <div class="auction_detl_status">
+        <div class="auction_detl_status" *ngIf="!ownsEthNFT">
           <span class="hq">Status</span>
           <div class="val">Not For Sale</div>
           <div class="val_st">The NFT is currently Off the market.</div>
         </div>
-      </div>
-
-      <!-- BUTTONS FOR NFT PROFILE BOX -->
-      <!-- <div *ngIf="!loadingEditionDetails">
+        <!-- own NFT, but it is not for sale, give them the option to list it -->
         <div
           class="d-flex flex-wrap justify-content-between"
           [ngClass]="{
@@ -555,9 +555,32 @@
             'align-items-start': isQuotedContent,
             'align-items-center': !isQuotedContent
           }"
-          *ngIf="ownsEdition"
+          *ngIf="ownsEthNFT"
         >
           <button
+            class="btn nft_place_bid_btn"
+            [ngClass]="{ 'mt-15px': isQuotedContent }"
+            (click)="openCreateNFTAuctionModal($event)"
+            *ngIf="!editionHasUnlockable && !editionForSale"
+          >
+            Put NFT for sale
+          </button>
+        </div>
+      </div>
+
+      <!-- loaded and eth nft is for sale-->
+      <div *ngIf="!loadingEthNFTDetails && isEthereumNFTForSale">
+        <!-- if the wallet owns the nft they can put it for sale -->
+        <div
+          class="d-flex flex-wrap justify-content-between"
+          [ngClass]="{
+            'flex-column': isQuotedContent,
+            'align-items-start': isQuotedContent,
+            'align-items-center': !isQuotedContent
+          }"
+          *ngIf="ownsEthNFT"
+        >
+          <!-- <button
             class="btn nft_place_bid_btn"
             [ngClass]="{ 'mt-15px': isQuotedContent }"
             (click)="openCreateNFTAuctionModal($event)"
@@ -588,17 +611,14 @@
           >
             <i><img src="assets/icons/unlock.svg" alt="" /></i>
             View unlockable content
-          </button>
+          </button> -->
 
-          <button
-            class="btn blk_line_btn with_ico big"
-            *ngIf="editionForSale && !editionHasBids"
-            (click)="closeYourAuction()"
-          >
+          <button class="btn blk_line_btn with_ico big" (click)="closeYourETHAuction()">
             <i><img src="assets/icons/circle-error.svg" alt="" /></i>
             Close the auction
           </button>
         </div>
+        <!-- if the wallet does not own the nft -->
         <div
           class="d-flex flex-wrap justify-content-between"
           [ngClass]="{
@@ -652,10 +672,10 @@
             </button>
           </div>
         </div>
-      </div> -->
-      <!-- END OF BUTTONS -->
+      </div>
     </div>
   </ng-container>
+  <!-- END ETH NFT container -->
 
   <!-- Deso NFT bidding containers -->
   <ng-container *ngIf="!isNFTDetail">

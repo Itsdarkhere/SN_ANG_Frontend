@@ -809,7 +809,7 @@ export class MintPageComponent implements OnInit {
         (response) => {
           this.globalVars.logEvent(`post : create`);
           this.postHashHex = response.PostEntryResponse.PostHashHex;
-          // this.post = response.PostEntryResponse;
+          this.post = response.PostEntryResponse;
           console.log(
             ` ---------------------------- response is ${JSON.stringify(response)} ---------------------------- `
           );
@@ -825,8 +825,39 @@ export class MintPageComponent implements OnInit {
       );
   }
 
+  quoteEthRepost(event, isQuote = true) {
+    // Prevent the post navigation click from occurring.
+    event.stopPropagation();
+
+    if (!this.globalVars.loggedInUser) {
+      // Check if the user has an account.
+      this.globalVars.logEvent("alert : reply : account");
+      this.globalVars._alertError("Cannot Quote repost, create account to post...");
+    } else if (!this.globalVars.doesLoggedInUserHaveProfile()) {
+      // Check if the user has a profile.
+      this.globalVars.logEvent("alert : reply : profile");
+      this.globalVars._alertError("Cannot Quote repost, create profile to post...");
+    } else {
+      const initialState = {
+        // If we are quoting a post, make sure we pass the content so we don't repost a repost.
+        parentPost: this.post,
+        afterCommentCreatedCallback: null,
+        isQuote,
+      };
+      if (!this.post) {
+        this.globalVars._alertError("Cannot Quote repost, create profile to post...");
+        return;
+      }
+      // If the user has an account and a profile, open the modal so they can comment.
+      this.modalService.show(CommentModalComponent, {
+        class: "modal-dialog-centered",
+        initialState,
+      });
+    }
+  }
+
   viewEthPost() {
-    this.router.navigate(["/" + this.globalVars.RouteNames.POSTS + "/" + this.postHashHex]);
+    this.router.navigate(["/" + this.globalVars.RouteNames.ETH_NFT + "/" + this.postHashHex]);
   }
 
   pollForReadyToStream(): void {

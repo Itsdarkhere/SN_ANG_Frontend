@@ -1500,7 +1500,7 @@
         <button
           class="mt-20px font-weight-bold mint-page-step-2-continue eth-minted-step-2-sale-now-button"
           [ngClass]="mobile ? 'w-90' : 'w-80'"
-          (click)="nextStepEth()"
+          (click)="quoteEthRepost($event)"
         >
           <label *ngIf="!isSubmitPress" class="mb-0px">Quote Repost on Supernovas</label>
           <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i>

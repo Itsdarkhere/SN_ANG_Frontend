@@ -230,6 +230,7 @@ import { TopSalesComponent } from "./analytics-page/top-sales/top-sales.componen
 import { CreatorListComponent } from "./analytics-page/creator-list/creator-list.component";
 import { SmallGraphComponent } from "./analytics-page/small-graph/small-graph.component";
 import { CollectionFailureComponent } from "./collection/create-collection/collection-failure/collection-failure.component";
+import { CreatorProfileCollectionsComponent } from './creator-profile-page/creator-profile-collections/creator-profile-collections.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -433,6 +434,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     CreatorListComponent,
     SmallGraphComponent,
     CollectionFailureComponent,
+    CreatorProfileCollectionsComponent,
   ],
   imports: [
     BrowserModule,

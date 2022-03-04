@@ -217,7 +217,16 @@ export class Transaction {
   publicKeyBase58Check: string;
   signatureBytesHex: string;
 }
-
+// Store collections in this
+export class CollectionResponse {
+  Collection: string;
+  CollectionBannerLocation: string;
+  CollectionCreatorName: string;
+  CollectionDescription: string;
+  CollectionProfilePicLocation: string;
+  FloorPrice: number;
+  Pieces: number;
+}
 export class ProfileEntryResponse {
   Username: string;
   Description: string;

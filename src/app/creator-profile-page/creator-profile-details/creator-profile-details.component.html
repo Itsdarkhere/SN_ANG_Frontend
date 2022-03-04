@@ -17,7 +17,7 @@
 
     <!-- Feed Selector -->
     <tab-selector
-      [tabs]="['Created', 'Collected', 'Posts', 'Creator Coin']"
+      [tabs]="['Created', 'Collected', 'Collections', 'Posts', 'Creator Coin']"
       [activeTab]="activeTab"
       (tabClick)="_handleTabClick($event)"
     ></tab-selector>
@@ -46,6 +46,22 @@
           You have blocked {{ profile.Username }}.
           <a (click)="unblock()">Unblock</a>
           to see their posts.
+        </span>
+      </div>
+    </div>
+
+    <!-- Collections -->
+    <div class="creator_post_wrap" *ngIf="profile && activeTab == 'Collections' && !loading">
+      <app-creator-profile-collections
+        [loadingCollections]="loadingCollections"
+        [profile]="profile"
+        [collectionResponses]="collectionResponses"
+      ></app-creator-profile-collections>
+      <div *ngIf="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)" class="w-100 d-flex p-15px">
+        <span>
+          You have blocked {{ profile.Username }}.
+          <a (click)="unblock()">Unblock</a>
+          to see their collections.
         </span>
       </div>
     </div>

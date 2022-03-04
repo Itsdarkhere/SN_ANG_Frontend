@@ -134,8 +134,16 @@ export class LandingPageComponent implements OnInit {
   getLogoBackground() {
     return `url("${environment.node.logoAssetDir}camelcase_logo.svg")`;
   }
-
+  launchLogin() {
+    this.router.navigate(["/" + this.globalVars.RouteNames.SIGNUP]);
+  }
+  launchSignUp() {
+    this.router.navigate(["/" + this.globalVars.RouteNames.SIGNUP]);
+  }
   animationCreated(animationItem: AnimationItem): void {
     console.log(animationItem);
+  }
+  scrollTo(id: string) {
+    document.getElementById(id).scrollIntoView({ behavior: "smooth", block: "start" });
   }
 }

@@ -24,7 +24,7 @@
       <div class="frame-26">
         <div class="create-profile-button-6">
           <div class="overlap-group-19">
-            <a href="http://supernovas.app" target="_blank">
+            <a (click)="launchSignUp()">
               <div class="create-profile-6 valign-text-middle">Create profile</div>
             </a>
             <div class="lottie-animation-3">
@@ -41,7 +41,7 @@
         </div>
         <div class="browse-supernovas-button-4">
           <div class="overlap-group1-3">
-            <a href="http://supernovas.app" target="_blank">
+            <a href="http://supernovas.app">
               <div class="browse-supernovas-4 valign-text-middle">Browse Supernovas</div>
             </a>
           </div>
@@ -443,13 +443,13 @@
         <div class="frame-25">
           <div class="create-profile-button-7">
             <div class="overlap-group-24">
-              <a href="http://supernovas.app" target="_blank">
+              <a (click)="launchSignUp()">
                 <div class="create-profile-7 valign-text-middle">Create profile</div>
               </a>
             </div>
           </div>
           <div class="browse-supernovas-button-5">
-            <a href="http://supernovas.app" target="_blank">
+            <a href="http://supernovas.app">
               <div class="browse-supernovas-5 valign-text-middle">Browse Supernovas</div>
             </a>
           </div>
@@ -486,16 +486,16 @@
               <a href="http://supernovas.app" target="_blank">
                 <div class="logo valign-text-middle poppins-normal-black-15-6px">Home</div>
               </a>
-              <a href="http://supernovas.app" target="_blank">
+              <a (click)="scrollTo('for_creators')">
                 <div class="logo valign-text-middle poppins-normal-black-15-6px">Creators</div>
               </a>
-              <a href="http://supernovas.app" target="_blank">
+              <a (click)="scrollTo('for_collectors')">
                 <div class="logo valign-text-middle poppins-normal-black-15-6px">Collectors</div>
               </a>
-              <a href="http://supernovas.app" target="_blank">
+              <a (click)="scrollTo('testimonials')">
                 <div class="logo valign-text-middle poppins-normal-black-15-6px">Testimonials</div>
               </a>
-              <a href="http://supernovas.app" target="_blank">
+              <a (click)="scrollTo('dao')">
                 <div class="logo valign-text-middle poppins-normal-black-15-6px">DAO</div>
               </a>
             </nav>
@@ -508,7 +508,7 @@
               <div class="create-profile-button">
                 <div class="overlap-group-2">
                   <div class="rectangle-7"></div>
-                  <a href="http://supernovas.app" target="_blank">
+                  <a (click)="launchSignUp()">
                     <div class="create-profile valign-text-middle">Create profile</div>
                   </a>
                   <div class="lottie-animation">
@@ -524,7 +524,7 @@
                 </div>
               </div>
               <div class="browse-supernovas-button">
-                <a href="http://supernovas.app" target="_blank">
+                <a href="http://supernovas.app">
                   <div class="browse-supernovas valign-text-middle">Browse Supernovas</div>
                 </a>
               </div>
@@ -533,12 +533,12 @@
           <div class="flex-col-2">
             <div class="frame-22">
               <div class="create-profile-button-1">
-                <a href="http://supernovas.app" target="_blank">
+                <a (click)="launchSignUp()">
                   <div class="create-profile-1 valign-text-middle">Create profile</div>
                 </a>
               </div>
               <div class="button-border">
-                <a href="http://supernovas.app" target="_blank"><div class="logo-6 valign-text-middle">Login</div></a>
+                <a (click)="launchLogin()" target="_blank"><div class="logo-6 valign-text-middle">Login</div></a>
               </div>
             </div>
             <div class="artist-card">
@@ -569,7 +569,7 @@
               <img class="arroz" src="/assets/img/arrow-down.png" />
             </div>
           </div>
-          <h1 class="title valign-text-middle">for creators</h1>
+          <h1 class="title valign-text-middle" id="for_creators">for creators</h1>
           <div class="overlap-group15">
             <div class="overlap-group17">
               <div class="overlap-group16">
@@ -590,7 +590,7 @@
                       </div>
                     </div>
                     <div class="rainbow-light"><img class="ellipse-18-1" src="/assets/img/ellipse.png" /></div>
-                    <img class="for-collectors" src="/assets/img/for-collectors.png" />
+                    <img class="for-collectors" id="for_collectors" src="/assets/img/for-collectors.png" />
                     <div class="black-collector-card">
                       <div class="overlap-group7 border-3-6px-cod-gray">
                         <div class="mint-and-collect-gas poppins-semi-bold-gray-nurse-36px">
@@ -707,7 +707,7 @@
                     <div class="dao-container">
                       <div class="overlap-group9">
                         <div class="overlap-group8">
-                          <div class="a-dao-by-and-for-the">A DAO by and for the Supernovas community</div>
+                          <div class="a-dao-by-and-for-the" id="dao">A DAO by and for the Supernovas community</div>
                           <div class="rectangle-96">
                             <!--<lottie-player
                             src="https://assets5.lottiefiles.com/packages/lf20_fbmcwfmt.json"
@@ -854,7 +854,7 @@
               </div>
             </div>
           </div>
-          <div class="what-people-say-about-supernovas">
+          <div class="what-people-say-about-supernovas" id="testimonials">
             What people say about
             <br />
             supernovas
@@ -871,7 +871,7 @@
                     far... Very clean and modern look, I will def use it more and recommend it to my friends!
                   </p>
                 </a>
-                  <img class="line-testimonial" src="/assets/img/line.png" /> 
+                <img class="line-testimonial" src="/assets/img/line.png" />
                   <img class="img-testimonial" src="/assets/img/user-gradient-1.png" />
                 <div class="user valign-text-middle poppins-semi-bold-heavy-metal-16px">
                   <span>
@@ -1037,7 +1037,7 @@
             <div class="create-profile-button-2">
               <div class="overlap-group-7">
                 <div class="rectangle-7-1"></div>
-                <a href="http://supernovas.app" target="_blank">
+                <a (click)="launchSignUp()">
                   <div class="create-profile-2 valign-text-middle">Create profile</div>
                 </a>
                 <div class="lottie-animation-1">
@@ -1053,7 +1053,7 @@
               </div>
             </div>
             <div class="browse-supernovas-button-1">
-              <a href="http://supernovas.app" target="_blank">
+              <a href="http://supernovas.app">
                 <div class="browse-supernovas-1 valign-text-middle">Browse Supernovas</div>
               </a>
             </div>
@@ -1105,14 +1105,14 @@
         </div>
         <div class="create-profile-button-3">
           <div class="overlap-group7-1">
-            <a href="http://supernovas.app" target="_blank">
+            <a (click)="launchSignUp()">
               <div class="create-profile-3 valign-text-middle">Create profile</div>
             </a>
           </div>
         </div>
         <div class="button-border-1">
           <div class="overlap-group6">
-            <a href="http://supernovas.app" target="_blank"><div class="logo-13 valign-text-middle">Login</div></a>
+            <a (click)="launchLogin()" target="_blank"><div class="logo-13 valign-text-middle">Login</div></a>
           </div>
         </div>
       </div>
@@ -1127,7 +1127,7 @@
             <div class="create-profile-button-4">
               <div class="overlap-group5-1">
                 <div class="rectangle-7-2"></div>
-                <a href="http://supernovas.app" target="_blank">
+                <a (click)="launchSignUp()">
                   <div class="create-profile-4 valign-text-middle">Create profile</div>
                 </a>
                 <div class="lottie-animation-2">
@@ -1143,7 +1143,7 @@
               </div>
             </div>
             <div class="browse-supernovas-button-2">
-              <a href="http://supernovas.app" target="_blank">
+              <a href="http://supernovas.app">
                 <div class="browse-supernovas-2 valign-text-middle">Browse Supernovas</div>
               </a>
             </div>
@@ -1623,13 +1623,13 @@
             <div class="button-container-1">
               <div class="create-profile-button-5">
                 <div class="overlap-group-15">
-                  <a href="http://supernovas.app" target="_blank">
+                  <a (click)="launchSignUp()">
                     <div class="create-profile-5 valign-text-middle">Create profile</div>
                   </a>
                 </div>
               </div>
               <div class="browse-supernovas-button-3">
-                <a href="http://supernovas.app" target="_blank">
+                <a href="http://supernovas.app">
                   <div class="browse-supernovas-3 valign-text-middle">Browse Supernovas</div>
                 </a>
               </div>

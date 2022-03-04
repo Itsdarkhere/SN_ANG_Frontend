@@ -3,6 +3,8 @@ import { AppRoutingModule } from "../app-routing.module";
 import { GlobalVarsService } from "../global-vars.service";
 import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
+import { AnimationItem } from "lottie-web";
+import { AnimationOptions } from "ngx-lottie";
 
 @Component({
   selector: "app-landing-page",
@@ -13,6 +15,27 @@ export class LandingPageComponent implements OnInit {
   AppRoutingModule = AppRoutingModule;
   environment = environment;
 
+  options1: AnimationOptions = {
+    path: "https://assets6.lottiefiles.com/packages/lf20_u3kvgiiw.json",
+  };
+  options2: AnimationOptions = {
+    path: "https://assets6.lottiefiles.com/packages/lf20_u3kvgiiw.json",
+  };
+  options3: AnimationOptions = {
+    path: "https://assets6.lottiefiles.com/packages/lf20_u3kvgiiw.json",
+  };
+  options4: AnimationOptions = {
+    path: "https://assets6.lottiefiles.com/packages/lf20_u3kvgiiw.json",
+  };
+  options5: AnimationOptions = {
+    path: "https://assets5.lottiefiles.com/packages/lf20_fbmcwfmt.json",
+  };
+  options6: AnimationOptions = {
+    path: "https://assets6.lottiefiles.com/packages/lf20_u3kvgiiw.json",
+  };
+  options7: AnimationOptions = {
+    path: "https://assets5.lottiefiles.com/packages/lf20_fbmcwfmt.json",
+  };
   featuredCreators = [
     {
       name: "elonmusk",
@@ -107,5 +130,9 @@ export class LandingPageComponent implements OnInit {
 
   getLogoBackground() {
     return `url("${environment.node.logoAssetDir}camelcase_logo.svg")`;
+  }
+
+  animationCreated(animationItem: AnimationItem): void {
+    console.log(animationItem);
   }
 }

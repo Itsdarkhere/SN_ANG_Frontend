@@ -3,7 +3,7 @@
 <div *ngIf="nftPost" class="d-flex flex-column">
   <!-- New Page design -->
   <div class="nft_details_main_wrapper">
-    <div class="nft_bx nft_feed_post_design gray">
+    <div class="nft_bx nft_feed_post_design gray eth-nft-image-container">
       <div class="single-card" *ngIf="loading; else showPostData">
         <div class="w-100">
           <div class="d-flex flex-column js-feed-post position-relative">
@@ -21,15 +21,15 @@
           <!--  afterCommentCreatedCallback explanation: Here, the "post" is a top-level post. A new comment on a -->
           <!--  top-level post should be prepended to the post's list of comments -->
           <!-- <div
-            *ngIf="
-              nftPost.ImageURLs &&
-              nftPost.ImageURLs[0] &&
-              !nftPost.ParentStakeID &&
-              !nftPost.PostExtraData?.arweaveAudioSrc
-            "
-            class="feed-post__image-container"
-            [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
-          > -->
+              *ngIf="
+                nftPost.ImageURLs &&
+                nftPost.ImageURLs[0] &&
+                !nftPost.ParentStakeID &&
+                !nftPost.PostExtraData?.arweaveAudioSrc
+              "
+              class="feed-post__image-container"
+              [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
+            > -->
           <div>
             <img
               id="post-image"
@@ -41,52 +41,52 @@
             />
           </div>
           <!-- <div class="w-100 d-flex flex-column mt-20px mb-20px" *ngIf="nftPost.PostExtraData?.arweaveAudioSrc">
-            <div class="w-100 d-flex flex-center">
-              <img
-                (click)="openImgModal($event, nftPost.ImageURLs[0])"
-                data-toggle="modal"
-                class="mb-20px nft-page-audio-cover-image"
-                src="{{ mapImageURLs(nftPost.ImageURLs[0]) }}"
-              />
-            </div>
-            <app-audio-player
-              [songName]="nftPost.PostExtraData?.name"
-              [creator]="nftPost.ProfileEntryResponse?.Username"
-              [audioSrc]="nftPost.PostExtraData.arweaveAudioSrc"
-            ></app-audio-player>
-          </div> -->
+              <div class="w-100 d-flex flex-center">
+                <img
+                  (click)="openImgModal($event, nftPost.ImageURLs[0])"
+                  data-toggle="modal"
+                  class="mb-20px nft-page-audio-cover-image"
+                  src="{{ mapImageURLs(nftPost.ImageURLs[0]) }}"
+                />
+              </div>
+              <app-audio-player
+                [songName]="nftPost.PostExtraData?.name"
+                [creator]="nftPost.ProfileEntryResponse?.Username"
+                [audioSrc]="nftPost.PostExtraData.arweaveAudioSrc"
+              ></app-audio-player>
+            </div> -->
           <!-- Video -->
           <!-- <div class="w-100 d-flex flex-center" *ngIf="nftPost.PostExtraData.arweaveVideoSrc">
-            <video controls class="w-100 br-5px" src="{{ nftPost.PostExtraData.arweaveVideoSrc }}"></video>
-          </div>
-          <div
-            *ngIf="
-              nftPost.VideoURLs &&
-              nftPost.VideoURLs[0] &&
-              !nftPost.ParentStakeID &&
-              !nftPost.PostExtraData.arweaveVideoSrc
-            "
-            class="feed-post__video-container w-100"
-            [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
-          >
-            <iframe
-              [src]="nftPost.VideoURLs[0] | sanitizeVideoUrl"
-              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-              allowfullscreen
-              class="feed-post__video"
-            ></iframe>
-          </div>
-          <div *ngIf="constructedEmbedURL" class="d-flex flex-center w-100">
-            <iframe
-              id="embed-iframe"
-              [height]="getEmbedHeight()"
-              [src]="constructedEmbedURL | sanitizeEmbed"
-              frameborder="0"
-              allow="picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; encrypted-media;"
-              allowfullscreen
-              class="w-100 br-10px"
-            ></iframe>
-          </div> -->
+              <video controls class="w-100 br-5px" src="{{ nftPost.PostExtraData.arweaveVideoSrc }}"></video>
+            </div>
+            <div
+              *ngIf="
+                nftPost.VideoURLs &&
+                nftPost.VideoURLs[0] &&
+                !nftPost.ParentStakeID &&
+                !nftPost.PostExtraData.arweaveVideoSrc
+              "
+              class="feed-post__video-container w-100"
+              [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
+            >
+              <iframe
+                [src]="nftPost.VideoURLs[0] | sanitizeVideoUrl"
+                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                allowfullscreen
+                class="feed-post__video"
+              ></iframe>
+            </div>
+            <div *ngIf="constructedEmbedURL" class="d-flex flex-center w-100">
+              <iframe
+                id="embed-iframe"
+                [height]="getEmbedHeight()"
+                [src]="constructedEmbedURL | sanitizeEmbed"
+                frameborder="0"
+                allow="picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; encrypted-media;"
+                allowfullscreen
+                class="w-100 br-10px"
+              ></iframe>
+            </div> -->
         </div>
       </ng-template>
 
@@ -218,18 +218,18 @@
         </div>
         <div *ngIf="!loading && bids?.length">
           <!--<div
-              class="d-flex align-items-center p-15px pb-0 justify-content-between"
-              *ngIf="activeTab === EthNftPostComponent.MY_AUCTIONS && myAvailableSerialNumbers?.length"
-            >
-              <div
-                class="fs-14px cursor-pointer"
-                (click)="selectHighestBids()"
-                *ngIf="activeTab === EthNftPostComponent.MY_AUCTIONS"
+                class="d-flex align-items-center p-15px pb-0 justify-content-between"
+                *ngIf="activeTab === EthNftPostComponent.MY_AUCTIONS && myAvailableSerialNumbers?.length"
               >
-                Select Highest Bids
-              </div>
-              <div></div>
-            </div>-->
+                <div
+                  class="fs-14px cursor-pointer"
+                  (click)="selectHighestBids()"
+                  *ngIf="activeTab === EthNftPostComponent.MY_AUCTIONS"
+                >
+                  Select Highest Bids
+                </div>
+                <div></div>
+              </div>-->
           <div
             class="container d-flex align-items-center fs-14px py-15px border-bottom border-color-grey link--unstyled"
           >

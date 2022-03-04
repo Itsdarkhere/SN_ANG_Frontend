@@ -39,6 +39,8 @@ import { take } from "rxjs/operators";
 import { EmbedUrlParserService } from "src/lib/services/embed-url-parser-service/embed-url-parser-service";
 import { any } from "underscore";
 
+import { ethers } from "ethers";
+
 @Component({
   selector: "app-eth-nft-post",
   templateUrl: "./eth-nft-post.component.html",
@@ -84,6 +86,9 @@ export class EthNftPostComponent implements OnInit {
   quotedContent: any;
   constructedEmbedURL: any;
 
+  isEthereumNFTForSale: any;
+  ethereumNFTSalePrice: any;
+
   static ALL_BIDS = "All Bids";
   static MY_BIDS = "My Bids";
   //static MY_AUCTIONS = "My Auctions";
@@ -120,10 +125,42 @@ export class EthNftPostComponent implements OnInit {
       this._setStateFromActivatedRoute(route);
     });
   }
-  ngOnInit() {
+  async ngOnInit() {
     console.log("------------------------------ page loaded ------------------------------");
     // this.refreshPosts();
     //this.logString();
+  }
+
+  async updateEthNFTForSaleStatus() {
+    const options = { method: "GET", headers: { Accept: "*/*" } };
+
+    console.log(environment.imx.TOKEN_ADDRESS);
+
+    let res = await fetch(
+      `https://api.ropsten.x.immutable.com/v1/orders?status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
+      options
+    );
+
+    res = await res.json();
+
+    // console.log(typeof this.nftPost.PostExtraData["tokenId"]);
+    // console.log(res);
+
+    if (res["result"]["length"] === 0) {
+      console.log("There are no NFTs for sale");
+      this.isEthereumNFTForSale = false;
+    }
+
+    for (var i = 0; i < res["result"].length; i++) {
+      if (this.nftPost.PostExtraData["tokenId"] == res["result"][i]["sell"]["data"]["token_id"]) {
+        this.isEthereumNFTForSale = true;
+        this.ethereumNFTSalePrice = res["result"][i]["buy"]["data"]["quantity"];
+        this.ethereumNFTSalePrice = ethers.utils.formatEther(this.ethereumNFTSalePrice);
+      }
+    }
+
+    console.log(" ----------------- updated sale price function run ----------------- ");
+    console.log(this.ethereumNFTSalePrice);
   }
 
   logString() {
@@ -210,7 +247,7 @@ export class EthNftPostComponent implements OnInit {
   refreshPosts() {
     // Fetch the post entry
     this.getPost().subscribe(
-      (res) => {
+      async (res) => {
         console.log(res);
         if (!res || !res.PostFound) {
           this.router.navigateByUrl("/" + this.globalVars.RouteNames.NOT_FOUND, { skipLocationChange: true });
@@ -247,6 +284,7 @@ export class EthNftPostComponent implements OnInit {
         this.configureMetaTags();
 
         console.log(` ------------------- this.nftPost ${JSON.stringify(this.nftPost)} ------------------- `);
+        await this.updateEthNFTForSaleStatus();
       },
       (err) => {
         // TODO: post threads: rollbar

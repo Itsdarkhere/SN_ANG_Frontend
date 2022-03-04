@@ -145,6 +145,9 @@ export class BackendRoutes {
   static RoutePathSortCollection = "/api/v0/sort-collection";
   static RoutePathGetUserCollectionsData = "/api/v0/get-user-collections-data";
   static RoutePathGetCollectionInfo = "/api/v0/get-collection-info";
+  static RoutePathGetAllUserCollections = "/api/v0/get-all-user-collections";
+  static RoutePathGetAllUserCollectionNames = "/api/v0/get-all-user-collection-names";
+  static RoutePathInsertIntoCollection = "/api/v0/insert-into-collection";
   // Marketplace postgres
   static RoutePathSortMarketplace = "/api/v0/sort-marketplace";
   static RoutePathSortCreators = "/api/v0/sort-creators";
@@ -1372,6 +1375,26 @@ export class BackendApiService {
     return this.post(endpoint, BackendRoutes.RoutePathGetCollectionInfo, {
       CollectionName,
       CollectionCreatorName,
+    });
+  }
+  // Used to show collections in profile
+  GetAllUserCollections(endpoint: string, Username: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetAllUserCollections, {
+      Username,
+    });
+  }
+  // Used to show which collections the user has -> which collections they can add to
+  GetAllUserCollectionNames(endpoint: string, Username: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetAllUserCollectionNames, {
+      Username,
+    });
+  }
+  // Insert a single post into a specific collection
+  InsertIntoCollection(endpoint: string, PostHashHex: string, Username: string, Collection: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathInsertIntoCollection, {
+      PostHashHex,
+      Username,
+      Collection,
     });
   }
   CreateCollection(

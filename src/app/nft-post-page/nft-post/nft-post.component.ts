@@ -120,7 +120,6 @@ export class NftPostComponent implements OnInit {
     });
   }
   ngOnInit() {
-    console.log("------------------------------ page loaded ------------------------------");
     // this.refreshPosts();
     //this.logString();
   }

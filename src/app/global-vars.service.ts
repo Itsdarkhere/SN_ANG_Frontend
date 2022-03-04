@@ -84,6 +84,7 @@ export class GlobalVarsService {
   imxBalance: any;
   wantToDepositEth: boolean;
   wantToBuyEth: boolean;
+  isEthereumNFTForSale: boolean;
   //   ----------------------------- end of imx global vars -----------------------------
 
   // Note: I don't think we should have default values for this. I think we should just

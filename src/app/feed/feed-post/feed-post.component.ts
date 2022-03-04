@@ -214,10 +214,10 @@ export class FeedPostComponent implements OnInit {
   loadingEditionDetails = true;
   loadingEthNFTDetails = true;
 
-  isEthereumNFTForSale: any;
   ethereumNFTSalePrice: any;
   ownsEthNFT: boolean;
   sellOrderId: any;
+  token_id: any;
 
   async ownsEthNFTStatus() {
     const options = { method: "GET", headers: { Accept: "application/json" } };
@@ -258,22 +258,22 @@ export class FeedPostComponent implements OnInit {
 
     if (res["result"]["length"] === 0) {
       console.log("There are no NFTs for sale");
-      this.isEthereumNFTForSale = false;
+      this.globalVars.isEthereumNFTForSale = false;
       this.loadingEthNFTDetails = false;
-      console.log(` ---------------- is nft for sale ${this.isEthereumNFTForSale}`);
+      console.log(` ---------------- is nft for sale ${this.globalVars.isEthereumNFTForSale}`);
       console.log(` ---------------- loading nft details ${this.loadingEthNFTDetails}`);
       return;
     }
 
     for (var i = 0; i < res["result"].length; i++) {
       if (this.postContent.PostExtraData["tokenId"] == res["result"][i]["sell"]["data"]["token_id"]) {
-        this.isEthereumNFTForSale = true;
+        this.globalVars.isEthereumNFTForSale = true;
         this.ethereumNFTSalePrice = res["result"][i]["buy"]["data"]["quantity"];
         this.ethereumNFTSalePrice = ethers.utils.formatEther(this.ethereumNFTSalePrice);
         this.sellOrderId = res["result"][i]["order_id"];
         console.log(this.sellOrderId);
       } else {
-        this.isEthereumNFTForSale = false;
+        this.globalVars.isEthereumNFTForSale = false;
       }
     }
 
@@ -938,9 +938,8 @@ export class FeedPostComponent implements OnInit {
     await link.cancel({
       orderId: this.sellOrderId,
     });
-    this.globalVars._alertSuccess("Your NFT auction has been cancelled.");
     // give the owner the option to list nft for sale again. you need to change it to false
-    this.isEthereumNFTForSale = false;
+    this.globalVars.isEthereumNFTForSale = false;
   }
   getRouterLink(val: any): any {
     return this.inTutorial ? [] : val;
@@ -975,7 +974,7 @@ export class FeedPostComponent implements OnInit {
     let createNftAuctionDetails = this.modalService.show(CreateNftAuctionModalComponent, {
       class:
         "modal-dialog-centered nft_placebid_modal_bx  nft_placebid_modal_bx_right nft_placebid_modal_bx_right modal-lg",
-      initialState: { post: this.post, nftEntryResponses: this.nftEntryResponses },
+      initialState: { post: this.post, nftEntryResponses: this.nftEntryResponses, isEthNFT: false, tokenId: "" },
     });
     const onHiddenEvent = createNftAuctionDetails.onHidden.pipe(take(1));
     onHiddenEvent.subscribe((response) => {
@@ -984,6 +983,22 @@ export class FeedPostComponent implements OnInit {
         // Refreshes this component on nft post level
         this.nftBidPlaced.emit();
       }
+    });
+  }
+
+  openCreateETHNFTAuctionModal(event): void {
+    this.token_id = this.postContent.PostExtraData["tokenId"];
+    console.log(` ------------------- tokenId from feed-post is ${this.token_id}`);
+
+    this.modalService.show(CreateNftAuctionModalComponent, {
+      class:
+        "modal-dialog-centered nft_placebid_modal_bx  nft_placebid_modal_bx_right nft_placebid_modal_bx_right modal-lg",
+      initialState: {
+        post: this.post,
+        nftEntryResponses: this.nftEntryResponses,
+        isEthNFT: true,
+        tokenId: this.token_id,
+      },
     });
   }
 }

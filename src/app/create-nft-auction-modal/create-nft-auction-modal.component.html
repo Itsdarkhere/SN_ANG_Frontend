@@ -1,4 +1,5 @@
-<div app-theme class="nft-modal-container puton_sell p-15px">
+<!-- deso nft -->
+<div app-theme class="nft-modal-container puton_sell p-15px" *ngIf="!isEthNFT">
   <nft-modal-header [header]="'Put for sale'" [bsModalRef]="bsModalRef"></nft-modal-header>
   <div class="fs-15px nft_para text-center text-grey5">Relist the NFT for sale on Deso blockchain.</div>
   <!-- Pricing -->
@@ -59,3 +60,55 @@
 
   <simple-center-loader *ngIf="loading"></simple-center-loader>
 </div>
+
+<!-- eth nft -->
+<div app-theme class="nft-modal-container puton_sell p-15px" *ngIf="isEthNFT">
+  <nft-modal-header [header]="'Put for sale'" [bsModalRef]="bsModalRef"></nft-modal-header>
+  <div class="fs-15px nft_para text-center text-grey5">Relist the NFT for sale on Immutable X.</div>
+  <!-- Pricing -->
+
+  <div class="page-place-a-bid">
+    <div class="popup-body">
+      <div class="input-with-button bid_bg_blk_inp">
+        <div class="plc_bid_inp_wp">
+          <input
+            [(ngModel)]="sellingPriceETH"
+            (ngModelChange)="updateSellingPriceETH($event)"
+            aria-describedby="usd-label"
+            class="form-control fs-15px text-right d-inline-block"
+            type="number"
+            min="0"
+            placeholder="0.00"
+            [disabled]="creatingAuction"
+          />
+          <button class="btn btn-black bid_deso_btn">
+            <i><img src="assets/eth/ethlogo-white.svg" class="ethlogo-white" alt="" /></i>
+            ETH
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column align-items-center">
+    <button class="pop_singl_btn sellEthNFTButton" (click)="sellEthNFT()">Sell your NFT</button>
+  </div>
+
+  <simple-center-loader *ngIf="loading"></simple-center-loader>
+</div>
+
+<!-- 
+<div class="position-relative d-flex flex-row flex-start w-100 mint-page-min-price mt-10px">
+    <input
+      matInput
+      type="number"
+      placeholder="0"
+      [(ngModel)]="sellingPriceETH"
+      (ngModelChange)="updateSellingPriceETH($event)"
+      class="pl-10px color-text font-weight-bold flex-center pr-10px mint-page-min-price-input m-0px h-100 w-60"
+    />
+    <button class="mint-page-min-price-label h-100 w-40 fs-23-responsive pt-5px">
+      <img src="assets/eth/ethlogo-white.svg" class="mr-10px mb-5px eth-price-logo" />
+      <label class="mb-0px eth-price-text">ETH</label>
+    </button>
+  </div> -->

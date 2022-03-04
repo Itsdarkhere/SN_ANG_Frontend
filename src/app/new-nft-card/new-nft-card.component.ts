@@ -172,7 +172,6 @@ export class NewNftCardComponent implements OnInit {
   // ImageURL
   imageURL: string;
 
-  isEthereumNFTForSale: any;
   ethereumNFTSalePrice: any;
   token_id: any;
 
@@ -309,7 +308,7 @@ export class NewNftCardComponent implements OnInit {
 
     for (var i = 0; i < res["result"].length; i++) {
       if (this.postContent.PostExtraData.tokenId == res["result"][i]["sell"]["data"]["token_id"]) {
-        this.isEthereumNFTForSale = true;
+        this.globalVars.isEthereumNFTForSale = true;
         this.ethereumNFTSalePrice = res["result"][i]["buy"]["data"]["quantity"];
         this.ethereumNFTSalePrice = ethers.utils.formatEther(this.ethereumNFTSalePrice);
       }

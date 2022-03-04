@@ -86,7 +86,6 @@ export class EthNftPostComponent implements OnInit {
   quotedContent: any;
   constructedEmbedURL: any;
 
-  isEthereumNFTForSale: any;
   ethereumNFTSalePrice: any;
 
   static ALL_BIDS = "All Bids";

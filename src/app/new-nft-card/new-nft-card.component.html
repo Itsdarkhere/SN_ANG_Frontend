@@ -402,7 +402,7 @@
           <!-- is ethereum nft and is for sale-->
           <div
             class="bid-cover colors-not-sold is-ethereum-nft"
-            *ngIf="postContent.PostExtraData.isEthereumNFT && isEthereumNFTForSale"
+            *ngIf="postContent.PostExtraData.isEthereumNFT && this.globalVars.isEthereumNFTForSale"
           >
             <div class="bid-row">
               <div class="d-flex justify-content-space-between bid_inner_row">
@@ -431,7 +431,7 @@
           <!-- is ethereum nft and not for sale-->
           <div
             class="bid-cover colors-not-sold is-ethereum-nft"
-            *ngIf="postContent.PostExtraData.isEthereumNFT && !isEthereumNFTForSale"
+            *ngIf="postContent.PostExtraData.isEthereumNFT && !this.globalVars.isEthereumNFTForSale"
           >
             <div class="bid-col">
               <p class="eth-nft-not-for-sale-text">Ethereum NFT not for sale</p>

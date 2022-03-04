@@ -541,7 +541,10 @@
       <loading-shimmer [tabType]="'NFT_DETAIL'" *ngIf="loadingEthNFTDetails"></loading-shimmer>
 
       <!-- loaded and eth nft is not for sale -->
-      <div *ngIf="!loadingEthNFTDetails && !isEthereumNFTForSale" class="d-flex nft_current_bid_tpwrapper">
+      <div
+        *ngIf="!loadingEthNFTDetails && !this.globalVars.isEthereumNFTForSale"
+        class="d-flex nft_current_bid_tpwrapper"
+      >
         <div class="auction_detl_status" *ngIf="!ownsEthNFT">
           <span class="hq">Status</span>
           <div class="val">Not For Sale</div>
@@ -560,7 +563,7 @@
           <button
             class="btn nft_place_bid_btn"
             [ngClass]="{ 'mt-15px': isQuotedContent }"
-            (click)="openCreateNFTAuctionModal($event)"
+            (click)="openCreateETHNFTAuctionModal($event)"
             *ngIf="!editionHasUnlockable && !editionForSale"
           >
             Put NFT for sale
@@ -569,7 +572,7 @@
       </div>
 
       <!-- loaded and eth nft is for sale-->
-      <div *ngIf="!loadingEthNFTDetails && isEthereumNFTForSale">
+      <div *ngIf="!loadingEthNFTDetails && this.globalVars.isEthereumNFTForSale">
         <!-- if the wallet owns the nft they can put it for sale -->
         <div
           class="d-flex flex-wrap justify-content-between"

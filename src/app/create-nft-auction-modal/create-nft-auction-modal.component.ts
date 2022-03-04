@@ -6,6 +6,9 @@ import { BackendApiService, NFTEntryResponse, PostEntryResponse } from "../backe
 import { concatMap, last, map } from "rxjs/operators";
 import { of } from "rxjs";
 import { Router } from "@angular/router";
+import { environment } from "src/environments/environment";
+
+import { Link, ImmutableXClient, ImmutableMethodResults, MintableERC721TokenType } from "@imtbl/imx-sdk";
 
 @Component({
   selector: "create-nft-auction",
@@ -16,12 +19,18 @@ export class CreateNftAuctionModalComponent {
   @Input() postHashHex: string;
   @Input() post: PostEntryResponse;
   @Input() nftEntryResponses: NFTEntryResponse[];
+  @Input() isEthNFT: boolean;
+  @Input() tokenId: any;
+
   loading = false;
   minBidAmountUSD: string;
   minBidAmountDESO: number;
   selectedSerialNumbers: boolean[] = [];
   selectAll: boolean = false;
   creatingAuction: boolean = false;
+
+  sellingPriceETH: any;
+  link = new Link(environment.imx.ROPSTEN_LINK_URL);
 
   constructor(
     private backendApi: BackendApiService,
@@ -37,6 +46,29 @@ export class CreateNftAuctionModalComponent {
 
   updateMinBidAmountDESO(usdAmount) {
     this.minBidAmountDESO = Math.trunc(this.globalVars.usdToNanosNumber(usdAmount)) / 1e9;
+  }
+
+  updateSellingPriceETH(price) {
+    this.sellingPriceETH = price;
+  }
+
+  async sellEthNFT() {
+    if (this.sellingPriceETH === 0 || this.sellingPriceETH === undefined) {
+      this.globalVars._alertError("The selling price must be greater then 0.");
+    }
+
+    console.log(` ---------------- tokenId is ${this.tokenId}`);
+
+    const sellOrderId = await this.link.sell({
+      amount: this.sellingPriceETH,
+      tokenId: this.tokenId,
+      tokenAddress: environment.imx.TOKEN_ADDRESS,
+    });
+
+    console.log(sellOrderId);
+
+    this.bsModalRef.hide();
+    this.globalVars.isEthereumNFTForSale = true;
   }
 
   auctionTotal: number;
@@ -99,12 +131,12 @@ export class CreateNftAuctionModalComponent {
   }
 
   createAuctionDisabled(): boolean {
-    console.log(!this.selectedSerialNumbers.filter((isSelected) => isSelected)?.length)
+    console.log(!this.selectedSerialNumbers.filter((isSelected) => isSelected)?.length);
     return !this.selectedSerialNumbers.filter((isSelected) => isSelected)?.length;
   }
 
   selectSerialNumber(idx: number): void {
-    console.log(idx)
+    console.log(idx);
     this.selectAll = false;
     for (let ii = 0; ii < this.selectedSerialNumbers.length; ii++) {
       this.selectedSerialNumbers[ii] = ii === idx;

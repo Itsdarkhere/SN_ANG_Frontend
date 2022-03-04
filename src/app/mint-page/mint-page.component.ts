@@ -784,8 +784,6 @@ export class MintPageComponent implements OnInit {
       category: this.CATEGORY,
       properties: JSON.stringify(Array.from(this.KVMap)),
       isEthereumNFT: JSON.stringify(true),
-      //   isEthereumNFTForSale: JSON.stringify(this.isEthNFTForSale),
-      //   ethereumNFTSalePrice: JSON.stringify(salePrice),
       tokenId: JSON.stringify(this.token_id),
     };
     if (environment.node.id) {

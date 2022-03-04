@@ -48,6 +48,8 @@ header @html Content-Security-Policy "
     https://videodelivery.net
     https://arweave.net
     https://*.arweave.net
+    https://assets5.lottiefiles.com/packages/lf20_fbmcwfmt.json
+    https://assets6.lottiefiles.com/packages/lf20_u3kvgiiw.json
     https://upload.videodelivery.net;
   script-src 'self'
     https://kit.fontawesome.com/070ca4195b.js

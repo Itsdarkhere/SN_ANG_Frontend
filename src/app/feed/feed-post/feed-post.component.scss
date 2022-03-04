@@ -21,7 +21,7 @@
     }
   }
   .color-EE {
-    color: #EEEEEE;
+    color: #eeeeee;
   }
   .val_st {
     font-size: clamp(17px, 5vw, 22px);
@@ -35,7 +35,6 @@
 .buy_now_text_container {
   text-align: center;
 }
-
 
 .buy_now_btn {
   background: black;
@@ -51,4 +50,10 @@
 
 .buy_now_img {
   height: 18px;
+}
+
+.put-nft-for-sale-container {
+  display: flex;
+  justify-content: center;
+  margin: 0;
 }

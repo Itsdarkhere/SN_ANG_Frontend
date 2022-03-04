@@ -62,7 +62,7 @@
 </div>
 
 <!-- eth nft -->
-<div app-theme class="nft-modal-container puton_sell p-15px" *ngIf="isEthNFT">
+<div app-theme class="nft-modal-container puton_sell p-15px" *ngIf="isEthNFT && !createEthNFTSuccess">
   <nft-modal-header [header]="'Put for sale'" [bsModalRef]="bsModalRef"></nft-modal-header>
   <div class="fs-15px nft_para text-center text-grey5">Relist the NFT for sale on Immutable X.</div>
   <!-- Pricing -->
@@ -97,18 +97,13 @@
   <simple-center-loader *ngIf="loading"></simple-center-loader>
 </div>
 
-<!-- 
-<div class="position-relative d-flex flex-row flex-start w-100 mint-page-min-price mt-10px">
-    <input
-      matInput
-      type="number"
-      placeholder="0"
-      [(ngModel)]="sellingPriceETH"
-      (ngModelChange)="updateSellingPriceETH($event)"
-      class="pl-10px color-text font-weight-bold flex-center pr-10px mint-page-min-price-input m-0px h-100 w-60"
-    />
-    <button class="mint-page-min-price-label h-100 w-40 fs-23-responsive pt-5px">
-      <img src="assets/eth/ethlogo-white.svg" class="mr-10px mb-5px eth-price-logo" />
-      <label class="mb-0px eth-price-text">ETH</label>
+<div app-theme class="nft-modal-container puton_sell p-15px" *ngIf="isEthNFT && createEthNFTSuccess">
+  <div class="flex-container-column">
+    <img src="../../assets/img/buy-now-success.png" class="buy-now-success-img" />
+    <p class="buy-now-success-header">Congratulations!</p>
+    <p class="buy-now-success-text">You have put your Ethereum NFT up for sale</p>
+    <button class="btn blk_line_btn with_ico big buy_now_btn close_window_btn" (click)="closeEthSaleSuccess()">
+      Close this window
     </button>
-  </div> -->
+  </div>
+</div>

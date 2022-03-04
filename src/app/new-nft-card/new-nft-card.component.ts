@@ -174,6 +174,7 @@ export class NewNftCardComponent implements OnInit {
 
   ethereumNFTSalePrice: any;
   token_id: any;
+  isEthereumNFTForSale: boolean;
 
   unlockableTooltip =
     "This NFT will come with content that's encrypted and only unlockable by the winning bidder. Note that if an NFT is being resold, it is not guaranteed that the new unlockable will be the same original unlockable.";
@@ -308,7 +309,7 @@ export class NewNftCardComponent implements OnInit {
 
     for (var i = 0; i < res["result"].length; i++) {
       if (this.postContent.PostExtraData.tokenId == res["result"][i]["sell"]["data"]["token_id"]) {
-        this.globalVars.isEthereumNFTForSale = true;
+        this.isEthereumNFTForSale = true;
         this.ethereumNFTSalePrice = res["result"][i]["buy"]["data"]["quantity"];
         this.ethereumNFTSalePrice = ethers.utils.formatEther(this.ethereumNFTSalePrice);
       }

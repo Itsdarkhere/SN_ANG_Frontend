@@ -31,6 +31,7 @@ export class CreateNftAuctionModalComponent {
 
   sellingPriceETH: any;
   link = new Link(environment.imx.ROPSTEN_LINK_URL);
+  createEthNFTSuccess: boolean = false;
 
   constructor(
     private backendApi: BackendApiService,
@@ -67,8 +68,12 @@ export class CreateNftAuctionModalComponent {
 
     console.log(sellOrderId);
 
+    this.createEthNFTSuccess = true;
+  }
+
+  closeEthSaleSuccess() {
     this.bsModalRef.hide();
-    this.globalVars.isEthereumNFTForSale = true;
+    location.reload();
   }
 
   auctionTotal: number;

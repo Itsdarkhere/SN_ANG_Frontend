@@ -272,8 +272,6 @@ export class FeedPostComponent implements OnInit {
         this.ethereumNFTSalePrice = ethers.utils.formatEther(this.ethereumNFTSalePrice);
         this.sellOrderId = res["result"][i]["order_id"];
         console.log(this.sellOrderId);
-      } else {
-        this.globalVars.isEthereumNFTForSale = false;
       }
     }
 
@@ -470,6 +468,7 @@ export class FeedPostComponent implements OnInit {
 
     await this.updateEthNFTForSaleStatus();
     await this.ownsEthNFTStatus();
+    console.log(` ---------- is eth nft for sale ${this.globalVars.isEthereumNFTForSale} ---------- `);
   }
 
   SendAddToCartEvent() {
@@ -832,29 +831,64 @@ export class FeedPostComponent implements OnInit {
   }
 
   openBuyNowModal(event: any) {
-    this.clickedBuyNow = true;
-    this.clickedPlaceABid = false;
+    //   is not an ETH nft
+    if (this.postContent.PostExtraData.isEthereumNFT === false) {
+      this.clickedBuyNow = true;
+      this.clickedPlaceABid = false;
 
-    if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
-      SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "buy now");
-      return;
-    }
-    event.stopPropagation();
-    const modalDetails = this.modalService.show(BuyNowModalComponent, {
-      class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
-      initialState: {
-        post: this.postContent,
-        clickedBuyNow: this.clickedBuyNow,
-      },
-    });
-
-    const onHideEvent = modalDetails.onHide;
-    onHideEvent.subscribe((response) => {
-      if (response === "bid placed") {
-        this.getNFTEntries();
-        this.nftBidPlaced.emit();
+      if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
+        SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "buy now");
+        return;
       }
-    });
+      event.stopPropagation();
+      const modalDetails = this.modalService.show(BuyNowModalComponent, {
+        class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+        initialState: {
+          post: this.postContent,
+          clickedBuyNow: this.clickedBuyNow,
+          isEthNFT: false,
+          ethereumNFTSalePrice: "",
+          sellOrderId: "",
+        },
+      });
+
+      const onHideEvent = modalDetails.onHide;
+      onHideEvent.subscribe((response) => {
+        if (response === "bid placed") {
+          this.getNFTEntries();
+          this.nftBidPlaced.emit();
+        }
+      });
+    }
+    // is an ETH NFT
+    else {
+      this.clickedBuyNow = true;
+      this.clickedPlaceABid = false;
+
+      if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
+        SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "buy now");
+        return;
+      }
+      event.stopPropagation();
+      const modalDetails = this.modalService.show(BuyNowModalComponent, {
+        class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+        initialState: {
+          post: this.postContent,
+          clickedBuyNow: this.clickedBuyNow,
+          isEthNFT: true,
+          ethereumNFTSalePrice: this.ethereumNFTSalePrice,
+          sellOrderId: this.sellOrderId,
+        },
+      });
+
+      const onHideEvent = modalDetails.onHide;
+      onHideEvent.subscribe((response) => {
+        if (response === "bid placed") {
+          this.getNFTEntries();
+          this.nftBidPlaced.emit();
+        }
+      });
+    }
   }
 
   ViewUnlockableContent() {

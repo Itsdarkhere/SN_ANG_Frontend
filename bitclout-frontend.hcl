@@ -113,6 +113,7 @@ job "supernovas-frontend" {
         https://ka-f.fontawesome.com/;
       style-src 'self' 'unsafe-inline' 
         https://fonts.googleapis.com
+        https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css
         https://unpkg.com/flickity@2/dist/flickity.min.css;
       media-src 'self'
         https://arweave.net

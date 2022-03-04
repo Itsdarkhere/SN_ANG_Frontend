@@ -2176,6 +2176,10 @@ transform: translate(0, -5px);
   text-align: right;
   width: 212px;
   text-decoration: none;
+  transition: all 0.2s ease;
+}
+.landing-desktop .link:hover {
+  transform: translate(0, -5px);
 }
 
 .landing-desktop .img-testimonial {
@@ -4336,6 +4340,11 @@ transform: translate(0, -5px);
   margin-top: 17px;
   min-width: 225px;
   padding: 4.7px 24.1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.landing-mobile .button-9:hover {
+  transform: translate(0, -5px);
 }
 
 .landing-mobile .overlap-group-17 {

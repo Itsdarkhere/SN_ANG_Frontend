@@ -24,6 +24,7 @@ import { SharedDialogs } from "src/lib/shared-dialogs";
 import { CommentModalComponent } from "src/app/comment-modal/comment-modal.component";
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 import { FeedPostImageModalComponent } from "src/app/feed/feed-post-image-modal/feed-post-image-modal.component";
+import { ModelComponent } from "src/app/mint-page/model/model.component";
 import { CancelEvent } from "../shared/models/cancel-event.interface";
 import { Meta } from "@angular/platform-browser";
 import {
@@ -205,8 +206,14 @@ export class NftPostComponent implements OnInit {
     });
   }
 
-  openModelModal($event: Event) {
+  openModelModal($event: Event, arweaveModelSrc: string) {
     alert("Working!");
+    this.modalService.show(ModelComponent, {
+      class: "modal-dialog-centered img_popups modal-lg",
+      initialState: {
+
+      }
+    });
   }
 
   refreshPosts() {

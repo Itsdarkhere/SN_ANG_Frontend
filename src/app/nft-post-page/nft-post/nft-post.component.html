@@ -8,7 +8,7 @@
       <div
         class="single-card"
         *ngIf="loading; else showPostData"
-        style="border: 3px solid lightblue; height: 100%; width: 100%"
+        style="height: 100%; width: 100%"
       >
         <div class="w-100">
           <div class="d-flex flex-column js-feed-post position-relative">
@@ -125,7 +125,7 @@
         <button
           type="button" 
           class="inlrg" 
-          (click)="openModelModal($event)" 
+          (click)="openModelModal($event, nftPost.PostExtraData.arweaveModelSrc)" 
           data-toggle="modal"
         >
 
@@ -213,7 +213,7 @@
 
         </button>
       </ng-template>
-      
+
     </div>
     <!-- End of Main Post Area -->
 

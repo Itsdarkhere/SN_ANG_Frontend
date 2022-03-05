@@ -62,6 +62,7 @@
         <i class="icon-close feed-post__image-delete" (click)="postImageSrc = null"></i>
         <img class="feed-post__image" src="{{ postImageSrc }}" />
       </div>
+      <!-- Add 3D Modelviewer component here? -->
       <!-- Video is processing - please wait -->
       <div class="d-flex flex-column align-items-center" *ngIf="!isComment && postVideoSrc && !readyToStream">
         <div>Video Processing In Progress</div>

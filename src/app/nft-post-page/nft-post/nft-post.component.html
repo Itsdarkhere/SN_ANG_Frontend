@@ -3,8 +3,9 @@
 <div *ngIf="nftPost" class="d-flex flex-column">
   <!-- New Page design -->
   <div class="nft_details_main_wrapper">
+    <!-- Main Post Area -->
     <div class="nft_bx nft_feed_post_design gray">
-      <div class="single-card" *ngIf="loading; else showPostData">
+      <div class="single-card" *ngIf="loading; else showPostData" style="height: 100%; width: 100%">
         <div class="w-100">
           <div class="d-flex flex-column js-feed-post position-relative">
             <div class="nft-col-wrap" *ngFor="let in of counter(1); let i = index">
@@ -15,16 +16,20 @@
           </div>
         </div>
       </div>
+
       <ng-template #showPostData>
-        <div *ngIf="nftPost && nftBidData">
+        <div *ngIf="nftPost && nftBidData" class="d-flex flex-center" style="height: 100%; width: 100%">
           <!--  afterCommentCreatedCallback explanation: Here, the "post" is a top-level post. A new comment on a -->
           <!--  top-level post should be prepended to the post's list of comments -->
+
+          <!-- Image Post -->
           <div
             *ngIf="
               nftPost.ImageURLs &&
               nftPost.ImageURLs[0] &&
               !nftPost.ParentStakeID &&
-              !nftPost.PostExtraData?.arweaveAudioSrc
+              !nftPost.PostExtraData?.arweaveAudioSrc &&
+              !nftPost.PostExtraData?.arweaveModelSrc
             "
             class="feed-post__image-container"
             [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
@@ -38,6 +43,8 @@
               src="{{ mapImageURLs(nftPost.ImageURLs[0]) }}"
             />
           </div>
+
+          <!-- Audio Post -->
           <div class="w-100 d-flex flex-column mt-20px mb-20px" *ngIf="nftPost.PostExtraData?.arweaveAudioSrc">
             <div class="w-100 d-flex flex-center">
               <img
@@ -53,7 +60,8 @@
               [audioSrc]="nftPost.PostExtraData.arweaveAudioSrc"
             ></app-audio-player>
           </div>
-          <!-- Video -->
+
+          <!-- Video Post -->
           <div class="w-100 d-flex flex-center" *ngIf="nftPost.PostExtraData.arweaveVideoSrc">
             <video controls class="w-100 br-5px" src="{{ nftPost.PostExtraData.arweaveVideoSrc }}"></video>
           </div>
@@ -86,12 +94,32 @@
               class="w-100 br-10px"
             ></iframe>
           </div>
+
+          <!-- 3D Model Post -->
+          <div style="height: 100%; width: 100%" *ngIf="nftPost.PostExtraData.arweaveModelSrc">
+            <div
+              *ngIf="nftPost.ImageURLs && nftPost.ImageURLs[0] && !nftPost.ParentStakeID"
+              style="height: 100%; width: 100%"
+              [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
+            >
+              <app-model
+                style="height: 100%; width: 100%"
+                [postModelArweaveSrc]="nftPost.PostExtraData.arweaveModelSrc"
+              ></app-model>
+            </div>
+          </div>
         </div>
       </ng-template>
 
       <!-- Button for fullscreen image view -->
       <!-- Removed for audio NFTs -->
-      <button *ngIf="!nftPost.PostExtraData.arweaveAudioSrc" type="button" class="inlrg" (click)="openImgModal($event, nftPost.ImageURLs[0])" data-toggle="modal">
+      <button
+        *ngIf="!nftPost.PostExtraData.arweaveAudioSrc"
+        type="button"
+        class="inlrg"
+        (click)="openImgModal($event, nftPost.ImageURLs[0])"
+        data-toggle="modal"
+      >
         <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g filter="url(#filter0_d_231_296)">
             <path
@@ -126,8 +154,9 @@
           </defs>
         </svg>
       </button>
-
     </div>
+    <!-- End of Main Post Area -->
+
     <div class="nft_bx nft_feed_post_wt_design post">
       <div *ngIf="nftPost && nftBidData" class="position-relative">
         <feed-post

@@ -1,5 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSelectModule } from "@angular/material/select";
 import { MatInputModule } from "@angular/material/input";
@@ -159,6 +159,7 @@ import { IvyCarouselModule } from "angular-responsive-carousel";
 import { NgApexchartsModule } from "ng-apexcharts";
 import { LottieModule } from "ngx-lottie";
 import player from "lottie-web";
+
 // Modular Themes for DeSo by Carsen Klock @carsenk
 import { ThemeModule } from "./theme/theme.module";
 import { Theme } from "./theme/symbols";
@@ -221,6 +222,7 @@ import { DashboardComponent } from "./analytics-page/dashboard/dashboard.compone
 import { AnalyticsActivityComponent } from "./analytics-page/analytics-activity/analytics-activity.component";
 import { ActivityLeftBarComponent } from "./analytics-page/analytics-activity/activity-left-bar/activity-left-bar.component";
 import { ActivityTableComponent } from "./analytics-page/analytics-activity/activity-table/activity-table.component";
+import { ModelComponent } from "./mint-page/model/model.component";
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -415,6 +417,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     AnalyticsActivityComponent,
     ActivityLeftBarComponent,
     ActivityTableComponent,
+    ModelComponent,
   ],
   imports: [
     BrowserModule,
@@ -460,6 +463,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
   ],
   providers: [BackendApiService, GlobalVarsService, BsModalService, IdentityService],
   bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule {}
 

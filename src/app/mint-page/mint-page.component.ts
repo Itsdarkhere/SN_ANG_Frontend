@@ -13,6 +13,7 @@ import { CommentModalComponent } from "../comment-modal/comment-modal.component"
 import { GoogleAnalyticsService } from "../google-analytics.service";
 import { ArweaveJsService } from "../arweave-js.service";
 import { take } from "rxjs/operators";
+import _ from "lodash";
 
 @Component({
   selector: "app-mint-page",
@@ -58,6 +59,7 @@ export class MintPageComponent implements OnInit {
   postVideoDESOSrc = null;
   postImageArweaveSrc = null;
   postAudioArweaveSrc = null;
+  postModelArweaveSrc = null;
 
   testVideoSrc = "https://arweave.net/bXfovPML_-CRlfoxLdPsK8p7lrshRLwGFHITzaDMMSQ";
   videoUploadPercentage = null;
@@ -135,24 +137,24 @@ export class MintPageComponent implements OnInit {
   ngOnInit(): void {
     this.setMobileBasedOnViewport();
   }
+
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
   }
+
   dropFile(event: any): void {
     this._handleFileInput(event[0]);
   }
-  // For audio cover image
+
+  // For audio or 3d model cover image
   dropFileCoverImage(event: any): void {
-    if (this.audioType) {
+    if (this.audioType || this.modelType) {
       this.handleImageInputCoverImage(event[0]);
     } else {
       this.globalVars._alertError("No content type selected...");
     }
   }
-  setPostImageSrc() {
-    // this.audioCoverImage = undefined;
-    // console.log(this.audioCoverImage);
-  }
+
   _handleFileInput(file: File): void {
     const fileToUpload = file;
     if (this.videoType) {
@@ -164,10 +166,13 @@ export class MintPageComponent implements OnInit {
       this.handleImageInput(fileToUpload);
     } else if (this.audioType) {
       this.handleAudioArweaveInput(fileToUpload);
+    } else if (this.modelType) {
+      this.handleModelArweaveInput(fileToUpload);
     } else {
       this.globalVars._alertError("No content type selected...");
     }
   }
+
   _handleFilesInput(files: FileList): void {
     const fileToUpload = files.item(0);
     if (this.videoType) {
@@ -179,16 +184,19 @@ export class MintPageComponent implements OnInit {
       this.handleImageInput(fileToUpload);
     } else if (this.audioType) {
       this.handleAudioArweaveInput(fileToUpload);
+    } else if (this.modelType) {
+      this.handleModelArweaveInput(fileToUpload);
+      console.log("_handleFilesInput received 3D model")
     } else {
       this.globalVars._alertError("No content type selected...");
     }
   }
 
-  // For audio cover image
+  // For audio or 3d model cover image
   _handleFilesInputCoverImage(files: FileList): void {
     const fileToUpload = files.item(0);
     console.log(fileToUpload);
-    if (this.audioType) {
+    if (this.audioType || this.modelType) {
       this.handleImageInputCoverImage(fileToUpload);
     } else {
       this.globalVars._alertError("No content type selected...");
@@ -222,6 +230,7 @@ export class MintPageComponent implements OnInit {
       }
     );
   }
+
   // This is just so we dont have animations start on other 'input' when uploading to this
   // or vice versa
   handleImageInputCoverImage(file: File) {
@@ -272,6 +281,7 @@ export class MintPageComponent implements OnInit {
             this.postVideoArweaveSrc = url;
             this.postImageArweaveSrc = null;
             this.postAudioArweaveSrc = null;
+            this.postModelArweaveSrc = null;
           }, 2000);
         },
         (err) => {
@@ -281,6 +291,7 @@ export class MintPageComponent implements OnInit {
         }
       );
   }
+
   handleAudioArweaveInput(file: File) {
     if (!file.type || !file.type.startsWith("audio/")) {
       this.globalVars._alertError("File selected does not have an audio file type.");
@@ -312,6 +323,39 @@ export class MintPageComponent implements OnInit {
         }
       );
   }
+
+  handleModelArweaveInput(file: File) {
+    // if (!file.type) {
+    //   this.globalVars._alertError("File selected is not an accepted 3D file type.");
+    //   return;
+    // }
+    if (file.size > (1024 * 1024 * 1024) / 5) {
+      this.globalVars._alertError("File is too large. Please choose a file of a size less than 200MB");
+      return;
+    }
+    // Its named uploadImage but works for both.
+    this.arweave
+      .UploadImage(file)
+      .pipe(take(1))
+      .subscribe(
+        (res) => {
+          setTimeout(() => {
+            let url = "https://arweave.net/" + res;
+            this.postModelArweaveSrc = url;
+            this.postVideoArweaveSrc = null;
+            this.postImageArweaveSrc = null;
+            this.postAudioArweaveSrc = null;
+            console.log(url);
+          }, 2000);
+        },
+        (err) => {
+          this.isUploading = false;
+          this.isUploaded = false;
+          this.globalVars._alertError("Failed to upload 3D model to arweave: " + err.message);
+        }
+      );
+  }
+
   loadArweaveVideo() {
     this.arweaveVideoLoading = true;
     setTimeout(() => {
@@ -323,6 +367,7 @@ export class MintPageComponent implements OnInit {
       this.arweaveVideoLoading = false;
     }, 3000);
   }
+
   activateOnHover(play) {
     let element = document.getElementById("fake-video-nft-1") as HTMLVideoElement;
     if (play) {
@@ -333,6 +378,7 @@ export class MintPageComponent implements OnInit {
       element.pause();
     }
   }
+
   handleVideoDESOInput(file: File): void {
     if (file.size > (1024 * 1024 * 1024) / 5) {
       this.globalVars._alertError("File is too large. Please choose a file of a size less than 200MB");
@@ -429,7 +475,6 @@ export class MintPageComponent implements OnInit {
     this.imageType = false;
   }
 
-
   //   Auction type
   openAuctionSelected() {
     this.openAuction = true;
@@ -465,6 +510,7 @@ export class MintPageComponent implements OnInit {
   imageUploaded() {
     return this.postImageArweaveSrc?.length > 0;
   }
+
   hasUnreasonableRoyalties() {
     let isEitherUnreasonable =
       Number(this.CREATOR_ROYALTY) < 0 ||
@@ -491,6 +537,7 @@ export class MintPageComponent implements OnInit {
   deleteKV(key) {
     this.KVMap.delete(key);
   }
+
   nextStep() {
     this.animationType = "next";
     this.changeRef.detectChanges();
@@ -502,6 +549,7 @@ export class MintPageComponent implements OnInit {
       }
     }
   }
+
   previousStep() {
     this.animationType = "prev";
     this.changeRef.detectChanges();
@@ -541,12 +589,15 @@ export class MintPageComponent implements OnInit {
   isDescribed() {
     return this.DESCRIPTION?.length > 0 && this.DESCRIPTION?.length <= GlobalVarsService.MAX_POST_LENGTH;
   }
+
   isCategorized() {
     return this.CATEGORY?.length > 0;
   }
+
   isNamed() {
     return this.NAME_OF_PIECE?.length > 0 && this.NAME_OF_PIECE?.length <= 25;
   }
+
   isPriced() {
     if (this.openAuction) {
       return this.isPostMinPriceCorrect() && this.isPostRoyaltyCorrect();
@@ -575,6 +626,7 @@ export class MintPageComponent implements OnInit {
   hasImage() {
     return this.postImageArweaveSrc.length > 0;
   }
+
   isPostCreatorRoyaltyCorrect() {
     return this.isNumber(this.CREATOR_ROYALTY) && this.CREATOR_ROYALTY >= 0 && this.CREATOR_ROYALTY <= 100;
   }
@@ -582,9 +634,11 @@ export class MintPageComponent implements OnInit {
   isPostHoldersRoyaltyCorrect() {
     return this.isNumber(this.COIN_ROYALTY) && this.COIN_ROYALTY >= 0 && this.COIN_ROYALTY <= 100;
   }
+
   hasKeyValue() {
     return this.KEY?.length > 0 && this.VALUE?.length > 0;
   }
+
   isNumber(n: string | number): boolean {
     return !isNaN(parseFloat(String(n))) && isFinite(Number(n));
   }
@@ -648,6 +702,7 @@ export class MintPageComponent implements OnInit {
         }
       );
   }
+
   SendFailEvent() {
     this.analyticsService.eventEmitter("ATMF " + this.postHashHex, "engagement", "conversion", "click", 10);
   }
@@ -699,6 +754,7 @@ export class MintPageComponent implements OnInit {
   SendMintedEvent() {
     this.analyticsService.eventEmitter("nft_minted", "usage", "activity", "click", 10);
   }
+
   mintNFTSuccess(comp: MintPageComponent) {
     comp.nextStep();
   }
@@ -743,6 +799,18 @@ export class MintPageComponent implements OnInit {
         properties: JSON.stringify(Array.from(this.KVMap)),
         // Needed to display video on Supernovas from Arview
         arweaveAudioSrc: this.postAudioArweaveSrc,
+      };
+    } else if (this.modelType) {
+      bodyObj = {
+        Body: this.DESCRIPTION,
+        ImageURLs: [this.postImageArweaveSrc].filter((n) => n),
+      };
+      postExtraData = {
+        name: this.NAME_OF_PIECE,
+        category: this.CATEGORY,
+        properties: JSON.stringify(Array.from(this.KVMap)),
+       // need to create this
+        arweaveModelSrc: this.postModelArweaveSrc,
       };
     } else {
       bodyObj = {
@@ -814,6 +882,7 @@ export class MintPageComponent implements OnInit {
 
     this.submitPost();
   }
+
   mapToObj(m) {
     return Array.from(m).reduce((obj, [key, value]) => {
       obj[key] = value;

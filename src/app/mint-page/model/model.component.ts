@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import "@google/model-viewer/dist/model-viewer";
+import "@google/model-viewer";
 
 @Component({
   selector: "app-model",

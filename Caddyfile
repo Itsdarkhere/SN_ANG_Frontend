@@ -44,6 +44,7 @@ header @html Content-Security-Policy "
     api.bitclout.navy
     api.testwyre.com
     api.sendwyre.com
+    data:*
     https://node1.bundlr.network
     https://videodelivery.net
     https://arweave.net

@@ -115,49 +115,105 @@
         </div>
       </ng-template>
 
-      <!-- Button for fullscreen image view -->
-      <!-- Removed for audio NFTs -->
-      <button
-        *ngIf="!nftPost.PostExtraData.arweaveAudioSrc"
-        type="button"
-        class="inlrg"
-        (click)="openImgModal($event, nftPost.ImageURLs[0])"
-        data-toggle="modal"
-      >
-        <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g filter="url(#filter0_d_231_296)">
-            <path
-              d="M14.1072 0.220215C13.6777 0.220215 13.3295 0.568383 13.3295 0.997869C13.3295 1.42736 13.6777 1.77552 14.1072 1.77552L15.3404 1.77552L12.002 5.11391C11.6983 5.4176 11.6983 5.90999 12.002 6.21368C12.3057 6.51737 12.7981 6.51737 13.1018 6.21368L16.4402 2.87529L16.4402 4.10849C16.4402 4.53798 16.7883 4.88615 17.2178 4.88614C17.6473 4.88614 17.9955 4.53798 17.9955 4.10849L17.9955 0.997869C17.9955 0.568383 17.6473 0.220215 17.2178 0.220215H14.1072ZM3.99769 13.1182L3.99769 11.885C3.99769 11.4555 3.64952 11.1074 3.22004 11.1074C2.79055 11.1074 2.44238 11.4555 2.44238 11.885L2.44239 14.9956C2.44239 15.4251 2.79055 15.7733 3.22004 15.7733H6.33065C6.76014 15.7733 7.10831 15.4251 7.10831 14.9956C7.10831 14.5662 6.76014 14.218 6.33065 14.218H5.09746L8.43585 10.8796C8.73954 10.5759 8.73954 10.0835 8.43585 9.77984C8.13216 9.47614 7.63977 9.47614 7.33608 9.77984L3.99769 13.1182Z"
-              fill="#646464"
-            />
-          </g>
-          <defs>
-            <filter
-              id="filter0_d_231_296"
-              x="-1.55762"
-              y="0.220215"
-              width="23.553"
-              height="23.5532"
-              filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
-            >
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
-              <feColorMatrix
-                in="SourceAlpha"
-                type="matrix"
-                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                result="hardAlpha"
+      <!-- Full Screen Post Options -->
+      <ng-container 
+        *ngIf="nftPost.PostExtraData.arweaveModelSrc; then showFullScreenModel; else showFullScreenImage">
+      </ng-container>
+
+      <!-- Fullscreen button for 3D posts -->
+      <ng-template #showFullScreenModel>
+        <button
+          type="button" 
+          class="inlrg" 
+          (click)="openModelModal($event)" 
+          data-toggle="modal"
+        >
+
+          <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g filter="url(#filter0_d_231_296)">
+              <path
+                d="M14.1072 0.220215C13.6777 0.220215 13.3295 0.568383 13.3295 0.997869C13.3295 1.42736 13.6777 1.77552 14.1072 1.77552L15.3404 1.77552L12.002 5.11391C11.6983 5.4176 11.6983 5.90999 12.002 6.21368C12.3057 6.51737 12.7981 6.51737 13.1018 6.21368L16.4402 2.87529L16.4402 4.10849C16.4402 4.53798 16.7883 4.88615 17.2178 4.88614C17.6473 4.88614 17.9955 4.53798 17.9955 4.10849L17.9955 0.997869C17.9955 0.568383 17.6473 0.220215 17.2178 0.220215H14.1072ZM3.99769 13.1182L3.99769 11.885C3.99769 11.4555 3.64952 11.1074 3.22004 11.1074C2.79055 11.1074 2.44238 11.4555 2.44238 11.885L2.44239 14.9956C2.44239 15.4251 2.79055 15.7733 3.22004 15.7733H6.33065C6.76014 15.7733 7.10831 15.4251 7.10831 14.9956C7.10831 14.5662 6.76014 14.218 6.33065 14.218H5.09746L8.43585 10.8796C8.73954 10.5759 8.73954 10.0835 8.43585 9.77984C8.13216 9.47614 7.63977 9.47614 7.33608 9.77984L3.99769 13.1182Z"
+                fill="#646464"
               />
-              <feOffset dy="4" />
-              <feGaussianBlur stdDeviation="2" />
-              <feComposite in2="hardAlpha" operator="out" />
-              <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_231_296" />
-              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_231_296" result="shape" />
-            </filter>
-          </defs>
-        </svg>
-      </button>
+            </g>
+            <defs>
+              <filter
+                id="filter0_d_231_296"
+                x="-1.55762"
+                y="0.220215"
+                width="23.553"
+                height="23.5532"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+              >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feColorMatrix
+                  in="SourceAlpha"
+                  type="matrix"
+                  values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                  result="hardAlpha"
+                />
+                <feOffset dy="4" />
+                <feGaussianBlur stdDeviation="2" />
+                <feComposite in2="hardAlpha" operator="out" />
+                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_231_296" />
+                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_231_296" result="shape" />
+              </filter>
+            </defs>
+          </svg>
+
+        </button>
+      </ng-template>
+
+      <!-- Fullscreen button for image posts -->
+      <ng-template #showFullScreenImage>
+        <!-- Unfortunately there is currently no way to target image NFTs specifically -->
+        <button
+          *ngIf="!nftPost.PostExtraData.arweaveAudioSrc && !nftPost.PostExtraData.arweaveVideoSrc"
+          type="button" 
+          class="inlrg" 
+          (click)="openImgModal($event, nftPost.ImageURLs[0])" 
+          data-toggle="modal"
+        >
+
+          <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g filter="url(#filter0_d_231_296)">
+              <path
+                d="M14.1072 0.220215C13.6777 0.220215 13.3295 0.568383 13.3295 0.997869C13.3295 1.42736 13.6777 1.77552 14.1072 1.77552L15.3404 1.77552L12.002 5.11391C11.6983 5.4176 11.6983 5.90999 12.002 6.21368C12.3057 6.51737 12.7981 6.51737 13.1018 6.21368L16.4402 2.87529L16.4402 4.10849C16.4402 4.53798 16.7883 4.88615 17.2178 4.88614C17.6473 4.88614 17.9955 4.53798 17.9955 4.10849L17.9955 0.997869C17.9955 0.568383 17.6473 0.220215 17.2178 0.220215H14.1072ZM3.99769 13.1182L3.99769 11.885C3.99769 11.4555 3.64952 11.1074 3.22004 11.1074C2.79055 11.1074 2.44238 11.4555 2.44238 11.885L2.44239 14.9956C2.44239 15.4251 2.79055 15.7733 3.22004 15.7733H6.33065C6.76014 15.7733 7.10831 15.4251 7.10831 14.9956C7.10831 14.5662 6.76014 14.218 6.33065 14.218H5.09746L8.43585 10.8796C8.73954 10.5759 8.73954 10.0835 8.43585 9.77984C8.13216 9.47614 7.63977 9.47614 7.33608 9.77984L3.99769 13.1182Z"
+                fill="#646464"
+              />
+            </g>
+            <defs>
+              <filter
+                id="filter0_d_231_296"
+                x="-1.55762"
+                y="0.220215"
+                width="23.553"
+                height="23.5532"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+              >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feColorMatrix
+                  in="SourceAlpha"
+                  type="matrix"
+                  values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                  result="hardAlpha"
+                />
+                <feOffset dy="4" />
+                <feGaussianBlur stdDeviation="2" />
+                <feComposite in2="hardAlpha" operator="out" />
+                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_231_296" />
+                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_231_296" result="shape" />
+              </filter>
+            </defs>
+          </svg>
+
+        </button>
+      </ng-template>
+      
     </div>
     <!-- End of Main Post Area -->
 

@@ -205,6 +205,10 @@ export class NftPostComponent implements OnInit {
     });
   }
 
+  openModelModal($event: Event) {
+    alert("Working!");
+  }
+
   refreshPosts() {
     // Fetch the post entry
     this.getPost().subscribe(

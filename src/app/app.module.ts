@@ -156,7 +156,7 @@ import { SanitizeVideoUrlPipe } from "../lib/pipes/sanitize-video-url-pipe";
 import { AdminNodeFeesComponent } from "./admin/admin-node-fees/admin-node-fees.component";
 import { AdminNodeAddFeesComponent } from "./admin/admin-node-fees/admin-node-add-fee/admin-node-add-fees.component";
 import { IvyCarouselModule } from "angular-responsive-carousel";
-import { NgApexchartsModule } from "ng-apexcharts";
+import { NgApexchartsModule } from "ng-apexcharts"
 
 // Modular Themes for DeSo by Carsen Klock @carsenk
 import { ThemeModule } from "./theme/theme.module";

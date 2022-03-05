@@ -8,13 +8,16 @@ import "@google/model-viewer/dist/model-viewer";
 })
 export class ModelComponent implements OnInit {
 
-  @Input() postModelArweaveSrc = "postModelArweaveSrc";
+  @Input() postModelArweaveSrc: string;
 
-  modelSrc: string = "https://arweave.net/7GcRfq04kq5IlAc_dBdAXFN17joZjliLa9pWWQE3_H0";
+  modelSrc: string = "https://arweave.net/TE9t7DcyPA6bPU_lNx8tBzHzw7w5pt4-XaaFaXYemFc";
 
+  // https://ipfs.io/ipfs/QmVLqaw72hFu2D4wii738ep4kXwbKZzQb4gutuJCUDMJxf/nft.glb
+  
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.postModelArweaveSrc);
   }
 
 }

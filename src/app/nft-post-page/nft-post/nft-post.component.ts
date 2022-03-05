@@ -291,7 +291,6 @@ export class NftPostComponent implements OnInit {
               bidEntry.BidAmountNanos <= bidEntry.BidderBalanceNanos
           );
           this.hightestBidOwner = _.maxBy(this.bids, "BidAmountNanos");
-          console.log(this.hightestBidOwner);
           if (!this.myBids.length) {
             this.tabs = this.tabs.filter((t) => t !== NftPostComponent.MY_BIDS);
             this.activeTab = this.activeTab === NftPostComponent.MY_BIDS ? this.tabs[0] : this.activeTab;

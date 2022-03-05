@@ -79,7 +79,7 @@ job "supernovas-frontend" {
         api.deso.org deso.org:*
         bithunt.bitclout.com
         pulse.bitclout.com
-        data:*
+        data:
         explorer.bitclout.com:*
         https://node1.bundlr.network
         https://api.blockchain.com/ticker

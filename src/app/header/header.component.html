@@ -64,7 +64,7 @@
             </div>
           </li>
 
-          <li *ngIf="globalVars.loggedInUser" class="single-option hd-profile-nv h-100 d-flex flex-column flex-center">
+          <!--<li *ngIf="globalVars.loggedInUser" class="single-option hd-profile-nv h-100 d-flex flex-column flex-center">
             <div
               class="profile-img"
               title="My Profile"
@@ -72,7 +72,8 @@
               [avatar]="globalVars.loggedInUser?.PublicKeyBase58Check"
             ></div>
             <label class="mb-0px mt-4px fs-10px cursor-pointer" (click)="hasProfile()">PROFILE</label>
-          </li>
+          </li>-->
+          <change-account-selector class="ml-20px"></change-account-selector>
           <button
             *ngIf="!globalVars.loggedInUser"
             (click)="signUp()"

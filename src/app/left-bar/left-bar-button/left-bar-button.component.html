@@ -1,31 +1,11 @@
-<div
-  class="left-bar-button padding-top-1 position-relative"
-  [ngClass]="{
-    'd-md-none': forMobile,
-    'd-lg-none': forMobile,
-    'd-xl-none': forMobile,
-    'd-none d-md-block d-lg-block d-xl-block': forDesktop
-  }"
->
-  <a
-    class="cursor-pointer fs-15px text-grey5"
-    (click)="globalVars.isLeftBarMobileOpen = false; (true)"
-    [routerLink]="[link]"
-    [queryParams]="_queryParamsForLink(link)"
-    [routerLinkActive]="['active']"
-    queryParamsHandling="merge"
+<button class="icon position-relative" [routerLink]="[link]" [routerLinkActive]="['active']">
+  <img [src]="imgSrc" alt="left bar icon" />
+  <div
+    *ngIf="hasNotifications && globalVars.messageResponse && globalVars.messageResponse.NumberOfUnreadThreads != 0"
+    class="notification"
   >
-    <div class="icon-cover">
-      <img [src]="imgSrc" />
-    </div>
-    {{ buttonLabel }}
-    <div
-      *ngIf="hasNotifications && globalVars.messageResponse && globalVars.messageResponse.NumberOfUnreadThreads != 0"
-      class="ml-5px p-5x fs-15px notification"
-    >
-      {{
-        globalVars.messageResponse.NumberOfUnreadThreads > 99 ? "99+" : globalVars.messageResponse.NumberOfUnreadThreads
-      }}
-    </div>
-  </a>
-</div>
+    {{
+      globalVars.messageResponse.NumberOfUnreadThreads > 999 ? "999+" : globalVars.messageResponse.NumberOfUnreadThreads
+    }}
+  </div>
+</button>

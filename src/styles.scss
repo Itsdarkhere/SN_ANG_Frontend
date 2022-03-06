@@ -1518,6 +1518,7 @@ input.bs-timepicker-field {
 
 .global__nav__fixed {
   top: 77px;
+  left: 10px;
   position: fixed;
   @media (max-width: 900px) {
     top: 0;
@@ -3343,20 +3344,23 @@ input {
 }
 
 .notification {
-  margin-left: 10px;
   width: auto;
-  padding-left: 3.5px;
-  padding-right: 3.5px;
-  height: 15px;
   font-size: 12px;
   color: #ffffff;
   background: #f5685f;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1.2572486400604248px solid #ffffff;
-  border-radius: 20px;
-  box-shadow: 0px 1.625px 8.125px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  bottom: -1%;
+  right: -1%;
+  padding: 0 3px;
+  min-width: 19px;
+  height: 19px;
+  background: #f5685f;
+  border: 1.8375171422958374px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0.7916666865348816px 0.7916666865348816px 1.5833333730697632px rgba(0, 0, 0, 0.1),0.7916666865348816px 0.7916666865348816px 1.5833333730697632px rgba(0, 0, 0, 0.1),0.7916666865348816px 0.7916666865348816px 1.5833333730697632px rgba(0, 0, 0, 0.1),0.7916666865348816px 0.7916666865348816px 1.5833333730697632px rgba(0, 0, 0, 0.1),0.7916666865348816px 0.7916666865348816px 1.5833333730697632px rgba(0, 0, 0, 0.1);
 }
 
 .bg-light {

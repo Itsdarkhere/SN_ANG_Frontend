@@ -38,7 +38,7 @@ import { ActivityComponent } from "./activity/activity.component";
 import { MintPageComponent } from "./mint-page/mint-page.component";
 import { NftPageComponent } from "./discovery-page/nft-page/nft-page.component";
 import { DiscoveryPageComponent } from "./discovery-page/discovery-page.component";
-import { AnalyticsPageComponent } from './analytics-page/analytics-page.component';
+import { AnalyticsPageComponent } from "./analytics-page/analytics-page.component";
 import { LandingPageComponent } from "./landing-page/landing-page.component";
 
 
@@ -84,7 +84,7 @@ class RouteNames {
   public static GET_STARTER_DESO = "get-starter-deso";
   public static LANDING = "home";
   public static DIAMONDS = "diamonds";
-  public static TRENDS = "Marketplace";
+  public static TRENDS = "marketplace";
   public static REFERRALS = "referrals";
   public static NFT = "nft";
   public static TRANSFERS = "transfers";

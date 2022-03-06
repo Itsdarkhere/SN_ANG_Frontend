@@ -1,1 +1,18 @@
-@import "../left-bar.component.scss";
+.icon {
+    border: none;
+    outline: none;
+    padding: 18px 18px;
+    width: 60px;
+    height: 60px;
+    background: #ffffff;
+    border-radius: 16px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition-duration: all 0.2s;
+    &.active {
+        border: 3px solid rgba(0, 0, 0, 0.6);
+        transition-duration: all 0.2s;
+    }
+}

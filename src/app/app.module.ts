@@ -223,6 +223,7 @@ import { AnalyticsActivityComponent } from "./analytics-page/analytics-activity/
 import { ActivityLeftBarComponent } from "./analytics-page/analytics-activity/activity-left-bar/activity-left-bar.component";
 import { ActivityTableComponent } from "./analytics-page/analytics-activity/activity-table/activity-table.component";
 import { ModelComponent } from "./mint-page/model/model.component";
+import { MobileNavigationComponent } from './left-bar-mobile/mobile-navigation/mobile-navigation.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -418,6 +419,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     ActivityLeftBarComponent,
     ActivityTableComponent,
     ModelComponent,
+    MobileNavigationComponent,
   ],
   imports: [
     BrowserModule,

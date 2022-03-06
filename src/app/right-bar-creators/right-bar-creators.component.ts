@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
 import { BackendApiService } from "../backend-api.service";
 import { Router } from "@angular/router";
+import { map } from "rxjs/operators";
 
 export class RightBarTabOption {
   name: string;
@@ -19,6 +20,7 @@ export class RightBarTabOption {
 })
 export class RightBarCreatorsComponent implements OnInit {
   @Input() inTutorial: boolean = false;
+  followerCount: number;
 
   constructor(public globalVars: GlobalVarsService, private backendApi: BackendApiService, private router: Router) {}
 
@@ -63,6 +65,7 @@ export class RightBarCreatorsComponent implements OnInit {
     // this.activeTab =
     //   defaultTab in RightBarCreatorsComponent.chartMap ? defaultTab : RightBarCreatorsComponent.COMMUNITY.name;
     // this.selectTab(true);
+    this.refreshFollowers();
   }
 
   selectTab(skipStorage: boolean = false) {
@@ -72,5 +75,24 @@ export class RightBarCreatorsComponent implements OnInit {
     if (!skipStorage) {
       this.backendApi.SetStorage(RightBarCreatorsComponent.RightBarTabKey, this.activeTab);
     }
+  }
+  refreshFollowers() {
+    this.backendApi
+      .GetFollows(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser?.ProfileEntryResponse?.Username,
+        "" /* PublicKeyBase58Check */,
+        true /* get followers */,
+        "" /* GetEntriesFollowingUsername */,
+        0 /* NumToFetch */
+      )
+      .subscribe(
+        (res) => {
+          this.followerCount = res.NumFollowers;
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
   }
 }

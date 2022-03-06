@@ -1880,11 +1880,12 @@ input.bs-timepicker-field {
 .left-bar-mobile__flyout-div {
   width: 100%;
   height: 100%;
-  background-color: #ffffff;
+  background-color: #F6F6F6;
   padding-top: 5px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  overflow-y: scroll;
 }
 
 .left-bar-mobile__flyout-div-marketplace {
@@ -2446,19 +2447,6 @@ input.bs-timepicker-field {
 
 .right-bar-creators__balance-box {
   color: var(--text);
-  @media (max-width: 992px) {
-    padding-bottom: 15px;
-    padding-top: 0;
-  }
-  @media (max-width: 767px) {
-    .fs-9px {
-      font-size: 11px !important;
-      font-weight: 600;
-    }
-    .fs-13px {
-      font-size: 15px;
-    }
-  }
 }
 
 .creator-leaderboard__load-more:hover {
@@ -2475,7 +2463,20 @@ input.bs-timepicker-field {
   background-repeat: no-repeat;
   background-position: center;
 }
-
+.rb-name {
+  opacity: 0.8;
+  color: #7b7b7b;
+  font-family: Poppins;
+  font-size: 17.365581512451172px;
+  font-weight: 500;
+}
+.rb-value {
+  color: #444444;
+  font-size: 27px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 47px;
+}
 .mobile-messages-thread-name-avatar {
   width: 100%;
   margin-right: 24px;

@@ -38,6 +38,8 @@
       [imgSrc]="'/assets/icons/profile-icon.svg'"
       *ngIf="!this.globalVars.isOnboardingComplete"
     ></left-bar-button>
-    <button *ngIf="globalVars.showAdminTools()" class="lb-admin" [routerLink]="'/' + globalVars.RouteNames.ADMIN">A</button>
+    <button *ngIf="globalVars.showAdminTools()" class="lb-admin" [routerLink]="'/' + globalVars.RouteNames.ADMIN">
+      A
+    </button>
   </div>
 </div>

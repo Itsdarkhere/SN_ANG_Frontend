@@ -42,6 +42,15 @@
         }
     }
 }
+.change-account-selector__account-image {
+    width: 39px;
+    height: 39px;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+}
 .cas-page-two {
     hr {
         width: 100%;

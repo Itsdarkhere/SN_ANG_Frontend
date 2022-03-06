@@ -11,15 +11,16 @@
     dropdownToggle
     id="changeAccountButton"
     aria-controls="dropdown-basic"
+  
   >
     <!-- Selector (unopened state) -->
-    <div class="d-flex align-items-center justify-content-around w-100 pl-5px pr-5px">
+    <div class="d-flex align-items-center justify-content-between h-100 w-100 pr-5px">
       <div
         *ngIf="globalVars.loggedInUser"
-        class="change-account-selector__ellipsis-restriction d-flex flex-row align-items-center cursor-pointer"
+        class="change-account-selector__ellipsis-restriction d-flex flex-row flex-start align-items-center cursor-pointer"
       >
         <div
-          class="feed-create-post__avatar align-items-center change-account-selector__account-image"
+          class="align-items-center change-account-selector__account-image"
           [avatar]="globalVars.loggedInUser.PublicKeyBase58Check"
         ></div>
         <div class="change-account-selector__acount-name change-account-selector__ellipsis-restriction">
@@ -33,10 +34,13 @@
           *ngIf="globalVars.loggedInUser.ProfileEntryResponse?.IsVerified"
           class="ml-1 d-inline-block align-center text-primary fs-12px"
         >
-          <i class="fas fa-check-circle fa-md align-middle"></i>
+          <i class="fas fa-check-circle fa-md"></i>
         </span>
       </div>
-      <i class="fas fa-angle-down change-account-selector__down-arrow"></i>
+      <!--style="border-left: 1px solid #E4E4E4;"-->
+      <div class="mr-5px h-100 d-flex flex-center pl-10px" style="border-left: 1px solid #e4e4e4">
+        <img src="/assets/icons/cas_hamburger_icon.svg" alt="hamburger" />
+      </div>
     </div>
   </div>
   <!-- Drop-down (open state) -->

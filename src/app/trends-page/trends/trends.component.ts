@@ -33,6 +33,7 @@ export class TrendsComponent implements OnInit {
   displayGrid = false;
   // Scroll Y position
   scrollPosition: number;
+  body = document.querySelector("body");
 
   infiniteScroller: InfiniteScroller = new InfiniteScroller(
     TrendsComponent.PAGE_SIZE,
@@ -57,8 +58,8 @@ export class TrendsComponent implements OnInit {
       if (m == "sort") {
         this.sortMarketplace(0, false);
         this.globalVars.marketplaceNFTsOffset = 0;
-        document.body.scrollTop = 0; // For Safari
-        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        //document.body.scrollTop = 0; // For Safari
+        //document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         this.closeMarketplaceMobileFiltering("sort");
       } else if (m == "close") {
         this.closeMarketplaceMobileFiltering("close");
@@ -99,19 +100,19 @@ export class TrendsComponent implements OnInit {
   }
   // Enable scroll
   enable() {
-    let anotherElement = document.getElementById("market") as HTMLDivElement;
-    anotherElement.style.pointerEvents = "all";
-    anotherElement.style.position = "";
-    anotherElement.style.overflowY = "";
+    this.body.style.removeProperty("overflow");
+    this.body.style.removeProperty("position");
+    this.body.style.removeProperty("top");
+    this.body.style.removeProperty("width");
     window.scrollTo(0, this.scrollPosition);
   }
   // Disable scroll
   disable() {
-    let anotherElement = document.getElementById("market") as HTMLDivElement;
-    anotherElement.style.pointerEvents = "none";
-    anotherElement.style.position = "fixed";
-    anotherElement.style.overflowY = "hidden";
-    anotherElement.style.top = -this.scrollPosition + 140 + "px";
+    this.scrollPosition = window.pageYOffset;
+    this.body.style.overflow = "hidden";
+    this.body.style.position = "fixed";
+    this.body.style.top = `-${this.scrollPosition}px`;
+    this.body.style.width = "100%";
   }
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();

@@ -206,12 +206,12 @@ export class NftPostComponent implements OnInit {
     });
   }
 
-  openModelModal($event: Event, arweaveModelSrc: string) {
+  openModelModal($event: Event, postModelArweaveSrc: string) {
     alert("Working!");
     this.modalService.show(ModelComponent, {
       class: "modal-dialog-centered img_popups modal-lg",
       initialState: {
-
+        postModelArweaveSrc
       }
     });
   }

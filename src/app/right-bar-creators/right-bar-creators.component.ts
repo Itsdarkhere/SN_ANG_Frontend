@@ -20,6 +20,7 @@ export class RightBarTabOption {
 })
 export class RightBarCreatorsComponent implements OnInit {
   @Input() inTutorial: boolean = false;
+  @Input() smallerFont: boolean;
   followerCount: number;
 
   constructor(public globalVars: GlobalVarsService, private backendApi: BackendApiService, private router: Router) {}

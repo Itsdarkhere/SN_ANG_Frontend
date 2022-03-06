@@ -1,5 +1,8 @@
 <div class="global__sidebar__inner">
-  <div class="right-bar-creators__balance-box d-flex pt-15px justify-content-between">
+  <div
+    class="right-bar-creators__balance-box d-flex pt-15px justify-content-between"
+    [ngClass]="{ 'smaller-font': smallerFont }"
+  >
     <div class="d-flex flex-column mr-30px">
       <div class="rb-name">Wallet balance</div>
       <div class="rb-value d-flex flex-center-start">

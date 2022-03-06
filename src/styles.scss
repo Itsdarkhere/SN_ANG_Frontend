@@ -2010,36 +2010,26 @@ input.bs-timepicker-field {
 }
 
 .feed-create-post__avatar.change-account-selector__account-image {
-  width: 24px;
-  height: 24px;
-  min-width: 24px;
-  margin-right: 10px;
-  border-radius: 23px;
-  border: 3px solid #fff;
-  box-shadow: 0px 0 5px rgb(0 0 0 / 20%);
-  @media (max-width: 676px) {
-    width: 34px;
-    height: 34px;
-  }
+  width: 35px;
+  height: 35px;
+  border: 2.6492977142333984px solid #ffffff;
+  border-radius: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .change-account-selector {
   position: relative;
   z-index: 30;
-  width: 100%;
-  padding-top: 15px;
-  border-radius: 6px;
-  padding-bottom: 15px;
-  border: 1px solid var(--border);
-  @media (max-width: 900px) {
-    border: 0;
-    padding-top: 0;
-    padding-left: 0;
-  }
-}
-
-.change-account-selector_list__inner {
-  border-bottom: 1px solid var(--border);
+  width: 227px;
+  height: 50px;
+  background: #ffffff;
+  border: 1.4px solid #f8f8f8;
+  border-radius: 29px;
+  box-shadow: 0px 0.95px 11px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .change-account-selector__down-arrow {
@@ -2060,16 +2050,17 @@ input.bs-timepicker-field {
   width: 100%;
   z-index: 99;
   border: 1px solid var(--border);
-  overflow-y: scroll !important;
-  max-height: 300px;
 }
 
 .change-account-selector_list-item {
   overflow: hidden;
 }
-
+.change-account-selector_list__inner {
+  border-radius: 10px;
+  height: 48px;
+}
 .change-account-selector_list__inner:hover {
-  background-color: var(--formbg);
+  background: #ebebeb;
 }
 
 .change-account-selector__shadow {
@@ -2086,9 +2077,11 @@ input.bs-timepicker-field {
 
 .change-account-selector__acount-name {
   overflow: hidden;
-  @media (max-width: 676px) {
-    font-size: 15px;
-  }
+  color: rgba(27, 27, 27, 0.95);
+  font-family: Poppins;
+  font-size: 16.5px;
+  font-weight: 500;
+  line-height: 34px;
 }
 
 .change-account-selector__trash {
@@ -2234,7 +2227,7 @@ input.bs-timepicker-field {
   margin-top: 10px;
   margin-bottom: 5px;
 }
-
+// This has to be on top of cas-dropdown-menu
 .dropdown-menu {
   background-color: #ffffff;
   background: #ffffff;
@@ -2242,6 +2235,19 @@ input.bs-timepicker-field {
   border: 1px solid #dedede;
   border-radius: 6.950549602508545px;
   box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.1);
+}
+.cas-dropdown-menu {
+  background-color: #ffffff;
+  background: #ffffff;
+  overflow: hidden;
+  border-radius: 6.950549602508545px;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.1);
+  width: 282px;
+  max-width: 90vw;
+  height: 369px;
+  border: 1.5px solid #ffffff;
+  border-radius: 20px;
+  box-shadow: 4px 0px 20px rgba(0, 0, 0, 0.1);
 }
 
 .feed-post__image-container {
@@ -2447,6 +2453,14 @@ input.bs-timepicker-field {
 
 .right-bar-creators__balance-box {
   color: var(--text);
+}
+.right-bar-creators__balance-box.smaller-font {
+  .rb-name {
+    font-size: 13px !important;
+  }
+  .rb-value {
+    font-size: 20px !important;
+  }
 }
 
 .creator-leaderboard__load-more:hover {

@@ -5,17 +5,45 @@ import { BsModalService } from "ngx-bootstrap/modal";
 import { Router } from "@angular/router";
 import { IdentityService } from "../identity.service";
 import { filter, get } from "lodash";
+import { animate, style, transition, trigger } from "@angular/animations";
+import { ChangeDetectorRef } from "@angular/core";
+import { AppRoutingModule } from "../app-routing.module";
 
 @Component({
   selector: "change-account-selector",
   templateUrl: "./change-account-selector.component.html",
   styleUrls: ["./change-account-selector.component.scss"],
+  animations: [
+    trigger("casSwipeAnimation", [
+      transition("void => prev", [
+        style({ transform: "translateX(-100%)", opacity: "0" }),
+        animate("500ms ease", style({ transform: "translateX(0%)", opacity: "1" })),
+      ]),
+
+      transition("prev => void", [
+        style({ transform: "translateX(0%)", opacity: "1" }),
+        animate("500ms ease", style({ transform: "translateX(100%)", opacity: "0" })),
+      ]),
+      transition("void => next", [
+        style({ transform: "translateX(100%)", opacity: "0" }),
+        animate("500ms ease", style({ transform: "translateX(0%)", opacity: "1" })),
+      ]),
+      transition("next => void", [
+        style({ transform: "translateX(0%)", opacity: "1" }),
+        animate("500ms ease", style({ transform: "translateX(-100%)", opacity: "0" })),
+      ]),
+    ]),
+  ],
 })
 export class ChangeAccountSelectorComponent {
   @ViewChild("changeAccountSelectorRoot", { static: true }) accountSelectorRoot: ElementRef;
 
   selectorOpen: boolean;
   hoverRow: number;
+  animationType: string;
+  pageOne = true;
+
+  AppRoutingModule = AppRoutingModule;
 
   constructor(
     public globalVars: GlobalVarsService,
@@ -23,7 +51,8 @@ export class ChangeAccountSelectorComponent {
     private backendApi: BackendApiService,
     private modalService: BsModalService,
     private identityService: IdentityService,
-    private router: Router
+    private router: Router,
+    private changeRef: ChangeDetectorRef
   ) {
     this.selectorOpen = false;
   }
@@ -68,5 +97,17 @@ export class ChangeAccountSelectorComponent {
       }
       this.globalVars.isLeftBarMobileOpen = false;
     });
+  }
+  clickSwitchProfile(event) {
+    event.stopPropagation();
+    this.animationType = "next";
+    this.changeRef.detectChanges();
+    this.pageOne = false;
+  }
+  clickBack(event) {
+    event.stopPropagation();
+    this.animationType = "prev";
+    this.changeRef.detectChanges();
+    this.pageOne = true;
   }
 }

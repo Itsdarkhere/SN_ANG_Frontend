@@ -7,14 +7,13 @@
 </div>
 <div class="btn-group" dropdown #dropdown="bs-dropdown" style="width: 100%" *ngIf="globalVars.loggedInUser">
   <div
-    class="fs-14px fc-default px-5px cursor-pointer change-account-selector change-account-selector__hover"
-    [ngClass]="{ 'change-account-selector__shadow': selectorOpen }"
+    class="fs-14px fc-default px-5px cursor-pointer change-account-selector"
     dropdownToggle
     id="changeAccountButton"
     aria-controls="dropdown-basic"
   >
     <!-- Selector (unopened state) -->
-    <div class="d-flex align-items-center pl-5px pr-5px">
+    <div class="d-flex align-items-center justify-content-around w-100 pl-5px pr-5px">
       <div
         *ngIf="globalVars.loggedInUser"
         class="change-account-selector__ellipsis-restriction d-flex flex-row align-items-center cursor-pointer"
@@ -42,40 +41,83 @@
   </div>
   <!-- Drop-down (open state) -->
   <div
-    class="fs-14px fc-default px-5px cursor-pointer change-account-selector_list disable-scrollbars br-4px change-account-selector_list__hover dropdown-menu"
+    class="fs-14px fc-default px-5px cursor-pointer change-account-selector_list disable-scrollbars br-4px change-account-selector_list__hover dropdown-menu cas-dropdown-menu"
     id="dropdown-basic"
     *dropdownMenu
     aria-labelledby="changeAccountButton"
   >
-    <div *ngFor="let user of globalVars.userList; let rowNum = index">
-      <div
-        *ngIf="!globalVars.loggedInUser || user.PublicKeyBase58Check != globalVars.loggedInUser.PublicKeyBase58Check"
-        (mouseover)="hoverRow = rowNum"
-        (click)="_switchToUser(user)"
-        class="change-account-selector_list__inner pt-10px pb-10px pl-10px pr-10px d-flex align-items-center"
-      >
-        <div class="align-items-center change-account-selector_list-item d-flex flex-row" style="flex-grow: 1">
-          <div
-            class="feed-create-post__avatar d-inline-block change-account-selector__account-image"
-            [avatar]="user.PublicKeyBase58Check"
-          ></div>
-          <div
-            class="d-inline-block change-account-selector__ellipsis-restriction change-account-selector__acount-name"
-          >
-            {{ user.ProfileEntryResponse?.Username ? user.ProfileEntryResponse.Username : user.PublicKeyBase58Check }}
-          </div>
-          <span
-            *ngIf="user.ProfileEntryResponse?.IsVerified"
-            class="ml-1 d-inline-block align-center text-primary fs-12px"
-          >
-            <i class="fas fa-check-circle fa-md align-middle"></i>
-          </span>
-        </div>
+    <div [@casSwipeAnimation]="animationType" *ngIf="pageOne" class="cas-page-one w-100 h-100">
+      <div class="pt-10px px-20px">
+        <right-bar-creators [smallerFont]="true"></right-bar-creators>
+      </div>
+      <hr />
+      <button class="cas-button" (click)="clickSwitchProfile($event)">
+        <img src="/assets/icons/cas_switch_profile_icon.svg" alt="cas icon" />
+        Switch profile
+      </button>
+      <button class="cas-button" [routerLink]="'/' + globalVars.RouteNames.UPDATE_PROFILE">
+        <img src="/assets/icons/cas_settings_icon.svg" alt="cas icon" />
+
+        Settings
+      </button>
+      <a class="cas-button" href="https://intercom.help/supernovas/en" target="_blank">
+        <img src="/assets/icons/cas_support_icon.svg" alt="cas icon" />
+        Support
+      </a>
+      <button class="cas-button" (click)="launchLogoutFlow()">
+        <img src="/assets/icons/cas_logout_icon.svg" alt="cas icon" />
+        Log out
+      </button>
+      <hr />
+      <div class="cas-bottom-one">
+        <a href="supernovas.app">DAO</a>
+        <a href="https://www.blog.supernovas.app">Blog</a>
+        <a href="https://careers.supernovas.app">Careers</a>
       </div>
     </div>
-    <div (click)="globalVars.launchLoginFlow()" class="pl-15px text-link_hover pr-10px pt-10px">Add account</div>
-    <div *ngIf="globalVars.loggedInUser" class="pl-15px text-link_hover pr-10px pt-10px" (click)="launchLogoutFlow()">
-      Logout
+    <div [@casSwipeAnimation]="animationType" *ngIf="!pageOne" class="cas-page-two w-100 h-100">
+      <button class="cas-back-button" (click)="clickBack($event)">
+        <img src="/assets/icons/cas_back_icon.svg" alt="cas icon" />
+        Back
+      </button>
+      <hr />
+      <div class="cas-account-list">
+        <div *ngFor="let user of globalVars.userList; let rowNum = index">
+          <div
+            *ngIf="
+              !globalVars.loggedInUser || user.PublicKeyBase58Check != globalVars.loggedInUser.PublicKeyBase58Check
+            "
+            (mouseover)="hoverRow = rowNum"
+            (click)="_switchToUser(user)"
+            class="change-account-selector_list__inner pt-10px pb-10px pl-15px pr-15px d-flex align-items-center"
+          >
+            <div class="align-items-center change-account-selector_list-item d-flex flex-row" style="flex-grow: 1">
+              <div
+                class="feed-create-post__avatar d-inline-block change-account-selector__account-image"
+                [avatar]="user.PublicKeyBase58Check"
+              ></div>
+              <div
+                class="d-inline-block change-account-selector__ellipsis-restriction change-account-selector__acount-name"
+              >
+                {{
+                  user.ProfileEntryResponse?.Username ? user.ProfileEntryResponse.Username : user.PublicKeyBase58Check
+                }}
+              </div>
+              <span
+                *ngIf="user.ProfileEntryResponse?.IsVerified"
+                class="ml-1 d-inline-block align-center text-primary fs-12px"
+              >
+                <i class="fas fa-check-circle fa-md align-middle"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <button class="cas-add-acc-button" (click)="globalVars.launchLoginFlow()">
+        <img src="/assets/icons/cas_add_acc_icon.svg" alt="cas icon" />
+        <p>Add account</p>
+      </button>
     </div>
   </div>
 </div>

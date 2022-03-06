@@ -31,4 +31,7 @@ export class MobileNavigationComponent implements OnInit {
   closeMobileNav() {
     this.globalVars.isLeftBarMobileOpen = false;
   }
+  routeToSupport() {
+    window.open("https://intercom.help/supernovas/en", "_blank");
+  }
 }

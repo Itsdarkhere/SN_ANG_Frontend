@@ -87,11 +87,11 @@
     </span>
   </div>
   <div class="mobile-nav-bottom">
-    <button>
+    <button [routerLink]="'/' + this.globalVars.RouteNames.UPDATE_PROFILE" [routerLinkActive]="['active']">
       <img class="lb-mobile-image-darken" src="assets/icons/lb_mobile_settings_icon.svg" />
       Settings
     </button>
-    <button>
+    <button (click)="routeToSupport()">
       <img src="assets/icons/lb_mobile_support_icon.svg" />
       Support
     </button>

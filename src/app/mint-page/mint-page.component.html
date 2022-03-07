@@ -82,6 +82,7 @@
           <!-- (click)="modelTypeSelected()" -->
           <button
             *ngIf="!mobile"
+            (click)="modelTypeSelected()"
             class="content-type-card p-0px"
             [ngClass]="{ 'electric-box-shadow': modelType, 'm-10px': mobile }"
           >
@@ -89,8 +90,8 @@
               <img src="/assets/icons/3D-type.png" alt="creator icon" />
             </div>
             <div class="h-40 w-100 mt-10px d-flex flex-column">
-              <label class="fs-15px color-light font-weight-bold pointer-events-none">3D</label>
-              <label class="fs-11px color-light pointer-events-none">GLB, GLTF files are supported</label>
+              <label class="fs-15px font-weight-bold pointer-events-none">3D</label>
+              <label class="fs-11px pointer-events-none">GLB, GLTF files are supported</label>
             </div>
           </button>
         </div>

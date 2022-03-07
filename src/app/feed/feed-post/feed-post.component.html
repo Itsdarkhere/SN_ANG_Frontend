@@ -458,26 +458,24 @@
            about the interactions with that thread.  TODO: We should probably break the
            "main" post in a thread into it's own file so it can have more custom styling
            with less code complexity.-->
-      <div class="feed-post__blue-border nft_details_relout px-30px pb-5px" *ngIf="showInteractionDetails">
+      <div class="feed-post__blue-border nft_details_relout pb-5px" *ngIf="showInteractionDetails">
         <div class="container w-100 p-0px">
           <!-- DESKTOP -->
-          <div
-            class="row no-gutters d-none d-lg-block py-10px fs-15px border-top border-bottom border-color-light-grey cursor-pointer"
-          >
-            <div class="d-flex justify-content-between">
-              <span (click)="openRepostsModal($event)" class="interaction-detail">
+          <div class="row no-gutters d-none d-lg-block py-10px fs-15px post_engagement_border cursor-pointer">
+            <div class="pl-55px d-flex flex-center-start">
+              <span (click)="openRepostsModal($event)" class="interaction-detail post-thread-engagement-detail">
                 <b>{{ globalVars.abbreviateNumber(post.RepostCount) }}</b>
                 Reposts&nbsp;
               </span>
-              <span (click)="openQuoteRepostsModal($event)" class="interaction-detail">
+              <span (click)="openQuoteRepostsModal($event)" class="interaction-detail post-thread-engagement-detail">
                 <b>{{ globalVars.abbreviateNumber(post.QuoteRepostCount) }}</b>
                 Quote Reposts&nbsp;
               </span>
-              <span (click)="openLikesModal($event)" class="interaction-detail">
+              <span (click)="openLikesModal($event)" class="interaction-detail post-thread-engagement-detail">
                 <b>{{ globalVars.abbreviateNumber(post.LikeCount) }}</b>
                 Likes
               </span>
-              <span (click)="openDiamondsModal($event)" class="interaction-detail">
+              <span (click)="openDiamondsModal($event)" class="interaction-detail post-thread-engagement-detail">
                 <b>{{ globalVars.abbreviateNumber(post.DiamondCount) }}</b>
                 Diamonds
               </span>

@@ -8,28 +8,33 @@
   <!-- Collection Tab/Filter Menu Options -->
   <div class="collection-tab-options">
     <div class="collection-tab-options-left">
+
+      <!-- Desktop -->
       <div class="collection-content-tabs-container">
         <button
           class="collection-content-tab"
           (click)="setCollectionContentType(true)"
           [ngClass]="{ selected: collectionCollection }"
         >
-          <img class="mr-5px" src="/assets/icons/collection_collection_icon.svg" alt="Collection Icon" />
-          Collection
+          <img src="/assets/icons/collection_collection_icon.svg" alt="Collection Icon" />
+          <p>Collection</p>
         </button>
         <button
           class="collection-content-tab"
           (click)="setCollectionContentType(false)"
           [ngClass]="{ selected: !collectionCollection }"
         >
-          <img class="mr-5px" src="/assets/icons/collection_activity_icon.svg" alt="Activity Icon" />
-          Activity
+          <img src="/assets/icons/collection_activity_icon.svg" alt="Activity Icon" />
+          <p>Activity</p>
         </button>
       </div>
+
     </div>
 
+    <!-- Desktop -->
     <div class="collection-tab-options-right">
-      <div class="mrk_top_selector-two px-5px d-flex flex-row">
+      
+      <div class="mrk_top_selector-adjusted">
         <button
           class="selected"
           (click)="setDisplayType('Card')"
@@ -41,6 +46,7 @@
           <img src="/assets/icons/market_grid_type_grid_icon.svg" alt="grid icon" />
         </button>
       </div>
+
       <select
         class="p-5px ml-20px mrk_select mrk_top_select_height fs-14px"
         (ngModelChange)="sortSelectChange($event)"
@@ -57,6 +63,7 @@
       </select>
     </div>
   </div>
+  
   <!-- Collection Page Main NFT Content Area -->
   <app-collection-page-nft-view
     [collectionNFTs]="collectionNFTs"

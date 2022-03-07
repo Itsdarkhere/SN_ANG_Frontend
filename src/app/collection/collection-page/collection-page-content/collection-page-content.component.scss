@@ -36,7 +36,6 @@
 
 /* -- TAB & VIEW FILTER AREA -- */
 .collection-tab-options {
-    border: 1px solid red;
     position: relative;
     padding-bottom: 10px;
     height: 5rem;
@@ -46,10 +45,6 @@
     justify-content: space-between;
     border-bottom: 1px solid #EFEFEF;
 
-    @media(max-width: 768px) {
-        display: none;
-    }
-
      /* -- MAIN CONTENT TABS -- */
     .collection-tab-options-left {
         position: relative;
@@ -57,7 +52,7 @@
         width: 100%;
         display: flex;
         align-items: center;
-        
+
         .collection-content-tabs-container {
             padding: 5px;
             width: fit-content;
@@ -70,7 +65,7 @@
                 border: none;
                 outline: none;
                 padding: 10px 20px;
-                height: 80%;
+                height: 100%;
                 border-radius: 10px;
                 font-size: 17px;
                 display: flex;
@@ -78,18 +73,40 @@
                 align-items: center;
                 background-color: transparent;
                 color: #717171;
+
                 img {
+                    height: 15px;
+                    width: 15px;
                     -webkit-filter: brightness(150%);
                     filter: brightness(150%);
                 }
+
+                @media screen and (max-width: 768px) {
+                    padding: 10px;
+                }
+                
             }
+
             .collection-content-tab.selected {
                 color: #2D2D2D;
                 background-color: white;
                 font-weight: 600;
+
                 img {
                     -webkit-filter: none;
                     filter: none;
+                }
+            }
+
+            p {
+                @media screen and (min-width: 768px) {
+                    padding-left: 5px;
+                    font-size: 1rem;
+                    font-weight: 500;
+                }
+
+                @media screen and (max-width: 768px) {
+                    display: none;
                 }
             }
         }
@@ -103,6 +120,34 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
+
+        .mrk_top_selector-adjusted {
+            padding: 5px;
+            height: 52px;
+            background: #f5f5f5;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            @media screen and (max-width: 480px) {
+                display: none;
+            }
+
+            button {
+                width: 55px;
+                height: 42px;
+                border-radius: 10px;
+                border: none;
+                background-color: #f5f5f5;
+            }
+
+            button.selected {
+                background: #ffffff;
+                box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.05);
+                border: 1px solid #ffffff;
+            }
+        }
     }
 }
 

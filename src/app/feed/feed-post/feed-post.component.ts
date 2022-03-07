@@ -69,6 +69,7 @@ export class FeedPostComponent implements OnInit {
   @Input() isNFTProfile = false;
   @Input() isNFTProfileComment = false;
   @Input() nftBidData: NFTBidData;
+  @Input() postThread: boolean;
   constructor(
     private analyticsService: GoogleAnalyticsService,
     public globalVars: GlobalVarsService,

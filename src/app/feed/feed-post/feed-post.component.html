@@ -13,13 +13,14 @@
 
      - market-feed component -->
 <div
-  class="d-flex m-w-100px flex-column mobile_feed_post"
+  class="d-flex m-w-100px flex-column"
   *ngIf="!showDiscoveryDetails"
   [ngClass]="{
     'br-12px': setBorder || cardStyle,
     'js-feed-post-hover': hoverable,
     border: setBorder || cardStyle,
-    'feed-post__quoted-content': hoverable && isQuotedContent
+    'feed-post__quoted-content': hoverable && isQuotedContent,
+    mobile_feed_post: !postThread
   }"
 >
   <!-- <code>{{post | json}}</code> -->

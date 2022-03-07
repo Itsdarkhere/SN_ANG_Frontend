@@ -462,20 +462,26 @@
         <div class="container w-100 p-0px">
           <!-- DESKTOP -->
           <div class="row no-gutters d-none d-lg-block py-10px fs-15px post_engagement_border cursor-pointer">
-            <div class="pl-55px d-flex flex-center-start">
+            <div class="pl-72px d-flex flex-center-start">
               <span (click)="openRepostsModal($event)" class="interaction-detail post-thread-engagement-detail">
                 <b>{{ globalVars.abbreviateNumber(post.RepostCount) }}</b>
                 Reposts&nbsp;
               </span>
-              <span (click)="openQuoteRepostsModal($event)" class="interaction-detail post-thread-engagement-detail">
+              <span
+                (click)="openQuoteRepostsModal($event)"
+                class="interaction-detail post-thread-engagement-detail pl-20px"
+              >
                 <b>{{ globalVars.abbreviateNumber(post.QuoteRepostCount) }}</b>
                 Quote Reposts&nbsp;
               </span>
-              <span (click)="openLikesModal($event)" class="interaction-detail post-thread-engagement-detail">
+              <span (click)="openLikesModal($event)" class="interaction-detail post-thread-engagement-detail pl-20px">
                 <b>{{ globalVars.abbreviateNumber(post.LikeCount) }}</b>
                 Likes
               </span>
-              <span (click)="openDiamondsModal($event)" class="interaction-detail post-thread-engagement-detail">
+              <span
+                (click)="openDiamondsModal($event)"
+                class="interaction-detail post-thread-engagement-detail pl-20px"
+              >
                 <b>{{ globalVars.abbreviateNumber(post.DiamondCount) }}</b>
                 Diamonds
               </span>

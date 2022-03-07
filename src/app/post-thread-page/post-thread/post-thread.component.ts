@@ -407,4 +407,7 @@ export class PostThreadComponent implements OnInit {
     PostThreadComponent.prependPostToFeed(this.currentPost.Comments, postEntryResponse);
     this.datasource.adapter.reset();
   }
+  goBack() {
+    history.back();
+  }
 }

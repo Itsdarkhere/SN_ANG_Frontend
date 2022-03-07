@@ -11,7 +11,24 @@
     border-radius: 18.732240676879883px;
     box-shadow: 0.9366120100021362px 0.9366120100021362px 4.683060169219971px rgba(0, 0, 0, 0.01);
     width: 95%;
+    margin-left: 5%;
     margin-top: 15px;
+}
+.post_thread_top_bar {
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 18px;
+}
+.post-thread-cc {
+    z-index: 0;
+    background: #f8f8f8;
+    padding-top: 50px;
+    margin-top: -50px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+.post-thread-back-button {
+    background-color: transparent;
+    border: none;
 }
 .post-thread-parent-post-container {
     background: #ffffff;

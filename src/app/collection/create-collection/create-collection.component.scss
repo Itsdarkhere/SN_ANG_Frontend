@@ -93,7 +93,7 @@
             padding-bottom: 20px;
         }
 
-        @media screen and (max-width: 300px) {
+        @media screen and (max-width: 480px) {
             font-size: 1.2rem;
         }
     }
@@ -336,7 +336,7 @@
 
 .single-nft-container {
     position: relative;
-    height: 214px !important;
+    height: 210px !important;
 }
 .selected-border {
     border: 2px solid #3549FA;
@@ -350,6 +350,7 @@
     border: none;
     outline: none;
     border-radius: 20px;
+
     .checkbox-container {
         border-radius: 30px;
         position: absolute;
@@ -362,13 +363,22 @@
         // box-shadow: 1.9333332777023315px 1.9333332777023315px 9.666666984558105px rgba(0, 0, 0, 0.1);
         right: 15px;
         top: 15px;
+
+        // For Nesthub
+        @media screen and (max-height: 600px) {
+            top: 20px;
+            right: 30px;
+        }
     }
+
     .checkbox-container.selected {
         border: none;
         background-image: url("/assets/icons/select_verified_icon.svg");
         background-position: center;
     }
     &:disabled {
+        height: 210px;
+        width: 210px;
         background-color: rgba(0, 0, 0, 0.6) !important;
     }
 }
@@ -440,7 +450,6 @@
         
         // Targets all NFTs
         .collection-selections-user-nfts {
-            // border: 1px solid red;
             padding: 10px 0 30px 0;
             position: absolute;
             top: 0;
@@ -449,16 +458,15 @@
             bottom: 0;
             height: fit-content;
             max-width: 100%;
-            display: flex;
+            display: grid;
             align-items: center;
-            justify-content: center;
-            // align-items: flex-start;
-            // justify-content: flex-start;
-            flex-wrap: wrap;
-            // list-style-type: none;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            column-gap: 10px;
+            row-gap: 15px;
 
-            @media screen and (max-width: 676px) {   
-                // margin-bottom: 35px;
+            @media screen and (max-width: 480px) {  
+                display: flex;
+                flex-wrap: wrap;
                 justify-content: center;
             }
         }   

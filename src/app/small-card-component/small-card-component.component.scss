@@ -1,9 +1,7 @@
 .red-box {
     height: 210px;
     border-radius: 20px;
-    width: 182px;
-    max-width: 182px;
-    flex: 1 0 182px;
+    width: 210px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -15,8 +13,7 @@
         transform: translateY(-2px);
     }
     .red-box-img-cover {
-        width: 100%;
-        max-width: 100%;    
+        width: 100%;  
         height: calc(100% - 60px);
         background-color: var(--secondary);
         display: flex;
@@ -104,6 +101,7 @@
 .selected-border {
     outline: 3px solid #3549FA !important;
 }
+
 .colors-sold {
     border: 1px solid #FFFFFF;
     background: #FFFFFF !important;

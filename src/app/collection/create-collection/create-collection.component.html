@@ -21,7 +21,7 @@
             <img *ngIf="uploadedBannerImage" [src]="uploadedBannerImage" class="uploaded-banner-image" />
             <div *ngIf="!uploadingBannerImage && !uploadedBannerImage" class="banner-text-h2">
               <img src="/assets/icons/upload_grey.svg" alt="Upload Banner Image" />
-              <h2>Click to upload a collection banner image</h2>
+              <h2>Click to upload banner image</h2>
             </div>
             <h3 *ngIf="!uploadingBannerImage && !uploadedBannerImage">Recommended size is 925 x 250 pixels.</h3>
             <i *ngIf="uploadingBannerImage" class="fa fa-spinner fa-spin"></i>

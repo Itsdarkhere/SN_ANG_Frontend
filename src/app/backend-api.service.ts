@@ -777,13 +777,17 @@ export class BackendApiService {
     Name: string,
     Description: string,
     Image: string,
-    Image_url: string
+    Image_url: string,
+    Category: string,
+    PostHashHex: string
   ): Observable<any> {
     return this.post(endpoint, BackendRoutes.RoutePathInsertIMXMetadata, {
       Name,
       Description,
       Image,
       Image_url,
+      Category,
+      PostHashHex,
     });
   }
 

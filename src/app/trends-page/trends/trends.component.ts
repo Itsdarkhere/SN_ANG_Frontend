@@ -34,6 +34,9 @@ export class TrendsComponent implements OnInit {
   // Scroll Y position
   scrollPosition: number;
 
+  desoMarketplace: boolean = true;
+  ethMarketplace: boolean = false;
+
   infiniteScroller: InfiniteScroller = new InfiniteScroller(
     TrendsComponent.PAGE_SIZE,
     this.getPage.bind(this),
@@ -71,7 +74,20 @@ export class TrendsComponent implements OnInit {
       this.sortMarketplace(0, false);
     }
     this.setMobileBasedOnViewport();
+    this.updateDesoMarketplaceStatus();
   }
+
+  updateDesoMarketplaceStatus() {
+    this.desoMarketplace = true;
+    this.ethMarketplace = false;
+  }
+
+  updateEthMarketplaceStatus() {
+    this.desoMarketplace = false;
+    this.ethMarketplace = true;
+    this.sortEthMarketplace(0, false);
+  }
+
   @HostListener("window:resize") onResize() {
     this.setMobileBasedOnViewport();
   }
@@ -150,6 +166,48 @@ export class TrendsComponent implements OnInit {
         }
       );
   }
+
+  sortEthMarketplace(offset: number, showMore: boolean) {
+    if (!showMore) {
+      this.globalVars.isMarketplaceLoading = true;
+    }
+    this.backendApi
+      .SortMarketplace(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        offset,
+        this.globalVars.marketplaceLowPriceNanos,
+        this.globalVars.marketplaceHighPriceNanos,
+        this.globalVars.marketplaceStatus,
+        this.globalVars.marketplaceMarketType,
+        this.globalVars.marketplaceNFTCategory,
+        this.globalVars.marketplaceSortType,
+        this.globalVars.marketplaceContentFormat,
+        this.globalVars.marketplaceVerifiedCreators
+      )
+      .subscribe(
+        (res) => {
+          if (showMore) {
+            this.globalVars.marketplaceNFTsData = this.globalVars.marketplaceNFTsData.concat(res.PostEntryResponse);
+          } else {
+            this.globalVars.marketplaceNFTsData = res.PostEntryResponse;
+            this.updateToEthOnly();
+          }
+          this.globalVars.isMarketplaceLoading = false;
+        },
+        (err) => {
+          console.log(err.error);
+        }
+      );
+  }
+
+  updateToEthOnly() {
+    this.globalVars.marketplaceNFTsData = this.globalVars.marketplaceNFTsData.filter(
+      (nftPost) => nftPost["PostExtraData"]["isEthereumNFT"] === true
+    );
+    console.log(this.globalVars.marketplaceNFTsData);
+  }
+
   sortCreators(offset: number, showMore: boolean) {
     if (!showMore) {
       this.globalVars.isMarketplaceLoading = true;

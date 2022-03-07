@@ -624,7 +624,9 @@ export class MintPageComponent implements OnInit {
         this.NAME_OF_PIECE,
         this.DESCRIPTION,
         this.postImageArweaveSrc,
-        this.postImageArweaveSrc
+        this.postImageArweaveSrc,
+        this.CATEGORY,
+        ""
       )
       .subscribe((res) => {
         console.log(res["Response"]);

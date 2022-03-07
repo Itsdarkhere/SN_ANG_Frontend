@@ -8,7 +8,7 @@
 /bazel-out
 
 # environments
-/environments
+/src/environments
 
 # dependencies
 /node_modules

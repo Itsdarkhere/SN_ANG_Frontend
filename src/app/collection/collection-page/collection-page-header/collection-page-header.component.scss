@@ -27,6 +27,10 @@
         @media screen and (max-width: 300px) {
             padding: 0 1rem;
         }
+
+        @media screen and (max-width: 300px) {
+            padding: 0 0.75rem;
+        }
     }
 
     .collection-user-image {
@@ -62,6 +66,12 @@
             grid-template-columns: 1fr 1fr;
             grid-auto-rows: 65px;
             transform: translateX(-50%);
+        }
+
+        @media screen and (max-width: 300px) {
+            padding: 15px;
+            white-space: nowrap;
+            width: calc(100% - 1.5rem);
         }
 
         h2 {
@@ -188,6 +198,10 @@
                 padding: 40px 2rem;
                 height: fit-content;
                 flex-direction: column;
+            }
+
+            @media screen and (max-width: 300px) {
+                padding: 40px 0.75rem;
             }
             
             h2 {

@@ -16,8 +16,13 @@
 
     // Consider extra break point
     @media(max-width: 768px) {
-        margin-top: 75px;
+        margin-top: 85px;
         padding: 4rem 2rem;
+    }
+
+    @media(max-width: 300px) {
+        margin-top: 85px;
+        padding: 4rem 0.75rem;
     }
 
     h2 {

@@ -31,6 +31,7 @@
 
 /* -- TAB & VIEW FILTER AREA -- */
 .collection-tab-options {
+    border: 1px solid red;
     position: relative;
     padding-bottom: 10px;
     height: 5rem;
@@ -39,7 +40,11 @@
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #EFEFEF;
-    
+
+    @media(max-width: 768px) {
+        display: none;
+    }
+
      /* -- MAIN CONTENT TABS -- */
     .collection-tab-options-left {
         position: relative;

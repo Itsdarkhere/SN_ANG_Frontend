@@ -25,12 +25,21 @@
         padding: 15px 0;
         font-size: 2rem; // update to appropriate variable
         font-weight: 600; // update to appropriate variable
+
+        @media screen and (max-width: 480px) {
+            text-align: center;
+            font-size: 1.5rem;
+        }
     }
 
     p {
         color: #535353; // update to appropriate variable
         font-size: 0.9rem;
         text-align: center;
+
+        @media screen and (max-width: 300px) {
+            font-size: 0.8rem;
+        }
     }
 
     button {
@@ -44,5 +53,6 @@
         font-size: 0.88rem; // update to appropriate variable
         font-weight: 600; // update to appropriate variable
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); // update to appropriate variable
+        white-space: nowrap;
     }
 }

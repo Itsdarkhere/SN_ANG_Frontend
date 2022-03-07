@@ -10,11 +10,11 @@
     <div class="collection-user-stats">
       <div class="collection-pieces">
         <h2>Pieces</h2>
-        <label class="mb-0px fs-20px font-weight-bold">{{ collectionData.Pieces }}</label>
+        <label>{{ collectionData.Pieces }}</label>
       </div>
       <div class="collection-owners">
         <h2>Owners</h2>
-        <label class="mb-0px fs-20px font-weight-bold">{{ collectionData.OwnersAmount }}</label>
+        <label>{{ collectionData.OwnersAmount }}</label>
       </div>
       <div class="collection-floor-price">
         <h2>Floor Price</h2>
@@ -22,10 +22,10 @@
           <div class="white-bg-deso-icon">
             <img src="/assets/icons/deso_icon_new.svg" alt="white background deso icon" />
           </div>
-          <label class="mb-0px fs-20px font-weight-bold">
+          <label>
             {{ collectionData.FloorPrice == -1 ? "Null" : globalVars.nanosToDeSo(collectionData.FloorPrice, 4) }}
           </label>
-          <label class="mb-0px fs-16px ml-5px" style="color: #717171">
+          <label>
             {{ collectionData.FloorPrice == -1 ? "Null" : globalVars.nanosToUSD(collectionData.FloorPrice, 2) }}
           </label>
         </div>

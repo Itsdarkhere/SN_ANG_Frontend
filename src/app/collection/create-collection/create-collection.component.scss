@@ -294,6 +294,11 @@
         font-weight: 500;
         font-size: 0.8rem;
         text-align: center;
+
+        @media screen and (max-width: 480px) {
+            font-size: 0.7rem;
+            width: 90%;
+        }
     }
 
     textarea {

@@ -12,7 +12,6 @@
     }
 
     .banner-image-stats-container {
-        border: 1px solid green;
         padding: 0 5rem;
         height: 100%;
         width: 100%;
@@ -40,10 +39,10 @@
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
+        object-fit: cover;
     }
 
     .collection-user-stats {
-        border: 1px solid blue;
         height: 100px;
         width: 75%;
         display: flex;
@@ -53,10 +52,9 @@
         z-index: 1;
 
         @media(max-width: 768px) {
-            // Work around for some padding issues
             padding: 20px;
             height: 170px;
-            width: calc(100% - 2rem);
+            width: calc(100% - 4rem);
             position: absolute;
             left: 50%;
             bottom: -9rem;
@@ -64,10 +62,6 @@
             grid-template-columns: 1fr 1fr;
             grid-auto-rows: 65px;
             transform: translateX(-50%);
-         
-            // & > div {
-            //     min-width: 150px;
-            // }
         }
 
         h2 {
@@ -171,6 +165,7 @@
         top: 0;
         height: 100%;
         width: 100%;
+        object-fit: cover;
     }
 
     .banner-blur-overlay {
@@ -237,6 +232,7 @@
                 justify-content: flex-end;
 
                 .creator-image-handle {
+                    padding: 5px 0;
                     display: flex;
                     font-size: 1rem;
                     color: white;

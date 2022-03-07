@@ -1,7 +1,6 @@
-import { Component, Renderer2, ElementRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, ViewChild, OnDestroy } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
 import { BackendApiService } from "../backend-api.service";
-import { BsModalService } from "ngx-bootstrap/modal";
 import { Router } from "@angular/router";
 import { IdentityService } from "../identity.service";
 import { filter, get } from "lodash";
@@ -35,21 +34,21 @@ import { AppRoutingModule } from "../app-routing.module";
     ]),
   ],
 })
-export class ChangeAccountSelectorComponent {
+export class ChangeAccountSelectorComponent implements OnDestroy {
   @ViewChild("changeAccountSelectorRoot", { static: true }) accountSelectorRoot: ElementRef;
-
   selectorOpen: boolean;
   hoverRow: number;
   animationType: string;
   pageOne = true;
 
+  interval: any;
+  intervalClosed = true;
+
   AppRoutingModule = AppRoutingModule;
 
   constructor(
     public globalVars: GlobalVarsService,
-    private renderer: Renderer2,
     private backendApi: BackendApiService,
-    private modalService: BsModalService,
     private identityService: IdentityService,
     private router: Router,
     private changeRef: ChangeDetectorRef
@@ -109,5 +108,19 @@ export class ChangeAccountSelectorComponent {
     this.animationType = "prev";
     this.changeRef.detectChanges();
     this.pageOne = true;
+  }
+  detectDropdownClose() {
+    let el = document.querySelector("#dropdown");
+    this.interval = setInterval(() => {
+      if (!el.classList.contains("show")) {
+        this.intervalClosed = true;
+        clearInterval(this.interval);
+      } else if (this.intervalClosed) {
+        this.intervalClosed = false;
+      }
+    }, 50);
+  }
+  ngOnDestroy(): void {
+    clearInterval(this.interval);
   }
 }

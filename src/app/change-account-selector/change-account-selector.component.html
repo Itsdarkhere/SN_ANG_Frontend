@@ -5,16 +5,23 @@
 >
   Log In
 </div>
-<div class="btn-group" dropdown #dropdown="bs-dropdown" style="width: 100%" *ngIf="globalVars.loggedInUser">
+<div
+  class="btn-group"
+  dropdown
+  id="dropdown"
+  (click)="detectDropdownClose()"
+  #dropdown="bs-dropdown"
+  style="width: 100%"
+  *ngIf="globalVars.loggedInUser"
+>
   <div
-    class="fs-14px fc-default px-5px cursor-pointer change-account-selector"
+    class="fs-14px fc-default pl-5px cursor-pointer change-account-selector"
     dropdownToggle
     id="changeAccountButton"
     aria-controls="dropdown-basic"
-  
   >
     <!-- Selector (unopened state) -->
-    <div class="d-flex align-items-center justify-content-between h-100 w-100 pr-5px">
+    <div id="cas-selector" class="d-flex align-items-center justify-content-between h-100 w-100 pr-5px">
       <div
         *ngIf="globalVars.loggedInUser"
         class="change-account-selector__ellipsis-restriction d-flex flex-row flex-start align-items-center cursor-pointer"
@@ -23,7 +30,7 @@
           class="align-items-center change-account-selector__account-image"
           [avatar]="globalVars.loggedInUser.PublicKeyBase58Check"
         ></div>
-        <div class="change-account-selector__acount-name change-account-selector__ellipsis-restriction">
+        <div class="change-account-selector__acount-name cas-dont-copy change-account-selector__ellipsis-restriction">
           {{
             globalVars.loggedInUser.ProfileEntryResponse?.Username
               ? globalVars.loggedInUser.ProfileEntryResponse.Username
@@ -32,20 +39,24 @@
         </div>
         <span
           *ngIf="globalVars.loggedInUser.ProfileEntryResponse?.IsVerified"
-          class="ml-1 d-inline-block align-center text-primary fs-12px"
+          class="ml-1 cas-dont-copy d-inline-block align-center text-primary fs-12px"
         >
           <i class="fas fa-check-circle fa-md"></i>
         </span>
       </div>
-      <!--style="border-left: 1px solid #E4E4E4;"-->
-      <div class="mr-5px h-100 d-flex flex-center pl-10px" style="border-left: 1px solid #e4e4e4">
-        <img src="/assets/icons/cas_hamburger_icon.svg" alt="hamburger" />
+      <div class="cas-dont-copy h-100 d-flex flex-center" style="border-left: 1px solid #e4e4e4">
+        <div id="nav-icon3" [ngClass]="{ open: !intervalClosed }">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </div>
     </div>
   </div>
   <!-- Drop-down (open state) -->
   <div
-    class="fs-14px fc-default px-5px cursor-pointer change-account-selector_list disable-scrollbars br-4px change-account-selector_list__hover dropdown-menu cas-dropdown-menu"
+    class="fs-14px cas-dont-copy fc-default px-5px cursor-pointer change-account-selector_list disable-scrollbars br-4px change-account-selector_list__hover dropdown-menu cas-dropdown-menu"
     id="dropdown-basic"
     *dropdownMenu
     aria-labelledby="changeAccountButton"

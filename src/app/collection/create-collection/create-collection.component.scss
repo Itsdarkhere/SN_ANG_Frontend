@@ -92,6 +92,10 @@
         @media screen and (max-height: 740px) {
             padding-bottom: 20px;
         }
+
+        @media screen and (max-width: 300px) {
+            font-size: 1.2rem;
+        }
     }
 
     .collection-details-title {
@@ -140,6 +144,11 @@
         @media screen and (max-width: 480px) {
             padding: 4px 0;
             font-size: 0.6rem;
+        }
+
+        @media screen and (max-height: 700px) {
+            padding: 4px 0 20px 0;
+            font-size: 0.55rem;
         }
     }
 
@@ -218,6 +227,11 @@
             left: 1rem;
         }
 
+        @media screen and (max-height: 600px) {
+            height: 60px;
+            width: 60px;
+        }
+
         img {
             position: absolute;
             height: 100%;
@@ -292,6 +306,10 @@
 
         @media screen and (max-width: 480px) {
             width: 90%;
+        }
+
+        @media screen and (max-height: 600px) {
+            height: 20%;
         }
     }
 

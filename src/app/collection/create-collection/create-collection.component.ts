@@ -97,7 +97,7 @@ export class CreateCollectionComponent implements OnInit {
     if (this.userCollectionNames?.length > 0) {
       let match = this.userCollectionNames.some((item) => item.toLowerCase() == this.collectionName.toLowerCase());
       if (match) {
-        this.collectionNameError = "Cant create another collection with the same name as an existing collection.";
+        this.collectionNameError = "Collection name is not available.";
         this.collectionNameHasError = true;
         return;
       }

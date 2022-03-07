@@ -1,16 +1,16 @@
 .collection-success-container {
     padding: 30px;
-    height: 500px; // update to appropriate (flexible) size
-    width: 600px; // update to appropriate (flexible) size
+    height: 500px;
+    width: 600px;
     max-width: 90vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     background-color: white;
-    border: 1px solid #F5F5F5; // update to appropriate variable
-    border-radius: 45px; // update to appropriate variable
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05); // update to appropriate variable
+    border: 1px solid #F5F5F5;
+    border-radius: 45px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
 
     .collection-success-avatar {
         margin-top: 40px;
@@ -23,8 +23,8 @@
     
     h1 {
         padding: 15px 0;
-        font-size: 2rem; // update to appropriate variable
-        font-weight: 600; // update to appropriate variable
+        font-size: 2rem;
+        font-weight: 600;
 
         @media screen and (max-width: 480px) {
             text-align: center;
@@ -33,7 +33,7 @@
     }
 
     p {
-        color: #535353; // update to appropriate variable
+        color: #535353;
         font-size: 0.9rem;
         text-align: center;
 
@@ -46,13 +46,17 @@
         margin: 40px 0;
         padding: 10px 75px;
         width: fit-content;
-        background: #313131; // update to appropriate variable
+        background: #313131;
         border: none;
         border-radius: 60px;
-        color: white; // update to appropriate variable
-        font-size: 0.88rem; // update to appropriate variable
-        font-weight: 600; // update to appropriate variable
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); // update to appropriate variable
+        color: white;
+        font-size: 0.88rem; 
+        font-weight: 600;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); 
         white-space: nowrap;
+
+        @media screen and (max-width: 300px) {
+            padding: 10px 20px;
+        }
     }
 }

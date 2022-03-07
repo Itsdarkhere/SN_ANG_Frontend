@@ -94,7 +94,7 @@ export class ChangeAccountSelectorComponent implements OnDestroy {
           this.router.navigateByUrl(currentUrl);
         });
       }
-      this.globalVars.isLeftBarMobileOpen = false;
+      this.globalVars.closeLeftBarMobile();
     });
   }
   clickSwitchProfile(event) {

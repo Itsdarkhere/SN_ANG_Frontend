@@ -1570,6 +1570,11 @@ input.bs-timepicker-field {
   padding-left: 20px;
   margin-bottom: 0;
 }
+/*
+  display: flex;
+  justify-content: center;
+  align-items: center;
+*/
 .marketplace-flyout-checkbox-label {
   display: flex;
   justify-content: center;
@@ -1815,12 +1820,23 @@ input.bs-timepicker-field {
 }
 
 .nav_close {
-  position: fixed;
+  position: absolute;
   right: 39px;
   bottom: 3.3vh;
-  width: 45px;
-  height: 45px;
   z-index: 999;
+  width: 76px;
+  height: 53px;
+  background: #ffffff;
+  border: 1.1521738767623901px solid #e2e2e2;
+  border-radius: 30px;
+  box-shadow: 4px 0px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:active {
+    transform: scale(0.9);
+    transition-duration: 0.2s;
+  }
 }
 // used in all nft widescreen feeds
 .mrk_top_selector-two {
@@ -1858,28 +1874,20 @@ input.bs-timepicker-field {
   }
 }
 
-.background-gradient {
-  z-index: 100; // Needs to be higher than the bottom bar and staked posts.
-  position: fixed;
-  height: calc(100vh + 40px);
-  min-height: 650px;
-  bottom: -40px;
-  width: 100%;
-  max-width: 500px;
-  right: 0;
-  transform-origin: bottom;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .nft-page-audio-cover-image {
   max-width: 80%;
   border-radius: 2.1255195140838623px;
 }
 .left-bar-mobile__flyout-div {
+  z-index: 100; // Needs to be higher than the bottom bar and staked posts.
+  position: fixed;
+  height: 100vh;
+  min-height: 650px;
+  bottom: 0px;
   width: 100%;
-  height: 100%;
+  max-width: 500px;
+  right: 0;
+  transform-origin: bottom;
   background-color: #F6F6F6;
   padding-top: 5px;
   display: flex;

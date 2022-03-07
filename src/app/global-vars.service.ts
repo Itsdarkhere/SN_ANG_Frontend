@@ -343,6 +343,30 @@ export class GlobalVarsService {
     // console.log(` ---------------- collector status is ${this.isCollector}`);
   }
 
+  closeLeftBarMobile() {
+    // Disable scroll
+    let scrollPosition: number;
+    let body = document.querySelector("body");
+    body.style.removeProperty("overflow");
+    body.style.removeProperty("position");
+    body.style.removeProperty("top");
+    body.style.removeProperty("width");
+    window.scrollTo(0, scrollPosition);
+    // Close
+    this.isLeftBarMobileOpen = false;
+  }
+  openLeftBarMobile() {
+    // Disable scroll
+    let scrollPosition: number;
+    let body = document.querySelector("body");
+    scrollPosition = window.pageYOffset;
+    body.style.overflow = "hidden";
+    body.style.position = "fixed";
+    body.style.top = `-${scrollPosition}px`;
+    body.style.width = "100%";
+    // Close
+    this.isLeftBarMobileOpen = true;
+  }
   checkIsVerified() {
     this.isVerifiedRes = JSON.stringify(this.loggedInUser?.ProfileEntryResponse);
     if (this.isVerifiedRes === "null") {

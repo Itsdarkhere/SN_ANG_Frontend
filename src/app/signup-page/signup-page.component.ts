@@ -210,7 +210,7 @@ export class SignupPageComponent implements OnInit {
 
         //   close nav bar because it will open on mobile
         if (this.globalVars.isMobileIphone()) {
-          this.globalVars.isLeftBarMobileOpen = false;
+          this.globalVars.closeLeftBarMobile();
         }
 
         this.router.navigate([RouteNames.COMPLETE_PROFILE]);

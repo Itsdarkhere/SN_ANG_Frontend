@@ -7,10 +7,11 @@ import { GlobalVarsService } from "../global-vars.service";
   templateUrl: "./left-bar-mobile.component.html",
   styleUrls: ["./left-bar-mobile.component.scss"],
   animations: [
+    // cubic-bezier(0.175, 0.885, 0.32, 1.175)
     trigger("leftBarAnimation", [
       transition(":enter", [
         style({ transform: "translateY(100%)" }),
-        animate("300ms cubic-bezier(0.175, 0.885, 0.32, 1.175)", style({ transform: "translateY(0%)" })),
+        animate("300ms ease", style({ transform: "translateY(0%)" })),
       ]),
       transition(":leave", [
         style({ transform: "translateY(0%)" }),
@@ -31,6 +32,6 @@ export class LeftBarMobileComponent {
   constructor(public globalVars: GlobalVarsService) {}
 
   _closeMenu() {
-    this.globalVars.isLeftBarMobileOpen = false;
+    this.globalVars.closeLeftBarMobile();
   }
 }

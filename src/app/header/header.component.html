@@ -39,15 +39,12 @@
           >
             <div class="noti_hv">
               <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />
-              <div class="d-flex flex-row mt-5px" (click)="showNotification()">
-                <label class="mb-0px fs-10px cursor-pointer">NOTIFICATIONS</label>
-                <label
-                  class="mb-0px fs-10px ml-5px notification-amount pointer-events-none"
-                  *ngIf="globalVars.unreadNotifications > 0"
-                >
-                  {{ globalVars.unreadNotifications > 99 ? "99+" : globalVars.unreadNotifications }}
-                </label>
-              </div>
+              <label
+                class="mb-0px fs-10px ml-5px notification-amount pointer-events-none"
+                *ngIf="globalVars.unreadNotifications > 0"
+              >
+                {{ globalVars.unreadNotifications > 99 ? "99+" : globalVars.unreadNotifications }}
+              </label>
             </div>
             <div class="notification-list-cover" *ngIf="isNotificationOpen">
               <!-- <div class="triangle-up">▲</div> -->

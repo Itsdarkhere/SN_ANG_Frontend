@@ -81,8 +81,8 @@
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
     
     @media screen and (max-width: 676px) {
-        min-width: 275px;
         width: calc(100% - 2rem);
+        min-width: 260px;
     }
 
     h1 {
@@ -92,7 +92,6 @@
         @media screen and (max-height: 740px) {
             padding-bottom: 20px;
         }
-
     }
 
     .collection-details-title {
@@ -334,9 +333,10 @@
         width: 27px;
         height: 27px;
         border-radius: 50%;
-        background: #ffffff;
-        border: 1px solid #4a4a4a;
-        box-shadow: 1.9333332777023315px 1.9333332777023315px 9.666666984558105px rgba(0, 0, 0, 0.1);
+        background: rgba(255, 255, 255, 0.9);
+        // border: 1px solid #4a4a4a;
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+        // box-shadow: 1.9333332777023315px 1.9333332777023315px 9.666666984558105px rgba(0, 0, 0, 0.1);
         right: 15px;
         top: 15px;
     }
@@ -359,6 +359,11 @@
     border: 1px solid #F5F5F5;
     border-radius: 45px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+
+    @media screen and (max-width: 676px) {
+        width: calc(100% - 2rem);
+        min-width: 260px;
+    }
 }
 
 .collection-selections-main {
@@ -373,10 +378,18 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+
+        @media screen and (max-width: 626px) {
+            padding: 30px 10px;
+        }
         
         h1 {
             font-size: 1.5rem;
             font-weight: 600;
+
+            @media screen and (max-width: 626px) {
+                font-size: 1.1rem;
+            }
         }
     
         button {
@@ -387,6 +400,12 @@
             color: #626262;
             font-size: 0.8rem;
             font-weight: 600;
+
+            @media screen and (max-width: 626px) {
+                padding: 10px 15px;
+                font-size: 0.7rem;
+                white-space: nowrap;
+            }
         }
     }
 
@@ -395,27 +414,31 @@
         height: 100%;
         width: 100%;
         overflow-y: scroll;
+        
         // Targets all NFTs
         .collection-selections-user-nfts {
+            // border: 1px solid red;
+            padding: 10px 0 30px 0;
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            padding: 10px 0;
-            display: flex;
-            height: 100%;
+            height: fit-content;
             max-width: 100%;
             display: flex;
-            align-items: flex-start;
-            justify-content: flex-start;
+            align-items: center;
+            justify-content: center;
+            // align-items: flex-start;
+            // justify-content: flex-start;
             flex-wrap: wrap;
-            list-style-type: none;
-        }
-        
-        @media screen and (max-width: 676px) {   
-            margin-bottom: 35px;
-        }
+            // list-style-type: none;
+
+            @media screen and (max-width: 676px) {   
+                // margin-bottom: 35px;
+                justify-content: center;
+            }
+        }   
     }
 }
 
@@ -427,20 +450,45 @@
     justify-content: space-around;
     border-top: 1px solid #DADADA;
 
-    button {
-        padding: 10px 75px;
-        width: fit-content;
-        background: #313131;
-        border: none;
-        border-radius: 60px;
-        color: white;
-        font-size: 0.88rem;
-        font-weight: 600;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    @media screen and (max-height: 600px) {
+        padding: 15px 0;
     }
 
-    button:disabled {
-        background-color: rgba(49, 49, 49, 0.1);
+    p {
+        @media screen and (max-width: 626px) {
+            padding-left: 10px;
+            font-size: 0.8rem;
+        }
+    }
+
+    .create-collection-button {
+        padding: 10px 75px;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+        border: 1px solid var(--text);
+        border-radius: 30px;
+        background: var(--text);
+        color: var(--background);
+    
+        &:disabled {
+          background-color: grey;
+          border: 1px solid grey;
+          cursor: not-allowed;
+    
+          label {
+            cursor: not-allowed;
+          }
+        }
+
+        @media screen and (max-width: 626px) {
+            padding: 8px 15px;
+            font-size: 0.8rem;
+        }
+
+        @media screen and (max-width: 300px) {
+            margin-right: 10px;
+            padding: 8px 10px;
+            font-size: 0.7rem;
+        }
     }
 }
 

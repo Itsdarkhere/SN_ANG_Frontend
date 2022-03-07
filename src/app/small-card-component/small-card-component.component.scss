@@ -1,7 +1,9 @@
 .red-box {
     height: 210px;
     border-radius: 20px;
-    width: 181.5px;
+    width: 182px;
+    max-width: 182px;
+    flex: 1 0 182px;
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -100,7 +100,7 @@
           <p>{{ this.selectedPosts?.length }} NFTS selected</p>
           <button
             [disabled]="!(this.selectedPosts?.length > 0)"
-            class="black-rounded-button"
+            class="create-collection-button"
             (click)="createCollection()"
           >
             <ng-container *ngIf="!creatingCollection; else createCollectionElse">Create collection</ng-container>

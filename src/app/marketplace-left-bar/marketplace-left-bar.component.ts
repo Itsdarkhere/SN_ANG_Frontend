@@ -50,6 +50,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
   lastSortContentFormatVideo = false;
   lastSortContentFormatMusic = false;
   lastSortContentFormatImages = false;
+  lastSortContentFormat3D = false;
   lastSortCreatorTypeVerified = true;
   lastSortMarketPrimary = true;
   lastSortMarketSecondary = true;
@@ -305,7 +306,10 @@ export class MarketplaceLeftBarComponent implements OnInit {
           // Applies all if all other formats are closed
           this.formatAllIfNoOtherFormats();
         } else {
+          this.formatMusic = false;
           this.formatImages = true;
+          this.formatVideo = false;
+          this.format3D = false;
           if (this.formatAll) {
             this.formatAll = false;
           }
@@ -317,7 +321,10 @@ export class MarketplaceLeftBarComponent implements OnInit {
           // Applies all if all other formats are closed
           this.formatAllIfNoOtherFormats();
         } else {
+          this.formatMusic = false;
+          this.formatImages = false;
           this.formatVideo = true;
+          this.format3D = false;
           if (this.formatAll) {
             this.formatAll = false;
           }
@@ -330,13 +337,31 @@ export class MarketplaceLeftBarComponent implements OnInit {
           this.formatAllIfNoOtherFormats();
         } else {
           this.formatMusic = true;
+          this.formatImages = false;
+          this.formatVideo = false;
+          this.format3D = false;
+          if (this.formatAll) {
+            this.formatAll = false;
+          }
+        }
+        break;
+      case "3d":
+        if (this.format3D) {
+          this.format3D = false;
+          // Applies all if all other formats are closed
+          this.formatAllIfNoOtherFormats();
+        } else {
+          this.formatMusic = false;
+          this.formatImages = false;
+          this.formatVideo = false;
+          this.format3D = true;
           if (this.formatAll) {
             this.formatAll = false;
           }
         }
         break;
       // These below only get triggered on init
-      case "images video":
+      /*case "images video":
         this.formatVideo = true;
         this.formatImages = true;
         this.formatAll = false;
@@ -354,6 +379,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
         this.formatAll = false;
         this.formatImages = false;
         break;
+      */
       default:
         break;
     }
@@ -376,55 +402,39 @@ export class MarketplaceLeftBarComponent implements OnInit {
       this.lastSortContentFormatImages = false;
       this.lastSortContentFormatVideo = false;
       this.lastSortContentFormatMusic = false;
-    } else if (this.formatImages && this.formatMusic && this.formatVideo) {
-      this.globalVars.marketplaceContentFormat = "all";
-      // Store to use in canSort
-      this.lastSortContentFormatAll = false;
-      this.lastSortContentFormatImages = true;
-      this.lastSortContentFormatVideo = true;
-      this.lastSortContentFormatMusic = true;
-    } else if (this.formatImages && this.formatVideo) {
-      this.globalVars.marketplaceContentFormat = "images video";
-      // Store to use in canSort
-      this.lastSortContentFormatAll = false;
-      this.lastSortContentFormatMusic = false;
-      this.lastSortContentFormatImages = true;
-      this.lastSortContentFormatVideo = true;
-    } else if (this.formatImages && this.formatMusic) {
-      this.globalVars.marketplaceContentFormat = "images music";
-      // Store to use in canSort
-      this.lastSortContentFormatAll = false;
-      this.lastSortContentFormatVideo = false;
-      this.lastSortContentFormatMusic = true;
-      this.lastSortContentFormatImages = true;
-    } else if (this.formatMusic && this.formatVideo) {
-      this.globalVars.marketplaceContentFormat = "music video";
-      // Store to use in canSort
-      this.lastSortContentFormatAll = false;
-      this.lastSortContentFormatImages = false;
-      this.lastSortContentFormatVideo = true;
-      this.lastSortContentFormatMusic = true;
+      this.lastSortContentFormat3D = false;
     } else if (this.formatImages) {
       this.globalVars.marketplaceContentFormat = "images";
       // Store to use in canSort
-      this.lastSortContentFormatImages = true;
       this.lastSortContentFormatAll = false;
+      this.lastSortContentFormatImages = true;
       this.lastSortContentFormatVideo = false;
       this.lastSortContentFormatMusic = false;
-    } else if (this.formatVideo) {
+      this.lastSortContentFormat3D = false;
+    } else if (this.formatImages && this.formatVideo) {
       this.globalVars.marketplaceContentFormat = "video";
       // Store to use in canSort
-      this.lastSortContentFormatVideo = true;
       this.lastSortContentFormatAll = false;
-      this.lastSortContentFormatImages = false;
       this.lastSortContentFormatMusic = false;
+      this.lastSortContentFormatImages = false;
+      this.lastSortContentFormatVideo = true;
+      this.lastSortContentFormat3D = false;
     } else if (this.formatMusic) {
       this.globalVars.marketplaceContentFormat = "music";
       // Store to use in canSort
+      this.lastSortContentFormatAll = false;
+      this.lastSortContentFormatVideo = false;
       this.lastSortContentFormatMusic = true;
+      this.lastSortContentFormatImages = false;
+      this.lastSortContentFormat3D = false;
+    } else if (this.format3D) {
+      this.globalVars.marketplaceContentFormat = "3d";
+      // Store to use in canSort
       this.lastSortContentFormatAll = false;
       this.lastSortContentFormatImages = false;
       this.lastSortContentFormatVideo = false;
+      this.lastSortContentFormatMusic = false;
+      this.lastSortContentFormat3D = true;
     }
   }
   canSort() {
@@ -445,7 +455,8 @@ export class MarketplaceLeftBarComponent implements OnInit {
       this.lastSortContentFormatAll != this.formatAll ||
       this.lastSortContentFormatImages != this.formatImages ||
       this.lastSortContentFormatVideo != this.formatVideo ||
-      this.lastSortContentFormatMusic != this.formatMusic
+      this.lastSortContentFormatMusic != this.formatMusic ||
+      this.lastSortContentFormat3D != this.format3D
     ) {
       this.canUserSort = true;
       // If status is different from last time

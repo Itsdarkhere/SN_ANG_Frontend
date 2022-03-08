@@ -15,29 +15,11 @@ export class LandingPageComponent implements OnInit {
   AppRoutingModule = AppRoutingModule;
   environment = environment;
 
-  options1: AnimationOptions = {
-    path: "https://assets6.lottiefiles.com/packages/lf20_u3kvgiiw.json",
-  };
-  options2: AnimationOptions = {
-    path: "https://assets6.lottiefiles.com/packages/lf20_u3kvgiiw.json",
-  };
-  options3: AnimationOptions = {
-    path: "https://assets6.lottiefiles.com/packages/lf20_u3kvgiiw.json",
-  };
-  options4: AnimationOptions = {
-    path: "https://assets6.lottiefiles.com/packages/lf20_u3kvgiiw.json",
-  };
-  options5: AnimationOptions = {
+  dao: AnimationOptions = {
     path: "https://assets5.lottiefiles.com/packages/lf20_fbmcwfmt.json",
   };
-  options6: AnimationOptions = {
-    path: "https://assets6.lottiefiles.com/packages/lf20_u3kvgiiw.json",
-  };
-  options7: AnimationOptions = {
-    path: "https://assets5.lottiefiles.com/packages/lf20_fbmcwfmt.json",
-  };
-  options8: AnimationOptions = {
-    path: "https://assets1.lottiefiles.com/packages/lf20_e7ykij7u.json",
+  blueShapes: AnimationOptions = {
+    path: "https://assets9.lottiefiles.com/packages/lf20_mioxwxa4.json",
   };
   featuredCreators = [
     {

@@ -1,9 +1,9 @@
-<div
-  *ngIf="!globalVars.loggedInUser"
-  class="fs-15px fc-blue font-weight-bold cursor-pointer pl-20px"
-  (click)="globalVars.launchLoginFlow()"
->
-  Log In
+<div class="cas-logged-out" *ngIf="!globalVars.loggedInUser">
+  <button class="cas-logged-out-btn-1" (click)="createProfile()">Create profile</button>
+  <button class="cas-logged-out-btn-2" (click)="globalVars.launchLoginFlow()">
+    <img src="/assets/icons/cas_lock_icon.svg" alt="lock" />
+    Log in
+  </button>
 </div>
 <div
   class="btn-group"

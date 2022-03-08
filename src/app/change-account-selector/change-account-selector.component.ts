@@ -7,6 +7,7 @@ import { filter, get } from "lodash";
 import { animate, style, transition, trigger } from "@angular/animations";
 import { ChangeDetectorRef } from "@angular/core";
 import { AppRoutingModule } from "../app-routing.module";
+import { RouteNames } from "../app-routing.module";
 
 @Component({
   selector: "change-account-selector",
@@ -40,6 +41,8 @@ export class ChangeAccountSelectorComponent implements OnDestroy {
   hoverRow: number;
   animationType: string;
   pageOne = true;
+
+  RouteNames = RouteNames;
 
   interval: any;
   intervalClosed = true;
@@ -109,6 +112,8 @@ export class ChangeAccountSelectorComponent implements OnDestroy {
     this.changeRef.detectChanges();
     this.pageOne = true;
   }
+  // Starts an interval to check when dropdown is closed / opened
+  // And shows either the hamburger or X
   detectDropdownClose() {
     let el = document.querySelector("#dropdown");
     this.interval = setInterval(() => {
@@ -122,5 +127,8 @@ export class ChangeAccountSelectorComponent implements OnDestroy {
   }
   ngOnDestroy(): void {
     clearInterval(this.interval);
+  }
+  createProfile() {
+    this.router.navigate(["/" + this.RouteNames.SIGNUP]);
   }
 }

@@ -1882,7 +1882,6 @@ input.bs-timepicker-field {
   z-index: 100; // Needs to be higher than the bottom bar and staked posts.
   position: fixed;
   height: 100vh;
-  min-height: 650px;
   bottom: 0px;
   width: 100%;
   max-width: 500px;
@@ -1892,6 +1891,7 @@ input.bs-timepicker-field {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  pointer-events: all;
 }
 
 .left-bar-mobile__flyout-div-marketplace {

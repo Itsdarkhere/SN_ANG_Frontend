@@ -187,7 +187,7 @@
     </div>
   </div>
   <div class="w-100 d-flex flex-row" id="market">
-    <app-marketplace-left-bar *ngIf="!mobile" [flyout]="false"></app-marketplace-left-bar>
+    <app-eth-marketplace-left-bar *ngIf="!mobile" [flyout]="false"></app-eth-marketplace-left-bar>
     <div [ngClass]="mobile ? 'global__content__width' : 'global__center__width__marketplace'">
       <div class="nfts-card-list" *ngIf="globalVars.isEthMarketplaceLoading">
         <div class="nft-col-wrap" *ngFor="let in of counter(50); let i = index">

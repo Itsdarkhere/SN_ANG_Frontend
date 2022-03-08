@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, HostListener } from "@angular/core";
-import { AppRoutingModule } from "../app-routing.module";
-import { CreatePostComponent } from "../create-post/create-post.component";
-import { GlobalVarsService } from "../global-vars.service";
+import { AppRoutingModule } from "../../app-routing.module";
+import { CreatePostComponent } from "../../create-post/create-post.component";
+import { GlobalVarsService } from "../../global-vars.service";
 import { MatDialog } from "@angular/material/dialog";
-import { PlaceABidComponent } from "../place-a-bid/place-a-bid.component";
+import { PlaceABidComponent } from "../../place-a-bid/place-a-bid.component";
 import { Router } from "@angular/router";
-import { GoogleAnalyticsService } from "../google-analytics.service";
+import { GoogleAnalyticsService } from "../../google-analytics.service";
 
 @Component({
   selector: "app-header",

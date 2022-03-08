@@ -615,6 +615,7 @@ export class MintPageComponent implements OnInit {
   async sellNFTLater() {
     this.isEthNFTForSale = false;
     await this.createEthPost();
+    this.viewEthPost();
   }
 
   uploadEthMetadata() {

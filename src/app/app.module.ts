@@ -160,7 +160,7 @@ import { IvyCarouselModule } from "angular-responsive-carousel";
 // Modular Themes for DeSo by Carsen Klock @carsenk
 import { ThemeModule } from "./theme/theme.module";
 import { Theme } from "./theme/symbols";
-import { HeaderComponent } from "./header/header.component";
+import { HeaderComponent } from "./general-success-modal/header/header.component";
 import { CreatePostComponent } from "./create-post/create-post.component";
 import { PlaceABidComponent } from "./place-a-bid/place-a-bid.component";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
@@ -208,19 +208,20 @@ import { NftCardPostComponent } from "./new-nft-card/nft-card-post/nft-card-post
 import { BuyNowModalComponent } from "./buy-now-modal/buy-now-modal.component";
 import { NftEditionDropdownComponent } from "./feed/nft-edition-dropdown/nft-edition-dropdown.component";
 import { SupernovasCenterLoaderComponent } from "./supernovas-center-loader/supernovas-center-loader.component";
-import { AnalyticsPageComponent } from './analytics-page/analytics-page.component';
-import { TopBidsComponent } from './analytics-page/top-bids/top-bids.component';
-import { BigGraphComponent } from './analytics-page/big-graph/big-graph.component';
-import { QuickFactsComponent } from './analytics-page/quick-facts/quick-facts.component';
-import { TopSalesComponent } from './analytics-page/top-sales/top-sales.component';
-import { CreatorListComponent } from './analytics-page/creator-list/creator-list.component';
-import { SmallGraphComponent } from './analytics-page/small-graph/small-graph.component';
-import { ImxPageComponent } from './imx-page/imx-page.component';
-import { DepositEthComponent } from './imx-page/deposit-eth/deposit-eth.component';
-import { BuyEthComponent } from './imx-page/buy-eth/buy-eth.component';
-import { WithdrawEthComponent } from './imx-page/withdraw-eth/withdraw-eth.component';
-import { EthNftPostPageComponent } from './eth-nft-post-page/eth-nft-post-page.component';
-import { EthNftPostComponent } from './eth-nft-post-page/eth-nft-post/eth-nft-post.component';
+import { AnalyticsPageComponent } from "./analytics-page/analytics-page.component";
+import { TopBidsComponent } from "./analytics-page/top-bids/top-bids.component";
+import { BigGraphComponent } from "./analytics-page/big-graph/big-graph.component";
+import { QuickFactsComponent } from "./analytics-page/quick-facts/quick-facts.component";
+import { TopSalesComponent } from "./analytics-page/top-sales/top-sales.component";
+import { CreatorListComponent } from "./analytics-page/creator-list/creator-list.component";
+import { SmallGraphComponent } from "./analytics-page/small-graph/small-graph.component";
+import { ImxPageComponent } from "./imx-page/imx-page.component";
+import { DepositEthComponent } from "./imx-page/deposit-eth/deposit-eth.component";
+import { BuyEthComponent } from "./imx-page/buy-eth/buy-eth.component";
+import { WithdrawEthComponent } from "./imx-page/withdraw-eth/withdraw-eth.component";
+import { EthNftPostPageComponent } from "./eth-nft-post-page/eth-nft-post-page.component";
+import { EthNftPostComponent } from "./eth-nft-post-page/eth-nft-post/eth-nft-post.component";
+import { EthMarketplaceLeftBarComponent } from "./eth-marketplace-left-bar/eth-marketplace-left-bar.component";
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -416,6 +417,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     WithdrawEthComponent,
     EthNftPostPageComponent,
     EthNftPostComponent,
+    EthMarketplaceLeftBarComponent,
   ],
   imports: [
     BrowserModule,

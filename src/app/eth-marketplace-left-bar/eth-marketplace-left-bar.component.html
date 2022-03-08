@@ -1,0 +1,307 @@
+<!--<div class="marketplace-nav-width position-relative"> Commented out to make position sticky work-->
+<div class="global__nav__sticky__marketplace mt-10px" *ngIf="!flyout">
+  <div class="global__nav__inner__marketplace disable-scrollbars position-relative">
+    <label class="w-100 pl-10px marketplace-label">Status</label>
+    <div class="mlb-status-grid">
+      <button
+        class="font-weight-semibold fs-14px"
+        (click)="statusEthClick('all')"
+        [ngClass]="{ selected: this.statusAll }"
+      >
+        All
+      </button>
+      <button
+        class="font-weight-semibold fs-14px"
+        (click)="statusEthClick('for sale')"
+        [ngClass]="{ selected: this.statusForSale }"
+      >
+        For Sale
+      </button>
+      <!-- <button
+        class="font-weight-semibold fs-14px"
+        (click)="statusClick('has bids')"
+        [ngClass]="{ selected: this.statusHasBids }"
+      >
+        Has Bids
+      </button>
+      <button
+        class="font-weight-semibold fs-14px"
+        (click)="statusClick('sold')"
+        [ngClass]="{ selected: this.statusSold }"
+      >
+        Sold
+      </button> -->
+    </div>
+    <label class="w-100 mt-20px pl-10px marketplace-label">Price range</label>
+    <div *ngIf="!globalVars.marketplacePriceRangeSet; else priceSetBlock">
+      <div class="d-flex flex-row justify-content-between mlb-price-inputs-container">
+        <input
+          [ngClass]="{ correct: priceRangeCorrect, incorrect: priceRangeIncorrect }"
+          (change)="checkPriceRange()"
+          [(ngModel)]="lowPrice"
+          type="number"
+          placeholder="Min"
+        />
+        <input
+          [ngClass]="{ correct: priceRangeCorrect, incorrect: priceRangeIncorrect }"
+          (change)="checkPriceRange()"
+          [(ngModel)]="highPrice"
+          type="number"
+          placeholder="Max"
+        />
+      </div>
+    </div>
+    <ng-template #priceSetBlock>
+      <div class="mlb-price-set-box w-100 d-flex flex-center-start pl-10px position-relative">
+        <span>{{ this.showPriceRange() }}</span>
+        <button (click)="resetPriceRange()"></button>
+      </div>
+    </ng-template>
+    <label class="w-100 mt-20px pl-10px marketplace-label">Market</label>
+    <button
+      class="w-100 marketplace-filter-button d-flex flex-row align-items-center pl-10px position-relative"
+      [ngClass]="marketPrimary ? 'market-button-checked' : ''"
+      (click)="marketClick('primary')"
+    >
+      <input type="checkbox" class="marketplace-button-checkbox display-none" [checked]="marketPrimary" />
+      <label class="marketplace-checkbox-label fs-14px">Primary</label>
+    </button>
+    <button
+      class="w-100 mt-10px marketplace-filter-button d-flex flex-row align-items-center pl-10px position-relative"
+      [ngClass]="marketSecondary ? 'market-button-checked' : ''"
+      (click)="marketClick('secondary')"
+    >
+      <input type="checkbox" class="marketplace-button-checkbox display-none" [checked]="marketSecondary" />
+      <label class="marketplace-checkbox-label fs-14px">Secondary</label>
+    </button>
+    <label class="w-100 mt-20px pl-10px marketplace-label">Creators</label>
+    <div class="mrk_lb_selector px-5px">
+      <button
+        class="fs-12px d-flex flex-row flex-center"
+        (click)="creatorsClick('verified')"
+        [ngClass]="{ selected: creatorTypeVerified }"
+      >
+        <img src="/assets/icons/checkmark_14px.svg" class="mr-5px" alt="image-icon" />
+        Verified
+      </button>
+      <button
+        class="fs-12px d-flex flex-row flex-center"
+        (click)="creatorsClick('all')"
+        [ngClass]="{ selected: !creatorTypeVerified }"
+      >
+        <img src="/assets/icons/market_globe_icon.svg" class="mr-5px" alt="image-icon" />
+        All
+      </button>
+    </div>
+    <div class="verifiedAccordion disable-scrollbars" [ngClass]="{ expanded: this.creatorTypeVerified }">
+      <label class="w-100 mt-20px pl-10px marketplace-label">Category</label>
+      <select
+        class="w-100 p-5px mrk_select mrk_select_height font-weight-semibold fs-14px"
+        (ngModelChange)="categorySelectChange($event)"
+        [ngModel]="NFTCategory"
+      >
+        <option value="all">All</option>
+        <option value="photography">Photography</option>
+        <option value="art">Art</option>
+        <option value="collectibles">Collectibles</option>
+        <option value="generative art">Generative Art</option>
+        <option value="metaverse">Metaverse & Gaming</option>
+        <option value="music">Music</option>
+        <option value="profile picture">Profile Picture Collection</option>
+      </select>
+      <label class="w-100 mt-20px pl-10px marketplace-label">Content format</label>
+      <button
+        class="w-100 mlb-content-format-button d-flex flex-row flex-center-start pl-10px fs-14px"
+        [ngClass]="{ selected: formatAll }"
+        (click)="formatClick('all')"
+      >
+        <img src="/assets/icons/market_globe_icon.svg" class="mr-5px" alt="image-icon" />
+        All
+      </button>
+      <div class="mlb-status-grid pt-10px">
+        <button (click)="formatClick('images')" [ngClass]="{ selected: formatImages }">
+          <img src="/assets/icons/market_images_icon.svg" class="mb-5px" alt="image-icon" />
+          Images
+        </button>
+        <button (click)="formatClick('video')" [ngClass]="{ selected: formatVideo }">
+          <img src="/assets/icons/market_video_icon.svg" class="mb-5px" alt="image-icon" />
+          Video
+        </button>
+        <button (click)="formatClick('music')" [ngClass]="{ selected: formatMusic }">
+          <img src="/assets/icons/market_music_icon.svg" class="mb-5px" alt="image-icon" />
+          Music
+        </button>
+        <button class="not-available-warning-border">
+          <img src="/assets/icons/market_3d_icon.svg" class="mb-5px" alt="image-icon" />
+          3D
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mlb-apply-button-container">
+    <button
+      [disabled]="!canUserSort || priceRangeIncorrect"
+      class="marketplace-apply-button fs-12px font-weight-bold"
+      (click)="apply()"
+    >
+      <img src="/assets/icons/market_apply_icon.svg" class="mr-5px" alt="image-icon" />
+      Apply
+    </button>
+  </div>
+</div>
+<!-- Style way aspect ration differently for mobile -->
+<div
+  class="flyout__nav__inner__marketplace w-100 disable-scrollbars position-relative pointer-events-all"
+  *ngIf="flyout"
+>
+  <div class="nav_close_marketplace position-relative">
+    <img src="assets/img/close_square.svg" class="cursor-pointer" (click)="closeMenu()" alt="" />
+  </div>
+  <label class="w-100 pl-10px marketplace-flyout-label">Status</label>
+  <div class="mlb-flyout-status-grid">
+    <button class="font-weight-semibold" (click)="statusClick('all')" [ngClass]="{ selected: this.statusAll }">
+      <p class="center-absolute">All</p>
+    </button>
+    <button class="font-weight-semibold" (click)="statusClick('for sale')" [ngClass]="{ selected: this.statusForSale }">
+      <p class="center-absolute">For Sale</p>
+    </button>
+    <button class="font-weight-semibold" (click)="statusClick('has bids')" [ngClass]="{ selected: this.statusHasBids }">
+      <p class="center-absolute">Has bids</p>
+    </button>
+    <button class="font-weight-semibold" (click)="statusClick('sold')" [ngClass]="{ selected: this.statusSold }">
+      <p class="center-absolute">Sold</p>
+    </button>
+  </div>
+  <label class="w-100 mt-20px pl-10px marketplace-flyout-label">Price range</label>
+  <div *ngIf="!globalVars.marketplacePriceRangeSet; else priceSetBlock">
+    <div class="d-flex flex-row justify-content-between mlb-flyout-price-inputs-container">
+      <input
+        [ngClass]="{ correct: priceRangeCorrect, incorrect: priceRangeIncorrect }"
+        (change)="checkPriceRange()"
+        [(ngModel)]="lowPrice"
+        type="number"
+        placeholder="Min"
+      />
+      <input
+        [ngClass]="{ correct: priceRangeCorrect, incorrect: priceRangeIncorrect }"
+        (change)="checkPriceRange()"
+        [(ngModel)]="highPrice"
+        type="number"
+        placeholder="Max"
+      />
+    </div>
+  </div>
+  <ng-template #priceSetBlock>
+    <div class="mlb-flyout-price-set-box w-100 d-flex flex-center-start pl-10px position-relative">
+      <span>{{ this.showPriceRange() }}</span>
+      <button (click)="resetPriceRange()"></button>
+    </div>
+  </ng-template>
+  <label class="w-100 mt-20px pl-10px marketplace-flyout-label">Market</label>
+  <button
+    class="w-100 marketplace-flyout-filter-button d-flex flex-center-start"
+    [ngClass]="marketPrimary ? 'market-button-checked' : ''"
+    (click)="marketClick('primary')"
+  >
+    <input type="checkbox" class="marketplace-button-checkbox display-none" [checked]="marketPrimary" />
+    <label class="marketplace-flyout-checkbox-label pl-20px">Primary</label>
+  </button>
+  <button
+    class="w-100 mt-10px marketplace-flyout-filter-button d-flex flex-center-start"
+    [ngClass]="marketSecondary ? 'market-button-checked' : ''"
+    (click)="marketClick('secondary')"
+  >
+    <input type="checkbox" class="marketplace-button-checkbox display-none" [checked]="marketSecondary" />
+    <label class="marketplace-flyout-checkbox-label pl-20px">Secondary</label>
+  </button>
+  <label class="w-100 mt-20px pl-10px marketplace-flyout-label">Creators</label>
+  <div class="mrk_flyout_lb_selector w-100 px-5px">
+    <button
+      class="d-flex flex-row flex-center"
+      (click)="creatorsClick('verified')"
+      [ngClass]="{ selected: creatorTypeVerified }"
+    >
+      <span class="center-absolute">
+        <img src="/assets/icons/checkmark_14px.svg" class="mr-5px" alt="image-icon" />
+        Verified
+      </span>
+    </button>
+    <button
+      class="d-flex flex-row flex-center"
+      (click)="creatorsClick('all')"
+      [ngClass]="{ selected: !creatorTypeVerified }"
+    >
+      <span class="center-absolute">
+        <img src="/assets/icons/market_globe_icon.svg" class="mr-5px" alt="image-icon" />
+        All
+      </span>
+    </button>
+  </div>
+  <div class="verifiedFlyoutAccordion disable-scrollbars" [ngClass]="{ expanded: this.creatorTypeVerified }">
+    <label class="w-100 mt-20px pl-10px marketplace-flyout-label">Category</label>
+    <select
+      class="w-100 p-5px mrk_select_flyout font-weight-semibold"
+      (ngModelChange)="categorySelectChange($event)"
+      [ngModel]="NFTCategory"
+    >
+      <option value="all" class="target">All</option>
+      <option value="photography">Photography</option>
+      <option value="art">Art</option>
+      <option value="collectibles">Collectibles</option>
+      <option value="generative art">Generative Art</option>
+      <option value="metaverse">Metaverse & Gaming</option>
+      <option value="music">Music</option>
+      <option value="profile picture">Profile Picture Collection</option>
+    </select>
+    <label class="w-100 mt-20px pl-10px marketplace-flyout-label">Content format</label>
+    <button
+      class="w-100 mlb-flyout-content-format-button d-flex flex-row flex-center-start pl-10px"
+      [ngClass]="{ selected: formatAll }"
+      (click)="formatClick('All')"
+    >
+      <span class="left-center-absolute">
+        <img src="/assets/icons/market_globe_icon.svg" class="mr-5px" alt="image-icon" />
+        All
+      </span>
+    </button>
+    <div class="mlb-flyout-status-grid pt-10px">
+      <button (click)="formatClick('images')" [ngClass]="{ selected: formatImages }">
+        <span class="center-absolute d-flex flex-column">
+          <img src="/assets/icons/market_images_icon.svg" class="mb-5px" alt="image-icon" />
+          Images
+        </span>
+      </button>
+      <button (click)="formatClick('video')" [ngClass]="{ selected: formatVideo }">
+        <span class="center-absolute d-flex flex-column">
+          <img src="/assets/icons/market_video_icon.svg" class="mb-5px" alt="image-icon" />
+          Video
+        </span>
+      </button>
+      <button (click)="formatClick('music')" [ngClass]="{ selected: formatMusic }">
+        <span class="center-absolute d-flex flex-column">
+          <img src="/assets/icons/market_music_icon.svg" class="mb-5px" alt="image-icon" />
+          Music
+        </span>
+      </button>
+      <button class="not-available-warning-border">
+        <span class="center-absolute d-flex flex-column">
+          <img src="/assets/icons/market_3d_icon.svg" class="mb-5px" alt="image-icon" />
+          3D
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="mlb-flyout-apply-button-container" *ngIf="flyout">
+  <button
+    [disabled]="!canUserSort || priceRangeIncorrect"
+    class="marketplace-flyout-apply-button font-weight-bold"
+    (click)="apply()"
+  >
+    <span class="center-absolute">
+      <img src="/assets/icons/market_apply_icon.svg" class="mr-5px" alt="image-icon" />
+      Apply
+    </span>
+  </button>
+</div>
+<!--</div>-->

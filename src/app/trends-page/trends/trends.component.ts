@@ -86,7 +86,7 @@ export class TrendsComponent implements OnInit {
   updateEthMarketplaceStatus() {
     this.desoMarketplace = false;
     this.ethMarketplace = true;
-    this.sortEthMarketplace();
+    this.globalVars.getAllEthNFTs();
   }
 
   @HostListener("window:resize") onResize() {
@@ -166,105 +166,6 @@ export class TrendsComponent implements OnInit {
           console.log(err.error);
         }
       );
-  }
-
-  async sortEthMarketplace() {
-    // if (!showMore) {
-    //   this.globalVars.isMarketplaceLoading = true;
-    // }
-    // this.backendApi
-    //   .SortMarketplace(
-    //     this.globalVars.localNode,
-    //     this.globalVars.loggedInUser.PublicKeyBase58Check,
-    //     offset,
-    //     this.globalVars.marketplaceLowPriceNanos,
-    //     this.globalVars.marketplaceHighPriceNanos,
-    //     this.globalVars.marketplaceStatus,
-    //     this.globalVars.marketplaceMarketType,
-    //     this.globalVars.marketplaceNFTCategory,
-    //     this.globalVars.marketplaceSortType,
-    //     this.globalVars.marketplaceContentFormat,
-    //     this.globalVars.marketplaceVerifiedCreators
-    //   )
-    //   .subscribe(
-    //     (res) => {
-    //       if (showMore) {
-    //         this.globalVars.marketplaceNFTsData = this.globalVars.marketplaceNFTsData.concat(res.PostEntryResponse);
-    //       } else {
-    //         this.globalVars.marketplaceNFTsData = res.PostEntryResponse;
-    //         this.updateToEthOnly();
-    //       }
-    //       this.globalVars.isMarketplaceLoading = false;
-    //     },
-    //     (err) => {
-    //       console.log(err.error);
-    //     }
-    //   );
-    this.globalVars.isEthMarketplaceLoading = true;
-    this.globalVars.ethMarketplaceNFTsData = [];
-
-    const options = { method: "GET", headers: { Accept: "*/*" } };
-
-    let res = await fetch(
-      "https://api.ropsten.x.immutable.com/v1/orders?status=active&sell_token_address=0xb027E9BC2ee4eDcb2E01646c4B01224f54AAa566",
-      options
-    );
-    let resJson = await res.json();
-    console.log(resJson);
-    console.log(resJson["result"]);
-    let NFTsForSaleLength = resJson["result"].length;
-    let NFTsForSaleArr = [];
-
-    for (var i = 0; i < NFTsForSaleLength; i++) {
-      NFTsForSaleArr.push(resJson["result"][i]["sell"]["data"]["token_id"]);
-    }
-
-    let metadataPostHashArr = [];
-    for (var i = 0; i < NFTsForSaleArr.length; i++) {
-      let metadataRes = await fetch(`https://supernovas.app/api/v0/imx/metadata/${NFTsForSaleArr[i]}`);
-      let metadataResJson = await metadataRes.json();
-      metadataPostHashArr.push(metadataResJson["PostHashHex"]);
-    }
-
-    for (var i = 0; i < metadataPostHashArr.length; i++) {
-      this.getPost(true, metadataPostHashArr[i]).subscribe(
-        (res) => {
-          console.log(res["PostFound"]);
-          console.log(this.globalVars.ethMarketplaceNFTsData);
-          this.globalVars.ethMarketplaceNFTsData.push(res["PostFound"]);
-          console.log(this.globalVars.ethMarketplaceNFTsData);
-        },
-        (err: any) => {
-          console.log(err);
-        }
-      );
-    }
-
-    this.globalVars.isEthMarketplaceLoading = false;
-  }
-
-  getPost(fetchParents: boolean = true, nftPostHashHex: string) {
-    // Hit the Get Single Post endpoint with specific parameters
-    let readerPubKey = "";
-    if (this.globalVars.loggedInUser) {
-      readerPubKey = this.globalVars.loggedInUser.PublicKeyBase58Check;
-    }
-    return this.backendApi.GetSinglePost(
-      this.globalVars.localNode,
-      nftPostHashHex /*PostHashHex*/,
-      readerPubKey /*ReaderPublicKeyBase58Check*/,
-      fetchParents,
-      0,
-      0,
-      this.globalVars.showAdminTools() /*AddGlobalFeedBool*/
-    );
-  }
-
-  updateToEthOnly() {
-    this.globalVars.marketplaceNFTsData = this.globalVars.marketplaceNFTsData.filter(
-      (nftPost) => nftPost["PostExtraData"]["isEthereumNFT"] === true
-    );
-    console.log(this.globalVars.marketplaceNFTsData);
   }
 
   sortCreators(offset: number, showMore: boolean) {

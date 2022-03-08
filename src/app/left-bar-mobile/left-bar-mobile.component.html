@@ -1,7 +1,7 @@
 <!-- globalVars.isLeftBarMobileOpen -->
 <div class="left-bar-mobile__flyout-div" [@leftBarAnimation] *ngIf="globalVars.isLeftBarMobileOpen">
   <app-mobile-navigation
-    class="w-100 mobile_flyout_target h-100 d-flex flex-center"
+    class="w-100 h-100 d-flex flex-center"
     *ngIf="globalVars.loggedInUser"
     (closeMobile)="_closeMenu()"
   ></app-mobile-navigation>

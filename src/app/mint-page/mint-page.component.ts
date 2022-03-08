@@ -618,6 +618,9 @@ export class MintPageComponent implements OnInit {
   }
 
   uploadEthMetadata() {
+    this.postHashHex = "filler postHashHex";
+    console.log(this.postHashHex);
+
     this.backendApi
       .InsertIMXMetadata(
         this.globalVars.localNode,
@@ -626,7 +629,7 @@ export class MintPageComponent implements OnInit {
         this.postImageArweaveSrc,
         this.postImageArweaveSrc,
         this.CATEGORY,
-        ""
+        this.postHashHex
       )
       .subscribe((res) => {
         console.log(res["Response"]);
@@ -637,6 +640,14 @@ export class MintPageComponent implements OnInit {
         } else {
           this.mintv2WithRoyalties(this.token_id, this.CREATOR_ROYALTY);
         }
+      });
+  }
+
+  updateIMXMetadataPostHash() {
+    this.backendApi
+      .UpdateIMXMetadataPostHash(this.globalVars.localNode, this.token_id, this.postHashHex)
+      .subscribe((res) => {
+        console.log(` --------------- updated IMXMetadataPoshHash and res is ${res} --------------- `);
       });
   }
 
@@ -816,6 +827,7 @@ export class MintPageComponent implements OnInit {
             ` ---------------------------- response is ${JSON.stringify(response)} ---------------------------- `
           );
           console.log(` ---------------------------- postHashHex ${this.postHashHex} ---------------------------- `);
+          this.updateIMXMetadataPostHash();
         },
         (err) => {
           const parsedError = this.backendApi.parsePostError(err);

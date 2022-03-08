@@ -163,7 +163,9 @@ export class GlobalVarsService {
   followFeedPosts = [];
   // Marketplace is loading / filtering
   isMarketplaceLoading = false;
+  isEthMarketplaceLoading = false;
   marketplaceNFTsData: NFTCollectionResponse[];
+  ethMarketplaceNFTsData: NFTCollectionResponse[];
   marketplaceCreatorData: CreatorCardResponse[];
   // The buttons on the marketplace
   marketplaceViewTypeCard = true;

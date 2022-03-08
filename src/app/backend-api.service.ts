@@ -197,6 +197,7 @@ export class BackendRoutes {
   // IMX SUPERNOVAS
   static RoutePathGetIMXMetadataById = "/api/v0/imx/metadata";
   static RoutePathInsertIMXMetadata = "/api/v0/insert/imx";
+  static RoutePathUpdateIMXMetadataPostHash = "/api/v0/update-imx-post-hash";
 }
 
 export class Transaction {
@@ -796,6 +797,13 @@ export class BackendApiService {
   }
   GetIMXMetadataURL(endpoint: string): string {
     return this._makeRequestURL(endpoint, BackendRoutes.RoutePathGetIMXMetadataById + "/1");
+  }
+
+  UpdateIMXMetadataPostHash(endpoint: string, Token_id: string, PostHashHex: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathUpdateIMXMetadataPostHash, {
+      Token_id,
+      PostHashHex,
+    });
   }
 
   // User-related functions.

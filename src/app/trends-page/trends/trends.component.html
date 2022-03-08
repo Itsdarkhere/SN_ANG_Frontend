@@ -189,14 +189,14 @@
   <div class="w-100 d-flex flex-row" id="market">
     <app-marketplace-left-bar *ngIf="!mobile" [flyout]="false"></app-marketplace-left-bar>
     <div [ngClass]="mobile ? 'global__content__width' : 'global__center__width__marketplace'">
-      <div class="nfts-card-list" *ngIf="globalVars.isMarketplaceLoading">
+      <div class="nfts-card-list" *ngIf="globalVars.isEthMarketplaceLoading">
         <div class="nft-col-wrap" *ngFor="let in of counter(50); let i = index">
           <div class="card">
             <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
           </div>
         </div>
       </div>
-      <div *ngIf="!globalVars.isMarketplaceLoading" class="w-100 d-flex flex-row flex-start-end">
+      <div *ngIf="!globalVars.isEthMarketplaceLoading" class="w-100 d-flex flex-row flex-start-end">
         <div
           class="search-results"
           infiniteScroll
@@ -207,7 +207,7 @@
           <div class="nfts-card-list">
             <div
               [ngClass]="globalVars.marketplaceViewTypeCard ? 'nft-col-wrap' : 'small-nft-col-wrap'"
-              *ngFor="let PostEntryResponse of globalVars.marketplaceNFTsData"
+              *ngFor="let PostEntryResponse of globalVars.ethMarketplaceNFTsData"
             >
               <div class="max-width-300-plus" *ngIf="globalVars.marketplaceViewTypeCard">
                 <new-nft-card
@@ -231,7 +231,7 @@
       </div>
 
       <div
-        *ngIf="!globalVars.isMarketplaceLoading && !this.globalVars.marketplaceNFTsData"
+        *ngIf="!globalVars.isEthMarketplaceLoading && !this.globalVars.ethMarketplaceNFTsData"
         class="d-flex align-items-center justify-content-center"
       >
         <div
@@ -241,7 +241,7 @@
           <div></div>
         </div>
       </div>
-      <simple-center-loader *ngIf="globalVars.isMarketplaceLoading"></simple-center-loader>
+      <simple-center-loader *ngIf="globalVars.isEthMarketplaceLoading"></simple-center-loader>
       <bottom-bar-mobile
         *ngIf="mobile"
         class="global__bottom-bar-mobile scrolled"

@@ -5,7 +5,7 @@
     *ngIf="globalVars.loggedInUser"
     (closeMobile)="_closeMenu()"
   ></app-mobile-navigation>
-  <div *ngIf="!globalVars.loggedInUser" class="">
+  <div *ngIf="!globalVars.loggedInUser" class="lb-mobile-offline-info">
     <app-offline-info></app-offline-info>
   </div>
   <div (click)="_closeMenu()" class="nav_close">

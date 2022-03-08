@@ -1485,7 +1485,7 @@ export class GlobalVarsService {
     const options = { method: "GET", headers: { Accept: "*/*" } };
 
     let res = await fetch(
-      "https://api.ropsten.x.immutable.com/v1/orders?status=active&sell_token_address=0xb027E9BC2ee4eDcb2E01646c4B01224f54AAa566",
+      `https://api.ropsten.x.immutable.com/v1/orders?status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
       options
     );
     let resJson = await res.json();
@@ -1538,7 +1538,7 @@ export class GlobalVarsService {
     const options = { method: "GET", headers: { Accept: "application/json" } };
 
     let res = await fetch(
-      "https://api.ropsten.x.immutable.com/v1/mints?token_address=0xb027E9BC2ee4eDcb2E01646c4B01224f54AAa566",
+      `https://api.ropsten.x.immutable.com/v1/mints?token_address=${environment.imx.TOKEN_ADDRESS}`,
       options
     );
     let resJson = await res.json();

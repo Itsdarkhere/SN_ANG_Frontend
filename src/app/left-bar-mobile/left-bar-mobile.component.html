@@ -1,16 +1,14 @@
-<div>
-  <!-- globalVars.isLeftBarMobileOpen -->
-  <div class="left-bar-mobile__flyout-div" [@leftBarAnimation] *ngIf="globalVars.isLeftBarMobileOpen">
-    <app-mobile-navigation
-      class="w-100 h-100 d-flex flex-center"
-      *ngIf="globalVars.loggedInUser"
-      (closeMobile)="_closeMenu()"
-    ></app-mobile-navigation>
-    <div *ngIf="!globalVars.loggedInUser" class="">
-      <app-offline-info></app-offline-info>
-    </div>
-    <div (click)="_closeMenu()" class="nav_close">
-      <img src="/assets/icons/cas_x_icon.svg" alt="" />
-    </div>
+<!-- globalVars.isLeftBarMobileOpen -->
+<div class="left-bar-mobile__flyout-div" [@leftBarAnimation] *ngIf="globalVars.isLeftBarMobileOpen">
+  <app-mobile-navigation
+    class="w-100 h-100 d-flex flex-center"
+    *ngIf="globalVars.loggedInUser"
+    (closeMobile)="_closeMenu()"
+  ></app-mobile-navigation>
+  <div *ngIf="!globalVars.loggedInUser" class="">
+    <app-offline-info></app-offline-info>
+  </div>
+  <div (click)="_closeMenu()" class="nav_close">
+    <img src="/assets/icons/cas_x_icon.svg" alt="" />
   </div>
 </div>

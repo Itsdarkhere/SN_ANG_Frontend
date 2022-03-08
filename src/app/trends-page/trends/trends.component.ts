@@ -219,6 +219,12 @@ export class TrendsComponent implements OnInit {
         break;
     }
   }
+
+  setEthDisplayType() {
+    this.globalVars._alertError("You cannot set display type for ETH");
+    return;
+  }
+
   getParamsAndSort() {
     this.route.queryParams
       .subscribe((params) => {
@@ -244,5 +250,9 @@ export class TrendsComponent implements OnInit {
       this.globalVars.marketplaceSortType = event;
       this.sortMarketplace(0, false);
     }
+  }
+  sortSelectChangeEth() {
+    this.globalVars._alertError("You cannot sort on ETH, please use the left bar to filter.");
+    return;
   }
 }

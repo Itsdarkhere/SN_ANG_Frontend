@@ -34,7 +34,9 @@
               "src/styles.scss",
               "src/styles.sass"
             ],
-            "scripts": []
+            "scripts": ["src/assets/bg-color.js",
+              "src/assets/scroll.js",
+              "src/assets/scroll-collectors.js"]
           },
           "configurations": {
             "production": {
@@ -97,7 +99,9 @@
               "src/styles.scss",
               "src/styles.sass"
             ],
-            "scripts": [],
+            "scripts": ["src/assets/bg-color.js",
+              "src/assets/scroll.js",
+              "src/assets/scroll-collectors.js"],
             "assets": ["src/assets"]
           }
         },

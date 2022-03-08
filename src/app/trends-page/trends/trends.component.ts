@@ -86,6 +86,7 @@ export class TrendsComponent implements OnInit {
   updateEthMarketplaceStatus() {
     this.desoMarketplace = false;
     this.ethMarketplace = true;
+    this.globalVars.marketplaceNFTCategory = "All";
     this.globalVars.getAllEthNFTs();
   }
 

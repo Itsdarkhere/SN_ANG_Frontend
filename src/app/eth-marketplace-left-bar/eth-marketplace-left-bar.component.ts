@@ -57,7 +57,7 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
   lastSortStatusForSale = false;
   lastSortStatusHasBids = false;
   lastSortStatusSold = false;
-  lastSortCategory = "all";
+  lastSortCategory = "All";
   // If Apply button is disabled or allowed
   canUserSort = false;
 
@@ -481,7 +481,7 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
     this.globalVars.isMarketplaceLoading = true;
     // this.setPriceRangeInNanos();
     // this.setMarketType();
-    // this.setCategory();
+    this.setCategory();
     // this.setContentFormat();
     this.setStatus();
     // this.setCreatorType();

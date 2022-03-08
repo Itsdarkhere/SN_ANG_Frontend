@@ -53,7 +53,7 @@
             post.parentPost is set in appendCommentAfterParentPost
           -->
         <ng-container *ngIf="post?.IsNFT">
-          <div class="feed-post-shadow">
+          <div class="mobile_feed_post">
             <app-nft-card-post
               [post]="post"
               [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"

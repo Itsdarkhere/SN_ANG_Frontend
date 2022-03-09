@@ -836,8 +836,26 @@ color: rgb(22, 22, 22);
   width: 100%;
   margin-right: 0;
   display: flex;
-  margin-bottom: 2em;
+  /* margin-bottom: 2em; */
 }
+
+.testimonials-title {
+  align-self: flex-end;
+  color: var(--black);
+  font-family: var(--font-family-poppins);
+  font-size: 66.7px;
+  font-weight: 100;
+  margin-top: 5em;
+  width: 100%;
+  font-size: clamp(3.2rem, -0.875rem + 8.333vw, 5rem);
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-right: 0;
+  display: flex;
+  margin-bottom: 1.3em;
+}
+
 .creators-title-2{
   z-index: 1;
 }
@@ -1678,13 +1696,12 @@ footer {
 }
 .meme-gif {
   position: absolute;
-  width: 155px;
+  width: 105px;
   top: 709px;
-  right: 2071px;
+  right: 2347px;
   z-index: 1111;
   border-radius: 25px;
   animation: 6s infinite alternate floating;
-
 }
 .punk-gif {
   position: absolute;
@@ -1717,6 +1734,79 @@ footer {
     to {
       background-position: 200% center;
     }
+  }
+}
+
+@media screen and (min-width: 2000px){
+  .card {
+    background-color: white;
+    border: 3.5px solid #1d1d1d;
+    padding: 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    list-style-type: none;
+    min-height: 6em;
+    box-shadow: rgba(0, 0, 0, 0.05) 0 18px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 419px;
+    height: 609px;
+    margin-right: 50px;
+    transition: all 600ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .card-title {
+    color: black;
+    font-family: var(--font-family-poppins);
+    font-size: clamp(2.3rem, -0.875rem + 8.333vw, 3.7rem);
+    font-weight: 500;
+    font-style: normal;
+    text-decoration: none;
+    list-style-type: none;
+    margin: 0px;
+  }
+  .card-p {
+    color: var(--black);
+    font-family: var(--font-family-poppins);
+    font-size: 18px;
+    font-weight: 400;
+    font-style: normal;
+    margin-top: 2em;
+    margin-bottom: 0em;
+  }
+  .meme-gif {
+    position: absolute;
+    width: 105px;
+    top: 605px;
+    right: 2237px;
+    z-index: 1111;
+    border-radius: 25px;
+    animation: 6s infinite alternate floating;
+  }
+  .testimonial-card {
+    background-color: var(--desert-storm);
+    border-radius: 42.61px;
+    box-shadow: 0 9.71px 12.78px #0000001c;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    width: 45%;
+    height: 14em;
+    margin: 1em;
+    display: flex;
+    transition: all 600ms cubic-bezier(0.23, 1, 0.32, 1);
+    max-width: 690px;
+  }
+  .card__black {
+    background-color: black;
+    transition: all 600ms cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: none;
+  }
+  .card-title__black {
+    color: var(--text-white);
+  }
+  .card-p__black {
+    color: var(--text-white);
   }
 }
 
@@ -1800,9 +1890,6 @@ footer {
   .button-28{
     min-width: none;
   }
-}
-@media screen and (max-width: 1600px){
-
 }
 @media screen and (max-width: 832px){
   .artist-card {

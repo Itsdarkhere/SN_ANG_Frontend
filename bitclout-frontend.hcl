@@ -68,8 +68,9 @@ job "supernovas-frontend" {
     header Content-Security-Policy "
       default-src 'self';
       connect-src 'self'
-        https://link.ropsten.x.immutable.com
-        https://api.ropsten.x.immutable.com/v1
+        https://link.ropsten.x.immutable.com:*
+        https://api.ropsten.x.immutable.com:*
+        https://eth-ropsten.alchemyapi.io:*
         supernovas.app:*
         node.deso.org
         https://supernovas.app

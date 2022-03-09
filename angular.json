@@ -33,10 +33,7 @@
               "./node_modules/ngx-toastr/toastr.css",
               "src/styles.scss",
               "src/styles.sass"
-            ],
-            "scripts": ["src/assets/bg-color.js",
-              "src/assets/scroll.js",
-              "src/assets/scroll-collectors.js"]
+            ]
           },
           "configurations": {
             "production": {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, HostListener, OnInit } from "@angular/core";
 import { AppRoutingModule } from "../app-routing.module";
 import { GlobalVarsService } from "../global-vars.service";
 import { Router } from "@angular/router";
@@ -14,6 +14,12 @@ import { AnimationOptions } from "ngx-lottie";
 export class LandingPageComponent implements OnInit {
   AppRoutingModule = AppRoutingModule;
   environment = environment;
+
+  spaceHolder = document.querySelector(".space-holder") as HTMLDivElement;
+  horizontal = document.querySelector(".horizontal") as HTMLDivElement;
+
+  spaceHolder2 = document.querySelector(".space-holder__collectors") as HTMLDivElement;
+  horizontal2 = document.querySelector(".horizontal__collectors") as HTMLDivElement;
 
   dao: AnimationOptions = {
     path: "https://assets5.lottiefiles.com/packages/lf20_fbmcwfmt.json",
@@ -104,15 +110,46 @@ export class LandingPageComponent implements OnInit {
       likes: "236",
     },
   ];
-
   constructor(public globalVars: GlobalVarsService, private router: Router) {}
+
+  // Scroll effects
+  @HostListener("window:resize") onResize() {
+    this.spaceHolder = document.querySelector(".space-holder") as HTMLDivElement;
+    this.spaceHolder2.style.height = `${this.calcDynamicHeight(this.horizontal2)}px`;
+    //this.spaceHolder.style.height = `${this.calcDynamicHeight(this.horizontal)}px`;
+    // this.spaceHolder2.style.height = `${calcDynamicHeight(horizontal2)}px`;
+  }
+  @HostListener("window:scroll", []) scroll() {
+    if (!this.spaceHolder) {
+      this.spaceHolder = document.querySelector(".space-holder") as HTMLDivElement;
+      this.horizontal = document.querySelector(".horizontal") as HTMLDivElement;
+    }
+    if (!this.spaceHolder2) {
+      this.spaceHolder2 = document.querySelector(".space-holder__collectors") as HTMLDivElement;
+      this.horizontal2 = document.querySelector(".horizontal__collectors") as HTMLDivElement;
+    }
+    // Scroll-js
+    const sticky = document.querySelector(".sticky") as HTMLDivElement;
+    this.horizontal.style.transform = `translateX(-${sticky.offsetTop}px)`;
+    // Other scroll.js
+    const sticky2 = document.querySelector(".sticky__collectors") as HTMLDivElement;
+    this.horizontal2.style.transform = `translateX(-${sticky2.offsetTop}px)`;
+    // Keep in place while scrolling
+    this.spaceHolder.style.height = `${this.calcDynamicHeight(this.horizontal)}px`;
+    this.spaceHolder2.style.height = `${this.calcDynamicHeight(this.horizontal2)}px`;
+  }
+  calcDynamicHeight(ref: HTMLDivElement) {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const objectWidth = ref.scrollWidth;
+    return objectWidth - vw + vh + 150; // 150 is the padding (in pixels) desired on the right side of the .cards container. This can be set to whatever your styles dictate
+  }
 
   ngOnInit() {
     if (!this.globalVars.showLandingPage()) {
       //this.router.navigate(["/" + this.globalVars.RouteNames.BROWSE], { queryParamsHandling: "merge" });
     }
   }
-
   getLogoBackground() {
     return `url("${environment.node.logoAssetDir}camelcase_logo.svg")`;
   }

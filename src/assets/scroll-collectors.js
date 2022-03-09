@@ -1,5 +1,5 @@
 // COLLECTORS
-
+/*
 const spaceHolder2 = document.querySelector('.space-holder__collectors');
 const horizontal2 = document.querySelector('.horizontal__collectors');
 spaceHolder2.style.height = `${calcDynamicHeight(horizontal2)}px`;
@@ -18,4 +18,4 @@ window.addEventListener('scroll', () => {
 
 window.addEventListener('resize', () => {
   spaceHolder2.style.height = `${calcDynamicHeight(horizontal2)}px`;
-});
+});*/

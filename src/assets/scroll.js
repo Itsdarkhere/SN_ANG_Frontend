@@ -1,6 +1,6 @@
 // CREATORS
 
-const spaceHolder = document.querySelector('.space-holder');
+/*const spaceHolder = document.querySelector('.space-holder');
 const horizontal = document.querySelector('.horizontal');
 spaceHolder.style.height = `${calcDynamicHeight(horizontal)}px`;
 
@@ -20,3 +20,4 @@ window.addEventListener('resize', () => {
   spaceHolder.style.height = `${calcDynamicHeight(horizontal)}px`;
 });
 
+*/

@@ -251,6 +251,7 @@ export class MintPageComponent implements OnInit {
           this.isUploading = false;
           this.isUploaded = this.postImageArweaveSrc.length > 0;
           console.log(` ---------------------------- arweave res is ${res} --------------------------- `);
+          console.log(` ---------------------------- url is ${this.postImageArweaveSrc} ---------------------------- `);
         }, 2000);
       },
       (err) => {

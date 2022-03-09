@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { Link, ImmutableXClient, ImmutableMethodResults, ETHTokenType, ImmutableRollupStatus } from "@imtbl/imx-sdk";
 import { GlobalVarsService } from "../../global-vars.service";
+import { ConstantPool } from "@angular/compiler";
 
 @Component({
   selector: "app-withdraw-eth",
@@ -74,14 +75,28 @@ export class WithdrawEthComponent implements OnInit {
       withdrawn_to_wallet: false,
     });
     this.readyWithdrawalsResponse = this.readyWithdrawalsResponse["result"];
+    console.log(this.readyWithdrawalsResponse);
     if (this.readyWithdrawalsResponse.length === 0) {
       console.log("There are no withdrawals ready");
       this.readyWithdrawals = false;
     } else {
-      console.log("There are withdrawals ready");
-      this.readyWithdrawals = true;
-      this.withdrawAmount = localStorage.getItem("imxDepositAmount");
+      for (var i = 0; i < this.readyWithdrawalsResponse.length; i++) {
+        if (this.readyWithdrawalsResponse[i]["token"]["type"] === "ERC20") {
+          console.log("There are withdrawals ready");
+          this.readyWithdrawals = true;
+          this.withdrawAmount = localStorage.getItem("imxDepositAmount");
+          break;
+        } else {
+          console.log("There are no withdrawals ready");
+          this.readyWithdrawals = false;
+        }
+      }
     }
+    // else {
+    //   console.log("There are withdrawals ready");
+    //   this.readyWithdrawals = true;
+    //   this.withdrawAmount = localStorage.getItem("imxDepositAmount");
+    // }
   }
 
   async completeWithdrawal() {

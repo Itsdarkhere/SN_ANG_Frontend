@@ -223,7 +223,7 @@ export class FeedPostComponent implements OnInit {
     const options = { method: "GET", headers: { Accept: "application/json" } };
 
     let res = await fetch(
-      `https://api.ropsten.x.immutable.com/v1/assets/0xb027e9bc2ee4edcb2e01646c4b01224f54aaa566/${this.postContent.PostExtraData["tokenId"]}`,
+      `https://api.ropsten.x.immutable.com/v1/assets/${environment.imx.TOKEN_ADDRESS}/${this.postContent.PostExtraData["tokenId"]}`,
       options
     );
 

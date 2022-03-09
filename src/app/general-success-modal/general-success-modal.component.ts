@@ -64,6 +64,7 @@ export class GeneralSuccessModalComponent implements OnInit {
     const res = await this.link.setup({});
     this.globalVars.imxWalletConnected = true;
     this.globalVars.imxWalletAddress = res.address;
+    this.globalVars.ethWalletAddresShort = this.globalVars.imxWalletAddress.slice(0, 15) + "...";
     console.log(
       ` ----------------------- walletConnected is ${this.globalVars.imxWalletConnected} ----------------------- `
     );

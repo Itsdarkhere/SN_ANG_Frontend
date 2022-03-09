@@ -92,7 +92,6 @@ export class MintPageComponent implements OnInit {
 
   //   WalletAddressShort
   desoWalletAddressShort: string;
-  ethWalletAddresShort: string;
 
   // Content type
   videoType = false;
@@ -159,7 +158,7 @@ export class MintPageComponent implements OnInit {
       console.log("local storage hit -------------------");
       this.globalVars.imxWalletConnected = true;
       this.globalVars.imxWalletAddress = localStorage.getItem("address") as string;
-      this.ethWalletAddresShort = this.globalVars.imxWalletAddress.slice(0, 15) + "...";
+      this.globalVars.ethWalletAddresShort = this.globalVars.imxWalletAddress.slice(0, 15) + "...";
     }
   }
   connectEthWallet() {

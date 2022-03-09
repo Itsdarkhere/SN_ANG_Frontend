@@ -56,7 +56,7 @@
           <!-- eth wallet is not connected -->
           <button
             class="blockchain-type-card-mint p-0px"
-            (click)="ethereumBlockchainSelected()"
+            (click)="connectEthWallet()"
             *ngIf="!this.globalVars.imxWalletConnected"
           >
             <div class="eth-blockchain-type-card-header">
@@ -65,7 +65,7 @@
                   <img src="/assets/eth/ethlogo-white.svg" alt="deso logo" class="eth-logo-header" />
                   <p class="blockchain-header-text">Eth</p>
                 </div>
-                <button class="deso-wallet-container-not-connected" (click)="connectEthWallet()">
+                <button class="deso-wallet-container-not-connected">
                   <div class="deso-wallet-connected-container">
                     <p class="deso-wallet-connected-text-not-connected">Connect Wallet</p>
                   </div>
@@ -104,7 +104,7 @@
                     class="deso-wallet-connected"
                   />
                   <div class="deso-wallet-connected-container">
-                    <p class="deso-wallet-connected-address">{{ this.ethWalletAddresShort }}</p>
+                    <p class="deso-wallet-connected-address">{{ this.globalVars.ethWalletAddresShort }}</p>
                     <p class="deso-wallet-connected-text">Wallet Connected</p>
                   </div>
                 </div>

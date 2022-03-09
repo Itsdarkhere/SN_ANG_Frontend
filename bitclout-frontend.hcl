@@ -87,6 +87,7 @@ job "supernovas-frontend" {
         https://ka-f.fontawesome.com/
         https://firestore.googleapis.com
         https://firebasestorage.googleapis.com
+        https://assets9.lottiefiles.com/packages/lf20_mioxwxa4.json
         bitcoinfees.earn.com
         api.blockcypher.com 
         amp.bitclout.com

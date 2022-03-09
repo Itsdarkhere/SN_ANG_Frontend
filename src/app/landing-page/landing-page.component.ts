@@ -137,7 +137,25 @@ export class LandingPageComponent implements OnInit {
     // Keep in place while scrolling
     this.spaceHolder.style.height = `${this.calcDynamicHeight(this.horizontal)}px`;
     this.spaceHolder2.style.height = `${this.calcDynamicHeight(this.horizontal2)}px`;
+
+    const section1 = document.getElementById("section-1") as HTMLElement;
+    const section2 = document.getElementById("creators-section") as HTMLElement;
+    const section3 = document.getElementById("section-3") as HTMLElement;
+    const section4 = document.getElementById("collectors-section") as HTMLElement;
+    const section5 = document.getElementById("black-cards") as HTMLElement;
+    const section6 = document.getElementById("dao-section") as HTMLElement;
+    const section7 = document.getElementById("section-7") as HTMLElement;
+    const section8 = document.getElementById("statement-section") as HTMLElement;
+    const sections = [section1, section2, section3, section4, section5, section6, section7, section8];
+    const colorsBg = ["", "mainBg", "blackBg", "mainBg", "blackBg", "blackBg"];
+    for (let i = 0; sections.length > i; i++) {
+      if (window.pageYOffset <= sections[i].offsetTop) {
+        document.getElementById("main-container").className = colorsBg[i];
+        break;
+      }
+    }
   }
+
   calcDynamicHeight(ref: HTMLDivElement) {
     const vw = window.innerWidth;
     const vh = window.innerHeight;

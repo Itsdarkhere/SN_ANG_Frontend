@@ -61,6 +61,7 @@ export class TrendsComponent implements OnInit {
       if (m == "sort") {
         this.sortMarketplace(0, false);
         this.globalVars.marketplaceNFTsOffset = 0;
+        this.globalVars.ethMarketplaceNFTsOffset = 0;
         document.body.scrollTop = 0; // For Safari
         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         this.closeMarketplaceMobileFiltering("sort");
@@ -241,6 +242,21 @@ export class TrendsComponent implements OnInit {
   onScrollNFTs() {
     this.globalVars.marketplaceNFTsOffset = this.globalVars.marketplaceNFTsOffset + 30;
     this.sortMarketplace(this.globalVars.marketplaceNFTsOffset, true);
+  }
+  async onScrollEthNFTs() {
+    if (this.globalVars.ethMarketplaceNFTsData.length > 30) {
+      if (this.globalVars.ethMarketplaceStatus === "all") {
+        await this.globalVars.getAllEthNFTs();
+      } else if (this.globalVars.ethMarketplaceStatus === "for sale") {
+        await this.globalVars.sortEthMarketplace();
+      }
+      this.globalVars.ethMarketplaceNFTsOffset = this.globalVars.ethMarketplaceNFTsOffset + 30;
+      this.globalVars.ethMarketplaceNFTsData = this.globalVars.ethMarketplaceNFTsData.slice(
+        this.globalVars.ethMarketplaceNFTsOffset
+      );
+    } else {
+      return;
+    }
   }
   counter(i: number) {
     return new Array(i);

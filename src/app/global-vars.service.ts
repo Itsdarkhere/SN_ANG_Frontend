@@ -184,6 +184,7 @@ export class GlobalVarsService {
   marketplaceSortType = "most recent first";
   // Marketplace Offset
   marketplaceNFTsOffset = 0;
+  ethMarketplaceNFTsOffset = 0;
   // Discovery nfts page
   nftsDataToShow: NFTCollectionResponse[];
   nftsStartIndex = 0;

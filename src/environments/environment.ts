@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+  production: true,
   uploadImageHostname: "node.deso.org",
   verificationEndpointHostname: "https://node.deso.org",
   uploadVideoHostname: "node.deso.org",

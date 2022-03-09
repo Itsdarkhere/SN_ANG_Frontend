@@ -58,6 +58,8 @@ export class GeneralSuccessModalComponent implements OnInit {
   }
 
   async linkSetup(): Promise<void> {
+    const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";
+    this.globalVars.imxClient = await ImmutableXClient.build({ publicApiUrl });
     console.log(` ----------------------- client is ${JSON.stringify(this.globalVars.imxClient)}`);
     const res = await this.link.setup({});
     this.globalVars.imxWalletConnected = true;

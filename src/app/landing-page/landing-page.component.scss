@@ -777,7 +777,11 @@ color: rgb(22, 22, 22);
 }
 
 .statement-section-container {
-
+  background: white;
+  border-radius: 50px;
+  padding: 4em;
+  margin: 4em;
+  box-shadow: 0 19.71px 32.78px #0000001a;
 }
 
 .statement-section {
@@ -805,15 +809,19 @@ color: rgb(22, 22, 22);
   width: 80%;
   text-align: center;
   margin: auto;
-  height: 300px;
-  margin-top: 12vh;
+  /* height: 300px; */
+  /* margin-top: 12vh; */
 }
 .statement-buttons{
   display: flex;
-  width: 70%;
-  margin: auto;
-  margin-top: 0.5em;
+  /* width: 70%; */
+  /* margin: auto; */
+  /* margin-top: 0.5em; */
+  /* justify-content: center; */
+  align-items: center;
   justify-content: center;
+  /* height: 100vh; */
+  margin-top: 0.3em;
 }
 
 .card-grid {
@@ -1610,6 +1618,38 @@ footer {
   transition: all 0.5s ease-in-out;
 }
 
+.rainbowBg {
+  background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+  background-size: 1800% 1800%;
+  transition: all 0.5s ease-in-out;
+  -webkit-animation: rainbow 18s ease infinite;
+  -z-animation: rainbow 18s ease infinite;
+  -o-animation: rainbow 18s ease infinite;
+  animation: rainbow 18s ease infinite;
+}
+@-webkit-keyframes rainbow {
+  0%{background-position:0% 82%}
+  50%{background-position:100% 19%}
+  100%{background-position:0% 82%}
+}
+@-moz-keyframes rainbow {
+  0%{background-position:0% 82%}
+  50%{background-position:100% 19%}
+  100%{background-position:0% 82%}
+}
+@-o-keyframes rainbow {
+  0%{background-position:0% 82%}
+  50%{background-position:100% 19%}
+  100%{background-position:0% 82%}
+}
+@keyframes rainbow { 
+  0%{background-position:0% 82%}
+  50%{background-position:100% 19%}
+  100%{background-position:0% 82%}
+}
+
+.rainbowBg:not(:hover) { transition: all 0.5s ease-in-out; }
+
 .blackBg:not(:hover) { transition: all 0.5s ease-in-out; }
 
 
@@ -1624,7 +1664,7 @@ footer {
 }
 
 .electricBlue {
-  background-color: #2230ff;
+  background: #2230ff;
   transition: all 0.5s ease-in-out;
 }
 .electricBlue:not(:hover) { transition: all 0.5s ease-in-out; }
@@ -1696,12 +1736,11 @@ footer {
 .vitalik2-gif {
   position: absolute;
   width: 162px;
-  top: 510px;
+  top: 377px;
   right: 1486px;
   z-index: 1111;
   border-radius: 25px;
   animation: 3s infinite alternate floating;
-
 }
 .meme-gif {
   position: absolute;
@@ -1890,9 +1929,13 @@ footer {
   bottom: 3px;
   right: -3px
 }
-.footer-logo-img {
+.footer-logo-container {
   display: flex;
   margin: auto;
+}
+.footer-logo-img{
+  min-width: 40px;
+  width: 117px;
 }
 .buttons-container {
   width: 65%;

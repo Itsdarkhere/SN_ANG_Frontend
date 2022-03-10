@@ -2036,6 +2036,18 @@ input.bs-timepicker-field {
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 4px solid #FFFFFF;
+  transition: all 0.2s;
+  .cas-border-left {
+    border-left: 1px solid #e4e4e4;
+  }
+  &:hover {
+    transition: all 0.2s;
+    background-color: #ECECEC;
+    .cas-border-left {
+      border-left: 1px solid #FFFFFF;
+    }
+  }
 }
 
 .change-account-selector__down-arrow {

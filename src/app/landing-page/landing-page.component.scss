@@ -50,17 +50,18 @@
 }
 
 body {
-  margin: 0;
-  //overflow-x: hidden;
-  background-color: #F9F9F9;
-  margin: 0;
-  //overflow-x: hidden;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1800px;
-  font-family: var(--font-family-poppins);
-  -webkit-font-smoothing: antialiased;
-  transition: 0.3s all;
+  // margin: 0;
+  // //overflow-x: hidden;
+  // background-color: #F9F9F9;
+  // margin: 0;
+  // //overflow-x: hidden;
+  // margin-left: auto;
+  // margin-right: auto;
+  // max-width: 1800px;
+  // font-family: var(--font-family-poppins);
+  // -webkit-font-smoothing: antialiased;
+  // transition: 0.3s all;
+  overflow-x: hidden;
 }
 
 html {
@@ -1691,9 +1692,9 @@ footer {
 }
 .vitalik2-gif {
   position: absolute;
-  width: 279px;
-  top: 40px;
-  right: 1302px;
+  width: 162px;
+  top: 510px;
+  right: 1486px;
   z-index: 1111;
   border-radius: 25px;
   animation: 3s infinite alternate floating;
@@ -1962,12 +1963,11 @@ footer {
   .maintitle {
     font-family: var(--font-family-poppins);
     letter-spacing: 0;
-    font-size: 52px;
-    line-height: 68px;
+    font-size: 42px;
+    line-height: 58px;
     display: block;
     margin-bottom: 0em;
-    /* height: 50%; */
-    min-height: 283px;
+    min-height: 249px;
   }
   .mainp {
     color: var(--licorice);
@@ -2013,23 +2013,11 @@ footer {
     // -webkit-background-clip: text;
     // -webkit-text-fill-color: transparent;
   }
-  .meme-gif {
-    position: absolute;
-    width: 155px;
-    top: 840px;
-    right: 2071px;
-    z-index: 1111;
-    border-radius: 25px;
-    animation: 6s infinite alternate floating;
+  .testimonial-card {
+    height: 15em;
   }
-  .doodle2-gif{
-    position: absolute;
-    width: 129px;
-    top: 445px;
-    right: 1868px;
-    z-index: 1111;
-    border-radius: 25px;
-    animation: 3s infinite alternate floating;
+  .lottie-animation-shapes {
+    display: none;
   }
   .ape-gif {
     position: absolute;
@@ -2040,11 +2028,50 @@ footer {
     border-radius: 25px;
     animation: 3s infinite alternate floating;
   }
-  .testimonial-card {
-    height: 15em;
+  .meme-gif {
+    position: absolute;
+    width: 85px;
+    top: 463px;
+    right: 2234px;
+    z-index: 1111;
+    border-radius: 16px;
+    animation: 6s infinite alternate floating;
   }
-  .lottie-animation-shapes {
-    display: none;
+  .vitalik-gif {
+    position: absolute;
+    width: 96px;
+    top: 117px;
+    right: 752px;
+    z-index: 1111;
+    border-radius: 25px;
+    animation: 2s infinite alternate floating;
+  }
+  .ape-gif {
+    position: absolute;
+    width: 105px;
+    top: 325px;
+    right: 437px;
+    z-index: 1111;
+    border-radius: 25px;
+    animation: 3s infinite alternate floating;
+  }
+  .doodle-gif {
+    position: absolute;
+    width: 148px;
+    top: 117px;
+    right: -50px;
+    z-index: 1111;
+    border-radius: 25px;
+    animation: 4s infinite alternate floating;
+  }
+  .vitalik2-gif {
+    position: absolute;
+    width: 194px;
+    top: 373px;
+    right: 1296px;
+    z-index: 1111;
+    border-radius: 25px;
+    animation: 3s infinite alternate floating;
   }
 }
 
@@ -2085,7 +2112,16 @@ footer {
     position: absolute;
     top: 72px;
     margin-top: 1.5em;
-}
+  }
+  .vitalik2-gif {
+    position: absolute;
+    width: 162px;
+    top: 393px;
+    right: 1420px;
+    z-index: 1111;
+    border-radius: 25px;
+    animation: 3s infinite alternate floating;
+  }
 }
 @media screen and (max-width: 375px){
   .card {
@@ -2127,6 +2163,69 @@ footer {
     top: 72px;
     /* width: 277px; */
     margin-top: 1.5em;
+  }
+  .ape-gif {
+    position: absolute;
+    width: 129px;
+    top: 498px;
+    right: 732px;
+    z-index: 1111;
+    border-radius: 25px;
+    animation: 3s infinite alternate floating;
+  }
+  .meme-gif {
+    position: absolute;
+    width: 85px;
+    top: 531px;
+    right: 2291px;
+    z-index: 1111;
+    border-radius: 16px;
+    animation: 6s infinite alternate floating;
+  }
+  .vitalik-gif {
+    position: absolute;
+    width: 96px;
+    top: 117px;
+    right: 752px;
+    z-index: 1111;
+    border-radius: 25px;
+    animation: 2s infinite alternate floating;
+  }
+  .ape-gif {
+    position: absolute;
+    width: 105px;
+    top: 214px;
+    right: 387px;
+    z-index: 1111;
+    border-radius: 25px;
+    animation: 3s infinite alternate floating;
+  }
+  .doodle-gif {
+    position: absolute;
+    width: 148px;
+    top: 117px;
+    right: -50px;
+    z-index: 1111;
+    border-radius: 25px;
+    animation: 4s infinite alternate floating;
+  }
+  .doodle2-gif {
+    position: absolute;
+    width: 96px;
+    top: 363px;
+    right: 1903px;
+    z-index: 1111;
+    border-radius: 13px;
+    animation: 3s infinite alternate floating;
+  }
+  .vitalik2-gif {
+    position: absolute;
+    width: 194px;
+    top: 225px;
+    right: 1129px;
+    z-index: 1111;
+    border-radius: 25px;
+    animation: 3s infinite alternate floating;
   }
 }
 

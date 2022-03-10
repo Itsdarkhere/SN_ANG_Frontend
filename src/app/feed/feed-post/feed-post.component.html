@@ -539,7 +539,6 @@
     >
       <!-- currently loading eth nft -->
       <loading-shimmer [tabType]="'NFT_DETAIL'" *ngIf="loadingEthNFTDetails"></loading-shimmer>
-      >
       <!-- don't own nft and is not for sale and is not owner -->
       <div
         *ngIf="!loadingEthNFTDetails && !this.globalVars.isEthereumNFTForSale && !ownsEthNFT"

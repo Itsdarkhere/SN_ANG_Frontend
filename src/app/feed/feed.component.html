@@ -52,7 +52,7 @@
             in the feed with the "replying to @[parentPost.Username]" content diplayed.
             post.parentPost is set in appendCommentAfterParentPost
           -->
-        <ng-container *ngIf="post?.IsNFT">
+        <ng-container *ngIf="post?.IsNFT || post?.PostExtraData?.isEthereumNFT">
           <div class="mobile_feed_post">
             <app-nft-card-post
               [post]="post"
@@ -109,7 +109,9 @@
             </app-nft-card-repost>
           </div>
         </ng-container>
-        <ng-container *ngIf="!isRepost(post) && post?.RepostedPostEntryResponse?.IsNFT">
+        <ng-container
+          *ngIf="!isRepost(post) && post?.RepostedPostEntryResponse?.IsNFT && !post?.PostExtraData?.isEthereumNFT"
+        >
           <feed-post
             *ngIf="post.ProfileEntryResponse"
             [contentShouldLinkToThread]="true"
@@ -126,7 +128,9 @@
             (userBlocked)="userBlocked()"
           ></feed-post>
         </ng-container>
-        <ng-container *ngIf="!(post?.IsNFT || post?.RepostedPostEntryResponse?.IsNFT)">
+        <ng-container
+          *ngIf="!(post?.IsNFT || post?.RepostedPostEntryResponse?.IsNFT) && !post?.PostExtraData?.isEthereumNFT"
+        >
           <feed-post
             *ngIf="post.ProfileEntryResponse"
             [contentShouldLinkToThread]="true"

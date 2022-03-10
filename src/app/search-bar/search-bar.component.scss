@@ -19,6 +19,15 @@
     max-width: 100%;
     height: 35px;
 }
+.header-search-bar::placeholder {
+    color: #9F9F9F;
+}
+.header-search-bar:-ms-input-placeholder {
+    color: #9F9F9F;
+}
+.header-search-bar::-ms-input-placeholder {
+    color: #9F9F9F;
+}
 .search_bar__icon_header {
     background: #f4f4f4 !important;
     border-top-left-radius: 10px;

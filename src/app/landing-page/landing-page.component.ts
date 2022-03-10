@@ -120,11 +120,11 @@ export class LandingPageComponent implements OnInit {
     // this.spaceHolder2.style.height = `${calcDynamicHeight(horizontal2)}px`;
   }
   @HostListener("window:scroll", []) scroll() {
-    if (!this.spaceHolder) {
+    if (!this.spaceHolder || !this.horizontal) {
       this.spaceHolder = document.querySelector(".space-holder") as HTMLDivElement;
       this.horizontal = document.querySelector(".horizontal") as HTMLDivElement;
     }
-    if (!this.spaceHolder2) {
+    if (!this.spaceHolder2 || !this.horizontal2) {
       this.spaceHolder2 = document.querySelector(".space-holder__collectors") as HTMLDivElement;
       this.horizontal2 = document.querySelector(".horizontal__collectors") as HTMLDivElement;
     }

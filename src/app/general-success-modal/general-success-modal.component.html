@@ -1,4 +1,8 @@
-<div class="general-success-modal-container" *ngIf="this.buttonClickedAction === 'profileRoute'">
+<!-- profile route -->
+<div
+  class="general-success-modal-container"
+  *ngIf="this.buttonClickedAction === 'profileRoute' || this.buttonClickedAction === 'general'"
+>
   <p class="general-success-modal-header">{{ header }}</p>
   <p class="general-success-modal-text">{{ text }}</p>
   <button class="general-success-modal-button" (click)="generalSuccessModalButtonClicked()">{{ buttonText }}</button>

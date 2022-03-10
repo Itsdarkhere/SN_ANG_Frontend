@@ -233,6 +233,9 @@ export class BuyNowModalComponent implements OnInit {
         this.globalVars._alertError("Cannot Quote repost, create profile to post...");
         return;
       }
+
+      this.globalVars.isEthQuoteRepost = true;
+
       // If the user has an account and a profile, open the modal so they can comment.
       this.modalService.show(CommentModalComponent, {
         class: "modal-dialog-centered",

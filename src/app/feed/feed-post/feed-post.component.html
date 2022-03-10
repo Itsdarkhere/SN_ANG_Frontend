@@ -531,7 +531,7 @@
   </div>
 
   <!-- eth NFT container -->
-  <ng-container *ngIf="postContent.PostExtraData.isEthereumNFT">
+  <ng-container *ngIf="postContent.PostExtraData.isEthereumNFT && !this.globalVars.isEthQuoteRepost">
     <div
       class="fs-15px w-100 nft_place_bid_sec overflow-hidden"
       [ngStyle]="{ 'border-radius': setBorder || cardStyle ? '0 0 18px 18px' : '' }"

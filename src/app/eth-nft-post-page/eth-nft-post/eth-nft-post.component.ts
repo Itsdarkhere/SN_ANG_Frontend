@@ -125,6 +125,12 @@ export class EthNftPostComponent implements OnInit {
     });
   }
   async ngOnInit() {
+    if (!localStorage.getItem("firstLoad")) {
+      window.location.reload();
+      localStorage.setItem("firstLoad", "true");
+    } else {
+      return;
+    }
     console.log("------------------------------ page loaded ------------------------------");
     // this.refreshPosts();
     //this.logString();

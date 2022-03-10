@@ -178,7 +178,15 @@ export class MintPageComponent implements OnInit {
         },
       });
     } else {
-      this.globalVars._alertError("Please visit Supernovas on your desktop to interact with the Ethereum blockchain.");
+      this.modalService.show(GeneralSuccessModalComponent, {
+        class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+        initialState: {
+          header: "Error",
+          text: "Please visit Supernovas on your desktop to interact with the Ethereum blockchain.",
+          buttonText: "Ok",
+          buttonClickedAction: "general",
+        },
+      });
     }
   }
   setMobileBasedOnViewport() {
@@ -619,7 +627,10 @@ export class MintPageComponent implements OnInit {
   async sellNFTLater() {
     this.isEthNFTForSale = false;
     await this.createEthPost();
-    this.viewEthPost();
+    console.log("eth post created");
+    setTimeout(() => {
+      this.router.navigate(["/u/" + this.globalVars?.loggedInUser?.ProfileEntryResponse.Username]);
+    }, 2000);
   }
 
   uploadEthMetadata() {
@@ -867,6 +878,9 @@ export class MintPageComponent implements OnInit {
         this.globalVars._alertError("Cannot Quote repost, create profile to post...");
         return;
       }
+
+      this.globalVars.isEthQuoteRepost = true;
+
       // If the user has an account and a profile, open the modal so they can comment.
       this.modalService.show(CommentModalComponent, {
         class: "modal-dialog-centered",

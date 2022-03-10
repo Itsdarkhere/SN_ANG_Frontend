@@ -217,7 +217,15 @@ export class WalletComponent implements OnInit, OnDestroy {
         },
       });
     } else {
-      this.globalVars._alertError("Please visit Supernovas on your desktop to interact with the Ethereum blockchain.");
+      this.modalService.show(GeneralSuccessModalComponent, {
+        class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+        initialState: {
+          header: "Error",
+          text: "Please visit Supernovas on your desktop to interact with the Ethereum blockchain.",
+          buttonText: "Ok",
+          buttonClickedAction: "general",
+        },
+      });
     }
   }
   //   -------------------- end of immutable x functions --------------------

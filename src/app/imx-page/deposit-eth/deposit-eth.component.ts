@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { Link, ImmutableXClient, ImmutableMethodResults, ETHTokenType, ImmutableRollupStatus } from "@imtbl/imx-sdk";
 import { GlobalVarsService } from "../../global-vars.service";
+import { BsModalService } from "ngx-bootstrap/modal";
+import { GeneralSuccessModalComponent } from "../../general-success-modal/general-success-modal.component";
 
 @Component({
   selector: "app-deposit-eth",
@@ -11,7 +13,7 @@ import { GlobalVarsService } from "../../global-vars.service";
 export class DepositEthComponent implements OnInit {
   depositAmount: any;
 
-  constructor(public globalVars: GlobalVarsService) {}
+  constructor(public globalVars: GlobalVarsService, private modalService: BsModalService) {}
 
   link = new Link(environment.imx.ROPSTEN_LINK_URL);
 
@@ -36,8 +38,14 @@ export class DepositEthComponent implements OnInit {
       type: ETHTokenType.ETH,
       amount: this.depositAmount,
     });
-    this.globalVars._alertSuccess(
-      "Successfully deposited ETH to Imx. Please give a couple of hours for your Imx balance to update."
-    );
+    this.modalService.show(GeneralSuccessModalComponent, {
+      class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+      initialState: {
+        header: "Success!",
+        text: "Successfully deposited ETH to IMX. Please give a couple of hours for your IMX balance to update.",
+        buttonText: "Ok",
+        buttonClickedAction: "general",
+      },
+    });
   }
 }

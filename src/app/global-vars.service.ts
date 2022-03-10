@@ -86,6 +86,7 @@ export class GlobalVarsService {
   wantToBuyEth: boolean;
   isEthereumNFTForSale: boolean;
   ethWalletAddresShort: string;
+  isEthQuoteRepost: boolean = false;
   //   ----------------------------- end of imx global vars -----------------------------
 
   // Note: I don't think we should have default values for this. I think we should just

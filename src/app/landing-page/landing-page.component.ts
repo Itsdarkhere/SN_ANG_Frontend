@@ -147,7 +147,7 @@ export class LandingPageComponent implements OnInit {
     const section7 = document.getElementById("section-7") as HTMLElement;
     const section8 = document.getElementById("statement-section") as HTMLElement;
     const sections = [section1, section2, section3, section4, section5, section6, section7, section8];
-    const colorsBg = ["", "mainBg", "blackBg", "mainBg", "blackBg", "blackBg", "mainBg", "rainbowBg"];
+    const colorsBg = ["", "mainBg", "blackBg", "mainBg", "blackBg", "blackBg", "mainBg", "mainBg"];
     for (let i = 0; sections.length > i; i++) {
       if (window.pageYOffset <= sections[i].offsetTop) {
         document.getElementById("main-container").className = colorsBg[i];

@@ -6,6 +6,7 @@ import { InfiniteScroller } from "../../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { FunctionPassService } from "src/app/function-pass.service";
 import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
+import { add } from "lodash";
 
 @Component({
   selector: "trends",
@@ -244,31 +245,22 @@ export class TrendsComponent implements OnInit {
     this.globalVars.marketplaceNFTsOffset = this.globalVars.marketplaceNFTsOffset + 30;
     this.sortMarketplace(this.globalVars.marketplaceNFTsOffset, true);
   }
-  //   onScrollEthNFTs() {
-  //     if (this.globalVars.ethMarketplaceNFTsData.length > 6) {
-  //       if (this.globalVars.ethMarketplaceStatus === "all") {
-  //         this.globalVars.getAllEthNFTs().then(() => {
-  //           console.log(this.globalVars.ethMarketplaceNFTsData);
-  //           this.globalVars.ethMarketplaceNFTsOffset = this.globalVars.ethMarketplaceNFTsOffset + 6;
-  //           console.log(this.globalVars.ethMarketplaceNFTsOffset);
-  //           this.globalVars.ethMarketplaceNFTsData = this.globalVars.ethMarketplaceNFTsData.slice(
-  //             this.globalVars.ethMarketplaceNFTsOffset
-  //           );
-  //         });
-  //       } else if (this.globalVars.ethMarketplaceStatus === "for sale") {
-  //         this.globalVars.sortEthMarketplace().then(() => {
-  //           console.log(this.globalVars.ethMarketplaceNFTsData);
-  //           this.globalVars.ethMarketplaceNFTsOffset = this.globalVars.ethMarketplaceNFTsOffset + 6;
-  //           console.log(this.globalVars.ethMarketplaceNFTsOffset);
-  //           this.globalVars.ethMarketplaceNFTsData = this.globalVars.ethMarketplaceNFTsData.slice(
-  //             this.globalVars.ethMarketplaceNFTsOffset
-  //           );
-  //         });
-  //       }
-  //     } else {
-  //       return;
-  //     }
-  //   }
+  onScrollEthNFTs() {
+    if (this.globalVars.ethMarketplaceNFTsData.length > 6) {
+      console.log(" ------------- greater then 6 ");
+      console.log(this.globalVars.ethMarketplaceNFTsData);
+      this.globalVars.ethMarketplaceNFTsOffset = this.globalVars.ethMarketplaceNFTsOffset + 6;
+      console.log(this.globalVars.ethMarketplaceNFTsOffset);
+      //   additional array
+      let additionalData = this.globalVars.ethMarketplaceNFTsData.slice(this.globalVars.ethMarketplaceNFTsOffset);
+      console.log(additionalData);
+      this.globalVars.ethMarketplaceNFTsDataToShow =
+        this.globalVars.ethMarketplaceNFTsDataToShow.concat(additionalData);
+      console.log(this.globalVars.ethMarketplaceNFTsDataToShow);
+    } else {
+      return;
+    }
+  }
   counter(i: number) {
     return new Array(i);
   }

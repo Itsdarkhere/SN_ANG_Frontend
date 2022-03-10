@@ -32,6 +32,7 @@ import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import Swal from "sweetalert2";
 import Timer = NodeJS.Timer;
 import { AngularFirestore } from "@angular/fire/firestore";
+import { last } from "lodash";
 
 export enum ConfettiSvg {
   DIAMOND = "diamond",
@@ -168,6 +169,7 @@ export class GlobalVarsService {
   isEthMarketplaceLoading = false;
   marketplaceNFTsData: NFTCollectionResponse[];
   ethMarketplaceNFTsData: NFTCollectionResponse[];
+  ethMarketplaceNFTsDataToShow: NFTCollectionResponse[];
   marketplaceCreatorData: CreatorCardResponse[];
   // The buttons on the marketplace
   marketplaceViewTypeCard = true;
@@ -1530,10 +1532,14 @@ export class GlobalVarsService {
       );
     }
 
+    setTimeout(() => {
+      this.updateDataToShow();
+    }, 1000);
+
     this.isEthMarketplaceLoading = false;
   }
 
-  //   for sale ETH nfts
+  //   get all ETH nfts
   async getAllEthNFTs() {
     this.isEthMarketplaceLoading = true;
     this.ethMarketplaceNFTsData = [];
@@ -1577,6 +1583,10 @@ export class GlobalVarsService {
           console.log(this.ethMarketplaceNFTsData);
           this.ethMarketplaceNFTsData.push(res["PostFound"]);
           console.log(this.ethMarketplaceNFTsData);
+          if (this.ethMarketplaceNFTsData.length === metadataPostHashArr.length) {
+            console.log(` ---------- last one -------------- `);
+            this.updateDataToShow();
+          }
         },
         (err: any) => {
           console.log(err);
@@ -1584,7 +1594,16 @@ export class GlobalVarsService {
       );
     }
 
+    // setTimeout(() => {
+    //   this.updateDataToShow();
+    // }, 1000);
+
     this.isEthMarketplaceLoading = false;
+  }
+
+  updateDataToShow() {
+    this.ethMarketplaceNFTsDataToShow = this.ethMarketplaceNFTsData.slice(0, 6);
+    console.log(this.ethMarketplaceNFTsDataToShow);
   }
 
   getPost(fetchParents: boolean = true, nftPostHashHex: string) {

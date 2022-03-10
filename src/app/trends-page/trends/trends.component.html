@@ -207,7 +207,7 @@
           <div class="nfts-card-list">
             <div
               [ngClass]="globalVars.marketplaceViewTypeCard ? 'nft-col-wrap' : 'small-nft-col-wrap'"
-              *ngFor="let PostEntryResponse of globalVars.ethMarketplaceNFTsData"
+              *ngFor="let PostEntryResponse of globalVars.ethMarketplaceNFTsDataToShow"
             >
               <div class="max-width-300-plus" *ngIf="globalVars.marketplaceViewTypeCard">
                 <new-nft-card

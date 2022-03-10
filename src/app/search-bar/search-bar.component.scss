@@ -11,6 +11,22 @@
     box-shadow: 0px 1.3577868938446045px 5.431147575378418px rgba(0, 0, 0, 0.1);
     padding-left: 0.75rem !important;
 }
+.header-search-bar {
+    padding: 14px 14px;
+    background: #f4f4f4 !important;
+    border-radius: 10px;
+    border: none !important;
+    max-width: 100%;
+    height: 35px;
+}
+.search_bar__icon_header {
+    background: #f4f4f4 !important;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border: none !important;
+    padding-left: 20px;
+    padding-right: 10px;
+}
 .sick-search-avatar {
     margin-left: 10%;
     width: 4vw !important;

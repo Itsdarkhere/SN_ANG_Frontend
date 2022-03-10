@@ -6,8 +6,14 @@
   >
     <div class="input-group">
       <div class="input-group-prepend">
-        <span *ngIf="!sickSearchBar" class="input-group-text search-bar__icon">
+        <span *ngIf="!sickSearchBar && !headerSearchBar" class="input-group-text search-bar__icon">
           <i class="icon-search"></i>
+        </span>
+        <span
+          *ngIf="!sickSearchBar && headerSearchBar"
+          class="input-group-text search-bar__icon search_bar__icon_header"
+        >
+          <img src="/assets/icons/desktop_search_icon.svg" alt="search icon" />
         </span>
         <span *ngIf="sickSearchBar" class="input-group-text search-bar__icon search_bar__icon_sick">
           <!-- IF this is null it gets a placeholder so thats fucking nice -->
@@ -15,7 +21,7 @@
         </span>
       </div>
       <input
-        *ngIf="!sickSearchBar"
+        *ngIf="!sickSearchBar && !headerSearchBar"
         #searchInput
         [(ngModel)]="searchText"
         (ngModelChange)="_handleSearchTextChange($event)"
@@ -25,6 +31,21 @@
         (keyup.escape)="_exitSearch()"
         type="text"
         class="form-control shadow-none search-bar__fix-active"
+        style="font-size: 15px; padding-left: 0; border-left-color: rgba(0, 0, 0, 0)"
+        [ngClass]="{ 'br-12px': !isSearchForUsersToSendDESO }"
+        placeholder="{{ placeHolder ? placeHolder : 'Search' }}"
+      />
+      <input
+        *ngIf="headerSearchBar"
+        #searchInput
+        [(ngModel)]="searchText"
+        (ngModelChange)="_handleSearchTextChange($event)"
+        (keyup.arrowup)="_handleArrowKey('UP')"
+        (keyup.arrowdown)="_handleArrowKey('DOWN')"
+        (keyup.enter)="_handleCreatorSelect(creators[selectedCreatorIndex])"
+        (keyup.escape)="_exitSearch()"
+        type="text"
+        class="form-control header-search-bar shadow-none search-bar__fix-active"
         style="font-size: 15px; padding-left: 0; border-left-color: rgba(0, 0, 0, 0)"
         [ngClass]="{ 'br-12px': !isSearchForUsersToSendDESO }"
         placeholder="{{ placeHolder ? placeHolder : 'Search' }}"

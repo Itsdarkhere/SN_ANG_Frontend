@@ -206,15 +206,19 @@ export class WalletComponent implements OnInit, OnDestroy {
   openGeneralSuccessModal() {
     console.log(` ------------------------- general success modal function hit -------------- `);
 
-    this.modalService.show(GeneralSuccessModalComponent, {
-      class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
-      initialState: {
-        header: "Connect your Ethereum wallet to Immutable X",
-        text: "By connecting your wallet to Immutable X, you are able to mint and trade Ethereum NFT's with zero gas fees.",
-        buttonText: "Connect with Immutable X",
-        buttonClickedAction: "connectWallet",
-      },
-    });
+    if (!this.globalVars.isMobile()) {
+      this.modalService.show(GeneralSuccessModalComponent, {
+        class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+        initialState: {
+          header: "Connect your Ethereum wallet to Immutable X",
+          text: "By connecting your wallet to Immutable X, you are able to mint and trade Ethereum NFT's with zero gas fees.",
+          buttonText: "Connect with Immutable X",
+          buttonClickedAction: "connectWallet",
+        },
+      });
+    } else {
+      this.globalVars._alertError("Please visit Supernovas on your desktop to interact with the Ethereum blockchain.");
+    }
   }
   //   -------------------- end of immutable x functions --------------------
 

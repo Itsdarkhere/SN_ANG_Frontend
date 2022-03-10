@@ -958,9 +958,6 @@ color: rgb(22, 22, 22);
   margin: 0px;
 }
 
-.card-title__black {
-  color: var(--text-white);
-}
 
 .card-p {
   color: var(--black);
@@ -971,12 +968,6 @@ color: rgb(22, 22, 22);
   margin-top: 2em;
   margin-bottom: 0em;
 }
-
-
-.card-p__black {
-  color: var(--text-white);
-}
-
 .button-cards {
   appearance: none;
   background-color: transparent;
@@ -1142,16 +1133,16 @@ max-height: 60px;
   color: var(--text-white);
 }
 
+.dao-p__black {
+  color: var(--text-white);
+}
+
 .dao-p {
   color: var(--black);
   font-family: var(--font-family-poppins);
   font-size: 16px;
   font-weight: 400;
   width: 55%;
-}
-
-.dao-p__black {
-  color: var(--text-white);
 }
 
 .dao-button {
@@ -1188,6 +1179,8 @@ max-height: 60px;
 .testimonial-card {
   background-color: var(--desert-storm);
   border-radius: 42.61px;
+  -webkit-border-radius: 42.61px;
+  -moz-border-radius: 42.61px;
   box-shadow: 0 9.71px 12.78px #0000001c;
   cursor: pointer;
   position: relative;
@@ -1258,6 +1251,14 @@ max-height: 60px;
   /* width: 277px; */
   margin-top: 1.5em;
 }
+
+.card-title__black {
+  color: var(--text-white);
+}
+.card-p__black {
+  color: var(--text-white);
+}
+
 @media screen and (max-width: 1024px){
 	.testimonial-card{
 		width: 73%;
@@ -1520,6 +1521,8 @@ footer {
   min-height: 100vh;
   max-width: none;
   overflow: visible;
+  padding-right: 0px;
+  padding-left: 0px;
 }
 
 .space-holder {
@@ -1720,6 +1723,10 @@ footer {
 
 }
 
+.dao-p__black {
+  color: var(--text-white);
+}
+
 .linear-wipe-rainbow {
   text-align: center;
   
@@ -1820,7 +1827,7 @@ footer {
   .dao-p {
     color: var(--black);
     font-family: var(--font-family-poppins);
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     width: 100%;
     margin-top: auto;
@@ -1828,6 +1835,8 @@ footer {
   }
   .dao-card {
     height: 78vh;
+    width: 80%;
+    padding: 28px;
   }
   .dao-button {
     width: 100%;
@@ -1844,15 +1853,15 @@ footer {
     color: var(--black);
     font-family: var(--font-family-poppins);
     font-weight: 600;
-    /* line-height: 75px; */
     min-height: 104px;
     margin-bottom: 0.3em;
     width: 100%;
-    font-size: clamp(4.9rem, -0.875rem + 8.333vw, 6rem);
+    font-size: 57px;
+    line-height: normal;
   }
-  .dao-button-blue[_ngcontent-awu-c142] {
+  .dao-button-blue {
     background-color: #0f00ff;
-    /* width: 405px; */
+    width: 100%;
   }
 }
 .gg-arrow-bottom-right {
@@ -1896,6 +1905,19 @@ footer {
   .button-28{
     min-width: none;
   }
+  .dao-button-blue[_ngcontent-qnx-c142] {
+    background-color: #0f00ff;
+    width: 100%;
+  }
+  .card-title__black {
+    color: var(--text-white);
+  }
+  .card-p__black {
+    color: var(--text-white);
+  }
+  .dao-main-text__black {
+    color: var(--text-white);
+  }
 }
 @media screen and (max-width: 832px){
   .artist-card {
@@ -1931,6 +1953,15 @@ footer {
     position: relative;
     display: flex;
   }
+  .card-title__black {
+    color: var(--text-white);
+  }
+  .card-p__black {
+    color: var(--text-white);
+  }
+  .dao-main-text__black {
+    color: var(--text-white);
+  }
 }
 @media screen and (max-width: 500px){
   .topnav-right {
@@ -1939,6 +1970,15 @@ footer {
     display: none;
     float: right;
     justify-content: right;
+  }
+  .card-title__black {
+    color: var(--text-white);
+  }
+  .card-p__black {
+    color: var(--text-white);
+  }
+  .dao-main-text__black {
+    color: var(--text-white);
   }
   .card {
     width: 312px;
@@ -2133,14 +2173,14 @@ footer {
     background-color: white;
     border-radius: 3em;
     border: 3px solid blue;
-    width: 100%;
-    height: 685px;
-    padding: 2em;
+    width: 293px;
+    height: 557px;
+    padding: 1.5em;
     position: relative;
     margin: auto;
     box-shadow: rgba(0, 0, 0, 0.25) 0 18px 25px;
     display: flex;
-    max-width: 1080px;
+    max-width: 90%;
   }
   .dao-card__black {
     background-color: transparent;
@@ -2227,7 +2267,56 @@ footer {
     border-radius: 25px;
     animation: 3s infinite alternate floating;
   }
+  .dao-button-blue {
+    background-color: #0f00ff;
+    width: 100%;
+  }
+  .dao-p {
+    color: var(--black);
+    font-family: var(--font-family-poppins);
+    font-size: 15px;
+    font-weight: 400;
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: 2em;
+  }
+  .dao-main-text {
+    align-self: flex-end;
+    color: var(--black);
+    font-family: var(--font-family-poppins);
+    font-weight: 600;
+    min-height: 104px;
+    margin-bottom: 0.3em;
+    width: 100%;
+    font-size: clamp(3rem, -0.875rem + 8.333vw, 6rem);
+  }
+  .card-title__black {
+    color: var(--text-white);
+  }
+  .card-p__black {
+    color: var(--text-white);
+  }
+  .dao-main-text__black {
+    color: var(--text-white);
+  }
+  
+  .dao-p__black {
+    color: var(--text-white);
+  }
+  .statement-section {
+    width: 100%;
+    margin: auto;
+    margin-top: -10.5em;
+    margin-bottom: 14em;
+  }
+  .statement-section {
+    width: 100%;
+    margin: auto;
+    margin-top: -10.5em;
+    margin-bottom: 14em;
+  }
 }
+
 
 
 

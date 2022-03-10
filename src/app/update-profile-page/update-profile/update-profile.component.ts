@@ -8,7 +8,6 @@ import { Title } from "@angular/platform-browser";
 import { environment } from "src/environments/environment";
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from "@angular/fire/storage";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { TransactionalEmailService } from "src/app/transactional-email.service";
 import { Observable } from "rxjs";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { GeneralSuccessModalComponent } from "../../general-success-modal/general-success-modal.component";
@@ -92,7 +91,6 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     private backendApi: BackendApiService,
     private router: Router,
     private titleService: Title,
-    private emailService: TransactionalEmailService,
     private modalService: BsModalService
   ) {}
 
@@ -102,12 +100,6 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     this.getOnlyProfileSocials();
     this.loadBannerImage();
     this._getUserMetadata();
-    if (
-      this.globalVars?.loggedInUser?.PublicKeyBase58Check === "BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w"
-    ) {
-      console.log("Sending email");
-      this.emailService.SendInactiveUserEmail("Valtteri", "link", "valtteri@supernovas.app");
-    }
   }
 
   _getUserMetadata() {

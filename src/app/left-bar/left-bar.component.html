@@ -3,40 +3,49 @@
     <left-bar-button
       [link]="'/' + this.globalVars.RouteNames.DISCOVERY"
       [imgSrc]="'/assets/icons/lb_discovery_icon.svg'"
+      [label]="'Discovery'"
     ></left-bar-button>
     <left-bar-button
       [link]="'/' + this.globalVars.RouteNames.BROWSE"
       [imgSrc]="'/assets/icons/lb_feed_icon.svg'"
+      [label]="'Feed'"
     ></left-bar-button>
     <left-bar-button
       [link]="'/' + this.globalVars.RouteNames.TRENDS"
       [imgSrc]="'/assets/icons/lb_marketplace_icon.svg'"
+      [label]="'Marketplace'"
     ></left-bar-button>
     <left-bar-button
       [link]="'/' + this.globalVars.RouteNames.ANALYTICS"
       [imgSrc]="'/assets/icons/lb_analytics_icon.svg'"
+      [label]="'Analytics'"
     ></left-bar-button>
     <hr />
     <left-bar-button
       [link]="'/' + this.globalVars.RouteNames.ACTIVITY"
       [imgSrc]="'/assets/icons/lb_activity_icon.svg'"
       *ngIf="this.globalVars.isOnboardingComplete && globalVars.loggedInUser"
+      [label]="'Activity'"
     ></left-bar-button>
     <left-bar-button
       [link]="'/' + this.globalVars.RouteNames.INBOX_PREFIX"
       [hasNotifications]="true"
       [imgSrc]="'/assets/icons/lb_messages_icon.svg'"
       *ngIf="this.globalVars.isOnboardingComplete && globalVars.loggedInUser"
+      [label]="'Messages'"
     ></left-bar-button>
     <left-bar-button
       *ngIf="globalVars.loggedInUser"
       [link]="'/' + this.globalVars.RouteNames.WALLET"
       [imgSrc]="'/assets/icons/lb_wallet_icon.svg'"
+      [label]="'Wallet'"
+
     ></left-bar-button>
     <left-bar-button
       [link]="'/' + this.globalVars.RouteNames.COMPLETE_PROFILE"
       [imgSrc]="'/assets/icons/profile-icon.svg'"
       *ngIf="!this.globalVars.isOnboardingComplete"
+      [label]="'Complete profile'"
     ></left-bar-button>
     <button *ngIf="globalVars.showAdminTools()" class="lb-admin" [routerLink]="'/' + globalVars.RouteNames.ADMIN">
       A

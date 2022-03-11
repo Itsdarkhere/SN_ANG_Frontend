@@ -11,6 +11,7 @@ import {
   NFTEntryResponse,
   CreatorCardResponse,
 } from "./backend-api.service";
+import { MixpanelService } from "./mixpanel.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { RouteNames } from "./app-routing.module";
 import ConfettiGenerator from "confetti-js";
@@ -90,7 +91,8 @@ export class GlobalVarsService {
     private identityService: IdentityService,
     private router: Router,
     private httpClient: HttpClient,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private mixPanel: MixpanelService
   ) {}
 
   static MAX_POST_LENGTH = 560;
@@ -575,6 +577,8 @@ export class GlobalVarsService {
 
     this._notifyLoggedInUserObservers(user, isSameUserAsBefore);
     this.navigateToCurrentStepInTutorial(user);
+    // Identify user
+    this.mixPanel.identify(this.loggedInUser.PublicKeyBase58Check);
   }
 
   navigateToCurrentStepInTutorial(user: User): Promise<boolean> {
@@ -849,7 +853,6 @@ export class GlobalVarsService {
     if (!this.loggedInUser) {
       return false;
     }
-
     const hasProfile =
       this.loggedInUser.ProfileEntryResponse && this.loggedInUser.ProfileEntryResponse.Username.length > 0;
 

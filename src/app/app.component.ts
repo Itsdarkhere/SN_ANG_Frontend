@@ -7,7 +7,6 @@ import * as _ from "lodash";
 import { environment } from "../environments/environment";
 import { ThemeService } from "./theme/theme.service";
 import { Subscription } from "rxjs";
-import { MixpanelService } from "./mixpanel.service";
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
@@ -21,7 +20,6 @@ export class AppComponent implements OnInit {
     public globalVars: GlobalVarsService,
     private route: ActivatedRoute,
     public identityService: IdentityService,
-    private mixPanel: MixpanelService,
     private router: Router
   ) {
     this.globalVars.Init(
@@ -64,7 +62,6 @@ export class AppComponent implements OnInit {
         return "";
       },
     });
-    this.mixPanel.identify(this.globalVars?.loggedInUser?.PublicKeyBase58Check);
   }
   static DYNAMICALLY_ADDED_ROUTER_LINK_CLASS = "js-app-component__dynamically-added-router-link-class";
 

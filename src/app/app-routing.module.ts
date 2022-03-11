@@ -38,10 +38,9 @@ import { ActivityComponent } from "./activity/activity.component";
 import { MintPageComponent } from "./mint-page/mint-page.component";
 import { NftPageComponent } from "./discovery-page/nft-page/nft-page.component";
 import { DiscoveryPageComponent } from "./discovery-page/discovery-page.component";
-import { AnalyticsPageComponent } from './analytics-page/analytics-page.component';
+import { AnalyticsPageComponent } from "./analytics-page/analytics-page.component";
 import { LandingPageComponent } from "./landing-page/landing-page.component";
-
-
+import { LandingReferralsComponent } from "./landing-referrals/landing-referrals.component";
 
 class RouteNames {
   // Not sure if we should have a smarter schema for this, e.g. what happens if we have
@@ -99,6 +98,7 @@ class RouteNames {
 const routes: Routes = [
   { path: "", redirectTo: RouteNames.BROWSE, pathMatch: "full" },
   { path: RouteNames.LANDING, component: LandingPageComponent, pathMatch: "full" },
+  { path: RouteNames.LANDING + "/:username", component: LandingReferralsComponent, pathMatch: "full" },
   { path: RouteNames.ANALYTICS, component: AnalyticsPageComponent, pathMatch: "full" },
   { path: RouteNames.ACTIVITY, component: ActivityComponent, pathMatch: "full" },
   { path: RouteNames.SIGNUP, component: SignupPageComponent, pathMatch: "full" },

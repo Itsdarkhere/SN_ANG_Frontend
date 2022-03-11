@@ -34,6 +34,8 @@ import Timer = NodeJS.Timer;
 import { AngularFirestore } from "@angular/fire/firestore";
 import { last } from "lodash";
 
+import { Link, ImmutableXClient, ImmutableMethodResults, ETHTokenType, ImmutableRollupStatus } from "@imtbl/imx-sdk";
+
 export enum ConfettiSvg {
   DIAMOND = "diamond",
   BOMB = "bomb",
@@ -170,6 +172,7 @@ export class GlobalVarsService {
   marketplaceNFTsData: NFTCollectionResponse[];
   ethMarketplaceNFTsData: NFTCollectionResponse[];
   ethMarketplaceNFTsDataToShow: NFTCollectionResponse[];
+  ethNFTsCollected: NFTCollectionResponse[];
   marketplaceCreatorData: CreatorCardResponse[];
   // The buttons on the marketplace
   marketplaceViewTypeCard = true;
@@ -1481,7 +1484,7 @@ export class GlobalVarsService {
     }
   }
 
-  //   ----------------- eth marketplace functions -----------------
+  //   ----------------- start of eth/imx functions -----------------
   //   for sale ETH nfts
   async sortEthMarketplace() {
     this.isEthMarketplaceLoading = true;
@@ -1625,4 +1628,48 @@ export class GlobalVarsService {
       this.showAdminTools() /*AddGlobalFeedBool*/
     );
   }
+
+  link = new Link(environment.imx.ROPSTEN_LINK_URL);
+  //   get NFTs for logged in wallet
+  async getCollectedNFTs() {
+    this.ethNFTsCollected = [];
+
+    const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";
+    this.imxClient = await ImmutableXClient.build({ publicApiUrl });
+
+    if (localStorage.getItem("address")) {
+      this.imxWalletAddress = localStorage.getItem("address");
+    }
+
+    let collectedNFTs = await this.imxClient.getAssets({
+      user: this.imxWalletAddress,
+      collection: environment.imx.TOKEN_ADDRESS,
+    });
+    console.log(collectedNFTs);
+
+    let metadataPostHashArr = [];
+    for (var i = 0; i < collectedNFTs["result"].length; i++) {
+      metadataPostHashArr.push(collectedNFTs["result"][i]["metadata"]["PostHashHex"]);
+      console.log(metadataPostHashArr);
+    }
+
+    var metadataArrCounter = 0;
+    for (var i = 0; i < metadataPostHashArr.length; i++) {
+      this.getPost(true, metadataPostHashArr[i]).subscribe(
+        (res) => {
+          console.log(res["PostFound"]);
+          this.ethNFTsCollected.push(res["PostFound"]);
+          if (this.ethNFTsCollected.length === metadataPostHashArr.length - metadataArrCounter) {
+            console.log(` ---------- last one -------------- `);
+            console.log(this.ethNFTsCollected);
+          }
+        },
+        (err: any) => {
+          console.log(err);
+          metadataArrCounter++;
+        }
+      );
+    }
+  }
+  //   ----------------- end of eth/imx functions -----------------
 }

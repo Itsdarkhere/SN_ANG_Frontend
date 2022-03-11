@@ -22,7 +22,6 @@ import { FeedPostComponent } from "../../feed/feed-post/feed-post.component";
 import { environment } from "src/environments/environment";
 import { SharedDialogs } from "src/lib/shared-dialogs";
 import { CommentModalComponent } from "src/app/comment-modal/comment-modal.component";
-import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 import { FeedPostImageModalComponent } from "src/app/feed/feed-post-image-modal/feed-post-image-modal.component";
 import { ModelComponent } from "src/app/mint-page/model/model.component";
 import { CancelEvent } from "../shared/models/cancel-event.interface";
@@ -102,7 +101,6 @@ export class NftPostComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
-    private analyticsService: GoogleAnalyticsService,
     private router: Router,
     public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,

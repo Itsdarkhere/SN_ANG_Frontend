@@ -7,14 +7,12 @@ import * as _ from "lodash";
 import { environment } from "../environments/environment";
 import { ThemeService } from "./theme/theme.service";
 import { Subscription } from "rxjs";
-import { GoogleAnalyticsService } from "./google-analytics.service";
 
 declare let gtag: Function;
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
-  providers: [GoogleAnalyticsService],
 })
 export class AppComponent implements OnInit {
   constructor(

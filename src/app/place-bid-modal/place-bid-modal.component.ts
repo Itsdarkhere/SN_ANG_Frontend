@@ -7,7 +7,6 @@ import * as _ from "lodash";
 import { Router } from "@angular/router";
 import { InfiniteScroller } from "../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
-import { GoogleAnalyticsService } from "../google-analytics.service";
 import { MixpanelService } from "../mixPanel.service";
 
 @Component({
@@ -43,7 +42,6 @@ export class PlaceBidModalComponent implements OnInit {
   errors: string;
 
   constructor(
-    private analyticsService: GoogleAnalyticsService,
     public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
     private modalService: BsModalService,
@@ -116,12 +114,8 @@ export class PlaceBidModalComponent implements OnInit {
         );
       })
       .add(() => (this.loading = false));
+  }
 
-    this.SendBidModalOpenedEvent();
-  }
-  SendBidModalOpenedEvent() {
-    this.analyticsService.eventEmitter("bid_modal_opened", "usage", "activity", "click", 10);
-  }
   updateBidAmountUSD(desoAmount) {
     this.bidAmountUSD = this.globalVars.nanosToUSDNumber(desoAmount * 1e9).toFixed(2);
     this.setErrors();

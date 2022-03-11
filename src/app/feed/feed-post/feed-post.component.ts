@@ -23,7 +23,6 @@ import { PlaceBidModalComponent } from "../../place-bid-modal/place-bid-modal.co
 import { BuyNowModalComponent } from "../../buy-now-modal/buy-now-modal.component";
 import { EmbedUrlParserService } from "../../../lib/services/embed-url-parser-service/embed-url-parser-service";
 import { SharedDialogs } from "../../../lib/shared-dialogs";
-import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 import { UnlockContentModalComponent } from "src/app/unlock-content-modal/unlock-content-modal.component";
 import { CreateNftAuctionModalComponent } from "src/app/create-nft-auction-modal/create-nft-auction-modal.component";
 import { take } from "rxjs/operators";
@@ -69,7 +68,6 @@ export class FeedPostComponent implements OnInit {
   @Input() isNFTProfileComment = false;
   @Input() nftBidData: NFTBidData;
   constructor(
-    private analyticsService: GoogleAnalyticsService,
     public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
     private ref: ChangeDetectorRef,
@@ -395,9 +393,7 @@ export class FeedPostComponent implements OnInit {
     this.globalVars.NFTRoyaltyToCoinBasisPoints = this.postContent.NFTRoyaltyToCoinBasisPoints / 100;
     this.globalVars.NFTRoyaltyToCreatorBasisPoints = this.postContent.NFTRoyaltyToCreatorBasisPoints / 100;
   }
-  SendAddToCartEvent() {
-    this.analyticsService.eventEmitter("place_a_bid", "transaction", "bid", "click", 10);
-  }
+
   onPostClicked(event) {
     if (this.inTutorial) {
       return;

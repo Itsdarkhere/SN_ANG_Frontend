@@ -10,7 +10,6 @@ import Timer = NodeJS.Timer;
 import { CloudflareStreamService } from "../../lib/services/stream/cloudflare-stream-service";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { CommentModalComponent } from "../comment-modal/comment-modal.component";
-import { GoogleAnalyticsService } from "../google-analytics.service";
 import { ArweaveJsService } from "../arweave-js.service";
 import { take } from "rxjs/operators";
 import _ from "lodash";
@@ -124,7 +123,6 @@ export class MintPageComponent implements OnInit {
   }
 
   constructor(
-    private analyticsService: GoogleAnalyticsService,
     private sanitizer: DomSanitizer,
     private arweave: ArweaveJsService,
     private router: Router,
@@ -710,10 +708,6 @@ export class MintPageComponent implements OnInit {
           this.router.navigate(["/" + this.globalVars.RouteNames.POSTS + "/" + this.postHashHex]);
         }
       );
-  }
-
-  SendFailEvent() {
-    this.analyticsService.eventEmitter("ATMF " + this.postHashHex, "engagement", "conversion", "click", 10);
   }
 
   // These two below are for adding straight to marketplace once minted, backend has been modified to fit this need

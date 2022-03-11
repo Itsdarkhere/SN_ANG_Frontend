@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
-import { GoogleAnalyticsService } from "../google-analytics.service";
 import { RouteNames } from "../app-routing.module";
 import { Router } from "@angular/router";
 import { MixpanelService } from "../mixPanel.service";
@@ -14,7 +13,6 @@ export class OfflineInfoComponent implements OnInit {
   RouteNames = RouteNames;
   constructor(
     public globalVars: GlobalVarsService,
-    private analyticsService: GoogleAnalyticsService,
     private mixPanel: MixpanelService,
     private router: Router
   ) {}

@@ -5,7 +5,6 @@ import { GlobalVarsService } from "../global-vars.service";
 import { MatDialog } from "@angular/material/dialog";
 import { PlaceABidComponent } from "../place-a-bid/place-a-bid.component";
 import { Router } from "@angular/router";
-import { GoogleAnalyticsService } from "../google-analytics.service";
 import { MixpanelService } from "../mixPanel.service";
 
 @Component({
@@ -26,8 +25,7 @@ export class HeaderComponent implements OnInit {
     public globalVars: GlobalVarsService,
     public dialog: MatDialog,
     private router: Router,
-    private mixPanel: MixpanelService,
-    private analyticsService: GoogleAnalyticsService
+    private mixPanel: MixpanelService
   ) {}
 
   createPost(): void {

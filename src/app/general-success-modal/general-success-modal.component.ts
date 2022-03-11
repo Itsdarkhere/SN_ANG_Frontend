@@ -6,7 +6,6 @@ import * as _ from "lodash";
 import { Router } from "@angular/router";
 // import { InfiniteScroller } from "../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
-import { GoogleAnalyticsService } from "../google-analytics.service";
 import { Location } from "@angular/common";
 import { ToastrService } from "ngx-toastr";
 import { CommentModalComponent } from "../comment-modal/comment-modal.component";
@@ -27,7 +26,6 @@ export class GeneralSuccessModalComponent implements OnInit {
   @Input() buttonText: string;
 
   constructor(
-    private analyticsService: GoogleAnalyticsService,
     public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
     private modalService: BsModalService,
@@ -37,13 +35,8 @@ export class GeneralSuccessModalComponent implements OnInit {
     private location: Location
   ) {}
 
-  ngOnInit(): void {
-    this.SendBidModalOpenedEvent();
-  }
+  ngOnInit(): void {}
 
-  SendBidModalOpenedEvent() {
-    this.analyticsService.eventEmitter("bid_modal_opened", "usage", "activity", "click", 10);
-  }
 
   generalSuccessModalButtonClicked() {
     this.router.navigate(["/u/" + this.globalVars?.loggedInUser?.ProfileEntryResponse.Username]);

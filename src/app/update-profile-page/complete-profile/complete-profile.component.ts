@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
 import { RouteNames } from "../../app-routing.module";
 import { GlobalVarsService } from "../../global-vars.service";
-import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 import { Router } from "@angular/router";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { MixpanelService } from "src/app/mixPanel.service";
@@ -21,7 +20,6 @@ export class CompleteProfileComponent {
 
   constructor(
     public globalVars: GlobalVarsService,
-    private analyticsService: GoogleAnalyticsService,
     private router: Router,
     private mixPanel: MixpanelService,
     private firestore: AngularFirestore
@@ -41,9 +39,6 @@ export class CompleteProfileComponent {
   }
 
   // rounded to nearest integer
-  SendCreateProfileVisitEvent() {
-    //this.analyticsService.eventEmitter("create_profile_visit", "usage", "activity", "event", 10);
-  }
   minPurchaseAmountInUsdRoundedUp() {
     /*const satoshisPerBitcoin = 1e8;
     let minimumInBitcoin = this.globalVars.minSatoshisBurnedForProfileCreation / satoshisPerBitcoin;

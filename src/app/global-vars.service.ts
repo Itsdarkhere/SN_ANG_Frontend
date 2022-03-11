@@ -1576,6 +1576,8 @@ export class GlobalVarsService {
       }
     }
 
+    var metadataArrCounter = 0;
+
     for (var i = 0; i < metadataPostHashArr.length; i++) {
       this.getPost(true, metadataPostHashArr[i]).subscribe(
         (res) => {
@@ -1583,13 +1585,14 @@ export class GlobalVarsService {
           console.log(this.ethMarketplaceNFTsData);
           this.ethMarketplaceNFTsData.push(res["PostFound"]);
           console.log(this.ethMarketplaceNFTsData);
-          if (this.ethMarketplaceNFTsData.length === metadataPostHashArr.length) {
+          if (this.ethMarketplaceNFTsData.length === metadataPostHashArr.length - metadataArrCounter) {
             console.log(` ---------- last one -------------- `);
             this.updateDataToShow();
           }
         },
         (err: any) => {
           console.log(err);
+          metadataArrCounter++;
         }
       );
     }

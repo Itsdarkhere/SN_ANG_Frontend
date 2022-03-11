@@ -8,7 +8,6 @@ import { environment } from "../environments/environment";
 import { ThemeService } from "./theme/theme.service";
 import { Subscription } from "rxjs";
 
-declare let gtag: Function;
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
@@ -32,9 +31,6 @@ export class AppComponent implements OnInit {
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        (<any>window).gtag("config", "G-HT1WLS626C", {
-          page_path: event.urlAfterRedirects,
-        });
         // Save data if user navigates to nft page but clear it otherwise
         // Scroll keeps on return and new data is loaded when coming back from another url
         if (!(event.url.includes("nft") || event.url.includes("Marketplace")) && this.globalVars.marketplaceNFTsData) {

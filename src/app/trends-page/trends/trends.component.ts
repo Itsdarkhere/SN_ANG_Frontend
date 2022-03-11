@@ -124,7 +124,7 @@ export class TrendsComponent implements OnInit {
     this.backendApi
       .SortMarketplace(
         this.globalVars.localNode,
-        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        this.globalVars?.loggedInUser?.PublicKeyBase58Check,
         offset,
         this.globalVars.marketplaceLowPriceNanos,
         this.globalVars.marketplaceHighPriceNanos,

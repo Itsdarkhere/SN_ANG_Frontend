@@ -345,6 +345,12 @@ export class GlobalVarsService {
     const firebaseRes = await this.firestore.collection("profile-details").doc(publicKey).get().toPromise();
     console.log(firebaseRes);
 
+    if (firebaseRes["_document"] === null) {
+      this.isCreator = false;
+      this.isCollector = false;
+      return;
+    }
+
     let firebaseResDataCreator = JSON.stringify(
       firebaseRes["_document"]["proto"]["fields"]["creator"]["booleanValue"],
       this.getCircularReplacer()
@@ -355,13 +361,19 @@ export class GlobalVarsService {
       this.getCircularReplacer()
     );
 
+    if (firebaseResDataCreator === "true") {
+      this.isCreator = true;
+    }
+
     if (firebaseResDataCreator === "false" || typeof firebaseResDataCreator === "undefined") {
       this.isCreator = false;
+    }
+
+    if (firebaseResDataCollector === "true") {
       this.isCollector = true;
     }
 
     if (firebaseResDataCollector === "false" || typeof firebaseResDataCollector === "undefined") {
-      this.isCreator = true;
       this.isCollector = false;
     }
 

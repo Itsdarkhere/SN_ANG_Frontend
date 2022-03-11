@@ -265,14 +265,35 @@ export class FeedPostComponent implements OnInit {
       return;
     }
 
+    var tokenIdsForSale = [];
+    var nftsForSaleArr = [];
     for (var i = 0; i < res["result"].length; i++) {
-      if (this.postContent.PostExtraData["tokenId"] == res["result"][i]["sell"]["data"]["token_id"]) {
-        this.globalVars.isEthereumNFTForSale = true;
-        this.ethereumNFTSalePrice = res["result"][i]["buy"]["data"]["quantity"];
-        this.ethereumNFTSalePrice = ethers.utils.formatEther(this.ethereumNFTSalePrice);
-        this.sellOrderId = res["result"][i]["order_id"];
-        console.log(this.sellOrderId);
+      //   if (this.postContent.PostExtraData["tokenId"] == res["result"][i]["sell"]["data"]["token_id"]) {
+      //     this.globalVars.isEthereumNFTForSale = true;
+      //     this.ethereumNFTSalePrice = res["result"][i]["buy"]["data"]["quantity"];
+      //     this.ethereumNFTSalePrice = ethers.utils.formatEther(this.ethereumNFTSalePrice);
+      //     this.sellOrderId = res["result"][i]["order_id"];
+      //     console.log(this.sellOrderId);
+      //   }
+      tokenIdsForSale.push(res["result"][i]["sell"]["data"]["token_id"]);
+      nftsForSaleArr.push(res["result"][i]);
+    }
+
+    console.log(tokenIdsForSale);
+    console.log(typeof this.postContent.PostExtraData["tokenId"]);
+
+    if (tokenIdsForSale.includes(this.postContent.PostExtraData["tokenId"])) {
+      for (var i = 0; i < nftsForSaleArr.length; i++) {
+        if (this.postContent.PostExtraData["tokenId"] == nftsForSaleArr[i]["sell"]["data"]["token_id"]) {
+          this.globalVars.isEthereumNFTForSale = true;
+          this.ethereumNFTSalePrice = res["result"][i]["buy"]["data"]["quantity"];
+          this.ethereumNFTSalePrice = ethers.utils.formatEther(this.ethereumNFTSalePrice);
+          this.sellOrderId = res["result"][i]["order_id"];
+          console.log(this.sellOrderId);
+        }
       }
+    } else {
+      this.globalVars.isEthereumNFTForSale = false;
     }
 
     this.loadingEthNFTDetails = false;

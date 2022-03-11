@@ -102,6 +102,7 @@ const routes: Routes = [
   { path: RouteNames.ANALYTICS, component: AnalyticsPageComponent, pathMatch: "full" },
   { path: RouteNames.ACTIVITY, component: ActivityComponent, pathMatch: "full" },
   { path: RouteNames.SIGNUP, component: SignupPageComponent, pathMatch: "full" },
+  { path: RouteNames.SIGNUP + "/:username", component: SignupPageComponent, pathMatch: "full" },
   { path: RouteNames.NFT_PAGE, component: NftPageComponent, pathMatch: "full" },
   { path: RouteNames.MINT_PAGE, component: MintPageComponent, pathMatch: "full" },
   { path: RouteNames.BROWSE, component: BrowsePageComponent, pathMatch: "full" },

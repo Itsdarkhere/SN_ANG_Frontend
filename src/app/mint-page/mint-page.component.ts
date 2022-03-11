@@ -14,6 +14,7 @@ import { GoogleAnalyticsService } from "../google-analytics.service";
 import { ArweaveJsService } from "../arweave-js.service";
 import { take } from "rxjs/operators";
 import _ from "lodash";
+import { MixpanelService } from "../mixPanel.service";
 
 @Component({
   selector: "app-mint-page",
@@ -131,6 +132,7 @@ export class MintPageComponent implements OnInit {
     private backendApi: BackendApiService,
     private streamService: CloudflareStreamService,
     private modalService: BsModalService,
+    private mixPanel: MixpanelService,
     private changeRef: ChangeDetectorRef //private diaref: MatDialogRef<MintPageComponent>
   ) {}
 
@@ -452,6 +454,7 @@ export class MintPageComponent implements OnInit {
     this.audioType = false;
     this.videoType = false;
     this.modelType = false;
+    this.mixPanel.track5("Image Mint Selected");
   }
 
   videoTypeSelected() {
@@ -459,6 +462,7 @@ export class MintPageComponent implements OnInit {
     this.audioType = false;
     this.imageType = false;
     this.modelType = false;
+    this.mixPanel.track6("Video Mint Selected");
   }
 
   audioTypeSelected() {
@@ -466,6 +470,7 @@ export class MintPageComponent implements OnInit {
     this.videoType = false;
     this.imageType = false;
     this.modelType = false;
+    this.mixPanel.track7("Audio Mint Selected");
   }
 
   modelTypeSelected() {
@@ -473,17 +478,20 @@ export class MintPageComponent implements OnInit {
     this.audioType = false;
     this.videoType = false;
     this.imageType = false;
+    this.mixPanel.track7("3D Mint Selected");
   }
 
   //   Auction type
   openAuctionSelected() {
     this.openAuction = true;
     this.isBuyNow = false;
+    this.mixPanel.track8("Open Auction Selected");
   }
 
   buyNowSelected() {
     this.isBuyNow = true;
     this.openAuction = false;
+    this.mixPanel.track9("Buy Now Selected");
     console.log(` -------------------- isBuyNow ${this.isBuyNow} openAuction ${this.openAuction} ---------- `);
   }
 
@@ -541,6 +549,7 @@ export class MintPageComponent implements OnInit {
   nextStep() {
     this.animationType = "next";
     this.changeRef.detectChanges();
+    this.mixPanel.track10("Mint Continued from step: " + this.step);
     if (this.step + 1 < 6) {
       this.step++;
       // Arweave needs a boost to start itself
@@ -752,7 +761,7 @@ export class MintPageComponent implements OnInit {
       );
   }*/
   SendMintedEvent() {
-    this.analyticsService.eventEmitter("nft_minted", "usage", "activity", "click", 10);
+    this.mixPanel.track11("Minted NFT");
   }
 
   mintNFTSuccess(comp: MintPageComponent) {

@@ -4,12 +4,12 @@ import { CountryISO } from "ngx-intl-tel-input";
 import { GlobalVarsService } from "../global-vars.service";
 import { BackendApiService } from "../backend-api.service";
 import { MessagesInboxComponent } from "../messages-page/messages-inbox/messages-inbox.component";
-import { animate, style, transition, trigger } from "@angular/animations";
+import { MixpanelService } from "../mixPanel.service";
 
 import { IdentityService } from "../identity.service";
 
 import { ActivatedRoute, Router } from "@angular/router";
-import { AppRoutingModule, RouteNames } from "../app-routing.module";
+import { RouteNames } from "../app-routing.module";
 
 @Component({
   selector: "app-mobile-verification",
@@ -77,6 +77,7 @@ export class MobileVerificationComponent implements OnInit {
     private backendApi: BackendApiService,
     private identityService: IdentityService,
     private route: ActivatedRoute,
+    private mixPanel: MixpanelService,
     private router: Router
   ) {}
 
@@ -323,6 +324,7 @@ export class MobileVerificationComponent implements OnInit {
 
   updateWantToVerifyPhoneClicked() {
     this.wantToVerifyPhoneClicked = false;
+    this.mixPanel.track27("Verify phone clicked");
   }
 
   phoneInputClickedBlackBorder() {

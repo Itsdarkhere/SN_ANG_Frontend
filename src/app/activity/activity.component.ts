@@ -16,6 +16,7 @@ import * as _ from "lodash";
 import { InfiniteScroller } from "../infinite-scroller";
 import { Subscription } from "rxjs";
 import { SwalHelper } from "../../lib/helpers/swal-helper";
+import { MixpanelService } from "../mixPanel.service";
 import { FeedPostImageModalComponent } from "../feed/feed-post-image-modal/feed-post-image-modal.component";
 
 @Component({
@@ -66,6 +67,7 @@ export class ActivityComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private router: Router,
     private location: Location,
+    private mixPanel: MixpanelService,
     private modalService: BsModalService
   ) {
     this.route.queryParams.subscribe((params) => {
@@ -95,6 +97,7 @@ export class ActivityComponent implements OnInit {
         this.isLoading = false;
       }
     });
+    this.mixPanel.track34("Activity page viewed");
   }
   openPlaceBidModal(event: any, postEntryResponse) {
     if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
@@ -102,6 +105,7 @@ export class ActivityComponent implements OnInit {
       return;
     }
     event.stopPropagation();
+    this.mixPanel.track15("Open Place a Bid Modal");
     const modalDetails = this.modalService.show(PlaceBidModalComponent, {
       class: "modal-dialog-centered nft_placebid_modal_bx modal-lg",
       initialState: { post: postEntryResponse },

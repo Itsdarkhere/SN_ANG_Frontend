@@ -9,7 +9,7 @@ import { Subscription } from "rxjs";
 import _ from "lodash";
 import { PlaceBidModalComponent } from "src/app/place-bid-modal/place-bid-modal.component";
 import { SharedDialogs } from "src/lib/shared-dialogs";
-import { Console } from "console";
+import { MixpanelService } from "src/app/mixPanel.service";
 import { BuyNowModalComponent } from "src/app/buy-now-modal/buy-now-modal.component";
 
 @Component({
@@ -33,7 +33,8 @@ export class DiscoveryComponent implements OnInit {
     private router: Router,
     public modalService: BsModalService,
     public globalVars: GlobalVarsService,
-    public backendApi: BackendApiService
+    public backendApi: BackendApiService,
+    private mixPanel: MixpanelService
   ) {}
   ngOnInit(): void {}
 
@@ -95,6 +96,7 @@ export class DiscoveryComponent implements OnInit {
       SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "place a bid");
       return;
     }
+    this.mixPanel.track15("Open Place a Bid Modal");
     event.stopPropagation();
     const modalDetails = this.modalService.show(PlaceBidModalComponent, {
       class: "modal-dialog-centered  nft_placebid_modal_bx nft_placebid_modal_bx_right  modal-lg",

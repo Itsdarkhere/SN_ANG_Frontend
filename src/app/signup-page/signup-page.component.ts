@@ -8,6 +8,7 @@ import { SwalHelper } from "src/lib/helpers/swal-helper";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { isNil } from "lodash";
 import { GoogleAnalyticsService } from "../google-analytics.service";
+import { MixpanelService } from "../mixPanel.service";
 
 export type ProfileUpdates = {
   usernameUpdate: string;
@@ -61,6 +62,7 @@ export class SignupPageComponent implements OnInit {
     public globalVars: GlobalVarsService,
     private firestore: AngularFirestore,
     private route: ActivatedRoute,
+    private mixPanel: MixpanelService,
     private router: Router,
     private backendApi: BackendApiService
   ) {
@@ -70,10 +72,13 @@ export class SignupPageComponent implements OnInit {
   }
 
   emailAddressInputClicked() {
+    this.mixPanel.track22("Email address clicked");
     console.log(` -------------- email address clicked --------------- `);
   }
 
   verifyEmailClicked() {
+    this.mixPanel.alias(this.globalVars.loggedInUser?.PublicKeyBase58Check);
+    this.mixPanel.track23("Verify Email clicked");
     this.startedEnteringEmail = true;
     var emailAddressElement = <HTMLInputElement>document.getElementById("step3EmailAddress");
     var emailAddress = emailAddressElement.value;
@@ -93,6 +98,7 @@ export class SignupPageComponent implements OnInit {
   }
 
   _updateEmail() {
+    this.mixPanel.track19("Update email");
     this.backendApi
       .UpdateUserGlobalMetadata(
         this.globalVars.localNode,
@@ -123,6 +129,7 @@ export class SignupPageComponent implements OnInit {
     };
   }
   updateProfileType() {
+    this.mixPanel.track17("Update profile type");
     if (this.globalVars.loggedInUser.PublicKeyBase58Check) {
       return new Promise<any>((resolve, reject) => {
         this.firestore
@@ -146,6 +153,7 @@ export class SignupPageComponent implements OnInit {
     }
   }
   _validateUsername(username) {
+    this.mixPanel.track26("Validate Username");
     if (username === "") {
       return;
     }
@@ -220,10 +228,12 @@ export class SignupPageComponent implements OnInit {
     }
   }
   creatorSelected() {
+    this.mixPanel.track24("Creator Selected");
     this.creator = true;
     this.collector = false;
   }
   collectorSelected() {
+    this.mixPanel.track25("Collector Selected");
     this.collector = true;
     this.creator = false;
   }
@@ -329,6 +339,7 @@ export class SignupPageComponent implements OnInit {
     );
   }
   _updateProfileSuccess(comp: SignupPageComponent) {
+    this.mixPanel.track20("Update profile");
     comp.globalVars.celebrate();
     comp.updateProfileBeingCalled = false;
     comp.profileUpdated = true;

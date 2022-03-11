@@ -27,8 +27,7 @@ import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 import { UnlockContentModalComponent } from "src/app/unlock-content-modal/unlock-content-modal.component";
 import { CreateNftAuctionModalComponent } from "src/app/create-nft-auction-modal/create-nft-auction-modal.component";
 import { take } from "rxjs/operators";
-import { Console } from "console";
-import { fadeInItems } from "@angular/material/menu";
+import { MixpanelService } from "src/app/mixPanel.service";
 
 @Component({
   selector: "feed-post",
@@ -76,7 +75,8 @@ export class FeedPostComponent implements OnInit {
     private ref: ChangeDetectorRef,
     private router: Router,
     private modalService: BsModalService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private mixPanel: MixpanelService
   ) {}
 
   // Got this from https://code.habd.as/jhabdas/xanthippe/src/branch/master/lib/xanthippe.js#L8
@@ -735,6 +735,7 @@ export class FeedPostComponent implements OnInit {
   openPlaceBidModal(event: any) {
     this.clickedBuyNow = false;
     this.clickedPlaceABid = true;
+    this.mixPanel.track15("Open Place a Bid Modal");
     if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
       SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "place a bid");
       return;

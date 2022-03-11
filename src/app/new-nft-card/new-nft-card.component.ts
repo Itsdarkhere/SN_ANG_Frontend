@@ -25,6 +25,7 @@ import { TransferModalComponent } from "../transfer-modal/transfer-modal.compone
 import { GoogleAnalyticsService } from "../google-analytics.service";
 import { environment } from "src/environments/environment";
 import { animate, style, transition, trigger } from "@angular/animations";
+import { MixpanelService } from "../mixPanel.service";
 @Component({
   selector: "new-nft-card",
   templateUrl: "./new-nft-card.component.html",
@@ -36,7 +37,8 @@ import { animate, style, transition, trigger } from "@angular/animations";
     ]),
     trigger("audioIconHover", [
       transition(":enter", [
-        style({ opacity: "0" }), animate("800ms ease", style({ opacity: "1" }))
+        style({ opacity: "0" }),
+        animate("800ms ease", style({ opacity: "1" })),
         // style({ transform: "translateY(100%)" }),
         // animate("400ms ease", style({ transform: "translateY(0%)" })),
       ]),
@@ -86,6 +88,7 @@ export class NewNftCardComponent implements OnInit {
     private ref: ChangeDetectorRef,
     private router: Router,
     private modalService: BsModalService,
+    private mixPanel: MixpanelService,
     private sanitizer: DomSanitizer
   ) {}
   // Got this from https://code.habd.as/jhabdas/xanthippe/src/branch/master/lib/xanthippe.js#L8
@@ -322,6 +325,15 @@ export class NewNftCardComponent implements OnInit {
     }
     this.router.navigate(["/" + route, this.postContent.PostHashHex], {
       queryParamsHandling: "merge",
+    });
+
+    this.mixPanel.track33("Post Clicked", {
+      Body: this.postContent.Body,
+      "is NFT": this.postContent.isNFT,
+      "Like Count": this.postContent.LikeCount,
+      "Poster Key": this.postContent.PosterPublicKeyBase58Check,
+      "Diamonds": this.postContent.DiamondCount,
+      "Category": this.postContent.PostExtraData,
     });
   }
   isRepost(post: any): boolean {
@@ -615,6 +627,7 @@ export class NewNftCardComponent implements OnInit {
       return;
     }
     event.stopPropagation();
+    this.mixPanel.track15("Open Place a Bid Modal");
     const modalDetails = this.modalService.show(PlaceBidModalComponent, {
       class: "modal-dialog-centered nft_placebid_modal_bx nft_placebid_modal_bx_right modal-lg",
       initialState: { post: this.postContent },

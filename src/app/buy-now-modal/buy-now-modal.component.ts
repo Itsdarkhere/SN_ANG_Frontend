@@ -9,6 +9,7 @@ import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { Location } from "@angular/common";
 import { ToastrService } from "ngx-toastr";
 import { CommentModalComponent } from "../comment-modal/comment-modal.component";
+import { MixpanelService } from "../mixPanel.service";
 
 @Component({
   selector: "app-buy-now-modal",
@@ -53,6 +54,7 @@ export class BuyNowModalComponent implements OnInit {
     public bsModalRef: BsModalRef,
     private router: Router,
     private toastr: ToastrService,
+    private mixPanel: MixpanelService,
     private location: Location
   ) {}
 
@@ -74,7 +76,6 @@ export class BuyNowModalComponent implements OnInit {
         );
       })
       .add(() => (this.loading = false));
-
   }
 
   updateBidAmountUSD(desoAmount) {
@@ -104,38 +105,38 @@ export class BuyNowModalComponent implements OnInit {
   }
 
   buyNowNft() {
-     this.setErrors();
+    this.setErrors();
     if (this.errors) {
-       return;
+      return;
     }
     this.saveSelectionDisabled = true;
     this.placingBids = true;
 
-     this.buyingNFT = true;
+    this.buyingNFT = true;
 
-     this.backendApi
-       .CreateNFTBid(
-         this.globalVars.localNode,
-         this.globalVars.loggedInUser.PublicKeyBase58Check,
-         this.post.PostHashHex,
-         this.serialNumber,
-         // Math.trunc(this.bidAmountDESO * 1e9),
-         this.buyNowPriceNanos,
-         this.globalVars.defaultFeeRateNanosPerKB
-       )
-       .subscribe(
-         (res) => {
-           this.buyNowNftSuccess = true;
-         },
-         (err) => {
-           console.error(err);
-           this.buyNowNftSuccess = false;
-           this.globalVars._alertError(this.backendApi.parseMessageError(err));
-         }
-       )
-       .add(() => {
-         // this.buyingNFT = false;
-       });
+    this.backendApi
+      .CreateNFTBid(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        this.post.PostHashHex,
+        this.serialNumber,
+        // Math.trunc(this.bidAmountDESO * 1e9),
+        this.buyNowPriceNanos,
+        this.globalVars.defaultFeeRateNanosPerKB
+      )
+      .subscribe(
+        (res) => {
+          this.buyNowNftSuccess = true;
+        },
+        (err) => {
+          console.error(err);
+          this.buyNowNftSuccess = false;
+          this.globalVars._alertError(this.backendApi.parseMessageError(err));
+        }
+      )
+      .add(() => {
+        this.mixPanel.track13("Buy Now");
+      });
   }
 
   quoteRepost(event, isQuote = true) {

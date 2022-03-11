@@ -4,6 +4,7 @@ import { Location } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FunctionPassService } from "../function-pass.service";
 import { toInteger } from "lodash";
+import { MixpanelService } from "../mixPanel.service";
 
 @Component({
   selector: "app-marketplace-left-bar",
@@ -66,6 +67,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
     public globalVars: GlobalVarsService,
     private router: Router,
     private route: ActivatedRoute,
+    private mixPanel: MixpanelService,
     private location: Location,
     private functionPass: FunctionPassService
   ) {}
@@ -77,6 +79,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
     this.creatorsClick(this.globalVars.marketplaceVerifiedCreators);
     this.formatClick(this.globalVars.marketplaceContentFormat);
     this.categorySelectChange(this.globalVars.marketplaceNFTCategory);
+    this.mixPanel.track18("Marketplace Viewed");
   }
   // Input validation
   checkPriceRange() {

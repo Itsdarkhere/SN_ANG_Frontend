@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
 import { AppRoutingModule } from "../app-routing.module";
-import { Datasource, IDatasource } from "ngx-ui-scroll";
+import { MixpanelService } from "../mixPanel.service";
 import { BackendApiService } from "../backend-api.service";
 import { Router } from "@angular/router";
 import { Title } from "@angular/platform-browser";
@@ -27,11 +27,13 @@ export class MessagesPageComponent {
     public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
     private router: Router,
+    private mixPanel: MixpanelService,
     private titleService: Title
   ) {}
 
   ngOnInit() {
     this.titleService.setTitle(`Messages - ${environment.node.name}`);
+    this.mixPanel.track35("Messages page viewed");
   }
 
   _handleMessageThreadSelectedMobile(thread: any) {

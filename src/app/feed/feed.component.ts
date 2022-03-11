@@ -7,6 +7,7 @@ import { tap, finalize, first } from "rxjs/operators";
 import * as _ from "lodash";
 import PullToRefresh from "pulltorefreshjs";
 import { Title } from "@angular/platform-browser";
+import { MixpanelService } from "../mixPanel.service";
 
 @Component({
   selector: "feed",
@@ -71,6 +72,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private backendApi: BackendApiService,
+    private mixPanel: MixpanelService,
     private titleService: Title
   ) {
     this.globalVars = appData;
@@ -298,6 +300,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   _loadPosts(reload: boolean = false, scrolltop: boolean = false) {
     this.loadingMoreGlobalFeedPosts = true;
 
+    this.mixPanel.track4("Viewed Feed");
     // Get the reader's public key for the request.
     let readerPubKey = "";
     if (this.globalVars.loggedInUser) {

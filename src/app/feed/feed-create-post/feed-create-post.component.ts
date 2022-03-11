@@ -22,6 +22,7 @@ import { CloudflareStreamService } from "../../../lib/services/stream/cloudflare
 import * as _ from "lodash";
 import { Mentionify } from "../../../lib/services/mention-autofill/mentionify";
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
+import { MixpanelService } from "src/app/mixPanel.service";
 
 @Component({
   selector: "feed-create-post",
@@ -138,6 +139,7 @@ export class FeedCreatePostComponent implements OnInit, AfterViewInit {
     private backendApi: BackendApiService,
     private changeRef: ChangeDetectorRef,
     private appData: GlobalVarsService,
+    private mixPanel: MixpanelService,
     private streamService: CloudflareStreamService
   ) {
     this.globalVars = appData;
@@ -378,6 +380,7 @@ export class FeedCreatePostComponent implements OnInit, AfterViewInit {
 
     // The user has an account and a profile. Let's create a post.
     this.submitPost();
+    this.mixPanel.track21("Submit Post on Feed");
   }
 
   _handleFilesInput(files: FileList): void {

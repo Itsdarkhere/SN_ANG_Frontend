@@ -1,10 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { RouteNames } from "../../app-routing.module";
 import { GlobalVarsService } from "../../global-vars.service";
 import { GoogleAnalyticsService } from "src/app/google-analytics.service";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { isNull } from "lodash";
+import { MixpanelService } from "src/app/mixPanel.service";
 
 @Component({
   selector: "app-complete-profile",
@@ -23,6 +23,7 @@ export class CompleteProfileComponent {
     public globalVars: GlobalVarsService,
     private analyticsService: GoogleAnalyticsService,
     private router: Router,
+    private mixPanel: MixpanelService,
     private firestore: AngularFirestore
   ) {}
 
@@ -50,6 +51,7 @@ export class CompleteProfileComponent {
   }
 
   getCreateProfileMessage(): string {
+    this.mixPanel.track37("Get Create Profile Message");
     return this.globalVars.showPhoneNumberVerification
       ? `You need to verify a phone number or purchase DeSo with Bitcoin in order to create a profile.
   This helps prevent spam.`
@@ -57,10 +59,12 @@ export class CompleteProfileComponent {
   }
 
   buyDESO() {
+    this.mixPanel.track32("Onboarding - Buy DeSo");
     window.open("https://buy.deso.org/", "_blank");
   }
 
   buyCreatorCoin() {
+    this.mixPanel.track30("Onboarding - Buy Creator Coin");
     if (this.globalVars.isNullUsername === true) {
       this.globalVars._alertError("You must create a username for your profile in order to buy your creator coin.");
       //   alert("You must create a username for your profile in order to buy your creator coin.");
@@ -70,14 +74,17 @@ export class CompleteProfileComponent {
   }
 
   createProfile() {
+    this.mixPanel.track29("Onboarding - Profile created clicked");
     this.router.navigate([RouteNames.UPDATE_PROFILE]);
   }
 
   verifyProfile() {
+    this.mixPanel.track28("Onboarding - Verify profile clicked");
     window.open("https://form.typeform.com/to/sv1kaUT2", "_blank");
   }
 
   contactSupport() {
+    this.mixPanel.track31("Onboarding - Contact Support");
     window.open("https://intercom.help/supernovas/en", "_blank");
   }
 }

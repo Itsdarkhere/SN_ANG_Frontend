@@ -3,6 +3,7 @@ import { GlobalVarsService } from "../global-vars.service";
 import { GoogleAnalyticsService } from "../google-analytics.service";
 import { RouteNames } from "../app-routing.module";
 import { Router } from "@angular/router";
+import { MixpanelService } from "../mixPanel.service";
 
 @Component({
   selector: "app-offline-info",
@@ -14,6 +15,7 @@ export class OfflineInfoComponent implements OnInit {
   constructor(
     public globalVars: GlobalVarsService,
     private analyticsService: GoogleAnalyticsService,
+    private mixPanel: MixpanelService,
     private router: Router
   ) {}
 
@@ -21,8 +23,10 @@ export class OfflineInfoComponent implements OnInit {
 
   login() {
     this.router.navigate(["/" + this.RouteNames.SIGNUP]);
+    this.mixPanel.track2("Login clicked");
   }
   signUp() {
     this.router.navigate(["/" + this.RouteNames.SIGNUP]);
+    this.mixPanel.track("Sign-up clicked");
   }
 }

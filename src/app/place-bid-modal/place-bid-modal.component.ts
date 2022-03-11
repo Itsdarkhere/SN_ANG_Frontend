@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
 import { InfiniteScroller } from "../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { GoogleAnalyticsService } from "../google-analytics.service";
-import { object } from "underscore";
+import { MixpanelService } from "../mixPanel.service";
 
 @Component({
   selector: "place-bid-modal",
@@ -48,6 +48,7 @@ export class PlaceBidModalComponent implements OnInit {
     private backendApi: BackendApiService,
     private modalService: BsModalService,
     public bsModalRef: BsModalRef,
+    private mixPanel: MixpanelService,
     private router: Router
   ) {}
 
@@ -171,7 +172,7 @@ export class PlaceBidModalComponent implements OnInit {
             class: "modal-dialog-centered modal-dialog-bottom rt_popups modal-sm",
           });
           this.modalService.setDismissReason("bid placed");
-          this.SendBidPlacedEvent();
+          this.mixPanel.track16("Bid Placed");
         },
         (err) => {
           console.error(err);
@@ -183,9 +184,7 @@ export class PlaceBidModalComponent implements OnInit {
         this.saveSelectionDisabled = false;
       });
   }
-  SendBidPlacedEvent() {
-    this.analyticsService.eventEmitter("bid_placed", "usage", "activity", "transaction", 10);
-  }
+
   navigateToBuyDESO(): void {
     this.bsModalRef.hide();
     this.router.navigate(["/" + this.globalVars.RouteNames.BUY_DESO]);

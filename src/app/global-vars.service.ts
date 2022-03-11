@@ -582,7 +582,7 @@ export class GlobalVarsService {
      this.mixPanel.identify(this.loggedInUser.PublicKeyBase58Check);
      this.mixPanel.peopleset ({
        "$name": this.username,
-       "public Key": this.loggedInUser.PublicKeyBase58Check
+       "public Key": this.loggedInUser.PublicKeyBase58Check,
      })
   }
 

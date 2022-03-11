@@ -230,6 +230,12 @@ peopleset(name) {
     "$name": name
   }) 
 }
+// People Set - ref
+peoplesetRef(name) {
+  mixpanel.people.set(name, {
+    "referrer": name
+  }) 
+}
 // This tracks referrals
 trackRefer(referrer: string) {
   mixpanel.track("Referral", {

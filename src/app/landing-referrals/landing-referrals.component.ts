@@ -14,6 +14,9 @@ export class LandingReferralsComponent implements OnInit {
       this.referrerUsername = params.username;
     });
     this.mixPanel.trackRefer(this.referrerUsername);
+    this.mixPanel.peoplesetRef ({
+      "Referrer": this.referrerUsername
+    })
   }
 
   ngOnInit(): void {

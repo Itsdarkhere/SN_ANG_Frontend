@@ -225,6 +225,8 @@ import { ActivityTableComponent } from "./analytics-page/analytics-activity/acti
 import { ModelComponent } from "./mint-page/model/model.component";
 import { LandingReferralsComponent } from './landing-referrals/landing-referrals.component';
 import { SignupPageReferralsComponent } from './signup-page-referrals/signup-page-referrals.component';
+import { LandingPageCreatorsComponent } from './landing-page-creators/landing-page-creators.component';
+import { LandingPageDaoComponent } from './landing-page-dao/landing-page-dao.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -422,6 +424,8 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     ModelComponent,
     LandingReferralsComponent,
     SignupPageReferralsComponent,
+    LandingPageCreatorsComponent,
+    LandingPageDaoComponent,
   ],
   imports: [
     BrowserModule,

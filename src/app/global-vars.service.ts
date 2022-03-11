@@ -33,6 +33,7 @@ import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import Swal from "sweetalert2";
 import Timer = NodeJS.Timer;
 import { AngularFirestore } from "@angular/fire/firestore";
+import { ReferralsComponent } from "./referrals/referrals.component";
 
 export enum ConfettiSvg {
   DIAMOND = "diamond",
@@ -579,6 +580,10 @@ export class GlobalVarsService {
     this.navigateToCurrentStepInTutorial(user);
     // Identify user
     this.mixPanel.identify(this.loggedInUser.PublicKeyBase58Check);
+    this.mixPanel.peopleset({
+      '$name': this.username,
+      "public Key": this.loggedInUser.PublicKeyBase58Check,
+    });
   }
 
   navigateToCurrentStepInTutorial(user: User): Promise<boolean> {

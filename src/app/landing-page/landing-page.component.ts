@@ -5,6 +5,8 @@ import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 import { AnimationItem } from "lottie-web";
 import { AnimationOptions } from "ngx-lottie";
+import { MixpanelService } from "../mixpanel.service";
+
 
 @Component({
   selector: "app-landing-page",
@@ -110,7 +112,8 @@ export class LandingPageComponent implements OnInit {
       likes: "236",
     },
   ];
-  constructor(public globalVars: GlobalVarsService, private router: Router) {}
+  constructor(public globalVars: GlobalVarsService, private router: Router, private mixPanel: MixpanelService,
+    ) {}
 
   // Scroll effects
   @HostListener("window:resize") onResize() {
@@ -167,15 +170,20 @@ export class LandingPageComponent implements OnInit {
     if (!this.globalVars.showLandingPage()) {
       //this.router.navigate(["/" + this.globalVars.RouteNames.BROWSE], { queryParamsHandling: "merge" });
     }
+    this.mixPanel.track3("Landing page viewed")
   }
   getLogoBackground() {
     return `url("${environment.node.logoAssetDir}camelcase_logo.svg")`;
   }
   launchLogin() {
     this.router.navigate(["/" + this.globalVars.RouteNames.SIGNUP]);
+    this.mixPanel.track38("Landing page - login clicked")
+
   }
   launchSignUp() {
     this.router.navigate(["/" + this.globalVars.RouteNames.SIGNUP]);
+    this.mixPanel.track39("Landing page - Signup clicked")
+
   }
   animationCreated(animationItem: AnimationItem): void {
     console.log(animationItem);

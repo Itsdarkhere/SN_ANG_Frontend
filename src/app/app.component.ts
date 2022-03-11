@@ -64,7 +64,6 @@ export class AppComponent implements OnInit {
         return "";
       },
     });
-    this.mixPanel.identify(this.globalVars?.loggedInUser?.PublicKeyBase58Check);
   }
   static DYNAMICALLY_ADDED_ROUTER_LINK_CLASS = "js-app-component__dynamically-added-router-link-class";
 

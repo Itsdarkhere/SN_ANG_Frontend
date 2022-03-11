@@ -7,7 +7,7 @@ import { CdkTextareaAutosize } from "@angular/cdk/text-field";
 import { EmbedUrlParserService } from "../../lib/services/embed-url-parser-service/embed-url-parser-service";
 import { environment } from "../../environments/environment";
 import { MatDialogRef } from "@angular/material/dialog";
-import { MixpanelService } from "../mixPanel.service";
+import { MixpanelService } from "../mixpanel.service";
 
 @Component({
   selector: "app-create-post",

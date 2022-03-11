@@ -7,7 +7,7 @@ import * as _ from "lodash";
 import { Router } from "@angular/router";
 import { InfiniteScroller } from "../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
-import { MixpanelService } from "../mixPanel.service";
+import { MixpanelService } from "../mixpanel.service";
 
 @Component({
   selector: "place-bid-modal",

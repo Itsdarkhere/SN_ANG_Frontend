@@ -21,7 +21,7 @@ import Timer = NodeJS.Timer;
 import { CloudflareStreamService } from "../../../lib/services/stream/cloudflare-stream-service";
 import * as _ from "lodash";
 import { Mentionify } from "../../../lib/services/mention-autofill/mentionify";
-import { MixpanelService } from "src/app/mixPanel.service";
+import { MixpanelService } from "src/app/mixpanel.service";
 
 @Component({
   selector: "feed-create-post",

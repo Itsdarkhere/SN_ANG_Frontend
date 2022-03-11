@@ -3,7 +3,7 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild } from "@angular
 import { BackendApiService, NFTEntryResponse, PostEntryResponse } from "../backend-api.service";
 import { GlobalVarsService } from "../global-vars.service";
 import KeenSlider, { KeenSliderInstance } from "keen-slider"
-import { MixpanelService } from "../mixPanel.service";
+import { MixpanelService } from "../mixpanel.service";
 import { Router } from "@angular/router";
 
 @Component({

@@ -9,7 +9,7 @@ import { Subscription } from "rxjs";
 import _ from "lodash";
 import { PlaceBidModalComponent } from "src/app/place-bid-modal/place-bid-modal.component";
 import { SharedDialogs } from "src/lib/shared-dialogs";
-import { MixpanelService } from "src/app/mixPanel.service";
+import { MixpanelService } from "src/app/mixpanel.service";
 import { BuyNowModalComponent } from "src/app/buy-now-modal/buy-now-modal.component";
 
 @Component({

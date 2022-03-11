@@ -16,7 +16,7 @@ import * as _ from "lodash";
 import { InfiniteScroller } from "../infinite-scroller";
 import { Subscription } from "rxjs";
 import { SwalHelper } from "../../lib/helpers/swal-helper";
-import { MixpanelService } from "../mixPanel.service";
+import { MixpanelService } from "../mixpanel.service";
 import { FeedPostImageModalComponent } from "../feed/feed-post-image-modal/feed-post-image-modal.component";
 
 @Component({

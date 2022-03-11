@@ -9,7 +9,7 @@ import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { Location } from "@angular/common";
 import { ToastrService } from "ngx-toastr";
 import { CommentModalComponent } from "../comment-modal/comment-modal.component";
-import { MixpanelService } from "../mixPanel.service";
+import { MixpanelService } from "../mixpanel.service";
 
 @Component({
   selector: "app-buy-now-modal",

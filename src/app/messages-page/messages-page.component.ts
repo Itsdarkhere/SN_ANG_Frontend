@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
 import { AppRoutingModule } from "../app-routing.module";
-import { MixpanelService } from "../mixPanel.service";
+import { MixpanelService } from "../mixpanel.service";
 import { BackendApiService } from "../backend-api.service";
 import { Router } from "@angular/router";
 import { Title } from "@angular/platform-browser";

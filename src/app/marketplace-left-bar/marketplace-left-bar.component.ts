@@ -4,7 +4,7 @@ import { Location } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FunctionPassService } from "../function-pass.service";
 import { toInteger } from "lodash";
-import { MixpanelService } from "../mixPanel.service";
+import { MixpanelService } from "../mixpanel.service";
 
 @Component({
   selector: "app-marketplace-left-bar",

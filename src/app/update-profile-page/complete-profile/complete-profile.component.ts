@@ -3,7 +3,7 @@ import { RouteNames } from "../../app-routing.module";
 import { GlobalVarsService } from "../../global-vars.service";
 import { Router } from "@angular/router";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { MixpanelService } from "src/app/mixPanel.service";
+import { MixpanelService } from "src/app/mixpanel.service";
 
 @Component({
   selector: "app-complete-profile",

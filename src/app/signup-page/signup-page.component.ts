@@ -7,7 +7,7 @@ import { AppRoutingModule, RouteNames } from "../app-routing.module";
 import { SwalHelper } from "src/lib/helpers/swal-helper";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { isNil } from "lodash";
-import { MixpanelService } from "../mixPanel.service";
+import { MixpanelService } from "../mixpanel.service";
 
 export type ProfileUpdates = {
   usernameUpdate: string;

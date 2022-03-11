@@ -7,7 +7,7 @@ import { tap, finalize, first } from "rxjs/operators";
 import * as _ from "lodash";
 import PullToRefresh from "pulltorefreshjs";
 import { Title } from "@angular/platform-browser";
-import { MixpanelService } from "../mixPanel.service";
+import { MixpanelService } from "../mixpanel.service";
 
 @Component({
   selector: "feed",

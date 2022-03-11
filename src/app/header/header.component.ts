@@ -5,7 +5,7 @@ import { GlobalVarsService } from "../global-vars.service";
 import { MatDialog } from "@angular/material/dialog";
 import { PlaceABidComponent } from "../place-a-bid/place-a-bid.component";
 import { Router } from "@angular/router";
-import { MixpanelService } from "../mixPanel.service";
+import { MixpanelService } from "../mixpanel.service";
 
 @Component({
   selector: "app-header",

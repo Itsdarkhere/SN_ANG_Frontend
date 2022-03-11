@@ -26,7 +26,7 @@ import { SharedDialogs } from "../../../lib/shared-dialogs";
 import { UnlockContentModalComponent } from "src/app/unlock-content-modal/unlock-content-modal.component";
 import { CreateNftAuctionModalComponent } from "src/app/create-nft-auction-modal/create-nft-auction-modal.component";
 import { take } from "rxjs/operators";
-import { MixpanelService } from "src/app/mixPanel.service";
+import { MixpanelService } from "src/app/mixpanel.service";
 
 @Component({
   selector: "feed-post",

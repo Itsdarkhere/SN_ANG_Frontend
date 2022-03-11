@@ -10,7 +10,7 @@ import { Subscription } from "rxjs";
 import { SwalHelper } from "../../lib/helpers/swal-helper";
 import { environment } from "src/environments/environment";
 import { animate, style, transition, trigger } from "@angular/animations";
-import { MixpanelService } from "../mixPanel.service";
+import { MixpanelService } from "../mixpanel.service";
 
 @Component({
   selector: "wallet",

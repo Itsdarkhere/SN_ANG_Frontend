@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { NFTBidEntryResponse, BackendApiService } from "../backend-api.service";
 import { GlobalVarsService } from "../global-vars.service";
-import { MixpanelService } from "../mixPanel.service";
+import { MixpanelService } from "../mixpanel.service";
 
 @Component({
   selector: "app-cancel-bid-modal",

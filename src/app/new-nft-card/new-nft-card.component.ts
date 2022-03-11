@@ -24,7 +24,7 @@ import { FeedPostImageModalComponent } from "../feed/feed-post-image-modal/feed-
 import { TransferModalComponent } from "../transfer-modal/transfer-modal.component";
 import { environment } from "src/environments/environment";
 import { animate, style, transition, trigger } from "@angular/animations";
-import { MixpanelService } from "../mixPanel.service";
+import { MixpanelService } from "../mixpanel.service";
 @Component({
   selector: "new-nft-card",
   templateUrl: "./new-nft-card.component.html",

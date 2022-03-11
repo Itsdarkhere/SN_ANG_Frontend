@@ -13,7 +13,7 @@ import { CommentModalComponent } from "../comment-modal/comment-modal.component"
 import { ArweaveJsService } from "../arweave-js.service";
 import { take } from "rxjs/operators";
 import _ from "lodash";
-import { MixpanelService } from "../mixPanel.service";
+import { MixpanelService } from "../mixpanel.service";
 
 @Component({
   selector: "app-mint-page",

@@ -578,21 +578,12 @@ export class GlobalVarsService {
 
     this._notifyLoggedInUserObservers(user, isSameUserAsBefore);
     this.navigateToCurrentStepInTutorial(user);
-<<<<<<< HEAD
     // Identify user
     this.mixPanel.identify(this.loggedInUser.PublicKeyBase58Check);
     this.mixPanel.peopleset({
-      '$name': this.username,
+      "$name": this.username,
       "public Key": this.loggedInUser.PublicKeyBase58Check,
     });
-=======
-     // Identify user
-     this.mixPanel.identify(this.loggedInUser.PublicKeyBase58Check);
-     this.mixPanel.peopleset ({
-       "$name": this.username,
-       "public Key": this.loggedInUser.PublicKeyBase58Check,
-     })
->>>>>>> f84c272d507cee2acdad7e9436bfb8d2f17d6197
   }
 
   navigateToCurrentStepInTutorial(user: User): Promise<boolean> {

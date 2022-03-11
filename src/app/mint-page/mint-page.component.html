@@ -8,8 +8,160 @@
   <div class="d-flex mt-20px" [ngClass]="mobile ? 'messages_container_mobile' : 'messages_container'">
     <!--  STEP 1  -->
     <div *ngIf="step === 1" class="mint-page-text-container flex-start-center w-100">
-      <!-- choose blockchain -->
-      <div class="w-100 h-100 d-flex flex-column flex-center-start overflow-y-auto disable-scrollbars">
+      <!-- choose blockchain desktop -->
+      <div
+        class="w-100 h-100 d-flex flex-column flex-center-start overflow-y-auto disable-scrollbars"
+        *ngIf="!this.globalVars.isMobile()"
+      >
+        <div class="w-90 mt-20px">
+          <h2 class="font-weight-semiboldn w-100 text-align-start ml-5px fs-33-responsive">Choose Blockchain</h2>
+          <label class="mb-20px color-light mint-page-sub-heading w-100 text-align-start fs-20-responsive ml-5px">
+            Pick the blockchain you want to mint your NFT on.
+          </label>
+        </div>
+        <div class="mint-content-type-container pb-20px w-90" [ngClass]="mobile ? 'justify-content-around' : ''">
+          <button
+            class="blockchain-type-card-mint p-0px"
+            (click)="desoBlockchainSelected()"
+            [ngClass]="{ 'electric-box-shadow': desoBlockchain, 'm-10px': mobile }"
+          >
+            <div class="deso-blockchain-type-card-header">
+              <div class="blockchain-type-card-header-container">
+                <div class="deso-header-container">
+                  <img src="/assets/deso/logo-cropped.png" alt="deso logo" class="deso-logo-header" />
+                  <p class="blockchain-header-text">Deso</p>
+                </div>
+                <div class="deso-wallet-container">
+                  <img
+                    src="/assets/deso/deso-wallet-connected.svg"
+                    alt="wallet-connected"
+                    class="deso-wallet-connected"
+                  />
+                  <div class="deso-wallet-connected-container">
+                    <p class="deso-wallet-connected-address">{{ this.desoWalletAddressShort }}</p>
+                    <p class="deso-wallet-connected-text">Wallet Connected</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="blockchain-type-card-body">
+              <p class="blockchain-body-text">
+                Mint on the Deso blockchain, where your NFT will be for sale on your Supernovas profile, and every
+                application which is connected the decentralized social network of Deso.
+              </p>
+              <div class="deso-blockchain-line-separator"></div>
+              <div class="gas-fees-container">
+                <p class="gas-fees-text">Gas Fees</p>
+                <p class="gas-fees-amount">0.001</p>
+              </div>
+            </div>
+          </button>
+          <!-- eth wallet is not connected -->
+          <button
+            class="blockchain-type-card-mint p-0px"
+            (click)="connectEthWallet()"
+            *ngIf="!this.globalVars.imxWalletConnected"
+          >
+            <div class="eth-blockchain-type-card-header">
+              <div class="blockchain-type-card-header-container">
+                <div class="eth-header-container">
+                  <img src="/assets/eth/ethlogo-white.svg" alt="deso logo" class="eth-logo-header" />
+                  <p class="blockchain-header-text">Eth</p>
+                </div>
+                <button class="deso-wallet-container-not-connected">
+                  <div class="deso-wallet-connected-container">
+                    <p class="deso-wallet-connected-text-not-connected">Connect Wallet</p>
+                  </div>
+                </button>
+              </div>
+            </div>
+            <div class="blockchain-type-card-body">
+              <p class="blockchain-body-text">
+                Mint on the Ethereum blockchain with zero gas fees by using Immutable X. Your NFT will be for sale on
+                Supernovas and other marketplaces which use Immutable.
+              </p>
+              <div class="eth-blockchain-line-separator"></div>
+              <div class="gas-fees-container">
+                <p class="gas-fees-text">Gas Fees</p>
+                <p class="gas-fees-amount">0.00 ETH</p>
+              </div>
+            </div>
+          </button>
+          <!-- eth wallet is connected -->
+          <button
+            class="blockchain-type-card-mint p-0px"
+            (click)="ethereumBlockchainSelected()"
+            [ngClass]="{ 'electric-box-shadow': ethereumBlockchain, 'm-10px': mobile }"
+            *ngIf="this.globalVars.imxWalletConnected"
+          >
+            <div class="eth-blockchain-type-card-header">
+              <div class="blockchain-type-card-header-container">
+                <div class="eth-header-container">
+                  <img src="/assets/eth/ethlogo-white.svg" alt="deso logo" class="eth-logo-header" />
+                  <p class="blockchain-header-text">Eth</p>
+                </div>
+                <div class="deso-wallet-container">
+                  <img
+                    src="/assets/deso/deso-wallet-connected.svg"
+                    alt="wallet-connected"
+                    class="deso-wallet-connected"
+                  />
+                  <div class="deso-wallet-connected-container">
+                    <p class="deso-wallet-connected-address">{{ this.globalVars.ethWalletAddresShort }}</p>
+                    <p class="deso-wallet-connected-text">Wallet Connected</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="blockchain-type-card-body">
+              <p class="blockchain-body-text">
+                Mint on the Ethereum blockchain with zero gas fees by using Immutable X. Your NFT will be for sale on
+                Supernovas and other marketplaces which use Immutable.
+              </p>
+              <div class="eth-blockchain-line-separator"></div>
+              <div class="gas-fees-container">
+                <p class="gas-fees-text">Gas Fees</p>
+                <p class="gas-fees-amount">0.00 ETH</p>
+              </div>
+            </div>
+          </button>
+          <!-- Solana coming soon -->
+          <button
+            class="blockchain-type-card-mint not-available-warning p-0px"
+            *ngIf="!globalVars.showAdminTools()"
+            [ngClass]="{ 'electric-box-shadow': audioType, 'm-10px': mobile }"
+          >
+            <div class="sol-blockchain-type-card-header">
+              <div class="blockchain-type-card-header-container">
+                <div class="eth-header-container">
+                  <img src="/assets/sol/sol-logo.svg" alt="deso logo" class="sol-logo-header" />
+                  <p class="blockchain-header-text">Sol</p>
+                </div>
+                <!-- wallet is not connected -->
+                <button class="deso-wallet-container-not-connected">
+                  <div class="deso-wallet-connected-container">
+                    <p class="deso-wallet-connected-text-not-connected">Connect Wallet</p>
+                  </div>
+                </button>
+              </div>
+            </div>
+            <div class="blockchain-type-card-body">
+              <p class="blockchain-body-text">Coming Soon!</p>
+              <div class="sol-blockchain-line-separator"></div>
+              <div class="gas-fees-container">
+                <p class="gas-fees-text">Gas Fees</p>
+                <p class="gas-fees-amount">SOL</p>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- force deso blockchain mobile -->
+      <div
+        class="w-100 h-100 d-flex flex-column flex-center-start overflow-y-auto disable-scrollbars height-zero"
+        *ngIf="this.globalVars.isMobile()"
+      >
         <div class="w-90 mt-20px">
           <h2 class="font-weight-semiboldn w-100 text-align-start ml-5px fs-33-responsive">Choose Blockchain</h2>
           <label class="mb-20px color-light mint-page-sub-heading w-100 text-align-start fs-20-responsive ml-5px">

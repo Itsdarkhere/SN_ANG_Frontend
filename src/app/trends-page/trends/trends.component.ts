@@ -270,8 +270,20 @@ export class TrendsComponent implements OnInit {
       this.sortMarketplace(0, false);
     }
   }
-  sortSelectChangeEth() {
-    this.globalVars._alertError("You cannot sort on ETH, please use the left bar to filter.");
-    return;
+  sortSelectChangeEth(event) {
+    // this.globalVars._alertError("You cannot sort on ETH, please use the left bar to filter.");
+    // return;
+    if (this.globalVars.ethMarketplaceSortType != event) {
+      this.globalVars.ethMarketplaceSortType = event;
+      if (this._globalVars.ethMarketplaceSortType === "most recent first") {
+        this.globalVars.sortEthMarketplaceNewestFirst();
+      } else if (this._globalVars.ethMarketplaceSortType === "oldest first") {
+        this.globalVars.sortEthMarketplaceOldestFirst();
+      } else if (this._globalVars.ethMarketplaceSortType === "highest price first") {
+        this.globalVars.sortEthMarketplaceHighestPriceFirst();
+      } else if (this._globalVars.ethMarketplaceSortType === "lowest price first") {
+        this.globalVars.sortEthMarketplaceLowestPriceFirst();
+      }
+    }
   }
 }

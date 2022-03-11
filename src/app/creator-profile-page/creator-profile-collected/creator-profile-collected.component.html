@@ -43,20 +43,17 @@
         </div>
         <div class="nft-col-wrap" *ngFor="let post of this.globalVars.ethNFTsCollected; let index = index">
           <div class="max-width-300-plus">
+            <!-- used new-nft-card setup from trends.component -->
             <new-nft-card
-              [contentShouldLinkToThread]="true"
-              [pending]="false"
-              [includePaddingOnPost]="true"
-              [nftPost]="true"
               [post]="post"
-              [afterCommentCreatedCallback]="_prependComment.bind(this, post, index)"
-              [blocked]="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)"
-              [cardStyle]="true"
-              [fromFeed]="true"
+              [includePaddingOnPost]="true"
+              [pending]="false"
+              [showReplyingToContent]="post"
+              [parentPost]=""
+              [contentShouldLinkToThread]="true"
               [showNFTDetails]="true"
-              [profileFeed]="true"
-              (userBlocked)="userBlocked()"
-              [hoverable]="true"
+              [showExpandedNFTDetails]="true"
+              [setBorder]="true"
             ></new-nft-card>
           </div>
         </div>

@@ -1358,3 +1358,7 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+.height-zero {
+  height: 0% !important;
+}

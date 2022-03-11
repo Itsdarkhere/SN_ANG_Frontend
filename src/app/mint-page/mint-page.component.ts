@@ -160,6 +160,12 @@ export class MintPageComponent implements OnInit {
       this.globalVars.imxWalletAddress = localStorage.getItem("address") as string;
       this.globalVars.ethWalletAddresShort = this.globalVars.imxWalletAddress.slice(0, 15) + "...";
     }
+
+    if (this.globalVars.isMobile()) {
+      this.desoBlockchain = true;
+    } else {
+      this.desoBlockchain = false;
+    }
   }
   connectEthWallet() {
     this.openGeneralSuccessModal();

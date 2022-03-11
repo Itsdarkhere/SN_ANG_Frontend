@@ -113,7 +113,7 @@ export class ImxPageComponent implements OnInit {
   }
 
   linkLogOut() {
-    console.log("log button hit --------------------");
+    console.log("logout button hit --------------------");
     localStorage.removeItem("address");
     this.globalVars.imxWalletAddress = "undefined";
     this.globalVars.imxWalletConnected = false;

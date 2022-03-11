@@ -188,6 +188,7 @@ export class GlobalVarsService {
   marketplacePriceRangeSet = false;
   marketplaceMarketType = "all";
   marketplaceSortType = "most recent first";
+  ethMarketplaceSortType = "";
   // Marketplace Offset
   marketplaceNFTsOffset = 0;
   ethMarketplaceNFTsOffset = 0;
@@ -1485,6 +1486,234 @@ export class GlobalVarsService {
   }
 
   //   ----------------- start of eth/imx functions -----------------
+  //   for sale ETH nfts - newest first
+  async sortEthMarketplaceNewestFirst() {
+    this.isEthMarketplaceLoading = true;
+    this.ethMarketplaceNFTsData = [];
+
+    const options = { method: "GET", headers: { Accept: "*/*" } };
+
+    let res = await fetch(
+      `https://api.ropsten.x.immutable.com/v1/orders?order_by=created_at&direction=desc&status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
+      options
+    );
+    let resJson = await res.json();
+    console.log(resJson);
+    console.log(resJson["result"]);
+    let NFTsForSaleLength = resJson["result"].length;
+    let NFTsForSaleArr = [];
+
+    for (var i = 0; i < NFTsForSaleLength; i++) {
+      NFTsForSaleArr.push(resJson["result"][i]["sell"]["data"]["token_id"]);
+    }
+
+    let metadataPostHashArr = [];
+    for (var i = 0; i < NFTsForSaleArr.length; i++) {
+      let metadataRes = await fetch(`https://supernovas.app/api/v0/imx/metadata/${NFTsForSaleArr[i]}`);
+      let metadataResJson = await metadataRes.json();
+      if (this.marketplaceNFTCategory === "All") {
+        metadataPostHashArr.push(metadataResJson["PostHashHex"]);
+      } else {
+        if (metadataResJson["Category"] === this.marketplaceNFTCategory) {
+          metadataPostHashArr.push(metadataResJson["PostHashHex"]);
+        } else {
+          continue;
+        }
+      }
+    }
+
+    for (var i = 0; i < metadataPostHashArr.length; i++) {
+      this.getPost(true, metadataPostHashArr[i]).subscribe(
+        (res) => {
+          console.log(res["PostFound"]);
+          console.log(this.ethMarketplaceNFTsData);
+          this.ethMarketplaceNFTsData.push(res["PostFound"]);
+          console.log(this.ethMarketplaceNFTsData);
+        },
+        (err: any) => {
+          console.log(err);
+        }
+      );
+    }
+
+    setTimeout(() => {
+      this.updateDataToShow();
+    }, 1000);
+
+    this.isEthMarketplaceLoading = false;
+  }
+
+  //   for sale ETH nfts - oldest first
+  async sortEthMarketplaceOldestFirst() {
+    this.isEthMarketplaceLoading = true;
+    this.ethMarketplaceNFTsData = [];
+
+    const options = { method: "GET", headers: { Accept: "*/*" } };
+
+    let res = await fetch(
+      `https://api.ropsten.x.immutable.com/v1/orders?order_by=created_at&direction=asc&status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
+      options
+    );
+    let resJson = await res.json();
+    console.log(resJson);
+    console.log(resJson["result"]);
+    let NFTsForSaleLength = resJson["result"].length;
+    let NFTsForSaleArr = [];
+
+    for (var i = 0; i < NFTsForSaleLength; i++) {
+      NFTsForSaleArr.push(resJson["result"][i]["sell"]["data"]["token_id"]);
+    }
+
+    let metadataPostHashArr = [];
+    for (var i = 0; i < NFTsForSaleArr.length; i++) {
+      let metadataRes = await fetch(`https://supernovas.app/api/v0/imx/metadata/${NFTsForSaleArr[i]}`);
+      let metadataResJson = await metadataRes.json();
+      if (this.marketplaceNFTCategory === "All") {
+        metadataPostHashArr.push(metadataResJson["PostHashHex"]);
+      } else {
+        if (metadataResJson["Category"] === this.marketplaceNFTCategory) {
+          metadataPostHashArr.push(metadataResJson["PostHashHex"]);
+        } else {
+          continue;
+        }
+      }
+    }
+
+    for (var i = 0; i < metadataPostHashArr.length; i++) {
+      this.getPost(true, metadataPostHashArr[i]).subscribe(
+        (res) => {
+          console.log(res["PostFound"]);
+          console.log(this.ethMarketplaceNFTsData);
+          this.ethMarketplaceNFTsData.push(res["PostFound"]);
+          console.log(this.ethMarketplaceNFTsData);
+        },
+        (err: any) => {
+          console.log(err);
+        }
+      );
+    }
+
+    setTimeout(() => {
+      this.updateDataToShow();
+    }, 1000);
+
+    this.isEthMarketplaceLoading = false;
+  }
+
+  //   for sale ETH nfts - highest price first
+  async sortEthMarketplaceHighestPriceFirst() {
+    this.isEthMarketplaceLoading = true;
+    this.ethMarketplaceNFTsData = [];
+
+    const options = { method: "GET", headers: { Accept: "*/*" } };
+
+    let res = await fetch(
+      `https://api.ropsten.x.immutable.com/v1/orders?order_by=buy_quantity&direction=desc&status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
+      options
+    );
+    let resJson = await res.json();
+    console.log(resJson);
+    console.log(resJson["result"]);
+    let NFTsForSaleLength = resJson["result"].length;
+    let NFTsForSaleArr = [];
+
+    for (var i = 0; i < NFTsForSaleLength; i++) {
+      NFTsForSaleArr.push(resJson["result"][i]["sell"]["data"]["token_id"]);
+    }
+
+    let metadataPostHashArr = [];
+    for (var i = 0; i < NFTsForSaleArr.length; i++) {
+      let metadataRes = await fetch(`https://supernovas.app/api/v0/imx/metadata/${NFTsForSaleArr[i]}`);
+      let metadataResJson = await metadataRes.json();
+      if (this.marketplaceNFTCategory === "All") {
+        metadataPostHashArr.push(metadataResJson["PostHashHex"]);
+      } else {
+        if (metadataResJson["Category"] === this.marketplaceNFTCategory) {
+          metadataPostHashArr.push(metadataResJson["PostHashHex"]);
+        } else {
+          continue;
+        }
+      }
+    }
+
+    for (var i = 0; i < metadataPostHashArr.length; i++) {
+      this.getPost(true, metadataPostHashArr[i]).subscribe(
+        (res) => {
+          console.log(res["PostFound"]);
+          console.log(this.ethMarketplaceNFTsData);
+          this.ethMarketplaceNFTsData.push(res["PostFound"]);
+          console.log(this.ethMarketplaceNFTsData);
+        },
+        (err: any) => {
+          console.log(err);
+        }
+      );
+    }
+
+    setTimeout(() => {
+      this.updateDataToShow();
+    }, 1000);
+
+    this.isEthMarketplaceLoading = false;
+  }
+
+  //   for sale ETH nfts - lowest price first
+  async sortEthMarketplaceLowestPriceFirst() {
+    this.isEthMarketplaceLoading = true;
+    this.ethMarketplaceNFTsData = [];
+
+    const options = { method: "GET", headers: { Accept: "*/*" } };
+
+    let res = await fetch(
+      `https://api.ropsten.x.immutable.com/v1/orders?order_by=buy_quantity&direction=asc&status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
+      options
+    );
+    let resJson = await res.json();
+    console.log(resJson);
+    console.log(resJson["result"]);
+    let NFTsForSaleLength = resJson["result"].length;
+    let NFTsForSaleArr = [];
+
+    for (var i = 0; i < NFTsForSaleLength; i++) {
+      NFTsForSaleArr.push(resJson["result"][i]["sell"]["data"]["token_id"]);
+    }
+
+    let metadataPostHashArr = [];
+    for (var i = 0; i < NFTsForSaleArr.length; i++) {
+      let metadataRes = await fetch(`https://supernovas.app/api/v0/imx/metadata/${NFTsForSaleArr[i]}`);
+      let metadataResJson = await metadataRes.json();
+      if (this.marketplaceNFTCategory === "All") {
+        metadataPostHashArr.push(metadataResJson["PostHashHex"]);
+      } else {
+        if (metadataResJson["Category"] === this.marketplaceNFTCategory) {
+          metadataPostHashArr.push(metadataResJson["PostHashHex"]);
+        } else {
+          continue;
+        }
+      }
+    }
+
+    for (var i = 0; i < metadataPostHashArr.length; i++) {
+      this.getPost(true, metadataPostHashArr[i]).subscribe(
+        (res) => {
+          console.log(res["PostFound"]);
+          console.log(this.ethMarketplaceNFTsData);
+          this.ethMarketplaceNFTsData.push(res["PostFound"]);
+          console.log(this.ethMarketplaceNFTsData);
+        },
+        (err: any) => {
+          console.log(err);
+        }
+      );
+    }
+
+    setTimeout(() => {
+      this.updateDataToShow();
+    }, 1000);
+
+    this.isEthMarketplaceLoading = false;
+  }
+
   //   for sale ETH nfts
   async sortEthMarketplace() {
     this.isEthMarketplaceLoading = true;

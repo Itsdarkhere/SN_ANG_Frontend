@@ -248,7 +248,7 @@ peopleset(name) {
 // People Set - ref
 peoplesetRef(name) {
   mixpanel.people.set(name, {
-    "referrer": name
+    name: name
   }) 
 }
 // This tracks referrals

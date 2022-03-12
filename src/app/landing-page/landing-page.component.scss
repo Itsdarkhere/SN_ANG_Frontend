@@ -697,11 +697,11 @@ color: rgb(22, 22, 22);
 
 .artist-card {
   display: flex;
-  justify-content: center;
+  justify-content: right;
   width: 100%;
-  max-height: 60vh;
+  /* max-height: 60vh; */
   max-width: 100%;
-  margin: auto;
+  margin-left: auto;
   object-fit: contain;
 }
 .artist-img {
@@ -757,6 +757,8 @@ color: rgb(22, 22, 22);
   transition: filter 0.3s ease-in-out 0s;
   cursor: default;
   object-fit: contain;
+  border-radius: 25px;
+  max-height: 600px;
 }
 .info-icon {
 
@@ -822,6 +824,12 @@ color: rgb(22, 22, 22);
   justify-content: center;
   /* height: 100vh; */
   margin-top: 0.3em;
+}
+
+.buttons-container {
+  width: 10%; 
+  position: relative;
+  display: flex;
 }
 
 .card-grid {
@@ -1717,9 +1725,9 @@ footer {
 }
 .vitalik2-gif {
   position: absolute;
-  width: 162px;
-  top: 377px;
-  right: 1486px;
+  width: 111px;
+  top: 287px;
+  right: 2821px;
   z-index: 1111;
   border-radius: 25px;
   animation: 3s infinite alternate floating;
@@ -1843,107 +1851,6 @@ footer {
     color: var(--text-white);
   }
 }
-
-@media screen and (max-width: 700px){
-  .dao-p {
-    color: var(--black);
-    font-family: var(--font-family-poppins);
-    font-size: 16px;
-    font-weight: 400;
-    width: 100%;
-    margin-top: auto;
-    margin-bottom: 3em;
-  }
-  .dao-card {
-    height: 78vh;
-    width: 80%;
-    padding: 28px;
-  }
-  .dao-button {
-    width: 100%;
-    position: relative;
-  }
-  .dao-p__black {
-    color: var(--text-white);
-  }
-  .lottie-animation-dao{
-    display: none;
-  }
-  .dao-main-text {
-    align-self: flex-end;
-    color: var(--black);
-    font-family: var(--font-family-poppins);
-    font-weight: 600;
-    min-height: 104px;
-    margin-bottom: 0.3em;
-    width: 100%;
-    font-size: 57px;
-    line-height: normal;
-  }
-  .dao-button-blue {
-    background-color: #0f00ff;
-    width: 100%;
-  }
-}
-.gg-arrow-bottom-right {
-    /* box-sizing: border-box; */
-    position: absolute;
-    display: block;
-    width: 8px;
-    height: 8px;
-    border-bottom: 2px solid;
-    transform: scale(var(--ggs,5));
-    border-right: 2px solid;
-    color: blue;
-    margin-left: 2em;
-    /* margin-right: auto; */
-    right: -4%;
-}
-.gg-arrow-bottom-right::after {
-  content: "";
-  display: block;
-  box-sizing: border-box;
-  position: absolute;
-  width: 14px;
-  height: 2px;
-  background: currentColor;
-  transform: rotate(45deg);
-  bottom: 3px;
-  right: -3px
-}
-.footer-logo-container {
-  display: flex;
-  margin: auto;
-}
-.footer-logo-img{
-  min-width: 40px;
-  width: 117px;
-}
-.buttons-container {
-  width: 65%;
-  position: relative;
-  display: flex;
-
-  .button-27{
-    min-width: none;
-  }
-  .button-28{
-    min-width: none;
-  }
-  .dao-button-blue[_ngcontent-qnx-c142] {
-    background-color: #0f00ff;
-    width: 100%;
-  }
-  .card-title__black {
-    color: var(--text-white);
-  }
-  .card-p__black {
-    color: var(--text-white);
-  }
-  .dao-main-text__black {
-    color: var(--text-white);
-  }
-}
 @media screen and (max-width: 832px){
   .artist-card {
     display: none;
@@ -1988,6 +1895,175 @@ footer {
     color: var(--text-white);
   }
 }
+
+@media screen and (max-width: 700px){
+  .dao-p {
+    color: var(--black);
+    font-family: var(--font-family-poppins);
+    font-size: 16px;
+    font-weight: 400;
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: 3em;
+  }
+  .dao-card {
+    height: 78vh;
+    width: 80%;
+    padding: 28px;
+  }
+  .dao-button {
+    width: 100%;
+    position: relative;
+  }
+  .dao-p__black {
+    color: var(--text-white);
+  }
+  .lottie-animation-dao{
+    display: none;
+  }
+  .dao-main-text {
+    align-self: flex-end;
+    color: var(--black);
+    font-family: var(--font-family-poppins);
+    font-weight: 600;
+    min-height: 104px;
+    margin-bottom: 0.3em;
+    width: 100%;
+    font-size: 52px;
+    line-height: normal;
+  }
+  .dao-button-blue {
+    background-color: #0f00ff;
+    width: 100%;
+  }
+  .buttons-container {
+    width: 100%;
+    position: relative;
+    display: flex;
+    
+    .dao-button-blue[_ngcontent-qnx-c142] {
+      background-color: #0f00ff;
+      width: 100%;
+    }
+    .card-title__black {
+      color: var(--text-white);
+    }
+    .card-p__black {
+      color: var(--text-white);
+    }
+    .dao-main-text__black {
+      color: var(--text-white);
+    }
+    .statement-buttons {
+      display: block;
+      width: 100%;
+      /* margin-bottom: auto; */
+      margin-top: 0.5em;
+      /* height: 60%; */
+      vertical-align: bottom;
+      position: absolute;
+      bottom: 0;
+    }
+  }
+  .statement-buttons {
+    display: block;
+    width: 100%;
+    /* margin-bottom: auto; */
+    margin-top: 0.5em;
+    /* height: 60%; */
+    vertical-align: bottom;
+    position: absolute;
+    bottom: 0;
+  }
+  .button-28 {
+    margin-top: 1em;
+  }
+  .button-27 {
+    margin-top: 1em;
+  }
+  .topnav .button-28 {
+    margin-top: 0em;
+  }
+  .topnav .button-27 {
+    margin-top: 0em;
+  }
+  .topnav-right{
+    width: 35%;
+    position: relative;
+    display: flex;
+    float: right;
+    justify-content: right;
+    align-items: baseline;
+}
+  .statement-section-container {
+    background: white;
+    border-radius: 50px;
+    padding: 1.5em;
+    margin: 2em;
+    height: 30em;
+    box-shadow: 0 19.71px 32.78px #0000001a;
+  }
+  .statement-title {
+    align-self: flex-end;
+    color: var(--black);
+    font-family: var(--font-family-poppins);
+    font-size: 66.7px;
+    font-weight: 400;
+    width: 100%;
+    font-size: clamp(2.2rem, -0.875rem + 8.333vw, 5rem);
+    position: relative;
+    width: 90%;
+    text-align: center;
+    margin: auto;
+    height: 100%;
+  }
+  .statement-section .button-27 {
+    width: 100%;
+    min-width: 50px;
+    max-width: 100%;
+  }
+  .statement-section .button-28 {
+    width: 100%;
+    min-width: 50px;
+    max-width: 100%;
+  }
+}
+.gg-arrow-bottom-right {
+    /* box-sizing: border-box; */
+    position: absolute;
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-bottom: 2px solid;
+    transform: scale(var(--ggs,5));
+    border-right: 2px solid;
+    color: blue;
+    margin-left: 2em;
+    /* margin-right: auto; */
+    right: -4%;
+  }
+.gg-arrow-bottom-right::after {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  width: 14px;
+  height: 2px;
+  background: currentColor;
+  transform: rotate(45deg);
+  bottom: 3px;
+  right: -3px
+}
+.footer-logo-container {
+  display: flex;
+  margin: auto;
+}
+.footer-logo-img{
+  min-width: 40px;
+  width: 117px;
+}
+
+
 @media screen and (max-width: 500px){
   .topnav-right {
     width: 35%;
@@ -2156,10 +2232,14 @@ footer {
     /* grid-template-rows: 1fr 1fr 1fr; */
   }
   .statement-buttons {
-    display: grid;
+    display: block;
     width: 100%;
-    margin: auto;
+    /* margin-bottom: auto; */
     margin-top: 0.5em;
+    /* height: 60%; */
+    vertical-align: bottom;
+    position: absolute;
+    bottom: 0;
   }
   .button-28 {
     margin-top: 1em;
@@ -2180,9 +2260,9 @@ footer {
   }
   .vitalik2-gif {
     position: absolute;
-    width: 162px;
-    top: 393px;
-    right: 1420px;
+    width: 104px;
+    top: 183px;
+    right: 1348px;
     z-index: 1111;
     border-radius: 25px;
     animation: 3s infinite alternate floating;
@@ -2190,8 +2270,9 @@ footer {
   .statement-section-container {
     background: white;
     border-radius: 50px;
-    padding: 1em;
+    padding: 1.5em;
     margin: 2em;
+    height: 30em;
     box-shadow: 0 19.71px 32.78px #0000001a;
   }
   .statement-title {
@@ -2206,15 +2287,17 @@ footer {
     width: 90%;
     text-align: center;
     margin: auto;
-    /* margin-bottom: 1em; */
+    height: 100%;
   }
   .statement-section .button-27 {
-    /* max-width: 200px; */
     width: 100%;
+    min-width: 50px;
+    max-width: 100%;
   }
   .statement-section .button-28 {
-    /* max-width: 200px; */
     width: 100%;
+    min-width: 50px;
+    max-width: 100%;
   }
 }
 @media screen and (max-width: 375px){
@@ -2278,8 +2361,8 @@ footer {
   }
   .vitalik-gif {
     position: absolute;
-    width: 96px;
-    top: 117px;
+    width: 167px;
+    top: 428px;
     right: 752px;
     z-index: 1111;
     border-radius: 25px;
@@ -2314,9 +2397,9 @@ footer {
   }
   .vitalik2-gif {
     position: absolute;
-    width: 194px;
-    top: 225px;
-    right: 1129px;
+    width: 134px;
+    top: 278px;
+    right: 1156px;
     z-index: 1111;
     border-radius: 25px;
     animation: 3s infinite alternate floating;

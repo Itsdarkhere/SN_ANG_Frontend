@@ -23,6 +23,21 @@ export class LandingPageComponent implements OnInit {
   spaceHolder2 = document.querySelector(".space-holder__collectors") as HTMLDivElement;
   horizontal2 = document.querySelector(".horizontal__collectors") as HTMLDivElement;
 
+  // const Video
+
+  mainVideo = "https://arweave.net/JeqeqMnLSKhDExIKPvHkRTALj5ImQ7cVfrXRLeWr8jE";
+  doodle = "https://arweave.net/mOyQm6oPCkR2MsrX9xy2EJo4NsTTwHaaMlQGAk0y6xc";
+  doodle2 = "https://arweave.net/Ad_HY6Dp5R2gOIoapMl3uMHb5EK2Ce_AHl9_sY9v6F8";
+  memegirl = "https://arweave.net/jmVlOuYU8TJLNYWEnhvBYFpt0fOJH8ahV7xcnKf1DF0";
+  vitalik = "https://arweave.net/VbgoM5ncwc80YpfFh24f_Y2wnw616ld6nAjIIGdAXSc";
+  vitalik2 = "https://arweave.net/T7Warjv0kFhECEAeW-mlTz-ZDyeNFDkDGkOA_K9Izdg";
+  ape = "https://arweave.net/nYXOOYvM1HWfHQJeCBt-y38HxNTQdYnLUEuapxyjixI";
+  punk = "https://arweave.net/8k3gYK7bi3rr6RsMzalTgbn0u5HLV_qTs972AtR6bhA";
+  ethpolice = "https://arweave.net/T7Warjv0kFhECEAeW-mlTz-ZDyeNFDkDGkOA_K9Izdg";
+
+
+  
+
   dao: AnimationOptions = {
     path: "https://assets5.lottiefiles.com/packages/lf20_fbmcwfmt.json",
   };

@@ -6,7 +6,7 @@ import mixpanel from "mixpanel-browser";
 
 // Enabling the debug mode flag is useful during implementation,
 // but it's recommended you remove it for production
-mixpanel.init("28e1ccdde0bc00420d6819f0b695f62b", { debug: true });
+mixpanel.init("28e1ccdde0bc00420d6819f0b695f62b", { debug: false });
 
 @Injectable({
   providedIn: "root",
@@ -247,7 +247,7 @@ peopleset(name) {
 }
 // People Set - ref
 peoplesetRef(name) {
-  mixpanel.people.set(name, {
+  mixpanel.people.set_once(name, {
     name: name
   }) 
 }

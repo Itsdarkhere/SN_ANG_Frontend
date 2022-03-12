@@ -12,6 +12,8 @@ import { ThemeService } from "../../theme/theme.service";
 import { includes, round } from "lodash";
 import { environment } from "src/environments/environment";
 import { CdkDrag } from "@angular/cdk/drag-drop";
+import { MixpanelService } from "../../mixpanel.service";
+
 
 @Component({
   selector: "feed-post-icon-row",
@@ -89,7 +91,8 @@ export class FeedPostIconRowComponent {
     private platformLocation: PlatformLocation,
     private ref: ChangeDetectorRef,
     private modalService: BsModalService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private mixPanel: MixpanelService,
   ) {}
 
   // Initiate mobile drag, have diamonds appear
@@ -353,7 +356,7 @@ export class FeedPostIconRowComponent {
         this.globalVars.loggedInUser.PublicKeyBase58Check,
         this.postContent.PostHashHex,
         isUnlike,
-        this.globalVars.feeRateDeSoPerKB * 1e9
+        this.globalVars.feeRateDeSoPerKB * 1e9,
       )
       .subscribe(
         (res) => {

@@ -219,6 +219,21 @@ track39(name: string) {
   mixpanel.track(name);
   console.log(name);
 }
+// "Liked"
+track40(name: string, data) {
+  mixpanel.track(name, data);
+  console.log(name);
+}
+// "Send diamonds"
+track41(name: string, data) {
+  mixpanel.track(name, data);
+  console.log(name);
+}
+// "Send diamonds"
+track42(name: string) {
+  mixpanel.track(name);
+  console.log(name);
+}
 // "Discovery viewed"
 track44(event) {
   mixpanel.track(event);

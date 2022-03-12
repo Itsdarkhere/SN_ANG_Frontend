@@ -29,11 +29,11 @@
     >
       <div class="artist-card">
         <div class="visual-container">
-          <div style="" class="artist-visual">
-            <iframe width="400" height="500"
-            src="https://iframe.videodelivery.net/5c9f79b7498479c81110aed7b429d4e4?poster=https%3A%2F%2Fvideodelivery.net%2F5c9f79b7498479c81110aed7b429d4e4%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600" 
-            autoplay muted="muted"
-            ></iframe>
+          <div>
+            <video class="artist-visual" [muted]="true" [autoplay]="true" [loop]="true" loop>
+              <source src="{{ mainVideo }}" type="video/mp4" />
+              Browser not supported
+            </video>
           </div>
           <!-- <div class="artist-info-container">
             <div class="artist-info-wrapper">
@@ -191,48 +191,36 @@
       <div class="sticky__collectors">
         <div class="horizontal__collectors">
           <section role="feed" class="cards" id="black-cards">
-            <!-- <div class="ape-gif">
-              <iframe src="https://iframe.videodelivery.net/8d76be626180bb7603ac6039a55d0e0f?poster=https%3A%2F%2Fvideodelivery.net%2F8d76be626180bb7603ac6039a55d0e0f%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600" 
-              style="" 
-              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; muted;" 
-              allowfullscreen="true"></iframe>
-            </div>
-            <div class="vitalik-gif">
-              <iframe src="https://iframe.videodelivery.net/5c9f79b7498479c81110aed7b429d4e4?poster=https%3A%2F%2Fvideodelivery.net%2F5c9f79b7498479c81110aed7b429d4e4%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600" 
-              style="" 
-              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; muted;" 
-              allowfullscreen="true"></iframe>
-            </div>
-            <div class="vitalik2-gif">
-              <iframe src="https://iframe.videodelivery.net/5c9f79b7498479c81110aed7b429d4e4?poster=https%3A%2F%2Fvideodelivery.net%2F5c9f79b7498479c81110aed7b429d4e4%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600" 
-              style="" 
-              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; muted;" 
-              allowfullscreen="true"></iframe>
-            </div>
-            <div class="doodle-gif">
-              <iframe src="https://iframe.videodelivery.net/2935ec10d9d8d019ebc765d1af7ae4c8?poster=https%3A%2F%2Fvideodelivery.net%2F2935ec10d9d8d019ebc765d1af7ae4c8%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600" 
-              style="" 
-              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; muted;" 
-              allowfullscreen="true"></iframe>
-            </div>
-            <div class="doodle2-gif">
-              <iframe src="https://iframe.videodelivery.net/96c255be949a800d4cf81ba961f951f9?poster=https%3A%2F%2Fvideodelivery.net%2F96c255be949a800d4cf81ba961f951f9%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600" 
-              style="" 
-              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; muted;" 
-              allowfullscreen="true"></iframe>
-            </div>
-            <div class="meme-gif">
-              <iframe src="https://iframe.videodelivery.net/8d76be626180bb7603ac6039a55d0e0f?poster=https%3A%2F%2Fvideodelivery.net%2F8d76be626180bb7603ac6039a55d0e0f%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600" 
-              style="" 
-              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; muted;" 
-              allowfullscreen="true"></iframe>
-            </div>
-            <div class="punk-gif">
-              <iframe src="https://iframe.videodelivery.net/aada8766cbbdbdc0e974b8a18d535249?poster=https%3A%2F%2Fvideodelivery.net%2Faada8766cbbdbdc0e974b8a18d535249%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600" 
-              style="" 
-              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; muted;" 
-              allowfullscreen="true"></iframe>
-            </div> -->
+
+            <video class="ape-gif" [muted]="true" [autoplay]="true" [loop]="true" loop>
+              <source src="{{ ape }}" type="video/mp4" />
+              Browser not supported
+            </video>
+
+            <video class="vitalik-gif" [muted]="true" [autoplay]="true" [loop]="true" loop>
+              <source src="{{ vitalik }}" type="video/mp4" />
+              Browser not supported
+            </video>
+
+            <video class="vitalik2-gif" [muted]="true" [autoplay]="true" [loop]="true" loop>
+              <source src="{{ vitalik2 }}" type="video/mp4" />
+              Browser not supported
+            </video>
+
+            <video class="doodle-gif" [muted]="true" [autoplay]="true" [loop]="true" loop>
+              <source src="{{ doodle }}" type="video/mp4" />
+              Browser not supported
+            </video>
+
+            <video class="doodle2-gif" [muted]="true" [autoplay]="true" [loop]="true" loop>
+              <source src="{{ doodle2 }}" type="video/mp4" />
+              Browser not supported
+            </video>
+
+            <video class="meme-gif" [muted]="true" [autoplay]="true" [loop]="true" loop>
+              <source src="{{ memegirl }}" type="video/mp4" />
+              Browser not supported
+            </video>
 
             <li class="card card__black">
               <h4 class="card-title card-title__black">Gas free</h4>

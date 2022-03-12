@@ -28,8 +28,8 @@ export class LandingPageComponent implements OnInit {
   doodle2 = "https://arweave.net/Ad_HY6Dp5R2gOIoapMl3uMHb5EK2Ce_AHl9_sY9v6F8";
   memegirl = "https://arweave.net/jmVlOuYU8TJLNYWEnhvBYFpt0fOJH8ahV7xcnKf1DF0";
   vitalik = "https://arweave.net/VbgoM5ncwc80YpfFh24f_Y2wnw616ld6nAjIIGdAXSc";
-  vitalik2 = "https://arweave.net/py_Ob9-Je5TuwKeOmNEbKyvF6ky7hdWQfm19BDVC4TM";
-  ape = "https://arweave.net/py_Ob9-Je5TuwKeOmNEbKyvF6ky7hdWQfm19BDVC4TM";
+  vitalik2 = "https://arweave.net/T7Warjv0kFhECEAeW-mlTz-ZDyeNFDkDGkOA_K9Izdg";
+  ape = "https://arweave.net/nYXOOYvM1HWfHQJeCBt-y38HxNTQdYnLUEuapxyjixI";
   punk = "https://arweave.net/8k3gYK7bi3rr6RsMzalTgbn0u5HLV_qTs972AtR6bhA";
   ethpolice = "https://arweave.net/T7Warjv0kFhECEAeW-mlTz-ZDyeNFDkDGkOA_K9Izdg";
 

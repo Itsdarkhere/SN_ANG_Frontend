@@ -6,7 +6,7 @@ import mixpanel from "mixpanel-browser";
 
 // Enabling the debug mode flag is useful during implementation,
 // but it's recommended you remove it for production
-mixpanel.init("28e1ccdde0bc00420d6819f0b695f62b", { debug: true });
+mixpanel.init("28e1ccdde0bc00420d6819f0b695f62b", { debug: false });
 
 @Injectable({
   providedIn: "root",
@@ -219,6 +219,21 @@ track39(name: string) {
   mixpanel.track(name);
   console.log(name);
 }
+// "Liked"
+track40(name: string, data) {
+  mixpanel.track(name, data);
+  console.log(name);
+}
+// "Send diamonds"
+track41(name: string, data) {
+  mixpanel.track(name, data);
+  console.log(name);
+}
+// "Send diamonds"
+track42(name: string) {
+  mixpanel.track(name);
+  console.log(name);
+}
 // "Discovery viewed"
 track44(event) {
   mixpanel.track(event);
@@ -232,8 +247,8 @@ peopleset(name) {
 }
 // People Set - ref
 peoplesetRef(name) {
-  mixpanel.people.set(name, {
-    "referrer": name
+  mixpanel.people.set_once(name, {
+    name: name
   }) 
 }
 // This tracks referrals

@@ -13,9 +13,9 @@ export class LandingReferralsComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.referrerUsername = params.username;
     });
-    this.mixPanel.trackRefer(this.referrerUsername);
+    this.mixPanel.trackRefer(this.referrerUsername),
     this.mixPanel.peoplesetRef ({
-      "Referrer": this.referrerUsername
+      "Referrer": this.referrerUsername,
     })
   }
 

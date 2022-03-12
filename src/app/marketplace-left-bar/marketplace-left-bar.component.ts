@@ -414,7 +414,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
       this.lastSortContentFormatVideo = false;
       this.lastSortContentFormatMusic = false;
       this.lastSortContentFormat3D = false;
-    } else if (this.formatImages && this.formatVideo) {
+    } else if (this.formatVideo) {
       this.globalVars.marketplaceContentFormat = "video";
       // Store to use in canSort
       this.lastSortContentFormatAll = false;

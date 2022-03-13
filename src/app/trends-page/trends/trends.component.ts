@@ -151,6 +151,7 @@ export class TrendsComponent implements OnInit {
         }
       );
   }
+
   sortCreators(offset: number, showMore: boolean) {
     if (!showMore) {
       this.globalVars.isMarketplaceLoading = true;

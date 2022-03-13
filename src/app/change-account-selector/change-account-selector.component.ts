@@ -131,4 +131,11 @@ export class ChangeAccountSelectorComponent implements OnDestroy {
   createProfile() {
     this.router.navigate(["/" + this.RouteNames.SIGNUP]);
   }
+  hasProfile() {
+    if (this.globalVars?.loggedInUser?.ProfileEntryResponse?.Username) {
+      this.router.navigate(["/u/" + this.globalVars?.loggedInUser?.ProfileEntryResponse.Username]);
+    } else {
+      this.router.navigate(["/update-profile"]);
+    }
+  }
 }

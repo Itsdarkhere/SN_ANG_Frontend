@@ -29,8 +29,12 @@
         <div
           class="align-items-center change-account-selector__account-image"
           [avatar]="globalVars.loggedInUser.PublicKeyBase58Check"
+          (click)="hasProfile()"
         ></div>
-        <div class="change-account-selector__acount-name cas-dont-copy change-account-selector__ellipsis-restriction">
+        <div
+          (click)="hasProfile()"
+          class="change-account-selector__acount-name cas-dont-copy change-account-selector__ellipsis-restriction"
+        >
           {{
             globalVars.loggedInUser.ProfileEntryResponse?.Username
               ? globalVars.loggedInUser.ProfileEntryResponse.Username

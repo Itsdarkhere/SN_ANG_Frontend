@@ -151,6 +151,7 @@ export class BackendRoutes {
   static RoutePathGetPGProfileDetails = "/api/v0/get-pg-profile-details";
   static RoutePathUpdateCollectorOrCreator = "/api/v0/update-collector-or-creator";
   static RoutePathGetCollectorOrCreator = "/api/v0/get-collector-or-creator";
+  static RoutePathInsertOrUpdateIMXPK = "/api/v0/insert-or-update-imx-pk";
   // Same as the two above but for supernovas uses
   static RoutePathGetMarketplaceRefSupernovas = "/api/v0/get-marketplace-ref-supernovas";
   static RoutePathAddToMarketplaceSupernovas = "/api/v0/add-to-marketplace-supernovas";
@@ -1351,6 +1352,13 @@ export class BackendApiService {
   GetCollectorOrCreator(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
     return this.post(endpoint, BackendRoutes.RoutePathGetCollectorOrCreator, {
       PublicKeyBase58Check,
+    });
+  }
+  // When user connects eth wallet, add it to their profile details
+  InsertOrUpdateIMXPK(endpoint: string, PublicKeyBase58Check: string, ETH_PublicKey: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathInsertOrUpdateIMXPK, {
+      PublicKeyBase58Check,
+      ETH_PublicKey,
     });
   }
   // update / set if user creator / collector status

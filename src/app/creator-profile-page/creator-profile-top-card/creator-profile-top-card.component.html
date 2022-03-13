@@ -114,7 +114,7 @@
   <div class="user-info">
     <div class="followers_inline_row flex-column">
       <div class="name-stats-profile">
-        <div class="mt-65px">
+        <div [ngClass]="{ 'mt-65px': profileData?.name }">
           <h5 class="font-weight-semiboldn primary-name" *ngIf="profileData?.name">{{ profileData?.name }}</h5>
           <h5 class="font-weight-semiboldn secondary-name" [ngClass]="profileData?.name ? 'secondary-name' : ''">
             @{{ profile.Username }} &nbsp;
@@ -244,7 +244,7 @@
         target="_blank"
         class="social-link-div hover-color"
       >
-        <img class="pl-5px" src="assets/icons/profile-instagram-icon.svg" />
+        <img src="assets/icons/profile-instagram-icon.svg" />
         @{{ profileData.instagram }}
       </a>
       <a

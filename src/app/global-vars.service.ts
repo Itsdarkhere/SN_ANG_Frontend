@@ -318,7 +318,24 @@ export class GlobalVarsService {
   };
 
   async checkCreatorStatus(): Promise<void> {
-    const publicKey = this.loggedInUser.PublicKeyBase58Check;
+    const publicKey = this.loggedInUser?.PublicKeyBase58Check;
+    if (publicKey) {
+      this.backendApi.GetCollectorOrCreator(this.localNode, publicKey).subscribe(
+        (res) => {
+          console.log(res);
+          this.isCreator = res["Collector"];
+          this.isCollector = res["Creator"];
+        },
+        (err) => {
+          console.log(err);
+          this.isCreator = false;
+          this.isCollector = false;
+        }
+      );
+    }
+    /*
+    How it was done with firebase
+    
     const firebaseRes = await this.firestore.collection("profile-details").doc(publicKey).get().toPromise();
     console.log(firebaseRes);
 
@@ -341,7 +358,7 @@ export class GlobalVarsService {
       this.isCreator = true;
       this.isCollector = false;
     }
-
+    */
     // console.log(` ---------------- creator status is ${this.isCreator}`);
     // console.log(` ---------------- collector status is ${this.isCollector}`);
   }
@@ -581,7 +598,7 @@ export class GlobalVarsService {
     // Identify user
     this.mixPanel.identify(this.loggedInUser.PublicKeyBase58Check);
     this.mixPanel.peopleset({
-      "$name": this.username,
+      $name: this.username,
       "public Key": this.loggedInUser.PublicKeyBase58Check,
     });
   }

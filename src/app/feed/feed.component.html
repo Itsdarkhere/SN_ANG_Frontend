@@ -11,12 +11,17 @@
   </div>
 
   <div *ngIf="isMobile" class="global__top-bar__height"></div>
-  <tab-selector
-    class="feed_tabs"
-    [tabs]="feedTabs"
-    [activeTab]="activeTab"
-    (tabClick)="_handleTabClick($event)"
-  ></tab-selector>
+  <div class="w-100 d-flex flex-center">
+    <div class="feed-tb-wrapper">
+      <tab-selector
+        class="feed_tabs"
+        [tabs]="feedTabs"
+        [icons]="['/assets/icons/feed_sn_icon.png', '/assets/icons/feed_following_icon.svg']"
+        [activeTab]="activeTab"
+        (tabClick)="_handleTabClick($event)"
+      ></tab-selector>
+    </div>
+  </div>
 
   <countdown-timer
     *ngIf="nextNFTShowcaseTime"

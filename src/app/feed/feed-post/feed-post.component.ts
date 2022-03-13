@@ -256,6 +256,7 @@ export class FeedPostComponent implements OnInit {
             sn.EncryptedUnlockableText &&
             sn.LastOwnerPublicKeyBase58Check
         );
+
         if (this.decryptableNFTEntryResponses.length) {
           this.backendApi
             .DecryptUnlockableTexts(
@@ -308,13 +309,13 @@ export class FeedPostComponent implements OnInit {
     // Check if this edition is for sale
     this.editionForSale = this.nftEntryResponse.IsForSale;
     // Check if edition has bids
-    this.editionHasBids = this.nftBidData?.BidEntryResponses.length > 0;
+    this.editionHasBids = this.nftBidData?.BidEntryResponses?.length > 0;
     // Check if edition has unlockable
     if (!this.editionIsBuyNow) {
       this.editionHasUnlockable = this.nftEntryResponse.DecryptedUnlockableText != null;
     }
     // Check if user has made a bid on this edition
-    if (!this.ownsEdition) {
+    if (!this.ownsEdition && this.nftBidData?.BidEntryResponses) {
       this.nftBidData.BidEntryResponses.forEach((bid) => {
         if (bid.PublicKeyBase58Check === this.globalVars.loggedInUser.PublicKeyBase58Check) {
           this.editionHasBidByUser = true;

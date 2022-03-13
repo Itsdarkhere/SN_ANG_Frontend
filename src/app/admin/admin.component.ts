@@ -1149,6 +1149,7 @@ export class AdminComponent implements OnInit {
       )
       .subscribe(
         (res: any) => {
+          this.addUsernameToVerifiedList(this.usernameToVerify);
           this.globalVars._alertSuccess(res.Message);
         },
         (error) => {
@@ -1158,6 +1159,17 @@ export class AdminComponent implements OnInit {
       .add(() => {
         this.submittingVerifyRequest = false;
       });
+  }
+
+  addUsernameToVerifiedList(username: string) {
+    this.backendApi.InsertIntoPGVerified(this.globalVars.localNode, username).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        this.globalVars._alertError("Take a SS for Valtteri" + err + "Username: " + username);
+      }
+    );
   }
 
   getUserAdminDataClicked() {

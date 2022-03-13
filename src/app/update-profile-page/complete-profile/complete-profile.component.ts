@@ -2,7 +2,6 @@ import { Component } from "@angular/core";
 import { RouteNames } from "../../app-routing.module";
 import { GlobalVarsService } from "../../global-vars.service";
 import { Router } from "@angular/router";
-import { AngularFirestore } from "@angular/fire/firestore";
 import { MixpanelService } from "src/app/mixpanel.service";
 
 @Component({
@@ -18,12 +17,7 @@ export class CompleteProfileComponent {
   username: any;
   isNullUsername: boolean;
 
-  constructor(
-    public globalVars: GlobalVarsService,
-    private router: Router,
-    private mixPanel: MixpanelService,
-    private firestore: AngularFirestore
-  ) {}
+  constructor(public globalVars: GlobalVarsService, private router: Router, private mixPanel: MixpanelService) {}
 
   async ngOnInit(): Promise<void> {
     await this.globalVars.checkOnboardingStatus();

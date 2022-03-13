@@ -163,7 +163,7 @@
             <input
               maxlength="30"
               placeholder="Your full name or artist name."
-              value="{{ this.profileData?.name ? this.profileData?.name : '' }}"
+              value="{{ this.profileData?.Name ? this.profileData?.Name : '' }}"
               [(ngModel)]="this.name"
               class="update-profile-input update-profile-input-oneliner-height fs-15px lh-18px p-10px"
             />
@@ -292,7 +292,7 @@
                 class="social-input-inner"
                 type="text"
                 placeholder="Your Twitter username without the '@'' sign"
-                value="{{ this.profileData?.twitter ? this.profileData?.twitter : '' }}"
+                value="{{ this.profileData?.Twitter ? this.profileData?.Twitter : '' }}"
                 [(ngModel)]="this.twitter"
               />
             </div>
@@ -306,7 +306,7 @@
                 class="social-input-inner"
                 type="text"
                 placeholder="Your instagram username without the '@'' sign"
-                value="{{ this.profileData?.instagram ? this.profileData?.instagram : '' }}"
+                value="{{ this.profileData?.Instagram ? this.profileData?.Instagram : '' }}"
                 [(ngModel)]="this.instagram"
               />
             </div>
@@ -320,7 +320,7 @@
                 class="social-input-inner"
                 type="text"
                 placeholder="The ID in your Discord server invite link"
-                value="{{ this.profileData?.discord ? this.profileData?.discord : '' }}"
+                value="{{ this.profileData?.Discord ? this.profileData?.Discord : '' }}"
                 [(ngModel)]="this.discord"
               />
             </div>
@@ -334,11 +334,10 @@
                 class="social-input-inner"
                 type="text"
                 placeholder="Your website URL"
-                value="{{ this.profileData?.website ? this.profileData.website : '' }}"
+                value="{{ this.profileData?.Website ? this.profileData.Website : '' }}"
                 [(ngModel)]="this.website"
               />
             </div>
-            <p>{{ this.profileData?.creator }}</p>
           </div>
           <button
             *ngIf="!globalVars.loggedInUser.JumioFinishedTime"

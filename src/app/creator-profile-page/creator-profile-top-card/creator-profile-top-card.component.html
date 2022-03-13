@@ -114,9 +114,9 @@
   <div class="user-info">
     <div class="followers_inline_row flex-column">
       <div class="name-stats-profile">
-        <div [ngClass]="{ 'mt-65px': profileData?.name }">
-          <h5 class="font-weight-semiboldn primary-name" *ngIf="profileData?.name">{{ profileData?.name }}</h5>
-          <h5 class="font-weight-semiboldn secondary-name" [ngClass]="profileData?.name ? 'secondary-name' : ''">
+        <div [ngClass]="{ 'mt-65px': profileData?.Name }">
+          <h5 class="font-weight-semiboldn primary-name" *ngIf="profileData?.Name">{{ profileData?.Name }}</h5>
+          <h5 class="font-weight-semiboldn secondary-name" [ngClass]="profileData?.Name ? 'secondary-name' : ''">
             @{{ profile.Username }} &nbsp;
             <ng-container
               *ngIf="profile.IsReserved && !profile.IsVerified"
@@ -221,40 +221,40 @@
         </div>
       </div> -->
       <a
-        *ngIf="profileData?.website"
-        href="https://{{ trimURL(profileData.website) }}"
+        *ngIf="profileData?.Website"
+        href="https://{{ trimURL(profileData.Website) }}"
         target="_blank"
         class="social-link-div pr-2px hover-color"
       >
         <img src="/assets/icons/profile-world-icon.svg" />
-        {{ trimURL(profileData.website) }}
+        {{ trimURL(profileData.Website) }}
       </a>
       <a
-        *ngIf="profileData?.twitter"
-        href="https://www.twitter.com/{{ profileData.twitter }}"
+        *ngIf="profileData?.Twitter"
+        href="https://www.twitter.com/{{ profileData.Twitter }}"
         target="_blank"
         class="social-link-div hover-color"
       >
         <img src="assets/icons/profile-twitter-icon.svg" />
-        @{{ profileData.twitter }}
+        @{{ profileData.Twitter }}
       </a>
       <a
-        *ngIf="profileData?.instagram"
-        href="https://www.instagram.com/{{ profileData.instagram }}"
+        *ngIf="profileData?.Instagram"
+        href="https://www.instagram.com/{{ profileData.Instagram }}"
         target="_blank"
         class="social-link-div hover-color"
       >
         <img src="assets/icons/profile-instagram-icon.svg" />
-        @{{ profileData.instagram }}
+        @{{ profileData.Instagram }}
       </a>
       <a
-        *ngIf="profileData?.discord"
-        href="https://discord.gg/{{ profileData.discord }}/"
+        *ngIf="profileData?.Discord"
+        href="https://discord.gg/{{ profileData.Discord }}/"
         target="_blank"
         class="social-link-div hover-color"
       >
         <img src="assets/icons/profile-discord-icon.svg" />
-        {{ profileData.discord }}
+        {{ profileData.Discord }}
       </a>
     </div>
   </div>

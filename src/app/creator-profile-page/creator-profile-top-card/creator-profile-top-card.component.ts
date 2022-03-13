@@ -83,12 +83,17 @@ export class CreatorProfileTopCardComponent implements OnInit, OnDestroy {
   block() {
     this.userBlocked.emit(this.profile.PublicKeyBase58Check);
   }
+  // TODO
+  // Make profileData into a class
   getProfileSocials() {
-    return this.firestore
-      .collection("profile-details")
-      .doc(this.profile.PublicKeyBase58Check)
-      .valueChanges()
-      .subscribe((res) => (this.profileData = res));
+    this.backendApi.GetPGProfileDetails(this.globalVars.localNode, this.profile.PublicKeyBase58Check).subscribe(
+      (res) => {
+        this.profileData = res;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
   reportUser(): void {
     this.globalVars.logEvent("post : report-user");

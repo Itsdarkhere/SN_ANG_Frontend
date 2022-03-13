@@ -5,7 +5,6 @@ import { Observable } from "rxjs";
 import { BackendApiService } from "../backend-api.service";
 import { AppRoutingModule, RouteNames } from "../app-routing.module";
 import { SwalHelper } from "src/lib/helpers/swal-helper";
-import { AngularFirestore } from "@angular/fire/firestore";
 import { isNil } from "lodash";
 import { MixpanelService } from "../mixpanel.service";
 
@@ -58,7 +57,6 @@ export class SignupPageComponent implements OnInit {
 
   constructor(
     public globalVars: GlobalVarsService,
-    private firestore: AngularFirestore,
     private route: ActivatedRoute,
     private mixPanel: MixpanelService,
     private router: Router,
@@ -129,6 +127,24 @@ export class SignupPageComponent implements OnInit {
   updateProfileType() {
     this.mixPanel.track17("Update profile type");
     if (this.globalVars.loggedInUser.PublicKeyBase58Check) {
+      return this.backendApi
+        .UpdateCollectorOrCreator(
+          this.globalVars.localNode,
+          this.globalVars.loggedInUser?.PublicKeyBase58Check,
+          this.creator,
+          this.collector
+        )
+        .subscribe(
+          (res) => {
+            console.log(res);
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+      /*
+      How the above was with firebase:
+
       return new Promise<any>((resolve, reject) => {
         this.firestore
           .collection("profile-details")
@@ -147,7 +163,7 @@ export class SignupPageComponent implements OnInit {
             (res) => {},
             (err) => reject(err)
           );
-      });
+      });*/
     }
   }
   _validateUsername(username) {
@@ -210,7 +226,6 @@ export class SignupPageComponent implements OnInit {
     if (this.stepNum === 4) {
       this.updateProfileType();
       if (this.globalVars.wantToVerifyPhone === false) {
-
         //   close nav bar because it will open on mobile
         if (this.globalVars.isMobileIphone()) {
           this.globalVars.isLeftBarMobileOpen = false;

@@ -9,6 +9,7 @@ import { FollowButtonComponent } from "../../follow-button/follow-button.compone
 import { Router } from "@angular/router";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { AngularFirestore } from "@angular/fire/firestore";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "creator-profile-top-card",
@@ -26,6 +27,8 @@ export class CreatorProfileTopCardComponent implements OnInit, OnDestroy {
   // emits the UserUnblocked event
   @Output() userBlocked = new EventEmitter();
 
+  @Output() handleTabClick = new EventEmitter();
+
   AppRoutingModule = AppRoutingModule;
   globalVars: GlobalVarsService;
   followChangeSubscription: Subscription;
@@ -35,11 +38,15 @@ export class CreatorProfileTopCardComponent implements OnInit, OnDestroy {
   publicKeyIsCopied = false;
   profileData: any;
 
+  pkCopied = false;
+  profileUrlCopied = false;
+
   constructor(
     private firestore: AngularFirestore,
     private _globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
     private router: Router,
+    private location: Location,
     private modalService: BsModalService
   ) {
     this.globalVars = _globalVars;
@@ -232,13 +239,20 @@ export class CreatorProfileTopCardComponent implements OnInit, OnDestroy {
     return this.profile.CoinEntry.CreatorBasisPoints / 100;
   }
   copyURL() {
-    navigator.clipboard.writeText(window.location.href);
-    this.globalVars._alertSuccess("URL copied!");
+    this.profileUrlCopied = true;
+    this.globalVars._copyText(window.location.href);
+    setTimeout(() => {
+      this.profileUrlCopied = false;
+    }, 1500);
   }
   copyWalletAddress() {
-    navigator.clipboard.writeText(this.profile.PublicKeyBase58Check);
-    // document.getElementById("copyWallet").className += " wallet-button-click";
-    
-
+    this.pkCopied = true;
+    this.globalVars._copyText(this.profile.PublicKeyBase58Check);
+    setTimeout(() => {
+      this.pkCopied = false;
+    }, 1500);
+  }
+  openTabCreatorCoin() {
+    this.handleTabClick.emit("Creator Coin");
   }
 }

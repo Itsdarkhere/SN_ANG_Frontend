@@ -263,6 +263,7 @@ export class CreatorProfileDetailsComponent implements OnInit {
     this.loading = false;
   }
   _handleTabClick(tabName: string) {
+    console.log(tabName);
     this.activeTab = tabName;
     // Update query params to reflect current tab
     const urlTree = this.router.createUrlTree([], {

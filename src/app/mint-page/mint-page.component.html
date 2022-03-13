@@ -313,9 +313,7 @@
       >
         <div class="w-90 mt-20px">
           <h2 class="font-weight-semiboldn w-100 text-align-start ml-5px fs-33-responsive">Choose content type</h2>
-          <label
-            class="mt-20px color-light mint-page-sub-heading w-100 mb-0px text-align-start fs-20-responsive ml-5px"
-          >
+          <label class="mb-20px color-light mint-page-sub-heading w-100 text-align-start fs-20-responsive ml-5px">
             You can mint either image, video, or audio NFTs on Supernovas. Maximum file size is 200Mb.
           </label>
         </div>
@@ -323,7 +321,7 @@
         <div class="mint-content-type-container pb-20px w-90" [ngClass]="mobile ? 'justify-content-around' : ''">
           <!-- Image NFT Mint -->
           <button
-            class="content-type-card p-0px"
+            class="content-type-card-mint p-0px"
             (click)="imageTypeSelected()"
             [ngClass]="{ 'electric-box-shadow': imageType, 'm-10px': mobile }"
           >
@@ -338,7 +336,7 @@
 
           <!-- Video NFT Mint -->
           <button
-            class="content-type-card p-0px"
+            class="content-type-card-mint p-0px"
             (click)="videoTypeSelected()"
             [ngClass]="{ 'electric-box-shadow': videoType, 'm-10px': mobile }"
           >
@@ -353,7 +351,7 @@
 
           <!-- Audio NFT Mint -->
           <button
-            class="content-type-card p-0px"
+            class="content-type-card-mint p-0px"
             (click)="audioTypeSelected()"
             [ngClass]="{ 'electric-box-shadow': audioType, 'm-10px': mobile }"
           >
@@ -371,7 +369,7 @@
           <button
             *ngIf="!mobile"
             (click)="modelTypeSelected()"
-            class="content-type-card p-0px"
+            class="content-type-card-mint p-0px"
             [ngClass]="{ 'electric-box-shadow': modelType, 'm-10px': mobile }"
           >
             <div class="h-60 w-100 d-flex flex-center background-color-secondary">

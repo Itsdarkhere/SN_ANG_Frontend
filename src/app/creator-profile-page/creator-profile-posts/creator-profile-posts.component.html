@@ -16,7 +16,7 @@
 <ng-container *ngIf="!showProfileAsReserved">
   <div *ngIf="!globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)">
     <div #uiScroll *uiScroll="let post of datasource; let index = index">
-      <ng-container *ngIf="post?.IsNFT">
+      <ng-container *ngIf="post?.IsNFT || post?.PostExtraData?.isEthereumNFT">
         <div class="mobile_feed_post">
           <app-nft-card-post [post]="post" [afterCommentCreatedCallback]="_prependComment.bind(this, post, index)">
             <new-nft-card
@@ -72,7 +72,9 @@
           (userBlocked)="userBlocked()"
         ></feed-post>
       </ng-container>
-      <ng-container *ngIf="!(post?.IsNFT || post?.RepostedPostEntryResponse?.IsNFT)">
+      <ng-container
+        *ngIf="!(post?.IsNFT || post?.RepostedPostEntryResponse?.IsNFT || post?.PostExtraData?.isEthereumNFT)"
+      >
         <feed-post
           *ngIf="post.ProfileEntryResponse"
           [contentShouldLinkToThread]="true"

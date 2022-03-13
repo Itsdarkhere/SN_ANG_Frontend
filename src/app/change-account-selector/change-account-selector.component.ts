@@ -29,6 +29,8 @@ export class ChangeAccountSelectorComponent {
   }
 
   launchLogoutFlow() {
+    this.linkLogOut();
+
     const publicKey = this.globalVars.loggedInUser.PublicKeyBase58Check;
     this.identityService.launch("/logout", { publicKey }).subscribe((res) => {
       this.globalVars.userList = filter(this.globalVars.userList, (user) => {
@@ -54,7 +56,16 @@ export class ChangeAccountSelectorComponent {
     }
   }
 
+  linkLogOut() {
+    console.log("logging out of eth wallet --------------------");
+    localStorage.removeItem("address");
+    this.globalVars.imxWalletAddress = "undefined";
+    this.globalVars.imxWalletConnected = false;
+  }
+
   _switchToUser(user) {
+    this.linkLogOut();
+
     this.globalVars.setLoggedInUser(user);
     this.globalVars.messageResponse = null;
 

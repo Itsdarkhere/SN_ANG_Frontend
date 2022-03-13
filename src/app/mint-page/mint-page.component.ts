@@ -12,6 +12,11 @@ import { BsModalService } from "ngx-bootstrap/modal";
 import { CommentModalComponent } from "../comment-modal/comment-modal.component";
 import { ArweaveJsService } from "../arweave-js.service";
 import { take } from "rxjs/operators";
+import { GeneralSuccessModalComponent } from "../general-success-modal/general-success-modal.component";
+
+import { ethers } from "ethers";
+import { Link, ImmutableXClient, ImmutableMethodResults, MintableERC721TokenType } from "@imtbl/imx-sdk";
+import { json } from "stream/consumers";
 import _ from "lodash";
 import { MixpanelService } from "../mixpanel.service";
 
@@ -83,6 +88,13 @@ export class MintPageComponent implements OnInit {
   isCoverImageUploaded = false;
   isUploadConfirmed = false;
 
+  //   Blockchain type
+  desoBlockchain = false;
+  ethereumBlockchain = false;
+
+  //   WalletAddressShort
+  desoWalletAddressShort: string;
+
   // Content type
   videoType = false;
   imageType = false;
@@ -118,6 +130,14 @@ export class MintPageComponent implements OnInit {
   minBidClicked = false;
   BUY_NOW_PRICE_USD = "0";
 
+  // step 2 eth
+  isEthNFTForSale: boolean;
+  //   step 3 eth
+  sellingPriceETH: any;
+  token_id: any;
+
+  link = new Link(environment.imx.ROPSTEN_LINK_URL);
+
   @HostListener("window:resize") onResize() {
     this.setMobileBasedOnViewport();
   }
@@ -136,6 +156,47 @@ export class MintPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.setMobileBasedOnViewport();
+    this.desoWalletAddressShort = this.globalVars.loggedInUser.PublicKeyBase58Check.slice(0, 15) + "...";
+    if (localStorage.getItem("address")) {
+      console.log("local storage hit -------------------");
+      this.globalVars.imxWalletConnected = true;
+      this.globalVars.imxWalletAddress = localStorage.getItem("address") as string;
+      this.globalVars.ethWalletAddresShort = this.globalVars.imxWalletAddress.slice(0, 15) + "...";
+    }
+
+    if (this.globalVars.isMobile()) {
+      this.desoBlockchain = true;
+    } else {
+      this.desoBlockchain = false;
+    }
+  }
+  connectEthWallet() {
+    this.openGeneralSuccessModal();
+  }
+  openGeneralSuccessModal() {
+    console.log(` ------------------------- general success modal function hit -------------- `);
+
+    if (!this.globalVars.isMobile()) {
+      this.modalService.show(GeneralSuccessModalComponent, {
+        class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+        initialState: {
+          header: "Connect your Ethereum wallet to Immutable X",
+          text: "By connecting your wallet to Immutable X, you are able to mint and trade Ethereum NFT's with zero gas fees.",
+          buttonText: "Connect with Immutable X",
+          buttonClickedAction: "connectWallet",
+        },
+      });
+    } else {
+      this.modalService.show(GeneralSuccessModalComponent, {
+        class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+        initialState: {
+          header: "Error",
+          text: "Please visit Supernovas on your desktop to interact with the Ethereum blockchain.",
+          buttonText: "Ok",
+          buttonClickedAction: "general",
+        },
+      });
+    }
   }
 
   setMobileBasedOnViewport() {
@@ -186,7 +247,7 @@ export class MintPageComponent implements OnInit {
       this.handleAudioArweaveInput(fileToUpload);
     } else if (this.modelType) {
       this.handleModelArweaveInput(fileToUpload);
-      console.log("_handleFilesInput received 3D model")
+      console.log("_handleFilesInput received 3D model");
     } else {
       this.globalVars._alertError("No content type selected...");
     }
@@ -221,6 +282,8 @@ export class MintPageComponent implements OnInit {
           this.postVideoArweaveSrc = null;
           this.isUploading = false;
           this.isUploaded = this.postImageArweaveSrc.length > 0;
+          console.log(` ---------------------------- arweave res is ${res} --------------------------- `);
+          console.log(` ---------------------------- url is ${this.postImageArweaveSrc} ---------------------------- `);
         }, 2000);
       },
       (err) => {
@@ -446,6 +509,17 @@ export class MintPageComponent implements OnInit {
     this.VALUE = "";
   }
 
+  //   Blockchain type
+  desoBlockchainSelected() {
+    this.desoBlockchain = true;
+    this.ethereumBlockchain = false;
+  }
+
+  ethereumBlockchainSelected() {
+    this.desoBlockchain = false;
+    this.ethereumBlockchain = true;
+  }
+
   // Content type
   imageTypeSelected() {
     this.imageType = true;
@@ -513,6 +587,15 @@ export class MintPageComponent implements OnInit {
     this.BUY_NOW_PRICE_USD = this.globalVars.nanosToUSDNumber(desoAmount * 1e9).toFixed(2);
   }
 
+  updateSellingPriceETH(price) {
+    this.sellingPriceETH = price;
+  }
+
+  updateRoyaltyETH(royalty) {
+    this.CREATOR_ROYALTY = royalty;
+    console.log(this.CREATOR_ROYALTY);
+  }
+
   imageUploaded() {
     return this.postImageArweaveSrc?.length > 0;
   }
@@ -526,6 +609,22 @@ export class MintPageComponent implements OnInit {
     let isSumUnreasonable = Number(this.CREATOR_ROYALTY) + Number(this.COIN_ROYALTY) > 100;
     return isEitherUnreasonable || isSumUnreasonable;
   }
+  hasUnreasonableEthRoyalties() {
+    if (this.CREATOR_ROYALTY === undefined) {
+      return true;
+    } else if (Number(this.CREATOR_ROYALTY) < 0 || Number(this.CREATOR_ROYALTY) > 100) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //   // uncomment for testing
+  //   logPriceAndRoyalty() {
+  //     console.log(this.sellingPriceETH);
+  //     console.log(this.CREATOR_ROYALTY);
+  //     console.log(this.globalVars.localNode);
+  //   }
 
   uploadFile(event: any): void {
     this._handleFilesInput(event[0]);
@@ -538,6 +637,14 @@ export class MintPageComponent implements OnInit {
 
   hasUnreasonableBuyNowPrice() {
     return this.buyNowPriceDESO < 0;
+  }
+
+  hasUnreasonableEthSalePrice() {
+    if (this.sellingPriceETH === undefined) {
+      return true;
+    } else {
+      return this.sellingPriceETH < 0;
+    }
   }
 
   deleteKV(key) {
@@ -556,13 +663,312 @@ export class MintPageComponent implements OnInit {
       }
     }
   }
-
+  async nextStepEth() {
+    this.animationType = "next";
+    this.changeRef.detectChanges();
+    if (this.step + 1 < 6) {
+      if (this.step === 2) {
+        this.uploadEthMetadata();
+      }
+      if (this.step === 3) {
+        this.isEthNFTForSale = true;
+      }
+      if (this.step === 4) {
+        await this.sellNFT();
+        // add post function
+        console.log("step 4 before createEthPost");
+        await this.createEthPost();
+        console.log("step 4 after createEthPost");
+      }
+      this.step++;
+      // Arweave needs a boost to start itself
+      if (this.step === 4 && this.videoType) {
+        this.loadArweaveVideo();
+      }
+    }
+  }
   previousStep() {
     this.animationType = "prev";
     this.changeRef.detectChanges();
     if (this.step - 1 > 0) {
       this.step--;
     }
+  }
+  previousStepEth() {
+    this.animationType = "prev";
+    this.changeRef.detectChanges();
+    if (this.step - 1 > 0) {
+      this.step--;
+    }
+  }
+
+  async sellNFTLater() {
+    this.isEthNFTForSale = false;
+    await this.createEthPost();
+    console.log("eth post created");
+    setTimeout(() => {
+      this.router.navigate(["/u/" + this.globalVars?.loggedInUser?.ProfileEntryResponse.Username]);
+    }, 2000);
+  }
+
+  uploadEthMetadata() {
+    this.postHashHex = "filler postHashHex";
+    console.log(this.postHashHex);
+
+    this.backendApi
+      .InsertIMXMetadata(
+        this.globalVars.localNode,
+        this.NAME_OF_PIECE,
+        this.DESCRIPTION,
+        this.postImageArweaveSrc,
+        this.postImageArweaveSrc,
+        this.CATEGORY,
+        this.postHashHex
+      )
+      .subscribe((res) => {
+        console.log(res["Response"]);
+        this.token_id = res["Response"];
+
+        if (this.CREATOR_ROYALTY === undefined || this.CREATOR_ROYALTY === 0) {
+          this.mintv2(this.token_id);
+        } else {
+          this.mintv2WithRoyalties(this.token_id, this.CREATOR_ROYALTY);
+        }
+      });
+  }
+
+  updateIMXMetadataPostHash() {
+    this.backendApi
+      .UpdateIMXMetadataPostHash(this.globalVars.localNode, this.token_id, this.postHashHex)
+      .subscribe((res) => {
+        console.log(` --------------- updated IMXMetadataPoshHash and res is ${res} --------------- `);
+      });
+  }
+
+  async mintv2(token_id: any) {
+    // initialise a client with the minter for your NFT smart contract
+    const provider = new ethers.providers.JsonRpcProvider(
+      `https://eth-ropsten.alchemyapi.io/v2/${environment.imx.ALCHEMY_API_KEY}`
+    );
+    const minterPrivateKey: string = environment.imx.MINTER_PK ?? ""; // registered minter for your contract
+    const minter = new ethers.Wallet(minterPrivateKey).connect(provider);
+    const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";
+    const starkContractAddress: string = environment.imx.ROPSTEN_STARK_CONTRACT_ADDRESS ?? "";
+    const registrationContractAddress: string = environment.imx.ROPSTEN_REGISTRATION_ADDRESS ?? "";
+    const minterClient = await ImmutableXClient.build({
+      publicApiUrl,
+      signer: minter,
+      starkContractAddress,
+      registrationContractAddress,
+    });
+
+    // mint any number of NFTs to specified wallet address (must be registered on Immutable X first)
+    const token_address: string = environment.imx.TOKEN_ADDRESS ?? ""; // contract registered by Immutable
+    const royaltyRecieverAddress: string = environment.imx.ROYALTY_ADDRESS ?? "";
+    const tokenReceiverAddress: string = this.globalVars.imxWalletAddress ?? "";
+
+    token_id = token_id.toString();
+    var mintBlueprintv2 = `https://supernovas.app/api/v0/imx/metadata/${token_id}`;
+
+    const result = await minterClient.mintV2([
+      {
+        users: [
+          {
+            etherKey: tokenReceiverAddress.toLowerCase(),
+            tokens: [
+              {
+                id: token_id,
+                blueprint: mintBlueprintv2,
+                // overriding royalties for specific token
+                // royalties: [
+                //   {
+                //     recipient: tokenReceiverAddress.toLowerCase(),
+                //     percentage: 0.0,
+                //   },
+                // ],
+              },
+            ],
+          },
+        ],
+        contractAddress: token_address.toLowerCase(),
+
+        // globally set royalties
+        // royalties: [
+        //   {
+        //     recipient: royaltyRecieverAddress.toLowerCase(),
+        //     percentage: 0.0,
+        //   },
+        // ],
+      },
+    ]);
+    console.log(`Token minted: ${JSON.stringify(result)}`);
+  }
+
+  async mintv2WithRoyalties(token_id: any, royalty: number) {
+    // initialise a client with the minter for your NFT smart contract
+    const provider = new ethers.providers.JsonRpcProvider(
+      `https://eth-ropsten.alchemyapi.io/v2/${environment.imx.ALCHEMY_API_KEY}`
+    );
+    const minterPrivateKey: string = environment.imx.MINTER_PK ?? ""; // registered minter for your contract
+    const minter = new ethers.Wallet(minterPrivateKey).connect(provider);
+    const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";
+    const starkContractAddress: string = environment.imx.ROPSTEN_STARK_CONTRACT_ADDRESS ?? "";
+    const registrationContractAddress: string = environment.imx.ROPSTEN_REGISTRATION_ADDRESS ?? "";
+    const minterClient = await ImmutableXClient.build({
+      publicApiUrl,
+      signer: minter,
+      starkContractAddress,
+      registrationContractAddress,
+    });
+
+    // mint any number of NFTs to specified wallet address (must be registered on Immutable X first)
+    const token_address: string = environment.imx.TOKEN_ADDRESS ?? ""; // contract registered by Immutable
+    const royaltyRecieverAddress: string = environment.imx.ROYALTY_ADDRESS ?? "";
+    const tokenReceiverAddress: string = this.globalVars.imxWalletAddress ?? "";
+
+    token_id = token_id.toString();
+    var mintBlueprintv2 = `https://supernovas.app/api/v0/imx/metadata/${token_id}`;
+
+    const result = await minterClient.mintV2([
+      {
+        users: [
+          {
+            etherKey: tokenReceiverAddress.toLowerCase(),
+            tokens: [
+              {
+                id: token_id,
+                blueprint: mintBlueprintv2,
+                // overriding royalties for specific token
+                royalties: [
+                  {
+                    recipient: tokenReceiverAddress.toLowerCase(),
+                    percentage: royalty,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        contractAddress: token_address.toLowerCase(),
+
+        // globally set royalties
+        // royalties: [
+        //   {
+        //     recipient: royaltyRecieverAddress.toLowerCase(),
+        //     percentage: 0.0,
+        //   },
+        // ],
+      },
+    ]);
+    console.log(`Token minted with royalty: ${JSON.stringify(result)}`);
+  }
+
+  async sellNFT() {
+    if (this.sellingPriceETH === 0 || this.sellingPriceETH === undefined) {
+      this.globalVars._alertError("The selling price must be greater then 0.");
+    }
+
+    const sellOrderId = await this.link.sell({
+      amount: this.sellingPriceETH,
+      tokenId: this.token_id,
+      tokenAddress: environment.imx.TOKEN_ADDRESS,
+    });
+
+    console.log(sellOrderId);
+  }
+
+  async createEthPost() {
+    let bodyObj = {};
+    let postExtraData = {};
+
+    bodyObj = {
+      Body: this.DESCRIPTION,
+      ImageURLs: [this.postImageArweaveSrc].filter((n) => n),
+    };
+    postExtraData = {
+      // add ethereum: true boolean
+      name: this.NAME_OF_PIECE,
+      category: this.CATEGORY,
+      properties: JSON.stringify(Array.from(this.KVMap)),
+      isEthereumNFT: JSON.stringify(true),
+      tokenId: JSON.stringify(this.token_id),
+    };
+    if (environment.node.id) {
+      postExtraData["Node"] = environment.node.id.toString();
+    }
+
+    this.backendApi
+      .SubmitPost(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        "",
+        "",
+        "" /*Title*/,
+        bodyObj /*BodyObj*/,
+        "",
+        // PostExtraData
+        postExtraData,
+        "",
+        false /*IsHidden*/,
+        this.globalVars.defaultFeeRateNanosPerKB /*MinFeeRateNanosPerKB*/
+      )
+      .subscribe(
+        (response) => {
+          this.globalVars.logEvent(`post : create`);
+          this.postHashHex = response.PostEntryResponse.PostHashHex;
+          this.post = response.PostEntryResponse;
+          console.log(
+            ` ---------------------------- response is ${JSON.stringify(response)} ---------------------------- `
+          );
+          console.log(` ---------------------------- postHashHex ${this.postHashHex} ---------------------------- `);
+          this.updateIMXMetadataPostHash();
+        },
+        (err) => {
+          const parsedError = this.backendApi.parsePostError(err);
+          this.globalVars._alertError(parsedError);
+          this.globalVars.logEvent(`post : create : error`, { parsedError });
+          this.isSubmitPress = false;
+          this.changeRef.detectChanges();
+        }
+      );
+  }
+
+  quoteEthRepost(event, isQuote = true) {
+    // Prevent the post navigation click from occurring.
+    event.stopPropagation();
+
+    if (!this.globalVars.loggedInUser) {
+      // Check if the user has an account.
+      this.globalVars.logEvent("alert : reply : account");
+      this.globalVars._alertError("Cannot Quote repost, create account to post...");
+    } else if (!this.globalVars.doesLoggedInUserHaveProfile()) {
+      // Check if the user has a profile.
+      this.globalVars.logEvent("alert : reply : profile");
+      this.globalVars._alertError("Cannot Quote repost, create profile to post...");
+    } else {
+      const initialState = {
+        // If we are quoting a post, make sure we pass the content so we don't repost a repost.
+        parentPost: this.post,
+        afterCommentCreatedCallback: null,
+        isQuote,
+      };
+      if (!this.post) {
+        this.globalVars._alertError("Cannot Quote repost, create profile to post...");
+        return;
+      }
+
+      this.globalVars.isEthQuoteRepost = true;
+
+      // If the user has an account and a profile, open the modal so they can comment.
+      this.modalService.show(CommentModalComponent, {
+        class: "modal-dialog-centered",
+        initialState,
+      });
+    }
+  }
+
+  viewEthPost() {
+    this.router.navigate(["/" + this.globalVars.RouteNames.ETH_NFT + "/" + this.postHashHex]);
   }
 
   pollForReadyToStream(): void {
@@ -812,7 +1218,7 @@ export class MintPageComponent implements OnInit {
         name: this.NAME_OF_PIECE,
         category: this.CATEGORY,
         properties: JSON.stringify(Array.from(this.KVMap)),
-       // need to create this
+        // need to create this
         arweaveModelSrc: this.postModelArweaveSrc,
       };
     } else {
@@ -885,7 +1291,30 @@ export class MintPageComponent implements OnInit {
 
     this.submitPost();
   }
+  _createPostEth() {
+    // // Check if the user has an account.
+    // if (!this.globalVars?.loggedInUser) {
+    //   this.globalVars.logEvent("alert : post : account");
+    //   //SharedDialogs.showCreateAccountToPostDialog(this.globalVars);
+    //   return;
+    // }
 
+    // // Check if the user has a profile.
+    // if (!this.globalVars?.doesLoggedInUserHaveProfile()) {
+    //   this.globalVars.logEvent("alert : post : profile");
+    //   //SharedDialogs.showCreateProfileToPostDialog(this.router);
+    //   return;
+    // }
+
+    // // Check if the user's profile is verified
+    // if (!this.globalVars.loggedInUser.ProfileEntryResponse?.IsVerified) {
+    //   this.globalVars.logEvent("alert : post : no-verification");
+    //   return;
+    // }
+
+    // this.submitPost();
+    this.nextStepEth();
+  }
   mapToObj(m) {
     return Array.from(m).reduce((obj, [key, value]) => {
       obj[key] = value;

@@ -727,9 +727,10 @@ color: rgb(22, 22, 22);
 .artist-info-wrapper {
   width: 100%;
   position: absolute;
-  display: inline-block;
+  display: flex;
   padding: 5%;
   box-sizing: border-box;
+  flex-direction: column;
 }
 .artist-name {
   display: inline-block;
@@ -738,15 +739,15 @@ color: rgb(22, 22, 22);
   font-weight: 600;
   margin-bottom: 0.5em;
   width: 100%;
-  font-size: clamp(0.3rem, 4vw, 3rem);
+  font-size: 24px;
   font-family: var(--font-family-poppins);
 }
 .artist-username {
   font-size: large;
   color: var(--text-white);
-  font-weight: 600;
+  font-weight: 100;
   width: 100%;
-  font-size: clamp(0.3rem, 2vw, 2.8rem);
+  font-size: 18px;
   font-family: var(--font-family-poppins);
 }
 .artist-visual {
@@ -761,7 +762,39 @@ color: rgb(22, 22, 22);
   max-height: 600px;
 }
 .info-icon {
+  width: 29px;
+  opacity: 80%;
+  float: right;
+  transition: all 600ms cubic-bezier(.23, 1, 0.32, 1);
+  z-index: 111;
+}
+.info-popup{
+  display: block;
+  padding: 14px;
+  width: 100%;
+  height: 105px;
+  background-color: white;
+  color: #161616;
+  border-radius: 22px;
+  position: absolute;
+  top: 94px;
+  left: -14px;
+  font-weight: 500;
+  font-size: 1.3em;
+  transition: all 600ms cubic-bezier(.23, 1, 0.32, 1);
+  z-index: 1;
 
+}
+.info-icon-container:hover + div  {
+  display: block;
+}
+
+.info-icon-container {
+  width: 29px;
+  height: 29px;
+  float: right;
+  transition: all 600ms cubic-bezier(.23, 1, 0.32, 1);
+  cursor: pointer ;
 }
 
 .intro-section {
@@ -1851,8 +1884,19 @@ footer {
     color: var(--text-white);
   }
 }
+@media screen and (max-width: 1000) {
+  .card-section {
+    display: none;
+  }
+  .artist-card {
+    display: none;
+  }
+}
 @media screen and (max-width: 832px){
   .artist-card {
+    display: none;
+  }
+  .info-popup {
     display: none;
   }
   .intro-section {
@@ -2010,7 +2054,7 @@ footer {
     font-size: 66.7px;
     font-weight: 400;
     width: 100%;
-    font-size: clamp(2.2rem, -0.875rem + 8.333vw, 5rem);
+    font-size: clamp(2.9rem, -0.875rem + 8.333vw, 5rem);
     position: relative;
     width: 90%;
     text-align: center;

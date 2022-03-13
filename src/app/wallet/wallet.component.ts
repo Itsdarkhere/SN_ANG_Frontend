@@ -12,6 +12,11 @@ import { environment } from "src/environments/environment";
 import { animate, style, transition, trigger } from "@angular/animations";
 import { MixpanelService } from "../mixpanel.service";
 
+import { Link, ImmutableXClient, ImmutableMethodResults, ETHTokenType, ImmutableRollupStatus } from "@imtbl/imx-sdk";
+import { ethers } from "ethers";
+import { BsModalService } from "ngx-bootstrap/modal";
+import { GeneralSuccessModalComponent } from "../general-success-modal/general-success-modal.component";
+
 @Component({
   selector: "wallet",
   templateUrl: "./wallet.component.html",
@@ -64,13 +69,18 @@ export class WalletComponent implements OnInit, OnDestroy {
 
   mobile = false;
 
+  //   immutable x vars
+  link = new Link(environment.imx.ROPSTEN_LINK_URL);
+  //   end of immutable x vars
+
   constructor(
     private appData: GlobalVarsService,
     private titleService: Title,
     private router: Router,
     private route: ActivatedRoute,
-    private mixPanel: MixpanelService,
-    private backendApi: BackendApiService
+    private backendApi: BackendApiService,
+    private modalService: BsModalService,
+    private mixPanel: MixpanelService
   ) {
     this.globalVars = appData;
     this.route.params.subscribe((params) => {
@@ -83,6 +93,8 @@ export class WalletComponent implements OnInit, OnDestroy {
   subscriptions = new Subscription();
   tutorialHeaderText: string = "";
   tutorialStepNumber: number;
+
+  imxBalanceFull: string;
 
   ngOnInit() {
     this.setMobileBasedOnViewport();
@@ -136,7 +148,90 @@ export class WalletComponent implements OnInit, OnDestroy {
       );
     }
     this.titleService.setTitle(`Wallet - ${environment.node.name}`);
+
+    // ran this function to highlight the deso tab first
+    this.tabDesoClick();
+
+    this.buildIMX();
   }
+
+  //   -------------------- immutable x functions --------------------
+  async buildIMX(): Promise<void> {
+    const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";
+    this.globalVars.imxClient = await ImmutableXClient.build({ publicApiUrl });
+    if (localStorage.getItem("address")) {
+      console.log("local storage hit -------------------");
+      this.globalVars.imxWalletAddress = localStorage.getItem("address") as string;
+      this.globalVars.imxWalletConnected = true;
+      await this.getImxBalance(this.globalVars.imxWalletAddress);
+    }
+    this.imxBalanceFull = this.globalVars.imxBalance + " ETH";
+  }
+
+  //   async linkSetup(): Promise<void> {
+  //     console.log(` ----------------------- client is ${JSON.stringify(this.globalVars.imxClient)}`);
+  //     const res = await this.link.setup({});
+  //     this.globalVars.imxWalletConnected = true;
+  //     this.globalVars.imxWalletAddress = res.address;
+  //     console.log(
+  //       ` ----------------------- walletConnected is ${this.globalVars.imxWalletConnected} ----------------------- `
+  //     );
+  //     console.log(` ----------------------- walletAddress ${this.globalVars.imxWalletAddress} ----------------------- `);
+
+  //     await this.getImxBalance(this.globalVars.imxWalletAddress);
+
+  //     localStorage.setItem("address", res.address);
+  //   }
+
+  async getImxBalance(walletAddressInput: string): Promise<void> {
+    this.globalVars.imxBalance = await this.globalVars.imxClient.getBalance({
+      user: walletAddressInput,
+      tokenAddress: "eth",
+    });
+    this.globalVars.imxBalance = this.globalVars.imxBalance.balance.toString();
+    this.globalVars.imxBalance = ethers.utils.formatEther(this.globalVars.imxBalance);
+    console.log(` ----------------------- balance is ${this.globalVars.imxBalance} ETH ----------------------- `);
+  }
+
+  linkLogOut() {
+    localStorage.removeItem("address");
+    this.globalVars.imxWalletAddress = "undefined";
+    this.globalVars.imxWalletConnected = false;
+  }
+
+  async depositETH() {
+    await this.link.deposit({
+      type: ETHTokenType.ETH,
+      amount: "0.01",
+    });
+  }
+
+  openGeneralSuccessModal() {
+    console.log(` ------------------------- general success modal function hit -------------- `);
+
+    if (!this.globalVars.isMobile()) {
+      this.modalService.show(GeneralSuccessModalComponent, {
+        class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+        initialState: {
+          header: "Connect your Ethereum wallet to Immutable X",
+          text: "By connecting your wallet to Immutable X, you are able to mint and trade Ethereum NFT's with zero gas fees.",
+          buttonText: "Connect with Immutable X",
+          buttonClickedAction: "connectWallet",
+        },
+      });
+    } else {
+      this.modalService.show(GeneralSuccessModalComponent, {
+        class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+        initialState: {
+          header: "Error",
+          text: "Please visit Supernovas on your desktop to interact with the Ethereum blockchain.",
+          buttonText: "Ok",
+          buttonClickedAction: "general",
+        },
+      });
+    }
+  }
+  //   -------------------- end of immutable x functions --------------------
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
@@ -412,5 +507,8 @@ export class WalletComponent implements OnInit, OnDestroy {
   }
   routeToBuyDeso() {
     this.router.navigate([RouteNames.DESO_PAGE]);
+  }
+  routeToImxPage() {
+    this.router.navigate([RouteNames.IMX_PAGE]);
   }
 }

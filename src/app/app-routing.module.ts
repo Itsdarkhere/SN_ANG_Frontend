@@ -13,6 +13,7 @@ import { UpdateProfileComponent } from "./update-profile-page/update-profile/upd
 import { NotificationsPageComponent } from "./notifications-page/notifications-page.component";
 import { PostThreadPageComponent } from "./post-thread-page/post-thread-page.component";
 import { TransferDeSoPageComponent } from "./transfer-deso-page/transfer-deso-page.component";
+import { ImxPageComponent } from "./imx-page/imx-page.component";
 import { CreatePostPageComponent } from "./create-post-page/create-post-page.component";
 import { TosPageComponent } from "./tos-page/tos-page.component";
 import { AdminPageComponent } from "./admin-page/admin-page.component";
@@ -24,6 +25,7 @@ import { PickACoinPageComponent } from "./pick-a-coin-page/pick-a-coin-page.comp
 import { DiamondPostsPageComponent } from "./diamond-posts-page/diamond-posts-page.component";
 import { TrendsPageComponent } from "./trends-page/trends-page.component";
 import { NftPostPageComponent } from "./nft-post-page/nft-post-page.component";
+import { EthNftPostPageComponent } from "./eth-nft-post-page/eth-nft-post-page.component";
 import { VerifyEmailComponent } from "./verify-email/verify-email.component";
 import { ReferralsComponent } from "./referrals/referrals.component";
 import { CreateProfileTutorialPageComponent } from "./tutorial/create-profile-tutorial-page/create-profile-tutorial-page.component";
@@ -76,6 +78,7 @@ class RouteNames {
   public static NOT_FOUND = "404";
   public static POSTS = "posts";
   public static DESO_PAGE = "deso-page";
+  public static IMX_PAGE = "imx-page";
   // TODO: how do I make this /posts/new?
   public static CREATE_POST = "posts/new";
   public static TOS = "terms-of-service";
@@ -86,6 +89,7 @@ class RouteNames {
   public static TRENDS = "Marketplace";
   public static REFERRALS = "referrals";
   public static NFT = "nft";
+  public static ETH_NFT = "eth_nft";
   public static TRANSFERS = "transfers";
   public static VERIFY_EMAIL = "verify-email";
 
@@ -123,7 +127,9 @@ const routes: Routes = [
   { path: RouteNames.CREATE_POST, component: CreatePostPageComponent, pathMatch: "full" },
   { path: RouteNames.POSTS + "/:postHashHex", component: PostThreadPageComponent, pathMatch: "full" },
   { path: RouteNames.NFT + "/:postHashHex", component: NftPostPageComponent, pathMatch: "full" },
+  { path: RouteNames.ETH_NFT + "/:postHashHex", component: EthNftPostPageComponent, pathMatch: "full" },
   { path: RouteNames.DESO_PAGE, component: TransferDeSoPageComponent, pathMatch: "full" },
+  { path: RouteNames.IMX_PAGE, component: ImxPageComponent, pathMatch: "full" },
   { path: RouteNames.TOS, component: TosPageComponent, pathMatch: "full" },
   { path: "tos", component: TosPageComponent, pathMatch: "full" },
   { path: RouteNames.ADMIN, component: AdminPageComponent, pathMatch: "full" },

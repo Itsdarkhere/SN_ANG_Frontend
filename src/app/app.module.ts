@@ -163,7 +163,7 @@ import player from "lottie-web";
 // Modular Themes for DeSo by Carsen Klock @carsenk
 import { ThemeModule } from "./theme/theme.module";
 import { Theme } from "./theme/symbols";
-import { HeaderComponent } from "./header/header.component";
+import { HeaderComponent } from "./general-success-modal/header/header.component";
 import { CreatePostComponent } from "./create-post/create-post.component";
 import { PlaceABidComponent } from "./place-a-bid/place-a-bid.component";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
@@ -218,15 +218,22 @@ import { QuickFactsComponent } from "./analytics-page/quick-facts/quick-facts.co
 import { TopSalesComponent } from "./analytics-page/top-sales/top-sales.component";
 import { CreatorListComponent } from "./analytics-page/creator-list/creator-list.component";
 import { SmallGraphComponent } from "./analytics-page/small-graph/small-graph.component";
+import { ImxPageComponent } from "./imx-page/imx-page.component";
+import { DepositEthComponent } from "./imx-page/deposit-eth/deposit-eth.component";
+import { BuyEthComponent } from "./imx-page/buy-eth/buy-eth.component";
+import { WithdrawEthComponent } from "./imx-page/withdraw-eth/withdraw-eth.component";
+import { EthNftPostPageComponent } from "./eth-nft-post-page/eth-nft-post-page.component";
+import { EthNftPostComponent } from "./eth-nft-post-page/eth-nft-post/eth-nft-post.component";
+import { EthMarketplaceLeftBarComponent } from "./eth-marketplace-left-bar/eth-marketplace-left-bar.component";
 import { DashboardComponent } from "./analytics-page/dashboard/dashboard.component";
 import { AnalyticsActivityComponent } from "./analytics-page/analytics-activity/analytics-activity.component";
 import { ActivityLeftBarComponent } from "./analytics-page/analytics-activity/activity-left-bar/activity-left-bar.component";
 import { ActivityTableComponent } from "./analytics-page/analytics-activity/activity-table/activity-table.component";
 import { ModelComponent } from "./mint-page/model/model.component";
-import { LandingReferralsComponent } from './landing-referrals/landing-referrals.component';
-import { SignupPageReferralsComponent } from './signup-page-referrals/signup-page-referrals.component';
-import { LandingPageCreatorsComponent } from './landing-page-creators/landing-page-creators.component';
-import { LandingPageDaoComponent } from './landing-page-dao/landing-page-dao.component';
+import { LandingReferralsComponent } from "./landing-referrals/landing-referrals.component";
+import { SignupPageReferralsComponent } from "./signup-page-referrals/signup-page-referrals.component";
+import { LandingPageCreatorsComponent } from "./landing-page-creators/landing-page-creators.component";
+import { LandingPageDaoComponent } from "./landing-page-dao/landing-page-dao.component";
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -235,7 +242,6 @@ const legendsTheme: Theme = { key: "light", name: "Legends Theme" };
 const cakeTheme: Theme = { key: "light", name: "Cake Theme" };
 const greenishTheme: Theme = { key: "light", name: "Green Theme" };
 const coderTheme: Theme = { key: "light", name: "Coder Theme" };
-
 
 @NgModule({
   declarations: [
@@ -417,6 +423,13 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     TopSalesComponent,
     CreatorListComponent,
     SmallGraphComponent,
+    ImxPageComponent,
+    DepositEthComponent,
+    BuyEthComponent,
+    WithdrawEthComponent,
+    EthNftPostPageComponent,
+    EthNftPostComponent,
+    EthMarketplaceLeftBarComponent,
     DashboardComponent,
     AnalyticsActivityComponent,
     ActivityLeftBarComponent,
@@ -471,7 +484,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
   ],
   providers: [BackendApiService, GlobalVarsService, BsModalService, IdentityService],
   bootstrap: [AppComponent],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
 

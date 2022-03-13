@@ -1,0 +1,67 @@
+<app-page>
+  <!-- Top Bar -->
+  <div
+    *ngIf="this.globalVars.loggedInUser"
+    class="d-flex flex-column flex-center"
+    [ngClass]="mobile ? 'w-100' : 'feed-cover'"
+  >
+    <div class="imx-page-header-container">
+      <div class="wallet-pk-box d-flex flex-row flex-center-start cursor-pointer" (click)="copyEthKey()">
+        <img class="key-icon" alt="key" src="/assets/eth/wallet.svg" />
+        <span style="color: #424242" class="font-weight-semiboldn fs-16px px-5px">
+          {{ imxWalletAddressShort }}
+        </span>
+        <div class="wallet-copy-container">
+          <img
+            *ngIf="!ethKeyCopied; else copiedSuccess"
+            class="cursor-pointer"
+            alt="key"
+            src="/assets/icons/copy_icon.svg"
+          />
+          <ng-template #copiedSuccess>
+            <i class="fas fa-check-circle fa-md align-middle"></i>
+          </ng-template>
+        </div>
+      </div>
+      <img src="/assets/eth/disconnect.svg" alt="disconnect" (click)="linkLogOut()" id="disconnect-button" />
+    </div>
+    <div class="global__top-bar__height" *ngIf="mobile"></div>
+    <div class="eth-page-logo-container d-flex flex-center mt-20px">
+      <img src="/assets/eth/ethlogo.svg" alt="eth logo" />
+    </div>
+    <h3 class="font-weight-semiboldn eth-page-name-heading mt-20px">ETH on IMX</h3>
+    <span class="eth-page-price-heading font-weight-semiboldn">
+      {{ this.globalVars.imxBalance }}
+    </span>
+    <div class="eth-page-actions-wrapper mt-20px d-flex flex-column flex-center">
+      <div class="eth-page-tab-selector d-flex flex-center px-10px mt-5px">
+        <button (click)="tabDepositClick()" class="font-weight-semiboldn" [ngClass]="{ active: tabDeposit }">
+          <label class="mb-0px pl-5px">Deposit</label>
+        </button>
+        <button (click)="tabBuyClick()" class="br-top-left-30px font-weight-semiboldn" [ngClass]="{ active: tabBuy }">
+          <label class="mb-0px pl-5px">Buy</label>
+        </button>
+        <button
+          (click)="tabWithdrawClick()"
+          class="br-top-right-30px font-weight-semiboldn"
+          [ngClass]="{ active: tabWithdraw }"
+        >
+          <label class="mb-0px pl-5px">Withdraw</label>
+        </button>
+      </div>
+      <app-deposit-eth *ngIf="tabDeposit" class="w-100 h-100 pb-10px d-flex flex-center"></app-deposit-eth>
+      <app-buy-eth *ngIf="tabBuy" class="w-100 h-100 pb-10px d-flex flex-center"></app-buy-eth>
+      <app-withdraw-eth *ngIf="tabWithdraw" class="w-100 h-100 pb-10px d-flex flex-center"></app-withdraw-eth>
+    </div>
+    <!-- SPACER FOR BOTTOM BAR ON MOBILE -->
+    <div class="global__bottom-bar-mobile-height"></div>
+  </div>
+  <ng-template *ngIf="!this.globalVars.loggedInUser">
+    <div class="w-100 trade-deso-not-logged-in d-flex flex-column flex-center">
+      <label>You must log in to deposit, buy or withdraw Ethereum</label>
+      <button class="black-rounded-button basic-button-size font-weight-semiboldn" (click)="routeToBrowse()">
+        Back to feed
+      </button>
+    </div>
+  </ng-template>
+</app-page>

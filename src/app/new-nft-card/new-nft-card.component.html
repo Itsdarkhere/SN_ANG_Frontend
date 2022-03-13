@@ -54,7 +54,6 @@
     'card-diff-width': insidePost
   }"
 >
-
   <div class="w-100">
     <!-- <code>{{post | json}}</code> -->
     <div
@@ -116,8 +115,11 @@
       [ngStyle]="{ 'border-radius': setBorder ? '18px 18px 0 0' : '' }"
     >
       <!-- FYI this a tag is huge -->
-      <a (click)="onPostClicked($event)" class="link--unstyled" [ngClass]="{ 'cursor-inherit': !contentShouldLinkToThread }">
-
+      <a
+        (click)="onPostClicked($event)"
+        class="link--unstyled"
+        [ngClass]="{ 'cursor-inherit': !contentShouldLinkToThread }"
+      >
         <!-- Not sure what this does -->
         <div
           *ngIf="showReplyingTo && post.ParentStakeID != ''"
@@ -158,7 +160,6 @@
         <!-- FYI this is also huge -->
         <!--This is a plain card, for collections and marketplace-->
         <div class="card-body">
-
           <div class="caption-cover" [class.auto-h]="profileFeed" *ngIf="quotedContent?.IsNFT && profileFeed">
             <p [ngClass]="quotedContent ? 'pt-10px' : ''" [innerHTML]="postContent.Body | sanitizeAndAutoLink"></p>
           </div>
@@ -178,11 +179,7 @@
                   src="/assets/icons/music-type-white.svg"
                   alt="icon"
                 />
-                <div
-                  *ngIf="!showAudioTypeIcon"
-                  [@audioIconHover]
-                  class="audio-icon-hover-state"
-                >
+                <div *ngIf="!showAudioTypeIcon" [@audioIconHover] class="audio-icon-hover-state">
                   <img class="mr-5px" src="/assets/icons/audio-play-small.svg" alt="audio icon small" />
                   <p>PLAY AUDIO</p>
                 </div>
@@ -350,7 +347,7 @@
           <div
             class="bid-cover flex-wrap"
             [ngClass]="showPlaceABid || forSale() ? 'colors-not-sold' : 'colors-sold'"
-            *ngIf="showNFTDetails && postContent.IsNFT && !pending"
+            *ngIf="showNFTDetails && postContent.IsNFT && !pending && !postContent.PostExtraData.isEthereumNFT"
           >
             <div class="bid-row">
               <div class="d-flex justify-content-space-between bid_inner_row">
@@ -417,7 +414,7 @@
           <div
             class="bid-cover flex-row justify-content-space-between"
             [ngClass]="!showPlaceABid || pending ? 'colors-sold' : 'colors-not-sold'"
-            *ngIf="showNFTDetails && postContent.IsNFT && pending"
+            *ngIf="showNFTDetails && postContent.IsNFT && pending && !postContent.PostExtraData.isEthereumNFT"
           >
             <ng-container>
               <div class="bid-col">
@@ -428,8 +425,44 @@
             </ng-container>
             <button class="accept-transfer" (click)="openAcceptModal($event)">Accept transfer</button>
           </div>
-
-          <!-- Is this unfinished? -->
+          <!-- is ethereum nft and is for sale-->
+          <div
+            class="bid-cover colors-not-sold is-ethereum-nft"
+            *ngIf="postContent.PostExtraData.isEthereumNFT && this.isEthereumNFTForSale"
+          >
+            <div class="bid-row">
+              <div class="d-flex justify-content-space-between bid_inner_row">
+                <ng-container>
+                  <div class="bid-col">
+                    <p class="p-lighter eth-price-text-align-left">Price</p>
+                    <div class="d-flex flex-row overflow-hidden">
+                      <p class="font-weight-semiboldn overflow-ellipsis-price-50-percent">
+                        {{ ethereumNFTSalePrice }}
+                      </p>
+                      <p class="font-weight-semiboldn">ETH</p>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-container>
+                  <div class="bid-col-buy-now">
+                    <button class="nft-card-buy-now-button">
+                      <img src="/assets/icons/buy_now_card_icon.svg" alt="lightning" />
+                      Buy Now
+                    </button>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <!-- is ethereum nft and not for sale-->
+          <div
+            class="bid-cover colors-not-sold is-ethereum-nft"
+            *ngIf="postContent.PostExtraData.isEthereumNFT && !this.isEthereumNFTForSale"
+          >
+            <div class="bid-col">
+              <p class="eth-nft-not-for-sale-text">Ethereum NFT not for sale</p>
+            </div>
+          </div>
           <div *ngIf="!showInteractionDetails" class="card-footer">
             <!-- Like, Comment, Reclout, Share Buttons -->
           </div>
@@ -445,9 +478,8 @@
             ></feed-post-icon-row>
           </div>
         </div>
-      <!-- This is the end of the huge a tag -->
+        <!-- This is the end of the huge a tag -->
       </a>
-
 
       <!--
       This HTML is used on the main post in a thread in order to show detailed info
@@ -457,7 +489,6 @@
     -->
       <div class="feed-post__blue-border px-30px pb-5px" *ngIf="showInteractionDetails">
         <div class="container w-100 p-0px">
-          
           <!-- DESKTOP -->
           <div
             class="row no-gutters d-none d-lg-block py-10px fs-15px border-top border-bottom border-color-light-grey cursor-pointer"
@@ -506,7 +537,6 @@
             </div>
           </div>
         </div>
-
       </div>
 
       <div
@@ -533,7 +563,6 @@
           ></feed-post-icon-row>
         </div>
       </div>
-
     </div>
   </div>
 </div>

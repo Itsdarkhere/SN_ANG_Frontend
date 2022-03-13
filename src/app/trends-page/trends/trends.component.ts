@@ -5,6 +5,8 @@ import { GlobalVarsService } from "../../global-vars.service";
 import { InfiniteScroller } from "../../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { FunctionPassService } from "src/app/function-pass.service";
+import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
+import { add } from "lodash";
 
 @Component({
   selector: "trends",
@@ -34,6 +36,10 @@ export class TrendsComponent implements OnInit {
   // Scroll Y position
   scrollPosition: number;
 
+  desoMarketplace: boolean = true;
+  ethMarketplace: boolean = false;
+  postEntryResponseArr: [];
+
   infiniteScroller: InfiniteScroller = new InfiniteScroller(
     TrendsComponent.PAGE_SIZE,
     this.getPage.bind(this),
@@ -57,6 +63,7 @@ export class TrendsComponent implements OnInit {
       if (m == "sort") {
         this.sortMarketplace(0, false);
         this.globalVars.marketplaceNFTsOffset = 0;
+        this.globalVars.ethMarketplaceNFTsOffset = 0;
         document.body.scrollTop = 0; // For Safari
         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         this.closeMarketplaceMobileFiltering("sort");
@@ -71,7 +78,21 @@ export class TrendsComponent implements OnInit {
       this.sortMarketplace(0, false);
     }
     this.setMobileBasedOnViewport();
+    this.updateDesoMarketplaceStatus();
   }
+
+  updateDesoMarketplaceStatus() {
+    this.desoMarketplace = true;
+    this.ethMarketplace = false;
+  }
+
+  updateEthMarketplaceStatus() {
+    this.desoMarketplace = false;
+    this.ethMarketplace = true;
+    this.globalVars.marketplaceNFTCategory = "All";
+    this.globalVars.getAllEthNFTs();
+  }
+
   @HostListener("window:resize") onResize() {
     this.setMobileBasedOnViewport();
   }
@@ -150,6 +171,7 @@ export class TrendsComponent implements OnInit {
         }
       );
   }
+
   sortCreators(offset: number, showMore: boolean) {
     if (!showMore) {
       this.globalVars.isMarketplaceLoading = true;
@@ -200,6 +222,12 @@ export class TrendsComponent implements OnInit {
         break;
     }
   }
+
+  setEthDisplayType() {
+    this.globalVars._alertError("You cannot set display type for ETH");
+    return;
+  }
+
   getParamsAndSort() {
     this.route.queryParams
       .subscribe((params) => {
@@ -217,6 +245,22 @@ export class TrendsComponent implements OnInit {
     this.globalVars.marketplaceNFTsOffset = this.globalVars.marketplaceNFTsOffset + 30;
     this.sortMarketplace(this.globalVars.marketplaceNFTsOffset, true);
   }
+  onScrollEthNFTs() {
+    if (this.globalVars.ethMarketplaceNFTsData.length > 6) {
+      console.log(" ------------- greater then 6 ");
+      console.log(this.globalVars.ethMarketplaceNFTsData);
+      this.globalVars.ethMarketplaceNFTsOffset = this.globalVars.ethMarketplaceNFTsOffset + 6;
+      console.log(this.globalVars.ethMarketplaceNFTsOffset);
+      //   additional array
+      let additionalData = this.globalVars.ethMarketplaceNFTsData.slice(this.globalVars.ethMarketplaceNFTsOffset);
+      console.log(additionalData);
+      this.globalVars.ethMarketplaceNFTsDataToShow =
+        this.globalVars.ethMarketplaceNFTsDataToShow.concat(additionalData);
+      console.log(this.globalVars.ethMarketplaceNFTsDataToShow);
+    } else {
+      return;
+    }
+  }
   counter(i: number) {
     return new Array(i);
   }
@@ -224,6 +268,22 @@ export class TrendsComponent implements OnInit {
     if (this.globalVars.marketplaceSortType != event) {
       this.globalVars.marketplaceSortType = event;
       this.sortMarketplace(0, false);
+    }
+  }
+  sortSelectChangeEth(event) {
+    // this.globalVars._alertError("You cannot sort on ETH, please use the left bar to filter.");
+    // return;
+    if (this.globalVars.ethMarketplaceSortType != event) {
+      this.globalVars.ethMarketplaceSortType = event;
+      if (this._globalVars.ethMarketplaceSortType === "most recent first") {
+        this.globalVars.sortEthMarketplaceNewestFirst();
+      } else if (this._globalVars.ethMarketplaceSortType === "oldest first") {
+        this.globalVars.sortEthMarketplaceOldestFirst();
+      } else if (this._globalVars.ethMarketplaceSortType === "highest price first") {
+        this.globalVars.sortEthMarketplaceHighestPriceFirst();
+      } else if (this._globalVars.ethMarketplaceSortType === "lowest price first") {
+        this.globalVars.sortEthMarketplaceLowestPriceFirst();
+      }
     }
   }
 }

@@ -20,11 +20,19 @@ export class CompleteProfileComponent {
   constructor(public globalVars: GlobalVarsService, private router: Router, private mixPanel: MixpanelService) {}
 
   async ngOnInit(): Promise<void> {
+    // await this.globalVars.checkCreatorStatus();
+
     await this.globalVars.checkOnboardingStatus();
 
-    if (this.globalVars.isOnboardingComplete === true) {
-      this.router.navigate([RouteNames.UPDATE_PROFILE]);
+    if (this.globalVars.isCreator === false && this.globalVars.isCollector === false) {
+      console.log(" --------------- both creator and collector are false ----------------- ");
+      this.router.navigate([RouteNames.SIGNUP]);
+      return;
     }
+
+    // if (this.globalVars.isOnboardingComplete === true) {
+    //   this.router.navigate([RouteNames.UPDATE_PROFILE]);
+    // }
 
     // if (this.globalVars.isMobileIphone()) {
     //   // testing closing the mobile nav on page load

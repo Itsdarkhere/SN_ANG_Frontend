@@ -376,9 +376,6 @@ export class GlobalVarsService {
     if (firebaseResDataCollector === "false" || typeof firebaseResDataCollector === "undefined") {
       this.isCollector = false;
     }
-
-    // console.log(` ---------------- creator status is ${this.isCreator}`);
-    // console.log(` ---------------- collector status is ${this.isCollector}`);
   }
 
   checkIsVerified() {

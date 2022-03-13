@@ -144,6 +144,13 @@ export class BackendRoutes {
   // Marketplace postgres
   static RoutePathSortMarketplace = "/api/v0/sort-marketplace";
   static RoutePathSortCreators = "/api/v0/sort-creators";
+  // PG verified list
+  static RoutePathInsertIntoPGVerified = "/api/v0/insert-into-pg-verified";
+  // PG profile details
+  static RoutePathInsertOrUpdateProfileDetails = "/api/v0/insert-or-update-profile-details";
+  static RoutePathGetPGProfileDetails = "/api/v0/get-pg-profile-details";
+  static RoutePathUpdateCollectorOrCreator = "/api/v0/update-collector-or-creator";
+  static RoutePathGetCollectorOrCreator = "/api/v0/get-collector-or-creator";
   // Same as the two above but for supernovas uses
   static RoutePathGetMarketplaceRefSupernovas = "/api/v0/get-marketplace-ref-supernovas";
   static RoutePathAddToMarketplaceSupernovas = "/api/v0/add-to-marketplace-supernovas";
@@ -451,7 +458,11 @@ export class DeSoNode {
   providedIn: "root",
 })
 export class BackendApiService {
-  constructor(private httpClient: HttpClient, private identityService: IdentityService, private mixPanel: MixpanelService) {}
+  constructor(
+    private httpClient: HttpClient,
+    private identityService: IdentityService,
+    private mixPanel: MixpanelService
+  ) {}
 
   static GET_PROFILES_ORDER_BY_INFLUENCER_COIN_PRICE = "influencer_coin_price";
   static BUY_CREATOR_COIN_OPERATION_TYPE = "buy";
@@ -988,7 +999,7 @@ export class BackendApiService {
       BuyNowPriceNanos,
       MinFeeRateNanosPerKB,
     });
-    this.mixPanel.track42("NFT created")
+    this.mixPanel.track42("NFT created");
     return this.signAndSubmitTransaction(endpoint, request, UpdaterPublicKeyBase58Check);
   }
 
@@ -1334,6 +1345,57 @@ export class BackendApiService {
     return this.post(endpoint, BackendRoutes.RoutePathSortCreators, {
       Offset,
       Verified,
+    });
+  }
+  // Gets info if user is collector / creator / both
+  GetCollectorOrCreator(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetCollectorOrCreator, {
+      PublicKeyBase58Check,
+    });
+  }
+  // update / set if user creator / collector status
+  UpdateCollectorOrCreator(
+    endpoint: string,
+    PublicKeyBase58Check: string,
+    Creator: boolean,
+    Collector: boolean
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathUpdateCollectorOrCreator, {
+      PublicKeyBase58Check,
+      Creator,
+      Collector,
+    });
+  }
+  // Gets everything needed in profile / update profile
+  GetPGProfileDetails(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetPGProfileDetails, {
+      PublicKeyBase58Check,
+    });
+  }
+  // Adds to the list of verified users in pg
+  // tie this to admin panel verification
+  InsertIntoPGVerified(endpoint: string, Username: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathInsertIntoPGVerified, {
+      Username,
+    });
+  }
+  // Works for both initial creation and updating
+  InsertOrUpdateProfileDetails(
+    endpoint: string,
+    PublicKeyBase58Check: string,
+    Twitter: string,
+    Website: string,
+    Discord: string,
+    Instagram: string,
+    Name: string
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathInsertOrUpdateProfileDetails, {
+      PublicKeyBase58Check,
+      Twitter,
+      Website,
+      Discord,
+      Instagram,
+      Name,
     });
   }
   GetNFTCollectionSummary(endpoint: string, ReaderPublicKeyBase58Check: string, PostHashHex: string): Observable<any> {
@@ -1690,7 +1752,7 @@ export class BackendApiService {
       MinFeeRateNanosPerKB,
     });
     this.mixPanel.track40("Liked post", {
-      "post": LikedPostHashHex,
+      post: LikedPostHashHex,
     });
     return this.signAndSubmitTransaction(endpoint, request, ReaderPublicKeyBase58Check);
   }
@@ -1713,8 +1775,8 @@ export class BackendApiService {
       InTutorial,
     });
     this.mixPanel.track41("Send Diamond", {
-      "Receiver": ReceiverPublicKeyBase58Check,
-      "Post hash": DiamondPostHashHex
+      Receiver: ReceiverPublicKeyBase58Check,
+      "Post hash": DiamondPostHashHex,
     });
     return this.signAndSubmitTransaction(endpoint, request, SenderPublicKeyBase58Check);
   }

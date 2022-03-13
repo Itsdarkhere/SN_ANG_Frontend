@@ -22,8 +22,8 @@ import { FeedPostComponent } from "../../feed/feed-post/feed-post.component";
 import { environment } from "src/environments/environment";
 import { SharedDialogs } from "src/lib/shared-dialogs";
 import { CommentModalComponent } from "src/app/comment-modal/comment-modal.component";
-import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 import { FeedPostImageModalComponent } from "src/app/feed/feed-post-image-modal/feed-post-image-modal.component";
+import { ModelComponent } from "src/app/mint-page/model/model.component";
 import { CancelEvent } from "../shared/models/cancel-event.interface";
 import { Meta } from "@angular/platform-browser";
 import {
@@ -101,7 +101,6 @@ export class NftPostComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
-    private analyticsService: GoogleAnalyticsService,
     private router: Router,
     public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
@@ -205,6 +204,16 @@ export class NftPostComponent implements OnInit {
     });
   }
 
+  openModelModal($event: Event, postModelArweaveSrc: string) {
+    alert("Working!");
+    this.modalService.show(ModelComponent, {
+      class: "modal-dialog-centered img_popups modal-lg",
+      initialState: {
+        postModelArweaveSrc
+      }
+    });
+  }
+
   refreshPosts() {
     // Fetch the post entry
     this.getPost().subscribe(
@@ -242,7 +251,6 @@ export class NftPostComponent implements OnInit {
         this.configurePostType(this.nftPost);
         this.titleService.setTitle(this.nftPost.ProfileEntryResponse.Username + ` on ${environment.node.name}`);
         this.refreshBidData();
-        this.configureMetaTags();
       },
       (err) => {
         // TODO: post threads: rollbar
@@ -292,7 +300,6 @@ export class NftPostComponent implements OnInit {
               bidEntry.BidAmountNanos <= bidEntry.BidderBalanceNanos
           );
           this.hightestBidOwner = _.maxBy(this.bids, "BidAmountNanos");
-          console.log(this.hightestBidOwner);
           if (!this.myBids.length) {
             this.tabs = this.tabs.filter((t) => t !== NftPostComponent.MY_BIDS);
             this.activeTab = this.activeTab === NftPostComponent.MY_BIDS ? this.tabs[0] : this.activeTab;
@@ -655,28 +662,6 @@ export class NftPostComponent implements OnInit {
       (nftEntryResponse) => nftEntryResponse.EncryptedUnlockableText
     );
     return list[0]?.EncryptedUnlockableText ? list[0]?.EncryptedUnlockableText : "";
-  }
-
-  configureMetaTags(): void {
-    // this.refreshPosts();
-    console.log("------------------------------ configureMetaTags function hit ------------------------------");
-    const imageUrl = this.mapImageURLs(this.nftPost.ImageURLs[0]);
-    // const imageUrl = "https://arweave.net/yYQkx4IrwflWfPfx-P2fnCUHOL1mGK5Mdgfw8ntoohc";
-
-    console.log(`------------------------------ The imageUrl is ${imageUrl} ------------------------------`);
-
-    // this.metaService.updateTag({ property: "twitter:image", content: `${imageUrl}` }, "property='twitter:image'");
-    // this.metaService.updateTag(
-    //   { property: "og:image:secure_url", content: `${imageUrl}` },
-    //   "property='og:image:secure_url'"
-    // );
-    // this.metaService.updateTag({ property: "og:image", content: `${imageUrl}` }, "property='og:image'");
-
-    // document.querySelector("meta[property='og:image']").setAttribute("content", `${imageUrl}`);
-    // document.querySelector("meta[name='twitter:image']").setAttribute("content", `${imageUrl}`);
-
-    this.metaService.updateTag({ property: "og:image", content: imageUrl });
-    this.metaService.updateTag({ name: "twitter:image", content: imageUrl });
   }
 
   onSingleBidCancellation(event: CancelEvent): void {

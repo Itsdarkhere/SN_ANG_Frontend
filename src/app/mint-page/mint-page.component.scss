@@ -19,6 +19,11 @@
   left: 0;
   right: 0;
 }
+// This is just since im lazy and dont want to find the right color icon
+.mint-step1-audio-icon {
+  filter: brightness(60%);
+  -webkit-filter: brightness(60%);
+}
 .mint-page-progress {
   position: absolute;
   margin-top: 5px;

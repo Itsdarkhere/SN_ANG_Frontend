@@ -22,28 +22,31 @@ import { EmbedUrlParserService } from "../../lib/services/embed-url-parser-servi
 import { SharedDialogs } from "../../lib/shared-dialogs";
 import { FeedPostImageModalComponent } from "../feed/feed-post-image-modal/feed-post-image-modal.component";
 import { TransferModalComponent } from "../transfer-modal/transfer-modal.component";
-import { GoogleAnalyticsService } from "../google-analytics.service";
 import { environment } from "src/environments/environment";
 import { animate, style, transition, trigger } from "@angular/animations";
 import { ethers } from "ethers";
 
+import { MixpanelService } from "../mixpanel.service";
 @Component({
   selector: "new-nft-card",
   templateUrl: "./new-nft-card.component.html",
   styleUrls: ["./new-nft-card.component.scss"],
   animations: [
     trigger("audioIconNoHover", [
-      transition(":enter", [style({ opacity: "0" }), animate("400ms ease", style({ opacity: "1" }))]),
-      transition(":leave", [style({ opacity: "1" }), animate("400ms ease", style({ opacity: "0" }))]),
+      transition(":enter", [style({ opacity: "0" }), animate("800ms ease", style({ opacity: "1" }))]),
+      transition(":leave", [style({ opacity: "1" }), animate("800ms ease", style({ opacity: "0" }))]),
     ]),
     trigger("audioIconHover", [
-      transition(":leave", [
-        style({ transform: "translateY(0%)", opacity: "1" }),
-        animate("400ms ease", style({ transform: "translateY(100%)", opacity: "0" })),
-      ]),
       transition(":enter", [
-        style({ transform: "translateY(100%)" }),
-        animate("400ms ease", style({ transform: "translateY(0%)" })),
+        style({ opacity: "0" }),
+        animate("800ms ease", style({ opacity: "1" })),
+        // style({ transform: "translateY(100%)" }),
+        // animate("400ms ease", style({ transform: "translateY(0%)" })),
+      ]),
+      transition(":leave", [
+        // style({ opacity: "1" }), animate("800ms ease", style({ opacity: "0" }))
+        // style({ transform: "translateY(0%)", opacity: "1" }),
+        // animate("400ms ease", style({ transform: "translateY(100%)", opacity: "0" })),
       ]),
     ]),
   ],
@@ -80,12 +83,12 @@ export class NewNftCardComponent implements OnInit {
     return this._blocked;
   }
   constructor(
-    private analyticsService: GoogleAnalyticsService,
     public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
     private ref: ChangeDetectorRef,
     private router: Router,
     private modalService: BsModalService,
+    private mixPanel: MixpanelService,
     private sanitizer: DomSanitizer
   ) {}
   // Got this from https://code.habd.as/jhabdas/xanthippe/src/branch/master/lib/xanthippe.js#L8
@@ -364,6 +367,15 @@ export class NewNftCardComponent implements OnInit {
     this.router.navigate(["/" + route, this.postContent.PostHashHex], {
       queryParamsHandling: "merge",
     });
+
+    this.mixPanel.track33("Post Clicked", {
+      Body: this.postContent.Body,
+      "is NFT": this.postContent.isNFT,
+      "Like Count": this.postContent.LikeCount,
+      "Poster Key": this.postContent.PosterPublicKeyBase58Check,
+      Diamonds: this.postContent.DiamondCount,
+      Category: this.postContent.PostExtraData,
+    });
   }
   isRepost(post: any): boolean {
     return post.Body === "" && (!post.ImageURLs || post.ImageURLs?.length === 0) && post.RepostedPostEntryResponse;
@@ -382,11 +394,8 @@ export class NewNftCardComponent implements OnInit {
         imageURL,
       },
     });
-    this.SendImageOpenedEvent();
   }
-  SendImageOpenedEvent() {
-    this.analyticsService.eventEmitter("image_opened", "usage", "activity", "click", 10);
-  }
+
   openInteractionModal(event, component): void {
     event.stopPropagation();
     this.modalService.show(component, {
@@ -646,7 +655,9 @@ export class NewNftCardComponent implements OnInit {
   }
   // If image errors, use image straight from link
   useNormalImage() {
-    this.imageURL = this.postContent.ImageURLs[0];
+    if (this.postContent.ImageURLs[0]) {
+      this.imageURL = this.postContent.ImageURLs[0];
+    }
   }
   openPlaceBidModal(event: any) {
     if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
@@ -654,6 +665,7 @@ export class NewNftCardComponent implements OnInit {
       return;
     }
     event.stopPropagation();
+    this.mixPanel.track15("Open Place a Bid Modal");
     const modalDetails = this.modalService.show(PlaceBidModalComponent, {
       class: "modal-dialog-centered nft_placebid_modal_bx nft_placebid_modal_bx_right modal-lg",
       initialState: { post: this.postContent },

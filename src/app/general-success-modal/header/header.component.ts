@@ -5,7 +5,7 @@ import { GlobalVarsService } from "../../global-vars.service";
 import { MatDialog } from "@angular/material/dialog";
 import { PlaceABidComponent } from "../../place-a-bid/place-a-bid.component";
 import { Router } from "@angular/router";
-import { GoogleAnalyticsService } from "../../google-analytics.service";
+import { MixpanelService } from "../../mixpanel.service";
 
 @Component({
   selector: "app-header",
@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
     public globalVars: GlobalVarsService,
     public dialog: MatDialog,
     private router: Router,
-    private analyticsService: GoogleAnalyticsService
+    private mixPanel: MixpanelService
   ) {}
 
   createPost(): void {
@@ -45,9 +45,11 @@ export class HeaderComponent implements OnInit {
   }
   login() {
     this.router.navigate(["/" + this.globalVars.RouteNames.SIGNUP]);
+    this.mixPanel.track2("Login clicked");
   }
   signUp() {
     this.router.navigate(["/" + this.globalVars.RouteNames.SIGNUP]);
+    this.mixPanel.track("Sign-up clicked");
   }
   @HostListener("window:resize")
   onResize() {

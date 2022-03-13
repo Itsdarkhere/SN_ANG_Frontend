@@ -309,7 +309,13 @@
             </div>
             <!-- Video -->
             <div
-              *ngIf="postContent.VideoURLs && showNFTOwnerInfo && postContent.VideoURLs[0] && !post.ParentStakeID"
+              *ngIf="
+                postContent.VideoURLs &&
+                showNFTOwnerInfo &&
+                postContent.VideoURLs[0] &&
+                !post.ParentStakeID &&
+                !isNFTProfile
+              "
               class="feed-post__video-container"
               [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
             >
@@ -779,7 +785,11 @@
               DESO
             </div>
           </div>
-          <div *ngIf="editionIsBuyNow" class="nft_current_bid_both" [ngClass]="{ 'pt-15px': globalVars.isMobile() }">
+          <div
+            *ngIf="editionIsBuyNow && editionForSale"
+            class="nft_current_bid_both"
+            [ngClass]="{ 'pt-15px': globalVars.isMobile() }"
+          >
             <div class="buy_now_text_container">
               <span class="hq">BUY NOW PRICE</span>
               <div class="val">
@@ -798,7 +808,7 @@
             <div class="val_st">The 1st bid starts the auction.</div>
           </div>
 
-          <div class="nft_done_by" *ngIf="!editionIsBuyNow && editionHasBids">
+          <div class="nft_done_by" *ngIf="!editionIsBuyNow && editionHasBids && editionForSale">
             <span class="hq">Made By</span>
             <div class="d-flex">
               <div class="bid_by_avtar" [avatar]="showNFTOwnerInfo?.ProfileEntryResponse?.PublicKeyBase58Check"></div>
@@ -971,7 +981,17 @@
 <!-- FOR discovery page main nft  -->
 <div *ngIf="showDiscoveryDetails" class="w-100 discovery-hgs">
   <div class="w-50">
-    <span class="lb" *ngIf="!decryptableNFTEntryResponses?.length || showUnlockableContent">
+    <div *ngIf="editionIsBuyNow && editionForSale">
+      <span class="lb">BUY NOW PRICE</span>
+      <div class="val">
+        {{ this.globalVars.nanosToDeSo(this.buyNowPriceNanos, 5) }}
+        DESO
+      </div>
+      <div class="val_sm">
+        {{ this.globalVars.nanosToUSD(this.buyNowPriceNanos, 2) }}
+      </div>
+    </div>
+    <span class="lb" *ngIf="!editionIsBuyNow && (!decryptableNFTEntryResponses?.length || showUnlockableContent)">
       {{
         compareBit(
           globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5),
@@ -983,26 +1003,38 @@
     <!--showPlaceAbid was here as 'if' but it didnt work for creator globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5) : globalVars.nanosToDeSo(highBid, 5)-->
     <div
       class="val"
-      *ngIf="(availableSerialNumbers?.length > 0 && !decryptableNFTEntryResponses?.length) || showUnlockableContent"
+      *ngIf="
+        (!editionIsBuyNow && availableSerialNumbers?.length > 0 && !decryptableNFTEntryResponses?.length) ||
+        showUnlockableContent
+      "
     >
       {{ highBid === 0 ? globalVars.nanosToDeSo(this.nftMinBidAmountNanos, 5) : globalVars.nanosToDeSo(highBid, 5) }}
       DESO
     </div>
     <div
       class="val_sm"
-      *ngIf="(availableSerialNumbers?.length > 0 && !decryptableNFTEntryResponses?.length) || showUnlockableContent"
+      *ngIf="
+        (!editionIsBuyNow && availableSerialNumbers?.length > 0 && !decryptableNFTEntryResponses?.length) ||
+        showUnlockableContent
+      "
     >
       {{ highBid === 0 ? globalVars.nanosToUSD(this.nftMinBidAmountNanos, 2) : globalVars.nanosToUSD(highBid, 2) }}
     </div>
     <div
       class="val"
-      *ngIf="(availableSerialNumbers?.length === 0 && !decryptableNFTEntryResponses?.length) || showUnlockableContent"
+      *ngIf="
+        (!editionIsBuyNow && availableSerialNumbers?.length === 0 && !decryptableNFTEntryResponses?.length) ||
+        showUnlockableContent
+      "
     >
       {{ globalVars.nanosToUSD(nftLastAcceptedBidAmountNanos, 2) }}
     </div>
     <div
       class="val_sm"
-      *ngIf="(availableSerialNumbers?.length === 0 && !decryptableNFTEntryResponses?.length) || showUnlockableContent"
+      *ngIf="
+        (!editionIsBuyNow && availableSerialNumbers?.length === 0 && !decryptableNFTEntryResponses?.length) ||
+        showUnlockableContent
+      "
     >
       {{ globalVars.nanosToDeSo(nftLastAcceptedBidAmountNanos, 5) }} DESO
     </div>

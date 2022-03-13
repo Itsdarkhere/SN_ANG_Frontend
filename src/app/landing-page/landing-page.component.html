@@ -1,111 +1,482 @@
-<script src="../../environments/environment.prod.ts"></script>
-<!-- Wrapper -->
-<div class="wrapper">
-  <!-- Header -->
-  <header>
-    <div class="lg_container">
-      <!-- Branding -->
-      <a href="#" class="branding">supernovas</a>
-      <!-- Branding End -->
-      <!-- Right -->
-      <div class="header_right">
-        <a class="lg_btn white btn-effect" (click)="globalVars.launchSignupFlow()">Sign up</a>
-        <a class="lg_btn black btn-effect" (click)="globalVars.launchLoginFlow()">Login</a>
-      </div>
-      <!-- Right End -->
+
+
+<div class="main-container" id="main-container">
+
+  <!--            NAVBAR            -->
+
+  <div class="topnav">
+    <a class="supernovas-logo" href="#">supernovas</a>
+    <!-- <a class="" href="#home">Home</a> -->
+    <!-- <a href="#creators-section">Creators</a> -->
+    <!-- <a href="#contact">Collectors</a> -->
+    <!-- <a href="#search">Testimonials</a> -->
+    <!-- <a href="#dao">Dao</a>  -->
+    <div class="topnav-right">
+      <a href="#search" class="button-27">
+        <div>Create profile</div>
+      </a>
+      <a href="#" class="button-28">Login</a>
     </div>
-  </header>
-  <!-- Header -->
-  <!-- Banner -->
-  <div class="lg_container">
-    <div class="banner_section">
-      <div class="lt">
-        <h1>The genesis block of a new creator economy</h1>
-        <p>
-          Supernovas is a decentralized social NFT marketplace built for creators and collectors. Enter and discover the
-          birthplace of creation itself.
-        </p>
-        <div class="btn_grp">
-          <a class="lg_btn white btn-effect" (click)="globalVars.launchSignupFlow()">Sign up</a>
-          <a class="lg_btn black btn-effect" (click)="globalVars.launchLoginFlow()">Login</a>
+  </div>
+
+  <!--            NAVBAR            -->
+
+
+  <section class="intro-section" id="section-1">
+    <a
+      class="card-section"
+      href="https://supernovas.app/nft/372b50c6dd9bc544467a7f7fffab80dee371196d03f84f070111dba2845bedb6"
+    >
+      <div class="artist-card">
+        <div class="visual-container">
+          <div>
+            <video class="artist-visual" [muted]="true" [autoplay]="true" [loop]="true" loop>
+              <source src="{{ mainVideo }}" type="video/mp4" />
+              Browser not supported
+            </video>
+          </div>
+          <div class="artist-info-container">
+            <div class="artist-info-wrapper">
+              <div class="artist-name">"kaii"</div>
+              <div class="artist-username">@flxgs</div>
+              <!-- <div class="info-icon-container">
+                <img class="info-icon" src="assets/img/info-white.png">
+                <div class="info-popup">Get featured by using #withsupernovas and tagging @withsupernovas</div>
+              </div> -->
+            </div>
+          </div> 
         </div>
       </div>
-      <div class="rt">
-        <figure><img src="assets/img/shapse.svg" alt="" /></figure>
+    </a>
+    <div class="title-section">
+      <div>
+        <div class="maintitle">The next generation of creation starts here</div>
+        <p class="mainp">
+          Supernovas is the first community-owned, decentralized social network and multi-chain NFT marketplace. Sign up
+          to earn rewards with every transaction.
+        </p>
       </div>
-    </div>
-  </div>
-  <!-- Banner End -->
 
-  <!--  creators and collectors -->
-  <div class="lg_container">
-    <div class="creators_collectors">
-      <h2>The intersection of crypto, community, and creativity</h2>
-      <div class="bxs">
-        <h3>Buy and sell NFT’s</h3>
-        <p>Mint NFT’s with nearly zero fees. Explore individually verified and curated NFT creators.</p>
-      </div>
-      <div class="bxs">
-        <h3>Invest in verified artists</h3>
-        <p>
-          Everyone has their own creator coin that anyone can invest in. Proceeds from NFT sales flow to both creators
-          and coin-holders.
-        </p>
-      </div>
-      <div class="bxs">
-        <h3>Get social</h3>
-        <p>
-          Follow and connect with your favorite creators and collectors. Post and interact on Supernovas feed and be
-          discovered.
-        </p>
+      <div class="buttons-container">
+        <a href="#search" class="button-27">
+          <div>Create profile</div>
+        </a>
+        <a href="#about" class="button-28">Browse Supernovas</a>
       </div>
     </div>
-  </div>
-  <!--  creators and collectors End  -->
-  <!-- Footer -->
+  </section>
+
+  <!-- <section>
+
+      <div class="statement-section-container">
+        <div class="lottie-animation-shapes">
+          <lottie-player
+            src="https://assets1.lottiefiles.com/packages/lf20_e7ykij7u.json"
+            background="transparent"
+            speed="1"
+            loop=""
+            autoplay="false"
+          ></lottie-player>
+        </div>
+
+          <div class="statement-section">the genesis block of a new creative medium</div>
+          <div>
+            <img src="./ellipse.png" alt="light" class="ellipse">
+          </div>
+      </div>
+    </section> -->
+
+  <section class="container" id="creators-section">
+    <div class="creators-title-wrapper">
+      <h3 class="creators-title">
+        <div class="creators-title-2">for creators</div>
+        <!-- <div class="ellipse">
+          <img src="/assets/img/ellipse.png" alt="light" class="">
+        </div> -->
+      </h3>
+      <!-- <div class="lottie-animation-creators-badge">
+          <lottie-player
+            src="https://assets6.lottiefiles.com/packages/lf20_u3kvgiiw.json"
+            background="transparent"
+            speed="1"
+            loop=""
+            autoplay=""
+          ></lottie-player>
+        </div> -->
+
+    </div>
+    <div class="space-holder">
+      <div class="sticky">
+        <div class="horizontal">
+          <section role="feed" class="cards" id="section-3">
+            <li class="card">
+              <h4 class="card-title">Gas-free minting</h4>
+              <p class="card-p">
+                Enjoy one-click, gas-free NFT minting and instant transactions on Ethereum, Solana, and DeSo.
+              </p>
+              <!-- <a href="#about" class="button-cards">start minting</a> -->
+            </li>
+
+            <li class="card">
+              <h4 class="card-title">Earn with every transaction</h4>
+              <p class="card-p">
+                All NFT transactions on Supernovas reward creators with Supernovas DAO tokens, meaning that all active
+                creators own an ever-increasing, ever more valuable stake of Supernovas.
+              </p>
+              <!-- <a href="#about" class="button-cards">start minting</a> -->
+            </li>
+
+            <li class="card">
+              <h4 class="card-title">Get discovered</h4>
+              <p class="card-p">
+                Creators are amplified directly to collectors through advanced analytics, social features, our Discovery
+                page, and our Marketplace
+              </p>
+              <!-- <a href="#about" class="button-cards">start minting</a> -->
+            </li>
+
+            <li class="card">
+              <h4 class="card-title">Your own Creator Coin</h4>
+              <p class="card-p">
+                You get your own token that anyone can buy or sell. Earn a percentage of each investment into your
+                creator coin.
+              </p>
+              <!-- <a href="#about" class="button-cards">start minting</a> -->
+            </li>
+
+            <li class="card">
+              <h4 class="card-title">Decentralized social media network</h4>
+              <p class="card-p">
+                Supernovas is like Twitter but it’s not one person owning and controlling your social graph, assets,
+                data and identity – it’s you. No one can ever take your profile, content, or community away from you.
+              </p>
+              <!-- <a href="#about" class="button-cards">start minting</a> -->
+            </li>
+
+            <li class="card">
+              <h4 class="card-title">Social tipping</h4>
+              <p class="card-p">
+                Receive “diamonds” on any of your posts and earn anywhere from $0.01 - $200 as a tip – as you deserve.
+              </p>
+              <!-- <a href="#about" class="button-cards rainbow-button">Sign up as creator</a> -->
+            </li>
+
+            <li class="card">
+              <h4 class="card-title">...And more!</h4>
+              <p class="card-p">
+                One-click collection minting, create your own DAO, DAO coins, multi-chain NFT royalties for creator
+                coins, and creator referral program coming soon!
+              </p>
+              <a href="https://supernovas.app/signup" class="button-cards rainbow-button">Sign up as creator</a>
+            </li>
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" id="collectors-section">
+    <div class="collectors-title-wrapper">
+      <h3 class="collectors-title">for collectors</h3>
+      <!-- <div class="lottie-animation-creators-badge">
+          <lottie-player
+            src="https://assets6.lottiefiles.com/packages/lf20_u3kvgiiw.json"
+            background="transparent"
+            speed="1"
+            loop=""
+            autoplay=""
+          ></lottie-player>
+        </div> -->
+    </div>
+    <div class="space-holder__collectors">
+      <div class="sticky__collectors">
+        <div class="horizontal__collectors">
+          <section role="feed" class="cards" id="black-cards">
+
+            <video class="ape-gif" [muted]="true" [autoplay]="true" [loop]="true" loop>
+              <source src="{{ ape }}" type="video/mp4" />
+              Browser not supported
+            </video>
+
+            <video class="vitalik-gif" [muted]="true" [autoplay]="true" [loop]="true" loop>
+              <source src="{{ vitalik }}" type="video/mp4" />
+              Browser not supported
+            </video>
+
+            <video class="vitalik2-gif" [muted]="true" [autoplay]="true" [loop]="true" loop>
+              <source src="{{ vitalik2 }}" type="video/mp4" />
+              Browser not supported
+            </video>
+
+            <video class="doodle-gif" [muted]="true" [autoplay]="true" [loop]="true" loop>
+              <source src="{{ doodle }}" type="video/mp4" />
+              Browser not supported
+            </video>
+
+            <video class="doodle2-gif" [muted]="true" [autoplay]="true" [loop]="true" loop>
+              <source src="{{ doodle2 }}" type="video/mp4" />
+              Browser not supported
+            </video>
+
+            <video class="meme-gif" [muted]="true" [autoplay]="true" [loop]="true" loop>
+              <source src="{{ memegirl }}" type="video/mp4" />
+              Browser not supported
+            </video>
+
+            <li class="card card__black">
+              <h4 class="card-title card-title__black">Gas free</h4>
+              <p class="card-p card-p__black">
+                Start collecting Ethereum, Solana, and DeSo NFT’s without shelling out large amounts of money for high
+                gas fees.
+              </p>
+              <!-- <a href="#about" class="button-cards button-cards__black">start minting</a> -->
+            </li>
+
+            <li class="card card__black">
+              <h4 class="card-title card-title__black">Earn with every transaction</h4>
+              <p class="card-p card-p__black">
+                Collectors are awarded Supernovas DAO tokens with each NFT purchase. The more you collect, the more
+                tokens you have, and the more valuable those tokens will be.
+              </p>
+              <!-- <a href="#about" class="button-cards button-cards__black">start minting</a> -->
+            </li>
+
+            <li class="card card__black">
+              <h4 class="card-title card-title__black">Smart investing</h4>
+              <p class="card-p card-p__black">
+                Through advanced analytics, creator verification, and discovery tools, your risk of rug-pull is
+                significantly decreased.
+              </p>
+              <!-- <a href="#about" class="button-cards button-cards__black">start minting</a> -->
+            </li>
+
+            <li class="card card__black">
+              <h4 class="card-title card-title__black">Creator Coins</h4>
+              <p class="card-p card-p__black">
+                Earn rewards every time someone invests into your Creator Coin. Invest in your favorite NFT artists to
+                earn coinholder rewards.
+              </p>
+              <!-- <a href="#about" class="button-cards button-cards__black">start minting</a> -->
+            </li>
+
+            <li class="card card__black">
+              <h4 class="card-title card-title__black">Decentralized social network</h4>
+              <p class="card-p card-p__black">
+                Maximize your monetization opportunities by bringing your community and your NFT’s under one platform.
+              </p>
+              <!-- <a href="#about" class="button-cards button-cards__black">start minting</a> -->
+            </li>
+
+            <li class="card card__black">
+              <h4 class="card-title card-title__black">Social tipping</h4>
+              <p class="card-p card-p__black">
+                Receive “diamonds” on any of your posts and earn anywhere from $0.01 - $200 as a tip – as you deserve.
+              </p>
+              <!-- <a href="#about" class="button-cards rainbow-button">Start collecting</a> -->
+            </li>
+
+            <li class="card card__black">
+              <h4 class="card-title card-title__black">...And more!</h4>
+              <p class="card-p card-p__black">
+                Create your own DAO, DAO coins, multi-chain NFT royalties for creator coins, and collector referral
+                program coming soon!
+              </p>
+              <a href="https://supernovas.app/signup" class="button-cards rainbow-button">Sign up as a collector</a>
+            </li>
+
+            <i class="gg-arrow-bottom-right"></i>
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dao-section dao-section__black" id="dao-section">
+    <div class="dao-card dao-card__black">
+      <div class="dao-info">
+        <div class="dao-main-text dao-main-text__black">Supernovas DAO</div>
+        <div class="dao-p dao-p__black">
+          The Supernovas community is the heart and soul of Supernovas, and the only way forward is in creating Supernovas DAO,
+          ensuring that those creating value for the Supernovas platform are able to capture that value by owning and governing Supernovas.
+          All NFT transactions on Supernovas reward users with Supernovas DAO tokens. Supernovas public DAO token sale will be in May 2022.
+        </div>
+        <div class="dao-button">
+          <a href="https://investors.supernovas.app/investor-memorandum/" class="button-27 dao-button-blue">Read the Investor Memorandum</a>
+        </div>
+        <div class="lottie-animation-dao">
+          <!-- <lottie-player
+              src="https://assets5.lottiefiles.com/packages/lf20_fbmcwfmt.json"
+              background="transparent"
+              speed="1"
+              loop=""
+              autoplay=""
+            ></lottie-player> -->
+          <ng-lottie [options]="dao" (animationCreated)="animationCreated($event)"></ng-lottie>
+        </div>
+      </div>
+    </div>
+    <div class="lottie-animation-shapes">
+      <!-- <lottie-player
+          src="https://assets9.lottiefiles.com/packages/lf20_mioxwxa4.json"
+          background="transparent"
+          speed="1"
+          loop=""
+          autoplay="false"
+        ></lottie-player> -->
+      <ng-lottie [options]="blueShapes" (animationCreated)="animationCreated($event)"></ng-lottie>
+    </div>
+  </section>
+
+  <section class="testimonial-section" id="section-7">
+    <div class="testimonial-title-wrapper">
+      <h3 class="testimonials-title">What our community has to say</h3>
+    </div>
+
+    <div class="testimonial-card-container">
+      <div class="testimonial-card">
+        <div class="testimonial-image-6">
+          <img src="/assets/img/dan.png" class="testimonial-image" />
+        </div>
+        <div class="testimonial-separator"></div>
+        <div class="testimonial-user-info">
+          <div class="testimonial-name">Van Maverick</div>
+          <div class="testimonial-username">@van_maverick</div>
+        </div>
+        <div class="testimonial-p">
+          I like the vision, and the long term focus too. The @supernovas team is clearly highly organised and motivated
+          - very easy to recommend :)
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-image-6">
+          <img src="/assets/img/jason.png" class="testimonial-image" />
+        </div>
+        <div class="testimonial-separator"></div>
+        <div class="testimonial-user-info">
+          <div class="testimonial-name">Jason Devlin</div>
+          <div class="testimonial-username">@jasondevlin</div>
+        </div>
+        <div class="testimonial-p">
+          I'm officially only referring people to @supernovas from now on, 
+          until another app changes my mind. Such a thoughtful UX, the best first impression out there I think.
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-image-6">
+          <img src="/assets/img/sumor.png" class="testimonial-image" />
+        </div>
+        <div class="testimonial-separator"></div>
+        <div class="testimonial-user-info">
+          <div class="testimonial-name">Sumor</div>
+          <div class="testimonial-username">@sumor</div>
+        </div>
+        <div class="testimonial-p">
+          I want to thank the guys @supernovas, they are doing something incredible and convenient for artists, this is
+          becoming my new home, I started minting all my nfts there 💜 Please don't stop
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-image-6">
+          <img src="/assets/img/nathan.png" class="testimonial-image" />
+        </div>
+        <div class="testimonial-separator"></div>
+        <div class="testimonial-user-info">
+          <div class="testimonial-name">Nathan Wells</div>
+          <div class="testimonial-username">@nathanwells</div>
+        </div>
+        <div class="testimonial-p">
+          Seriously, if you all haven't checked out supernovas.app you need to now. 
+          Super clean interface and a way for smaller creators to become verified.
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-image-6">
+          <img src="/assets/img/derisha.png" class="testimonial-image" />
+        </div>
+        <div class="testimonial-separator"></div>
+        <div class="testimonial-user-info">
+          <div class="testimonial-name">Derisha Aryawan</div>
+          <div class="testimonial-username">@DerishaViar</div>
+        </div>
+        <div class="testimonial-p">
+          The UI on @supernovas is sweeeet AF. I'm loving it, probably the best UI so far... Very
+          clean and modern look, I will def use it more and recommend it to my friends!
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-image-6">
+          <img src="/assets/img/jody.png" class="testimonial-image" />
+        </div>
+        <div class="testimonial-separator"></div>
+        <div class="testimonial-user-info">
+          <div class="testimonial-name">Jody Bossert</div>
+          <div class="testimonial-username">@jodybossert</div>
+        </div>
+        <div class="testimonial-p">
+          Wow. Surfing around on @supernovas for the first time in a while and it is REALLY looking good. Might just
+          have to make this my new home!
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <section id="statement-section" class="statement-section">
+    <div class="statement-section-container">
+      <div class="statement-title">
+        <div>Sign up and start earning today</div>
+        <div class="statement-buttons">
+          <a href="https://supernovas.app/signup" class="button-27">
+            <div>Create profile</div>
+          </a>
+          <a href="https://supernovas.app/" class="button-28">Browse Supernovas</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<!--            FOOTER            -->
+
+
   <footer>
-    <div class="lg_container">
-      <div class="ft_lg">
-        <span>supernovas</span>
-        <span>supernovas</span>
-        <span>supernovas</span>
-        <span>supernovas</span>
-        <span>supernovas</span>
-        <span>supernovas</span>
-        <span>supernovas</span>
-      </div>
-      <div class="footer_rt">
-        <ul>
-          <li>SOCIAL</li>
-          <li><a href="https://bitclout.com/u/supernovas" target="_blank">BitClout</a></li>
-          <li><a href="https://discord.gg/UwaAz2nnQk" target="_blank">Discord</a></li>
-        </ul>
-        <ul>
-          <li>RESOURCES</li>
-          <li><a href="https://www.blog.supernovas.app/" target="_blank">Blog</a></li>
-          <li><a href="https://intercom.help/supernovas/en" target="_blank">Support</a></li>
-        </ul>
-        <ul>
-          <li>LEGAL</li>
-          <li>
-            <a
-              href="https://docs.google.com/document/d/13NCH0Y9PHfByDaKtHea-Q9Irb9TzgPzNrszLgcKAE3I/edit?usp=sharing"
-              target="_blank"
-            >
-              Terms of Service
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://docs.google.com/document/d/1__1YE4kZtJ0eO1lDEFS0J1okdiNXkQ1DbKAvy63H-pI/edit?usp=sharing"
-              target="_blank"
-            >
-              Privacy Policy
-            </a>
-          </li>
-        </ul>
-      </div>
+    <!-- <div class="footer-links">
+          <a href="#home">Home</a>
+          <a href="#creators-section">Creators</a>
+          <a href="#collectors-sections">Collectors</a>
+          <a href="#search">Testimonials</a>
+          <a href="#dao">Dao</a>
+        </div> -->
+    <div class="footer-logo-container">
+      <img src="/assets/img/logo400.png" class="footer-logo-img"/>
     </div>
+    <div class="footer-separator"></div>
+    <div class="footer-separator"></div>
+    <div class="footer-social-links">
+      <!-- <div class="footer-legal-links"> -->
+      <a class="footer-title">SOCIAL</a>
+      <a href="https://discord.gg/JHbhaFbPvN">Discord</a>
+      <a href="https://twitter.com/withsupernovas">Twitter</a>
+      <a href="https://www.instagram.com/withsupernovas/?hl=en">Instagram</a>
+    </div>
+    <div class="footer-social-links">
+      <!-- <div class="footer-legal-links"> -->
+      <a class="footer-title">RESOURCES</a>
+      <a href="#news">Blog</a>
+      <a href="https://intercom.help/supernovas/en/">Support</a>
+    </div>
+    <div class="footer-social-links">
+      <!-- <div class="footer-legal-links"> -->
+      <a class="footer-title">LEGAL</a>
+      <a href="https://intercom.help/supernovas/en/">Terms of Service</a>
+      <a href="https://intercom.help/supernovas/en/">Privacy Policy</a>
+    </div>
+    <!-- <div class="footer-buttons">
+          <a href="#search" class="button-27">Create profile</a>
+          <a href="#" class="button-28__white">Login</a>
+        </div> -->
   </footer>
-  <!-- Footer End -->
+  <!-- <script src="./scroll.js"></script>
+    <script src="./scroll-collectors.js"></script>
+    <script src="./bg-color.js"></script> -->
 </div>

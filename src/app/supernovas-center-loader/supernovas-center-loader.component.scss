@@ -121,6 +121,7 @@ $colors: (
     box-sizing: border-box;
     animation: 1.5s ripple ease infinite;
     $delays: (2 * 10) - 2;
+    font-size: 16px;
     @for $i from 1 through $delays {
       &.d-#{$i} {
         animation-delay: $i * 100ms;

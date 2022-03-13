@@ -1,1 +1,48 @@
-<p>top-bids works!</p>
+<div class="top-bid-card-container">
+	<div class="top-bid-card-piece-section">
+		<h4>Piece</h4>
+		<!-- Check if this is the right way to target img src -->
+		<img [src]="this.globalVars.loggedInUser.PublicKeyBase58Check">
+		<!-- <div class="top-bid-piece" [avatar]="this.globalVars.loggedInUser.PublicKeyBase58Check"></div> -->
+		<!-- Is this necessary -->
+		<p>The longer piece text</p>
+	</div>
+	<div class="top-bid-card-bid-section">
+		<h4>Bid</h4>
+		<div class="d-flex flex-column">
+			<p class="deso-price">1.4 DESO</p>
+			<p class="dollar-price">124.67 USD</p>
+		</div>
+	</div>
+	<div class="top-bid-card-created-by-section">
+		<h4>Created By</h4>
+		<div class="creator-info">
+			<img [src]="this.globalVars.loggedInUser.PublicKeyBase58Check">
+			<!-- <div class="top-bid-avatar" [avatar]="this.globalVars.loggedInUser.PublicKeyBase58Check"></div> -->
+			<p>JUVONEN</p>
+		</div>
+	</div>
+</div>
+
+<!-- 
+<div class="top-bid-container d-flex flex-row p-10px">
+	<div class="bid-detail d-flex flex-column justify-content-between">
+		<label class="font-weight-semibodln mb-0px fs-14px" style="color: #7a7a7a">Piece</label>
+		<div class="top-bid-piece" [avatar]="this.globalVars.loggedInUser.PublicKeyBase58Check"></div>
+		<p style="color: #000000" class="fs-10px">The longer piece text</p>
+	</div>
+	<div class="bid-detail d-flex flex-column justify-content-between">
+		<label class="font-weight-semibodln mb-0px fs-14px" style="color: #7a7a7a">BID</label>
+		<div class="d-flex flex-column">
+			<label class="font-weight-semiboldn mb-0px fs-18px" style="color: #2c2c2c">1.4 $DESO</label>
+			<label style="color: #9d9d9d fs-14px" class="mb-0px">$124.67</label>
+		</div>
+	</div>
+	<div class="bid-detail d-flex flex-column">
+		<label class="font-weight-semibodln mb-0px fs-14px" style="color: #7a7a7a">Done By</label>
+		<div class="d-flex flex-center-start flex-row mt-10px">
+			<div class="top-bid-avatar" [avatar]="this.globalVars.loggedInUser.PublicKeyBase58Check"></div>
+			<p class="fs-12px font-weight-bold pl-5px">JUVONEN</p>
+		</div>
+	</div>
+</div> -->

@@ -313,13 +313,17 @@
       >
         <div class="w-90 mt-20px">
           <h2 class="font-weight-semiboldn w-100 text-align-start ml-5px fs-33-responsive">Choose content type</h2>
-          <label class="mb-20px color-light mint-page-sub-heading w-100 text-align-start fs-20-responsive ml-5px">
-            You can mint either image or video NFTs on Supernovas. Maximum file size is 200Mb.
+          <label
+            class="mt-20px color-light mint-page-sub-heading w-100 mb-0px text-align-start fs-20-responsive ml-5px"
+          >
+            You can mint either image, video, or audio NFTs on Supernovas. Maximum file size is 200Mb.
           </label>
         </div>
+
         <div class="mint-content-type-container pb-20px w-90" [ngClass]="mobile ? 'justify-content-around' : ''">
+          <!-- Image NFT Mint -->
           <button
-            class="content-type-card-mint p-0px"
+            class="content-type-card p-0px"
             (click)="imageTypeSelected()"
             [ngClass]="{ 'electric-box-shadow': imageType, 'm-10px': mobile }"
           >
@@ -328,11 +332,13 @@
             </div>
             <div class="h-40 w-100 mt-10px d-flex flex-column">
               <label class="fs-15px font-weight-bold pointer-events-none">Image</label>
-              <label class="fs-11px pointer-events-none">PNG, JPEG files are supported.</label>
+              <label class="fs-11px pointer-events-none">JPEG, PNG files are supported.</label>
             </div>
           </button>
+
+          <!-- Video NFT Mint -->
           <button
-            class="content-type-card-mint p-0px"
+            class="content-type-card p-0px"
             (click)="videoTypeSelected()"
             [ngClass]="{ 'electric-box-shadow': videoType, 'm-10px': mobile }"
           >
@@ -344,40 +350,36 @@
               <label class="fs-11px pointer-events-none">MP4 files are supported.</label>
             </div>
           </button>
+
+          <!-- Audio NFT Mint -->
           <button
-            class="content-type-card-mint not-available-warning p-0px"
-            *ngIf="!globalVars.showAdminTools()"
-            [ngClass]="{ 'electric-box-shadow': audioType, 'm-10px': mobile }"
-          >
-            <div class="h-60 w-100 d-flex flex-center background-color-secondary">
-              <img src="/assets/icons/music-type.svg" alt="creator icon" />
-            </div>
-            <div class="h-40 w-100 mt-10px d-flex flex-column">
-              <label class="fs-15px color-light font-weight-bold pointer-events-none">Audio</label>
-              <label class="fs-11px color-light pointer-events-none">Coming soon!</label>
-            </div>
-          </button>
-          <button
-            *ngIf="globalVars.showAdminTools()"
-            class="content-type-card-mint p-0px"
+            class="content-type-card p-0px"
             (click)="audioTypeSelected()"
             [ngClass]="{ 'electric-box-shadow': audioType, 'm-10px': mobile }"
           >
             <div class="h-60 w-100 d-flex flex-center background-color-secondary">
-              <img src="/assets/icons/music-type.svg" alt="creator icon" />
+              <img class="mint-step1-audio-icon" src="/assets/icons/music-type.svg" alt="creator icon" />
             </div>
             <div class="h-40 w-100 mt-10px d-flex flex-column">
-              <label class="fs-15px color-light font-weight-bold pointer-events-none">Audio</label>
-              <label class="fs-11px color-light pointer-events-none">Coming soon!</label>
+              <label class="fs-15px font-weight-bold pointer-events-none">Audio</label>
+              <label class="fs-11px pointer-events-none">FLAC, M4A, MP3, WAV files are supported.</label>
             </div>
           </button>
-          <button class="content-type-card-mint not-available-warning p-0px" *ngIf="!mobile">
+
+          <!-- 3D NFT Mint -->
+          <!-- (click)="modelTypeSelected()" -->
+          <button
+            *ngIf="!mobile"
+            (click)="modelTypeSelected()"
+            class="content-type-card p-0px"
+            [ngClass]="{ 'electric-box-shadow': modelType, 'm-10px': mobile }"
+          >
             <div class="h-60 w-100 d-flex flex-center background-color-secondary">
               <img src="/assets/icons/3D-type.png" alt="creator icon" />
             </div>
             <div class="h-40 w-100 mt-10px d-flex flex-column">
-              <label class="fs-15px color-light font-weight-bold pointer-events-none">3D</label>
-              <label class="fs-11px color-light pointer-events-none">Coming soon!</label>
+              <label class="fs-15px font-weight-bold pointer-events-none">3D</label>
+              <label class="fs-11px pointer-events-none">GLB, GLTF files are supported</label>
             </div>
           </button>
         </div>
@@ -485,7 +487,7 @@
         [ngClass]="mobile ? 'w-100' : 'w-50'"
       >
         <div class="mint-page-inner-inner disable-scrollbars" [ngClass]="mobile ? 'w-90' : 'w-80'">
-          <button class="previous-step-button color-light" (click)="previousStepEth()">
+          <button class="previous-step-button color-light" (click)="previousStep()">
             <img class="previous-step-arrow mr-5px" src="/assets/icons/arrow-left-lighter.svg" />
             Back
           </button>
@@ -572,6 +574,7 @@
           CONTINUE
         </button>
       </div>
+
       <!--  STEP 3  -->
       <div
         [@mintSwipeAnimation]="animationType"
@@ -584,7 +587,9 @@
             <img class="previous-step-arrow mr-5px" src="/assets/icons/arrow-left-lighter.svg" />
             Back
           </button>
+
           <h2 class="mb-0px fs-23-responsive font-weight-semiboldn w-100 text-align-start ml-5px">NFT details</h2>
+
           <!-- IMAGE TYPE -->
           <div class="w-100" *ngIf="imageType">
             <label
@@ -620,12 +625,13 @@
             <input
               #imageInput
               type="file"
-              accept="image/*"
+              accept="image(*"
               id="file-upload"
               (change)="_handleFilesInput($event.target.files)"
               class="br-6px"
             />
           </div>
+
           <!-- VIDEO TYPE -->
           <div class="w-100" *ngIf="videoType">
             <label
@@ -667,14 +673,18 @@
               class="br-6px"
             />
           </div>
-          <!-- Audio TYPE -->
+
+          <!-- AUDIO TYPE -->
+          <!-- NFT details section -->
           <div class="w-100" *ngIf="audioType">
             <label
               class="mint-page-sub-heading font-weight-bold w-100 text-align-start mt-10px ml-5px fs-14-responsive"
             >
               {{ mobile ? "Upload audio & cover image" : "Upload audio" }}
             </label>
+
             <div class="w-100 d-flex flex-row justify-content-between">
+              <!-- Audio File Upload Event -->
               <label
                 dropUpload
                 (onFileDropped)="dropFile($event)"
@@ -695,16 +705,19 @@
                       mobile
                         ? "You can upload mp3 files up to 200Mb."
                         : "You can upload files up to 200MB. The file
-                        is stored on decentralized storage, so it will be available forever."
+                  is stored on decentralized storage, so it will be available forever."
                     }}
                   </p>
                 </div>
+                <!-- Appears after audio uploads -->
                 <div class="d-flex flex-row flex-center" *ngIf="postAudioArweaveSrc?.length > 0">
                   <i class="fa fa-check mr-10px"></i>
                   <p>Audio uploaded</p>
                 </div>
+
                 <i *ngIf="isUploading" class="fa fa-spinner fa-spin"></i>
               </label>
+
               <input
                 #imageInput
                 type="file"
@@ -713,6 +726,8 @@
                 id="file-upload"
                 class="br-6px"
               />
+
+              <!-- Mobile details? -->
               <label
                 dropUpload
                 *ngIf="mobile"
@@ -734,6 +749,7 @@
                 </div>
                 <i *ngIf="isCoverImageUploading" class="fa fa-2x fa-spinner fa-spin"></i>
               </label>
+
               <input
                 #imageInput
                 type="file"
@@ -744,6 +760,98 @@
               />
             </div>
           </div>
+
+          <!-- 3D MODEL TYPE -->
+          <!-- NFT details section -->
+          <div class="w-100" *ngIf="modelType">
+            <label
+              class="mint-page-sub-heading font-weight-bold w-100 text-align-start mt-10px ml-5px fs-14-responsive"
+            >
+              {{ mobile ? "Upload 3D model & cover image" : "Upload 3D model" }}
+            </label>
+
+            <div class="w-100 d-flex flex-row justify-content-between">
+              <label
+                dropUpload
+                (onFileDropped)="dropFile($event)"
+                for="file-upload"
+                class="mint-page-custom-file-upload mb-0px background-secondary d-flex flex-row flex-center"
+                [ngClass]="mobile ? 'w-45' : 'w-100'"
+              >
+                <div
+                  class="text-align-center d-flex flex-column flex-center"
+                  *ngIf="!isUploading && !(postModelArweaveSrc?.length > 0); else modelUploadSuccess"
+                >
+                  <span class="font-weight-semiboldn fs-14-responsive p-5px">
+                    <img src="/assets/icons/upload.svg" alt="upload-icon" class="mr-5px" />
+                    Upload an 3D model
+                  </span>
+                  <p class="fs-12px p-5px" [ngClass]="mobile ? 'w-90' : 'w-80'" style="color: #7e7e7e">
+                    {{
+                      mobile
+                        ? "You can upload GLB or GLTF files up to 200Mb."
+                        : "You can upload GLB or GLTF files up to 200MB. The file
+                  is stored on decentralized storage, so it will be available forever."
+                    }}
+                  </p>
+                </div>
+
+                <!-- Appears after model uploads -->
+                <ng-template #modelUploadSuccess>
+                  <div class="d-flex flex-row flex-center" *ngIf="postModelArweaveSrc?.length > 0">
+                    <i class="fa fa-check mr-10px"></i>
+                    <p>3D model uploaded</p>
+                  </div>
+                </ng-template>
+
+                <i *ngIf="isUploading" class="fa fa-spinner fa-spin"></i>
+              </label>
+
+              <input
+                #imageInput
+                type="file"
+                accept=".GLB, .GLTF"
+                (change)="_handleFilesInput($event.target.files)"
+                id="file-upload"
+                class="br-6px"
+              />
+
+              <!-- Mobile details? -->
+              <label
+                dropUpload
+                *ngIf="mobile"
+                (onFileDropped)="dropFileCoverImage($event)"
+                for="file-upload-cover-image"
+                class="mint-page-custom-file-upload w-45 mb-0px background-secondary d-flex flex-row flex-center"
+              >
+                <div
+                  class="text-align-center h-100 d-flex flex-column flex-center"
+                  *ngIf="!isCoverImageUploading && !(postImageArweaveSrc?.length > 0)"
+                >
+                  <span class="font-weight-semiboldn fs-14-responsive p-5px">
+                    <img src="/assets/icons/upload.svg" alt="upload-icon" class="mr-5px" />
+                    Upload cover image
+                  </span>
+                  <p class="fs-12px p-5px" [ngClass]="mobile ? 'w-90' : 'w-80'" style="color: #7e7e7e">
+                    Cover image will be displayed with your 3D NFT card.
+                  </p>
+                </div>
+
+                <i *ngIf="isCoverImageUploading" class="fa fa-2x fa-spinner fa-spin"></i>
+              </label>
+
+              <input
+                #imageInput
+                type="file"
+                accept="image(*"
+                id="file-upload-cover-image"
+                (change)="_handleFilesInputCoverImage($event.target.files)"
+                class="br-6px"
+              />
+            </div>
+          </div>
+
+          <!-- Other NFT Details: Name, Description, Category -->
           <div class="w-100">
             <label
               class="mint-page-sub-heading fs-14-responsive font-weight-bold w-100 text-align-start mt-10px mb-0px ml-5px"
@@ -759,6 +867,7 @@
               placeholder="Name of art"
             />
           </div>
+
           <div class="w-100 mt-10px">
             <label class="mint-page-sub-heading font-weight-bold w-100 text-align-start mb-0px ml-5px fs-14-responsive">
               Description
@@ -773,6 +882,7 @@
               placeholder="Art description"
             ></textarea>
           </div>
+
           <div class="w-100 mt-10px">
             <label class="mint-page-sub-heading font-weight-bold w-100 text-align-start mb-0px fs-14-responsive ml-5px">
               Category
@@ -794,6 +904,8 @@
               <option value="Photography">Photography</option>
             </select>
           </div>
+
+          <!-- Additional Details -->
           <button
             (click)="extrasOpen = !extrasOpen"
             class="mint-page-sub-heading p-0px optional-extras-button font-weight-bold mint-page-flex-start text-align-start mb-20px mt-15px fs-14-responsive ml-5px"
@@ -806,6 +918,7 @@
             />
             <label class="mb-0px mint-page-optional fs-10-responsive ml-10px">Optional</label>
           </button>
+
           <div class="accordion" [ngClass]="extrasOpen ? 'big' : ''">
             <label
               class="mint-page-sub-heading fs-14-responsive font-weight-bold w-100 text-align-start mt-15px mb-0px ml-5px"
@@ -854,6 +967,8 @@
             </div>
           </div>
         </div>
+
+        <!-- Continue Button Validators -->
         <button
           class="mb-0px font-weight-bold mint-page-step-2-continue"
           *ngIf="videoType || imageType"
@@ -868,14 +983,18 @@
         >
           Continue
         </button>
+
         <button
           class="mb-0px font-weight-bold mint-page-step-2-continue"
-          *ngIf="audioType"
+          *ngIf="audioType || modelType"
           [ngClass]="mobile ? 'w-90' : 'w-80'"
           (click)="nextStep()"
           [disabled]="
             !isDescribed() ||
-            !(postImageArweaveSrc?.length > 0 && postAudioArweaveSrc?.length > 0) ||
+            !(
+              postImageArweaveSrc?.length > 0 &&
+              (postAudioArweaveSrc?.length > 0 || postModelArweaveSrc?.length > 0)
+            ) ||
             !isNamed() ||
             !isCategorized()
           "
@@ -883,6 +1002,7 @@
           Continue
         </button>
       </div>
+
       <!--  STEP 4 open auction -->
       <div
         [@mintSwipeAnimation]="animationType"
@@ -1019,6 +1139,7 @@
           <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i>
         </button>
       </div>
+
       <!--  STEP 4 buy now -->
       <div
         [@mintSwipeAnimation]="animationType"
@@ -1187,7 +1308,8 @@
           <i *ngIf="isSubmitPress" class="fa fa-spinner fa-spin"></i>
         </button>
       </div>
-      <!--  STEP 5  -->
+
+      <!--  STEP 5: Success  -->
       <div *ngIf="step === 5" class="mint-page-text-container" [ngClass]="mobile ? 'w-100' : 'w-50'">
         <div
           class="h-95 padding-40px d-flex flex-column overflow-scroll disable-scrollbars max-width-480 flex-center"
@@ -1207,7 +1329,9 @@
           </button>
         </div>
       </div>
-      <!--  LEFT SIDE DESKTOP STEPS 1 - 2-->
+
+      <!-- LEFT SIDE DESKTOP STEPS 1 - 2-->
+      <!-- This is not just the left? -->
       <div *ngIf="!mobile && 1 < step && step < 4" class="mint-page-image-container d-flex flex-column flex-center">
         <!-- ALLOW IF ARWEAVE PROBLEMS -->
         <div *ngIf="false" class="mint-warning-box">
@@ -1215,20 +1339,49 @@
             Arweave network is experiencing issues, content might take a few minutes until its visible
           </label>
         </div>
+
         <label
           class="mb-0px illuminate-color pr-20px pl-20px text-align-center"
-          *ngIf="!postImageArweaveSrc && !postVideoDESOSrc && !audioType"
+          *ngIf="!postImageArweaveSrc && !postVideoDESOSrc && !audioType && !modelType"
         >
           Illuminate the digital universe with your imagination.
           <br />
           And never stop.
         </label>
-        <label class="mb-0px illuminate-color pr-20px pl-20px text-align-center" *ngIf="audioType && step === 2">
+
+        <label
+          class="mb-0px illuminate-color pr-20px pl-20px text-align-center"
+          *ngIf="(audioType || modelType) && step === 2"
+        >
           Illuminate the digital universe with your imagination.
           <br />
           And never stop.
         </label>
-        <div *ngIf="audioType && !postImageArweaveSrc && step === 3" class="w-100 h-50 d-flex flex-center">
+
+        <!-- Video Player -->
+        <div *ngIf="postVideoDESOSrc && readyToStream" class="feed-post__video-container m-w-80">
+          <iframe
+            [src]="postVideoDESOSrc | sanitizeVideoUrl"
+            allow="accelerometer; gyroscope; encrypted-media; picture-in-picture;"
+            allowfullscreen
+            class="feed-post__video"
+          ></iframe>
+        </div>
+        <div class="d-flex flex-column align-items-center" *ngIf="videoUploadPercentage !== null">
+          <div>Uploading: {{ videoUploadPercentage }}% Complete</div>
+          <mat-progress-bar [value]="videoUploadPercentage" [mode]="'determinate'"></mat-progress-bar>
+        </div>
+        <div class="d-flex flex-column align-items-center" *ngIf="postVideoDESOSrc && !readyToStream">
+          <div>Video Processing In Progress</div>
+          <simple-center-loader [height]="150"></simple-center-loader>
+        </div>
+
+        <!-- Audio Upload Cover Image + Preview -->
+        <!-- If no audio uploaded, show input area -->
+        <div
+          *ngIf="audioType && !postImageArweaveSrc && step === 3; else showAudioCoverArt"
+          class="w-100 h-50 d-flex flex-center"
+        >
           <label
             dropUpload
             (onFileDropped)="dropFileCoverImage($event)"
@@ -1252,6 +1405,7 @@
                 Supernovas.
               </p>
             </div>
+
             <i *ngIf="isCoverImageUploading" class="fa fa-2x fa-spinner fa-spin"></i>
           </label>
           <input
@@ -1263,28 +1417,64 @@
             class="br-6px"
           />
         </div>
-        <div class="mint-page__image-container m-w-80" *ngIf="postImageArweaveSrc">
-          <i class="icon-close feed-post__image-delete" (click)="postImageArweaveSrc = null"></i>
-          <img class="feed-post__image br-0px" src="{{ postImageArweaveSrc }}" />
+
+        <ng-template #showAudioCoverArt>
+          <div class="mint-page__image-container m-w-80" *ngIf="audioType && postImageArweaveSrc">
+            <img class="feed-post__image br-0px" src="{{ postImageArweaveSrc }}" />
+            <i class="icon-close feed-post__image-delete" (click)="postImageArweaveSrc = null"></i>
+          </div>
+        </ng-template>
+
+        <!-- 3D Model Upload Cover Image + Preview -->
+        <div
+          *ngIf="modelType && !postImageArweaveSrc && step === 3; else showModelCoverArt"
+          class="w-100 h-50 d-flex flex-center"
+        >
+          <label
+            dropUpload
+            (onFileDropped)="dropFileCoverImage($event)"
+            for="file-upload-cover-image"
+            class="mint-page-custom-file-audio-right mb-0px background-white d-flex flex-row flex-center position-relative"
+          >
+            <div
+              class="text-align-center h-100 d-flex flex-column flex-center"
+              *ngIf="!isCoverImageUploading && !(postImageArweaveSrc?.length > 0)"
+            >
+              <div class="audio-cover-img-box mb-20px d-flex flex-column flex-center">
+                <img src="/assets/icons/3D-type.png" />
+                <p class="font-weight-semiboldn mt-10px fs-12px">Cover Image</p>
+              </div>
+              <span class="font-weight-semiboldn fs-14-responsive">
+                <img src="/assets/icons/upload.svg" alt="upload-icon" class="mr-5px" />
+                Upload a cover photo for your 3D model
+              </span>
+              <p class="fs-12px p-5px" [ngClass]="mobile ? 'w-90' : 'w-80'" style="color: #7e7e7e">
+                For optimal results, please upload 500px x 500px. Cover photo will show in NFT card and NFT profile on
+                Supernovas.
+              </p>
+            </div>
+
+            <i *ngIf="isCoverImageUploading" class="fa fa-2x fa-spinner fa-spin"></i>
+          </label>
+
+          <input
+            #imageInput
+            type="file"
+            accept="image(*"
+            id="file-upload-cover-image"
+            (change)="_handleFilesInputCoverImage($event.target.files)"
+            class="br-6px"
+          />
         </div>
-        <!-- Video Player -->
-        <div *ngIf="postVideoDESOSrc && readyToStream" class="feed-post__video-container m-w-80">
-          <iframe
-            [src]="postVideoDESOSrc | sanitizeVideoUrl"
-            allow="accelerometer; gyroscope; encrypted-media; picture-in-picture;"
-            allowfullscreen
-            class="feed-post__video"
-          ></iframe>
-        </div>
-        <div class="d-flex flex-column align-items-center" *ngIf="videoUploadPercentage !== null">
-          <div>Uploading: {{ videoUploadPercentage }}% Complete</div>
-          <mat-progress-bar [value]="videoUploadPercentage" [mode]="'determinate'"></mat-progress-bar>
-        </div>
-        <div class="d-flex flex-column align-items-center" *ngIf="postVideoDESOSrc && !readyToStream">
-          <div>Video Processing In Progress</div>
-          <simple-center-loader [height]="150"></simple-center-loader>
-        </div>
+
+        <ng-template #showModelCoverArt>
+          <div class="mint-page__image-container m-w-80" *ngIf="modelType && postImageArweaveSrc">
+            <i class="icon-close feed-post__image-delete" (click)="postImageArweaveSrc = null"></i>
+            <img class="feed-post__image br-0px" src="{{ postImageArweaveSrc }}" />
+          </div>
+        </ng-template>
       </div>
+
       <!-- LEFT SIDE DESKTOP STEPS >= 4 -->
       <div *ngIf="!mobile && step >= 4" class="mint-page-image-container d-flex flex-center">
         <div [@cardAppearAnimation] class="fake-card">
@@ -1322,6 +1512,7 @@
               ></video>
             </div>
           </div>
+
           <div class="caption-cover w-100">
             <p class="font-weight-semibold fs-20px-im">
               {{ NAME_OF_PIECE }}
@@ -1344,6 +1535,7 @@
               </div>
             </div>
           </div>
+
           <div class="bid-cover flex-wrap colors-not-sold">
             <div class="bid-row">
               <div class="d-flex bid_inner_row">

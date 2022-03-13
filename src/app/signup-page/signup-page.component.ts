@@ -7,7 +7,7 @@ import { AppRoutingModule, RouteNames } from "../app-routing.module";
 import { SwalHelper } from "src/lib/helpers/swal-helper";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { isNil } from "lodash";
-import { GoogleAnalyticsService } from "../google-analytics.service";
+import { MixpanelService } from "../mixpanel.service";
 
 export type ProfileUpdates = {
   usernameUpdate: string;
@@ -57,10 +57,10 @@ export class SignupPageComponent implements OnInit {
   profileUpdated = false;
 
   constructor(
-    private analyticsService: GoogleAnalyticsService,
     public globalVars: GlobalVarsService,
     private firestore: AngularFirestore,
     private route: ActivatedRoute,
+    private mixPanel: MixpanelService,
     private router: Router,
     private backendApi: BackendApiService
   ) {
@@ -70,10 +70,13 @@ export class SignupPageComponent implements OnInit {
   }
 
   emailAddressInputClicked() {
+    this.mixPanel.track22("Email address clicked");
     console.log(` -------------- email address clicked --------------- `);
   }
 
   verifyEmailClicked() {
+    this.mixPanel.alias(this.globalVars.loggedInUser?.PublicKeyBase58Check);
+    this.mixPanel.track23("Verify Email clicked");
     this.startedEnteringEmail = true;
     var emailAddressElement = <HTMLInputElement>document.getElementById("step3EmailAddress");
     var emailAddress = emailAddressElement.value;
@@ -93,6 +96,7 @@ export class SignupPageComponent implements OnInit {
   }
 
   _updateEmail() {
+    this.mixPanel.track19("Update email");
     this.backendApi
       .UpdateUserGlobalMetadata(
         this.globalVars.localNode,
@@ -123,6 +127,7 @@ export class SignupPageComponent implements OnInit {
     };
   }
   updateProfileType() {
+    this.mixPanel.track17("Update profile type");
     if (this.globalVars.loggedInUser.PublicKeyBase58Check) {
       return new Promise<any>((resolve, reject) => {
         this.firestore
@@ -146,6 +151,7 @@ export class SignupPageComponent implements OnInit {
     }
   }
   _validateUsername(username) {
+    this.mixPanel.track26("Validate Username");
     if (username === "") {
       return;
     }
@@ -187,7 +193,6 @@ export class SignupPageComponent implements OnInit {
   nextStep() {
     if (this.stepNum === 2) {
       this.updateProfileType();
-      this.SendStepTwoEvent();
       this.stepNum++;
 
       return;
@@ -198,7 +203,6 @@ export class SignupPageComponent implements OnInit {
         this._updateEmail();
       }
 
-      this.SendStepThreeEvent();
       this.stepNum++;
 
       return;
@@ -206,7 +210,6 @@ export class SignupPageComponent implements OnInit {
     if (this.stepNum === 4) {
       this.updateProfileType();
       if (this.globalVars.wantToVerifyPhone === false) {
-        this.SendStepFourEvent();
 
         //   close nav bar because it will open on mobile
         if (this.globalVars.isMobileIphone()) {
@@ -220,10 +223,12 @@ export class SignupPageComponent implements OnInit {
     }
   }
   creatorSelected() {
+    this.mixPanel.track24("Creator Selected");
     this.creator = true;
     this.collector = false;
   }
   collectorSelected() {
+    this.mixPanel.track25("Collector Selected");
     this.collector = true;
     this.creator = false;
   }
@@ -299,7 +304,6 @@ export class SignupPageComponent implements OnInit {
         this.globalVars.logEvent("profile : update");
         // This updates things like the username that shows up in the dropdown.
         this.globalVars.updateEverything(res.TxnHashHex, this._updateProfileSuccess, this._updateProfileFailure, this);
-        this.SendProfileUpdateSuccessEvent();
       },
       (err) => {
         const parsedError = this.backendApi.parseProfileError(err);
@@ -329,6 +333,7 @@ export class SignupPageComponent implements OnInit {
     );
   }
   _updateProfileSuccess(comp: SignupPageComponent) {
+    this.mixPanel.track20("Update profile");
     comp.globalVars.celebrate();
     comp.updateProfileBeingCalled = false;
     comp.profileUpdated = true;
@@ -338,24 +343,5 @@ export class SignupPageComponent implements OnInit {
   _updateProfileFailure(comp: SignupPageComponent) {
     comp.globalVars._alertError("Transaction broadcast successfully but read node timeout exceeded. Please refresh.");
     comp.updateProfileBeingCalled = false;
-    this.SendProfileUpdateFailureEvent();
-  }
-  SendStepOneEvent() {
-    this.analyticsService.eventEmitter("Signup_step_1", "engagement", "conversion", "click", 10);
-  }
-  SendStepTwoEvent() {
-    this.analyticsService.eventEmitter("Signup_step_2", "engagement", "conversion", "click", 10);
-  }
-  SendStepThreeEvent() {
-    this.analyticsService.eventEmitter("Signup_step_3", "engagement", "conversion", "click", 10);
-  }
-  SendStepFourEvent() {
-    this.analyticsService.eventEmitter("Signup_step_4", "engagement", "conversion", "click", 10);
-  }
-  SendProfileUpdateSuccessEvent() {
-    this.analyticsService.eventEmitter("Profile_creation_success", "engagement", "conversion", "click", 10);
-  }
-  SendProfileUpdateFailureEvent() {
-    this.analyticsService.eventEmitter("Profile_creation_failure", "engagement", "conversion", "click", 10);
   }
 }

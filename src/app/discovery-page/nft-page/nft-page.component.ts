@@ -35,6 +35,7 @@ export class NftPageComponent implements OnInit {
   static COMMUNITY_FAVOURITES = "Community Favourites";
   static IMAGES = "Images";
   static VIDEO = "Video";
+  static MODEL = "3d";
 
   infiniteScroller: InfiniteScroller = new InfiniteScroller(
     NftPageComponent.PAGE_SIZE,
@@ -56,6 +57,7 @@ export class NftPageComponent implements OnInit {
     communityfavourites: "Community Favorites",
     image: "Images",
     video: "Video",
+    model: "3D",
   };
 
   datasource: IDatasource<IAdapter<any>> = this.infiniteScroller.getDatasource();

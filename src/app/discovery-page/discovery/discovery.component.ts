@@ -9,6 +9,8 @@ import { Subscription } from "rxjs";
 import _ from "lodash";
 import { PlaceBidModalComponent } from "src/app/place-bid-modal/place-bid-modal.component";
 import { SharedDialogs } from "src/lib/shared-dialogs";
+import { MixpanelService } from "src/app/mixpanel.service";
+import { BuyNowModalComponent } from "src/app/buy-now-modal/buy-now-modal.component";
 
 @Component({
   selector: "app-discovery",
@@ -19,6 +21,7 @@ export class DiscoveryComponent implements OnInit {
   @Input() post: PostEntryResponse;
   @Input() mobile: boolean;
   nftBidData: NFTBidData;
+  isBuyNow: boolean;
   bids: NFTBidEntryResponse[];
   hightestBidOwner: any = {};
   myBidsLength: number;
@@ -30,7 +33,8 @@ export class DiscoveryComponent implements OnInit {
     private router: Router,
     public modalService: BsModalService,
     public globalVars: GlobalVarsService,
-    public backendApi: BackendApiService
+    public backendApi: BackendApiService,
+    private mixPanel: MixpanelService
   ) {}
   ngOnInit(): void {}
 
@@ -38,6 +42,7 @@ export class DiscoveryComponent implements OnInit {
     if (changes.post) {
       if (this.post?.PostHashHex) {
         this.loadBidData();
+        this.getNFTEntries();
       }
     }
   }
@@ -54,6 +59,29 @@ export class DiscoveryComponent implements OnInit {
     return imgURL;
   }
 
+  openBuyNowModal(event: any) {
+    if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
+      SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "buy now");
+      return;
+    }
+    event.stopPropagation();
+    const modalDetails = this.modalService.show(BuyNowModalComponent, {
+      class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+      initialState: {
+        post: this.post,
+        clickedBuyNow: true,
+      },
+    });
+
+    const onHideEvent = modalDetails.onHide;
+    onHideEvent.subscribe((response) => {
+      if (response === "bid placed") {
+        this.loadBidData();
+        this.getNFTEntries();
+      }
+    });
+  }
+
   openImgModal(event, imageURL) {
     event.stopPropagation();
     this.modalService.show(FeedPostImageModalComponent, {
@@ -68,6 +96,7 @@ export class DiscoveryComponent implements OnInit {
       SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "place a bid");
       return;
     }
+    this.mixPanel.track15("Open Place a Bid Modal");
     event.stopPropagation();
     const modalDetails = this.modalService.show(PlaceBidModalComponent, {
       class: "modal-dialog-centered  nft_placebid_modal_bx nft_placebid_modal_bx_right  modal-lg",
@@ -113,6 +142,18 @@ export class DiscoveryComponent implements OnInit {
       )
       .add(() => {
         this.delayLoading();
+      });
+  }
+
+  getNFTEntries() {
+    this.backendApi
+      .GetNFTEntriesForNFTPost(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser?.PublicKeyBase58Check,
+        this.post.PostHashHex
+      )
+      .subscribe((res) => {
+        this.isBuyNow = res.NFTEntryResponses[0].IsBuyNow;
       });
   }
 

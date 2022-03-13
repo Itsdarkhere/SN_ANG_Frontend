@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { NFTBidEntryResponse, BackendApiService } from "../backend-api.service";
 import { GlobalVarsService } from "../global-vars.service";
+import { MixpanelService } from "../mixpanel.service";
 
 @Component({
   selector: "app-cancel-bid-modal",
@@ -18,6 +19,7 @@ export class CancelBidModalComponent implements OnInit {
     public bsModalRef: BsModalRef,
     public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
+    private mixPanel: MixpanelService,
     private modalService: BsModalService
   ) {}
 
@@ -49,9 +51,11 @@ export class CancelBidModalComponent implements OnInit {
         () => {
           this.bsModalRef.hide();
           this.modalService.setDismissReason("Bids cancelled");
+          this.mixPanel.track14("Cancel Bid");
         },
         (err) => {
           console.error(err);
+          this.mixPanel.track14("Cancel Bid ERROR");
         }
       );
   }

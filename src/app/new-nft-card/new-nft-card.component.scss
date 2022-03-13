@@ -266,6 +266,7 @@
   background-color: #0000004d;
   transition: opacity 0.2s linear;
 }
+// Can't tell what this is doing/if it's necessary
 .card-audio-icon-container {
   position: absolute;
   top: 0;
@@ -304,6 +305,80 @@
     overflow-wrap: anywhere;
     word-break: break-word;
   }
+}
+
+// This is the audio play button that appears on hover in the large marketplace view
+.audio-icon-hover-state {
+  width: 216px;
+  height: 49px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000000;
+  border-radius: 30px;
+  p {
+    color: #ffffff;
+  }
+}
+.top-br-30px {
+  border-top-left-radius: 30px !important;
+  border-top-right-radius: 30px !important;
+}
+.nft-post-top {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+}
+.card-video-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 60%;
+}
+.card-audio-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 60%;
+}
+.opacity_0 {
+  opacity: 0;
+}
+.ml-5px {
+  margin-left: 5px;
+}
+.max-width-300 {
+  max-width: 300px;
+}
+.colors-not-sold {
+  background-color: #171717;
+  .p-lighter {
+    color: #bfbfbf !important;
+  }
+  p {
+    color: #ffffff !important;
+  }
+}
+.br-0px {
+  border-radius: 0px !important;
+}
+.card-footer {
+  //transition-delay: 0.3s;
+  position: absolute;
+  bottom: 0;
+  transition-duration: 0.2s;
+  padding: 5px 12px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .audio-icon-hover-state {
   width: 216px;

@@ -40,6 +40,9 @@ import { ActivityComponent } from "./activity/activity.component";
 import { MintPageComponent } from "./mint-page/mint-page.component";
 import { NftPageComponent } from "./discovery-page/nft-page/nft-page.component";
 import { DiscoveryPageComponent } from "./discovery-page/discovery-page.component";
+import { AnalyticsPageComponent } from "./analytics-page/analytics-page.component";
+import { LandingPageComponent } from "./landing-page/landing-page.component";
+import { LandingReferralsComponent } from "./landing-referrals/landing-referrals.component";
 
 class RouteNames {
   // Not sure if we should have a smarter schema for this, e.g. what happens if we have
@@ -54,6 +57,7 @@ class RouteNames {
   public static FOLLOWERS = "followers";
 
   public static ACTIVITY = "activity";
+  public static ANALYTICS = "analytics";
   public static SIGNUP = "signup";
   public static NFT_PAGE = "nfts";
   public static MINT_PAGE = "mint";
@@ -80,7 +84,7 @@ class RouteNames {
   public static TOS = "terms-of-service";
   public static ADMIN = "admin";
   public static GET_STARTER_DESO = "get-starter-deso";
-  public static LANDING = "/";
+  public static LANDING = "home";
   public static DIAMONDS = "diamonds";
   public static TRENDS = "Marketplace";
   public static REFERRALS = "referrals";
@@ -97,8 +101,12 @@ class RouteNames {
 
 const routes: Routes = [
   { path: "", redirectTo: RouteNames.BROWSE, pathMatch: "full" },
+  { path: RouteNames.LANDING, component: LandingPageComponent, pathMatch: "full" },
+  { path: RouteNames.LANDING + "/:username", component: LandingReferralsComponent, pathMatch: "full" },
+  { path: RouteNames.ANALYTICS, component: AnalyticsPageComponent, pathMatch: "full" },
   { path: RouteNames.ACTIVITY, component: ActivityComponent, pathMatch: "full" },
   { path: RouteNames.SIGNUP, component: SignupPageComponent, pathMatch: "full" },
+  { path: RouteNames.SIGNUP + "/:username", component: SignupPageComponent, pathMatch: "full" },
   { path: RouteNames.NFT_PAGE, component: NftPageComponent, pathMatch: "full" },
   { path: RouteNames.MINT_PAGE, component: MintPageComponent, pathMatch: "full" },
   { path: RouteNames.BROWSE, component: BrowsePageComponent, pathMatch: "full" },

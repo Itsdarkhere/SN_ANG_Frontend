@@ -6,7 +6,6 @@ import * as _ from "lodash";
 import { Router } from "@angular/router";
 // import { InfiniteScroller } from "../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
-import { GoogleAnalyticsService } from "../google-analytics.service";
 import { Location } from "@angular/common";
 import { ToastrService } from "ngx-toastr";
 import { CommentModalComponent } from "../comment-modal/comment-modal.component";
@@ -37,7 +36,6 @@ export class GeneralSuccessModalComponent implements OnInit {
   depositAmount: any;
 
   constructor(
-    private analyticsService: GoogleAnalyticsService,
     public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
     private modalService: BsModalService,
@@ -49,13 +47,7 @@ export class GeneralSuccessModalComponent implements OnInit {
 
   link = new Link(environment.imx.ROPSTEN_LINK_URL);
 
-  ngOnInit(): void {
-    this.SendBidModalOpenedEvent();
-  }
-
-  SendBidModalOpenedEvent() {
-    this.analyticsService.eventEmitter("bid_modal_opened", "usage", "activity", "click", 10);
-  }
+  ngOnInit(): void {}
 
   async linkSetup(): Promise<void> {
     const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";

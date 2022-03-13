@@ -1,5 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSelectModule } from "@angular/material/select";
 import { MatInputModule } from "@angular/material/input";
@@ -156,6 +156,9 @@ import { SanitizeVideoUrlPipe } from "../lib/pipes/sanitize-video-url-pipe";
 import { AdminNodeFeesComponent } from "./admin/admin-node-fees/admin-node-fees.component";
 import { AdminNodeAddFeesComponent } from "./admin/admin-node-fees/admin-node-add-fee/admin-node-add-fees.component";
 import { IvyCarouselModule } from "angular-responsive-carousel";
+import { NgApexchartsModule } from "ng-apexcharts";
+import { LottieModule } from "ngx-lottie";
+import player from "lottie-web";
 
 // Modular Themes for DeSo by Carsen Klock @carsenk
 import { ThemeModule } from "./theme/theme.module";
@@ -222,6 +225,15 @@ import { WithdrawEthComponent } from "./imx-page/withdraw-eth/withdraw-eth.compo
 import { EthNftPostPageComponent } from "./eth-nft-post-page/eth-nft-post-page.component";
 import { EthNftPostComponent } from "./eth-nft-post-page/eth-nft-post/eth-nft-post.component";
 import { EthMarketplaceLeftBarComponent } from "./eth-marketplace-left-bar/eth-marketplace-left-bar.component";
+import { DashboardComponent } from "./analytics-page/dashboard/dashboard.component";
+import { AnalyticsActivityComponent } from "./analytics-page/analytics-activity/analytics-activity.component";
+import { ActivityLeftBarComponent } from "./analytics-page/analytics-activity/activity-left-bar/activity-left-bar.component";
+import { ActivityTableComponent } from "./analytics-page/analytics-activity/activity-table/activity-table.component";
+import { ModelComponent } from "./mint-page/model/model.component";
+import { LandingReferralsComponent } from "./landing-referrals/landing-referrals.component";
+import { SignupPageReferralsComponent } from "./signup-page-referrals/signup-page-referrals.component";
+import { LandingPageCreatorsComponent } from "./landing-page-creators/landing-page-creators.component";
+import { LandingPageDaoComponent } from "./landing-page-dao/landing-page-dao.component";
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -418,6 +430,15 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     EthNftPostPageComponent,
     EthNftPostComponent,
     EthMarketplaceLeftBarComponent,
+    DashboardComponent,
+    AnalyticsActivityComponent,
+    ActivityLeftBarComponent,
+    ActivityTableComponent,
+    ModelComponent,
+    LandingReferralsComponent,
+    SignupPageReferralsComponent,
+    LandingPageCreatorsComponent,
+    LandingPageDaoComponent,
   ],
   imports: [
     BrowserModule,
@@ -444,6 +465,8 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     InfiniteScrollModule,
     IvyCarouselModule,
     NgxShimmerLoadingModule,
+    NgApexchartsModule,
+    LottieModule.forRoot({ player: playerFactory }),
     AnimateOnScrollModule.forRoot(),
     ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),
@@ -461,5 +484,12 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
   ],
   providers: [BackendApiService, GlobalVarsService, BsModalService, IdentityService],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
+
+// Note we need a separate function as it's required
+// by the AOT compiler.
+export function playerFactory() {
+  return player;
+}

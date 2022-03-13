@@ -9,7 +9,8 @@ import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { Subscription } from "rxjs";
 import { SwalHelper } from "../../lib/helpers/swal-helper";
 import { environment } from "src/environments/environment";
-import { animate, query, stagger, style, transition, trigger } from "@angular/animations";
+import { animate, style, transition, trigger } from "@angular/animations";
+import { MixpanelService } from "../mixpanel.service";
 
 import { Link, ImmutableXClient, ImmutableMethodResults, ETHTokenType, ImmutableRollupStatus } from "@imtbl/imx-sdk";
 import { ethers } from "ethers";
@@ -78,7 +79,8 @@ export class WalletComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private backendApi: BackendApiService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private mixPanel: MixpanelService
   ) {
     this.globalVars = appData;
     this.route.params.subscribe((params) => {
@@ -96,6 +98,7 @@ export class WalletComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setMobileBasedOnViewport();
+    this.mixPanel.track36("Wallet page viewed");
     if (this.inTutorial) {
       this.tabs = [WalletComponent.coinsPurchasedTab];
       this.tutorialStatus = this.globalVars.loggedInUser?.TutorialStatus;

@@ -7,8 +7,7 @@ import * as _ from "lodash";
 import { Router } from "@angular/router";
 import { InfiniteScroller } from "../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
-import { GoogleAnalyticsService } from "../google-analytics.service";
-import { object } from "underscore";
+import { MixpanelService } from "../mixpanel.service";
 
 @Component({
   selector: "place-bid-modal",
@@ -43,11 +42,11 @@ export class PlaceBidModalComponent implements OnInit {
   errors: string;
 
   constructor(
-    private analyticsService: GoogleAnalyticsService,
     public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
     private modalService: BsModalService,
     public bsModalRef: BsModalRef,
+    private mixPanel: MixpanelService,
     private router: Router
   ) {}
 
@@ -115,12 +114,8 @@ export class PlaceBidModalComponent implements OnInit {
         );
       })
       .add(() => (this.loading = false));
+  }
 
-    this.SendBidModalOpenedEvent();
-  }
-  SendBidModalOpenedEvent() {
-    this.analyticsService.eventEmitter("bid_modal_opened", "usage", "activity", "click", 10);
-  }
   updateBidAmountUSD(desoAmount) {
     this.bidAmountUSD = this.globalVars.nanosToUSDNumber(desoAmount * 1e9).toFixed(2);
     this.setErrors();
@@ -171,7 +166,7 @@ export class PlaceBidModalComponent implements OnInit {
             class: "modal-dialog-centered modal-dialog-bottom rt_popups modal-sm",
           });
           this.modalService.setDismissReason("bid placed");
-          this.SendBidPlacedEvent();
+          this.mixPanel.track16("Bid Placed");
         },
         (err) => {
           console.error(err);
@@ -183,9 +178,7 @@ export class PlaceBidModalComponent implements OnInit {
         this.saveSelectionDisabled = false;
       });
   }
-  SendBidPlacedEvent() {
-    this.analyticsService.eventEmitter("bid_placed", "usage", "activity", "transaction", 10);
-  }
+
   navigateToBuyDESO(): void {
     this.bsModalRef.hide();
     this.router.navigate(["/" + this.globalVars.RouteNames.BUY_DESO]);

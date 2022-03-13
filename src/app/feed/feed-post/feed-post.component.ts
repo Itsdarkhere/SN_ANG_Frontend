@@ -23,12 +23,10 @@ import { PlaceBidModalComponent } from "../../place-bid-modal/place-bid-modal.co
 import { BuyNowModalComponent } from "../../buy-now-modal/buy-now-modal.component";
 import { EmbedUrlParserService } from "../../../lib/services/embed-url-parser-service/embed-url-parser-service";
 import { SharedDialogs } from "../../../lib/shared-dialogs";
-import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 import { UnlockContentModalComponent } from "src/app/unlock-content-modal/unlock-content-modal.component";
 import { CreateNftAuctionModalComponent } from "src/app/create-nft-auction-modal/create-nft-auction-modal.component";
 import { take } from "rxjs/operators";
-import { Console } from "console";
-import { fadeInItems } from "@angular/material/menu";
+import { MixpanelService } from "src/app/mixpanel.service";
 
 import { environment } from "src/environments/environment";
 import { ethers } from "ethers";
@@ -74,13 +72,13 @@ export class FeedPostComponent implements OnInit {
   @Input() isNFTProfileComment = false;
   @Input() nftBidData: NFTBidData;
   constructor(
-    private analyticsService: GoogleAnalyticsService,
     public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
     private ref: ChangeDetectorRef,
     private router: Router,
     private modalService: BsModalService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private mixPanel: MixpanelService
   ) {}
 
   // Got this from https://code.habd.as/jhabdas/xanthippe/src/branch/master/lib/xanthippe.js#L8
@@ -492,9 +490,6 @@ export class FeedPostComponent implements OnInit {
     console.log(` ---------- is eth nft for sale ${this.globalVars.isEthereumNFTForSale} ---------- `);
   }
 
-  SendAddToCartEvent() {
-    this.analyticsService.eventEmitter("place_a_bid", "transaction", "bid", "click", 10);
-  }
   onPostClicked(event) {
     if (this.inTutorial) {
       return;
@@ -832,6 +827,7 @@ export class FeedPostComponent implements OnInit {
   openPlaceBidModal(event: any) {
     this.clickedBuyNow = false;
     this.clickedPlaceABid = true;
+    this.mixPanel.track15("Open Place a Bid Modal");
     if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
       SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "place a bid");
       return;

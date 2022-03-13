@@ -9,6 +9,7 @@ import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { Location } from "@angular/common";
 import { ToastrService } from "ngx-toastr";
 import { CommentModalComponent } from "../comment-modal/comment-modal.component";
+import { MixpanelService } from "../mixpanel.service";
 
 import { Link, ImmutableXClient, ImmutableMethodResults, ETHTokenType, ImmutableRollupStatus } from "@imtbl/imx-sdk";
 import { ethers } from "ethers";
@@ -61,6 +62,7 @@ export class BuyNowModalComponent implements OnInit {
     public bsModalRef: BsModalRef,
     private router: Router,
     private toastr: ToastrService,
+    private mixPanel: MixpanelService,
     private location: Location
   ) {}
 
@@ -208,6 +210,7 @@ export class BuyNowModalComponent implements OnInit {
   closeBuyEthSuccess() {
     this.bsModalRef.hide();
     location.reload();
+    this.mixPanel.track13("Buy Now");
   }
 
   quoteRepost(event, isQuote = true) {

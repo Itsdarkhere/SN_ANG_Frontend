@@ -13,6 +13,7 @@ import { environment } from "src/environments/environment";
 import { StringMap } from "@angular/compiler/src/compiler_facade_interface";
 import internal from "stream";
 import { NumberSymbol } from "@angular/common";
+import { MixpanelService } from "./mixpanel.service";
 
 export class BackendRoutes {
   static ExchangeRateRoute = "/api/v0/get-exchange-rate";
@@ -455,7 +456,7 @@ export class DeSoNode {
   providedIn: "root",
 })
 export class BackendApiService {
-  constructor(private httpClient: HttpClient, private identityService: IdentityService) {}
+  constructor(private httpClient: HttpClient, private identityService: IdentityService, private mixPanel: MixpanelService) {}
 
   static GET_PROFILES_ORDER_BY_INFLUENCER_COIN_PRICE = "influencer_coin_price";
   static BUY_CREATOR_COIN_OPERATION_TYPE = "buy";
@@ -1025,7 +1026,7 @@ export class BackendApiService {
       BuyNowPriceNanos,
       MinFeeRateNanosPerKB,
     });
-
+    this.mixPanel.track42("NFT created")
     return this.signAndSubmitTransaction(endpoint, request, UpdaterPublicKeyBase58Check);
   }
 
@@ -1726,7 +1727,9 @@ export class BackendApiService {
       IsUnlike,
       MinFeeRateNanosPerKB,
     });
-
+    this.mixPanel.track40("Liked post", {
+      "post": LikedPostHashHex,
+    });
     return this.signAndSubmitTransaction(endpoint, request, ReaderPublicKeyBase58Check);
   }
 
@@ -1747,7 +1750,10 @@ export class BackendApiService {
       MinFeeRateNanosPerKB,
       InTutorial,
     });
-
+    this.mixPanel.track41("Send Diamond", {
+      "Receiver": ReceiverPublicKeyBase58Check,
+      "Post hash": DiamondPostHashHex
+    });
     return this.signAndSubmitTransaction(endpoint, request, SenderPublicKeyBase58Check);
   }
 

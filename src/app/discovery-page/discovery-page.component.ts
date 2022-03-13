@@ -3,6 +3,7 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild } from "@angular
 import { BackendApiService, NFTEntryResponse, PostEntryResponse } from "../backend-api.service";
 import { GlobalVarsService } from "../global-vars.service";
 import KeenSlider, { KeenSliderInstance } from "keen-slider"
+import { MixpanelService } from "../mixpanel.service";
 import { Router } from "@angular/router";
 
 @Component({
@@ -35,7 +36,7 @@ export class DiscoveryPageComponent implements OnInit {
   posts2Loading = false;
   usersLoading = false;
   fakeArray = [1, 2, 3, 4, 5, 6, 7, 8];
-  constructor(private backendApi: BackendApiService, public globalVars: GlobalVarsService, public router: Router) {}
+  constructor(private backendApi: BackendApiService, private mixPanel: MixpanelService, public globalVars: GlobalVarsService, public router: Router) {}
 
   ngOnInit(): void {
     this.setMobileBasedOnViewport();
@@ -53,6 +54,8 @@ export class DiscoveryPageComponent implements OnInit {
     this.getCommunityFavourites();
     this.getFreshDrops();
     this._loadVerifiedUsers();
+
+    this.mixPanel.track44("Discovery viewed");
   }
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();

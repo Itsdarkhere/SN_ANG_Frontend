@@ -413,7 +413,6 @@ $green-font-color: #19b028;
 .w-45 {
   width: 45%;
 }
-
 .w-47_5 {
   width: 47.5%;
 }
@@ -701,8 +700,22 @@ $green-font-color: #19b028;
   border-color: $buy-button-blue;
 }
 
+//TODO
+
 .tab-underline-active {
   border-bottom: solid $buy-button-blue 3px;
+}
+
+.tab-box-active {
+    background-color: white;
+    /* padding: 58px; */
+    border-radius: 5em;
+    margin: 4px;
+}
+.tab-selector-box-active {
+    background-color: white;
+    /* padding: 58px; */
+    border-radius: 5em;
 }
 
 .tab-underline-inactive {

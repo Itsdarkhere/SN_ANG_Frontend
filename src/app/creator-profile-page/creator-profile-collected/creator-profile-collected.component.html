@@ -11,9 +11,6 @@
   </div>
 </div>
 <div *ngIf="!showProfileAsReserved">
-  <div class="p-15px pb-0">
-    <div *ngIf="nftResponse?.length">NFTs collected by @{{ profile.Username }}</div>
-  </div>
   <div *ngIf="!globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check) && nftResponse?.length > 0">
     <div
       class="search-results"

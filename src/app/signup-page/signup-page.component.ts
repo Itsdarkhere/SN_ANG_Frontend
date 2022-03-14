@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from "@angular/core";
+import { Component, ComponentFactoryResolver, HostListener, OnInit } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
@@ -27,6 +27,7 @@ export type ProfileUpdateErrors = {
   styleUrls: ["./signup-page.component.scss"],
 })
 export class SignupPageComponent implements OnInit {
+  RouteNames = RouteNames;
   stepNum = 1;
   creator = false;
   collector = false;
@@ -199,6 +200,11 @@ export class SignupPageComponent implements OnInit {
     this.setMobileBasedOnViewport();
     // Sets default profile picture for the user
     this.urlToObject();
+
+    if (this.globalVars.isOldDesoProfile) {
+      this.stepNum = 2;
+      console.log(` ------------ isOldDesoProfile ${this.globalVars.isOldDesoProfile} and stepNum is ${this.stepNum}`);
+    }
   }
   login() {
     this.globalVars.launchLoginFlow();

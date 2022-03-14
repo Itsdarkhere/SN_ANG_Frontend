@@ -261,7 +261,7 @@
       </button>
     </div>
     <div class="nft_bx bids_new_sc">
-      <div class="borderbg feed-post__blue-border eth-nft-tab-selector" *ngIf="!loading">
+      <div class="borderbg feed-post__blue-border" *ngIf="!loading">
         <tab-selector
           [icons]="[
             '/assets/icons/nft_bids_icon.svg',
@@ -541,6 +541,109 @@
               </div> -->
           </div>
         </div>
+      </div>
+      <div *ngIf="activeTab === EthNftPostComponent.COMMENTS">
+        <div class="comments_likes_list">
+          <div class="nft-post-icon-row-wrapper h-50 d-flex flex-center">
+            <feed-post-icon-row
+              *ngIf="showIconRow"
+              class="w-100"
+              [isNFTProfile]="true"
+              [post]="post"
+              [postContent]="postContent"
+              [parentPost]="parentPost"
+              [afterCommentCreatedCallback]="prependPostToFeed.bind(this)"
+            ></feed-post-icon-row>
+          </div>
+          <div class="nft-profile-engagement-string">
+            <div class="d-flex flex-center">
+              <span class="engagement-string-item">
+                <b>{{ globalVars.abbreviateNumber(nftPost.RepostCount) }}</b>
+                Comments
+              </span>
+              <span class="engagement-string-item">
+                <b>{{ globalVars.abbreviateNumber(nftPost.QuoteRepostCount) }}</b>
+                Reposts
+              </span>
+              <span class="engagement-string-item">
+                <b>{{ globalVars.abbreviateNumber(nftPost.LikeCount) }}</b>
+                Likes
+              </span>
+              <span class="engagement-string-item">
+                <b>{{ globalVars.abbreviateNumber(nftPost.DiamondCount) }}</b>
+                Diamonds
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- feed-post End -->
+        <!-- <h3 class="hdb">Comments</h3> -->
+        <!-- <simple-center-loader *ngIf="refreshingBids"></simple-center-loader> -->
+        <div
+          *ngIf="!nftPost.CommentCount && !nftPost.ParentStakeID"
+          class="p-15px d-flex flex-column flex-center nft-no-comments font-weight-semiboldn"
+        >
+          No comments yet
+          <button class="font-weight-semiboldn mt-20px" (click)="openRepostsModal($event)">
+            <img src="/assets/icons/comment.svg" alt="plus-icon" />
+            Comment
+          </button>
+        </div>
+
+        <div *ngIf="nftPost.CommentCount || nftPost.ParentStakeID" class="nft-profile-comment-section">
+          <div class="send-message-thread-container">
+            <div class="fake-textarea-container">
+              <div class="avatar-box-send-message">
+                <a
+                  class="messages-thread__avatar_send_message"
+                  [avatar]="this.globalVars.loggedInUser.PublicKeyBase58Check"
+                ></a>
+              </div>
+              <textarea
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"
+                (keypress)="_messageTextChanged($event)"
+                [(ngModel)]="commentText"
+                placeholder="Make a comment!"
+                class="py-5px fs-15px messages-thread__border-radius flex-grow-1 form-control messages-textarea disable-scrollbars"
+                style="height: 50px"
+              ></textarea>
+              <button
+                *ngIf="!this.submittingPost"
+                (click)="submitPost()"
+                class="btn btn-send-message fs-15px ml-15px messages-thread__border-radius"
+              >
+                <img src="/assets/icons/white-send.svg" />
+              </button>
+              <button
+                *ngIf="this.submittingPost"
+                class="btn btn-send-message fs-15px ml-15px messages-thread__border-radius"
+              >
+                <i class="fa fa-spinner fa-spin"></i>
+              </button>
+            </div>
+          </div>
+          <post-thread
+            #postThread
+            class="post_thread_likes_wrapper"
+            [isNFTProfile]="true"
+            [hideHeader]="true"
+            [fromNFTDetail]="true"
+            [hideCurrentPost]="!nftPost.ParentStakeID"
+          ></post-thread>
+        </div>
+
+        <button
+          type="button"
+          class="add_comment_btn"
+          (click)="openRepostsModal($event)"
+          *ngIf="!(nftPost.CommentCount || nftPost.ParentStakeID || canReplaceExistingIcons)"
+        >
+          <i>+</i>
+          Comment
+        </button>
       </div>
       <!-- DETAILS -->
       <div *ngIf="activeTab === EthNftPostComponent.DETAILS">

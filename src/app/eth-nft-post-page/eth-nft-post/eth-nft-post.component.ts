@@ -101,6 +101,7 @@ export class EthNftPostComponent implements OnInit {
   static OWNERS = "Provenance";
   static THREAD = "Bids";
   static DETAILS = "Details";
+  static COMMENTS = "Comments";
 
   tabs = [
     // EthNftPostComponent.THREAD,
@@ -141,16 +142,17 @@ export class EthNftPostComponent implements OnInit {
       window.location.reload();
       localStorage.setItem("firstLoad", "true");
     } else {
+      console.log("PERKELE");
+      if (this.globalVars.isMobile()) {
+        this.isMobile = true;
+        this.tabs.push("Comments");
+        this.icons.push("/assets/icons/nft_bids_icon.svg");
+      } else {
+        // WIP
+        this.isMobile = false;
+        this.tabs = this.tabs.filter((t) => t !== "Comments");
+      }
       return;
-    }
-    if (this.globalVars.isMobile()) {
-      this.isMobile = true;
-      this.tabs.push("Comments");
-      this.icons.push("/assets/icons/nft_bids_icon.svg");
-    } else {
-      // WIP
-      this.isMobile = false;
-      this.tabs = this.tabs.filter((t) => t !== "Comments");
     }
   }
 

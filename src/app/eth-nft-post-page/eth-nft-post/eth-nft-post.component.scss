@@ -157,7 +157,7 @@
   }
 }
 .send-message-thread-container {
-  margin-top: 10px;
+  padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
   background-color: #f8f8f8 !important;
@@ -246,10 +246,6 @@
 }
 .eth-nft-image-container {
   height: 575px;
-}
-.eth-nft-tab-selector {
-  width: 361px;
-  margin: 0 auto;
 }
 .eth-provenance-container {
   display: flex;

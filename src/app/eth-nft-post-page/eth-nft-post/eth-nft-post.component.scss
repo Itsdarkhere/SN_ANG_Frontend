@@ -23,6 +23,12 @@
     }
   }
 }
+.bids_new_sc {
+  padding-left: 20px !important;
+  @media screen and (max-width: 992px) {
+      padding-left: 0px !important;
+  }
+}
 .nft-no-bids {
   width: 700px;
   max-width: 100%;

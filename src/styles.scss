@@ -4389,13 +4389,9 @@ option {
         -webkit-text-fill-color: transparent;
         line-height: 1.4;
       }
-      > div {
-        width: 80%;
-        min-width: 380px;
-      }
     }
     &.linebx {
-      border-radius: 7px;
+      border-radius: 30px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -4406,9 +4402,6 @@ option {
       @media screen and (min-width: 1366px) {
         width: calc(100% - 600px);
       }
-    }
-    &.bids_new_sc {
-      padding-left: 20px;
     }
     .bids_list_sec {
       margin-top: 30px;
@@ -6002,8 +5995,15 @@ option {
 
 .comments_likes_list {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  margin-bottom: 10px;
+  align-items: center;
+  background: #ffffff;
+  border: 1.1226364374160767px solid #f6f6f6;
+  height: 110px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  width: 100%;
   .ls_sc {
     font-size: 16px;
     color: #909090;

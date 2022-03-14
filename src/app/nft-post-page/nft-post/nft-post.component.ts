@@ -38,6 +38,7 @@ import { ConfirmationModalComponent } from "src/app/confirmation-modal/confirmat
 import { take } from "rxjs/operators";
 import { EmbedUrlParserService } from "src/lib/services/embed-url-parser-service/embed-url-parser-service";
 import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
+import { PostThreadComponent } from "src/app/post-thread-page/post-thread/post-thread.component";
 
 @Component({
   selector: "nft-post",
@@ -46,6 +47,7 @@ import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 })
 export class NftPostComponent implements OnInit {
   @ViewChild(FeedPostComponent) feedPost: FeedPostComponent;
+  @ViewChild("postThread", { static: false }) postThread: PostThreadComponent;
 
   isAvailableForSale = false;
   nftPost: PostEntryResponse;
@@ -84,8 +86,10 @@ export class NftPostComponent implements OnInit {
   quotedContent: any;
   constructedEmbedURL: any;
 
+  commentText: string;
+  submittingPost = false;
+
   contentStorage = false;
-  blockchain = false;
   propertiesBool = false;
 
   static ALL_BIDS = "All Bids";
@@ -94,6 +98,7 @@ export class NftPostComponent implements OnInit {
   static OWNERS = "Provenance";
   static THREAD = "Bids";
   static DETAILS = "Details";
+  static COMMENTS = "Comments";
 
   tabs = [
     NftPostComponent.THREAD,
@@ -102,7 +107,12 @@ export class NftPostComponent implements OnInit {
     NftPostComponent.OWNERS,
     NftPostComponent.DETAILS,
   ];
-
+  icons = [
+    "/assets/icons/nft_bids_icon.svg",
+    "/assets/icons/nft_provenance_icon.svg",
+    "/assets/icons/nft_details_icon.svg",
+  ];
+  isMobile = false;
   constructor(
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
@@ -268,12 +278,7 @@ export class NftPostComponent implements OnInit {
   }
 
   checkPostDetails() {
-    if (this.nftPost.PostExtraData["isEthereumNFT"]) {
-      if (this.nftPost.PostExtraData["isEthereumNFT"] == true) {
-        // True is for eth, false for deso
-        this.blockchain = true;
-      }
-    }
+    // Both 3d and banner have poster images which are stored on ar so this counts them too
     if (this.nftPost.ImageURLs[0]) {
       if (this.nftPost.ImageURLs[0].startsWith("https://arweave.net/")) {
         this.contentStorage = true;
@@ -282,7 +287,6 @@ export class NftPostComponent implements OnInit {
         this.contentStorage = false;
         return;
       }
-      // .startsWith("https://arweave.net/")
     } else if (this.nftPost.VideoURLs[0]) {
       if (this.nftPost.ImageURLs[0].startsWith("https://arweave.net/")) {
         this.contentStorage = true;
@@ -316,10 +320,15 @@ export class NftPostComponent implements OnInit {
             (nftEntryResponse) =>
               nftEntryResponse.OwnerPublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
           );
-          /*if (!this.myAvailableSerialNumbers?.length) {
-            this.tabs = this.tabs.filter((t) => t !== NftPostComponent.MY_AUCTIONS);
-            this.activeTab = this.activeTab === NftPostComponent.MY_AUCTIONS ? this.tabs[0] : this.activeTab;
-          }*/
+          if (this.globalVars.isMobile()) {
+            this.isMobile = true;
+            this.tabs.push("Comments");
+            this.icons.push("/assets/icons/nft_bids_icon.svg");
+          } else {
+            // WIP
+            this.isMobile = false;
+            this.tabs = this.tabs.filter((t) => t !== "Comments");
+          }
           this.myBids = this.nftBidData.BidEntryResponses.filter(
             (bidEntry) => bidEntry.PublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
           );
@@ -369,6 +378,93 @@ export class NftPostComponent implements OnInit {
         this.delayLoading();
         this.refreshingBids = false;
       });
+  }
+  _messageTextChanged(event) {
+    if (event == null) {
+      return;
+    }
+    // When the shift key is pressed ignore the signal.
+    if (event.shiftKey) {
+      return;
+    }
+    if (event.keyCode == 13) {
+      this.submitPost();
+    }
+  }
+
+  submitPost() {
+    // add comment lenght
+    if (this.commentText?.length > GlobalVarsService.MAX_POST_LENGTH) {
+      return;
+    }
+
+    // post can't be blank
+    // add again length
+    if (this.commentText.length === 0) {
+      return;
+    }
+
+    if (this.submittingPost) {
+      return;
+    }
+
+    const postExtraData = {};
+
+    if (environment.node.id) {
+      postExtraData["Node"] = environment.node.id.toString();
+    }
+    // this.postInput add
+    const bodyObj = {
+      Body: this.commentText,
+      // Only submit images if the post is a quoted repost or a vanilla post.
+      ImageURLs: [],
+      VideoURLs: [],
+    };
+    const repostedPostHashHex = "";
+    this.submittingPost = true;
+    const postType = "reply";
+
+    this.backendApi
+      .SubmitPost(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        "" /*PostHashHexToModify*/,
+        this.nftPost.PostHashHex,
+        "" /*Title*/,
+        bodyObj /*BodyObj*/,
+        repostedPostHashHex,
+        postExtraData,
+        "" /*Sub*/,
+        // TODO: Should we have different values for creator basis points and stake multiple?
+        // TODO: Also, it may not be reasonable to allow stake multiple to be set in the FE.
+        false /*IsHidden*/,
+        this.globalVars.defaultFeeRateNanosPerKB /*MinFeeRateNanosPerKB*/,
+        false
+      )
+      .subscribe(
+        (response) => {
+          // Analytics
+          //this.SendPostEvent();
+          this.globalVars.logEvent(`post : ${postType}`);
+
+          this.submittingPost = false;
+
+          this.commentText = "";
+          this.constructedEmbedURL = "";
+          this.changeRef.detectChanges();
+
+          this.prependPostToFeed(response.PostEntryResponse);
+          this.incrementCommentCounter();
+        },
+        (err) => {
+          const parsedError = this.backendApi.parsePostError(err);
+          this.globalVars._alertError(parsedError);
+          this.globalVars.logEvent(`post : ${postType} : error`, { parsedError });
+
+          this.submittingPost = false;
+          this.changeRef.detectChanges();
+        }
+      );
   }
 
   _setStateFromActivatedRoute(route) {

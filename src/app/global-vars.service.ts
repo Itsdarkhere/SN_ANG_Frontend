@@ -82,6 +82,8 @@ export class GlobalVarsService {
   //   phoneVerified
   phoneVerified: boolean;
 
+  isOldDesoProfile: boolean;
+
   //   ----------------------------- imx global vars -----------------------------
   imxWalletConnected: boolean;
   imxWalletAddress: string;
@@ -345,12 +347,25 @@ export class GlobalVarsService {
 
   async checkCreatorStatus(): Promise<void> {
     const publicKey = this.loggedInUser?.PublicKeyBase58Check;
+    console.log(publicKey);
+
     if (publicKey) {
       this.backendApi.GetCollectorOrCreator(this.localNode, publicKey).subscribe(
         (res) => {
-          console.log(res);
+          console.log(
+            ` ---------------------------------- res ${JSON.stringify(res)} ---------------------------------- `
+          );
           this.isCreator = res["Collector"];
           this.isCollector = res["Creator"];
+
+          //   update checkIsVerified
+          this.checkIsVerified();
+
+          //   update checkNullUsername
+          this.checkNullUsername();
+
+          //   update onboardingcomplete status
+          this.checkOnboardingCompleted();
         },
         (err) => {
           console.log(err);
@@ -359,6 +374,14 @@ export class GlobalVarsService {
         }
       );
     }
+
+    // console.log(
+    //   ` ------------------------------------ isCreator ${this.isCreator} ------------------------------------ `
+    // );
+    // console.log(
+    //   ` ------------------------------------ isCollector ${this.isCollector} ------------------------------------ `
+    // );
+
     /*
     How it was done with firebase
     
@@ -457,16 +480,7 @@ export class GlobalVarsService {
 
   async checkOnboardingStatus(): Promise<void> {
     //   update loggedInUser global variables
-    await this.checkCreatorStatus();
-
-    //   update checkIsVerified
-    this.checkIsVerified();
-
-    //   update checkNullUsername
-    this.checkNullUsername();
-
-    //   update onboardingcomplete status
-    this.checkOnboardingCompleted();
+    this.checkCreatorStatus();
   }
   //   ------------------------------------ end of update globalVars for loggedInUser ------------------------------------
 
@@ -1177,6 +1191,8 @@ export class GlobalVarsService {
     // if res.signedUp === false then if /else for creator or collector
     if (signedUp) {
       // If this node supports phone number verification, go to step 3, else proceed to step 4.
+      this.isOldDesoProfile = true;
+
       const stepNum = 2;
       this.router.navigate(["/" + this.RouteNames.SIGNUP], {
         queryParams: { stepNum },

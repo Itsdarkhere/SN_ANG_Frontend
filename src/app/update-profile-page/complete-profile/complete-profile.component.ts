@@ -25,8 +25,10 @@ export class CompleteProfileComponent {
     await this.globalVars.checkOnboardingStatus();
 
     if (this.globalVars.isCreator === false && this.globalVars.isCollector === false) {
-      console.log(" --------------- both creator and collector are false ----------------- ");
-      this.router.navigate([RouteNames.SIGNUP]);
+      console.log(this.globalVars.loggedInUser);
+      if (this.globalVars.loggedInUser) {
+        this.globalVars.flowRedirect(true, this.globalVars.loggedInUser.PublicKeyBase58Check);
+      }
       return;
     }
 

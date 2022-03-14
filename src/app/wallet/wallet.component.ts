@@ -153,6 +153,8 @@ export class WalletComponent implements OnInit, OnDestroy {
     this.tabDesoClick();
 
     this.buildIMX();
+
+    console.log(this.globalVars.loggedInUser);
   }
 
   //   -------------------- immutable x functions --------------------

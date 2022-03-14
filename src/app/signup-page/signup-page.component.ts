@@ -201,9 +201,9 @@ export class SignupPageComponent implements OnInit {
     // Sets default profile picture for the user
     this.urlToObject();
 
-    if (this.globalVars.isOldDesoProfile) {
+    if (this.globalVars.needToPickCreatorOrCollector) {
       this.stepNum = 2;
-      console.log(` ------------ isOldDesoProfile ${this.globalVars.isOldDesoProfile} and stepNum is ${this.stepNum}`);
+      console.log(` -------------------- the user needs to pick creator or collector ----------------- `);
     }
   }
   login() {
@@ -214,12 +214,24 @@ export class SignupPageComponent implements OnInit {
   }
   nextStep() {
     if (this.stepNum === 2) {
+      console.log(` ----------------- on step ${this.stepNum}`);
       this.updateProfileType();
       this.stepNum++;
+
+      this.globalVars.needToPickCreatorOrCollector = false;
+      if (this.creator) {
+        this.globalVars.isCreator = true;
+        this.globalVars.isCollector = false;
+      }
+      if (this.collector) {
+        this.globalVars.isCreator = false;
+        this.globalVars.isCollector = true;
+      }
 
       return;
     }
     if (this.stepNum === 3) {
+      console.log(` ----------------- on step ${this.stepNum}`);
       // if the email is valid then update the email
       if (!this.invalidEmailEntered) {
         this._updateEmail();

@@ -178,6 +178,9 @@ export class NewNftCardComponent implements OnInit {
   ethereumNFTSalePrice: any;
   token_id: any;
   isEthereumNFTForSale: boolean;
+  ethPublicKey: any;
+  ethOwnerHasDesoProfile: boolean;
+  ethPublicKeyNoDesoProfile: string;
 
   unlockableTooltip =
     "This NFT will come with content that's encrypted and only unlockable by the winning bidder. Note that if an NFT is being resold, it is not guaranteed that the new unlockable will be the same original unlockable.";
@@ -295,8 +298,11 @@ export class NewNftCardComponent implements OnInit {
     // if the post is an Ethereum NFT, check if it's for sale
     if (this.postContent.PostExtraData.isEthereumNFT) {
       console.log("isEthereumNFT hit");
-      await this.updateEthNFTForSaleStatus();
-      console.log("upadated ETH NFT for Sale Status");
+      this.updateEthNFTForSaleStatus();
+
+      // check eth NFT owner
+      this.getProfileSocials();
+      this.checkEthNFTOwner();
     }
   }
 
@@ -316,6 +322,43 @@ export class NewNftCardComponent implements OnInit {
         this.ethereumNFTSalePrice = res["result"][i]["buy"]["data"]["quantity"];
         this.ethereumNFTSalePrice = ethers.utils.formatEther(this.ethereumNFTSalePrice);
       }
+    }
+
+    console.log("upadated ETH NFT for Sale Status");
+  }
+
+  getProfileSocials() {
+    this.backendApi
+      .GetPGProfileDetails(this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check)
+      .subscribe(
+        (res) => {
+          this.ethPublicKey = res["ETHPublicKey"];
+          console.log(` -------------- eth pk is ${JSON.stringify(this.ethPublicKey)}`);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+  }
+
+  async checkEthNFTOwner() {
+    const options = { method: "GET", headers: { Accept: "application/json" } };
+
+    let res = await fetch(
+      `https://api.ropsten.x.immutable.com/v1/assets/${environment.imx.TOKEN_ADDRESS}/${this.postContent.PostExtraData.tokenId}`,
+      options
+    );
+
+    res = await res.json();
+
+    this.ethPublicKeyNoDesoProfile = res["user"];
+    this.ethPublicKeyNoDesoProfile = this.ethPublicKeyNoDesoProfile.slice(0, 15) + "...";
+
+    if (res["user"] === this.ethPublicKey) {
+      this.ethOwnerHasDesoProfile = true;
+      console.log(` ----------------- ethOwnerHasDesoProfile ${this.ethOwnerHasDesoProfile}`);
+    } else {
+      this.ethOwnerHasDesoProfile = false;
     }
   }
 

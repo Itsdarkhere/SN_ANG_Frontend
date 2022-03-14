@@ -456,11 +456,46 @@
           </div>
           <!-- is ethereum nft and not for sale-->
           <div
-            class="bid-cover colors-not-sold is-ethereum-nft"
+            class="bid-cover eth-nft-not-for-sale-container is-ethereum-nft-not-for-sale"
             *ngIf="postContent.PostExtraData.isEthereumNFT && !this.isEthereumNFTForSale"
           >
-            <div class="bid-col">
-              <p class="eth-nft-not-for-sale-text">Ethereum NFT not for sale</p>
+            <p class="eth-nft-not-for-sale-text">OWNER</p>
+            <!-- DESO profile has eth wallet -->
+            <div class="d-flex flex-row eth-nft-not-for-sale-owner-container" *ngIf="this.ethOwnerHasDesoProfile">
+              <div class="card-header p-0px" style="border-bottom: 0px">
+                <div class="profile-img">
+                  <a
+                    [avatar]="postContent.PosterPublicKeyBase58Check"
+                    [routerLink]="[
+                      '/' + globalVars.RouteNames.USER_PREFIX,
+                      loadProfile ? this.creatorProfile?.Username : postContent.ProfileEntryResponse?.Username
+                    ]"
+                    queryParamsHandling="merge"
+                  ></a>
+                  <div *ngIf="showThreadConnectionLine" class="feed-post__parent-thread-connector"></div>
+                </div>
+              </div>
+              <div class="d-flex flex-column">
+                <a
+                  class="username-nft-card font-weight-bold"
+                  [routerLink]="[
+                    '/' + globalVars.RouteNames.USER_PREFIX,
+                    loadProfile ? this.creatorProfile?.Username : postContent.ProfileEntryResponse?.Username
+                  ]"
+                >
+                  {{ loadProfile ? this.creatorProfile?.Username : postContent.ProfileEntryResponse?.Username }}
+                  <i
+                    *ngIf="loadProfile ? this.creatorProfile?.IsVerified : postContent.ProfileEntryResponse?.IsVerified"
+                    class="fas fa-check-circle pl-5px fa-md text-primary"
+                  ></i>
+                </a>
+              </div>
+            </div>
+            <!-- DESO profile does not have eth wallet -->
+            <div class="d-flex flex-row eth-nft-not-for-sale-owner-container" *ngIf="!this.ethOwnerHasDesoProfile">
+              <div class="d-flex flex-column">
+                <p class="eth-nft-not-for-sale-owner-text">{{ ethPublicKeyNoDesoProfile }}</p>
+              </div>
             </div>
           </div>
           <div *ngIf="!showInteractionDetails" class="card-footer">

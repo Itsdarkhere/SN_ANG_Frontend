@@ -561,11 +561,28 @@
   height: 80px;
   text-align: center;
 }
+.is-ethereum-nft-not-for-sale {
+  height: 80px;
+}
+.eth-nft-not-for-sale-container {
+  background-color: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
 .eth-nft-not-for-sale-text {
-  color: white;
+  font-style: normal;
+  font-weight: 400;
   font-size: 16px;
-  font-weight: 600;
+  line-height: 24px;
+  color: #6a6a6a;
 }
 .eth-price-text-align-left {
   text-align: left;
+}
+.eth-nft-not-for-sale-owner-container {
+  align-items: center;
+}
+.eth-nft-not-for-sale-owner-text {
+  font-size: 13px !important;
+  color: #525252;
+  font-weight: 700 !important;
 }

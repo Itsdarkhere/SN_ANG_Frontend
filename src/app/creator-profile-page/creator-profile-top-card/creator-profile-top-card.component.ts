@@ -89,6 +89,7 @@ export class CreatorProfileTopCardComponent implements OnInit, OnDestroy {
     this.backendApi.GetPGProfileDetails(this.globalVars.localNode, this.profile.PublicKeyBase58Check).subscribe(
       (res) => {
         this.profileData = res;
+        // console.log(` -------------- eth pk is ${JSON.stringify(this.profileData["ETHPublicKey"])}`);
       },
       (err) => {
         console.log(err);

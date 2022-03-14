@@ -191,6 +191,7 @@ export class CreatorProfileDetailsComponent implements OnInit {
           this.router.navigateByUrl("/" + this.appData.RouteNames.NOT_FOUND, { skipLocationChange: true });
           return;
         }
+        console.log(res);
         this.profile = res.Profile;
         // Load profile until request has gone trough
         try {

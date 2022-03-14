@@ -166,7 +166,6 @@ export class AdminComponent implements OnInit {
       this.adminTabs.push("Super");
       this.adminTabs.push("Node Fees");
     }
-
     this.route.queryParams.subscribe((queryParams) => {
       if (queryParams.adminTab) {
         this.activeTab = queryParams.adminTab;

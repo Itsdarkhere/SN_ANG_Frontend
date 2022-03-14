@@ -37,6 +37,7 @@ import { CancelBidModalComponent } from "src/app/cancel-bid-modal/cancel-bid-mod
 import { ConfirmationModalComponent } from "src/app/confirmation-modal/confirmation-modal.component";
 import { take } from "rxjs/operators";
 import { EmbedUrlParserService } from "src/lib/services/embed-url-parser-service/embed-url-parser-service";
+import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: "nft-post",
@@ -82,6 +83,10 @@ export class NftPostComponent implements OnInit {
   reposterProfile: any;
   quotedContent: any;
   constructedEmbedURL: any;
+
+  contentStorage = false;
+  blockchain = false;
+  propertiesBool = false;
 
   static ALL_BIDS = "All Bids";
   static MY_BIDS = "My Bids";
@@ -209,8 +214,8 @@ export class NftPostComponent implements OnInit {
     this.modalService.show(ModelComponent, {
       class: "modal-dialog-centered img_popups modal-lg",
       initialState: {
-        postModelArweaveSrc
-      }
+        postModelArweaveSrc,
+      },
     });
   }
 
@@ -251,6 +256,7 @@ export class NftPostComponent implements OnInit {
         this.configurePostType(this.nftPost);
         this.titleService.setTitle(this.nftPost.ProfileEntryResponse.Username + ` on ${environment.node.name}`);
         this.refreshBidData();
+        this.checkPostDetails();
       },
       (err) => {
         // TODO: post threads: rollbar
@@ -259,6 +265,35 @@ export class NftPostComponent implements OnInit {
         this.delayLoading();
       }
     );
+  }
+
+  checkPostDetails() {
+    if (this.nftPost.PostExtraData["isEthereumNFT"]) {
+      if (this.nftPost.PostExtraData["isEthereumNFT"] == true) {
+        // True is for eth, false for deso
+        this.blockchain = true;
+      }
+    }
+    if (this.nftPost.ImageURLs[0]) {
+      if (this.nftPost.ImageURLs[0].startsWith("https://arweave.net/")) {
+        this.contentStorage = true;
+        return;
+      } else {
+        this.contentStorage = false;
+        return;
+      }
+      // .startsWith("https://arweave.net/")
+    } else if (this.nftPost.VideoURLs[0]) {
+      if (this.nftPost.ImageURLs[0].startsWith("https://arweave.net/")) {
+        this.contentStorage = true;
+        return;
+      } else {
+        this.contentStorage = false;
+        return;
+      }
+    } else {
+      this.contentStorage = false;
+    }
   }
   refreshBidData(): Subscription {
     this.refreshingBids = true;
@@ -305,10 +340,7 @@ export class NftPostComponent implements OnInit {
             this.activeTab = this.activeTab === NftPostComponent.MY_BIDS ? this.tabs[0] : this.activeTab;
           }
           if (this.nftPost.PostExtraData?.properties) {
-            if (!Array.isArray(JSON.parse(this.nftPost.PostExtraData?.properties))) {
-              this.tabs = this.tabs.filter((t) => t !== NftPostComponent.DETAILS);
-              this.activeTab = this.activeTab === NftPostComponent.DETAILS ? this.tabs[0] : this.activeTab;
-            } else {
+            if (Array.isArray(JSON.parse(this.nftPost.PostExtraData?.properties))) {
               // If it has properties
               let propertiesList = JSON.parse(this.nftPost.PostExtraData?.properties);
               // Make sure its an Array
@@ -317,8 +349,7 @@ export class NftPostComponent implements OnInit {
               }
             }
           } else {
-            this.tabs = this.tabs.filter((t) => t !== NftPostComponent.DETAILS);
-            this.activeTab = this.activeTab === NftPostComponent.DETAILS ? this.tabs[0] : this.activeTab;
+            this.propertiesBool = false;
           }
           this.showPlaceABid = !!(this.availableSerialNumbers?.length - this.myAvailableSerialNumbers?.length);
           this.highBid = _.maxBy(this.nftBidData.NFTEntryResponses, "HighestBidAmountNanos")?.HighestBidAmountNanos;

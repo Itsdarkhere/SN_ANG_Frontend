@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnDestroy } from "@angular/core";
+import { Component, ElementRef, ViewChild, OnDestroy, HostListener, OnInit, Input } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
 import { BackendApiService } from "../backend-api.service";
 import { Router } from "@angular/router";
@@ -37,6 +37,7 @@ import { RouteNames } from "../app-routing.module";
 })
 export class ChangeAccountSelectorComponent implements OnDestroy {
   @ViewChild("changeAccountSelectorRoot", { static: true }) accountSelectorRoot: ElementRef;
+  @Input() alignmentClass: string;
   selectorOpen: boolean;
   hoverRow: number;
   animationType: string;
@@ -58,7 +59,6 @@ export class ChangeAccountSelectorComponent implements OnDestroy {
   ) {
     this.selectorOpen = false;
   }
-
   launchLogoutFlow() {
     this.linkLogOut();
 

@@ -381,7 +381,7 @@
       </div>
       <div *ngIf="activeTab === EthNftPostComponent.OWNERS">
         <div *ngIf="!loading">
-          <div
+          <!-- <div
             class="container d-flex align-items-center fs-14px py-15px border-bottom border-color-grey link--unstyled"
           >
             <div
@@ -428,15 +428,18 @@
                 }"
               ></i>
             </div>
-          </div>
-          <div>
-            <div
-              class="container d-flex align-items-center fs-14px p-15px border-bottom border-color-grey link--unstyled"
-              *ngFor="let owner of owners; let i = index"
-            >
-              <div class="row no-gutters w-100">
+          </div> -->
+          <div class="eth-provenance-container">
+            <div class="eth-provenance-creator-container">
+              <p class="eth-provenance-creator-header">Owner</p>
+              <p class="eth-provenance-creator-text">{{ ethNFTOwnerWalletAddress }}</p>
+            </div>
+            <div class="eth-provenance-creator-container">
+              <p class="eth-provenance-creator-header">Creator</p>
+              <p class="eth-provenance-creator-text">{{ ethNFTCreatorWalletAddress }}</p>
+            </div>
+            <!-- <div class="row no-gutters w-100">
                 <div class="col-5 d-flex align-items-center mb-0 p-0">
-                  <!-- Avatar -->
                   <div class="simple-profile-card__avatar-container">
                     <div class="simple-profile-card__avatar br-12px" [avatar]="owner.OwnerPublicKeyBase58Check"></div>
                   </div>
@@ -483,8 +486,7 @@
                   <span>{{ globalVars.nanosToDeSo(owner.LastAcceptedBidAmountNanos, 5) }} $DESO</span>
                   <span>~{{ globalVars.nanosToUSD(owner.LastAcceptedBidAmountNanos, 2) }}</span>
                 </div>
-              </div>
-            </div>
+              </div> -->
           </div>
         </div>
       </div>

@@ -90,6 +90,9 @@ export class EthNftPostComponent implements OnInit {
   token_id: string;
   desoPublicKey: string;
 
+  ethNFTCreatorWalletAddress: string;
+  ethNFTOwnerWalletAddress: string;
+
   static ALL_BIDS = "All Bids";
   static MY_BIDS = "My Bids";
   //static MY_AUCTIONS = "My Auctions";
@@ -259,6 +262,7 @@ export class EthNftPostComponent implements OnInit {
 
         //   load provenance and details eth data
         console.log(` ------------------- this.nftPost ${JSON.stringify(this.nftPost)} ------------------- `);
+        this.loadProvenanceAndDetails();
       },
       (err) => {
         // TODO: post threads: rollbar
@@ -269,11 +273,29 @@ export class EthNftPostComponent implements OnInit {
     );
   }
 
-  loadProvenanceAndDetails() {
+  async loadProvenanceAndDetails() {
     this.token_id = this.nftPost["PostExtraData"]["tokenId"];
     this.desoPublicKey = this.nftPost["ProfileEntryResponse"]["PublicKeyBase58Check"];
 
-    //   find current eth owner
+    // find current eth owner
+    const ownerOptions = { method: "GET", headers: { Accept: "application/json" } };
+
+    let ethNFTOwnerWalletAddressRes = await fetch(
+      `https://api.ropsten.x.immutable.com/v1/assets/${environment.imx.TOKEN_ADDRESS}/${this.token_id}`,
+      ownerOptions
+    );
+    ethNFTOwnerWalletAddressRes = await ethNFTOwnerWalletAddressRes.json();
+    this.ethNFTOwnerWalletAddress = ethNFTOwnerWalletAddressRes["user"];
+
+    //   find current eth creator
+    const creatorOptions = { method: "GET", headers: { Accept: "application/json" } };
+
+    let ethNFTCreatorWalletAddressRes = await fetch(
+      `https://api.ropsten.x.immutable.com/v1/mints?token_id=${this.token_id}&token_address=${environment.imx.TOKEN_ADDRESS}`,
+      creatorOptions
+    );
+    ethNFTCreatorWalletAddressRes = await ethNFTCreatorWalletAddressRes.json();
+    this.ethNFTCreatorWalletAddress = ethNFTCreatorWalletAddressRes["result"][0]["user"];
   }
 
   refreshBidData(): Subscription {

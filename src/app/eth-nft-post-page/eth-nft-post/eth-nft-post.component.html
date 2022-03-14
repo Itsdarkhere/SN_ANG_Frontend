@@ -209,8 +209,17 @@
       </button>
     </div>
     <div class="nft_bx bids_new_sc">
-      <div class="borderbg feed-post__blue-border" *ngIf="!loading">
-        <tab-selector [tabs]="tabs" [activeTab]="activeTab" (tabClick)="_handleTabClick($event)"></tab-selector>
+      <div class="borderbg feed-post__blue-border eth-nft-tab-selector" *ngIf="!loading">
+        <tab-selector
+          [icons]="[
+            '/assets/icons/nft_bids_icon.svg',
+            '/assets/icons/nft_provenance_icon.svg',
+            '/assets/icons/nft_details_icon.svg'
+          ]"
+          [tabs]="tabs"
+          [activeTab]="activeTab"
+          (tabClick)="_handleTabClick($event)"
+        ></tab-selector>
       </div>
       <div *ngIf="showBidsView">
         <div *ngIf="!loading && !bids?.length" class="fs-15px p-15px pb-0 d-flex justify-content-center nft-no-bids">

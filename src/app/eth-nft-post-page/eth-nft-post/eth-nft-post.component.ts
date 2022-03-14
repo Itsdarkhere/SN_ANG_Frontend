@@ -87,6 +87,9 @@ export class EthNftPostComponent implements OnInit {
 
   ethereumNFTSalePrice: any;
 
+  token_id: string;
+  desoPublicKey: string;
+
   static ALL_BIDS = "All Bids";
   static MY_BIDS = "My Bids";
   //static MY_AUCTIONS = "My Auctions";
@@ -95,8 +98,8 @@ export class EthNftPostComponent implements OnInit {
   static DETAILS = "Details";
 
   tabs = [
-    EthNftPostComponent.THREAD,
-    EthNftPostComponent.MY_BIDS,
+    // EthNftPostComponent.THREAD,
+    // EthNftPostComponent.MY_BIDS,
     //EthNftPostComponent.MY_AUCTIONS,
     EthNftPostComponent.OWNERS,
     EthNftPostComponent.DETAILS,
@@ -254,6 +257,7 @@ export class EthNftPostComponent implements OnInit {
         this.refreshBidData();
         this.configureMetaTags();
 
+        //   load provenance and details eth data
         console.log(` ------------------- this.nftPost ${JSON.stringify(this.nftPost)} ------------------- `);
       },
       (err) => {
@@ -264,6 +268,14 @@ export class EthNftPostComponent implements OnInit {
       }
     );
   }
+
+  loadProvenanceAndDetails() {
+    this.token_id = this.nftPost["PostExtraData"]["tokenId"];
+    this.desoPublicKey = this.nftPost["ProfileEntryResponse"]["PublicKeyBase58Check"];
+
+    //   find current eth owner
+  }
+
   refreshBidData(): Subscription {
     this.refreshingBids = true;
     return this.backendApi
@@ -332,6 +344,8 @@ export class EthNftPostComponent implements OnInit {
           // if (this.feedPost) {
           //   this.feedPost.nftBidData = this.nftBidData
           // }
+
+          this.activeTab = EthNftPostComponent.OWNERS;
         },
         (err) => {
           console.error(err);

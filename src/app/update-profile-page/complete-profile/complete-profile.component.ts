@@ -26,7 +26,13 @@ export class CompleteProfileComponent {
 
     if (this.globalVars.isCreator === false && this.globalVars.isCollector === false) {
       console.log(this.globalVars.loggedInUser);
-      if (this.globalVars.loggedInUser) {
+      //   if they have an old username you know it's an old deso profile
+      //   if they have a deso public key you know they started to signup, but then clicked away
+      if (
+        this.globalVars.loggedInUser.ProfileEntryResponse?.Username ||
+        this.globalVars.loggedInUser.PublicKeyBase58Check
+      ) {
+        this.globalVars.needToPickCreatorOrCollector = true;
         this.globalVars.flowRedirect(true, this.globalVars.loggedInUser.PublicKeyBase58Check);
       }
       return;

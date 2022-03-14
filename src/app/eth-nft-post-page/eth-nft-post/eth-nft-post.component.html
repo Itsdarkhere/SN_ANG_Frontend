@@ -154,30 +154,46 @@
         ></feed-post>
       </div>
     </div>
-    <div class="nft_bx linebx">
-      <div class="comments_likes_list">
-        <feed-post-icon-row
-          *ngIf="showIconRow"
-          [isNFTProfile]="true"
-          [post]="post"
-          [postContent]="postContent"
-          [parentPost]="parentPost"
-          [canReplaceExistingIcons]="canReplaceExistingIcons"
-          [firstIconPath]="firstIconPath"
-          [secondIconPath]="secondIconPath"
-          [thirdIconPath]="thirdIconPath"
-          [fourthIconPath]="fourthIconPath"
-          [fifthIconPath]="fifthIconPath"
-          [afterCommentCreatedCallback]="prependPostToFeed.bind(this)"
-        ></feed-post-icon-row>
-      </div>
-      <!-- Feed likes End-->
-
-      <!-- feed-post -->
-
+    <div class="nft_bx linebx" *ngIf="!isMobile">
       <!-- feed-post End -->
       <!-- <h3 class="hdb">Comments</h3> -->
-      <simple-center-loader *ngIf="refreshingBids"></simple-center-loader>
+
+      <div class="comments_likes_list">
+        <div class="nft-post-icon-row-wrapper h-50 d-flex flex-center">
+          <feed-post-icon-row
+            *ngIf="showIconRow"
+            class="w-100"
+            [isNFTProfile]="true"
+            [post]="post"
+            [postContent]="postContent"
+            [parentPost]="parentPost"
+            [afterCommentCreatedCallback]="prependPostToFeed.bind(this)"
+          ></feed-post-icon-row>
+        </div>
+        <div class="nft-profile-engagement-string">
+          <div class="d-flex flex-center">
+            <span class="engagement-string-item">
+              <b>{{ globalVars.abbreviateNumber(nftPost.RepostCount) }}</b>
+              Comments
+            </span>
+            <span class="engagement-string-item">
+              <b>{{ globalVars.abbreviateNumber(nftPost.QuoteRepostCount) }}</b>
+              Reposts
+            </span>
+            <span class="engagement-string-item">
+              <b>{{ globalVars.abbreviateNumber(nftPost.LikeCount) }}</b>
+              Likes
+            </span>
+            <span class="engagement-string-item">
+              <b>{{ globalVars.abbreviateNumber(nftPost.DiamondCount) }}</b>
+              Diamonds
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- feed-post End -->
+      <!-- <h3 class="hdb">Comments</h3> -->
+      <!-- <simple-center-loader *ngIf="refreshingBids"></simple-center-loader> -->
       <div
         *ngIf="!nftPost.CommentCount && !nftPost.ParentStakeID"
         class="p-15px d-flex flex-column flex-center nft-no-comments font-weight-semiboldn"
@@ -189,14 +205,50 @@
         </button>
       </div>
 
-      <post-thread
-        class="post_thread_likes_wrapper"
-        [isNFTProfile]="true"
-        [hideHeader]="true"
-        [fromNFTDetail]="true"
-        [hideCurrentPost]="!nftPost.ParentStakeID"
-        *ngIf="nftPost.CommentCount || nftPost.ParentStakeID"
-      ></post-thread>
+      <div *ngIf="nftPost.CommentCount || nftPost.ParentStakeID" class="nft-profile-comment-section">
+        <div class="send-message-thread-container">
+          <div class="fake-textarea-container">
+            <div class="avatar-box-send-message">
+              <a
+                class="messages-thread__avatar_send_message"
+                [avatar]="this.globalVars.loggedInUser.PublicKeyBase58Check"
+              ></a>
+            </div>
+            <textarea
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="5"
+              (keypress)="_messageTextChanged($event)"
+              [(ngModel)]="commentText"
+              placeholder="Make a comment!"
+              class="py-5px fs-15px messages-thread__border-radius flex-grow-1 form-control messages-textarea disable-scrollbars"
+              style="height: 50px"
+            ></textarea>
+            <button
+              *ngIf="!this.submittingPost"
+              (click)="submitPost()"
+              class="btn btn-send-message fs-15px ml-15px messages-thread__border-radius"
+            >
+              <img src="/assets/icons/white-send.svg" />
+            </button>
+            <button
+              *ngIf="this.submittingPost"
+              class="btn btn-send-message fs-15px ml-15px messages-thread__border-radius"
+            >
+              <i class="fa fa-spinner fa-spin"></i>
+            </button>
+          </div>
+        </div>
+        <post-thread
+          #postThread
+          class="post_thread_likes_wrapper"
+          [isNFTProfile]="true"
+          [hideHeader]="true"
+          [fromNFTDetail]="true"
+          [hideCurrentPost]="!nftPost.ParentStakeID"
+        ></post-thread>
+      </div>
 
       <button
         type="button"
@@ -503,8 +555,8 @@
         <!-- DESO -->
         <div class="nft-profile-blockchain-deso">
           <span>
-            <img class="deso-logo" src="/assets/deso/desologo.svg" alt="deso" />
-            <label class="mb-0px">Deso</label>
+            <img class="deso-logo" src="/assets/icons/nft_eth_icon.svg" alt="deso" />
+            <label class="mb-0px">Ethereum</label>
           </span>
           <a>
             View on block explorer

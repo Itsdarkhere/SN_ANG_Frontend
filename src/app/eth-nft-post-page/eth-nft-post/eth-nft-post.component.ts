@@ -87,6 +87,8 @@ export class EthNftPostComponent implements OnInit {
 
   ethereumNFTSalePrice: any;
 
+  contentStorage = false;
+
   token_id: string;
   desoPublicKey: string;
 
@@ -107,6 +109,12 @@ export class EthNftPostComponent implements OnInit {
     EthNftPostComponent.OWNERS,
     EthNftPostComponent.DETAILS,
   ];
+  icons = [
+    "/assets/icons/nft_bids_icon.svg",
+    "/assets/icons/nft_provenance_icon.svg",
+    "/assets/icons/nft_details_icon.svg",
+  ];
+  isMobile = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -135,9 +143,15 @@ export class EthNftPostComponent implements OnInit {
     } else {
       return;
     }
-    console.log("------------------------------ page loaded ------------------------------");
-    // this.refreshPosts();
-    //this.logString();
+    if (this.globalVars.isMobile()) {
+      this.isMobile = true;
+      this.tabs.push("Comments");
+      this.icons.push("/assets/icons/nft_bids_icon.svg");
+    } else {
+      // WIP
+      this.isMobile = false;
+      this.tabs = this.tabs.filter((t) => t !== "Comments");
+    }
   }
 
   logString() {
@@ -460,6 +474,29 @@ export class EthNftPostComponent implements OnInit {
     this.bids.forEach((bidEntry) => (bidEntry.selected = false));
     bidEntry.selected = true;
     this.sellNFTDisabled = false;
+  }
+
+  checkPostDetails() {
+    // Both 3d and banner have poster images which are stored on ar so this counts them too
+    if (this.nftPost.ImageURLs[0]) {
+      if (this.nftPost.ImageURLs[0].startsWith("https://arweave.net/")) {
+        this.contentStorage = true;
+        return;
+      } else {
+        this.contentStorage = false;
+        return;
+      }
+    } else if (this.nftPost.VideoURLs[0]) {
+      if (this.nftPost.ImageURLs[0].startsWith("https://arweave.net/")) {
+        this.contentStorage = true;
+        return;
+      } else {
+        this.contentStorage = false;
+        return;
+      }
+    } else {
+      this.contentStorage = false;
+    }
   }
 
   closeAuction(): void {

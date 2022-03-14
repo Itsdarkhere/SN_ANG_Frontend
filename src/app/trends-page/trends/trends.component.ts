@@ -246,10 +246,10 @@ export class TrendsComponent implements OnInit {
     this.sortMarketplace(this.globalVars.marketplaceNFTsOffset, true);
   }
   onScrollEthNFTs() {
-    if (this.globalVars.ethMarketplaceNFTsData.length > 6) {
-      console.log(" ------------- greater then 6 ");
-      console.log(this.globalVars.ethMarketplaceNFTsData);
-      this.globalVars.ethMarketplaceNFTsOffset = this.globalVars.ethMarketplaceNFTsOffset + 6;
+    if (this.globalVars.ethMarketplaceNFTsData.length > 30) {
+      //   console.log(" ------------- greater then 30 ");
+      //   console.log(this.globalVars.ethMarketplaceNFTsData);
+      this.globalVars.ethMarketplaceNFTsOffset = this.globalVars.ethMarketplaceNFTsOffset + 30;
       console.log(this.globalVars.ethMarketplaceNFTsOffset);
       //   additional array
       let additionalData = this.globalVars.ethMarketplaceNFTsData.slice(this.globalVars.ethMarketplaceNFTsOffset);

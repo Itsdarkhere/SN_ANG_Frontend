@@ -94,6 +94,7 @@ export class GlobalVarsService {
   isEthereumNFTForSale: boolean;
   ethWalletAddresShort: string;
   isEthQuoteRepost: boolean = false;
+  isEthWalletAssociatedToDesoProfile: boolean = false;
   //   ----------------------------- end of imx global vars -----------------------------
 
   // Note: I don't think we should have default values for this. I think we should just
@@ -1937,10 +1938,6 @@ export class GlobalVarsService {
 
     const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";
     this.imxClient = await ImmutableXClient.build({ publicApiUrl });
-
-    if (localStorage.getItem("address")) {
-      this.imxWalletAddress = localStorage.getItem("address");
-    }
 
     let collectedNFTs = await this.imxClient.getAssets({
       user: this.imxWalletAddress,

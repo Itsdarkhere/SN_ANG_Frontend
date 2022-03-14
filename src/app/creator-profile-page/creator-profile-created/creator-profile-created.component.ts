@@ -74,7 +74,7 @@ export class CreatorProfileCreatedComponent implements OnInit {
     await this.datasource.adapter.relax();
     await this.datasource.adapter.update({
       predicate: ({ $index, data, element }) => {
-        let currentPost = (data as any) as PostEntryResponse;
+        let currentPost = data as any as PostEntryResponse;
         if ($index === index) {
           newComment.parentPost = currentPost;
           currentPost.Comments = currentPost.Comments || [];
@@ -122,6 +122,10 @@ export class CreatorProfileCreatedComponent implements OnInit {
       .then((res) => {
         this.posts = res.Posts.filter((post) => post.IsNFT && post.NumNFTCopiesBurned != post.NumNFTCopies);
         this.dataToShow = this.posts.slice(this.startIndex, this.endIndex);
+
+        //   get created eth NFTs
+        this.globalVars.imxWalletAddress = localStorage.getItem("address");
+        this.globalVars.getCreatedNFTs();
       })
       .finally(() => {
         this.isLoading = false;

@@ -179,6 +179,7 @@ export class GlobalVarsService {
   ethMarketplaceNFTsData: NFTCollectionResponse[];
   ethMarketplaceNFTsDataToShow: NFTCollectionResponse[];
   ethNFTsCollected: NFTCollectionResponse[];
+  ethNFTsCreated: NFTCollectionResponse[];
   marketplaceCreatorData: CreatorCardResponse[];
   // The buttons on the marketplace
   marketplaceViewTypeCard = true;
@@ -1932,7 +1933,7 @@ export class GlobalVarsService {
   }
 
   link = new Link(environment.imx.ROPSTEN_LINK_URL);
-  //   get NFTs for logged in wallet
+  //   get collected eth NFTs for logged in wallet
   async getCollectedNFTs() {
     this.ethNFTsCollected = [];
 
@@ -1960,6 +1961,83 @@ export class GlobalVarsService {
           if (this.ethNFTsCollected.length === metadataPostHashArr.length - metadataArrCounter) {
             console.log(` ---------- last one -------------- `);
             console.log(this.ethNFTsCollected);
+          }
+        },
+        (err: any) => {
+          console.log(err);
+          metadataArrCounter++;
+        }
+      );
+    }
+  }
+
+  //   get created eth NFTs for logged in wallet
+  async getCreatedNFTs() {
+    this.ethNFTsCreated = [];
+
+    const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";
+    this.imxClient = await ImmutableXClient.build({ publicApiUrl });
+
+    const options = { method: "GET", headers: { Accept: "application/json" } };
+
+    let createdNFTs = await fetch(
+      `https://api.ropsten.x.immutable.com/v1/mints?user=${this.imxWalletAddress}&token_address=${environment.imx.TOKEN_ADDRESS}`,
+      options
+    );
+
+    createdNFTs = await createdNFTs.json();
+    console.log(createdNFTs);
+
+    // let metadataPostHashArr = [];
+    // for (var i = 0; i < createdNFTs["result"].length; i++) {
+    //   metadataPostHashArr.push(createdNFTs["result"][i]["metadata"]["PostHashHex"]);
+    //   console.log(metadataPostHashArr);
+    // }
+
+    // var metadataArrCounter = 0;
+    // for (var i = 0; i < metadataPostHashArr.length; i++) {
+    //   this.getPost(true, metadataPostHashArr[i]).subscribe(
+    //     (res) => {
+    //       console.log(res["PostFound"]);
+    //       this.ethNFTsCreated.push(res["PostFound"]);
+    //       if (this.ethNFTsCreated.length === metadataPostHashArr.length - metadataArrCounter) {
+    //         console.log(` ---------- last one -------------- `);
+    //         console.log(this.ethNFTsCreated);
+    //       }
+    //     },
+    //     (err: any) => {
+    //       console.log(err);
+    //       metadataArrCounter++;
+    //     }
+    //   );
+    // }
+
+    let createdNFTsLength = createdNFTs["result"].length;
+    let createdNFTsArr = [];
+
+    for (var i = 0; i < createdNFTsLength; i++) {
+      createdNFTsArr.push(createdNFTs["result"][i]["token"]["data"]["token_id"]);
+    }
+
+    let metadataPostHashArr = [];
+    for (var i = 0; i < createdNFTsArr.length; i++) {
+      let metadataRes = await fetch(`https://supernovas.app/api/v0/imx/metadata/${createdNFTsArr[i]}`);
+      let metadataResJson = await metadataRes.json();
+      metadataPostHashArr.push(metadataResJson["PostHashHex"]);
+    }
+
+    var metadataArrCounter = 0;
+
+    for (var i = 0; i < metadataPostHashArr.length; i++) {
+      this.getPost(true, metadataPostHashArr[i]).subscribe(
+        (res) => {
+          console.log(res["PostFound"]);
+          console.log(this.ethNFTsCreated);
+          this.ethNFTsCreated.push(res["PostFound"]);
+          console.log(this.ethNFTsCreated);
+          if (this.ethNFTsCreated.length === metadataPostHashArr.length - metadataArrCounter) {
+            console.log(` ---------- last one -------------- `);
+            console.log(this.ethNFTsCreated);
           }
         },
         (err: any) => {

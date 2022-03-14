@@ -38,6 +38,22 @@
             ></new-nft-card>
           </div>
         </div>
+        <div class="nft-col-wrap-2" *ngFor="let post of this.globalVars.ethNFTsCreated; let index = index">
+          <div class="max-width-300-plus">
+            <!-- used new-nft-card setup from trends.component -->
+            <new-nft-card
+              [post]="post"
+              [includePaddingOnPost]="true"
+              [pending]="false"
+              [showReplyingToContent]="post"
+              [parentPost]=""
+              [contentShouldLinkToThread]="true"
+              [showNFTDetails]="true"
+              [showExpandedNFTDetails]="true"
+              [setBorder]="true"
+            ></new-nft-card>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -179,7 +179,7 @@ export class NewNftCardComponent implements OnInit {
   token_id: any;
   isEthereumNFTForSale: boolean;
   ethPublicKey: any;
-  ethOwnerHasDesoProfile: boolean;
+  isEthOwner: boolean;
   ethPublicKeyNoDesoProfile: string;
 
   unlockableTooltip =
@@ -301,7 +301,6 @@ export class NewNftCardComponent implements OnInit {
       this.updateEthNFTForSaleStatus();
 
       // check eth NFT owner
-      this.getProfileSocials();
       this.checkEthNFTOwner();
     }
   }
@@ -325,20 +324,8 @@ export class NewNftCardComponent implements OnInit {
     }
 
     console.log("upadated ETH NFT for Sale Status");
-  }
 
-  getProfileSocials() {
-    this.backendApi
-      .GetPGProfileDetails(this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check)
-      .subscribe(
-        (res) => {
-          this.ethPublicKey = res["ETHPublicKey"];
-          console.log(` -------------- eth pk is ${JSON.stringify(this.ethPublicKey)}`);
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+    // determine if you own it, if not then say which eth wallet owns it
   }
 
   async checkEthNFTOwner() {
@@ -354,11 +341,13 @@ export class NewNftCardComponent implements OnInit {
     this.ethPublicKeyNoDesoProfile = res["user"];
     this.ethPublicKeyNoDesoProfile = this.ethPublicKeyNoDesoProfile.slice(0, 15) + "...";
 
-    if (res["user"] === this.ethPublicKey) {
-      this.ethOwnerHasDesoProfile = true;
-      console.log(` ----------------- ethOwnerHasDesoProfile ${this.ethOwnerHasDesoProfile}`);
+    this.globalVars.imxWalletAddress = localStorage.getItem("address");
+
+    if (res["user"] === this.globalVars.imxWalletAddress) {
+      this.isEthOwner = true;
+      console.log(` ----------------- isEthOwner ${this.isEthOwner}`);
     } else {
-      this.ethOwnerHasDesoProfile = false;
+      this.isEthOwner = false;
     }
   }
 

@@ -44,3 +44,31 @@
 .eth-nft-image-container {
   height: 575px;
 }
+.eth-nft-tab-selector {
+  width: 361px;
+  margin: 0 auto;
+}
+.eth-provenance-container {
+  display: flex;
+  flex-direction: column;
+}
+.eth-provenance-creator-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+.eth-provenance-creator-header {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 46px;
+  color: #2c2c2c;
+}
+.eth-provenance-creator-text {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 35px;
+  color: #000000;
+}

@@ -461,7 +461,7 @@
           >
             <p class="eth-nft-not-for-sale-text">OWNER</p>
             <!-- DESO profile has eth wallet -->
-            <div class="d-flex flex-row eth-nft-not-for-sale-owner-container" *ngIf="this.ethOwnerHasDesoProfile">
+            <div class="d-flex flex-row eth-nft-not-for-sale-owner-container" *ngIf="this.isEthOwner">
               <div class="card-header p-0px" style="border-bottom: 0px">
                 <div class="profile-img">
                   <a
@@ -492,7 +492,7 @@
               </div>
             </div>
             <!-- DESO profile does not have eth wallet -->
-            <div class="d-flex flex-row eth-nft-not-for-sale-owner-container" *ngIf="!this.ethOwnerHasDesoProfile">
+            <div class="d-flex flex-row eth-nft-not-for-sale-owner-container" *ngIf="!this.isEthOwner">
               <div class="d-flex flex-column">
                 <p class="eth-nft-not-for-sale-owner-text">{{ ethPublicKeyNoDesoProfile }}</p>
               </div>

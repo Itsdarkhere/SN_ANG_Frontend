@@ -54,7 +54,7 @@ export class DiscoveryComponent implements OnInit {
       return imgURL.replace("https://i.imgur.com", "https://images.bitclout.com/i.imgur.com");
     } else if (imgURL.startsWith("https://arweave.net/")) {
       // Build cloudflare imageString
-      imgURL = "https://supernovas.app/cdn-cgi/image/width=600,height=600,fit=scale-down,quality=85/" + imgURL;
+      imgURL = "https://supernovas.app/cdn-cgi/image/width=500,height=500,fit=scale-down,quality=85/" + imgURL;
     }
     return imgURL;
   }

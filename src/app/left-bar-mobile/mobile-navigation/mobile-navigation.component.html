@@ -1,5 +1,5 @@
 <div class="mobile-navigation-container disable-scrollbars">
-  <change-account-selector class="pl-5px"></change-account-selector>
+  <change-account-selector class="ml-5px"></change-account-selector>
   <!--<div class="mobile-nav-balance-info px-20px">
     <right-bar-creators></right-bar-creators>
   </div>-->
@@ -45,7 +45,7 @@
       </button>
       <label>Analytics</label>
     </span>
-    <span class="mobile-nav-item">
+    <span class="mobile-nav-item" *ngIf="this.globalVars?.loggedInUser">
       <button
         (click)="closeMobileNav()"
         [routerLink]="'/' + this.globalVars.RouteNames.ACTIVITY"
@@ -55,7 +55,7 @@
       </button>
       <label>Activity</label>
     </span>
-    <span class="mobile-nav-item">
+    <span class="mobile-nav-item" *ngIf="this.globalVars?.loggedInUser">
       <button
         (click)="closeMobileNav()"
         [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser?.ProfileEntryResponse?.Username)"
@@ -65,7 +65,7 @@
       </button>
       <label>Profile</label>
     </span>
-    <span class="mobile-nav-item">
+    <span class="mobile-nav-item" *ngIf="this.globalVars?.loggedInUser">
       <button
         (click)="closeMobileNav()"
         [routerLink]="'/' + this.globalVars.RouteNames.WALLET"
@@ -75,7 +75,7 @@
       </button>
       <label>Wallet</label>
     </span>
-    <span class="mobile-nav-item">
+    <span class="mobile-nav-item" *ngIf="this.globalVars?.loggedInUser">
       <button
         (click)="closeMobileNav()"
         [routerLink]="'/' + this.globalVars.RouteNames.INBOX_PREFIX"

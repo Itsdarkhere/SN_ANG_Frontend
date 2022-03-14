@@ -26,7 +26,10 @@ export class CompleteProfileComponent {
 
     if (this.globalVars.isCreator === false && this.globalVars.isCollector === false) {
       console.log(" --------------- both creator and collector are false ----------------- ");
-      this.router.navigate([RouteNames.SIGNUP]);
+      let stepNum = 2;
+      this.router.navigate(["/" + this.RouteNames.SIGNUP], {
+        queryParams: { stepNum },
+      });
       return;
     }
 

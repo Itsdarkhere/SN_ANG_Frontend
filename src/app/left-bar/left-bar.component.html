@@ -45,7 +45,7 @@
       [link]="'/' + this.globalVars.RouteNames.COMPLETE_PROFILE"
       [imgSrc]="'/assets/icons/profile-icon.svg'"
       *ngIf="!this.globalVars.isOnboardingComplete"
-      [label]="'Complete profile'"
+      [label]="'Onboarding'"
     ></left-bar-button>
     <button *ngIf="globalVars.showAdminTools()" class="lb-admin" [routerLink]="'/' + globalVars.RouteNames.ADMIN">
       A

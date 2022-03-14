@@ -1,13 +1,6 @@
 <!-- globalVars.isLeftBarMobileOpen -->
 <div class="left-bar-mobile__flyout-div" [@leftBarAnimation] *ngIf="globalVars.isLeftBarMobileOpen">
-  <app-mobile-navigation
-    class="w-100 h-100 d-flex flex-center"
-    *ngIf="globalVars.loggedInUser"
-    (closeMobile)="_closeMenu()"
-  ></app-mobile-navigation>
-  <div *ngIf="!globalVars.loggedInUser" class="lb-mobile-offline-info">
-    <app-offline-info></app-offline-info>
-  </div>
+  <app-mobile-navigation class="w-100 h-100 d-flex flex-center" (closeMobile)="_closeMenu()"></app-mobile-navigation>
   <div (click)="_closeMenu()" class="nav_close">
     <img src="/assets/icons/cas_x_icon.svg" alt="" />
   </div>

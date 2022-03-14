@@ -33,6 +33,8 @@ export class SearchBarComponent implements OnInit, OnChanges {
   // These are added when using the custom 'sick search bar'
   @Input() sickSearchBar: boolean;
   @Input() sickSearchBarAvatarPublicKey: string;
+  // Desktop middle search bar
+  @Input() headerSearchBar: boolean;
   // End of sick search bar Inputs
   @Output() creatorToMessage = new EventEmitter<any>();
   searchText: string;

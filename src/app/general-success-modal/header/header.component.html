@@ -1,11 +1,11 @@
 <header [class.bg_notification]="isNotificationOpen">
   <div class="header_golal_wrapper">
-    <div class="logo-cover global__tooltip-icon" [routerLink]="'/' + this.globalVars.RouteNames.BROWSE">
-      <img src="assets/img/l4s_logo.svg" class="clout" alt="" />
-    </div>
-    <div class="header-search-right-container" [ngClass]="mobile ? 'justify-content-end' : ''">
+    <div class="header-search-right-container">
+      <div class="logo-cover global__tooltip-icon" [routerLink]="'/' + this.globalVars.RouteNames.BROWSE">
+        <h1 class="header-logo">supernovas</h1>
+      </div>
       <div class="search-bar-cover" [class.active-mobile]="isSearchOpen">
-        <search-bar [focusSearchInput]="isSearchOpen"></search-bar>
+        <search-bar [focusSearchInput]="isSearchOpen" [headerSearchBar]="true"></search-bar>
       </div>
       <div class="right-portion">
         <ul class="right-side-options for-mobile">
@@ -22,32 +22,18 @@
         </ul>
         <ul class="right-side-options menu-options-list">
           <li
-            class="single-option d-flex flex-center position-relative"
-            *ngIf="globalVars.loggedInUser?.ProfileEntryResponse?.IsVerified"
-          >
-            <button
-              class="header-create-button-gradient p-0px grow"
-              [routerLink]="'/' + globalVars.RouteNames.MINT_PAGE"
-            >
-              <p class="color-white fs-14px">Create</p>
-            </button>
-          </li>
-          <li
             *ngIf="globalVars.loggedInUser"
             class="notification-icon-cover single-option h-100 d-flex flex-center flex-column"
             (clickOutside)="clickOutside()"
           >
             <div class="noti_hv">
               <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />
-              <div class="d-flex flex-row mt-5px" (click)="showNotification()">
-                <label class="mb-0px fs-10px cursor-pointer">NOTIFICATIONS</label>
-                <label
-                  class="mb-0px fs-10px ml-5px notification-amount pointer-events-none"
-                  *ngIf="globalVars.unreadNotifications > 0"
-                >
-                  {{ globalVars.unreadNotifications > 99 ? "99+" : globalVars.unreadNotifications }}
-                </label>
-              </div>
+              <label
+                class="mb-0px fs-10px ml-5px notification-amount pointer-events-none"
+                *ngIf="globalVars.unreadNotifications > 0"
+              >
+                {{ globalVars.unreadNotifications > 99 ? "99+" : globalVars.unreadNotifications }}
+              </label>
             </div>
             <div class="notification-list-cover" *ngIf="isNotificationOpen">
               <!-- <div class="triangle-up">▲</div> -->
@@ -63,30 +49,18 @@
               </a>
             </div>
           </li>
-
-          <li *ngIf="globalVars.loggedInUser" class="single-option hd-profile-nv h-100 d-flex flex-column flex-center">
-            <div
-              class="profile-img"
-              title="My Profile"
-              (click)="hasProfile()"
-              [avatar]="globalVars.loggedInUser?.PublicKeyBase58Check"
-            ></div>
-            <label class="mb-0px mt-4px fs-10px cursor-pointer" (click)="hasProfile()">PROFILE</label>
+          <li
+            class="single-option d-flex flex-center position-relative"
+            *ngIf="globalVars.loggedInUser?.ProfileEntryResponse?.IsVerified"
+          >
+            <button
+              class="header-create-button-gradient p-0px grow"
+              [routerLink]="'/' + globalVars.RouteNames.MINT_PAGE"
+            >
+              <p class="color-white fs-14px">Create</p>
+            </button>
           </li>
-          <button
-            *ngIf="!globalVars.loggedInUser"
-            (click)="signUp()"
-            class="pl-10px pr-10px h-35px mr-10px black-rounded-button font-weight-bold fs-12px"
-          >
-            Create a profile
-          </button>
-          <button
-            *ngIf="!globalVars.loggedInUser"
-            (click)="login()"
-            class="pl-20px pr-20px h-35px white-rounded-button font-weight-bold fs-12px"
-          >
-            Log in
-          </button>
+          <change-account-selector class="ml-20px"></change-account-selector>
         </ul>
       </div>
     </div>

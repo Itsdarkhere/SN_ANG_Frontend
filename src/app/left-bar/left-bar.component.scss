@@ -43,3 +43,41 @@
 .padding-top-1 {
     padding-top: 1%;
 }
+.lb-admin {
+    border: none;
+    outline: none;
+    padding: 18px 18px;
+    width: 60px;
+    height: 60px;
+    background: #e6e6e6;
+    border-radius: 16px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+    color: #121212;
+    font-weight: bold;
+    &:active {
+        transform: scale(0.9);
+        transition: 0.2s;
+    }
+}
+.global__nav__fixed {
+    margin-top: 20px;
+    width: 76px;
+    // height: 865px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    background: #0000000d;
+    border-radius: 20px;
+    hr {
+        background-color: #D8D8D8;
+        height: 1px;
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 0;
+    }
+}

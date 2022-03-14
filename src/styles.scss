@@ -1341,7 +1341,7 @@ $green-font-color: #19b028;
   align-items: stretch;
   margin: 0;
   padding: 0;
-  padding-left: 7%;
+  padding-left: clamp(90px, 7%, 7%);
   padding-right: 7%;
   padding-top: 77px;
 }
@@ -1528,6 +1528,7 @@ input.bs-timepicker-field {
 
 .global__nav__fixed {
   top: 77px;
+  left: 10px;
   position: fixed;
   @media (max-width: 900px) {
     top: 0;
@@ -1579,6 +1580,11 @@ input.bs-timepicker-field {
   padding-left: 20px;
   margin-bottom: 0;
 }
+/*
+  display: flex;
+  justify-content: center;
+  align-items: center;
+*/
 .marketplace-flyout-checkbox-label {
   display: flex;
   justify-content: center;
@@ -1824,12 +1830,23 @@ input.bs-timepicker-field {
 }
 
 .nav_close {
-  position: fixed;
+  position: absolute;
   right: 39px;
   bottom: 3.3vh;
-  width: 45px;
-  height: 45px;
   z-index: 999;
+  width: 76px;
+  height: 53px;
+  background: #ffffff;
+  border: 1.1521738767623901px solid #e2e2e2;
+  border-radius: 30px;
+  box-shadow: 4px 0px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:active {
+    transform: scale(0.9);
+    transition-duration: 0.2s;
+  }
 }
 // used in all nft widescreen feeds
 .mrk_top_selector-two {
@@ -1867,36 +1884,24 @@ input.bs-timepicker-field {
   }
 }
 
-.background-gradient {
-  z-index: 100; // Needs to be higher than the bottom bar and staked posts.
-  position: fixed;
-  height: 65vh;
-  min-height: 650px;
-  bottom: -40px;
-  width: 100%;
-  max-width: 500px;
-  right: 0;
-  transform-origin: bottom;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 30px;
-  background: linear-gradient(125deg, #f3a83c 0%, #ec5454 20%, #f51ac1 35%, #265eeb 74%, #593eb7 99%) !important;
-}
-
 .nft-page-audio-cover-image {
   max-width: 80%;
   border-radius: 2.1255195140838623px;
 }
 .left-bar-mobile__flyout-div {
-  border-radius: 25px;
-  width: calc(100% - 10px);
-  height: calc(100% - 10px);
-  background-color: #ffffff;
-  padding-top: 5px;
+  z-index: 100; // Needs to be higher than the bottom bar and staked posts.
+  position: fixed;
+  height: 100vh;
+  bottom: 0px;
+  width: 100%;
+  max-width: 500px;
+  right: 0;
+  transform-origin: bottom;
+  background-color: #F6F6F6;
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  pointer-events: all;
 }
 
 .left-bar-mobile__flyout-div-marketplace {
@@ -2021,36 +2026,38 @@ input.bs-timepicker-field {
 }
 
 .feed-create-post__avatar.change-account-selector__account-image {
-  width: 24px;
-  height: 24px;
-  min-width: 24px;
-  margin-right: 10px;
-  border-radius: 23px;
-  border: 3px solid #fff;
-  box-shadow: 0px 0 5px rgb(0 0 0 / 20%);
-  @media (max-width: 676px) {
-    width: 34px;
-    height: 34px;
-  }
+  width: 35px;
+  height: 35px;
+  border: 2.6492977142333984px solid #ffffff;
+  border-radius: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .change-account-selector {
   position: relative;
   z-index: 30;
-  width: 100%;
-  padding-top: 15px;
-  border-radius: 6px;
-  padding-bottom: 15px;
-  border: 1px solid var(--border);
-  @media (max-width: 900px) {
-    border: 0;
-    padding-top: 0;
-    padding-left: 0;
+  width: 227px;
+  height: 50px;
+  background: #ffffff;
+  border: 1.4px solid #f8f8f8;
+  border-radius: 29px;
+  box-shadow: 0px 0.95px 11px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 4px solid #FFFFFF;
+  transition: all 0.2s;
+  .cas-border-left {
+    border-left: 1px solid #e4e4e4;
   }
-}
-
-.change-account-selector_list__inner {
-  border-bottom: 1px solid var(--border);
+  &:hover {
+    transition: all 0.2s;
+    background-color: #ECECEC;
+    .cas-border-left {
+      border-left: 1px solid #FFFFFF;
+    }
+  }
 }
 
 .change-account-selector__down-arrow {
@@ -2071,16 +2078,17 @@ input.bs-timepicker-field {
   width: 100%;
   z-index: 99;
   border: 1px solid var(--border);
-  overflow-y: scroll !important;
-  max-height: 300px;
 }
 
 .change-account-selector_list-item {
   overflow: hidden;
 }
-
+.change-account-selector_list__inner {
+  border-radius: 10px;
+  height: 48px;
+}
 .change-account-selector_list__inner:hover {
-  background-color: var(--formbg);
+  background: #ebebeb;
 }
 
 .change-account-selector__shadow {
@@ -2097,9 +2105,11 @@ input.bs-timepicker-field {
 
 .change-account-selector__acount-name {
   overflow: hidden;
-  @media (max-width: 676px) {
-    font-size: 15px;
-  }
+  color: rgba(27, 27, 27, 0.95);
+  font-weight: bold;
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 34px;
 }
 
 .change-account-selector__trash {
@@ -2163,7 +2173,6 @@ input.bs-timepicker-field {
 }
 
 .post-thread__comment-container {
-  border-top: 4px solid var(--secondary);
   flex-grow: 1;
 }
 
@@ -2245,7 +2254,7 @@ input.bs-timepicker-field {
   margin-top: 10px;
   margin-bottom: 5px;
 }
-
+// This has to be on top of cas-dropdown-menu
 .dropdown-menu {
   background-color: #ffffff;
   background: #ffffff;
@@ -2253,6 +2262,20 @@ input.bs-timepicker-field {
   border: 1px solid #dedede;
   border-radius: 6.950549602508545px;
   box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.1);
+}
+.cas-dropdown-menu {
+  background-color: #ffffff;
+  background: #ffffff;
+  margin-top: 5px;
+  overflow: hidden;
+  border-radius: 6.950549602508545px;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.1);
+  width: 282px;
+  max-width: 90vw;
+  height: 369px;
+  border: 1.5px solid #ffffff;
+  border-radius: 20px;
+  box-shadow: 4px 0px 20px rgba(0, 0, 0, 0.1);
 }
 
 .feed-post__image-container {
@@ -2458,18 +2481,13 @@ input.bs-timepicker-field {
 
 .right-bar-creators__balance-box {
   color: var(--text);
-  @media (max-width: 992px) {
-    padding-bottom: 15px;
-    padding-top: 0;
+}
+.right-bar-creators__balance-box.smaller-font {
+  .rb-name {
+    font-size: 13px !important;
   }
-  @media (max-width: 767px) {
-    .fs-9px {
-      font-size: 11px !important;
-      font-weight: 600;
-    }
-    .fs-13px {
-      font-size: 15px;
-    }
+  .rb-value {
+    font-size: 20px !important;
   }
 }
 
@@ -2487,7 +2505,20 @@ input.bs-timepicker-field {
   background-repeat: no-repeat;
   background-position: center;
 }
-
+.rb-name {
+  opacity: 0.8;
+  color: #7b7b7b;
+  font-family: Poppins;
+  font-size: 17.365581512451172px;
+  font-weight: 500;
+}
+.rb-value {
+  color: #444444;
+  font-size: 27px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 47px;
+}
 .mobile-messages-thread-name-avatar {
   width: 100%;
   margin-right: 24px;
@@ -3356,20 +3387,23 @@ input {
 }
 
 .notification {
-  margin-left: 10px;
   width: auto;
-  padding-left: 3.5px;
-  padding-right: 3.5px;
-  height: 15px;
   font-size: 12px;
   color: #ffffff;
   background: #f5685f;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1.2572486400604248px solid #ffffff;
-  border-radius: 20px;
-  box-shadow: 0px 1.625px 8.125px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  bottom: -1%;
+  right: -1%;
+  padding: 0 3px;
+  min-width: 19px;
+  height: 19px;
+  background: #f5685f;
+  border: 1.8375171422958374px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0.7916666865348816px 0.7916666865348816px 1.5833333730697632px rgba(0, 0, 0, 0.1),0.7916666865348816px 0.7916666865348816px 1.5833333730697632px rgba(0, 0, 0, 0.1),0.7916666865348816px 0.7916666865348816px 1.5833333730697632px rgba(0, 0, 0, 0.1),0.7916666865348816px 0.7916666865348816px 1.5833333730697632px rgba(0, 0, 0, 0.1),0.7916666865348816px 0.7916666865348816px 1.5833333730697632px rgba(0, 0, 0, 0.1);
 }
 
 .bg-light {

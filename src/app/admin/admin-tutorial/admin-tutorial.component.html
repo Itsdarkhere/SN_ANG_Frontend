@@ -1,4 +1,4 @@
-<div class="w-100 light-grey-divider border-bottom border-color-grey" style="height:10px"></div>
+<div class="w-100 light-grey-divider border-bottom border-color-grey" style="height: 10px"></div>
 <tab-selector
   [tabs]="adminTutorialTabs"
   [activeTab]="activeTutorialTab"
@@ -10,9 +10,7 @@
     *ngFor="let profileEntryResponse of filteredProfileEntryResponses"
     class="br-12px m-15px js-feed-post-hover border"
   >
-    <div
-      class="link--unstyled d-flex align-items-center text-grey5 fs-15px m-2"
-    >
+    <div class="link--unstyled d-flex align-items-center text-grey5 fs-15px m-2">
       <div>
         <i
           (click)="removeCreatorFeaturedTutorialList(profileEntryResponse.PublicKeyBase58Check, $event)"
@@ -37,8 +35,8 @@
             matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
             [matTooltip]="'This profile is reserved. Click to learn how to claim it.'"
           >
-          <i class="far fa-clock fa-md"></i>
-        </span>
+            <i class="far fa-clock fa-md"></i>
+          </span>
           <span
             *ngIf="profileEntryResponse.IsVerified"
             (click)="tooltip.toggle()"
@@ -47,13 +45,12 @@
             [matTooltip]="'This account is verified'"
             #tooltip="matTooltip"
           >
-          <i class="fas fa-check-circle fa-md"></i>
-        </span>
+            <i class="fas fa-check-circle fa-md"></i>
+          </span>
         </div>
       </a>
     </div>
   </div>
-
 </div>
 <div *ngIf="activeTutorialTab === RESET_TAB">
   <div class="fs-15px font-weight-bold mt-15px mb-15px px-15px">
@@ -68,9 +65,7 @@
       <button *ngIf="!resettingTutorial" (click)="_resetTutorial()" class="btn btn-outline-primary fs-15px ml-5px">
         Reset
       </button>
-      <button *ngIf="resettingTutorial" class="btn btn-primary fs-15px ml-5px" disabled>
-        Working...
-      </button>
+      <button *ngIf="resettingTutorial" class="btn btn-primary fs-15px ml-5px" disabled>Working...</button>
     </div>
   </div>
 </div>

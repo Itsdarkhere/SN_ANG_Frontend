@@ -87,7 +87,7 @@ class RouteNames {
   public static GET_STARTER_DESO = "get-starter-deso";
   public static LANDING = "home";
   public static DIAMONDS = "diamonds";
-  public static TRENDS = "Marketplace";
+  public static TRENDS = "marketplace";
   public static REFERRALS = "referrals";
   public static NFT = "nft";
   public static ETH_NFT = "eth_nft";

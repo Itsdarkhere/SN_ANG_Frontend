@@ -1932,8 +1932,8 @@ export class GlobalVarsService {
     }
 
     this.getCollectedNFTsCounter = 0;
-
     this.getCollectedPostsRecursive(metadataPostHashArr);
+
     // var metadataArrCounter = 0;
     // for (var i = 0; i < metadataPostHashArr.length; i++) {
     //   this.getPost(true, metadataPostHashArr[i]).subscribe(
@@ -2014,10 +2014,9 @@ export class GlobalVarsService {
     }
 
     this.getCreatedNFTsCounter = 0;
-
     this.getCreatedPostsRecursive(metadataPostHashArr);
-    // var metadataArrCounter = 0;
 
+    // var metadataArrCounter = 0;
     // for (var i = 0; i < metadataPostHashArr.length; i++) {
     //   this.getPost(true, metadataPostHashArr[i]).subscribe(
     //     (res) => {

@@ -92,6 +92,11 @@ export class EthNftPostComponent implements OnInit {
   token_id: string;
   desoPublicKey: string;
 
+  commentText: string;
+  submittingPost = false;
+
+  propertiesBool = false;
+
   ethNFTCreatorWalletAddress: string;
   ethNFTOwnerWalletAddress: string;
 
@@ -227,6 +232,94 @@ export class EthNftPostComponent implements OnInit {
     );
   }
 
+  _messageTextChanged(event) {
+    if (event == null) {
+      return;
+    }
+    // When the shift key is pressed ignore the signal.
+    if (event.shiftKey) {
+      return;
+    }
+    if (event.keyCode == 13) {
+      this.submitPost();
+    }
+  }
+
+  submitPost() {
+    // add comment lenght
+    if (this.commentText?.length > GlobalVarsService.MAX_POST_LENGTH) {
+      return;
+    }
+
+    // post can't be blank
+    // add again length
+    if (this.commentText.length === 0) {
+      return;
+    }
+
+    if (this.submittingPost) {
+      return;
+    }
+
+    const postExtraData = {};
+
+    if (environment.node.id) {
+      postExtraData["Node"] = environment.node.id.toString();
+    }
+    // this.postInput add
+    const bodyObj = {
+      Body: this.commentText,
+      // Only submit images if the post is a quoted repost or a vanilla post.
+      ImageURLs: [],
+      VideoURLs: [],
+    };
+    const repostedPostHashHex = "";
+    this.submittingPost = true;
+    const postType = "reply";
+
+    this.backendApi
+      .SubmitPost(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        "" /*PostHashHexToModify*/,
+        this.nftPost.PostHashHex,
+        "" /*Title*/,
+        bodyObj /*BodyObj*/,
+        repostedPostHashHex,
+        postExtraData,
+        "" /*Sub*/,
+        // TODO: Should we have different values for creator basis points and stake multiple?
+        // TODO: Also, it may not be reasonable to allow stake multiple to be set in the FE.
+        false /*IsHidden*/,
+        this.globalVars.defaultFeeRateNanosPerKB /*MinFeeRateNanosPerKB*/,
+        false
+      )
+      .subscribe(
+        (response) => {
+          // Analytics
+          //this.SendPostEvent();
+          this.globalVars.logEvent(`post : ${postType}`);
+
+          this.submittingPost = false;
+
+          this.commentText = "";
+          this.constructedEmbedURL = "";
+          this.changeRef.detectChanges();
+
+          this.prependPostToFeed(response.PostEntryResponse);
+          this.incrementCommentCounter();
+        },
+        (err) => {
+          const parsedError = this.backendApi.parsePostError(err);
+          this.globalVars._alertError(parsedError);
+          this.globalVars.logEvent(`post : ${postType} : error`, { parsedError });
+
+          this.submittingPost = false;
+          this.changeRef.detectChanges();
+        }
+      );
+  }
+
   openImgModal(event, imageURL) {
     event.stopPropagation();
     this.modalService.show(FeedPostImageModalComponent, {
@@ -275,6 +368,8 @@ export class EthNftPostComponent implements OnInit {
         this.titleService.setTitle(this.nftPost.ProfileEntryResponse.Username + ` on ${environment.node.name}`);
         this.refreshBidData();
         this.configureMetaTags();
+
+        this.checkPostDetails();
 
         //   load provenance and details eth data
         console.log(` ------------------- this.nftPost ${JSON.stringify(this.nftPost)} ------------------- `);

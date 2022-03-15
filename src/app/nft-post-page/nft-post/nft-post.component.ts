@@ -37,8 +37,8 @@ import { CancelBidModalComponent } from "src/app/cancel-bid-modal/cancel-bid-mod
 import { ConfirmationModalComponent } from "src/app/confirmation-modal/confirmation-modal.component";
 import { take } from "rxjs/operators";
 import { EmbedUrlParserService } from "src/lib/services/embed-url-parser-service/embed-url-parser-service";
-import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 import { PostThreadComponent } from "src/app/post-thread-page/post-thread/post-thread.component";
+import { NftDetailBoxComponent } from "src/app/feed/nft-detail-box/nft-detail-box.component";
 
 @Component({
   selector: "nft-post",
@@ -46,7 +46,7 @@ import { PostThreadComponent } from "src/app/post-thread-page/post-thread/post-t
   styleUrls: ["./nft-post.component.scss"],
 })
 export class NftPostComponent implements OnInit {
-  @ViewChild(FeedPostComponent) feedPost: FeedPostComponent;
+  @ViewChild(NftDetailBoxComponent) detailsBox: NftDetailBoxComponent;
   @ViewChild("postThread", { static: false }) postThread: PostThreadComponent;
 
   isAvailableForSale = false;
@@ -300,6 +300,7 @@ export class NftPostComponent implements OnInit {
     }
   }
   refreshBidData(): Subscription {
+    console.log("rEFRESI");
     this.refreshingBids = true;
     return this.backendApi
       .GetNFTBidsForNFTPost(
@@ -503,7 +504,7 @@ export class NftPostComponent implements OnInit {
       if (response === "nft sold") {
         this.loading = true;
         this.refreshPosts();
-        this.feedPost.getNFTEntries();
+        this.detailsBox.getNFTEntries();
       } else if (response === "unlockable content opened") {
         const unlockableModalDetails = this.modalService.show(AddUnlockableModalComponent, {
           class: "modal-dialog-centered nft_placebid_modal_bx nft_placebid_modal_bx_right rt_popups",
@@ -517,7 +518,7 @@ export class NftPostComponent implements OnInit {
           if (response === "nft sold") {
             this.loading = true;
             this.refreshPosts();
-            this.feedPost.getNFTEntries();
+            this.detailsBox.getNFTEntries();
           }
         });
       }
@@ -560,7 +561,7 @@ export class NftPostComponent implements OnInit {
     onHiddenEvent.subscribe((response) => {
       if (response === "auction cancelled") {
         this.refreshBidData();
-        this.feedPost.getNFTEntries();
+        this.detailsBox.getNFTEntries();
       }
     });
   }
@@ -792,6 +793,7 @@ export class NftPostComponent implements OnInit {
   }
 
   onSingleBidCancellation(event: CancelEvent): void {
+    console.log("SINGLE");
     const { postHashHex, serialNumber, bidAmountNanos } = event;
     this.triggerBidCancellation(postHashHex, serialNumber, bidAmountNanos);
   }
@@ -867,7 +869,7 @@ export class NftPostComponent implements OnInit {
     onHidden.subscribe((response) => {
       if ((response = "Bids cancelled")) {
         this.refreshBidData();
-        this.feedPost.getNFTEntries();
+        this.detailsBox.getNFTEntries();
       }
     });
   }

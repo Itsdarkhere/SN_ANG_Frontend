@@ -235,6 +235,7 @@ import { SignupPageReferralsComponent } from "./signup-page-referrals/signup-pag
 import { LandingPageCreatorsComponent } from "./landing-page-creators/landing-page-creators.component";
 import { LandingPageDaoComponent } from "./landing-page-dao/landing-page-dao.component";
 import { MobileNavigationComponent } from './left-bar-mobile/mobile-navigation/mobile-navigation.component';
+import { NftDetailBoxComponent } from './feed/nft-detail-box/nft-detail-box.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -441,6 +442,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     LandingPageCreatorsComponent,
     LandingPageDaoComponent,
     MobileNavigationComponent,
+    NftDetailBoxComponent,
   ],
   imports: [
     BrowserModule,

@@ -152,6 +152,7 @@
           (onSingleBidCancellation)="onSingleBidCancellation($event)"
           (onMultipleBidsCancellation)="onMultipleBidsCancellation($event)"
         ></feed-post>
+        <app-nft-detail-box [postContent]="nftPost" [nftBidData]="nftBidData"></app-nft-detail-box>
       </div>
     </div>
     <div class="nft_bx linebx" *ngIf="!isMobile">

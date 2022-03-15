@@ -212,7 +212,7 @@
       <div *ngIf="nftPost && nftBidData" class="position-relative h-100">
         <feed-post
           [isNFTProfile]="true"
-          [nftBidData]="nftBidData"
+          [isNFTDetail]="true"
           [post]="nftPost"
           [includePaddingOnPost]="true"
           [isParentPostInThread]="true"
@@ -224,16 +224,21 @@
           [showExpandedNFTDetails]="true"
           [contentShouldLinkToThread]="true"
           [afterCommentCreatedCallback]="incrementCommentCounter.bind(this)"
-          [isNFTDetail]="true"
           [showNFTOwnerInfo]="hightestBidOwner"
           [bidsOnMyNFTs]="bidsOnMyNfts?.length"
           (userBlocked)="afterUserBlocked($event)"
+        ></feed-post>
+        <app-nft-detail-box
+          [postContent]="nftPost"
+          [nftBidData]="nftBidData"
+          [isNFTDetail]="true"
+          (closeAuction)="closeAuction($event)"
           (nftBidPlaced)="afterNftBidPlaced($event)"
           (sellNFT)="sellNFT($event)"
           (closeAuction)="closeAuction($event)"
-          (onSingleBidCancellation)="onSingleBidCancellation($event)"
-          (onMultipleBidsCancellation)="onMultipleBidsCancellation($event)"
-        ></feed-post>
+          (singleBidCancellation)="onSingleBidCancellation($event)"
+          (multipleBidsCancellation)="onMultipleBidsCancellation($event)"
+        ></app-nft-detail-box>
       </div>
     </div>
     <div class="nft_bx linebx" *ngIf="!isMobile">

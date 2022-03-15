@@ -134,9 +134,15 @@ export class NftPostComponent implements OnInit {
     });
   }
   ngOnInit() {
-    console.log("------------------------------ page loaded ------------------------------");
-    // this.refreshPosts();
-    //this.logString();
+    if (this.globalVars.isMobile()) {
+      this.isMobile = true;
+      this.tabs.push("Comments");
+      this.icons.push("/assets/icons/nft_bids_icon.svg");
+    } else {
+      // WIP
+      this.isMobile = false;
+      this.tabs = this.tabs.filter((t) => t !== "Comments");
+    }
   }
   logString() {
     let arr = this.string.split(",");
@@ -321,15 +327,6 @@ export class NftPostComponent implements OnInit {
             (nftEntryResponse) =>
               nftEntryResponse.OwnerPublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
           );
-          if (this.globalVars.isMobile()) {
-            this.isMobile = true;
-            this.tabs.push("Comments");
-            this.icons.push("/assets/icons/nft_bids_icon.svg");
-          } else {
-            // WIP
-            this.isMobile = false;
-            this.tabs = this.tabs.filter((t) => t !== "Comments");
-          }
           this.myBids = this.nftBidData.BidEntryResponses.filter(
             (bidEntry) => bidEntry.PublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
           );

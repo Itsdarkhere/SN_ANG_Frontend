@@ -4,242 +4,257 @@
   <!-- New Page design -->
   <div class="nft_details_main_wrapper">
     <!-- Main Post Area -->
-    <div class="nft_bx nft_feed_post_design gray">
-      <div class="single-card" *ngIf="loading; else showPostData" style="height: 100%; width: 100%">
-        <div class="w-100">
-          <div class="d-flex flex-column js-feed-post position-relative">
-            <div class="nft-col-wrap" *ngFor="let in of counter(1); let i = index">
-              <div class="">
-                <loading-shimmer [tabType]="'POST'"></loading-shimmer>
+    <div class="nft-details-top">
+      <div class="nft_bx nft_feed_post_design gray">
+        <div class="single-card" *ngIf="loading; else showPostData" style="height: 100%; width: 100%">
+          <div class="w-100">
+            <div class="d-flex flex-column js-feed-post position-relative">
+              <div class="nft-col-wrap" *ngFor="let in of counter(1); let i = index">
+                <div class="">
+                  <loading-shimmer [tabType]="'POST'"></loading-shimmer>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <ng-template #showPostData>
-        <div *ngIf="nftPost && nftBidData" class="d-flex flex-center" style="height: 100%; width: 100%">
-          <!--  afterCommentCreatedCallback explanation: Here, the "post" is a top-level post. A new comment on a -->
-          <!--  top-level post should be prepended to the post's list of comments -->
+        <ng-template #showPostData>
+          <div *ngIf="nftPost && nftBidData" class="d-flex flex-center" style="height: 100%; width: 100%">
+            <!--  afterCommentCreatedCallback explanation: Here, the "post" is a top-level post. A new comment on a -->
+            <!--  top-level post should be prepended to the post's list of comments -->
 
-          <!-- Image Post -->
-          <div
-            *ngIf="
-              nftPost.ImageURLs &&
-              nftPost.ImageURLs[0] &&
-              !nftPost.ParentStakeID &&
-              !nftPost.PostExtraData?.arweaveAudioSrc &&
-              !nftPost.PostExtraData?.arweaveModelSrc
-            "
-            class="feed-post__image-container"
-            [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
-          >
-            <img
-              id="post-image"
-              (click)="openImgModal($event, nftPost.ImageURLs[0])"
-              data-toggle="modal"
-              class="feed-post__image"
-              (error)="useNormalImage(nftPost.ImageURLs[0])"
-              src="{{ mapImageURLs(nftPost.ImageURLs[0]) }}"
-            />
-          </div>
-
-          <!-- Audio Post -->
-          <div class="w-100 d-flex flex-column mt-20px mb-20px" *ngIf="nftPost.PostExtraData?.arweaveAudioSrc">
-            <div class="w-100 d-flex flex-center">
+            <!-- Image Post -->
+            <div
+              *ngIf="
+                nftPost.ImageURLs &&
+                nftPost.ImageURLs[0] &&
+                !nftPost.ParentStakeID &&
+                !nftPost.PostExtraData?.arweaveAudioSrc &&
+                !nftPost.PostExtraData?.arweaveModelSrc
+              "
+              class="feed-post__image-container"
+              [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
+            >
               <img
+                id="post-image"
                 (click)="openImgModal($event, nftPost.ImageURLs[0])"
                 data-toggle="modal"
-                class="mb-20px nft-page-audio-cover-image"
+                class="feed-post__image"
+                (error)="useNormalImage(nftPost.ImageURLs[0])"
                 src="{{ mapImageURLs(nftPost.ImageURLs[0]) }}"
               />
             </div>
-            <app-audio-player
-              [songName]="nftPost.PostExtraData?.name"
-              [creator]="nftPost.ProfileEntryResponse?.Username"
-              [audioSrc]="nftPost.PostExtraData.arweaveAudioSrc"
-            ></app-audio-player>
-          </div>
 
-          <!-- Video Post -->
-          <div class="w-100 d-flex flex-center" *ngIf="nftPost.PostExtraData.arweaveVideoSrc">
-            <video controls class="w-100 br-5px" src="{{ nftPost.PostExtraData.arweaveVideoSrc }}"></video>
-          </div>
-          <div
-            *ngIf="
-              nftPost.VideoURLs &&
-              nftPost.VideoURLs[0] &&
-              !nftPost.ParentStakeID &&
-              !nftPost.PostExtraData.arweaveVideoSrc
-            "
-            class="d-flex flex-center w-100"
-            [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
-          >
-            <iframe
-              [src]="nftPost.VideoURLs[0] | sanitizeVideoUrl"
-              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-              allowfullscreen
-              class="w-100 br-10px"
-            ></iframe>
-            <!--feed-post__video-->
-          </div>
-          <div *ngIf="constructedEmbedURL" class="d-flex flex-center w-100">
-            <iframe
-              id="embed-iframe"
-              [height]="getEmbedHeight()"
-              [src]="constructedEmbedURL | sanitizeEmbed"
-              frameborder="0"
-              allow="picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; encrypted-media;"
-              allowfullscreen
-              class="w-100 br-10px"
-            ></iframe>
-          </div>
+            <!-- Audio Post -->
+            <div class="w-100 d-flex flex-column mt-20px mb-20px" *ngIf="nftPost.PostExtraData?.arweaveAudioSrc">
+              <div class="w-100 d-flex flex-center">
+                <img
+                  (click)="openImgModal($event, nftPost.ImageURLs[0])"
+                  data-toggle="modal"
+                  class="mb-20px nft-page-audio-cover-image"
+                  src="{{ mapImageURLs(nftPost.ImageURLs[0]) }}"
+                />
+              </div>
+              <app-audio-player
+                [songName]="nftPost.PostExtraData?.name"
+                [creator]="nftPost.ProfileEntryResponse?.Username"
+                [audioSrc]="nftPost.PostExtraData.arweaveAudioSrc"
+              ></app-audio-player>
+            </div>
 
-          <!-- 3D Model Post -->
-          <div style="height: 100%; width: 100%" *ngIf="nftPost.PostExtraData.arweaveModelSrc">
+            <!-- Video Post -->
+            <div class="w-100 d-flex flex-center" *ngIf="nftPost.PostExtraData.arweaveVideoSrc">
+              <video controls class="w-100 br-5px" src="{{ nftPost.PostExtraData.arweaveVideoSrc }}"></video>
+            </div>
             <div
-              *ngIf="nftPost.ImageURLs && nftPost.ImageURLs[0] && !nftPost.ParentStakeID"
-              style="height: 100%; width: 100%"
+              *ngIf="
+                nftPost.VideoURLs &&
+                nftPost.VideoURLs[0] &&
+                !nftPost.ParentStakeID &&
+                !nftPost.PostExtraData.arweaveVideoSrc
+              "
+              class="d-flex flex-center w-100"
               [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
             >
-              <app-model
+              <iframe
+                [src]="nftPost.VideoURLs[0] | sanitizeVideoUrl"
+                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                allowfullscreen
+                class="w-100 br-10px"
+              ></iframe>
+              <!--feed-post__video-->
+            </div>
+            <div *ngIf="constructedEmbedURL" class="d-flex flex-center w-100">
+              <iframe
+                id="embed-iframe"
+                [height]="getEmbedHeight()"
+                [src]="constructedEmbedURL | sanitizeEmbed"
+                frameborder="0"
+                allow="picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; encrypted-media;"
+                allowfullscreen
+                class="w-100 br-10px"
+              ></iframe>
+            </div>
+
+            <!-- 3D Model Post -->
+            <div style="height: 100%; width: 100%" *ngIf="nftPost.PostExtraData.arweaveModelSrc">
+              <div
+                *ngIf="nftPost.ImageURLs && nftPost.ImageURLs[0] && !nftPost.ParentStakeID"
                 style="height: 100%; width: 100%"
-                [postModelArweaveSrc]="nftPost.PostExtraData.arweaveModelSrc"
-              ></app-model>
+                [ngClass]="{ 'mb-10px': quotedContent && showQuotedContent }"
+              >
+                <app-model
+                  style="height: 100%; width: 100%"
+                  [postModelArweaveSrc]="nftPost.PostExtraData.arweaveModelSrc"
+                ></app-model>
+              </div>
             </div>
           </div>
-        </div>
-      </ng-template>
+        </ng-template>
 
-      <!-- Full Screen Post Options -->
-      <ng-container
-        *ngIf="nftPost.PostExtraData.arweaveModelSrc; then showFullScreenModel; else showFullScreenImage"
-      ></ng-container>
+        <!-- Full Screen Post Options -->
+        <ng-container
+          *ngIf="nftPost.PostExtraData.arweaveModelSrc; then showFullScreenModel; else showFullScreenImage"
+        ></ng-container>
 
-      <!-- Fullscreen button for 3D posts -->
-      <ng-template #showFullScreenModel>
-        <button
-          type="button"
-          class="inlrg"
-          (click)="openModelModal($event, nftPost.PostExtraData.arweaveModelSrc)"
-          data-toggle="modal"
-        >
-          <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g filter="url(#filter0_d_231_296)">
-              <path
-                d="M14.1072 0.220215C13.6777 0.220215 13.3295 0.568383 13.3295 0.997869C13.3295 1.42736 13.6777 1.77552 14.1072 1.77552L15.3404 1.77552L12.002 5.11391C11.6983 5.4176 11.6983 5.90999 12.002 6.21368C12.3057 6.51737 12.7981 6.51737 13.1018 6.21368L16.4402 2.87529L16.4402 4.10849C16.4402 4.53798 16.7883 4.88615 17.2178 4.88614C17.6473 4.88614 17.9955 4.53798 17.9955 4.10849L17.9955 0.997869C17.9955 0.568383 17.6473 0.220215 17.2178 0.220215H14.1072ZM3.99769 13.1182L3.99769 11.885C3.99769 11.4555 3.64952 11.1074 3.22004 11.1074C2.79055 11.1074 2.44238 11.4555 2.44238 11.885L2.44239 14.9956C2.44239 15.4251 2.79055 15.7733 3.22004 15.7733H6.33065C6.76014 15.7733 7.10831 15.4251 7.10831 14.9956C7.10831 14.5662 6.76014 14.218 6.33065 14.218H5.09746L8.43585 10.8796C8.73954 10.5759 8.73954 10.0835 8.43585 9.77984C8.13216 9.47614 7.63977 9.47614 7.33608 9.77984L3.99769 13.1182Z"
-                fill="#646464"
-              />
-            </g>
-            <defs>
-              <filter
-                id="filter0_d_231_296"
-                x="-1.55762"
-                y="0.220215"
-                width="23.553"
-                height="23.5532"
-                filterUnits="userSpaceOnUse"
-                color-interpolation-filters="sRGB"
-              >
-                <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                <feColorMatrix
-                  in="SourceAlpha"
-                  type="matrix"
-                  values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                  result="hardAlpha"
+        <!-- Fullscreen button for 3D posts -->
+        <ng-template #showFullScreenModel>
+          <button
+            type="button"
+            class="inlrg"
+            (click)="openModelModal($event, nftPost.PostExtraData.arweaveModelSrc)"
+            data-toggle="modal"
+          >
+            <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g filter="url(#filter0_d_231_296)">
+                <path
+                  d="M14.1072 0.220215C13.6777 0.220215 13.3295 0.568383 13.3295 0.997869C13.3295 1.42736 13.6777 1.77552 14.1072 1.77552L15.3404 1.77552L12.002 5.11391C11.6983 5.4176 11.6983 5.90999 12.002 6.21368C12.3057 6.51737 12.7981 6.51737 13.1018 6.21368L16.4402 2.87529L16.4402 4.10849C16.4402 4.53798 16.7883 4.88615 17.2178 4.88614C17.6473 4.88614 17.9955 4.53798 17.9955 4.10849L17.9955 0.997869C17.9955 0.568383 17.6473 0.220215 17.2178 0.220215H14.1072ZM3.99769 13.1182L3.99769 11.885C3.99769 11.4555 3.64952 11.1074 3.22004 11.1074C2.79055 11.1074 2.44238 11.4555 2.44238 11.885L2.44239 14.9956C2.44239 15.4251 2.79055 15.7733 3.22004 15.7733H6.33065C6.76014 15.7733 7.10831 15.4251 7.10831 14.9956C7.10831 14.5662 6.76014 14.218 6.33065 14.218H5.09746L8.43585 10.8796C8.73954 10.5759 8.73954 10.0835 8.43585 9.77984C8.13216 9.47614 7.63977 9.47614 7.33608 9.77984L3.99769 13.1182Z"
+                  fill="#646464"
                 />
-                <feOffset dy="4" />
-                <feGaussianBlur stdDeviation="2" />
-                <feComposite in2="hardAlpha" operator="out" />
-                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_231_296" />
-                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_231_296" result="shape" />
-              </filter>
-            </defs>
-          </svg>
-        </button>
-      </ng-template>
+              </g>
+              <defs>
+                <filter
+                  id="filter0_d_231_296"
+                  x="-1.55762"
+                  y="0.220215"
+                  width="23.553"
+                  height="23.5532"
+                  filterUnits="userSpaceOnUse"
+                  color-interpolation-filters="sRGB"
+                >
+                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  <feColorMatrix
+                    in="SourceAlpha"
+                    type="matrix"
+                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                    result="hardAlpha"
+                  />
+                  <feOffset dy="4" />
+                  <feGaussianBlur stdDeviation="2" />
+                  <feComposite in2="hardAlpha" operator="out" />
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_231_296" />
+                  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_231_296" result="shape" />
+                </filter>
+              </defs>
+            </svg>
+          </button>
+        </ng-template>
 
-      <!-- Fullscreen button for image posts -->
-      <ng-template #showFullScreenImage>
-        <!-- Unfortunately there is currently no way to target image NFTs specifically -->
-        <button
-          *ngIf="!nftPost.PostExtraData.arweaveAudioSrc && !nftPost.PostExtraData.arweaveVideoSrc"
-          type="button"
-          class="inlrg"
-          (click)="openImgModal($event, nftPost.ImageURLs[0])"
-          data-toggle="modal"
-        >
-          <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g filter="url(#filter0_d_231_296)">
-              <path
-                d="M14.1072 0.220215C13.6777 0.220215 13.3295 0.568383 13.3295 0.997869C13.3295 1.42736 13.6777 1.77552 14.1072 1.77552L15.3404 1.77552L12.002 5.11391C11.6983 5.4176 11.6983 5.90999 12.002 6.21368C12.3057 6.51737 12.7981 6.51737 13.1018 6.21368L16.4402 2.87529L16.4402 4.10849C16.4402 4.53798 16.7883 4.88615 17.2178 4.88614C17.6473 4.88614 17.9955 4.53798 17.9955 4.10849L17.9955 0.997869C17.9955 0.568383 17.6473 0.220215 17.2178 0.220215H14.1072ZM3.99769 13.1182L3.99769 11.885C3.99769 11.4555 3.64952 11.1074 3.22004 11.1074C2.79055 11.1074 2.44238 11.4555 2.44238 11.885L2.44239 14.9956C2.44239 15.4251 2.79055 15.7733 3.22004 15.7733H6.33065C6.76014 15.7733 7.10831 15.4251 7.10831 14.9956C7.10831 14.5662 6.76014 14.218 6.33065 14.218H5.09746L8.43585 10.8796C8.73954 10.5759 8.73954 10.0835 8.43585 9.77984C8.13216 9.47614 7.63977 9.47614 7.33608 9.77984L3.99769 13.1182Z"
-                fill="#646464"
-              />
-            </g>
-            <defs>
-              <filter
-                id="filter0_d_231_296"
-                x="-1.55762"
-                y="0.220215"
-                width="23.553"
-                height="23.5532"
-                filterUnits="userSpaceOnUse"
-                color-interpolation-filters="sRGB"
-              >
-                <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                <feColorMatrix
-                  in="SourceAlpha"
-                  type="matrix"
-                  values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                  result="hardAlpha"
+        <!-- Fullscreen button for image posts -->
+        <ng-template #showFullScreenImage>
+          <!-- Unfortunately there is currently no way to target image NFTs specifically -->
+          <button
+            *ngIf="!nftPost.PostExtraData.arweaveAudioSrc && !nftPost.PostExtraData.arweaveVideoSrc"
+            type="button"
+            class="inlrg"
+            (click)="openImgModal($event, nftPost.ImageURLs[0])"
+            data-toggle="modal"
+          >
+            <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g filter="url(#filter0_d_231_296)">
+                <path
+                  d="M14.1072 0.220215C13.6777 0.220215 13.3295 0.568383 13.3295 0.997869C13.3295 1.42736 13.6777 1.77552 14.1072 1.77552L15.3404 1.77552L12.002 5.11391C11.6983 5.4176 11.6983 5.90999 12.002 6.21368C12.3057 6.51737 12.7981 6.51737 13.1018 6.21368L16.4402 2.87529L16.4402 4.10849C16.4402 4.53798 16.7883 4.88615 17.2178 4.88614C17.6473 4.88614 17.9955 4.53798 17.9955 4.10849L17.9955 0.997869C17.9955 0.568383 17.6473 0.220215 17.2178 0.220215H14.1072ZM3.99769 13.1182L3.99769 11.885C3.99769 11.4555 3.64952 11.1074 3.22004 11.1074C2.79055 11.1074 2.44238 11.4555 2.44238 11.885L2.44239 14.9956C2.44239 15.4251 2.79055 15.7733 3.22004 15.7733H6.33065C6.76014 15.7733 7.10831 15.4251 7.10831 14.9956C7.10831 14.5662 6.76014 14.218 6.33065 14.218H5.09746L8.43585 10.8796C8.73954 10.5759 8.73954 10.0835 8.43585 9.77984C8.13216 9.47614 7.63977 9.47614 7.33608 9.77984L3.99769 13.1182Z"
+                  fill="#646464"
                 />
-                <feOffset dy="4" />
-                <feGaussianBlur stdDeviation="2" />
-                <feComposite in2="hardAlpha" operator="out" />
-                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_231_296" />
-                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_231_296" result="shape" />
-              </filter>
-            </defs>
-          </svg>
-        </button>
-      </ng-template>
-    </div>
-    <!-- End of Main Post Area -->
-
-    <div class="nft_bx nft_feed_post_wt_design post">
-      <div *ngIf="nftPost && nftBidData" class="position-relative h-100">
-        <feed-post
-          [isNFTProfile]="true"
-          [isNFTDetail]="true"
-          [post]="nftPost"
-          [includePaddingOnPost]="true"
-          [isParentPostInThread]="true"
-          [showLeftSelectedBorder]="true"
-          [showInteractionDetails]="true"
-          [blocked]="isPostBlocked(nftPost)"
-          [showName]="true"
-          [showNFTDetails]="true"
-          [showExpandedNFTDetails]="true"
-          [contentShouldLinkToThread]="true"
-          [afterCommentCreatedCallback]="incrementCommentCounter.bind(this)"
-          [showNFTOwnerInfo]="hightestBidOwner"
-          [bidsOnMyNFTs]="bidsOnMyNfts?.length"
-          (userBlocked)="afterUserBlocked($event)"
-        ></feed-post>
-        <app-nft-detail-box
-          [postContent]="nftPost"
-          [nftBidData]="nftBidData"
-          [isNFTDetail]="true"
-          (closeAuction)="closeAuction($event)"
-          (nftBidPlaced)="afterNftBidPlaced($event)"
-          (sellNFT)="sellNFT($event)"
-          (closeAuction)="closeAuction($event)"
-          (singleBidCancellation)="onSingleBidCancellation($event)"
-          (multipleBidsCancellation)="onMultipleBidsCancellation($event)"
-        ></app-nft-detail-box>
+              </g>
+              <defs>
+                <filter
+                  id="filter0_d_231_296"
+                  x="-1.55762"
+                  y="0.220215"
+                  width="23.553"
+                  height="23.5532"
+                  filterUnits="userSpaceOnUse"
+                  color-interpolation-filters="sRGB"
+                >
+                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  <feColorMatrix
+                    in="SourceAlpha"
+                    type="matrix"
+                    values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                    result="hardAlpha"
+                  />
+                  <feOffset dy="4" />
+                  <feGaussianBlur stdDeviation="2" />
+                  <feComposite in2="hardAlpha" operator="out" />
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_231_296" />
+                  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_231_296" result="shape" />
+                </filter>
+              </defs>
+            </svg>
+          </button>
+        </ng-template>
       </div>
+
+      <div class="nft_bx nft_feed_post_wt_design post">
+        <div *ngIf="nftPost && nftBidData" class="position-relative d-flex justify-content-between flex-column h-100">
+          <feed-post
+            [isNFTProfile]="true"
+            [isNFTDetail]="true"
+            [post]="nftPost"
+            [includePaddingOnPost]="true"
+            [isParentPostInThread]="true"
+            [showLeftSelectedBorder]="true"
+            [showInteractionDetails]="true"
+            [blocked]="isPostBlocked(nftPost)"
+            [showName]="true"
+            [showNFTDetails]="true"
+            [showExpandedNFTDetails]="true"
+            [contentShouldLinkToThread]="true"
+            [afterCommentCreatedCallback]="incrementCommentCounter.bind(this)"
+            [showNFTOwnerInfo]="hightestBidOwner"
+            [bidsOnMyNFTs]="bidsOnMyNfts?.length"
+            (userBlocked)="afterUserBlocked($event)"
+          ></feed-post>
+          <div class="nft-details-wrapper">
+            <app-nft-detail-box
+              [postContent]="nftPost"
+              [nftBidData]="nftBidData"
+              [isNFTDetail]="true"
+              (closeAuction)="closeAuction($event)"
+              (nftBidPlaced)="afterNftBidPlaced($event)"
+              (sellNFT)="sellNFT($event)"
+              (closeAuction)="closeAuction($event)"
+              (singleBidCancellation)="onSingleBidCancellation($event)"
+              (multipleBidsCancellation)="onMultipleBidsCancellation($event)"
+            ></app-nft-detail-box>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- DESKTOP COMMENTS -->
+    <div class="nft_profile_mobile_engagement_wrapper" *ngIf="isMobile">
+      <feed-post-icon-row
+        *ngIf="showIconRow"
+        class="w-100"
+        [isNFTProfile]="true"
+        [post]="post"
+        [postContent]="postContent"
+        [parentPost]="parentPost"
+        [afterCommentCreatedCallback]="prependPostToFeed.bind(this)"
+      ></feed-post-icon-row>
     </div>
     <div class="nft_bx linebx" *ngIf="!isMobile">
       <div class="comments_likes_list">
@@ -608,39 +623,6 @@
         </div>
       </div>
       <div *ngIf="activeTab === NftPostComponent.COMMENTS">
-        <div class="comments_likes_list">
-          <div class="nft-post-icon-row-wrapper h-50 d-flex flex-center">
-            <feed-post-icon-row
-              *ngIf="showIconRow"
-              class="w-100"
-              [isNFTProfile]="true"
-              [post]="post"
-              [postContent]="postContent"
-              [parentPost]="parentPost"
-              [afterCommentCreatedCallback]="prependPostToFeed.bind(this)"
-            ></feed-post-icon-row>
-          </div>
-          <div class="nft-profile-engagement-string">
-            <div class="d-flex flex-center">
-              <span class="engagement-string-item">
-                <b>{{ globalVars.abbreviateNumber(nftPost.RepostCount) }}</b>
-                Comments
-              </span>
-              <span class="engagement-string-item">
-                <b>{{ globalVars.abbreviateNumber(nftPost.QuoteRepostCount) }}</b>
-                Reposts
-              </span>
-              <span class="engagement-string-item">
-                <b>{{ globalVars.abbreviateNumber(nftPost.LikeCount) }}</b>
-                Likes
-              </span>
-              <span class="engagement-string-item">
-                <b>{{ globalVars.abbreviateNumber(nftPost.DiamondCount) }}</b>
-                Diamonds
-              </span>
-            </div>
-          </div>
-        </div>
         <!-- feed-post End -->
         <!-- <h3 class="hdb">Comments</h3> -->
         <!-- <simple-center-loader *ngIf="refreshingBids"></simple-center-loader> -->
@@ -654,7 +636,7 @@
             Comment
           </button>
         </div>
-  
+
         <div *ngIf="nftPost.CommentCount || nftPost.ParentStakeID" class="nft-profile-comment-section">
           <div class="send-message-thread-container">
             <div class="fake-textarea-container">
@@ -699,7 +681,7 @@
             [hideCurrentPost]="!nftPost.ParentStakeID"
           ></post-thread>
         </div>
-  
+
         <button
           type="button"
           class="add_comment_btn"

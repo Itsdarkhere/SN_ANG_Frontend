@@ -129,4 +129,8 @@ export class GeneralSuccessModalComponent implements OnInit {
     console.log(` want to buy clicked from modal ${this.globalVars.wantToBuyEth}`);
     this.router.navigate([RouteNames.IMX_PAGE]);
   }
+
+  clickOutside() {
+    window.location.reload();
+  }
 }

@@ -28,8 +28,8 @@ export class WithdrawEthComponent implements OnInit {
 
     // uncomment for testing
     // this.pendingWithdrawals = false;
-    // this.readyWithdrawals = true;
-    // this.completeWithdrawalSuccess = true;
+    // this.readyWithdrawals = false;
+    // this.completeWithdrawalSuccess = false;
   }
 
   async prepareWithdrawButtonClicked() {
@@ -49,7 +49,7 @@ export class WithdrawEthComponent implements OnInit {
       amount: this.withdrawAmount,
     });
     localStorage.setItem("imxDepositAmount", this.withdrawAmount);
-    await this.checkPendingWithdrawals();
+    await this.checkPendingWithdrawals(); // this function is not running
   }
 
   async checkPendingWithdrawals() {

@@ -1560,6 +1560,35 @@ export class GlobalVarsService {
   }
 
   //   ----------------- start of eth/imx functions -----------------
+  counter = 0;
+
+  getPostsRecursive(metadataPostHashArr) {
+    this.getPost(true, metadataPostHashArr[this.counter]).subscribe(
+      (res) => {
+        console.log(this.counter);
+        this.counter++;
+        console.log(res["PostFound"]);
+        console.log(this.ethMarketplaceNFTsData);
+        this.ethMarketplaceNFTsData.push(res["PostFound"]);
+        console.log(this.ethMarketplaceNFTsData);
+        if (this.counter < metadataPostHashArr.length) {
+          this.getPostsRecursive(metadataPostHashArr);
+        } else {
+          this.updateDataToShow();
+        }
+      },
+      (err: any) => {
+        console.log(err);
+        this.counter++;
+        if (this.counter < metadataPostHashArr.length) {
+          this.getPostsRecursive(metadataPostHashArr);
+        } else {
+          this.updateDataToShow();
+        }
+      }
+    );
+  }
+
   //   for sale ETH nfts - newest first
   async sortEthMarketplaceNewestFirst() {
     this.isEthMarketplaceLoading = true;
@@ -1596,25 +1625,16 @@ export class GlobalVarsService {
       }
     }
 
-    for (var i = 0; i < metadataPostHashArr.length; i++) {
-      this.getPost(true, metadataPostHashArr[i]).subscribe(
-        (res) => {
-          console.log(res["PostFound"]);
-          console.log(this.ethMarketplaceNFTsData);
-          this.ethMarketplaceNFTsData.push(res["PostFound"]);
-          console.log(this.ethMarketplaceNFTsData);
-        },
-        (err: any) => {
-          console.log(err);
-        }
-      );
-    }
+    this.counter = 0;
+    this.getPostsRecursive(metadataPostHashArr);
+
+    // setTimeout(() => {
+    //   this.updateDataToShow();
+    // }, 1000);
 
     setTimeout(() => {
-      this.updateDataToShow();
-    }, 1000);
-
-    this.isEthMarketplaceLoading = false;
+      this.isEthMarketplaceLoading = false;
+    }, 2000);
   }
 
   //   for sale ETH nfts - oldest first
@@ -1653,25 +1673,12 @@ export class GlobalVarsService {
       }
     }
 
-    for (var i = 0; i < metadataPostHashArr.length; i++) {
-      this.getPost(true, metadataPostHashArr[i]).subscribe(
-        (res) => {
-          console.log(res["PostFound"]);
-          console.log(this.ethMarketplaceNFTsData);
-          this.ethMarketplaceNFTsData.push(res["PostFound"]);
-          console.log(this.ethMarketplaceNFTsData);
-        },
-        (err: any) => {
-          console.log(err);
-        }
-      );
-    }
+    this.counter = 0;
+    this.getPostsRecursive(metadataPostHashArr);
 
     setTimeout(() => {
-      this.updateDataToShow();
-    }, 1000);
-
-    this.isEthMarketplaceLoading = false;
+      this.isEthMarketplaceLoading = false;
+    }, 2000);
   }
 
   //   for sale ETH nfts - highest price first
@@ -1710,25 +1717,12 @@ export class GlobalVarsService {
       }
     }
 
-    for (var i = 0; i < metadataPostHashArr.length; i++) {
-      this.getPost(true, metadataPostHashArr[i]).subscribe(
-        (res) => {
-          console.log(res["PostFound"]);
-          console.log(this.ethMarketplaceNFTsData);
-          this.ethMarketplaceNFTsData.push(res["PostFound"]);
-          console.log(this.ethMarketplaceNFTsData);
-        },
-        (err: any) => {
-          console.log(err);
-        }
-      );
-    }
+    this.counter = 0;
+    this.getPostsRecursive(metadataPostHashArr);
 
     setTimeout(() => {
-      this.updateDataToShow();
-    }, 1000);
-
-    this.isEthMarketplaceLoading = false;
+      this.isEthMarketplaceLoading = false;
+    }, 2000);
   }
 
   //   for sale ETH nfts - lowest price first
@@ -1767,25 +1761,12 @@ export class GlobalVarsService {
       }
     }
 
-    for (var i = 0; i < metadataPostHashArr.length; i++) {
-      this.getPost(true, metadataPostHashArr[i]).subscribe(
-        (res) => {
-          console.log(res["PostFound"]);
-          console.log(this.ethMarketplaceNFTsData);
-          this.ethMarketplaceNFTsData.push(res["PostFound"]);
-          console.log(this.ethMarketplaceNFTsData);
-        },
-        (err: any) => {
-          console.log(err);
-        }
-      );
-    }
+    this.counter = 0;
+    this.getPostsRecursive(metadataPostHashArr);
 
     setTimeout(() => {
-      this.updateDataToShow();
-    }, 1000);
-
-    this.isEthMarketplaceLoading = false;
+      this.isEthMarketplaceLoading = false;
+    }, 2000);
   }
 
   //   for sale ETH nfts
@@ -1824,25 +1805,12 @@ export class GlobalVarsService {
       }
     }
 
-    for (var i = 0; i < metadataPostHashArr.length; i++) {
-      this.getPost(true, metadataPostHashArr[i]).subscribe(
-        (res) => {
-          console.log(res["PostFound"]);
-          console.log(this.ethMarketplaceNFTsData);
-          this.ethMarketplaceNFTsData.push(res["PostFound"]);
-          console.log(this.ethMarketplaceNFTsData);
-        },
-        (err: any) => {
-          console.log(err);
-        }
-      );
-    }
+    this.counter = 0;
+    this.getPostsRecursive(metadataPostHashArr);
 
     setTimeout(() => {
-      this.updateDataToShow();
-    }, 1000);
-
-    this.isEthMarketplaceLoading = false;
+      this.isEthMarketplaceLoading = false;
+    }, 2000);
   }
 
   //   get all ETH nfts
@@ -1882,36 +1850,16 @@ export class GlobalVarsService {
       }
     }
 
-    var metadataArrCounter = 0;
+    this.counter = 0;
+    this.getPostsRecursive(metadataPostHashArr);
 
-    for (var i = 0; i < metadataPostHashArr.length; i++) {
-      this.getPost(true, metadataPostHashArr[i]).subscribe(
-        (res) => {
-          console.log(res["PostFound"]);
-          console.log(this.ethMarketplaceNFTsData);
-          this.ethMarketplaceNFTsData.push(res["PostFound"]);
-          console.log(this.ethMarketplaceNFTsData);
-          if (this.ethMarketplaceNFTsData.length === metadataPostHashArr.length - metadataArrCounter) {
-            console.log(` ---------- last one -------------- `);
-            this.updateDataToShow();
-          }
-        },
-        (err: any) => {
-          console.log(err);
-          metadataArrCounter++;
-        }
-      );
-    }
-
-    // setTimeout(() => {
-    //   this.updateDataToShow();
-    // }, 1000);
-
-    this.isEthMarketplaceLoading = false;
+    setTimeout(() => {
+      this.isEthMarketplaceLoading = false;
+    }, 2000);
   }
 
   updateDataToShow() {
-    this.ethMarketplaceNFTsDataToShow = this.ethMarketplaceNFTsData.slice(0, 6);
+    this.ethMarketplaceNFTsDataToShow = this.ethMarketplaceNFTsData.slice(0, 30);
     console.log(this.ethMarketplaceNFTsDataToShow);
   }
 
@@ -1931,8 +1879,39 @@ export class GlobalVarsService {
       this.showAdminTools() /*AddGlobalFeedBool*/
     );
   }
+  //   end of marketplace imx functions
 
+  // start of profile imx functions
   link = new Link(environment.imx.ROPSTEN_LINK_URL);
+  getCollectedNFTsCounter = 0;
+
+  getCollectedPostsRecursive(metadataPostHashArr) {
+    this.getPost(true, metadataPostHashArr[this.getCollectedNFTsCounter]).subscribe(
+      (res) => {
+        console.log(this.getCollectedNFTsCounter);
+        this.getCollectedNFTsCounter++;
+        console.log(res["PostFound"]);
+        console.log(this.ethNFTsCollected);
+        this.ethNFTsCollected.push(res["PostFound"]);
+        console.log(this.ethNFTsCollected);
+        if (this.getCollectedNFTsCounter < metadataPostHashArr.length) {
+          this.getCollectedPostsRecursive(metadataPostHashArr);
+        } else {
+          return;
+        }
+      },
+      (err: any) => {
+        console.log(err);
+        this.getCollectedNFTsCounter++;
+        if (this.getCollectedNFTsCounter < metadataPostHashArr.length) {
+          this.getCollectedPostsRecursive(metadataPostHashArr);
+        } else {
+          return;
+        }
+      }
+    );
+  }
+
   //   get collected eth NFTs for logged in wallet
   async getCollectedNFTs() {
     this.ethNFTsCollected = [];
@@ -1952,23 +1931,55 @@ export class GlobalVarsService {
       console.log(metadataPostHashArr);
     }
 
-    var metadataArrCounter = 0;
-    for (var i = 0; i < metadataPostHashArr.length; i++) {
-      this.getPost(true, metadataPostHashArr[i]).subscribe(
-        (res) => {
-          console.log(res["PostFound"]);
-          this.ethNFTsCollected.push(res["PostFound"]);
-          if (this.ethNFTsCollected.length === metadataPostHashArr.length - metadataArrCounter) {
-            console.log(` ---------- last one -------------- `);
-            console.log(this.ethNFTsCollected);
-          }
-        },
-        (err: any) => {
-          console.log(err);
-          metadataArrCounter++;
+    this.getCollectedNFTsCounter = 0;
+
+    this.getCollectedPostsRecursive(metadataPostHashArr);
+    // var metadataArrCounter = 0;
+    // for (var i = 0; i < metadataPostHashArr.length; i++) {
+    //   this.getPost(true, metadataPostHashArr[i]).subscribe(
+    //     (res) => {
+    //       console.log(res["PostFound"]);
+    //       this.ethNFTsCollected.push(res["PostFound"]);
+    //       if (this.ethNFTsCollected.length === metadataPostHashArr.length - metadataArrCounter) {
+    //         console.log(` ---------- last one -------------- `);
+    //         console.log(this.ethNFTsCollected);
+    //       }
+    //     },
+    //     (err: any) => {
+    //       console.log(err);
+    //       metadataArrCounter++;
+    //     }
+    //   );
+    // }
+  }
+
+  getCreatedNFTsCounter = 0;
+
+  getCreatedPostsRecursive(metadataPostHashArr) {
+    this.getPost(true, metadataPostHashArr[this.getCreatedNFTsCounter]).subscribe(
+      (res) => {
+        console.log(this.getCreatedNFTsCounter);
+        this.getCreatedNFTsCounter++;
+        console.log(res["PostFound"]);
+        console.log(this.ethNFTsCreated);
+        this.ethNFTsCreated.push(res["PostFound"]);
+        console.log(this.ethNFTsCreated);
+        if (this.getCreatedNFTsCounter < metadataPostHashArr.length) {
+          this.getCreatedPostsRecursive(metadataPostHashArr);
+        } else {
+          return;
         }
-      );
-    }
+      },
+      (err: any) => {
+        console.log(err);
+        this.getCreatedNFTsCounter++;
+        if (this.getCreatedNFTsCounter < metadataPostHashArr.length) {
+          this.getCreatedPostsRecursive(metadataPostHashArr);
+        } else {
+          return;
+        }
+      }
+    );
   }
 
   //   get created eth NFTs for logged in wallet
@@ -1988,30 +1999,6 @@ export class GlobalVarsService {
     createdNFTs = await createdNFTs.json();
     console.log(createdNFTs);
 
-    // let metadataPostHashArr = [];
-    // for (var i = 0; i < createdNFTs["result"].length; i++) {
-    //   metadataPostHashArr.push(createdNFTs["result"][i]["metadata"]["PostHashHex"]);
-    //   console.log(metadataPostHashArr);
-    // }
-
-    // var metadataArrCounter = 0;
-    // for (var i = 0; i < metadataPostHashArr.length; i++) {
-    //   this.getPost(true, metadataPostHashArr[i]).subscribe(
-    //     (res) => {
-    //       console.log(res["PostFound"]);
-    //       this.ethNFTsCreated.push(res["PostFound"]);
-    //       if (this.ethNFTsCreated.length === metadataPostHashArr.length - metadataArrCounter) {
-    //         console.log(` ---------- last one -------------- `);
-    //         console.log(this.ethNFTsCreated);
-    //       }
-    //     },
-    //     (err: any) => {
-    //       console.log(err);
-    //       metadataArrCounter++;
-    //     }
-    //   );
-    // }
-
     let createdNFTsLength = createdNFTs["result"].length;
     let createdNFTsArr = [];
 
@@ -2026,26 +2013,29 @@ export class GlobalVarsService {
       metadataPostHashArr.push(metadataResJson["PostHashHex"]);
     }
 
-    var metadataArrCounter = 0;
+    this.getCreatedNFTsCounter = 0;
 
-    for (var i = 0; i < metadataPostHashArr.length; i++) {
-      this.getPost(true, metadataPostHashArr[i]).subscribe(
-        (res) => {
-          console.log(res["PostFound"]);
-          console.log(this.ethNFTsCreated);
-          this.ethNFTsCreated.push(res["PostFound"]);
-          console.log(this.ethNFTsCreated);
-          if (this.ethNFTsCreated.length === metadataPostHashArr.length - metadataArrCounter) {
-            console.log(` ---------- last one -------------- `);
-            console.log(this.ethNFTsCreated);
-          }
-        },
-        (err: any) => {
-          console.log(err);
-          metadataArrCounter++;
-        }
-      );
-    }
+    this.getCreatedPostsRecursive(metadataPostHashArr);
+    // var metadataArrCounter = 0;
+
+    // for (var i = 0; i < metadataPostHashArr.length; i++) {
+    //   this.getPost(true, metadataPostHashArr[i]).subscribe(
+    //     (res) => {
+    //       console.log(res["PostFound"]);
+    //       console.log(this.ethNFTsCreated);
+    //       this.ethNFTsCreated.push(res["PostFound"]);
+    //       console.log(this.ethNFTsCreated);
+    //       if (this.ethNFTsCreated.length === metadataPostHashArr.length - metadataArrCounter) {
+    //         console.log(` ---------- last one -------------- `);
+    //         console.log(this.ethNFTsCreated);
+    //       }
+    //     },
+    //     (err: any) => {
+    //       console.log(err);
+    //       metadataArrCounter++;
+    //     }
+    //   );
+    // }
   }
   //   ----------------- end of eth/imx functions -----------------
 }

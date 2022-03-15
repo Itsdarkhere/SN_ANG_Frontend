@@ -75,7 +75,7 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
     this.marketClick(this.globalVars.marketplaceMarketType);
     this.creatorsClick(this.globalVars.marketplaceVerifiedCreators);
     this.formatClick(this.globalVars.marketplaceContentFormat);
-    this.categorySelectChange(this.globalVars.marketplaceNFTCategory);
+    this.categorySelectChange(this.globalVars.ethMarketplaceNFTCategory);
   }
   // Input validation
   checkPriceRange() {
@@ -125,7 +125,7 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
   }
 
   categoryAndFormatToBaseState() {
-    this.globalVars.marketplaceNFTCategory = "all";
+    this.globalVars.ethMarketplaceNFTCategory = "all";
     this.globalVars.marketplaceContentFormat = "all";
     this.format3D = false;
     this.formatImages = false;
@@ -182,32 +182,6 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
     }
     // Check if user can sort
     this.canSort();
-  }
-  // Status button clicks, does not stay in memory
-  statusEthClick(button: string) {
-    switch (button) {
-      case "all":
-        if (!this.statusAll) {
-          this.statusAll = true;
-          this.statusForSale = false;
-          this.statusHasBids = false;
-          this.statusSold = false;
-        }
-        break;
-      case "for sale":
-        if (this.statusForSale) {
-          this.statusAll = true;
-          this.statusForSale = false;
-        } else {
-          this.statusForSale = true;
-          this.statusAll = false;
-          this.statusHasBids = false;
-          this.statusSold = false;
-        }
-        break;
-      default:
-        break;
-    }
   }
   // Set the status, stays in memory
   setStatus() {
@@ -440,38 +414,12 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
     }
   }
   canSort() {
-    // If price is different from last sort
-    if (this.lastSortLowPrice != this.lowPrice || this.lastSortHighPrice != this.highPrice) {
-      this.canUserSort = true;
-      // If market is different from last sort
-    } else if (
-      this.lastSortMarketPrimary != this.marketPrimary ||
-      this.lastSortMarketSecondary != this.marketSecondary
-    ) {
-      this.canUserSort = true;
-      // If category is different from last sort
-    } else if (this.NFTCategory != this.lastSortCategory) {
+    if (this.NFTCategory != this.lastSortCategory) {
       this.canUserSort = true;
       // If content format is different from last sort
-    } else if (
-      this.lastSortContentFormatAll != this.formatAll ||
-      this.lastSortContentFormatImages != this.formatImages ||
-      this.lastSortContentFormatVideo != this.formatVideo ||
-      this.lastSortContentFormatMusic != this.formatMusic
-    ) {
+    } else if (this.lastSortStatusAll != this.statusAll || this.lastSortStatusForSale != this.statusForSale) {
       this.canUserSort = true;
       // If status is different from last time
-    } else if (
-      this.lastSortStatusAll != this.statusAll ||
-      this.lastSortStatusForSale != this.statusForSale ||
-      this.lastSortStatusHasBids != this.statusHasBids ||
-      this.lastSortStatusSold != this.statusSold
-    ) {
-      this.canUserSort = true;
-      // If creator type is different from last time
-    } else if (this.lastSortCreatorTypeVerified != this.creatorTypeVerified) {
-      this.canUserSort = true;
-      // If nothing has changed user cannot sort
     } else {
       this.canUserSort = false;
     }
@@ -487,7 +435,7 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
     // this.setCreatorType();
     // this.onFilter.emit("sort");
     // this.functionPass.filter("sort");
-    // this.canUserSort = false;
+    this.canUserSort = false;
 
     console.log(this.globalVars.ethMarketplaceStatus);
 
@@ -496,7 +444,6 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
     }
 
     if (this.globalVars.ethMarketplaceStatus === "for sale") {
-      console.log(` ---------------------- for sale hit ------------------ `);
       this.globalVars.sortEthMarketplace();
     }
 
@@ -521,8 +468,8 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
   }
   // Set to global memory
   setCategory() {
-    if (this.globalVars.marketplaceNFTCategory != this.NFTCategory) {
-      this.globalVars.marketplaceNFTCategory = this.NFTCategory;
+    if (this.globalVars.ethMarketplaceNFTCategory != this.NFTCategory) {
+      this.globalVars.ethMarketplaceNFTCategory = this.NFTCategory;
       // Store to use in canSort
       this.lastSortCategory = this.NFTCategory;
       // Check if user can sort

@@ -188,6 +188,7 @@ export class GlobalVarsService {
   marketplaceStatus = "all";
   ethMarketplaceStatus = "all";
   marketplaceNFTCategory = "all";
+  ethMarketplaceNFTCategory = "All";
   marketplaceLowPriceNanos = 0;
   marketplaceHighPriceNanos = 0;
   marketplaceLowPriceUSD = 0;
@@ -1614,10 +1615,10 @@ export class GlobalVarsService {
     for (var i = 0; i < NFTsForSaleArr.length; i++) {
       let metadataRes = await fetch(`https://supernovas.app/api/v0/imx/metadata/${NFTsForSaleArr[i]}`);
       let metadataResJson = await metadataRes.json();
-      if (this.marketplaceNFTCategory === "All") {
+      if (this.ethMarketplaceNFTCategory === "All") {
         metadataPostHashArr.push(metadataResJson["PostHashHex"]);
       } else {
-        if (metadataResJson["Category"] === this.marketplaceNFTCategory) {
+        if (metadataResJson["Category"] === this.ethMarketplaceNFTCategory) {
           metadataPostHashArr.push(metadataResJson["PostHashHex"]);
         } else {
           continue;
@@ -1662,10 +1663,10 @@ export class GlobalVarsService {
     for (var i = 0; i < NFTsForSaleArr.length; i++) {
       let metadataRes = await fetch(`https://supernovas.app/api/v0/imx/metadata/${NFTsForSaleArr[i]}`);
       let metadataResJson = await metadataRes.json();
-      if (this.marketplaceNFTCategory === "All") {
+      if (this.ethMarketplaceNFTCategory === "All") {
         metadataPostHashArr.push(metadataResJson["PostHashHex"]);
       } else {
-        if (metadataResJson["Category"] === this.marketplaceNFTCategory) {
+        if (metadataResJson["Category"] === this.ethMarketplaceNFTCategory) {
           metadataPostHashArr.push(metadataResJson["PostHashHex"]);
         } else {
           continue;
@@ -1706,10 +1707,10 @@ export class GlobalVarsService {
     for (var i = 0; i < NFTsForSaleArr.length; i++) {
       let metadataRes = await fetch(`https://supernovas.app/api/v0/imx/metadata/${NFTsForSaleArr[i]}`);
       let metadataResJson = await metadataRes.json();
-      if (this.marketplaceNFTCategory === "All") {
+      if (this.ethMarketplaceNFTCategory === "All") {
         metadataPostHashArr.push(metadataResJson["PostHashHex"]);
       } else {
-        if (metadataResJson["Category"] === this.marketplaceNFTCategory) {
+        if (metadataResJson["Category"] === this.ethMarketplaceNFTCategory) {
           metadataPostHashArr.push(metadataResJson["PostHashHex"]);
         } else {
           continue;
@@ -1750,10 +1751,10 @@ export class GlobalVarsService {
     for (var i = 0; i < NFTsForSaleArr.length; i++) {
       let metadataRes = await fetch(`https://supernovas.app/api/v0/imx/metadata/${NFTsForSaleArr[i]}`);
       let metadataResJson = await metadataRes.json();
-      if (this.marketplaceNFTCategory === "All") {
+      if (this.ethMarketplaceNFTCategory === "All") {
         metadataPostHashArr.push(metadataResJson["PostHashHex"]);
       } else {
-        if (metadataResJson["Category"] === this.marketplaceNFTCategory) {
+        if (metadataResJson["Category"] === this.ethMarketplaceNFTCategory) {
           metadataPostHashArr.push(metadataResJson["PostHashHex"]);
         } else {
           continue;
@@ -1794,10 +1795,10 @@ export class GlobalVarsService {
     for (var i = 0; i < NFTsForSaleArr.length; i++) {
       let metadataRes = await fetch(`https://supernovas.app/api/v0/imx/metadata/${NFTsForSaleArr[i]}`);
       let metadataResJson = await metadataRes.json();
-      if (this.marketplaceNFTCategory === "All") {
+      if (this.ethMarketplaceNFTCategory === "All") {
         metadataPostHashArr.push(metadataResJson["PostHashHex"]);
       } else {
-        if (metadataResJson["Category"] === this.marketplaceNFTCategory) {
+        if (metadataResJson["Category"] === this.ethMarketplaceNFTCategory) {
           metadataPostHashArr.push(metadataResJson["PostHashHex"]);
         } else {
           continue;
@@ -1835,14 +1836,14 @@ export class GlobalVarsService {
     }
 
     let metadataPostHashArr = [];
-    console.log(this.marketplaceNFTCategory);
+    console.log(this.ethMarketplaceNFTCategory);
     for (var i = 0; i < NFTsAllArr.length; i++) {
       let metadataRes = await fetch(`https://supernovas.app/api/v0/imx/metadata/${NFTsAllArr[i]}`);
       let metadataResJson = await metadataRes.json();
-      if (this.marketplaceNFTCategory === "All") {
+      if (this.ethMarketplaceNFTCategory === "All") {
         metadataPostHashArr.push(metadataResJson["PostHashHex"]);
       } else {
-        if (metadataResJson["Category"] === this.marketplaceNFTCategory) {
+        if (metadataResJson["Category"] === this.ethMarketplaceNFTCategory) {
           metadataPostHashArr.push(metadataResJson["PostHashHex"]);
         } else {
           continue;

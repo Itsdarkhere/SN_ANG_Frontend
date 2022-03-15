@@ -5,14 +5,14 @@
     <div class="mlb-status-grid">
       <button
         class="font-weight-semibold fs-14px"
-        (click)="statusEthClick('all')"
+        (click)="statusClick('all')"
         [ngClass]="{ selected: this.statusAll }"
       >
         All
       </button>
       <button
         class="font-weight-semibold fs-14px"
-        (click)="statusEthClick('for sale')"
+        (click)="statusClick('for sale')"
         [ngClass]="{ selected: this.statusForSale }"
       >
         For Sale
@@ -293,11 +293,7 @@
   </div>
 </div>
 <div class="mlb-flyout-apply-button-container" *ngIf="flyout">
-  <button
-    [disabled]="!canUserSort || priceRangeIncorrect"
-    class="marketplace-flyout-apply-button font-weight-bold"
-    (click)="apply()"
-  >
+  <button [disabled]="!canUserSort" class="marketplace-flyout-apply-button font-weight-bold" (click)="apply()">
     <span class="center-absolute">
       <img src="/assets/icons/market_apply_icon.svg" class="mr-5px" alt="image-icon" />
       Apply

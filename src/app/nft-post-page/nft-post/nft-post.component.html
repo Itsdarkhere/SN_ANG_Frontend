@@ -227,6 +227,7 @@
             [showNFTOwnerInfo]="hightestBidOwner"
             [bidsOnMyNFTs]="bidsOnMyNfts?.length"
             (userBlocked)="afterUserBlocked($event)"
+            (changeEdition)="changeEdition($event)"
           ></feed-post>
           <div class="nft-details-wrapper">
             <app-nft-detail-box
@@ -235,6 +236,7 @@
               [isNFTDetail]="true"
               (closeAuction)="closeAuction($event)"
               (nftBidPlaced)="afterNftBidPlaced($event)"
+              [hightestBidOwner]="hightestBidOwner"
               (sellNFT)="sellNFT($event)"
               (closeAuction)="closeAuction($event)"
               (singleBidCancellation)="onSingleBidCancellation($event)"

@@ -215,6 +215,10 @@ export class NftPostComponent implements OnInit {
     );
   }
 
+  changeEdition(id: number) {
+    this.detailsBox.changeEdition(id);
+  }
+
   openImgModal(event, imageURL) {
     event.stopPropagation();
     this.modalService.show(FeedPostImageModalComponent, {

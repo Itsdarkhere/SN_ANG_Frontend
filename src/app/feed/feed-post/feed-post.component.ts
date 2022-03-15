@@ -148,6 +148,9 @@ export class FeedPostComponent implements OnInit {
   // close Auction
   @Output() closeAuction = new EventEmitter();
 
+  // Change edition
+  @Output() changeEdition = new EventEmitter();
+
   // BUY NOW
   isBuyNow: boolean;
   buyNowPriceNanos: number;
@@ -287,23 +290,16 @@ export class FeedPostComponent implements OnInit {
     }
 
     this.loadingEthNFTDetails = false;
-    console.log(" ----------------- updated sale price function run ----------------- ");
-    console.log(this.ethereumNFTSalePrice);
   }
 
   _tabSerialNumberClicked(id: number) {
     this.loadingEditionDetails = true;
     this.editionNumber = id;
-
-    // Insert selected ser into variable
-    this.nftEntryResponses.forEach((item) => {
-      if (item.SerialNumber == this.editionNumber) {
-        this.nftEntryResponse = item;
-      }
-    });
-    // Update buy now related stuff
-    this.updateBuyNow();
+    // Pass to parent the wish to change edition
+    // Parent then should call sibling nft-detai-box
+    this.changeEdition.emit(id);
   }
+
   getNFTEntries() {
     this.backendApi
       .GetNFTEntriesForNFTPost(

@@ -78,14 +78,14 @@
         <div class="nft_done_by" *ngIf="!editionIsBuyNow && editionHasBids && editionForSale">
           <span class="hq">Made By</span>
           <div class="d-flex">
-            <div class="bid_by_avtar" [avatar]="showNFTOwnerInfo?.ProfileEntryResponse?.PublicKeyBase58Check"></div>
+            <div class="bid_by_avtar" [avatar]="hightestBidOwner?.ProfileEntryResponse?.PublicKeyBase58Check"></div>
             <div class="name">
               <a
                 class="fc-default font-weight-bold"
                 [routerLink]="
                   getRouterLink([
                     '/' + globalVars.RouteNames.USER_PREFIX,
-                    showNFTOwnerInfo?.ProfileEntryResponse?.Username
+                    hightestBidOwner?.ProfileEntryResponse?.Username
                   ])
                 "
                 queryParamsHandling="merge"

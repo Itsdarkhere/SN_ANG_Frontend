@@ -27,6 +27,7 @@ export class NftDetailBoxComponent implements OnInit {
   @Input() profilePublicKeyBase58Check: string = "";
   @Input() isForSaleOnly: boolean = false;
   @Input() postContent: any;
+  @Input() hightestBidOwner = {};
 
   @Output() closeAuction = new EventEmitter();
   @Output() singleBidCancellation = new EventEmitter();
@@ -198,6 +199,19 @@ export class NftDetailBoxComponent implements OnInit {
     } else {
       this.isMinBidLessThanBuyNow = false;
     }
+  }
+
+  changeEdition(id: number) {
+    // Insert selected ser into variable
+    // Do this in nft detail box
+    this.loadingEditionDetails = true;
+    this.nftEntryResponses.forEach((item) => {
+      if (item.SerialNumber == id) {
+        this.nftEntryResponse = item;
+      }
+    });
+    this.updateBuyNow();
+    this.updateEditionSpecificLogic();
   }
 
   updateEditionSpecificLogic() {

@@ -1,0 +1,27 @@
+<svg width="20" height="28" viewBox="0 0 20 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_3417_5085)">
+<path d="M18.3381 17.5111H18.3598V17.4895V3.22967C18.3598 2.14378 17.4795 1.26349 16.3936 1.26349H4.07831C2.99241 1.26349 2.11212 2.14378 2.11212 3.22967V17.4895V17.5111H2.13379H18.3381Z" fill="#C0C0C0" stroke="#E4E4E4" stroke-width="0.0433417"/>
+<path d="M2.10254 17.4893H18.3717V24.5219C18.3717 25.5959 17.5011 26.4664 16.4271 26.4664H4.04706C2.97313 26.4664 2.10254 25.5959 2.10254 24.5219V17.4893Z" fill="#171717"/>
+<path d="M2.10254 17.4893H18.3717V24.5219C18.3717 25.5959 17.5011 26.4664 16.4271 26.4664H4.04706C2.97313 26.4664 2.10254 25.5959 2.10254 24.5219V17.4893Z" fill="url(#paint0_radial_3417_5085)" fill-opacity="0.2"/>
+<path d="M2.13379 17.4731H2.11758V17.4893V22.1885V22.2047H2.13379H18.3381H18.3543V22.1885V17.4893V17.4731H18.3381H2.13379Z" fill="white" stroke="#E4E4E4" stroke-width="0.0324086"/>
+<rect x="3.8418" y="18.2236" width="9.37689" height="1.1343" fill="#F4F4F4"/>
+<rect x="3.8418" y="24.5752" width="5.52027" height="0.756201" fill="#F4F4F4"/>
+<rect x="3.8418" y="23.2158" width="3.32729" height="0.756201" fill="#F4F4F4"/>
+</g>
+<defs>
+<filter id="filter0_d_3417_5085" x="0.79057" y="0.0719627" width="18.8915" height="27.8251" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="0.130025"/>
+<feGaussianBlur stdDeviation="0.650125"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.09 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3417_5085"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3417_5085" result="shape"/>
+</filter>
+<radialGradient id="paint0_radial_3417_5085" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(6.34878 22.9339) rotate(14.3135) scale(14.2886 25.7015)">
+<stop/>
+<stop offset="0.763668" stop-color="#595959"/>
+</radialGradient>
+</defs>
+</svg>

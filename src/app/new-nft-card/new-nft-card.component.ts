@@ -69,7 +69,7 @@ export class NewNftCardComponent implements OnInit {
       this.postContent = post;
     }
     this.setEmbedURLForPostContent();
-    if (this.postContent.ImageURLs[0]) {
+    if (this.postContent?.ImageURLs) {
       this.changeImageURLs(this.postContent.ImageURLs[0]);
     }
   }

@@ -311,6 +311,9 @@ export class FeedPostComponent implements OnInit {
         this.nftEntryResponses = res.NFTEntryResponses;
         // Set serialnumber of which to use in logic to be one that the user owns
         // or the first one if user does not own any
+        if (this.nftEntryResponses?.length > 1) {
+          this.multipleEditions = true;
+        }
         this.setSerialNumberToUse();
         // Insert selected ser into variable
         // Insert selected ser into variable

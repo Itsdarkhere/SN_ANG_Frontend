@@ -186,7 +186,7 @@
             <div class="d-flex align-items-center">
               <div class="d-flex justify-content-between">
                 <div class="post_del_list">
-                  <span class="nb" *ngIf="isNFTProfile">Creator</span>
+                  <span class="nb" *ngIf="isNFTProfile">CREATOR</span>
 
                   <!-- Username-->
                   <div class="mr-20px d-flex flex-center flex-row">
@@ -207,7 +207,7 @@
                     </span>
                   </div>
                   <app-nft-edition-dropdown
-                    *ngIf="isNFTProfile"
+                    *ngIf="isNFTProfile && multipleEditions"
                     [nftEntryResponses]="nftEntryResponses"
                     [editionNumber]="editionNumber"
                     (editionSelected)="_tabSerialNumberClicked($event)"

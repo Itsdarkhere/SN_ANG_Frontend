@@ -207,6 +207,11 @@ export class BackendRoutes {
   static RoutePathGetIMXMetadataById = "/api/v0/imx/metadata";
   static RoutePathInsertIMXMetadata = "/api/v0/insert/imx";
   static RoutePathUpdateIMXMetadataPostHash = "/api/v0/update-imx-post-hash";
+  // SUPERNOVAS ANALYTICS
+  static RoutePathGetUniqueCreators = "/api/v0/get-unique-creators";
+  static RoutePathGetUniqueCollectors = "/api/v0/get-unique-collectors";
+  static RoutePathGetDesoSalesCapGraph = "/api/v0/get-deso-sales-cap-graph";
+  static RoutePathGetDesoMarketCapGraph = "/api/v0/get-deso-market-cap-graph";
 }
 
 export class Transaction {
@@ -1213,6 +1218,30 @@ export class BackendApiService {
     return this.post(endpoint, BackendRoutes.RoutePathGetNFTShowcaseStripped, {
       UserPublicKeyBase58Check,
       ReaderPublicKeyBase58Check,
+    });
+  }
+  // PublicKey can be omitted on the analytics queries
+  GetDesoMarketCapGraph(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetDesoMarketCapGraph, {
+      PublicKeyBase58Check,
+    });
+  }
+  // PublicKey can be omitted on the analytics queries
+  GetDesoSalesCapGraph(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetDesoSalesCapGraph, {
+      PublicKeyBase58Check,
+    });
+  }
+  // PublicKey can be omitted on the analytics queries
+  GetUniqueCreators(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetUniqueCreators, {
+      PublicKeyBase58Check,
+    });
+  }
+  // PublicKey can be omitted on the analytics queries
+  GetUniqueCollectors(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetUniqueCollectors, {
+      PublicKeyBase58Check,
     });
   }
   GetNFTShowcasePaginated(

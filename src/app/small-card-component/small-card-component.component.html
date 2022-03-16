@@ -1,30 +1,27 @@
 <div class="red-box cursor-pointer" (click)="onPostClicked($event)">
-
-
   <div class="red-box-img-cover position-relative">
-
     <!-- The class "card-audio-icon-container" is from a different component – why is this here? -->
-    <div *ngIf="post?.PostExtraData['arweaveAudioSrc']" class="card-audio-icon-container pointer-events-none d-flex flex-center top-br-30px">
-
+    <div
+      *ngIf="post?.PostExtraData['arweaveAudioSrc']"
+      class="card-audio-icon-container pointer-events-none d-flex flex-center top-br-30px"
+    >
       <!-- Two beam notes -->
-      <img *ngIf="showAudioTypeIcon" [@audioIconNoHover] class="card-audio-icon" src="/assets/icons/music-type-white.svg" alt="icon"/>
-      
+      <img *ngIf="showAudioTypeIcon" class="card-audio-icon" src="/assets/icons/music-type-white.svg" alt="icon" />
+
       <!-- "audio-icon-hover-state" is from the new-nft-card-component -->
       <!-- If this is supposed to affect the hover state it doesn't seem to be doing anything? -->
-      <div *ngIf="!showAudioTypeIcon" [@audioIconHover] class="audio-icon-hover-state d-flex flex-row flex-center font-weight-semiboldn">
-        
-        <img class="audio-play-icon" src="/assets/icons/audio-play-small.svg" alt="audio icon small"/>
+      <div *ngIf="!showAudioTypeIcon" class="audio-icon-hover-state d-flex flex-row flex-center font-weight-semiboldn">
+        <img class="audio-play-icon" src="/assets/icons/audio-play-small.svg" alt="audio icon small" />
         <!-- <p>PLAY AUDIO</p> -->
       </div>
-
-
     </div>
 
-
-    <img class="card-image" *ngIf="post.ImageURLs && post.ImageURLs[0] && !post.ParentStakeID" data-toggle="modal" src="{{ mapImageURLs(post.ImageURLs[0]) }}"/>
-    
-
-
+    <img
+      class="card-image"
+      *ngIf="post.ImageURLs && post.ImageURLs[0] && !post.ParentStakeID"
+      data-toggle="modal"
+      src="{{ mapImageURLs(post.ImageURLs[0]) }}"
+    />
 
     <!-- Video stuff seems to start here -->
     <div
@@ -81,7 +78,6 @@
       <div class="disable-scrollbars">{{ post.Body }}</div>
     </div>
   </div>
-
 
   <div class="red-box-div" [ngClass]="isForSale ? 'colors-for-sale' : 'colors-sold'">
     <p *ngIf="post.PostExtraData?.name" class="font-weight-semibold">

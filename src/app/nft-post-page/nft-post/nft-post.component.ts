@@ -47,7 +47,7 @@ import { NftDetailBoxComponent } from "src/app/feed/nft-detail-box/nft-detail-bo
 })
 export class NftPostComponent implements OnInit {
   @ViewChild(NftDetailBoxComponent) detailsBox: NftDetailBoxComponent;
-  @ViewChild("postThread", { static: false }) postThread: PostThreadComponent;
+  @ViewChild(PostThreadComponent, { static: false }) postThread: PostThreadComponent;
 
   isAvailableForSale = false;
   nftPost: PostEntryResponse;
@@ -454,10 +454,10 @@ export class NftPostComponent implements OnInit {
 
           this.commentText = "";
           this.constructedEmbedURL = "";
-          this.changeRef.detectChanges();
 
           this.prependPostToFeed(response.PostEntryResponse);
-          this.incrementCommentCounter();
+          this.postThread.prependToCommentList(this.nftPost, response.PostEntryResponse);
+          this.changeRef.detectChanges();
         },
         (err) => {
           const parsedError = this.backendApi.parsePostError(err);
@@ -465,7 +465,6 @@ export class NftPostComponent implements OnInit {
           this.globalVars.logEvent(`post : ${postType} : error`, { parsedError });
 
           this.submittingPost = false;
-          this.changeRef.detectChanges();
         }
       );
   }

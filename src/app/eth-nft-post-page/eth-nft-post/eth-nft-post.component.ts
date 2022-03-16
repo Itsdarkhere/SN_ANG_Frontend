@@ -10,8 +10,6 @@ import {
 } from "../../backend-api.service";
 import { DomSanitizer, Title } from "@angular/platform-browser";
 import { BsModalService } from "ngx-bootstrap/modal";
-import { SwalHelper } from "../../../lib/helpers/swal-helper";
-import { RouteNames } from "../../app-routing.module";
 import { Location } from "@angular/common";
 import * as _ from "lodash";
 import { SellNftModalComponent } from "../../sell-nft-modal/sell-nft-modal.component";
@@ -36,9 +34,7 @@ import { CancelBidModalComponent } from "src/app/cancel-bid-modal/cancel-bid-mod
 import { ConfirmationModalComponent } from "src/app/confirmation-modal/confirmation-modal.component";
 import { take } from "rxjs/operators";
 import { EmbedUrlParserService } from "src/lib/services/embed-url-parser-service/embed-url-parser-service";
-import { any } from "underscore";
-
-import { ethers } from "ethers";
+import { PostThreadComponent } from "src/app/post-thread-page/post-thread/post-thread.component";
 
 @Component({
   selector: "app-eth-nft-post",
@@ -47,6 +43,7 @@ import { ethers } from "ethers";
 })
 export class EthNftPostComponent implements OnInit {
   @ViewChild(FeedPostComponent) feedPost: FeedPostComponent;
+  @ViewChild(PostThreadComponent) postThread: PostThreadComponent;
 
   isAvailableForSale = false;
   nftPost: PostEntryResponse;
@@ -307,7 +304,8 @@ export class EthNftPostComponent implements OnInit {
           this.changeRef.detectChanges();
 
           this.prependPostToFeed(response.PostEntryResponse);
-          this.incrementCommentCounter();
+          this.postThread.prependToCommentList(this.nftPost, response.PostEntryResponse);
+          this.changeRef.detectChanges();
         },
         (err) => {
           const parsedError = this.backendApi.parsePostError(err);

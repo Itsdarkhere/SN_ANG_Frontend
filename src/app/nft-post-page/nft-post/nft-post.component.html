@@ -7,13 +7,9 @@
     <div class="nft-details-top">
       <div class="nft_bx nft_feed_post_design gray">
         <div class="single-card" *ngIf="loading; else showPostData" style="height: 100%; width: 100%">
-          <div class="w-100">
-            <div class="d-flex flex-column js-feed-post position-relative">
-              <div class="nft-col-wrap" *ngFor="let in of counter(1); let i = index">
-                <div class="">
-                  <loading-shimmer [tabType]="'POST'"></loading-shimmer>
-                </div>
-              </div>
+          <div class="w-100 h-100 d-flex flex-center">
+            <div class="js-feed-post w-100 position-relative">
+              <loading-shimmer [tabType]="'POST'"></loading-shimmer>
             </div>
           </div>
         </div>

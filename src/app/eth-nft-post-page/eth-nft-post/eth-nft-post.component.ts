@@ -36,6 +36,8 @@ import { take } from "rxjs/operators";
 import { EmbedUrlParserService } from "src/lib/services/embed-url-parser-service/embed-url-parser-service";
 import { PostThreadComponent } from "src/app/post-thread-page/post-thread/post-thread.component";
 
+import { ethers } from "ethers";
+
 @Component({
   selector: "app-eth-nft-post",
   templateUrl: "./eth-nft-post.component.html",
@@ -95,7 +97,14 @@ export class EthNftPostComponent implements OnInit {
   propertiesBool = false;
 
   ethNFTCreatorWalletAddress: string;
+  ethNFTSellerWalletAddress: string;
   ethNFTOwnerWalletAddress: string;
+  ethNFTOwnerTimestamp: string;
+  ethNFTSellerTimestamp: string;
+  ethNFTCreatorTimestamp: string;
+
+  ethNFTSellerPrice: string;
+  ethNFTOwnerPrice: string;
 
   static ALL_BIDS = "All Bids";
   static MY_BIDS = "My Bids";
@@ -395,6 +404,50 @@ export class EthNftPostComponent implements OnInit {
     );
     ethNFTOwnerWalletAddressRes = await ethNFTOwnerWalletAddressRes.json();
     this.ethNFTOwnerWalletAddress = ethNFTOwnerWalletAddressRes["user"];
+    this.ethNFTOwnerWalletAddress = this.ethNFTOwnerWalletAddress.slice(0, 15) + "...";
+
+    // find current eth seller
+    const sellerOptions = { method: "GET", headers: { Accept: "*/*" } };
+
+    let ethNFTSellerWalletAddressRes = await fetch(
+      `https://api.ropsten.x.immutable.com/v1/orders?order_by=created_at&direction=desc&sell_token_id=${this.token_id}&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
+      sellerOptions
+    );
+    ethNFTSellerWalletAddressRes = await ethNFTSellerWalletAddressRes.json();
+
+    for (var i = 0; i < ethNFTSellerWalletAddressRes["result"].length; i++) {
+      if (
+        ethNFTSellerWalletAddressRes["result"][i]["status"] === "active" ||
+        ethNFTSellerWalletAddressRes["result"][i]["status"] === "filled"
+      ) {
+        this.ethNFTSellerWalletAddress = ethNFTSellerWalletAddressRes["result"][i]["user"];
+        this.ethNFTSellerWalletAddress = this.ethNFTSellerWalletAddress.slice(0, 15) + "...";
+
+        this.ethNFTSellerPrice =
+          ethers.utils.formatEther(ethNFTSellerWalletAddressRes["result"][i]["buy"]["data"]["quantity"]) + " ETH";
+
+        this.ethNFTSellerTimestamp = ethNFTSellerWalletAddressRes["result"][i]["timestamp"];
+        let ethNFTSellerTimestampDate = this.ethNFTSellerTimestamp.slice(0, 10);
+        let ethNFTSellerTimestampTime = this.ethNFTSellerTimestamp.slice(11, 16);
+        this.ethNFTSellerTimestamp = ethNFTSellerTimestampDate + " " + ethNFTSellerTimestampTime + " UTC";
+        console.log(this.ethNFTSellerTimestamp);
+        break;
+      }
+    }
+
+    // update owners price and timetstamp for last filled order
+    for (var i = 0; i < ethNFTSellerWalletAddressRes["result"].length; i++) {
+      if (ethNFTSellerWalletAddressRes["result"][i]["status"] === "filled") {
+        this.ethNFTOwnerPrice =
+          ethers.utils.formatEther(ethNFTSellerWalletAddressRes["result"][i]["buy"]["data"]["quantity"]) + " ETH";
+
+        this.ethNFTOwnerTimestamp = ethNFTSellerWalletAddressRes["result"][i]["timestamp"];
+        let ethNFTOwnerTimestampDate = this.ethNFTOwnerTimestamp.slice(0, 10);
+        let ethNFTOwnerTimestampTime = this.ethNFTOwnerTimestamp.slice(11, 16);
+        this.ethNFTOwnerTimestamp = ethNFTOwnerTimestampDate + " " + ethNFTOwnerTimestampTime + " UTC";
+        break;
+      }
+    }
 
     //   find current eth creator
     const creatorOptions = { method: "GET", headers: { Accept: "application/json" } };
@@ -405,6 +458,12 @@ export class EthNftPostComponent implements OnInit {
     );
     ethNFTCreatorWalletAddressRes = await ethNFTCreatorWalletAddressRes.json();
     this.ethNFTCreatorWalletAddress = ethNFTCreatorWalletAddressRes["result"][0]["user"];
+    this.ethNFTCreatorWalletAddress = this.ethNFTCreatorWalletAddress.slice(0, 15) + "...";
+
+    this.ethNFTCreatorTimestamp = ethNFTCreatorWalletAddressRes["result"][0]["timestamp"];
+    let ethNFTCreatorTimestampDate = this.ethNFTCreatorTimestamp.slice(0, 10);
+    let ethNFTCreatorTimestampTime = this.ethNFTCreatorTimestamp.slice(11, 16);
+    this.ethNFTCreatorTimestamp = ethNFTCreatorTimestampDate + " " + ethNFTCreatorTimestampTime + " UTC";
   }
 
   refreshBidData(): Subscription {

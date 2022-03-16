@@ -497,13 +497,23 @@
             </div>
           </div> -->
           <div class="eth-provenance-container">
-            <div class="eth-provenance-creator-container">
-              <p class="eth-provenance-creator-header">Owner</p>
-              <p class="eth-provenance-creator-text">{{ ethNFTOwnerWalletAddress }}</p>
+            <div class="eth-provenance-row-container">
+              <p class="eth-provenance-row-header">Sold to</p>
+              <p class="eth-provenance-row-text">{{ ethNFTOwnerWalletAddress }}</p>
+              <p class="eth-provenance-row-price">{{ ethNFTOwnerPrice }}</p>
+              <p class="eth-provenance-row-timestamp">{{ ethNFTOwnerTimestamp }}</p>
             </div>
-            <div class="eth-provenance-creator-container">
-              <p class="eth-provenance-creator-header">Creator</p>
-              <p class="eth-provenance-creator-text">{{ ethNFTCreatorWalletAddress }}</p>
+            <div class="eth-provenance-row-container">
+              <p class="eth-provenance-row-header">Listed by</p>
+              <p class="eth-provenance-row-text">{{ ethNFTSellerWalletAddress }}</p>
+              <p class="eth-provenance-row-price">{{ ethNFTSellerPrice }}</p>
+              <p class="eth-provenance-row-timestamp">{{ ethNFTSellerTimestamp }}</p>
+            </div>
+            <div class="eth-provenance-row-container">
+              <p class="eth-provenance-row-header">Minted by</p>
+              <p class="eth-provenance-row-text">{{ ethNFTCreatorWalletAddress }}</p>
+              <p class="eth-provenance-row-price">-</p>
+              <p class="eth-provenance-row-timestamp">{{ ethNFTCreatorTimestamp }}</p>
             </div>
             <!-- <div class="row no-gutters w-100">
                 <div class="col-5 d-flex align-items-center mb-0 p-0">

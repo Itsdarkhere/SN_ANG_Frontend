@@ -166,7 +166,14 @@ export class PlaceBidModalComponent implements OnInit {
             class: "modal-dialog-centered modal-dialog-bottom rt_popups modal-sm",
           });
           this.modalService.setDismissReason("bid placed");
-          this.mixPanel.track16("Bid Placed");
+          this.mixPanel.track16("Bid Placed", {
+            "bid amount": this.bidAmountDESO,
+            "Post Body": this.post.Body,
+            "Poster Key": this.post.PosterPublicKeyBase58Check,
+            "Diamonds": this.post.DiamondCount,
+            "Category": this.post.PostExtraData,
+          }
+          );
         },
         (err) => {
           console.error(err);

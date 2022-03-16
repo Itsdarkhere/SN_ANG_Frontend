@@ -90,8 +90,8 @@ track15(name: string) {
   console.log(name);
 }
 // "Bid Placed"
-track16(name: string) {
-  mixpanel.track(name);
+track16(name: string, data) {
+  mixpanel.track(name, data);
   console.log(name);
 }
 // "Update profile type"
@@ -150,7 +150,7 @@ track26(name: string) {
   console.log(name);
 }
 // Identify
-identify(name: string) {
+identify1(name: string) {
   mixpanel.identify(name);
   console.log(name);
 }
@@ -229,9 +229,9 @@ track41(name: string, data) {
   mixpanel.track(name, data);
   console.log(name);
 }
-// "Send diamonds"
-track42(name: string) {
-  mixpanel.track(name);
+// "NFT created"
+track42(name: string, data) {
+  mixpanel.track(name, data);
   console.log(name);
 }
 // "Discovery viewed"
@@ -241,9 +241,8 @@ track44(event) {
 }
 // People Set
 peopleset(name) {
-  mixpanel.people.set(name, {
-    "$name": name
-  }) 
+  mixpanel.people.set(name);
+  console.log(name)
 }
 // People Set - ref
 peoplesetRef(name) {
@@ -256,5 +255,40 @@ trackRefer(referrer: string) {
   mixpanel.track("Referral", {
     referrer: referrer,
   });
+}
+// "Bid Created"
+track45(name: string, data) {
+  mixpanel.track(name, data);
+  console.log(name);
+}
+// "NFT Updated"
+track46(name: string, data) {
+  mixpanel.track(name, data);
+  console.log(name);
+}
+// "Accept NFT Transfer"
+track47(name: string, data) {
+  mixpanel.track(name, data);
+  console.log(name);
+}
+// "Transfer NFT"
+track48(name: string, data) {
+  mixpanel.track(name, data);
+  console.log(name);
+}
+// "Burn NFT"
+track49(name: string, data) {
+  mixpanel.track(name, data);
+  console.log(name);
+}
+// "Accept NFT Transfer"
+track50(name: string, data) {
+  mixpanel.track(name, data);
+  console.log(name);
+}
+// People Set email
+peoplesetemail(name) {
+  mixpanel.people.set(name);
+  console.log(name)
 }
 }

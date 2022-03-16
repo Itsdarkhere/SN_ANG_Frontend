@@ -369,6 +369,7 @@ export class NftPostComponent implements OnInit {
           // if (this.feedPost) {
           //   this.feedPost.nftBidData = this.nftBidData
           // }
+          this.changeRef.detectChanges();
         },
         (err) => {
           console.error(err);
@@ -488,7 +489,9 @@ export class NftPostComponent implements OnInit {
   }
 
   afterNftBidPlaced() {
+    console.log("BID PLACED");
     this.refreshBidData();
+    this.detailsBox.getNFTEntries();
   }
 
   sellNFT(): void {
@@ -794,7 +797,6 @@ export class NftPostComponent implements OnInit {
   }
 
   onSingleBidCancellation(event: CancelEvent): void {
-    console.log("SINGLE");
     const { postHashHex, serialNumber, bidAmountNanos } = event;
     this.triggerBidCancellation(postHashHex, serialNumber, bidAmountNanos);
   }
@@ -821,7 +823,11 @@ export class NftPostComponent implements OnInit {
           )
           .subscribe(
             () => {
+              console.log("Bid cancelled");
               this.refreshBidData();
+              setTimeout(() => {
+                this.detailsBox.getNFTEntries();
+              }, 100);
             },
             (err) => {
               console.error(err);

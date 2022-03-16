@@ -15,6 +15,7 @@ import _ from "lodash";
 import { environment } from "src/environments/environment";
 import { CreateNftAuctionModalComponent } from "src/app/create-nft-auction-modal/create-nft-auction-modal.component";
 import { take } from "rxjs/operators";
+import { ChangeDetectorRef } from "@angular/core";
 
 @Component({
   selector: "app-nft-detail-box",
@@ -33,6 +34,7 @@ export class NftDetailBoxComponent implements OnInit {
   @Output() singleBidCancellation = new EventEmitter();
   @Output() multipleBidsCancellation = new EventEmitter();
   @Output() nftBidPlaced = new EventEmitter();
+  @Output() sellNFT = new EventEmitter();
 
   // BUY NOW
   isBuyNow: boolean;
@@ -97,7 +99,8 @@ export class NftDetailBoxComponent implements OnInit {
     private modalService: BsModalService,
     private backendApi: BackendApiService,
     private mixPanel: MixpanelService,
-    private router: Router
+    private router: Router,
+    private changeDetector: ChangeDetectorRef
   ) {}
 
   async ngOnInit() {
@@ -214,8 +217,13 @@ export class NftDetailBoxComponent implements OnInit {
     this.updateEditionSpecificLogic();
   }
 
+  updateDetailsSameEdition() {
+    this.loadingEditionDetails = true;
+    this.updateBuyNow();
+    this.updateEditionSpecificLogic();
+  }
+
   updateEditionSpecificLogic() {
-    console.log("UPDATING EDITIONS SPECS");
     this.multipleEditions = this.nftEntryResponses.length > 1;
     this.isAvailableForSale = this.nftEntryResponse.IsForSale;
     // Check if user owns this edition
@@ -231,15 +239,14 @@ export class NftDetailBoxComponent implements OnInit {
     }
     // Check if user has made a bid on this edition
     if (!this.ownsEdition) {
-      this.nftBidData.BidEntryResponses.forEach((bid) => {
-        if (bid.PublicKeyBase58Check === this.globalVars.loggedInUser.PublicKeyBase58Check) {
-          this.editionHasBidByUser = true;
-        }
-      });
+      this.editionHasBidByUser =
+        this.nftBidData.BidEntryResponses.filter(
+          (bid) => bid.PublicKeyBase58Check === this.globalVars.loggedInUser.PublicKeyBase58Check
+        )?.length > 0;
     }
     // Check if edition has been sold before
     this.editionHasBeenSold = this.nftEntryResponse.LastAcceptedBidAmountNanos > 0;
-
+    this.changeDetector.detectChanges();
     setTimeout(() => {
       // Stop shimmer
       this.loadingEditionDetails = false;
@@ -269,25 +276,19 @@ export class NftDetailBoxComponent implements OnInit {
     const onHideEvent = modalDetails.onHide;
     onHideEvent.subscribe((response) => {
       if (response === "bid placed") {
-        console.log("BID PLACE");
-        this.getNFTEntries();
         this.nftBidPlaced.emit();
       }
     });
   }
   onBidCancel = (event: any): void => {
     const numberOfBids = this.nftBidData.BidEntryResponses.length;
-    console.log("logg");
     if (this.hasUserPlacedBids() && numberOfBids > 0) {
-      console.log("logg2");
       if (numberOfBids > 1) {
-        console.log("one");
         this.multipleBidsCancellation.emit({
           cancellableBids: this.nftBidData.BidEntryResponses,
           postHashHex: this.postContent.PostHashHex,
         });
       } else {
-        console.log("two");
         this.singleBidCancellation.emit({
           postHashHex: this.postContent.PostHashHex,
           serialNumber: this.nftBidData.BidEntryResponses[0].SerialNumber,
@@ -327,7 +328,6 @@ export class NftDetailBoxComponent implements OnInit {
       const onHideEvent = modalDetails.onHide;
       onHideEvent.subscribe((response) => {
         if (response === "bid placed") {
-          this.getNFTEntries();
           this.nftBidPlaced.emit();
         }
       });
@@ -356,11 +356,14 @@ export class NftDetailBoxComponent implements OnInit {
       const onHideEvent = modalDetails.onHide;
       onHideEvent.subscribe((response) => {
         if (response === "bid placed") {
-          this.getNFTEntries();
           this.nftBidPlaced.emit();
         }
       });
     }
+  }
+
+  sellYourBid() {
+    this.sellNFT.emit();
   }
 
   getNFTEntries() {
@@ -387,7 +390,6 @@ export class NftDetailBoxComponent implements OnInit {
         // Update buy now related stuff
         this.updateBuyNow();
 
-        console.log("Loading edition details");
         this.loadingEditionDetails = true;
         // Update edition specifics
         this.updateEditionSpecificLogic();
@@ -499,7 +501,6 @@ export class NftDetailBoxComponent implements OnInit {
     const onHiddenEvent = createNftAuctionDetails.onHidden.pipe(take(1));
     onHiddenEvent.subscribe((response) => {
       if (response === "nft auction started") {
-        this.getNFTEntries();
         // Refreshes this component on nft post level
         this.nftBidPlaced.emit();
       }
@@ -507,5 +508,6 @@ export class NftDetailBoxComponent implements OnInit {
   }
   closeYourAuction() {
     this.closeAuction.emit();
+    //this.closeAuction.emit();
   }
 }

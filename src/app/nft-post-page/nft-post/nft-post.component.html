@@ -235,11 +235,10 @@
               [postContent]="nftPost"
               [nftBidData]="nftBidData"
               [isNFTDetail]="true"
+              [hightestBidOwner]="hightestBidOwner"
               (closeAuction)="closeAuction($event)"
               (nftBidPlaced)="afterNftBidPlaced($event)"
-              [hightestBidOwner]="hightestBidOwner"
               (sellNFT)="sellNFT($event)"
-              (closeAuction)="closeAuction($event)"
               (singleBidCancellation)="onSingleBidCancellation($event)"
               (multipleBidsCancellation)="onMultipleBidsCancellation($event)"
             ></app-nft-detail-box>

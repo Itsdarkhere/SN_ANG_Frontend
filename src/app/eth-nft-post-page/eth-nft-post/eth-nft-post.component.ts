@@ -415,37 +415,57 @@ export class EthNftPostComponent implements OnInit {
     );
     ethNFTSellerWalletAddressRes = await ethNFTSellerWalletAddressRes.json();
 
-    for (var i = 0; i < ethNFTSellerWalletAddressRes["result"].length; i++) {
-      if (
-        ethNFTSellerWalletAddressRes["result"][i]["status"] === "active" ||
-        ethNFTSellerWalletAddressRes["result"][i]["status"] === "filled"
-      ) {
-        this.ethNFTSellerWalletAddress = ethNFTSellerWalletAddressRes["result"][i]["user"];
-        this.ethNFTSellerWalletAddress = this.ethNFTSellerWalletAddress.slice(0, 15) + "...";
+    // if the length is 0 we know that no orders are there
+    if (ethNFTSellerWalletAddressRes["result"].length === 0) {
+      this.ethNFTSellerWalletAddress = "-";
+      this.ethNFTSellerPrice = "-";
+      this.ethNFTSellerTimestamp = "-";
+      this.ethNFTOwnerPrice = "-";
+      this.ethNFTOwnerTimestamp = "-";
+    } else {
+      for (var i = 0; i < ethNFTSellerWalletAddressRes["result"].length; i++) {
+        if (
+          ethNFTSellerWalletAddressRes["result"][i]["status"] === "active" ||
+          ethNFTSellerWalletAddressRes["result"][i]["status"] === "filled"
+        ) {
+          this.ethNFTSellerWalletAddress = ethNFTSellerWalletAddressRes["result"][i]["user"];
+          this.ethNFTSellerWalletAddress = this.ethNFTSellerWalletAddress.slice(0, 15) + "...";
 
-        this.ethNFTSellerPrice =
-          ethers.utils.formatEther(ethNFTSellerWalletAddressRes["result"][i]["buy"]["data"]["quantity"]) + " ETH";
+          this.ethNFTSellerPrice =
+            ethers.utils.formatEther(ethNFTSellerWalletAddressRes["result"][i]["buy"]["data"]["quantity"]) + " ETH";
 
-        this.ethNFTSellerTimestamp = ethNFTSellerWalletAddressRes["result"][i]["timestamp"];
-        let ethNFTSellerTimestampDate = this.ethNFTSellerTimestamp.slice(0, 10);
-        let ethNFTSellerTimestampTime = this.ethNFTSellerTimestamp.slice(11, 16);
-        this.ethNFTSellerTimestamp = ethNFTSellerTimestampDate + " " + ethNFTSellerTimestampTime + " UTC";
-        console.log(this.ethNFTSellerTimestamp);
-        break;
+          this.ethNFTSellerTimestamp = ethNFTSellerWalletAddressRes["result"][i]["timestamp"];
+          let ethNFTSellerTimestampDate = this.ethNFTSellerTimestamp.slice(0, 10);
+          let ethNFTSellerTimestampTime = this.ethNFTSellerTimestamp.slice(11, 16);
+          this.ethNFTSellerTimestamp = ethNFTSellerTimestampDate + " " + ethNFTSellerTimestampTime + " UTC";
+          console.log(this.ethNFTSellerTimestamp);
+          break;
+        }
+        //   if we are on the last one we know nothing is active or has been filled
+        if (i === ethNFTSellerWalletAddressRes["result"].length - 1) {
+          this.ethNFTSellerWalletAddress = "-";
+          this.ethNFTSellerPrice = "-";
+          this.ethNFTSellerTimestamp = "-";
+        }
       }
-    }
 
-    // update owners price and timetstamp for last filled order
-    for (var i = 0; i < ethNFTSellerWalletAddressRes["result"].length; i++) {
-      if (ethNFTSellerWalletAddressRes["result"][i]["status"] === "filled") {
-        this.ethNFTOwnerPrice =
-          ethers.utils.formatEther(ethNFTSellerWalletAddressRes["result"][i]["buy"]["data"]["quantity"]) + " ETH";
+      // update owners price and timetstamp for last filled order
+      for (var i = 0; i < ethNFTSellerWalletAddressRes["result"].length; i++) {
+        if (ethNFTSellerWalletAddressRes["result"][i]["status"] === "filled") {
+          this.ethNFTOwnerPrice =
+            ethers.utils.formatEther(ethNFTSellerWalletAddressRes["result"][i]["buy"]["data"]["quantity"]) + " ETH";
 
-        this.ethNFTOwnerTimestamp = ethNFTSellerWalletAddressRes["result"][i]["timestamp"];
-        let ethNFTOwnerTimestampDate = this.ethNFTOwnerTimestamp.slice(0, 10);
-        let ethNFTOwnerTimestampTime = this.ethNFTOwnerTimestamp.slice(11, 16);
-        this.ethNFTOwnerTimestamp = ethNFTOwnerTimestampDate + " " + ethNFTOwnerTimestampTime + " UTC";
-        break;
+          this.ethNFTOwnerTimestamp = ethNFTSellerWalletAddressRes["result"][i]["timestamp"];
+          let ethNFTOwnerTimestampDate = this.ethNFTOwnerTimestamp.slice(0, 10);
+          let ethNFTOwnerTimestampTime = this.ethNFTOwnerTimestamp.slice(11, 16);
+          this.ethNFTOwnerTimestamp = ethNFTOwnerTimestampDate + " " + ethNFTOwnerTimestampTime + " UTC";
+          break;
+        }
+        //   if we are on the last one we know nothing has been filled
+        if (i === ethNFTSellerWalletAddressRes["result"].length - 1) {
+          this.ethNFTOwnerPrice = "-";
+          this.ethNFTOwnerTimestamp = "-";
+        }
       }
     }
 

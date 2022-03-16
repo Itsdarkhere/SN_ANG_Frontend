@@ -17,6 +17,8 @@ import { CreateNftAuctionModalComponent } from "src/app/create-nft-auction-modal
 import { take } from "rxjs/operators";
 import { ChangeDetectorRef } from "@angular/core";
 
+import { Link, ImmutableXClient, ImmutableMethodResults } from "@imtbl/imx-sdk";
+
 @Component({
   selector: "app-nft-detail-box",
   templateUrl: "./nft-detail-box.component.html",
@@ -506,8 +508,31 @@ export class NftDetailBoxComponent implements OnInit {
       }
     });
   }
+  openCreateETHNFTAuctionModal(event): void {
+    this.token_id = this.postContent.PostExtraData["tokenId"];
+    console.log(` ------------------- tokenId from feed-post is ${this.token_id}`);
+
+    this.modalService.show(CreateNftAuctionModalComponent, {
+      class:
+        "modal-dialog-centered nft_placebid_modal_bx  nft_placebid_modal_bx_right nft_placebid_modal_bx_right modal-lg",
+      initialState: {
+        post: this.postContent,
+        nftEntryResponses: this.nftEntryResponses,
+        isEthNFT: true,
+        tokenId: this.token_id,
+      },
+    });
+  }
   closeYourAuction() {
     this.closeAuction.emit();
     //this.closeAuction.emit();
+  }
+  async closeYourETHAuction() {
+    const link = new Link(environment.imx.ROPSTEN_LINK_URL);
+    await link.cancel({
+      orderId: this.sellOrderId,
+    });
+    // give the owner the option to list nft for sale again. you need to change it to false
+    this.globalVars.isEthereumNFTForSale = false;
   }
 }

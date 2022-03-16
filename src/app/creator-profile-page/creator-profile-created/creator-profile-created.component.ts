@@ -30,6 +30,8 @@ export class CreatorProfileCreatedComponent implements OnInit {
   @Input() afterCommentCreatedCallback: any = null;
   @Input() showProfileAsReserved: boolean;
 
+  @Input() profileData: any;
+
   posts: PostEntryResponse[];
   nftCollections: NFTCollectionResponse[];
 
@@ -124,8 +126,10 @@ export class CreatorProfileCreatedComponent implements OnInit {
         this.dataToShow = this.posts.slice(this.startIndex, this.endIndex);
 
         //   get created eth NFTs
-        this.globalVars.imxWalletAddress = localStorage.getItem("address");
-        this.globalVars.getCreatedNFTs();
+        if (this.profileData["ETHPublicKey"]) {
+          this.globalVars.imxWalletAddress = this.profileData["ETHPublicKey"];
+          this.globalVars.getCreatedNFTs();
+        }
       })
       .finally(() => {
         this.isLoading = false;

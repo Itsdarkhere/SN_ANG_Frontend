@@ -348,84 +348,6 @@ export class GlobalVarsService {
     };
   };
 
-  async checkCreatorStatus(): Promise<void> {
-    const publicKey = this.loggedInUser?.PublicKeyBase58Check;
-    console.log(publicKey);
-
-    if (publicKey) {
-      this.backendApi.GetCollectorOrCreator(this.localNode, publicKey).subscribe(
-        (res) => {
-          console.log(
-            ` ---------------------------------- res ${JSON.stringify(res)} ---------------------------------- `
-          );
-          this.isCreator = res["Collector"];
-          this.isCollector = res["Creator"];
-
-          //   update checkIsVerified
-          this.checkIsVerified();
-
-          //   update checkNullUsername
-          this.checkNullUsername();
-
-          //   update onboardingcomplete status
-          this.checkOnboardingCompleted();
-        },
-        (err) => {
-          console.log(err);
-          this.isCreator = false;
-          this.isCollector = false;
-        }
-      );
-    }
-
-    // console.log(
-    //   ` ------------------------------------ isCreator ${this.isCreator} ------------------------------------ `
-    // );
-    // console.log(
-    //   ` ------------------------------------ isCollector ${this.isCollector} ------------------------------------ `
-    // );
-
-    /*
-    How it was done with firebase
-    
-    const firebaseRes = await this.firestore.collection("profile-details").doc(publicKey).get().toPromise();
-    console.log(firebaseRes);
-
-    if (firebaseRes["_document"] === null) {
-      this.isCreator = false;
-      this.isCollector = false;
-      return;
-    }
-
-    let firebaseResDataCreator = JSON.stringify(
-      firebaseRes["_document"]["proto"]["fields"]["creator"]["booleanValue"],
-      this.getCircularReplacer()
-    );
-
-    let firebaseResDataCollector = JSON.stringify(
-      firebaseRes["_document"]["proto"]["fields"]["collector"]["booleanValue"],
-      this.getCircularReplacer()
-    );
-
-    if (firebaseResDataCreator === "true") {
-      this.isCreator = true;
-    }
-
-    if (firebaseResDataCreator === "false" || typeof firebaseResDataCreator === "undefined") {
-      this.isCreator = false;
-    }
-
-    if (firebaseResDataCollector === "true") {
-      this.isCollector = true;
-    }
-
-    if (firebaseResDataCollector === "false" || typeof firebaseResDataCollector === "undefined") {
-      this.isCollector = false;
-    }
-    */
-    // console.log(` ---------------- creator status is ${this.isCreator}`);
-    // console.log(` ---------------- collector status is ${this.isCollector}`);
-  }
   scrollPosition: number;
   body = document.querySelector("body");
   closeLeftBarMobile() {
@@ -490,21 +412,55 @@ export class GlobalVarsService {
   checkOnboardingCompleted() {
     //   if they are a creator, have a profile (username) and are verified then onboarding is complete
     if (this.isCreator === true && this.isNullUsername === false && this.isVerified === true) {
+      this.needToPickCreatorOrCollector = false;
       this.isOnboardingComplete = true;
     }
     // if they are a collector and have a profile (username) then onboarding is complete
     else if (this.isCollector === true && this.isNullUsername === false) {
       this.isOnboardingComplete = true;
+      this.needToPickCreatorOrCollector = false;
     } else {
       this.isOnboardingComplete = false;
+      this.needToPickCreatorOrCollector = true;
     }
 
     // console.log(` ------------------------------ isOnboardingComplete ${this.isOnboardingComplete} ---------------- `);
   }
 
   async checkOnboardingStatus(): Promise<void> {
-    //   update loggedInUser global variables
-    this.checkCreatorStatus();
+    const publicKey = this.loggedInUser?.PublicKeyBase58Check;
+    console.log(publicKey);
+
+    if (publicKey) {
+      this.backendApi.GetCollectorOrCreator(this.localNode, publicKey).subscribe(
+        (res) => {
+          console.log(
+            ` ---------------------------------- res ${JSON.stringify(res)} ---------------------------------- `
+          );
+          this.isCreator = res["Collector"];
+          this.isCollector = res["Creator"];
+
+          //   update checkIsVerified
+          this.checkIsVerified();
+
+          //   update checkNullUsername
+          this.checkNullUsername();
+
+          //   update onboardingcomplete status
+          this.checkOnboardingCompleted();
+
+          //   console.log(` -------------- isCreator true? ${this.isCreator}`);
+          //   console.log(` -------------- isNullUsername true? ${this.isNullUsername}`);
+          //   console.log(` -------------- isVerified false? ${this.isVerified}`);
+          //   console.log(` -------------- isOnboardingComplete? ${this.isOnboardingComplete} `);
+        },
+        (err) => {
+          console.log(err);
+          this.isCreator = false;
+          this.isCollector = false;
+        }
+      );
+    }
   }
   //   ------------------------------------ end of update globalVars for loggedInUser ------------------------------------
 
@@ -1213,7 +1169,7 @@ export class GlobalVarsService {
 
   async flowRedirect(signedUp: boolean, publicKey: string): Promise<void> {
     //   flowRedirect(signedUp: boolean, publicKey: string): void {
-    // if res.signedUp === false then if /else for creator or collector
+    // if they are signedup, they need to pick creator or collector
     if (signedUp) {
       // If this node supports phone number verification, go to step 3, else proceed to step 4.
       const stepNum = 2;
@@ -1247,6 +1203,7 @@ export class GlobalVarsService {
       //   // if creator or collector is true then direct to new flow
 
       // else go to browse tab
+      //   this.checkOnboardingStatus();
       this.router.navigate(["/" + this.RouteNames.BROWSE]);
     }
   }

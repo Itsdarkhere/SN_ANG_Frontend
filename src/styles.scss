@@ -1345,6 +1345,12 @@ $green-font-color: #19b028;
   padding-right: 7%;
   padding-top: 77px;
 }
+.global__desktop.nft_profile {
+  padding-right: 0;
+  @media screen and (min-width: 1450px) {
+    padding-right: 7%;
+  }
+}
 
 .feed-post__video {
   border: none;
@@ -4273,8 +4279,25 @@ option {
     margin: 0 -50px;
   }
   @media screen and (max-width: 1050px) {
-    padding: 70px 10px 10px 10px;
+    padding: 70px 0px 0px 0px;
     align-items: flex-start;
+  }
+  .nft-details-top {
+    width: 100%;
+    min-height: 630px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--secondary);
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    @media screen and (max-width: 1050px) {
+      flex-direction: column;
+    }
+    .nft_bx {
+      height: 100%;
+    }
   }
   .nft_bx {
     width: calc(50% - 10px);
@@ -4287,6 +4310,7 @@ option {
     }
     @media screen and (max-width: 1050px) {
       width: 100%;
+      margin-bottom: 0px;
     }
     .creator-coin-info {
       margin-left: 0.5rem !important;
@@ -4304,7 +4328,6 @@ option {
       }
     }
     &.gray {
-      background-color: var(--secondary);
       padding: 0 50px;
       @media screen and (min-width: 1400px) {
         width: calc(100% - 573px);
@@ -4389,13 +4412,9 @@ option {
         -webkit-text-fill-color: transparent;
         line-height: 1.4;
       }
-      > div {
-        width: 80%;
-        min-width: 380px;
-      }
     }
     &.linebx {
-      border-radius: 7px;
+      border-radius: 30px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -4406,9 +4425,6 @@ option {
       @media screen and (min-width: 1366px) {
         width: calc(100% - 600px);
       }
-    }
-    &.bids_new_sc {
-      padding-left: 20px;
     }
     .bids_list_sec {
       margin-top: 30px;
@@ -4464,7 +4480,11 @@ option {
   padding: 30px;
   border: 5px solid #e9e9e9;
   box-shadow: 2px 2px 20px rgb(0 0 0 / 9%);
-  border-radius: 23.2633px;
+  border-radius: 23px;
+  @media screen and (max-width: 1050px) {
+    border: none;
+    border-radius: 0;
+  }
   .nft_current_bid_tpwrapper {
     margin-bottom: 40px;
     .nft_current_bid {
@@ -6002,8 +6022,15 @@ option {
 
 .comments_likes_list {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  margin-bottom: 10px;
+  align-items: center;
+  background: #ffffff;
+  border: 1.1226364374160767px solid #f6f6f6;
+  height: 110px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  width: 100%;
   .ls_sc {
     font-size: 16px;
     color: #909090;

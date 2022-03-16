@@ -40,26 +40,12 @@
         </div>
       </div>-->
       <div class="hgst_bid_sc w-100">
-        <feed-post
+        <app-nft-detail-box
           *ngIf="post"
-          [isNFTProfile]="true"
-          [post]="post"
+          [postContent]="post"
           [nftBidData]="nftBidData"
-          [isPostBlocked]="blocked()"
-          [includePaddingOnPost]="true"
-          [isParentPostInThread]="true"
-          [showLeftSelectedBorder]="true"
-          [showInteractionDetails]="true"
-          [showName]="true"
-          [showNFTDetails]="true"
-          [showExpandedNFTDetails]="true"
-          [showDiscoveryDetails]="true"
-          [showNFTOwnerInfo]="hightestBidOwner"
-          [contentShouldLinkToThread]="true"
-          [afterCommentCreatedCallback]="blocked()"
-          [isNFTDetail]="true"
-          [bidsOnMyNFTs]="bidsOnMyNfts?.length"
-        ></feed-post>
+          [isNFTDetail]="false"
+        ></app-nft-detail-box>
       </div>
       <div class="btn_grp">
         <button

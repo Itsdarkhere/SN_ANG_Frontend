@@ -1,12 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from "@angular/core";
 import { GlobalVarsService } from "../../global-vars.service";
-import {
-  BackendApiService,
-  NFTEntryResponse,
-  PostEntryResponse,
-  NFTBidEntryResponse,
-  NFTBidData,
-} from "../../backend-api.service";
+import { BackendApiService, NFTEntryResponse, PostEntryResponse } from "../../backend-api.service";
 import { AppRoutingModule } from "../../app-routing.module";
 import { Router } from "@angular/router";
 import { SwalHelper } from "../../../lib/helpers/swal-helper";
@@ -70,7 +64,6 @@ export class FeedPostComponent implements OnInit {
   }
   @Input() isNFTProfile = false;
   @Input() isNFTProfileComment = false;
-  @Input() nftBidData: NFTBidData;
   @Input() postThread: boolean;
   constructor(
     public globalVars: GlobalVarsService,
@@ -154,8 +147,9 @@ export class FeedPostComponent implements OnInit {
 
   // close Auction
   @Output() closeAuction = new EventEmitter();
-  @Output() onSingleBidCancellation = new EventEmitter();
-  @Output() onMultipleBidsCancellation = new EventEmitter();
+
+  // Change edition
+  @Output() changeEdition = new EventEmitter();
 
   // BUY NOW
   isBuyNow: boolean;
@@ -296,26 +290,16 @@ export class FeedPostComponent implements OnInit {
     }
 
     this.loadingEthNFTDetails = false;
-    console.log(" ----------------- updated sale price function run ----------------- ");
-    console.log(this.ethereumNFTSalePrice);
   }
 
   _tabSerialNumberClicked(id: number) {
     this.loadingEditionDetails = true;
     this.editionNumber = id;
-
-    // Insert selected ser into variable
-    this.nftEntryResponses.forEach((item) => {
-      if (item.SerialNumber == this.editionNumber) {
-        this.nftEntryResponse = item;
-      }
-    });
-    // Update buy now related stuff
-    this.updateBuyNow();
-
-    // Update edition specifics
-    this.updateEditionSpecificLogic();
+    // Pass to parent the wish to change edition
+    // Parent then should call sibling nft-detai-box
+    this.changeEdition.emit(id);
   }
+
   getNFTEntries() {
     this.backendApi
       .GetNFTEntriesForNFTPost(
@@ -327,6 +311,9 @@ export class FeedPostComponent implements OnInit {
         this.nftEntryResponses = res.NFTEntryResponses;
         // Set serialnumber of which to use in logic to be one that the user owns
         // or the first one if user does not own any
+        if (this.nftEntryResponses?.length > 1) {
+          this.multipleEditions = true;
+        }
         this.setSerialNumberToUse();
         // Insert selected ser into variable
         // Insert selected ser into variable
@@ -335,12 +322,6 @@ export class FeedPostComponent implements OnInit {
             this.nftEntryResponse = item;
           }
         });
-
-        // Update buy now related stuff
-        this.updateBuyNow();
-
-        // Update edition specifics
-        this.updateEditionSpecificLogic();
 
         this.nftEntryResponses.sort((a, b) => a.SerialNumber - b.SerialNumber);
         this.decryptableNFTEntryResponses = this.nftEntryResponses.filter(
@@ -390,37 +371,6 @@ export class FeedPostComponent implements OnInit {
           this.nftMinBidAmountNanos = this.nftEntryResponses[0]?.MinBidAmountNanos;
         }
       });
-  }
-
-  updateEditionSpecificLogic() {
-    this.multipleEditions = this.nftEntryResponses.length > 1;
-    this.isAvailableForSale = this.nftEntryResponse.IsForSale;
-    // Check if user owns this edition
-    this.ownsEdition =
-      this.nftEntryResponse.OwnerPublicKeyBase58Check == this.globalVars?.loggedInUser?.PublicKeyBase58Check;
-    // Check if this edition is for sale
-    this.editionForSale = this.nftEntryResponse.IsForSale;
-    // Check if edition has bids
-    this.editionHasBids = this.nftBidData?.BidEntryResponses.length > 0;
-    // Check if edition has unlockable
-    if (!this.editionIsBuyNow) {
-      this.editionHasUnlockable = this.nftEntryResponse.DecryptedUnlockableText != null;
-    }
-    // Check if user has made a bid on this edition
-    if (!this.ownsEdition) {
-      this.nftBidData.BidEntryResponses.forEach((bid) => {
-        if (bid.PublicKeyBase58Check === this.globalVars.loggedInUser.PublicKeyBase58Check) {
-          this.editionHasBidByUser = true;
-        }
-      });
-    }
-    // Check if edition has been sold before
-    this.editionHasBeenSold = this.nftEntryResponse.LastAcceptedBidAmountNanos > 0;
-
-    setTimeout(() => {
-      // Stop shimmer
-      this.loadingEditionDetails = false;
-    }, 350);
   }
 
   updateBuyNow() {
@@ -995,31 +945,6 @@ export class FeedPostComponent implements OnInit {
   }
   getRouterLink(val: any): any {
     return this.inTutorial ? [] : val;
-  }
-
-  onBidCancel = (event: any): void => {
-    const numberOfBids = this.nftBidData.BidEntryResponses.length;
-    if (this.hasUserPlacedBids() && numberOfBids > 0) {
-      if (numberOfBids > 1) {
-        this.onMultipleBidsCancellation.emit({
-          cancellableBids: this.nftBidData.BidEntryResponses,
-          postHashHex: this._post.PostHashHex,
-        });
-      } else {
-        this.onSingleBidCancellation.emit({
-          postHashHex: this._post.PostHashHex,
-          serialNumber: this.nftBidData.BidEntryResponses[0].SerialNumber,
-          bidAmountNanos: 0,
-        });
-      }
-    }
-  };
-
-  hasUserPlacedBids(): boolean {
-    const pastBid = this.nftBidData.BidEntryResponses.find((bidEntry: NFTBidEntryResponse) => {
-      return bidEntry.PublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check;
-    });
-    return pastBid ? true : false;
   }
 
   openCreateNFTAuctionModal(event): void {

@@ -460,7 +460,7 @@
         *ngIf="desoBlockchain"
         class="mb-0px font-weight-bold mint-page-step-2-continue"
         [ngClass]="mobile ? 'w-90' : 'w-80'"
-        [disabled]="!videoType && !imageType && !audioType"
+        [disabled]="!videoType && !imageType && !audioType && !modelType"
         (click)="nextStep()"
       >
         CONTINUE

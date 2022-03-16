@@ -169,6 +169,11 @@ export class MintPageComponent implements OnInit {
     } else {
       this.desoBlockchain = false;
     }
+
+    console.log(this.imageType);
+    console.log(this.videoType);
+    console.log(this.audioType);
+    console.log(this.modelType);
   }
   connectEthWallet() {
     this.openGeneralSuccessModal();

@@ -534,5 +534,9 @@ export class NftDetailBoxComponent implements OnInit {
     });
     // give the owner the option to list nft for sale again. you need to change it to false
     this.globalVars.isEthereumNFTForSale = false;
+
+    this.globalVars.ethNFTSellerWalletAddress = "-";
+    this.globalVars.ethNFTSellerPrice = "-";
+    this.globalVars.ethNFTSellerTimestamp = "-";
   }
 }

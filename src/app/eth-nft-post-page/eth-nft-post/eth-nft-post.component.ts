@@ -96,15 +96,11 @@ export class EthNftPostComponent implements OnInit {
 
   propertiesBool = false;
 
-  ethNFTCreatorWalletAddress: string;
-  ethNFTSellerWalletAddress: string;
   ethNFTOwnerWalletAddress: string;
   ethNFTOwnerTimestamp: string;
-  ethNFTSellerTimestamp: string;
-  ethNFTCreatorTimestamp: string;
-
-  ethNFTSellerPrice: string;
   ethNFTOwnerPrice: string;
+  ethNFTCreatorWalletAddress: string;
+  ethNFTCreatorTimestamp: string;
 
   static ALL_BIDS = "All Bids";
   static MY_BIDS = "My Bids";
@@ -417,9 +413,9 @@ export class EthNftPostComponent implements OnInit {
 
     // if the length is 0 we know that no orders are there
     if (ethNFTSellerWalletAddressRes["result"].length === 0) {
-      this.ethNFTSellerWalletAddress = "-";
-      this.ethNFTSellerPrice = "-";
-      this.ethNFTSellerTimestamp = "-";
+      this.globalVars.ethNFTSellerWalletAddress = "-";
+      this.globalVars.ethNFTSellerPrice = "-";
+      this.globalVars.ethNFTSellerTimestamp = "-";
       this.ethNFTOwnerPrice = "-";
       this.ethNFTOwnerTimestamp = "-";
     } else {
@@ -428,24 +424,24 @@ export class EthNftPostComponent implements OnInit {
           ethNFTSellerWalletAddressRes["result"][i]["status"] === "active" ||
           ethNFTSellerWalletAddressRes["result"][i]["status"] === "filled"
         ) {
-          this.ethNFTSellerWalletAddress = ethNFTSellerWalletAddressRes["result"][i]["user"];
-          this.ethNFTSellerWalletAddress = this.ethNFTSellerWalletAddress.slice(0, 15) + "...";
+          this.globalVars.ethNFTSellerWalletAddress = ethNFTSellerWalletAddressRes["result"][i]["user"];
+          this.globalVars.ethNFTSellerWalletAddress = this.globalVars.ethNFTSellerWalletAddress.slice(0, 15) + "...";
 
-          this.ethNFTSellerPrice =
+          this.globalVars.ethNFTSellerPrice =
             ethers.utils.formatEther(ethNFTSellerWalletAddressRes["result"][i]["buy"]["data"]["quantity"]) + " ETH";
 
-          this.ethNFTSellerTimestamp = ethNFTSellerWalletAddressRes["result"][i]["timestamp"];
-          let ethNFTSellerTimestampDate = this.ethNFTSellerTimestamp.slice(0, 10);
-          let ethNFTSellerTimestampTime = this.ethNFTSellerTimestamp.slice(11, 16);
-          this.ethNFTSellerTimestamp = ethNFTSellerTimestampDate + " " + ethNFTSellerTimestampTime + " UTC";
-          console.log(this.ethNFTSellerTimestamp);
+          this.globalVars.ethNFTSellerTimestamp = ethNFTSellerWalletAddressRes["result"][i]["timestamp"];
+          let ethNFTSellerTimestampDate = this.globalVars.ethNFTSellerTimestamp.slice(0, 10);
+          let ethNFTSellerTimestampTime = this.globalVars.ethNFTSellerTimestamp.slice(11, 16);
+          this.globalVars.ethNFTSellerTimestamp = ethNFTSellerTimestampDate + " " + ethNFTSellerTimestampTime + " UTC";
+          console.log(this.globalVars.ethNFTSellerTimestamp);
           break;
         }
         //   if we are on the last one we know nothing is active or has been filled
         if (i === ethNFTSellerWalletAddressRes["result"].length - 1) {
-          this.ethNFTSellerWalletAddress = "-";
-          this.ethNFTSellerPrice = "-";
-          this.ethNFTSellerTimestamp = "-";
+          this.globalVars.ethNFTSellerWalletAddress = "-";
+          this.globalVars.ethNFTSellerPrice = "-";
+          this.globalVars.ethNFTSellerTimestamp = "-";
         }
       }
 

@@ -6,7 +6,7 @@ import mixpanel from "mixpanel-browser";
 
 // Enabling the debug mode flag is useful during implementation,
 // but it's recommended you remove it for production
-mixpanel.init("28e1ccdde0bc00420d6819f0b695f62b", { debug: false });
+mixpanel.init("e7c3c13be89ce2df93f47cad4932e8ac", { debug: false });
 
 @Injectable({
   providedIn: "root",
@@ -75,8 +75,8 @@ track12(name: string) {
   console.log(name);
 }
 // "Buy Now"
-track13(name: string) {
-  mixpanel.track(name);
+track13(name: string, data) {
+  mixpanel.track(name, data);
   console.log(name);
 }
 // "Cancel Bid"
@@ -266,7 +266,7 @@ track46(name: string, data) {
   mixpanel.track(name, data);
   console.log(name);
 }
-// "Accept NFT Transfer"
+// "Accept NFT bid"
 track47(name: string, data) {
   mixpanel.track(name, data);
   console.log(name);

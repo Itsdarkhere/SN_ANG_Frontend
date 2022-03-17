@@ -167,11 +167,15 @@ export class PlaceBidModalComponent implements OnInit {
           });
           this.modalService.setDismissReason("bid placed");
           this.mixPanel.track16("Bid Placed", {
-            "bid amount": this.bidAmountDESO,
+            "Bid amount": this.bidAmountDESO,
             "Post Body": this.post.Body,
             "Poster Key": this.post.PosterPublicKeyBase58Check,
             "Diamonds": this.post.DiamondCount,
-            "Category": this.post.PostExtraData,
+            "Category": this.post.PostExtraData.category,
+            "Post": this.post.PostExtraData.name,
+            "Post hex": this.post.PostHashHex,
+            "Number of copies": this.post.NumNFTCopies,
+            "Number of copies for sale": this.post.NumNFTCopiesForSale
           }
           );
         },

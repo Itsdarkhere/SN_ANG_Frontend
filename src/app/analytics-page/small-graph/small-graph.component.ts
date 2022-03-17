@@ -9,6 +9,7 @@ import { ApexChart, ApexAxisChartSeries, ApexYAxis, ApexXAxis, ApexDataLabels } 
 export class SmallGraphComponent implements OnChanges {
   @Input() graphArray: [];
   @Input() collectors: boolean;
+  @Input() label: string;
   series: ApexAxisChartSeries;
   chart: ApexChart;
   yaxis: ApexYAxis;

@@ -1,58 +1,25 @@
 <div class="top-creator-headline">
-	<h2>Top Earning Creators</h2>
+  <h2>{{ label }}</h2>
 </div>
-<table>
-	<thead>
-		<tr>
-			<td>CREATOR</td>
-			<td>NFT SALES</td>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td class="creator-and-investor-info">
-				<p>1</p>
-				<img src="">
-				<p>@1Bobbythebidder</p>
-			</td>
-			<td class="sales-and-investments">
-				<p style="font-weight: 500;">1.4 DESO</p>
-				<p>13,335.54 USD</p>
-			</td>
-		</tr>
-		<tr>
-			<td class="creator-and-investor-info">
-				<p>1</p>
-				<img src="">
-				<p>@1Bobbythebidder</p>
-			</td>
-			<td class="sales-and-investments">
-				<p style="font-weight: 500;">1.4 DESO</p>
-				<p>13,335.54 USD</p>
-			</td>
-		</tr>
-		<tr>
-			<td class="creator-and-investor-info">
-				<p>1</p>
-				<img src="">
-				<p>@1Bobbythebidder</p>
-			</td>
-			<td class="sales-and-investments">
-				<p style="font-weight: 500;">1.4 DESO</p>
-				<p>13,335.54 USD</p>
-			</td>
-		</tr>
-		<tr>
-			<td class="creator-and-investor-info">
-				<p>1</p>
-				<img src="">
-				<p>@1Bobbythebidder</p>
-			</td>
-			<td class="sales-and-investments">
-				<p style="font-weight: 500;">1.4 DESO</p>
-				<p>13,335.54 USD</p>
-			</td>
-		</tr>
-	</tbody>
-</table>
 
+<table class="disable-scrollbars">
+  <thead>
+    <tr>
+      <td>{{ label2 }}</td>
+      <td>{{ label3 }}</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let x of userList; let i = index">
+      <td class="creator-and-investor-info">
+        <p>{{ i + 1 }}</p>
+        <div class="creator-list-avatar" [avatar]="x.PublicKeyBase58Check"></div>
+        <p>{{ x.Username }}</p>
+      </td>
+      <td class="sales-and-investments">
+        <p style="font-weight: 500">{{ globalVars.nanosToDeSo(x.EarningsAmount, 2) }} DESO</p>
+        <p>{{ globalVars.nanosToUSD(x.EarningsAmount, 2) }} USD</p>
+      </td>
+    </tr>
+  </tbody>
+</table>

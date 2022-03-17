@@ -55,7 +55,33 @@
         }
     }
 }
+.analytics-secondary-graphs {
+    position: relative;
+    padding: 2rem 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    .big-graph-full-height-width {
+        position: relative;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        height: fit-content;
+        flex: 1;
+        min-width: 400px;
+        background: white;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 
+        @media (max-width: 500px) {
+            text-align: left;
+            min-width: 275px;
+        }
+    }
+}
 .quick-facts-container {
     padding: 2rem 0;
     display: flex;

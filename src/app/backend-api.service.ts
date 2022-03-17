@@ -212,6 +212,11 @@ export class BackendRoutes {
   static RoutePathGetUniqueCollectors = "/api/v0/get-unique-collectors";
   static RoutePathGetDesoSalesCapGraph = "/api/v0/get-deso-sales-cap-graph";
   static RoutePathGetDesoMarketCapGraph = "/api/v0/get-deso-market-cap-graph";
+  static RoutePathGetTopNFTSales = "/api/v0/get-top-nft-sales";
+  static RoutePathGetTopBidsToday = "/api/v0/get-top-bids-today";
+  static RoutePathGetTopEarningCollectors = "/api/v0/get-top-earning-collectors";
+  static RoutePathGetTopEarningCreators = "/api/v0/get-top-earning-creators";
+  static RoutePathGetQuickFacts = "/api/v0/get-quick-facts";
 }
 
 export class Transaction {
@@ -1232,6 +1237,32 @@ export class BackendApiService {
       PublicKeyBase58Check,
     });
   }
+  GetTopNFTSales(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetTopNFTSales, {
+      PublicKeyBase58Check,
+    });
+  }
+  GetTopBidsToday(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetTopBidsToday, {
+      PublicKeyBase58Check,
+    });
+  }
+  GetTopEarningCollectors(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetTopEarningCollectors, {
+      PublicKeyBase58Check,
+    });
+  }
+  GetTopEarningCreators(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetTopEarningCreators, {
+      PublicKeyBase58Check,
+    });
+  }
+  GetQuickFacts(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetQuickFacts, {
+      PublicKeyBase58Check,
+    });
+  }
+
   // PublicKey can be omitted on the analytics queries
   GetUniqueCreators(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
     return this.post(endpoint, BackendRoutes.RoutePathGetUniqueCreators, {

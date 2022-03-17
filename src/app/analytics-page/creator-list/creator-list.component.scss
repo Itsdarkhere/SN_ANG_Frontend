@@ -1,3 +1,4 @@
+
 .top-creator-headline {
     display: flex;
     justify-content: space-between;
@@ -9,24 +10,27 @@
         font-weight: 600;
     }
 }
-
 table {
-    border: none;
-    border-radius: 8px;
     width: 100%;
-    // Fake border :)
-    box-shadow:  0 0 1px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 0, 0, 0.05);
     // Hide thead corners
-    overflow: hidden;
-
-    thead {    
+    display:block;
+    overflow:auto;
+    height: 400px;
+    background: #ffffff;
+    border: 2px solid #ebebeb;
+    border-radius: 18px;
+    box-shadow: 0px 1.809999942779541px 30px rgba(0, 0, 0, 0.05);
+    table-layout: fixed;
+    border-collapse: collapse;
+    thead { 
+        width: 100%;
+        display: table;
         tr {
-            display: flex;
+            width: 100%;
             background: #F8F8F8;
         }
-
+    
         td {
-            flex: 1;
             padding: 15px 20px;
             font-weight: 500;
             font-size: 1rem;
@@ -34,33 +38,39 @@ table {
             text-transform: uppercase;
         }
     }
-
     tbody {
+        display:block;
+        width: 100%;
+        overflow: auto;
         tr {
             display: flex;
             border-bottom: 1px solid #F2F2F2;
         }
-
         td {
             flex: 1;
             padding: 20px;
         }
-
         .creator-and-investor-info {
             display: flex;
             align-items: center;
             justify-content: flex-start;
 
-            img {
+            .creator-list-avatar {
                 height: 25px;
                 width: 25px;
                 border: 2px solid white;
                 border-radius: 50%;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                margin-left: 5px;
+                margin-right: 5px;
             }
 
             p {
                 font-size: 0.9rem;
                 font-weight: 500;
+                padding-top: 2px;
             }
         }
 

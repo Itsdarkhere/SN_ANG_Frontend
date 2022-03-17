@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { BackendApiService, PostEntryResponse } from "src/app/backend-api.service";
 import { GlobalVarsService } from "src/app/global-vars.service";
 
@@ -8,23 +8,8 @@ import { GlobalVarsService } from "src/app/global-vars.service";
   styleUrls: ["./top-sales.component.scss"],
 })
 export class TopSalesComponent implements OnInit {
-  topSalesPosts: PostEntryResponse[];
+  @Input() posts: PostEntryResponse[];
   constructor(private globalVars: GlobalVarsService, private backendApi: BackendApiService) {}
 
-  ngOnInit(): void {
-    this.getCommunityFavourites();
-  }
-
-  getCommunityFavourites() {
-    this.backendApi
-      .GetCommunityFavourite(
-        this.globalVars.localNode,
-        this.globalVars?.loggedInUser?.PublicKeyBase58Check,
-        "BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w"
-      )
-      .subscribe((res) => {
-        // For big image
-        this.topSalesPosts = res["PostEntryResponse"];
-      });
-  }
+  ngOnInit(): void {}
 }

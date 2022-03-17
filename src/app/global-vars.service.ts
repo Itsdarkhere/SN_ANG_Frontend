@@ -575,14 +575,21 @@ export class GlobalVarsService {
     if (this.loggedInUser?.MustCompleteTutorial && this.loggedInUser?.TutorialStatus === TutorialStatus.EMPTY) {
       this.startTutorialAlert();
     }
-
+    let email: string;
+    this.backendApi.GetUserGlobalMetadata(this.localNode, this.loggedInUser?.PublicKeyBase58Check).subscribe(
+      (res) => {
+        email = res?.Email;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
     this._notifyLoggedInUserObservers(user, isSameUserAsBefore);
     this.navigateToCurrentStepInTutorial(user);
     // Identify user
-    this.mixPanel.identify(this.loggedInUser.PublicKeyBase58Check);
+    this.mixPanel.identify1(this.loggedInUser?.PublicKeyBase58Check);
     this.mixPanel.peopleset({
-      "$name": this.username,
-      "public Key": this.loggedInUser.PublicKeyBase58Check,
+      $name: this.loggedInUser?.ProfileEntryResponse.Username,
     });
   }
 

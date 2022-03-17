@@ -135,8 +135,24 @@ export class BuyNowModalComponent implements OnInit {
         }
       )
       .add(() => {
-        this.mixPanel.track13("Buy Now");
       });
+      this.mixPanel.track13("Buy Now", {
+        "Buyer": this.globalVars.loggedInUser?.PublicKeyBase58Check,
+        "Serial number": this.serialNumber,
+        "Price in DeSo": this.buyNowPriceNanos,
+        "Post Body": this.post.Body,
+        "Seller": this.post.PosterPublicKeyBase58Check,
+        "Creator royalty": this.post.NFTRoyaltyToCreatorBasisPoints,
+        "CC royalty %": this.post.NFTRoyaltyToCoinBasisPoints,
+        "Diamonds": this.post.DiamondCount,
+        "Category": this.post.PostExtraData.category,
+        "Post": this.post.PostExtraData.name,
+        "Post hex": this.post.PostHashHex,
+        "Properties": this.post.PostExtraData.properties,
+        "Likes": this.post.LikeCount,
+        "Comments": this.post.CommentCount,
+      });
+
   }
 
   quoteRepost(event, isQuote = true) {

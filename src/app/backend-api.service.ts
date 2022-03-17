@@ -1005,19 +1005,7 @@ export class BackendApiService {
       BuyNowPriceNanos,
       MinFeeRateNanosPerKB,
     });
-    this.mixPanel.track42("NFT created", {
-      "Poster": UpdaterPublicKeyBase58Check,
-      "Post hex": NFTPostHashHex,
-      "# of copies": NumCopies,
-      "Royalty to creator": NFTRoyaltyToCreatorBasisPoints/100,
-      "Royalty to coin": NFTRoyaltyToCoinBasisPoints/100,
-      "Unlockable": HasUnlockable,
-      "For Sale": IsForSale,
-      "Min Bid": MinBidAmountNanos/1e9,
-      "Is Buy Now": IsBuyNow,
-      "Buy now price": BuyNowPriceNanos/1e9,
-      "Min fee rate per KB": MinFeeRateNanosPerKB,
-    })
+
     return this.signAndSubmitTransaction(endpoint, request, UpdaterPublicKeyBase58Check);
   }
 
@@ -1070,12 +1058,6 @@ export class BackendApiService {
       BidAmountNanos,
       MinFeeRateNanosPerKB,
     });
-    this.mixPanel.track45("NFT Bid created", {
-      "Poster": UpdaterPublicKeyBase58Check,
-      "Post hex": NFTPostHashHex,
-      "Bid Amount": BidAmountNanos/1e9,
-      "Min fee rate per KB": MinFeeRateNanosPerKB,
-    })
     return this.signAndSubmitTransaction(endpoint, request, UpdaterPublicKeyBase58Check);
   }
 
@@ -1114,14 +1096,6 @@ export class BackendApiService {
         );
       })
     );
-    this.mixPanel.track47("Accept NFT Bid", {
-      "Poster": UpdaterPublicKeyBase58Check,
-      "Post hex": NFTPostHashHex,
-      "Serial Number": SerialNumber,
-      "Bidder": BidderPublicKeyBase58Check,
-      "Bid Amount": BidAmountNanos/1e9,
-      "Min fee rate per KB": MinFeeRateNanosPerKB,
-    })
     return this.signAndSubmitTransaction(endpoint, request, UpdaterPublicKeyBase58Check);
 
   }

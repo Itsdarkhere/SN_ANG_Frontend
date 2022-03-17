@@ -75,8 +75,8 @@ track12(name: string) {
   console.log(name);
 }
 // "Buy Now"
-track13(name: string) {
-  mixpanel.track(name);
+track13(name: string, data) {
+  mixpanel.track(name, data);
   console.log(name);
 }
 // "Cancel Bid"
@@ -266,7 +266,7 @@ track46(name: string, data) {
   mixpanel.track(name, data);
   console.log(name);
 }
-// "Accept NFT Transfer"
+// "Accept NFT bid"
 track47(name: string, data) {
   mixpanel.track(name, data);
   console.log(name);
@@ -291,4 +291,9 @@ peoplesetemail(name) {
   mixpanel.people.set(name);
   console.log(name)
 }
-}
+// People Set creator?
+peoplesetcreator(name) {
+  mixpanel.people.set(name);
+  console.log(name)
+}}
+

@@ -19,6 +19,7 @@ import { take } from "rxjs/operators";
 import { ChangeDetectorRef } from "@angular/core";
 
 import { Link, ImmutableXClient, ImmutableMethodResults } from "@imtbl/imx-sdk";
+import { GeneralSuccessModalComponent } from "../../general-success-modal/general-success-modal.component";
 
 @Component({
   selector: "app-nft-detail-box",
@@ -337,31 +338,46 @@ export class NftDetailBoxComponent implements OnInit {
     }
     // is an ETH NFT
     else {
-      this.clickedBuyNow = true;
-      this.clickedPlaceABid = false;
+      // on desktop
+      if (!this.globalVars.isMobile()) {
+        this.clickedBuyNow = true;
+        this.clickedPlaceABid = false;
 
-      if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
-        SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "buy now");
-        return;
-      }
-      event.stopPropagation();
-      const modalDetails = this.modalService.show(BuyNowModalComponent, {
-        class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
-        initialState: {
-          post: this.postContent,
-          clickedBuyNow: this.clickedBuyNow,
-          isEthNFT: true,
-          ethereumNFTSalePrice: this.ethereumNFTSalePrice,
-          sellOrderId: this.sellOrderId,
-        },
-      });
-
-      const onHideEvent = modalDetails.onHide;
-      onHideEvent.subscribe((response) => {
-        if (response === "bid placed") {
-          this.nftBidPlaced.emit();
+        if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
+          SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "buy now");
+          return;
         }
-      });
+        event.stopPropagation();
+        const modalDetails = this.modalService.show(BuyNowModalComponent, {
+          class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+          initialState: {
+            post: this.postContent,
+            clickedBuyNow: this.clickedBuyNow,
+            isEthNFT: true,
+            ethereumNFTSalePrice: this.ethereumNFTSalePrice,
+            sellOrderId: this.sellOrderId,
+          },
+        });
+
+        const onHideEvent = modalDetails.onHide;
+        onHideEvent.subscribe((response) => {
+          if (response === "bid placed") {
+            this.nftBidPlaced.emit();
+          }
+        });
+      }
+      //   cannot interact with ethereum blockchain on mobile
+      else {
+        this.modalService.show(GeneralSuccessModalComponent, {
+          class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+          initialState: {
+            header: "Error",
+            text: "Please visit Supernovas on your desktop to interact with the Ethereum blockchain.",
+            buttonText: "Ok",
+            buttonClickedAction: "connectWalletMobileError",
+          },
+        });
+      }
     }
   }
 

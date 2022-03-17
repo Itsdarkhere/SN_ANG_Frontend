@@ -426,7 +426,7 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
   }
   // Functionpass service is made to pass this argument
   apply() {
-    this.globalVars.isMarketplaceLoading = true;
+    this.globalVars.isEthMarketplaceLoading = true;
     // this.setPriceRangeInNanos();
     // this.setMarketType();
     this.setCategory();

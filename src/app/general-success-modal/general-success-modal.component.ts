@@ -105,7 +105,7 @@ export class GeneralSuccessModalComponent implements OnInit {
   }
 
   async generalSuccessModalButtonClicked() {
-    if (this.buttonClickedAction === "general") {
+    if (this.buttonClickedAction === "general" || this.buttonClickedAction === "connectWalletMobileError") {
       this.bsModalRef.hide();
     } else if (this.buttonClickedAction === "profileRoute") {
       this.router.navigate(["/u/" + this.globalVars?.loggedInUser?.ProfileEntryResponse.Username]);

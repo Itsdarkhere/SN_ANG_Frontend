@@ -14,6 +14,7 @@ import { ethers } from "ethers";
 import _ from "lodash";
 import { environment } from "src/environments/environment";
 import { CreateNftAuctionModalComponent } from "src/app/create-nft-auction-modal/create-nft-auction-modal.component";
+import { CancelNftAuctionModalComponent } from "src/app/cancel-nft-auction-modal/cancel-nft-auction-modal.component";
 import { take } from "rxjs/operators";
 import { ChangeDetectorRef } from "@angular/core";
 
@@ -528,15 +529,12 @@ export class NftDetailBoxComponent implements OnInit {
     //this.closeAuction.emit();
   }
   async closeYourETHAuction() {
-    const link = new Link(environment.imx.ROPSTEN_LINK_URL);
-    await link.cancel({
-      orderId: this.sellOrderId,
+    this.modalService.show(CancelNftAuctionModalComponent, {
+      class:
+        "modal-dialog-centered nft_placebid_modal_bx  nft_placebid_modal_bx_right nft_placebid_modal_bx_right modal-lg",
+      initialState: {
+        sellOrderId: this.sellOrderId,
+      },
     });
-    // give the owner the option to list nft for sale again. you need to change it to false
-    this.globalVars.isEthereumNFTForSale = false;
-
-    this.globalVars.ethNFTSellerWalletAddress = "-";
-    this.globalVars.ethNFTSellerPrice = "-";
-    this.globalVars.ethNFTSellerTimestamp = "-";
   }
 }

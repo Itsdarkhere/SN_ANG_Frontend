@@ -448,55 +448,8 @@
       </div>
       <div *ngIf="activeTab === EthNftPostComponent.OWNERS">
         <div *ngIf="!loading">
-          <!-- <div
-            class="container d-flex align-items-center fs-14px py-15px border-bottom border-color-grey link--unstyled"
-          >
-            <div
-              class="col-5 p-0 text-align-center cursor-pointer"
-              (click)="handleColumnHeaderClick(EthNftPostComponent.SORT_BY_USERNAME)"
-            >
-              Owner
-              <i
-                class="fas fs-14px"
-                [ngClass]="{
-                  'fa-arrows-alt-v': sortByField !== EthNftPostComponent.SORT_BY_USERNAME,
-                  'fa-sort-alpha-up-alt': sortByField === EthNftPostComponent.SORT_BY_USERNAME && sortDescending,
-                  'fa-sort-alpha-down': sortByField === EthNftPostComponent.SORT_BY_USERNAME && !sortDescending
-                }"
-              ></i>
-            </div>
-            <div
-              class="col-2 p-0 text-align-center cursor-pointer"
-              *ngIf="nftPost.NumNFTCopies > 1"
-              (click)="handleColumnHeaderClick(EthNftPostComponent.SORT_BY_EDITION)"
-            >
-              Edition
-              <i
-                class="fas fs-14px"
-                [ngClass]="{
-                  'fa-arrows-alt-v': sortByField !== EthNftPostComponent.SORT_BY_EDITION,
-                  'fa-sort-amount-up-alt': sortByField === EthNftPostComponent.SORT_BY_EDITION && !sortDescending,
-                  'fa-sort-amount-down': sortByField === EthNftPostComponent.SORT_BY_EDITION && sortDescending
-                }"
-              ></i>
-            </div>
-            <div
-              class="p-0 text-align-center cursor-pointer"
-              [ngClass]="{ 'col-7': nftPost.NumNFTCopies == 1, 'col-5': nftPost.NumNFTCopies > 1 }"
-              (click)="handleColumnHeaderClick(EthNftPostComponent.SORT_BY_PRICE)"
-            >
-              Last Price
-              <i
-                class="fas fs-14px"
-                [ngClass]="{
-                  'fa-arrows-alt-v': sortByField !== EthNftPostComponent.SORT_BY_PRICE,
-                  'fa-sort-amount-up-alt': sortByField === EthNftPostComponent.SORT_BY_PRICE && !sortDescending,
-                  'fa-sort-amount-down': sortByField === EthNftPostComponent.SORT_BY_PRICE && sortDescending
-                }"
-              ></i>
-            </div>
-          </div> -->
-          <div class="eth-provenance-container">
+          <!-- desktop -->
+          <div class="eth-provenance-container" *ngIf="!this.globalVars.isMobile()">
             <!-- owner -->
             <div class="eth-provenance-row-container">
               <p class="eth-provenance-row-header">Sold to</p>
@@ -524,29 +477,26 @@
             <!-- seller -->
             <div class="eth-provenance-row-container">
               <p class="eth-provenance-row-header">Listed by</p>
-              <div class="eth-provenance-deso-profile-container" *ngIf="this.globalVars.ethNFTSellerDesoProfile">
+              <div class="eth-provenance-deso-profile-container" *ngIf="this.ethNFTSellerDesoProfile">
                 <div class="profile-img">
                   <a
-                    [avatar]="this.globalVars.ethNFTSellerDesoPublicKey"
-                    [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, this.globalVars.ethNFTSellerDesoUsername]"
+                    [avatar]="this.ethNFTSellerDesoPublicKey"
+                    [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, this.ethNFTSellerDesoUsername]"
                   ></a>
                 </div>
                 <a
                   class="username-nft-card font-weight-bold"
-                  [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, this.globalVars.ethNFTSellerDesoUsername]"
+                  [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, this.ethNFTSellerDesoUsername]"
                 >
-                  {{ this.globalVars.ethNFTSellerDesoUsername }}
-                  <i
-                    *ngIf="this.globalVars.ethNFTSellerDesoIsVerified"
-                    class="fas fa-check-circle pl-5px fa-md text-primary"
-                  ></i>
+                  {{ this.ethNFTSellerDesoUsername }}
+                  <i *ngIf="this.ethNFTSellerDesoIsVerified" class="fas fa-check-circle pl-5px fa-md text-primary"></i>
                 </a>
               </div>
-              <div class="eth-provenance-deso-profile-container" *ngIf="!this.globalVars.ethNFTSellerDesoProfile">
-                <p class="eth-provenance-row-text">{{ this.globalVars.ethNFTSellerWalletAddress }}</p>
+              <div class="eth-provenance-deso-profile-container" *ngIf="!this.ethNFTSellerDesoProfile">
+                <p class="eth-provenance-row-text">{{ this.ethNFTSellerWalletAddress }}</p>
               </div>
-              <p class="eth-provenance-row-price">{{ this.globalVars.ethNFTSellerPrice }}</p>
-              <p class="eth-provenance-row-timestamp">{{ this.globalVars.ethNFTSellerTimestamp }}</p>
+              <p class="eth-provenance-row-price">{{ this.ethNFTSellerPrice }}</p>
+              <p class="eth-provenance-row-timestamp">{{ this.ethNFTSellerTimestamp }}</p>
             </div>
             <!-- creator -->
             <div class="eth-provenance-row-container">
@@ -572,55 +522,81 @@
               <p class="eth-provenance-row-price">-</p>
               <p class="eth-provenance-row-timestamp">{{ ethNFTCreatorTimestamp }}</p>
             </div>
-            <!-- <div class="row no-gutters w-100">
-                <div class="col-5 d-flex align-items-center mb-0 p-0">
-                  <div class="simple-profile-card__avatar-container">
-                    <div class="simple-profile-card__avatar br-12px" [avatar]="owner.OwnerPublicKeyBase58Check"></div>
-                  </div>
-                  <div class="text-truncate holdings__name fs-14px">
-                    <div class="d-flex">
-                      <div
-                        class="fc-default font-weight-bold text-truncate holdings__name fs-14px"
-                        [ngClass]="{ 'cursor-pointer': !!owner.ProfileEntryResponse?.Username }"
-                        [style.pointer-events]="!!owner.ProfileEntryResponse?.Username ? 'auto' : 'none'"
-                        [routerLink]="
-                          owner.ProfileEntryResponse?.Username
-                            ? ['/' + globalVars.RouteNames.USER_PREFIX, owner.ProfileEntryResponse.Username]
-                            : []
-                        "
-                      >
-                        {{ owner.ProfileEntryResponse?.Username || owner.OwnerPublicKeyBase58Check }}
-                      </div>
-                      <span
-                        *ngIf="owner.ProfileEntryResponse?.IsVerified"
-                        (click)="tooltip.toggle()"
-                        class="ml-1 mb-1 cursor-pointer text-primary"
-                        matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
-                        [matTooltip]="'This account is verified'"
-                        #tooltip="matTooltip"
-                      >
-                        <i class="fas fa-check-circle fa-md align-middle"></i>
-                      </span>
-                    </div>
-                    <div class="text-grey9" *ngIf="owner.ProfileEntryResponse">
-                      {{ globalVars.nanosToUSD(owner.ProfileEntryResponse.CoinPriceDeSoNanos, 2) }}
-                    </div>
-                  </div>
+          </div>
+          <!-- mobile -->
+          <div class="eth-provenance-container-mobile" *ngIf="this.globalVars.isMobile()">
+            <!-- owner -->
+            <div class="eth-provenance-row-container">
+              <p class="eth-provenance-row-header-mobile">Sold to</p>
+              <div class="eth-provenance-deso-profile-container" *ngIf="ethNFTOwnerDesoProfile">
+                <div class="profile-img-mobile">
+                  <a
+                    [avatar]="ethNFTOwnerDesoPublicKey"
+                    [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, this.ethNFTOwnerDesoUsername]"
+                  ></a>
                 </div>
-                <div
-                  class="col-2 d-flex align-items-center justify-content-center mb-0 p-0"
-                  *ngIf="nftPost.NumNFTCopies > 1"
+                <a
+                  class="username-nft-card-mobile font-weight-bold"
+                  [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, this.ethNFTOwnerDesoUsername]"
                 >
-                  {{ owner.SerialNumber > 0 && "#" + owner.SerialNumber.toString() }}
+                  {{ this.ethNFTOwnerDesoUsername }}
+                  <i *ngIf="ethNFTOwnerDesoIsVerified" class="fas fa-check-circle pl-5px fa-md text-primary"></i>
+                </a>
+              </div>
+              <div class="eth-provenance-deso-profile-container" *ngIf="!ethNFTOwnerDesoProfile">
+                <p class="eth-provenance-row-text-mobile">{{ this.ethNFTOwnerWalletAddress }}</p>
+              </div>
+              <p class="eth-provenance-row-price-mobile">{{ ethNFTOwnerPrice }}</p>
+              <p class="eth-provenance-row-timestamp-mobile">{{ ethNFTOwnerTimestamp }}</p>
+            </div>
+            <!-- seller -->
+            <div class="eth-provenance-row-container">
+              <p class="eth-provenance-row-header-mobile">Listed by</p>
+              <div class="eth-provenance-deso-profile-container" *ngIf="this.ethNFTSellerDesoProfile">
+                <div class="profile-img-mobile">
+                  <a
+                    [avatar]="this.ethNFTSellerDesoPublicKey"
+                    [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, this.ethNFTSellerDesoUsername]"
+                  ></a>
                 </div>
-                <div
-                  class="d-flex align-items-center mb-0 justify-content-around p-0"
-                  [ngClass]="{ 'col-7': nftPost.NumNFTCopies == 1, 'col-5': nftPost.NumNFTCopies > 1 }"
+                <a
+                  class="username-nft-card-mobile font-weight-bold"
+                  [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, this.ethNFTSellerDesoUsername]"
                 >
-                  <span>{{ globalVars.nanosToDeSo(owner.LastAcceptedBidAmountNanos, 5) }} $DESO</span>
-                  <span>~{{ globalVars.nanosToUSD(owner.LastAcceptedBidAmountNanos, 2) }}</span>
+                  {{ this.ethNFTSellerDesoUsername }}
+                  <i *ngIf="this.ethNFTSellerDesoIsVerified" class="fas fa-check-circle pl-5px fa-md text-primary"></i>
+                </a>
+              </div>
+              <div class="eth-provenance-deso-profile-container" *ngIf="!this.ethNFTSellerDesoProfile">
+                <p class="eth-provenance-row-text-mobile">{{ this.ethNFTSellerWalletAddress }}</p>
+              </div>
+              <p class="eth-provenance-row-price-mobile">{{ this.ethNFTSellerPrice }}</p>
+              <p class="eth-provenance-row-timestamp-mobile">{{ this.ethNFTSellerTimestamp }}</p>
+            </div>
+            <!-- creator -->
+            <div class="eth-provenance-row-container">
+              <p class="eth-provenance-row-header-mobile">Minted by</p>
+              <div class="eth-provenance-deso-profile-container" *ngIf="this.ethNFTCreatorDesoProfile">
+                <div class="profile-img-mobile">
+                  <a
+                    [avatar]="this.ethNFTCreatorDesoPublicKey"
+                    [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, this.ethNFTCreatorDesoUsername]"
+                  ></a>
                 </div>
-              </div> -->
+                <a
+                  class="username-nft-card-mobile font-weight-bold"
+                  [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, this.ethNFTCreatorDesoUsername]"
+                >
+                  {{ this.ethNFTCreatorDesoUsername }}
+                  <i *ngIf="this.ethNFTCreatorDesoIsVerified" class="fas fa-check-circle pl-5px fa-md text-primary"></i>
+                </a>
+              </div>
+              <div class="eth-provenance-deso-profile-container" *ngIf="!this.ethNFTCreatorDesoProfile">
+                <p class="eth-provenance-row-text-mobile">{{ this.ethNFTCreatorWalletAddress }}</p>
+              </div>
+              <p class="eth-provenance-row-price-mobile">-</p>
+              <p class="eth-provenance-row-timestamp-mobile">{{ ethNFTCreatorTimestamp }}</p>
+            </div>
           </div>
         </div>
       </div>

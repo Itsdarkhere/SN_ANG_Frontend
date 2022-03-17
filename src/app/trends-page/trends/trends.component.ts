@@ -95,6 +95,7 @@ export class TrendsComponent implements OnInit {
     this.globalVars.desoMarketplace = false;
     this.globalVars.ethMarketplaceNFTCategory = "All";
     this.globalVars.getAllEthNFTs();
+    console.log(this.globalVars.desoMarketplace);
   }
 
   @HostListener("window:resize") onResize() {

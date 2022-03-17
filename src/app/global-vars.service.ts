@@ -96,15 +96,6 @@ export class GlobalVarsService {
   isEthQuoteRepost: boolean = false;
   isEthWalletAssociatedToDesoProfile: boolean = false;
 
-  ethNFTSellerWalletAddress: string;
-  ethNFTSellerWalletAddressFull: string;
-  ethNFTSellerPrice: string;
-  ethNFTSellerTimestamp: string;
-  ethNFTSellerDesoProfile: boolean;
-  ethNFTSellerDesoPublicKey: string;
-  ethNFTSellerDesoUsername: string;
-  ethNFTSellerDesoIsVerified: boolean;
-
   //   ----------------------------- end of imx global vars -----------------------------
 
   // Note: I don't think we should have default values for this. I think we should just

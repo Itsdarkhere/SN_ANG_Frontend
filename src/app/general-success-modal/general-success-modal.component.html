@@ -1,10 +1,16 @@
-<!-- profile route -->
+<!-- profile route or general -->
 <div
   class="general-success-modal-container"
   *ngIf="this.buttonClickedAction === 'profileRoute' || this.buttonClickedAction === 'general'"
 >
   <p class="general-success-modal-header">{{ header }}</p>
   <p class="general-success-modal-text">{{ text }}</p>
+  <button class="general-success-modal-button" (click)="generalSuccessModalButtonClicked()">{{ buttonText }}</button>
+</div>
+<!-- connectWalletMobileError -->
+<div class="general-success-modal-container" *ngIf="this.buttonClickedAction === 'connectWalletMobileError'">
+  <p class="general-success-modal-header">{{ header }}</p>
+  <p class="general-success-modal-text-wallet-mobile-error">{{ text }}</p>
   <button class="general-success-modal-button" (click)="generalSuccessModalButtonClicked()">{{ buttonText }}</button>
 </div>
 <!-- want to connect wallet, but haven't connected yet -->

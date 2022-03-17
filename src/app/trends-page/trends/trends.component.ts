@@ -74,22 +74,25 @@ export class TrendsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.globalVars.marketplaceNFTsData) {
-      this.sortMarketplace(0, false);
-    }
     this.setMobileBasedOnViewport();
-    this.updateDesoMarketplaceStatus();
+    if (this.globalVars.desoMarketplace) {
+      if (!this.globalVars.marketplaceNFTsData) {
+        this.sortMarketplace(0, false);
+      }
+    } else {
+      if (!this.globalVars.ethMarketplaceNFTsData) {
+        this.updateEthMarketplaceStatus();
+      }
+    }
   }
 
   updateDesoMarketplaceStatus() {
-    this.desoMarketplace = true;
-    this.ethMarketplace = false;
-    this.globalVars.marketplaceNFTCategory = "";
+    this.globalVars.desoMarketplace = true;
+    // this.globalVars.marketplaceNFTCategory = "";
   }
 
   updateEthMarketplaceStatus() {
-    this.desoMarketplace = false;
-    this.ethMarketplace = true;
+    this.globalVars.desoMarketplace = false;
     this.globalVars.ethMarketplaceNFTCategory = "All";
     this.globalVars.getAllEthNFTs();
   }
@@ -143,6 +146,7 @@ export class TrendsComponent implements OnInit {
     if (!showMore) {
       this.globalVars.isMarketplaceLoading = true;
     }
+    console.log(this.globalVars.marketplaceNFTCategory);
     this.backendApi
       .SortMarketplace(
         this.globalVars.localNode,

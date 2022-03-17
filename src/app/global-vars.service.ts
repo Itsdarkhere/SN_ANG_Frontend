@@ -192,6 +192,7 @@ export class GlobalVarsService {
   ethNFTsCreated: NFTCollectionResponse[];
   marketplaceCreatorData: CreatorCardResponse[];
   // The buttons on the marketplace
+  desoMarketplace = true;
   marketplaceViewTypeCard = true;
   marketplaceVerifiedCreators = "verified";
   marketplaceContentFormat = "all";

@@ -1,6 +1,6 @@
 <!-- DESO MARKETPLACE CONTENT-->
 <!-- Show shimmer Loader Until page completely Load -->
-<div *ngIf="desoMarketplace && !ethMarketplace">
+<div *ngIf="this.globalVars.desoMarketplace">
   <div
     class="mrk_top pb-10px d-flex flex-end-center flex-row justify-content-between"
     [ngClass]="mobile ? 'mt-65px' : ''"
@@ -141,7 +141,7 @@
 
 <!-- ETH MARKETPLACE CONTENT-->
 <!-- Show shimmer Loader Until page completely Load -->
-<div *ngIf="!desoMarketplace && ethMarketplace">
+<div *ngIf="!this.globalVars.desoMarketplace">
   <div
     class="mrk_top pb-10px d-flex flex-end-center flex-row justify-content-between"
     [ngClass]="mobile ? 'mt-65px' : ''"

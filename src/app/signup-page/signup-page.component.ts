@@ -226,6 +226,9 @@ export class SignupPageComponent implements OnInit {
     this.mixPanel.track24("Creator Selected");
     this.creator = true;
     this.collector = false;
+    this.mixPanel.peoplesetcreator({
+      "Creator?": this.creator});
+
   }
   collectorSelected() {
     this.mixPanel.track25("Collector Selected");

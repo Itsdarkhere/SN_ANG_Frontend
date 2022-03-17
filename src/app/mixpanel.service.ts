@@ -291,4 +291,9 @@ peoplesetemail(name) {
   mixpanel.people.set(name);
   console.log(name)
 }
-}
+// People Set creator?
+peoplesetcreator(name) {
+  mixpanel.people.set(name);
+  console.log(name)
+}}
+

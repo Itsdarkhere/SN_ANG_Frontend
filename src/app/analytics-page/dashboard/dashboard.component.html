@@ -36,7 +36,7 @@
 <div class="top-sales-container">
   <app-top-sales [posts]="topNFTSales"></app-top-sales>
 </div>
-<div class="creator-list-container">
+<div class="creator-list-container" observeVisibility [debounceTime]="200" (visible)="getWhales()">
   <app-creator-list
     [label]="'Top Earning Creators'"
     [label2]="'CREATOR'"

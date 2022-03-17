@@ -35,10 +35,13 @@ export class DashboardComponent implements OnInit {
     this.getUniqueCollectors();
     this.getUniqueCreators();
     this.getTopBidsToday();
-    this.getTopEarningCollectors();
-    this.getTopEarningCreators();
     this.getQuickFacts();
     this.getTopNFTSales();
+  }
+
+  getWhales() {
+    this.getTopEarningCollectors();
+    this.getTopEarningCreators();
   }
 
   getDesoNFTMarketCapGraph() {

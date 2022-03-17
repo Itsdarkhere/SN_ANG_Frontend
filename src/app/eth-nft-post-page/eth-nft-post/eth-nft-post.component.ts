@@ -101,6 +101,8 @@ export class EthNftPostComponent implements OnInit {
   ethNFTOwnerPrice: string;
   ethNFTCreatorWalletAddress: string;
   ethNFTCreatorTimestamp: string;
+  ethTxUrl: string;
+  ethImgUrl: string;
 
   static ALL_BIDS = "All Bids";
   static MY_BIDS = "My Bids";
@@ -480,6 +482,9 @@ export class EthNftPostComponent implements OnInit {
     let ethNFTCreatorTimestampDate = this.ethNFTCreatorTimestamp.slice(0, 10);
     let ethNFTCreatorTimestampTime = this.ethNFTCreatorTimestamp.slice(11, 16);
     this.ethNFTCreatorTimestamp = ethNFTCreatorTimestampDate + " " + ethNFTCreatorTimestampTime + " UTC";
+
+    this.ethTxUrl = `https://immutascan.io/tx/${ethNFTCreatorWalletAddressRes["result"][0]["transaction_id"]}`;
+    this.ethImgUrl = this.nftPost["ImageURLs"][0];
   }
 
   refreshBidData(): Subscription {

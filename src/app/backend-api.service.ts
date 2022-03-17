@@ -207,6 +207,7 @@ export class BackendRoutes {
   static RoutePathGetIMXMetadataById = "/api/v0/imx/metadata";
   static RoutePathInsertIMXMetadata = "/api/v0/insert/imx";
   static RoutePathUpdateIMXMetadataPostHash = "/api/v0/update-imx-post-hash";
+  static RoutePathGetDesoPKbyETHPK = "/api/v0/get-deso-pk-by-ethpk";
 }
 
 export class Transaction {
@@ -816,6 +817,12 @@ export class BackendApiService {
     return this.post(endpoint, BackendRoutes.RoutePathUpdateIMXMetadataPostHash, {
       Token_id,
       PostHashHex,
+    });
+  }
+
+  GetDesoPKbyETHPK(endpoint: string, ETHPK: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetDesoPKbyETHPK, {
+      ETHPK,
     });
   }
 

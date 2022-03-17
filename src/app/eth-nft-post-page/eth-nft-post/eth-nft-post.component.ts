@@ -97,10 +97,22 @@ export class EthNftPostComponent implements OnInit {
   propertiesBool = false;
 
   ethNFTOwnerWalletAddress: string;
-  ethNFTOwnerTimestamp: string;
+  ethNFTOwnerWalletAddressFull: string;
   ethNFTOwnerPrice: string;
+  ethNFTOwnerTimestamp: string;
+  ethNFTOwnerDesoProfile: boolean;
+  ethNFTOwnerDesoPublicKey: string;
+  ethNFTOwnerDesoUsername: string;
+  ethNFTOwnerDesoIsVerified: boolean;
+
   ethNFTCreatorWalletAddress: string;
+  ethNFTCreatorWalletAddressFull: string;
   ethNFTCreatorTimestamp: string;
+  ethNFTCreatorDesoProfile: boolean;
+  ethNFTCreatorDesoPublicKey: string;
+  ethNFTCreatorDesoUsername: string;
+  ethNFTCreatorDesoIsVerified: boolean;
+
   ethTxUrl: string;
   ethImgUrl: string;
 
@@ -401,8 +413,7 @@ export class EthNftPostComponent implements OnInit {
       ownerOptions
     );
     ethNFTOwnerWalletAddressRes = await ethNFTOwnerWalletAddressRes.json();
-    this.ethNFTOwnerWalletAddress = ethNFTOwnerWalletAddressRes["user"];
-    this.ethNFTOwnerWalletAddress = this.ethNFTOwnerWalletAddress.slice(0, 15) + "...";
+    this.ethNFTOwnerWalletAddressFull = ethNFTOwnerWalletAddressRes["user"];
 
     // find current eth seller
     const sellerOptions = { method: "GET", headers: { Accept: "*/*" } };
@@ -426,8 +437,8 @@ export class EthNftPostComponent implements OnInit {
           ethNFTSellerWalletAddressRes["result"][i]["status"] === "active" ||
           ethNFTSellerWalletAddressRes["result"][i]["status"] === "filled"
         ) {
-          this.globalVars.ethNFTSellerWalletAddress = ethNFTSellerWalletAddressRes["result"][i]["user"];
-          this.globalVars.ethNFTSellerWalletAddress = this.globalVars.ethNFTSellerWalletAddress.slice(0, 15) + "...";
+          this.globalVars.ethNFTSellerWalletAddressFull = ethNFTSellerWalletAddressRes["result"][i]["user"];
+          //   this.globalVars.ethNFTSellerWalletAddress = this.globalVars.ethNFTSellerWalletAddressFull.slice(0, 15) + "...";
 
           this.globalVars.ethNFTSellerPrice =
             ethers.utils.formatEther(ethNFTSellerWalletAddressRes["result"][i]["buy"]["data"]["quantity"]) + " ETH";
@@ -447,7 +458,7 @@ export class EthNftPostComponent implements OnInit {
         }
       }
 
-      // update owners price and timetstamp for last filled order
+      // update owners price and timestamp for last filled order
       for (var i = 0; i < ethNFTSellerWalletAddressRes["result"].length; i++) {
         if (ethNFTSellerWalletAddressRes["result"][i]["status"] === "filled") {
           this.ethNFTOwnerPrice =
@@ -475,8 +486,8 @@ export class EthNftPostComponent implements OnInit {
       creatorOptions
     );
     ethNFTCreatorWalletAddressRes = await ethNFTCreatorWalletAddressRes.json();
-    this.ethNFTCreatorWalletAddress = ethNFTCreatorWalletAddressRes["result"][0]["user"];
-    this.ethNFTCreatorWalletAddress = this.ethNFTCreatorWalletAddress.slice(0, 15) + "...";
+    this.ethNFTCreatorWalletAddressFull = ethNFTCreatorWalletAddressRes["result"][0]["user"];
+    this.ethNFTCreatorWalletAddress = this.ethNFTCreatorWalletAddressFull.slice(0, 15) + "...";
 
     this.ethNFTCreatorTimestamp = ethNFTCreatorWalletAddressRes["result"][0]["timestamp"];
     let ethNFTCreatorTimestampDate = this.ethNFTCreatorTimestamp.slice(0, 10);
@@ -485,6 +496,87 @@ export class EthNftPostComponent implements OnInit {
 
     this.ethTxUrl = `https://immutascan.io/tx/${ethNFTCreatorWalletAddressRes["result"][0]["transaction_id"]}`;
     this.ethImgUrl = this.nftPost["ImageURLs"][0];
+
+    // check if owner eth wallet has deso profile
+    this.backendApi.GetDesoPKbyETHPK(this.globalVars.localNode, this.ethNFTOwnerWalletAddressFull).subscribe(
+      (res) => {
+        this.ethNFTOwnerDesoProfile = true;
+        this.ethNFTOwnerDesoPublicKey = res["PublicKeyBase58Check"];
+        console.log(this.ethNFTOwnerDesoProfile);
+        console.log(this.ethNFTOwnerDesoPublicKey);
+        this.backendApi.GetSingleProfile(this.globalVars.localNode, this.ethNFTOwnerDesoPublicKey, "").subscribe(
+          (res) => {
+            console.log(res);
+            this.ethNFTOwnerDesoUsername = res["Profile"]["Username"];
+            this.ethNFTOwnerDesoIsVerified = res["Profile"]["IsVerified"];
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+      },
+      (err) => {
+        console.log(err);
+        if (err["status"] === 400) {
+          this.ethNFTOwnerWalletAddress = this.ethNFTOwnerWalletAddressFull.slice(0, 15) + "...";
+        }
+      }
+    );
+
+    // check if seller eth wallet has deso profile
+    this.backendApi
+      .GetDesoPKbyETHPK(this.globalVars.localNode, this.globalVars.ethNFTSellerWalletAddressFull)
+      .subscribe(
+        (res) => {
+          this.globalVars.ethNFTSellerDesoProfile = true;
+          this.globalVars.ethNFTSellerDesoPublicKey = res["PublicKeyBase58Check"];
+          this.backendApi
+            .GetSingleProfile(this.globalVars.localNode, this.globalVars.ethNFTSellerDesoPublicKey, "")
+            .subscribe(
+              (res) => {
+                console.log(res);
+                this.globalVars.ethNFTSellerDesoUsername = res["Profile"]["Username"];
+                this.globalVars.ethNFTSellerDesoIsVerified = res["Profile"]["IsVerified"];
+              },
+              (err) => {
+                console.log(err);
+              }
+            );
+        },
+        (err) => {
+          console.log(err);
+          if (err["status"] === 400) {
+            this.globalVars.ethNFTSellerWalletAddress =
+              this.globalVars.ethNFTSellerWalletAddressFull.slice(0, 15) + "...";
+          }
+        }
+      );
+
+    // check if creator eth wallet has deso profile
+    this.backendApi.GetDesoPKbyETHPK(this.globalVars.localNode, this.ethNFTCreatorWalletAddressFull).subscribe(
+      (res) => {
+        this.ethNFTCreatorDesoProfile = true;
+        this.ethNFTCreatorDesoPublicKey = res["PublicKeyBase58Check"];
+        console.log(this.ethNFTCreatorDesoProfile);
+        console.log(this.ethNFTCreatorDesoPublicKey);
+        this.backendApi.GetSingleProfile(this.globalVars.localNode, this.ethNFTCreatorDesoPublicKey, "").subscribe(
+          (res) => {
+            console.log(res);
+            this.ethNFTCreatorDesoUsername = res["Profile"]["Username"];
+            this.ethNFTCreatorDesoIsVerified = res["Profile"]["IsVerified"];
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+      },
+      (err) => {
+        console.log(err);
+        if (err["status"] === 400) {
+          this.ethNFTCreatorWalletAddress = this.ethNFTCreatorWalletAddressFull.slice(0, 15) + "...";
+        }
+      }
+    );
   }
 
   refreshBidData(): Subscription {

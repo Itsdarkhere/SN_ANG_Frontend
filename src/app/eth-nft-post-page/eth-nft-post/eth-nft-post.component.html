@@ -497,21 +497,78 @@
             </div>
           </div> -->
           <div class="eth-provenance-container">
+            <!-- owner -->
             <div class="eth-provenance-row-container">
               <p class="eth-provenance-row-header">Sold to</p>
-              <p class="eth-provenance-row-text">{{ ethNFTOwnerWalletAddress }}</p>
+              <div class="eth-provenance-deso-profile-container" *ngIf="ethNFTOwnerDesoProfile">
+                <div class="profile-img">
+                  <a
+                    [avatar]="ethNFTOwnerDesoPublicKey"
+                    [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, this.ethNFTOwnerDesoUsername]"
+                  ></a>
+                </div>
+                <a
+                  class="username-nft-card font-weight-bold"
+                  [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, this.ethNFTOwnerDesoUsername]"
+                >
+                  {{ this.ethNFTOwnerDesoUsername }}
+                  <i *ngIf="ethNFTOwnerDesoIsVerified" class="fas fa-check-circle pl-5px fa-md text-primary"></i>
+                </a>
+              </div>
+              <div class="eth-provenance-deso-profile-container" *ngIf="!ethNFTOwnerDesoProfile">
+                <p class="eth-provenance-row-text">{{ this.ethNFTOwnerWalletAddress }}</p>
+              </div>
               <p class="eth-provenance-row-price">{{ ethNFTOwnerPrice }}</p>
               <p class="eth-provenance-row-timestamp">{{ ethNFTOwnerTimestamp }}</p>
             </div>
+            <!-- seller -->
             <div class="eth-provenance-row-container">
               <p class="eth-provenance-row-header">Listed by</p>
-              <p class="eth-provenance-row-text">{{ this.globalVars.ethNFTSellerWalletAddress }}</p>
+              <div class="eth-provenance-deso-profile-container" *ngIf="this.globalVars.ethNFTSellerDesoProfile">
+                <div class="profile-img">
+                  <a
+                    [avatar]="this.globalVars.ethNFTSellerDesoPublicKey"
+                    [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, this.globalVars.ethNFTSellerDesoUsername]"
+                  ></a>
+                </div>
+                <a
+                  class="username-nft-card font-weight-bold"
+                  [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, this.globalVars.ethNFTSellerDesoUsername]"
+                >
+                  {{ this.globalVars.ethNFTSellerDesoUsername }}
+                  <i
+                    *ngIf="this.globalVars.ethNFTSellerDesoIsVerified"
+                    class="fas fa-check-circle pl-5px fa-md text-primary"
+                  ></i>
+                </a>
+              </div>
+              <div class="eth-provenance-deso-profile-container" *ngIf="!this.globalVars.ethNFTSellerDesoProfile">
+                <p class="eth-provenance-row-text">{{ this.globalVars.ethNFTSellerWalletAddress }}</p>
+              </div>
               <p class="eth-provenance-row-price">{{ this.globalVars.ethNFTSellerPrice }}</p>
               <p class="eth-provenance-row-timestamp">{{ this.globalVars.ethNFTSellerTimestamp }}</p>
             </div>
+            <!-- creator -->
             <div class="eth-provenance-row-container">
               <p class="eth-provenance-row-header">Minted by</p>
-              <p class="eth-provenance-row-text">{{ ethNFTCreatorWalletAddress }}</p>
+              <div class="eth-provenance-deso-profile-container" *ngIf="this.ethNFTCreatorDesoProfile">
+                <div class="profile-img">
+                  <a
+                    [avatar]="this.ethNFTCreatorDesoPublicKey"
+                    [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, this.ethNFTCreatorDesoUsername]"
+                  ></a>
+                </div>
+                <a
+                  class="username-nft-card font-weight-bold"
+                  [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, this.ethNFTCreatorDesoUsername]"
+                >
+                  {{ this.ethNFTCreatorDesoUsername }}
+                  <i *ngIf="this.ethNFTCreatorDesoIsVerified" class="fas fa-check-circle pl-5px fa-md text-primary"></i>
+                </a>
+              </div>
+              <div class="eth-provenance-deso-profile-container" *ngIf="!this.ethNFTCreatorDesoProfile">
+                <p class="eth-provenance-row-text">{{ this.ethNFTCreatorWalletAddress }}</p>
+              </div>
               <p class="eth-provenance-row-price">-</p>
               <p class="eth-provenance-row-timestamp">{{ ethNFTCreatorTimestamp }}</p>
             </div>

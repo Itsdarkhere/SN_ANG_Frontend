@@ -295,3 +295,30 @@
   line-height: 46px;
   color: #2c2c2c;
 }
+.eth-provenance-deso-profile-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.profile-img {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+  a {
+    width: 25px;
+    height: 25px;
+    display: block;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+  }
+}
+.username-nft-card {
+  font-size: 13px !important;
+  color: #525252;
+  transition: all 0.2s ease;
+  &:hover {
+    transition: all 0.2s ease;
+    color: #000000;
+  }
+}

@@ -968,7 +968,9 @@ export class MintPageComponent implements OnInit {
   }
 
   viewEthPost() {
-    this.router.navigate(["/" + this.globalVars.RouteNames.ETH_NFT + "/" + this.postHashHex]);
+    setTimeout(() => {
+      this.router.navigate(["/" + this.globalVars.RouteNames.ETH_NFT + "/" + this.postHashHex]);
+    }, 1000);
   }
 
   pollForReadyToStream(): void {

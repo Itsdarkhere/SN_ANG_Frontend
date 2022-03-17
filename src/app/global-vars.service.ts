@@ -1823,9 +1823,10 @@ export class GlobalVarsService {
     this.counter = 0;
     this.getPostsRecursive(metadataPostHashArr);
 
-    setTimeout(() => {
-      this.isEthMarketplaceLoading = false;
-    }, 2000);
+    this.isEthMarketplaceLoading = false;
+    // setTimeout(() => {
+    //   this.isEthMarketplaceLoading = false;
+    // }, 2000);
   }
 
   updateDataToShow() {

@@ -14,7 +14,7 @@
   <div class="w-100 mt-50px pr-10px pl-10px d-flex align-items-center justify-content-between">
     <div class="discovery-header-box">
       <h2 id="favourites" class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
-        Community Favorites
+        Trending Auctions
       </h2>
     </div>
     <a class="discovery-link" (click)="routeViewAll('communityfavourites')">
@@ -23,15 +23,15 @@
     </a>
   </div>
   <div *ngIf="!mobile" class="w-100 discovery-nft-showcase">
-    <div class="nfts-card-list-discovery w-100" *ngIf="postsLoading">
+    <div class="nfts-card-list-discovery w-100" *ngIf="postsLoading3">
       <div class="nft-col-wrap" *ngFor="let a of fakeArray">
-        <div class="card">
+        <div class="card w-100">
           <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
         </div>
       </div>
     </div>
-    <div class="nfts-card-list-discovery" *ngIf="!postsLoading">
-      <div class="nft-col-wrap" *ngFor="let nftEntry of discoveryDataToShow">
+    <div class="nfts-card-list-discovery" *ngIf="!postsLoading3">
+      <div class="nft-col-wrap" *ngFor="let nftEntry of discoveryDataToShow3">
         <div class="max-width-300-plus">
           <new-nft-card
             [contentShouldLinkToThread]="true"
@@ -51,127 +51,31 @@
     </div>
   </div>
   <!-- Dynamic content unfortunately does not work straight out the box, apparently since content is loaded after slider init -->
-  <div *ngIf="mobile" class="keen-slider" #sliderRef1>
-    <div class="keen-slider__slide number-slide1 pt-10px pl-5px">
-      <new-nft-card
-        [contentShouldLinkToThread]="true"
-        [includePaddingOnPost]="true"
-        [post]="this?.discoveryDataToShow[0]"
-        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
-        [showNFTDetails]="true"
-        [showExpandedNFTDetails]="false"
-        [setBorder]="true"
-        [showAvailableSerialNumbers]="true"
-        [cardStyle]="true"
-        (userBlocked)="userBlocked()"
-      ></new-nft-card>
-    </div>
-    <div class="keen-slider__slide number-slide1 pt-10px pl-5px">
-      <new-nft-card
-        [contentShouldLinkToThread]="true"
-        [includePaddingOnPost]="true"
-        [post]="this?.discoveryDataToShow[1]"
-        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
-        [showNFTDetails]="true"
-        [showExpandedNFTDetails]="false"
-        [setBorder]="true"
-        [showAvailableSerialNumbers]="true"
-        [cardStyle]="true"
-        (userBlocked)="userBlocked()"
-      ></new-nft-card>
-    </div>
-    <div class="keen-slider__slide number-slide1 pt-10px pl-5px">
-      <new-nft-card
-        [contentShouldLinkToThread]="true"
-        [includePaddingOnPost]="true"
-        [post]="this?.discoveryDataToShow[2]"
-        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
-        [showNFTDetails]="true"
-        [showExpandedNFTDetails]="false"
-        [setBorder]="true"
-        [showAvailableSerialNumbers]="true"
-        [cardStyle]="true"
-        (userBlocked)="userBlocked()"
-      ></new-nft-card>
-    </div>
-    <div class="keen-slider__slide number-slide1 pt-10px pl-5px">
-      <new-nft-card
-        [contentShouldLinkToThread]="true"
-        [includePaddingOnPost]="true"
-        [post]="this?.discoveryDataToShow[3]"
-        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
-        [showNFTDetails]="true"
-        [showExpandedNFTDetails]="false"
-        [setBorder]="true"
-        [showAvailableSerialNumbers]="true"
-        [cardStyle]="true"
-        (userBlocked)="userBlocked()"
-      ></new-nft-card>
-    </div>
-    <div class="keen-slider__slide number-slide1 pt-10px pl-5px">
-      <new-nft-card
-        [contentShouldLinkToThread]="true"
-        [includePaddingOnPost]="true"
-        [post]="this?.discoveryDataToShow[4]"
-        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
-        [showNFTDetails]="true"
-        [showExpandedNFTDetails]="false"
-        [setBorder]="true"
-        [showAvailableSerialNumbers]="true"
-        [cardStyle]="true"
-        (userBlocked)="userBlocked()"
-      ></new-nft-card>
-    </div>
-    <div class="keen-slider__slide number-slide1 pt-10px pl-5px">
-      <new-nft-card
-        [contentShouldLinkToThread]="true"
-        [includePaddingOnPost]="true"
-        [post]="this?.discoveryDataToShow[5]"
-        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
-        [showNFTDetails]="true"
-        [showExpandedNFTDetails]="false"
-        [setBorder]="true"
-        [showAvailableSerialNumbers]="true"
-        [cardStyle]="true"
-        (userBlocked)="userBlocked()"
-      ></new-nft-card>
-    </div>
-    <div class="keen-slider__slide number-slide1 pt-10px pl-5px">
-      <new-nft-card
-        [contentShouldLinkToThread]="true"
-        [includePaddingOnPost]="true"
-        [post]="this?.discoveryDataToShow[6]"
-        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
-        [showNFTDetails]="true"
-        [showExpandedNFTDetails]="false"
-        [setBorder]="true"
-        [showAvailableSerialNumbers]="true"
-        [cardStyle]="true"
-        (userBlocked)="userBlocked()"
-      ></new-nft-card>
-    </div>
-    <div class="keen-slider__slide number-slide1 pt-10px pl-5px">
-      <new-nft-card
-        [contentShouldLinkToThread]="true"
-        [includePaddingOnPost]="true"
-        [post]="this?.discoveryDataToShow[7]"
-        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
-        [showNFTDetails]="true"
-        [showExpandedNFTDetails]="false"
-        [setBorder]="true"
-        [showAvailableSerialNumbers]="true"
-        [cardStyle]="true"
-        (userBlocked)="userBlocked()"
-      ></new-nft-card>
-    </div>
+  <div *ngIf="mobile" class="discovery-mobile-scroller snaps-inline disable-scrollbars">
+    <ng-container *ngIf="postsLoading3; else showPost3">
+      <div class="pt-10px pl-5px" *ngFor="let a of fakeArray">
+        <div class="card">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #showPost3>
+      <div class="pt-10px pl-5px" *ngFor="let nftEntry of discoveryDataToShow3">
+        <new-nft-card
+          [contentShouldLinkToThread]="true"
+          [includePaddingOnPost]="true"
+          [post]="nftEntry"
+          [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+          [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+          [showNFTDetails]="true"
+          [showExpandedNFTDetails]="false"
+          [setBorder]="true"
+          [showAvailableSerialNumbers]="true"
+          [cardStyle]="true"
+          (userBlocked)="userBlocked()"
+        ></new-nft-card>
+      </div>
+    </ng-template>
   </div>
   <div class="discovery-header-box mt-20px" [ngClass]="mobile ? 'mb--10px' : 'mb-10px'">
     <h2 id="categories" class="font-weight-semiboldn pl-10px" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
@@ -222,25 +126,16 @@
         <img class="w-100 h-100" loading="lazy" src="/assets/img/category_photography.png" alt="category photography" />
       </div>
     </div>
-    <!-- Arrows -->
-    <!--<div class="discovery-arrow-box-1 discovery-arrow-box">
-      <svg class="discovery-arrow" (click)="slider2.prev()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z" />
-      </svg>
-    </div>-->
     <button
       (click)="slider2.next()"
       *ngIf="!mobile"
       class="discovery-arrow-box-2 discovery-arrow-box d-flex flex-center"
     >
-      <!--<svg *ngIf="slider2" class="discovery-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
-      </svg>-->
       <img class="discovery-arrow" src="/assets/icons/chevron_right.svg" />
     </button>
   </div>
   <div class="w-100 mt-50px pr-10px pl-10px d-flex align-items-center justify-content-between">
-    <div class="discovery-header-box">
+    <div class="discovery-header-box" observeVisibility [debounceTime]="0" (visible)="getFreshDrops()">
       <h2 id="fresh-drops" class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">Fresh drops</h2>
     </div>
     <a class="discovery-link" (click)="routeViewAll('fresh')">
@@ -249,7 +144,14 @@
     </a>
   </div>
   <div *ngIf="!mobile" class="w-100 discovery-nft-showcase">
-    <div class="nfts-card-list-discovery" *ngIf="!postsLoading">
+    <div class="nfts-card-list-discovery w-100" *ngIf="postsLoading2">
+      <div class="nft-col-wrap" *ngFor="let a of fakeArray">
+        <div class="card w-100">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
+      </div>
+    </div>
+    <div class="nfts-card-list-discovery" *ngIf="!postsLoading2">
       <div class="nft-col-wrap" *ngFor="let nftEntry of discoveryDataToShow2">
         <div class="max-width-300-plus">
           <new-nft-card
@@ -268,159 +170,239 @@
         </div>
       </div>
     </div>
-    <div class="nfts-card-list-discovery w-100" *ngIf="postsLoading">
-      <div class="nft-col-wrap" *ngFor="let a of fakeArray">
+  </div>
+  <div *ngIf="mobile" class="discovery-mobile-scroller snaps-inline disable-scrollbars">
+    <ng-container *ngIf="postsLoading2; else showPost2">
+      <div class="pt-10px pl-5px" *ngFor="let a of fakeArray">
         <div class="card">
           <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
         </div>
       </div>
+    </ng-container>
+    <ng-template #showPost2>
+      <div class="pt-10px pl-5px" *ngFor="let nftEntry of discoveryDataToShow2">
+        <new-nft-card
+          [contentShouldLinkToThread]="true"
+          [includePaddingOnPost]="true"
+          [post]="nftEntry"
+          [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+          [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+          [showNFTDetails]="true"
+          [showExpandedNFTDetails]="false"
+          [setBorder]="true"
+          [showAvailableSerialNumbers]="true"
+          [cardStyle]="true"
+          (userBlocked)="userBlocked()"
+        ></new-nft-card>
+      </div>
+    </ng-template>
+  </div>
+  <div class="w-100 mt-50px pr-10px pl-10px d-flex align-items-center justify-content-between">
+    <div class="discovery-header-box" observeVisibility [debounceTime]="0" (visible)="getCommunityFavourites()">
+      <h2 id="favourites" class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">Most Diamonds</h2>
+    </div>
+    <a class="discovery-link" (click)="routeViewAll('communityfavourites')">
+      View all
+      <img src="/assets/icons/chevron_right.svg" />
+    </a>
+  </div>
+  <div *ngIf="!mobile" class="w-100 discovery-nft-showcase">
+    <div class="nfts-card-list-discovery w-100" *ngIf="postsLoading">
+      <div class="nft-col-wrap" *ngFor="let a of fakeArray">
+        <div class="card w-100">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
+      </div>
+    </div>
+    <div class="nfts-card-list-discovery" *ngIf="!postsLoading">
+      <div class="nft-col-wrap" *ngFor="let nftEntry of discoveryDataToShow">
+        <div class="max-width-300-plus">
+          <new-nft-card
+            [contentShouldLinkToThread]="true"
+            [includePaddingOnPost]="true"
+            [post]="nftEntry"
+            [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+            [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+            [showNFTDetails]="true"
+            [showExpandedNFTDetails]="false"
+            [setBorder]="true"
+            [showAvailableSerialNumbers]="true"
+            [cardStyle]="true"
+            (userBlocked)="userBlocked()"
+          ></new-nft-card>
+        </div>
+      </div>
     </div>
   </div>
-  <div *ngIf="mobile" class="keen-slider" #sliderRef3>
-    <div class="keen-slider__slide number-slide1 pt-10px pl-5px">
-      <new-nft-card
-        [contentShouldLinkToThread]="true"
-        [includePaddingOnPost]="true"
-        [post]="this?.discoveryDataToShow2[0]"
-        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
-        [showNFTDetails]="true"
-        [showExpandedNFTDetails]="false"
-        [setBorder]="true"
-        [showAvailableSerialNumbers]="true"
-        [cardStyle]="true"
-        (userBlocked)="userBlocked()"
-      ></new-nft-card>
+  <!-- Dynamic content unfortunately does not work straight out the box, apparently since content is loaded after slider init -->
+  <div *ngIf="mobile" class="discovery-mobile-scroller snaps-inline disable-scrollbars">
+    <ng-container *ngIf="postsLoading; else showPost">
+      <div class="pt-10px pl-5px" *ngFor="let a of fakeArray">
+        <div class="card">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #showPost>
+      <div class="pt-10px pl-5px" *ngFor="let nftEntry of discoveryDataToShow">
+        <new-nft-card
+          [contentShouldLinkToThread]="true"
+          [includePaddingOnPost]="true"
+          [post]="nftEntry"
+          [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+          [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+          [showNFTDetails]="true"
+          [showExpandedNFTDetails]="false"
+          [setBorder]="true"
+          [showAvailableSerialNumbers]="true"
+          [cardStyle]="true"
+          (userBlocked)="userBlocked()"
+        ></new-nft-card>
+      </div>
+    </ng-template>
+  </div>
+  <div class="w-100 mt-50px pr-10px pl-10px d-flex align-items-center justify-content-between">
+    <div class="discovery-header-box" observeVisibility [debounceTime]="0" (visible)="getRecentSales()">
+      <h2 id="favourites" class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">Recent Sales</h2>
     </div>
-    <div class="keen-slider__slide number-slide1 pt-10px pl-5px">
-      <new-nft-card
-        [contentShouldLinkToThread]="true"
-        [includePaddingOnPost]="true"
-        [post]="this?.discoveryDataToShow2[1]"
-        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
-        [showNFTDetails]="true"
-        [showExpandedNFTDetails]="false"
-        [setBorder]="true"
-        [showAvailableSerialNumbers]="true"
-        [cardStyle]="true"
-        (userBlocked)="userBlocked()"
-      ></new-nft-card>
+    <a class="discovery-link" (click)="routeViewAll('communityfavourites')">
+      View all
+      <img src="/assets/icons/chevron_right.svg" />
+    </a>
+  </div>
+  <div *ngIf="!mobile" class="w-100 discovery-nft-showcase">
+    <div class="nfts-card-list-discovery w-100" *ngIf="postsLoading4">
+      <div class="nft-col-wrap" *ngFor="let a of fakeArray">
+        <div class="card w-100">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
+      </div>
     </div>
-    <div class="keen-slider__slide number-slide1 pt-10px pl-5px">
-      <new-nft-card
-        [contentShouldLinkToThread]="true"
-        [includePaddingOnPost]="true"
-        [post]="this?.discoveryDataToShow2[2]"
-        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
-        [showNFTDetails]="true"
-        [showExpandedNFTDetails]="false"
-        [setBorder]="true"
-        [showAvailableSerialNumbers]="true"
-        [cardStyle]="true"
-        (userBlocked)="userBlocked()"
-      ></new-nft-card>
-    </div>
-    <div class="keen-slider__slide number-slide1 pt-10px pl-5px">
-      <new-nft-card
-        [contentShouldLinkToThread]="true"
-        [includePaddingOnPost]="true"
-        [post]="this?.discoveryDataToShow2[3]"
-        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
-        [showNFTDetails]="true"
-        [showExpandedNFTDetails]="false"
-        [setBorder]="true"
-        [showAvailableSerialNumbers]="true"
-        [cardStyle]="true"
-        (userBlocked)="userBlocked()"
-      ></new-nft-card>
-    </div>
-    <div class="keen-slider__slide number-slide1 pt-10px pl-5px">
-      <new-nft-card
-        [contentShouldLinkToThread]="true"
-        [includePaddingOnPost]="true"
-        [post]="this?.discoveryDataToShow2[4]"
-        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
-        [showNFTDetails]="true"
-        [showExpandedNFTDetails]="false"
-        [setBorder]="true"
-        [showAvailableSerialNumbers]="true"
-        [cardStyle]="true"
-        (userBlocked)="userBlocked()"
-      ></new-nft-card>
-    </div>
-    <div class="keen-slider__slide number-slide1 pt-10px pl-5px">
-      <new-nft-card
-        [contentShouldLinkToThread]="true"
-        [includePaddingOnPost]="true"
-        [post]="this?.discoveryDataToShow2[5]"
-        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
-        [showNFTDetails]="true"
-        [showExpandedNFTDetails]="false"
-        [setBorder]="true"
-        [showAvailableSerialNumbers]="true"
-        [cardStyle]="true"
-        (userBlocked)="userBlocked()"
-      ></new-nft-card>
-    </div>
-    <div class="keen-slider__slide number-slide1 pt-10px pl-5px">
-      <new-nft-card
-        [contentShouldLinkToThread]="true"
-        [includePaddingOnPost]="true"
-        [post]="this?.discoveryDataToShow2[6]"
-        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
-        [showNFTDetails]="true"
-        [showExpandedNFTDetails]="false"
-        [setBorder]="true"
-        [showAvailableSerialNumbers]="true"
-        [cardStyle]="true"
-        (userBlocked)="userBlocked()"
-      ></new-nft-card>
-    </div>
-    <div class="keen-slider__slide number-slide1 pt-10px pl-5px">
-      <new-nft-card
-        [contentShouldLinkToThread]="true"
-        [includePaddingOnPost]="true"
-        [post]="this?.discoveryDataToShow2[7]"
-        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
-        [showNFTDetails]="true"
-        [showExpandedNFTDetails]="false"
-        [setBorder]="true"
-        [showAvailableSerialNumbers]="true"
-        [cardStyle]="true"
-        (userBlocked)="userBlocked()"
-      ></new-nft-card>
+    <div class="nfts-card-list-discovery" *ngIf="!postsLoading4">
+      <div class="nft-col-wrap" *ngFor="let nftEntry of discoveryDataToShow4">
+        <div class="max-width-300-plus">
+          <new-nft-card
+            [contentShouldLinkToThread]="true"
+            [includePaddingOnPost]="true"
+            [post]="nftEntry"
+            [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+            [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+            [showNFTDetails]="true"
+            [showExpandedNFTDetails]="false"
+            [setBorder]="true"
+            [showAvailableSerialNumbers]="true"
+            [cardStyle]="true"
+            (userBlocked)="userBlocked()"
+          ></new-nft-card>
+        </div>
+      </div>
     </div>
   </div>
-  <!--<carousel class="zindex" *ngIf="mobile" [height]="520" [cellWidth]="300" [freeScroll]="true">
-    <div class="carousel-cell pt-10px" *ngFor="let nftEntry of globalVars.discoveryDataToShow2">
-      <new-nft-card
-        [contentShouldLinkToThread]="true"
-        [includePaddingOnPost]="true"
-        [post]="nftEntry"
-        [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
-        [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
-        [showNFTDetails]="true"
-        [showExpandedNFTDetails]="false"
-        [setBorder]="true"
-        [showAvailableSerialNumbers]="true"
-        [cardStyle]="true"
-        (userBlocked)="userBlocked()"
-      ></new-nft-card>
+  <!-- Dynamic content unfortunately does not work straight out the box, apparently since content is loaded after slider init -->
+  <div *ngIf="mobile" class="discovery-mobile-scroller snaps-inline disable-scrollbars">
+    <ng-container *ngIf="postsLoading4; else showPost4">
+      <div class="pt-10px pl-5px" *ngFor="let a of fakeArray">
+        <div class="card">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #showPost4>
+      <div class="pt-10px pl-5px" *ngFor="let nftEntry of discoveryDataToShow4">
+        <new-nft-card
+          [contentShouldLinkToThread]="true"
+          [includePaddingOnPost]="true"
+          [post]="nftEntry"
+          [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+          [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+          [showNFTDetails]="true"
+          [showExpandedNFTDetails]="false"
+          [setBorder]="true"
+          [showAvailableSerialNumbers]="true"
+          [cardStyle]="true"
+          (userBlocked)="userBlocked()"
+        ></new-nft-card>
+      </div>
+    </ng-template>
+  </div>
+  <div class="w-100 mt-50px pr-10px pl-10px d-flex align-items-center justify-content-between">
+    <div class="discovery-header-box" observeVisibility [debounceTime]="0" (visible)="getSecondaryListings()">
+      <h2 id="favourites" class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
+        Secondary Listings
+      </h2>
     </div>
-  </carousel>-->
-  <div class="discovery-header-box mt-20px">
+    <a class="discovery-link" (click)="routeViewAll('communityfavourites')">
+      View all
+      <img src="/assets/icons/chevron_right.svg" />
+    </a>
+  </div>
+  <div *ngIf="!mobile" class="w-100 discovery-nft-showcase">
+    <div class="nfts-card-list-discovery w-100" *ngIf="postsLoading5">
+      <div class="nft-col-wrap" *ngFor="let a of fakeArray">
+        <div class="card w-100">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
+      </div>
+    </div>
+    <div class="nfts-card-list-discovery" *ngIf="!postsLoading5">
+      <div class="nft-col-wrap" *ngFor="let nftEntry of discoveryDataToShow5">
+        <div class="max-width-300-plus">
+          <new-nft-card
+            [contentShouldLinkToThread]="true"
+            [includePaddingOnPost]="true"
+            [post]="nftEntry"
+            [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+            [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+            [showNFTDetails]="true"
+            [showExpandedNFTDetails]="false"
+            [setBorder]="true"
+            [showAvailableSerialNumbers]="true"
+            [cardStyle]="true"
+            (userBlocked)="userBlocked()"
+          ></new-nft-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="mobile" class="discovery-mobile-scroller snaps-inline disable-scrollbars">
+    <ng-container *ngIf="postsLoading5; else showPost5">
+      <div class="pt-10px pl-5px" *ngFor="let a of fakeArray">
+        <div class="card">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #showPost5>
+      <div class="pt-10px pl-5px" *ngFor="let nftEntry of discoveryDataToShow5">
+        <new-nft-card
+          [contentShouldLinkToThread]="true"
+          [includePaddingOnPost]="true"
+          [post]="nftEntry"
+          [afterCommentCreatedCallback]="appendCommentAfterParentPost.bind(this)"
+          [blocked]="globalVars.hasUserBlockedCreator(this.globalVars.loggedInUser?.PublicKeyBase58Check)"
+          [showNFTDetails]="true"
+          [showExpandedNFTDetails]="false"
+          [setBorder]="true"
+          [showAvailableSerialNumbers]="true"
+          [cardStyle]="true"
+          (userBlocked)="userBlocked()"
+        ></new-nft-card>
+      </div>
+    </ng-template>
+  </div>
+  <div class="discovery-header-box mt-20px" observeVisibility [debounceTime]="0" (visible)="_loadVerifiedUsers()">
     <h2 id="creators" class="font-weight-semiboldn pl-10px" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
-      Supernovas verified creators
+      Verified Creators Snapshot
     </h2>
   </div>
   <div *ngIf="!mobile" class="discovery-creator-cards-container w-100">
+    <div class="nfts-card-list-discovery w-100" *ngIf="usersLoading">
+      <div class="nft-col-wrap" *ngFor="let a of fakeArray">
+        <div class="card w-100">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
+      </div>
+    </div>
     <div class="creator-card-list-discovery" *ngIf="!usersLoading">
       <div class="nft-col-wrap" *ngFor="let username of discoveryUserArray">
         <app-creator-card
@@ -430,78 +412,31 @@
         ></app-creator-card>
       </div>
     </div>
-    <div class="nfts-card-list-discovery w-100" *ngIf="usersLoading">
-      <div class="nft-col-wrap" *ngFor="let a of fakeArray">
+  </div>
+  <div *ngIf="mobile" class="discovery-users-mobile-scroller snaps-inline disable-scrollbars">
+    <ng-container *ngIf="usersLoading; else showUsers">
+      <div class="pt-10px pl-5px" *ngFor="let a of fakeArray">
         <div class="card">
           <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
         </div>
       </div>
-    </div>
-  </div>
-  <div *ngIf="mobile" class="keen-slider" #sliderRef4>
-    <div class="keen-slider__slide creator-slide1">
-      <app-creator-card
-        [username]="discoveryUserArray[0]"
-        [extraUserNames]="discoveryExtraUserArray"
-        [sizeSmall]="false"
-      ></app-creator-card>
-    </div>
-    <div class="keen-slider__slide creator-slide1">
-      <app-creator-card
-        [username]="discoveryUserArray[1]"
-        [extraUserNames]="discoveryExtraUserArray"
-        [sizeSmall]="false"
-      ></app-creator-card>
-    </div>
-    <div class="keen-slider__slide creator-slide1">
-      <app-creator-card
-        [username]="discoveryUserArray[2]"
-        [extraUserNames]="discoveryExtraUserArray"
-        [sizeSmall]="false"
-      ></app-creator-card>
-    </div>
-    <div class="keen-slider__slide creator-slide1">
-      <app-creator-card
-        [username]="discoveryUserArray[3]"
-        [sizeSmall]="false"
-        [extraUserNames]="discoveryExtraUserArray"
-      ></app-creator-card>
-    </div>
-    <div class="keen-slider__slide creator-slide1">
-      <app-creator-card
-        [username]="discoveryUserArray[4]"
-        [extraUserNames]="discoveryExtraUserArray"
-        [sizeSmall]="false"
-      ></app-creator-card>
-    </div>
-    <div class="keen-slider__slide creator-slide1">
-      <app-creator-card
-        [username]="discoveryUserArray[5]"
-        [sizeSmall]="false"
-        [extraUserNames]="discoveryExtraUserArray"
-      ></app-creator-card>
-    </div>
-    <div class="keen-slider__slide creator-slide1">
-      <app-creator-card
-        [username]="discoveryUserArray[6]"
-        [sizeSmall]="false"
-        [extraUserNames]="discoveryExtraUserArray"
-      ></app-creator-card>
-    </div>
-    <div class="keen-slider__slide creator-slide1">
-      <app-creator-card
-        [username]="discoveryUserArray[7]"
-        [sizeSmall]="false"
-        [extraUserNames]="discoveryExtraUserArray"
-      ></app-creator-card>
-    </div>
+    </ng-container>
+    <ng-template #showUsers>
+      <div class="pt-10px pl-5px" *ngFor="let user of discoveryUserArray">
+        <app-creator-card
+          [username]="user"
+          [extraUserNames]="discoveryExtraUserArray"
+          [sizeSmall]="false"
+        ></app-creator-card>
+      </div>
+    </ng-template>
   </div>
   <div class="discovery-header-box mt-35px">
     <h2 id="content-type" class="font-weight-semiboldn pl-10px" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
       Explore content formats
     </h2>
   </div>
-  <div class="keen-slider" #sliderRef5 [ngClass]="mobile ? '' : 'mt-20px'">
+  <div class="keen-slider" #sliderRef5 [ngClass]="mobile ? 'pl-5px' : 'mt-20px'">
     <div class="keen-slider__slide format-slide1 pt-10px pl-5px">
       <button class="content-type-card-discovery p-0px" (click)="routeViewAll('image')">
         <div class="h-60 w-100 d-flex flex-center background-color-secondary">
@@ -549,7 +484,9 @@
       [ngClass]="mobile ? 'w-100 mb-20px' : 'w-45'"
       class="discovery-bottom-box p-20px d-flex flex-column flex-start-start"
     >
-      <label class="mb-0px color-text font-weight-semiboldn mt-10px ml-10px fs-20px cursor-pointer">Explore all NFTs</label>
+      <label class="mb-0px color-text font-weight-semiboldn mt-10px ml-10px fs-20px cursor-pointer">
+        Explore all NFTs
+      </label>
       <p class="mt-10px color-light">Filter and sort all DeSo NFTs on the marketplace.</p>
     </button>
     <button

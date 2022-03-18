@@ -1,3 +1,4 @@
+import { animate, query, stagger, style, transition, trigger } from "@angular/animations";
 import { Component, OnInit } from "@angular/core";
 import { Console } from "console";
 import { BackendApiService, PostEntryResponse } from "src/app/backend-api.service";
@@ -7,6 +8,14 @@ import { GlobalVarsService } from "src/app/global-vars.service";
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
   styleUrls: ["./dashboard.component.scss"],
+  animations: [
+    trigger("listAnimation", [
+      transition("* => *", [
+        // each time the binding value changes
+        query(":enter", [style({ opacity: 0 }), stagger(350, [animate("0.3s", style({ opacity: 1 }))])]),
+      ]),
+    ]),
+  ],
 })
 export class DashboardComponent implements OnInit {
   marketCapArray: [];
@@ -30,18 +39,19 @@ export class DashboardComponent implements OnInit {
   constructor(private backendApi: BackendApiService, private globalVars: GlobalVarsService) {}
 
   ngOnInit(): void {
+    this.getTopBidsToday();
     this.getDesoNFTMarketCapGraph();
     this.getDesoNFTSalesCapGraph();
-    this.getUniqueCollectors();
-    this.getUniqueCreators();
-    this.getTopBidsToday();
     this.getQuickFacts();
-    this.getTopNFTSales();
   }
 
   getWhales() {
     this.getTopEarningCollectors();
     this.getTopEarningCreators();
+  }
+  getSmallGraphs() {
+    this.getUniqueCollectors();
+    this.getUniqueCreators();
   }
 
   getDesoNFTMarketCapGraph() {

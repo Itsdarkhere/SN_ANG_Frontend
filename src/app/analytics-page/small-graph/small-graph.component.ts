@@ -29,21 +29,17 @@ export class SmallGraphComponent implements OnChanges {
 
     if (this.collectors) {
       for (let i = 0; i < this.graphArray.length; i++) {
-        console.log(this.graphArray[i]["CollectorsAmount"]);
-        console.log(this.graphArray[i]["Timestamp"]);
         dates.push([this.graphArray[i]["Timestamp"], this.graphArray[i]["CollectorsAmount"]]);
       }
     } else {
       for (let i = 0; i < this.graphArray.length; i++) {
-        //console.log(this.graphArray[i]["CreatorsAmount"]);
-        //console.log(this.graphArray[i]["Timestamp"]);
         dates.push([this.graphArray[i]["Timestamp"], this.graphArray[i]["CreatorsAmount"]]);
       }
     }
 
     this.series = [
       {
-        name: "DESO NFT MARKET CAP",
+        name: this.label,
         data: dates,
       },
     ];

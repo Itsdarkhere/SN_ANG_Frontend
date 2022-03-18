@@ -1,9 +1,9 @@
 <div class="top-sales-container">
   <h2>Top NFT Sales on Deso</h2>
-  <div class="top-sales-cards-container">
-    <div class="nft-item" *ngFor="let post of posts">
+  <div class="top-sales-cards-container" [@listAnimation]="posts?.length">
+    <div class="nft-item" *ngFor="let post of posts; let i = index">
+      <p>{{ i + 1 }}</p>
       <app-small-card-component [post]="post"></app-small-card-component>
-      <p>1</p>
     </div>
   </div>
 </div>

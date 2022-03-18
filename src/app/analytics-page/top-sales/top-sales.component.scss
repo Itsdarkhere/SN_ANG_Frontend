@@ -20,7 +20,7 @@
         width: 100%;
         display: flex;
         flex-wrap: wrap;
-        justify-content: flex-start;
+        justify-content: center;
         gap: 20px;
 
         .nft-item {
@@ -33,7 +33,10 @@
 
             p {
                 padding: 5px 0;
+                margin-left: 10px;
+                font-size: 18px;
                 color: #1F1F1F;
+                font-weight: 600;
                 text-transform: uppercase;
             }
         }

@@ -1,12 +1,12 @@
 <div class="top-bids-container">
   <h2>Top Bids Today</h2>
-  <div class="top-bid-horizontal-cards">
+  <div class="top-bid-horizontal-cards" [@listAnimation]="topBidsToday?.length">
     <app-top-bids *ngFor="let x of topBidsToday" [bidDetails]="x"></app-top-bids>
   </div>
 </div>
 <div class="analytics-main-cards">
-  <app-big-graph class="big-graph-full-height-width" [graphArray]="marketCapArray"></app-big-graph>
-  <app-big-graph class="big-graph-full-height-width" [graphArray]="salesCapArray"></app-big-graph>
+  <app-big-graph class="big-graph-full-height-width" [label]="'MARKET'" [graphArray]="marketCapArray"></app-big-graph>
+  <app-big-graph class="big-graph-full-height-width" [label]="'SALES'" [graphArray]="salesCapArray"></app-big-graph>
 </div>
 <div class="quick-facts-container">
   <h2>Quick Facts</h2>
@@ -33,10 +33,10 @@
     ></app-quick-facts>
   </div>
 </div>
-<div class="top-sales-container">
+<div class="top-sales-container" observeVisibility [debounceTime]="0" (visible)="getTopNFTSales()">
   <app-top-sales [posts]="topNFTSales"></app-top-sales>
 </div>
-<div class="creator-list-container" observeVisibility [debounceTime]="200" (visible)="getWhales()">
+<div class="creator-list-container" observeVisibility [debounceTime]="0" (visible)="getWhales()">
   <app-creator-list
     [label]="'Top Earning Creators'"
     [label2]="'CREATOR'"
@@ -52,7 +52,7 @@
     class="creator-list-full-height-width"
   ></app-creator-list>
 </div>
-<div class="analytics-secondary-graphs">
+<div class="analytics-secondary-graphs" observeVisibility [debounceTime]="0" (visible)="getSmallGraphs()">
   <app-small-graph
     class="big-graph-full-height-width"
     [collectors]="false"

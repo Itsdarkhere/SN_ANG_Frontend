@@ -9,7 +9,7 @@
       <td>{{ label3 }}</td>
     </tr>
   </thead>
-  <tbody>
+  <tbody [@listAnimation]="userList?.length">
     <tr *ngFor="let x of userList; let i = index">
       <td class="creator-and-investor-info">
         <p>{{ i + 1 }}</p>

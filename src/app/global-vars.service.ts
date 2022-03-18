@@ -1796,7 +1796,7 @@ export class GlobalVarsService {
     }
 
     let metadataPostHashArr = [];
-    console.log(this.ethMarketplaceNFTCategory);
+    console.log(NFTsAllArr);
     for (var i = 0; i < NFTsAllArr.length; i++) {
       let metadataRes = await fetch(`https://supernovas.app/api/v0/imx/metadata/${NFTsAllArr[i]}`);
       let metadataResJson = await metadataRes.json();
@@ -1810,6 +1810,7 @@ export class GlobalVarsService {
         }
       }
     }
+    console.log(" -------------- right before recursive call ---------------- ");
 
     this.counter = 0;
     this.getPostsRecursive(metadataPostHashArr);

@@ -141,6 +141,9 @@ export class BackendRoutes {
   static RoutePathGetCommunityFavourites = "/api/v0/get-community-favourites";
   static RoutePathGetFreshDrops = "/api/v0/get-fresh-drops";
   static RoutePathGetNFTsByCategory = "/api/v0/get-nfts-by-category";
+  static RoutePathGetTrendingAuctions = "/api/v0/get-trending-auctions";
+  static RoutePathGetRecentSales = "/api/v0/get-recent-sales";
+  static RoutePathGetSecondaryListings = "/api/v0/get-secondary-listings";
   // Marketplace postgres
   static RoutePathSortMarketplace = "/api/v0/sort-marketplace";
   static RoutePathSortCreators = "/api/v0/sort-creators";
@@ -1309,6 +1312,21 @@ export class BackendApiService {
       ReaderPublicKeyBase58Check,
       Category,
       Offset,
+    });
+  }
+  GetTrendingAuctions(endpoint: string, ReaderPublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetTrendingAuctions, {
+      ReaderPublicKeyBase58Check,
+    });
+  }
+  GetRecentSales(endpoint: string, ReaderPublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetRecentSales, {
+      ReaderPublicKeyBase58Check,
+    });
+  }
+  GetSecondaryListings(endpoint: string, ReaderPublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetSecondaryListings, {
+      ReaderPublicKeyBase58Check,
     });
   }
   GetFreshDrops(endpoint: string, ReaderPublicKeyBase58Check: string, ProfilePublicKey: string): Observable<any> {

@@ -95,6 +95,7 @@ export class GlobalVarsService {
   ethWalletAddresShort: string;
   isEthQuoteRepost: boolean = false;
   isEthWalletAssociatedToDesoProfile: boolean = false;
+  ethMarketplaceCanFilter: boolean = false;
 
   //   ----------------------------- end of imx global vars -----------------------------
 

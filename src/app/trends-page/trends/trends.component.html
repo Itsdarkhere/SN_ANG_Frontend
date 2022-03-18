@@ -174,7 +174,7 @@
         class="p-5px ml-20px mrk_select mrk_top_select_height fs-14px"
         (ngModelChange)="sortSelectChangeEth($event)"
         [ngModel]="globalVars.ethMarketplaceSortType"
-        *ngIf="!this.globalVars.desoMarketplace && this.globalVars.ethMarketplaceStatus === 'for sale'"
+        *ngIf="!this.globalVars.desoMarketplace && this.globalVars.ethMarketplaceCanFilter"
       >
         <option value="most recent first">Most recent first</option>
         <option value="oldest first">Oldest first</option>

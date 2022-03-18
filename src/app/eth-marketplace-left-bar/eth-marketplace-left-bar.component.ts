@@ -85,6 +85,7 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
           this.statusForSale = false;
           this.statusHasBids = false;
           this.statusSold = false;
+          this.globalVars.ethMarketplaceCanFilter = false;
         }
         break;
       case "for sale":
@@ -93,6 +94,7 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
           this.statusForSale = false;
         } else {
           this.statusForSale = true;
+          this.globalVars.ethMarketplaceCanFilter = true;
           this.statusAll = false;
           this.statusHasBids = false;
           this.statusSold = false;

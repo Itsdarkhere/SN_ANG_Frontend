@@ -9,5 +9,10 @@
     <div class="w-100">
       <ng-content></ng-content>
     </div>
+    <bottom-bar-mobile
+      *ngIf="mobile && !noBottomBar"
+      class="global__bottom-bar-mobile scrolled"
+      [showPostButton]="showPostButton"
+    ></bottom-bar-mobile>
   </div>
 </div>

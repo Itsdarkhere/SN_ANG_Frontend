@@ -37,7 +37,7 @@ export class BigGraphComponent implements OnChanges {
     let increase = this.graphArray[0]["WeeklyCap"] - this.graphArray[1]["WeeklyCap"];
     let divideIncrease = increase / this.graphArray[1]["WeeklyCap"];
     let changeLong = divideIncrease * 100;
-    this.weeklyChangePercentage = changeLong.toLocaleString("fullwide", { maximumFractionDigits: 3 });
+    this.weeklyChangePercentage = changeLong.toLocaleString("fullwide", { maximumFractionDigits: 2 });
   }
 
   initChartData(): void {

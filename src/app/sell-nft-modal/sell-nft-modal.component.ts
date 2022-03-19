@@ -111,11 +111,11 @@ export class SellNftModalComponent implements OnInit {
         this.mixPanel.track47("Accept NFT Bid", {
           "Buyer": bid.ProfileEntryResponse?.PublicKeyBase58Check,
           "Serial number": bid.SerialNumber,
-          "Price in DeSo": this.sellingPrice /1e9,
+          "Price in DeSo": this.sellingPrice,
           "Post Body": this.post.Body,
           "Seller": this.post.PosterPublicKeyBase58Check,
           "Creator royalty": this.post.NFTRoyaltyToCreatorBasisPoints /100,
-          "CC royalty %": this.post.NFTRoyaltyToCoinBasisPoints /100,
+          "CC royalty": this.post.NFTRoyaltyToCoinBasisPoints /100,
           "Diamonds": this.post.DiamondCount,
           "Category": this.post.PostExtraData.category,
           "Post": this.post.PostExtraData.name,

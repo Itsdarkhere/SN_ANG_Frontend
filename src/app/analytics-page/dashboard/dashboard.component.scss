@@ -4,7 +4,7 @@
     flex-direction: column;
 
     h2 {
-        padding: 10px 0;
+        padding: 10px 0 10px 10px;
         color: #333333;
         font-size: 1.5rem;
         font-weight: 600;
@@ -53,6 +53,7 @@
         @media (max-width: 500px) {
             text-align: left;
             min-width: 275px;
+            padding: 1rem;
         }
     }
 }
@@ -78,6 +79,7 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 
         @media (max-width: 500px) {
+            padding: 1rem;
             text-align: left;
             min-width: 275px;
         }
@@ -89,7 +91,7 @@
     flex-direction: column;
 
     h2 {
-        padding: 10px 0;
+        padding: 10px 0 10px 10px;
         color: #333333;
         font-size: 1.5rem;
         font-weight: 600;

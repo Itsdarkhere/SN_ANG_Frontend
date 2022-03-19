@@ -1,7 +1,7 @@
 <!--
   DESKTOP
   -->
-<app-page-small-nav-new>
+<app-page-small-nav-new [noBottomBar]="true">
   <div class="d-flex mt-20px messages_container" *ngIf="!globalVars.isMobile()">
     <messages-inbox
       class="messages-inbox__desktop-column"

@@ -33,10 +33,14 @@
     ></app-quick-facts>
   </div>
 </div>
-<div class="top-sales-container" observeVisibility [debounceTime]="0" (visible)="getTopNFTSales()">
+<!-- This would not trigger in small screens, apparently since it needs to see the whole element -->
+<!-- So here is a filler element with no other prpose than triggering this, same for creator lists -->
+<div observeVisibility [debounceTime]="0" (visible)="getTopNFTSales()"></div>
+<div class="top-sales-container">
   <app-top-sales [posts]="topNFTSales"></app-top-sales>
 </div>
-<div class="creator-list-container" observeVisibility [debounceTime]="0" (visible)="getWhales()">
+<div observeVisibility [debounceTime]="0" (visible)="getWhales()"></div>
+<div class="creator-list-container">
   <app-creator-list
     [label]="'Top Earning Creators'"
     [label2]="'CREATOR'"

@@ -1,6 +1,7 @@
 .top-sales-container {
     padding: 2rem;
     height: fit-content;
+    min-height: 665px;
     width: 100%;
     background: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
@@ -37,7 +38,6 @@
                 font-size: 18px;
                 color: #1F1F1F;
                 font-weight: 600;
-                text-transform: uppercase;
             }
         }
 

@@ -18,6 +18,7 @@ import { GlobalVarsService } from "src/app/global-vars.service";
 })
 export class TopSalesComponent implements OnInit {
   @Input() posts: PostEntryResponse[];
+  orderList = ["st", "nd", "rd", "th", "th", "th", "th", "th", "th", "th"];
   constructor(private globalVars: GlobalVarsService, private backendApi: BackendApiService) {}
 
   ngOnInit(): void {}

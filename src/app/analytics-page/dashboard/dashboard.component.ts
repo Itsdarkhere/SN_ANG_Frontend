@@ -46,6 +46,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getWhales() {
+    console.log("GETTING WHALES");
     this.getTopEarningCollectors();
     this.getTopEarningCreators();
   }
@@ -103,6 +104,7 @@ export class DashboardComponent implements OnInit {
       );
   }
   getTopNFTSales() {
+    console.log("Get top nft sales");
     this.backendApi
       .GetTopNFTSales(this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check)
       .subscribe(
@@ -131,6 +133,7 @@ export class DashboardComponent implements OnInit {
       .GetTopEarningCollectors(this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check)
       .subscribe(
         (res) => {
+          console.log("GOT WHALES");
           this.userListCollectors = res.Response;
         },
         (err) => {

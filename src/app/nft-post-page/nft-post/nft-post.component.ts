@@ -310,7 +310,6 @@ export class NftPostComponent implements OnInit {
     }
   }
   refreshBidData(): Subscription {
-    console.log("rEFRESI");
     this.refreshingBids = true;
     return this.backendApi
       .GetNFTBidsForNFTPost(

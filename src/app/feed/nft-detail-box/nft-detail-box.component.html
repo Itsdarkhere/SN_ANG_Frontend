@@ -90,10 +90,10 @@
                 "
                 queryParamsHandling="merge"
               >
-                {{ showNFTOwnerInfo?.ProfileEntryResponse?.Username }}
+                {{ hightestBidOwner?.ProfileEntryResponse?.Username }}
               </a>
 
-              <span *ngIf="showNFTOwnerInfo?.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">
+              <span *ngIf="hightestBidOwner?.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">
                 <i class="fas fa-check-circle fa-md align-middle"></i>
               </span>
             </div>
@@ -435,22 +435,16 @@
   <div class="discovery-hgs" *ngIf="nftBidData?.BidEntryResponses?.length > 0 && !showPlaceABid">
     <span class="lb">Made By</span>
     <div class="d-flex">
-      <div
-        class="bid_by_avtar"
-        [avatar]="nftBidData?.BidEntryResponses[0]?.ProfileEntryResponse?.PublicKeyBase58Check"
-      ></div>
+      <div class="bid_by_avtar" [avatar]="hightestBidOwner?.ProfileEntryResponse?.PublicKeyBase58Check"></div>
       <div class="name">
         <a
           class="fc-secalt font-weight-bold"
           [routerLink]="
-            getRouterLink([
-              '/' + globalVars.RouteNames.USER_PREFIX,
-              nftBidData?.BidEntryResponses[0]?.ProfileEntryResponse?.Username
-            ])
+            getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX, hightestBidOwner?.ProfileEntryResponse?.Username])
           "
           queryParamsHandling="merge"
         >
-          {{ nftBidData?.BidEntryResponses[0]?.ProfileEntryResponse?.Username }}
+          {{ hightestBidOwner?.ProfileEntryResponse?.Username }} PERKELE
         </a>
 
         <span *ngIf="nftBidData?.BidEntryResponses[0]?.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">

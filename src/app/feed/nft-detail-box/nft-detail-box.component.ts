@@ -28,7 +28,7 @@ export class NftDetailBoxComponent implements OnInit {
   @Input() profilePublicKeyBase58Check: string = "";
   @Input() isForSaleOnly: boolean = false;
   @Input() postContent: any;
-  @Input() hightestBidOwner = {};
+  @Input() hightestBidOwner: any;
 
   @Output() closeAuction = new EventEmitter();
   @Output() singleBidCancellation = new EventEmitter();
@@ -233,6 +233,8 @@ export class NftDetailBoxComponent implements OnInit {
     this.editionForSale = this.nftEntryResponse.IsForSale;
     // Check if edition has bids
     this.editionHasBids = this.nftBidData?.BidEntryResponses.length > 0;
+    console.log(this.nftBidData?.BidEntryResponses[0]);
+    console.log(this.hightestBidOwner?.ProfileEntryResponse?.Username)
     // Check if edition has unlockable
     if (!this.editionIsBuyNow) {
       this.editionHasUnlockable = this.nftEntryResponse.DecryptedUnlockableText != null;
@@ -240,7 +242,7 @@ export class NftDetailBoxComponent implements OnInit {
     // Check if user has made a bid on this edition
     if (!this.ownsEdition) {
       this.editionHasBidByUser =
-        this.nftBidData.BidEntryResponses.filter(
+        this.nftBidData?.BidEntryResponses.filter(
           (bid) => bid.PublicKeyBase58Check === this.globalVars.loggedInUser.PublicKeyBase58Check
         )?.length > 0;
     }

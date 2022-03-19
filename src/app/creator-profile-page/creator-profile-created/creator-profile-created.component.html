@@ -10,9 +10,6 @@
   </div>
 </div>
 <div *ngIf="!showProfileAsReserved">
-  <div class="p-15px pb-0">
-    <div *ngIf="this.posts?.length">NFTs created by @{{ profile.Username }}</div>
-  </div>
   <div *ngIf="!globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check) && this.posts?.length > 0">
     <div
       class="search-results"
@@ -22,8 +19,8 @@
       (scrolled)="onScroll()"
     >
       <div class="nfts-card-list-discovery nft_creator_list">
-        <div class="nft-col-wrap" *ngFor="let post of dataToShow">
-          <div class="max-width-300">
+        <div class="nft-col-wrap-2" *ngFor="let post of dataToShow">
+          <div class="max-width-300-plus">
             <new-nft-card
               [contentShouldLinkToThread]="true"
               [loadProfile]="true"
@@ -38,6 +35,22 @@
               [cardStyle]="true"
               [profilePublicKeyBase58Check]="profile.PublicKeyBase58Check"
               (userBlocked)="userBlocked()"
+            ></new-nft-card>
+          </div>
+        </div>
+        <div class="nft-col-wrap-2" *ngFor="let post of this.globalVars.ethNFTsCreated; let index = index">
+          <div class="max-width-300-plus">
+            <!-- used new-nft-card setup from trends.component -->
+            <new-nft-card
+              [post]="post"
+              [includePaddingOnPost]="true"
+              [pending]="false"
+              [showReplyingToContent]="post"
+              [parentPost]=""
+              [contentShouldLinkToThread]="true"
+              [showNFTDetails]="true"
+              [showExpandedNFTDetails]="true"
+              [setBorder]="true"
             ></new-nft-card>
           </div>
         </div>

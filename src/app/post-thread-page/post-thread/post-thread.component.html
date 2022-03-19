@@ -3,28 +3,25 @@
 <div class="post-thread-wrapper">
   <div *ngIf="currentPost" class="d-flex flex-column">
     <div
-      class="
-        global__top-bar
-        d-flex
-        align-items-center
-        justify-content-between
-        fs-18px
-        font-weight-bold
-        px-15px
-        border-bottom border-color-grey
-      "
+      class="global__top-bar post_thread_top_bar d-flex align-items-center justify-content-between fs-18px font-weight-semiboldn px-15px"
       *ngIf="!hideHeader"
     >
       <div class="d-flex align-items-center">
         <top-bar-mobile-navigation-control class="mr-15px d-lg-none d-inline-block"></top-bar-mobile-navigation-control>
 
-        <div>Thread with {{ currentPost.ProfileEntryResponse.Username }}</div>
+        <button
+          class="post-thread-back-button cursor-pointer font-weight-semiboldn d-flex flex-center-start"
+          (click)="goBack()"
+        >
+          <img src="/assets/icons/cas_back_icon.svg" style="margin-right: 20px" alt="left arrow icon" />
+          Thread with @{{ currentPost.ProfileEntryResponse.Username }}
+        </button>
       </div>
     </div>
 
     <div class="global__top-bar__height" *ngIf="!hideHeader"></div>
-
-    <div *ngFor="let parentPost of currentPost.ParentPosts">
+    <!-- [ngClass]="{ 'post-thread-parent-post-container': !hideHeader }" -->
+    <div class="post-thread-parent-post-container" *ngFor="let parentPost of currentPost.ParentPosts">
       <!--  afterCommentCreatedCallback explanation: Here, the "post" is a top-level post. A new comment on a -->
       <!--  top-level post should be prepended to the post's list of comments -->
       <feed-post
@@ -40,11 +37,12 @@
       ></feed-post>
     </div>
 
-    <div class="border-bottom border-color-grey" *ngIf="!hideCurrentPost">
+    <div class="post-thread-post-container mt-10px" *ngIf="!hideCurrentPost">
       <!--  afterCommentCreatedCallback explanation: Here, the "post" is a top-level post. A new comment on a -->
       <!--  top-level post should be prepended to the post's list of comments -->
       <feed-post
         [post]="currentPost"
+        [postThread]="true"
         [includePaddingOnPost]="true"
         [contentShouldLinkToThread]="true"
         [afterCommentCreatedCallback]="prependToCommentList.bind(this, currentPost)"
@@ -56,17 +54,22 @@
         (userBlocked)="afterUserBlocked($event)"
       ></feed-post>
     </div>
-
-    <div class="post-thread__comment-container">
+    <!-- [ngClass]="{ 'post-thread-cc': !hideHeader }" -->
+    <div
+      class="post-thread__comment-container"
+      class="post-thread-cc"
+      [ngClass]="{ 'no-margin-padding-top': hideHeader }"
+    >
       <div #uiScroll *uiScroll="let item of datasource">
-        <div class="border-bottom border-color-grey">
+        <!-- [ngClass]="{ 'post-thread_comment': !hideHeader }" -->
+        <div class="post-thread_comment">
           <!--  afterCommentCreatedCallback explanation: Here, the "post" is a comment. A new comment on a -->
           <!--  comment ("original comment") should be prepended to the original comment's list of comments (i.e. subcomments).-->
           <feed-post
             *ngIf="item.ProfileEntryResponse != null"
             [includePaddingOnPost]="true"
             [post]="item"
-            [isNFTProfileComment] = "isNFTProfile"
+            [isNFTProfileComment]="isNFTProfile"
             [parentPost]="currentPost"
             [contentShouldLinkToThread]="true"
             [showIconRow]="true"

@@ -20,5 +20,9 @@
   *ngIf="!globalVars.requestingStorageAccess"
 >
   <router-outlet *ngIf="!globalVars.loadingInitialAppState"></router-outlet>
-  <simple-center-loader *ngIf="globalVars.loadingInitialAppState"></simple-center-loader>
+
+  <app-supernovas-center-loader
+    *ngIf="globalVars.loadingInitialAppState"
+    class="supernovas-loader"
+  ></app-supernovas-center-loader>
 </div>

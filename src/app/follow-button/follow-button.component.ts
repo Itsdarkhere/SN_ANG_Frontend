@@ -13,7 +13,6 @@ import { FollowChangeObservableResult } from "../../lib/observable-results/follo
 import { Subscription } from "rxjs";
 import { CanPublicKeyFollowTargetPublicKeyHelper } from "../../lib/helpers/follows/can_public_key_follow_target_public_key_helper";
 import { FollowService } from "../../lib/services/follow/follow.service";
-import { GoogleAnalyticsService } from "../google-analytics.service";
 
 @Component({
   selector: "follow-button",
@@ -48,18 +47,10 @@ export class FollowButtonComponent implements OnInit, OnDestroy {
 
   unfollow(event) {
     this._makeFollowTransaction(event, false);
-    this.SendUnFollowEvent();
   }
 
   follow(event) {
     this._makeFollowTransaction(event, true);
-    this.SendFollowEvent();
-  }
-  SendFollowEvent() {
-    this.analyticsService.eventEmitter("follow", "engagement", "follow", "click", 10);
-  }
-  SendUnFollowEvent() {
-    this.analyticsService.eventEmitter("unfollow", "engagement", "unfollow", "click", 10);
   }
   canLoggedInUserFollowTargetPublicKey() {
     if (!this.appData.loggedInUser) {
@@ -99,7 +90,6 @@ export class FollowButtonComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private analyticsService: GoogleAnalyticsService,
     private globalVars: GlobalVarsService,
     private _changeRef: ChangeDetectorRef,
     private backendApi: BackendApiService,

@@ -90,7 +90,6 @@
     h5 {
         display: flex;
         align-items: center;
-        font-weight: bold;
         &.primary-name {
             color: var(--light);
             font-size: clamp(24px, 6.5vw, 42px);
@@ -267,8 +266,8 @@
         padding: 1em;
         border-radius: 1em;
         h6 {
-            font-size: clamp(10px, 2.5vw, 18px);
-            font-weight: bold;
+            font-size: clamp(10px, 2.5vw, 16px);
+            font-weight: 600;
             margin-bottom: 5px;
             white-space: nowrap;
             @media (max-width: 767px) {
@@ -276,8 +275,8 @@
             }
         }
         h5 {
-            font-size: clamp(14px, 2.5vw, 20px);
-            font-weight: bold;
+            font-size: clamp(14px, 2.5vw, 26px);
+            font-weight: 600;
             @media (max-width: 767px) {
                 font-size: clamp(11px, 2.5vw, 16px);
             }
@@ -296,6 +295,12 @@
 .h-15px {
     height: 15px;
 }
+.cta-animation {
+    &:active {
+        transition-duration: transform 0.1s ease;
+        transform: scale(0.95);
+    }
+}
 .between-images-container {
     position: absolute;
     bottom: -10px;
@@ -309,6 +314,7 @@
 }
 .profile-img-cover {
     border-radius: 50%;
+    background-color: #FFFFFF;
     border: 3px solid var(--background);
     box-shadow: 0px 3px 10px 3px rgba(0, 0, 0, 0.1);
     background-repeat: no-repeat;
@@ -342,10 +348,10 @@
     font-size: clamp(12px, 2.5vw, 13px);
     padding: 7px;
     font-weight: 500;
-    background: rgba(59, 59, 59, 0.2);
+    background: rgba(0, 0, 0, 0.6);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    box-shadow: 0.9203247428px 0.9203247428px 1.8406494856px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
 }
 .top-card-button-message {
     // border: 0.5px solid #c8c8c8;

@@ -6,3 +6,19 @@
 
     }
 }
+.firebase-cover-image {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    width: 100%;
+    max-height: 250px;
+    @media (max-width: 900px) {
+        border-radius: 0;
+    }
+}
+.profile-content-container {
+    width: 100%;
+}
+.profile-tab-selector-wrapper {
+    width: 100%;
+    max-width: 880px;
+}

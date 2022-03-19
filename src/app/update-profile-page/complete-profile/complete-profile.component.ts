@@ -1,10 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { RouteNames } from "../../app-routing.module";
 import { GlobalVarsService } from "../../global-vars.service";
-import { GoogleAnalyticsService } from "src/app/google-analytics.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { AngularFirestore } from "@angular/fire/firestore";
-import { isNull } from "lodash";
+import { Router } from "@angular/router";
+import { MixpanelService } from "src/app/mixpanel.service";
 
 @Component({
   selector: "app-complete-profile",
@@ -19,19 +17,30 @@ export class CompleteProfileComponent {
   username: any;
   isNullUsername: boolean;
 
-  constructor(
-    public globalVars: GlobalVarsService,
-    private analyticsService: GoogleAnalyticsService,
-    private router: Router,
-    private firestore: AngularFirestore
-  ) {}
+  constructor(public globalVars: GlobalVarsService, private router: Router, private mixPanel: MixpanelService) {}
 
   async ngOnInit(): Promise<void> {
+    // await this.globalVars.checkCreatorStatus();
+
     await this.globalVars.checkOnboardingStatus();
 
-    if (this.globalVars.isOnboardingComplete === true) {
-      this.router.navigate([RouteNames.UPDATE_PROFILE]);
+    if (this.globalVars.isCreator === false && this.globalVars.isCollector === false) {
+      console.log(this.globalVars.loggedInUser);
+      //   if they have an old username you know it's an old deso profile
+      //   if they have a deso public key you know they started to signup, but then clicked away
+      if (
+        this.globalVars.loggedInUser.ProfileEntryResponse?.Username ||
+        this.globalVars.loggedInUser.PublicKeyBase58Check
+      ) {
+        this.globalVars.needToPickCreatorOrCollector = true;
+        this.globalVars.flowRedirect(true, this.globalVars.loggedInUser.PublicKeyBase58Check);
+      }
+      return;
     }
+
+    // if (this.globalVars.isOnboardingComplete === true) {
+    //   this.router.navigate([RouteNames.UPDATE_PROFILE]);
+    // }
 
     // if (this.globalVars.isMobileIphone()) {
     //   // testing closing the mobile nav on page load
@@ -40,9 +49,6 @@ export class CompleteProfileComponent {
   }
 
   // rounded to nearest integer
-  SendCreateProfileVisitEvent() {
-    //this.analyticsService.eventEmitter("create_profile_visit", "usage", "activity", "event", 10);
-  }
   minPurchaseAmountInUsdRoundedUp() {
     /*const satoshisPerBitcoin = 1e8;
     let minimumInBitcoin = this.globalVars.minSatoshisBurnedForProfileCreation / satoshisPerBitcoin;
@@ -50,6 +56,7 @@ export class CompleteProfileComponent {
   }
 
   getCreateProfileMessage(): string {
+    this.mixPanel.track37("Get Create Profile Message");
     return this.globalVars.showPhoneNumberVerification
       ? `You need to verify a phone number or purchase DeSo with Bitcoin in order to create a profile.
   This helps prevent spam.`
@@ -57,10 +64,12 @@ export class CompleteProfileComponent {
   }
 
   buyDESO() {
+    this.mixPanel.track32("Onboarding - Buy DeSo");
     window.open("https://buy.deso.org/", "_blank");
   }
 
   buyCreatorCoin() {
+    this.mixPanel.track30("Onboarding - Buy Creator Coin");
     if (this.globalVars.isNullUsername === true) {
       this.globalVars._alertError("You must create a username for your profile in order to buy your creator coin.");
       //   alert("You must create a username for your profile in order to buy your creator coin.");
@@ -70,14 +79,17 @@ export class CompleteProfileComponent {
   }
 
   createProfile() {
+    this.mixPanel.track29("Onboarding - Profile created clicked");
     this.router.navigate([RouteNames.UPDATE_PROFILE]);
   }
 
   verifyProfile() {
+    this.mixPanel.track28("Onboarding - Verify profile clicked");
     window.open("https://form.typeform.com/to/sv1kaUT2", "_blank");
   }
 
   contactSupport() {
+    this.mixPanel.track31("Onboarding - Contact Support");
     window.open("https://intercom.help/supernovas/en", "_blank");
   }
 }

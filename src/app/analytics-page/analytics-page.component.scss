@@ -1,0 +1,74 @@
+.analytics-page-container {
+    padding-bottom: 10rem;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 626px) {
+        align-items: center;
+        text-align: center;
+    }
+
+    .analytics-page-headline {
+        padding: 4rem 0 2rem 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        h1 {
+            flex: 2;
+        }
+
+        // Need to determine system for standardized breakpoints
+        @media (max-width: 992px) {
+            padding: 7rem 0 2rem 0;
+        }
+
+        @media (max-width: 626px) {
+            display: block;
+
+            h1 {
+                padding-bottom: 20px;
+            }
+        } 
+    }
+
+    .analytics-tab-selector {
+        padding: 5px;
+        flex: 1;
+        min-width: 300px;
+        max-width: 350px;
+        height: fit-content;
+        background: #EFEFEF;
+        border-radius: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        button {
+            padding: 10px;
+            width: 50%;
+            height: 100%;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            border-radius: 40px;
+            color: #444444;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+        button.selected {
+            background-color: #ffffff;
+            color: #111111;
+        }
+    }
+}
+
+.full-height-width-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}

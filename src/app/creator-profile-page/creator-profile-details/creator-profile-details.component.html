@@ -10,14 +10,23 @@
       [profile]="profile"
       (userUnblocked)="unblockUser()"
       (userBlocked)="blockUser()"
+      (handleTabClick)="_handleTabClick($event)"
     ></creator-profile-top-card>
     <div class="px-10px">
       <!-- Feed Selector -->
-      <tab-selector
-        [tabs]="['Created', 'Collected', 'Posts', 'Creator Coin']"
-        [activeTab]="activeTab"
-        (tabClick)="_handleTabClick($event)"
-      ></tab-selector>
+      <div class="profile-tab-selector-wrapper">
+        <tab-selector
+          [tabs]="['Created', 'Collected', 'Posts', 'Creator Coin']"
+          [icons]="[
+            '/assets/icons/profile_created_icon.svg',
+            '/assets/icons/profile_collected_icon.svg',
+            '/assets/icons/profile_posts_icon.svg',
+            '/assets/icons/profile_cc_icon.svg'
+          ]"
+          [activeTab]="activeTab"
+          (tabClick)="_handleTabClick($event)"
+        ></tab-selector>
+      </div>
       <!-- Reserved -->
       <div *ngIf="showProfileAsReserved() && activeTab === 'Posts'" class="p-15px">
         <div class="background-color-grey p-35px br-12px d-flex flex-row align-items-center">

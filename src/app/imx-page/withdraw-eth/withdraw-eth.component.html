@@ -1,0 +1,126 @@
+<!-- no pending withdrawals -->
+<div
+  class="withdraw-eth-wrapper d-flex flex-column flex-center-start h-100"
+  *ngIf="!this.pendingWithdrawals && !this.readyWithdrawals && !this.completeWithdrawalSuccess"
+>
+  <div class="withdraw-eth-icon-container">
+    <img
+      class="eth-logo-withdraw-icon d-flex flex-row flex-center"
+      src="/assets/eth/ethlogo.svg"
+      alt="eth-logo"
+      name="eth-logo-withdraw-icon"
+    />
+    <img
+      class="imx-logo-withdraw-icon d-flex flex-row flex-center"
+      src="/assets/eth/imxlogo.svg"
+      alt="imx-logo"
+      name="imx-logo-withdraw-icon"
+    />
+  </div>
+  <p class="withdraw-eth-description">
+    You need to first prepare your ETH for withdrawal from Immutable X. This process can take up to 24 hours.
+  </p>
+  <div class="withdraw-eth-container">
+    <label for="ethwithdrawAmount" class="withdraw-eth-label">PREPARE ETH TO WITHDRAW</label>
+    <div class="position-relative d-flex flex-row flex-start withdraw-eth-min-price mt-10px">
+      <input
+        matInput
+        type="number"
+        placeholder="0"
+        class="pl-10px color-text font-weight-bold flex-center pr-10px withdraw-eth-min-price-input m-0px h-100"
+        id="ethWithdrawAmount"
+      />
+      <button class="withdraw-eth-min-price-label h-100 w-40 fs-23-responsive pt-5px">
+        <img
+          class="eth-logo-withdraw-button d-flex flex-row flex-center"
+          src="/assets/eth/ethlogo-white.svg"
+          alt="eth-logo"
+          name="eth-logo-white"
+        />
+        <label class="mb-0px eth-withdraw-text">ETH</label>
+      </button>
+    </div>
+  </div>
+  <button class="imx-withdraw-button" (click)="prepareWithdrawButtonClicked()">
+    <div class="withdraw-eth-text">Prepare ETH Withdrawal</div>
+  </button>
+  <a class="support-container">
+    <img src="/assets/eth/support-arrow.svg" alt="support-arrow" class="support-arrow" />
+    <p class="support-text">Need help? Contact our support</p>
+  </a>
+</div>
+
+<!-- pending withdrawals -->
+<div
+  class="withdraw-eth-wrapper d-flex flex-column flex-center-start h-100"
+  *ngIf="this.pendingWithdrawals && !this.readyWithdrawals && !this.completeWithdrawalSuccess"
+>
+  <div class="withdraw-eth-icon-container">
+    <img
+      class="eth-logo-withdraw-icon d-flex flex-row flex-center"
+      src="/assets/eth/ethlogo.svg"
+      alt="eth-logo"
+      name="eth-logo-withdraw-icon"
+    />
+    <img
+      class="imx-logo-withdraw-icon d-flex flex-row flex-center"
+      src="/assets/eth/imxlogo.svg"
+      alt="imx-logo"
+      name="imx-logo-withdraw-icon"
+    />
+  </div>
+  <p class="withdraw-eth-description">
+    Success! Your ETH withdrawal is being prepared. This process can take up to 24 hours.
+  </p>
+  <label class="eth-being-prepared-label">ETH BEING PREPARED</label>
+  <p class="eth-being-prepared-withdraw-amount">{{ this.withdrawAmount }} ETH</p>
+</div>
+
+<!-- ready withdrawals -->
+<div
+  class="withdraw-eth-wrapper d-flex flex-column flex-center-start h-100"
+  *ngIf="!this.pendingWithdrawals && this.readyWithdrawals && !this.completeWithdrawalSuccess"
+>
+  <div class="withdraw-eth-icon-container">
+    <img
+      class="eth-logo-withdraw-icon d-flex flex-row flex-center"
+      src="/assets/eth/ethlogo.svg"
+      alt="eth-logo"
+      name="eth-logo-withdraw-icon"
+    />
+    <img
+      class="imx-logo-withdraw-icon d-flex flex-row flex-center"
+      src="/assets/eth/imxlogo.svg"
+      alt="imx-logo"
+      name="imx-logo-withdraw-icon"
+    />
+  </div>
+  <p class="withdraw-eth-description">Your ETH is ready to be withdrawn!</p>
+  <p class="eth-ready-withdraw-amount">{{ this.withdrawAmount }} ETH</p>
+  <button class="imx-complete-withdraw-button" (click)="completeWithdrawal()">
+    <div class="withdraw-eth-text">Withdraw from Immutable X</div>
+  </button>
+</div>
+
+<!-- completed withdrawals -->
+<div class="withdraw-eth-wrapper d-flex flex-column flex-center-start h-100" *ngIf="this.completeWithdrawalSuccess">
+  <div class="withdraw-eth-icon-container">
+    <img
+      class="eth-logo-withdraw-icon d-flex flex-row flex-center"
+      src="/assets/eth/ethlogo.svg"
+      alt="eth-logo"
+      name="eth-logo-withdraw-icon"
+    />
+    <img
+      class="imx-logo-withdraw-icon d-flex flex-row flex-center"
+      src="/assets/eth/imxlogo.svg"
+      alt="imx-logo"
+      name="imx-logo-withdraw-icon"
+    />
+  </div>
+  <p class="withdraw-eth-description">Withdrawal Completed Successfully</p>
+  <p class="eth-ready-withdraw-amount">{{ this.withdrawAmount }} ETH</p>
+  <button class="imx-complete-withdraw-button" (click)="withdrawAgain()">
+    <div class="withdraw-eth-text">Withdraw Again</div>
+  </button>
+</div>

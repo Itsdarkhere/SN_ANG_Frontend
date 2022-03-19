@@ -10,7 +10,6 @@ import {
 } from "../backend-api.service";
 import { GlobalVarsService } from "../global-vars.service";
 import _ from "lodash";
-import { GoogleAnalyticsService } from "../google-analytics.service";
 
 @Component({
   selector: "app-transfer-modal",
@@ -38,7 +37,6 @@ export class TransferModalComponent implements OnInit {
   showDangerTextSendingToSelf = false;
 
   constructor(
-    private analyticsService: GoogleAnalyticsService,
     public bsModalRef: BsModalRef,
     public modalService: BsModalService,
     public backendApi: BackendApiService,
@@ -165,22 +163,13 @@ export class TransferModalComponent implements OnInit {
       .subscribe(
         (res: any) => {
           this.stepThree();
-          this.SendTransferEvent();
         },
         (error) => {
           this.globalVars._alertError(error.error.error);
         }
       );
   }
-  SendTransferEvent() {
-    this.analyticsService.eventEmitter("nft_transferred", "usage", "activity", "transaction", 10);
-  }
-  SendReceiveEvent() {
-    this.analyticsService.eventEmitter("nft_transfer_accepted", "usage", "activity", "event", 10);
-  }
-  SendBurnEvent() {
-    this.analyticsService.eventEmitter("nft_burned", "usage", "activity", "event", 10);
-  }
+
   acceptNFTTransfer() {
     this.backendApi
       .AcceptNFTTransfer(
@@ -194,7 +183,6 @@ export class TransferModalComponent implements OnInit {
         (res: any) => {
           this.stepThree();
           // Event logging for nft tranfer accepting
-          this.SendReceiveEvent();
         },
         (error) => {
           this.globalVars._alertError(error.error.error);
@@ -213,7 +201,6 @@ export class TransferModalComponent implements OnInit {
       .subscribe(
         (res: any) => {
           this.stepThree();
-          this.SendBurnEvent();
         },
         (error) => {
           this.globalVars._alertError(error.error.error);

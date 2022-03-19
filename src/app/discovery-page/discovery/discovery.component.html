@@ -40,38 +40,38 @@
         </div>
       </div>-->
       <div class="hgst_bid_sc w-100">
-        <feed-post
+        <app-nft-detail-box
           *ngIf="post"
-          [isNFTProfile]="true"
-          [post]="post"
+          [postContent]="post"
           [nftBidData]="nftBidData"
-          [isPostBlocked]="blocked()"
-          [includePaddingOnPost]="true"
-          [isParentPostInThread]="true"
-          [showLeftSelectedBorder]="true"
-          [showInteractionDetails]="true"
-          [showName]="true"
-          [showNFTDetails]="true"
-          [showExpandedNFTDetails]="true"
-          [showDiscoveryDetails]="true"
-          [showNFTOwnerInfo]="hightestBidOwner"
-          [contentShouldLinkToThread]="true"
-          [afterCommentCreatedCallback]="blocked()"
-          [isNFTDetail]="true"
-          [bidsOnMyNFTs]="bidsOnMyNfts?.length"
-        ></feed-post>
+          [isNFTDetail]="false"
+          [hightestBidOwner]="hightestBidOwner"
+        ></app-nft-detail-box>
       </div>
       <div class="btn_grp">
         <button
           *ngIf="
             globalVars?.loggedInUser?.PublicKeyBase58Check != post?.PosterPublicKeyBase58Check &&
-            post?.NumNFTCopiesForSale > 0
+            post?.NumNFTCopiesForSale > 0 &&
+            !isBuyNow
           "
           type="button"
           class="fill_btn"
           (click)="openPlaceBidModal($event)"
         >
           {{ myBidsLength > 0 ? "Bid again" : "Place a Bid" }}
+        </button>
+        <button
+          *ngIf="
+            globalVars?.loggedInUser?.PublicKeyBase58Check != post?.PosterPublicKeyBase58Check &&
+            post?.NumNFTCopiesForSale > 0 &&
+            isBuyNow
+          "
+          type="button"
+          class="fill_btn"
+          (click)="openBuyNowModal($event)"
+        >
+          Buy Now
         </button>
         <div
           class="discovery-follow-parent"

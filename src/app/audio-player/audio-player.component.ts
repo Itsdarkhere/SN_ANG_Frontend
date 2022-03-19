@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnChanges, OnInit } from "@angular/core";
+import { Component, HostListener, Input, OnChanges, OnDestroy, OnInit } from "@angular/core";
 import Amplitude from "amplitudejs/dist/amplitude.js";
 import { GlobalVarsService } from "../global-vars.service";
 import { parse } from "path/posix";
@@ -8,7 +8,7 @@ import { parse } from "path/posix";
   templateUrl: "./audio-player.component.html",
   styleUrls: ["./audio-player.component.scss"],
 })
-export class AudioPlayerComponent implements OnInit {
+export class AudioPlayerComponent implements OnInit, OnDestroy {
   constructor(private globalVars: GlobalVarsService) {}
   @Input() songName: any;
   @Input() creator: any;
@@ -20,19 +20,34 @@ export class AudioPlayerComponent implements OnInit {
     this.setMobileBasedOnViewport();
     // Sets volume color correctly on init
     Amplitude.init({
-      songs: [
-        {
+      songs: [{
           name: this.songName,
           artist: this.creator,
           url: this.audioSrc,
-        },
-      ],
+      }],
+      volume: 35,
+      debug: true
     });
+    Amplitude.setDebug(true);
     // The conditional rendering makes this not work without timeout
     setTimeout(() => {
       this.volumeColor();
     }, 100);
   }
+
+  // Stop audio after navigating away from post page
+  ngOnDestroy(): void {
+    Amplitude.stop();
+    console.log("destroyed");
+  }
+
+  // Set player volume level from slider on desktop
+  setVolume($event: Event) {
+    const playerVolume = $event.target as HTMLInputElement;
+    Amplitude.setVolume(playerVolume.value);
+    console.log(playerVolume.value);
+  }
+
   volumeColor() {
     let volumeRange = document.getElementById("volume-slider") as HTMLInputElement;
     var value = (parseFloat(volumeRange.value) / 100) * 100;

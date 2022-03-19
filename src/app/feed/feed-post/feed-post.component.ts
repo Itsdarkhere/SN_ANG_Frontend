@@ -1,12 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from "@angular/core";
 import { GlobalVarsService } from "../../global-vars.service";
-import {
-  BackendApiService,
-  NFTEntryResponse,
-  PostEntryResponse,
-  NFTBidEntryResponse,
-  NFTBidData,
-} from "../../backend-api.service";
+import { BackendApiService, NFTEntryResponse, PostEntryResponse } from "../../backend-api.service";
 import { AppRoutingModule } from "../../app-routing.module";
 import { Router } from "@angular/router";
 import { SwalHelper } from "../../../lib/helpers/swal-helper";
@@ -23,12 +17,14 @@ import { PlaceBidModalComponent } from "../../place-bid-modal/place-bid-modal.co
 import { BuyNowModalComponent } from "../../buy-now-modal/buy-now-modal.component";
 import { EmbedUrlParserService } from "../../../lib/services/embed-url-parser-service/embed-url-parser-service";
 import { SharedDialogs } from "../../../lib/shared-dialogs";
-import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 import { UnlockContentModalComponent } from "src/app/unlock-content-modal/unlock-content-modal.component";
 import { CreateNftAuctionModalComponent } from "src/app/create-nft-auction-modal/create-nft-auction-modal.component";
 import { take } from "rxjs/operators";
-import { Console } from "console";
-import { fadeInItems } from "@angular/material/menu";
+import { MixpanelService } from "src/app/mixpanel.service";
+
+import { environment } from "src/environments/environment";
+import { ethers } from "ethers";
+import { Link, ImmutableXClient, ImmutableMethodResults } from "@imtbl/imx-sdk";
 
 @Component({
   selector: "feed-post",
@@ -68,15 +64,15 @@ export class FeedPostComponent implements OnInit {
   }
   @Input() isNFTProfile = false;
   @Input() isNFTProfileComment = false;
-  @Input() nftBidData: NFTBidData;
+  @Input() postThread: boolean;
   constructor(
-    private analyticsService: GoogleAnalyticsService,
     public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
     private ref: ChangeDetectorRef,
     private router: Router,
     private modalService: BsModalService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private mixPanel: MixpanelService
   ) {}
 
   // Got this from https://code.habd.as/jhabdas/xanthippe/src/branch/master/lib/xanthippe.js#L8
@@ -151,8 +147,9 @@ export class FeedPostComponent implements OnInit {
 
   // close Auction
   @Output() closeAuction = new EventEmitter();
-  @Output() onSingleBidCancellation = new EventEmitter();
-  @Output() onMultipleBidsCancellation = new EventEmitter();
+
+  // Change edition
+  @Output() changeEdition = new EventEmitter();
 
   // BUY NOW
   isBuyNow: boolean;
@@ -206,22 +203,103 @@ export class FeedPostComponent implements OnInit {
   editionHasUnlockable: boolean;
   editionHasBidByUser: boolean;
   editionHasBeenSold: boolean;
+  multipleEditions: boolean;
+  loadingEditionDetails = true;
+  loadingEthNFTDetails = true;
+
+  ethereumNFTSalePrice: any;
+  ownsEthNFT: boolean;
+  sellOrderId: any;
+  token_id: any;
+
+  async ownsEthNFTStatus() {
+    const options = { method: "GET", headers: { Accept: "application/json" } };
+
+    let res = await fetch(
+      `https://api.ropsten.x.immutable.com/v1/assets/${environment.imx.TOKEN_ADDRESS}/${this.postContent.PostExtraData["tokenId"]}`,
+      options
+    );
+
+    res = await res.json();
+
+    let ethNftOwner = res["user"];
+
+    if (localStorage.getItem("address")) {
+      this.globalVars.imxWalletAddress = localStorage.getItem("address");
+    }
+
+    if (ethNftOwner === this.globalVars.imxWalletAddress) {
+      this.ownsEthNFT = true;
+      console.log("The wallet owns the NFT");
+    }
+  }
+
+  async updateEthNFTForSaleStatus() {
+    const options = { method: "GET", headers: { Accept: "*/*" } };
+
+    console.log(environment.imx.TOKEN_ADDRESS);
+
+    let res = await fetch(
+      `https://api.ropsten.x.immutable.com/v1/orders?status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
+      options
+    );
+
+    res = await res.json();
+
+    // console.log(typeof this.nftPost.PostExtraData["tokenId"]);
+    // console.log(res);
+
+    if (res["result"]["length"] === 0) {
+      console.log("There are no NFTs for sale");
+      this.globalVars.isEthereumNFTForSale = false;
+      this.loadingEthNFTDetails = false;
+      console.log(` ---------------- is nft for sale ${this.globalVars.isEthereumNFTForSale}`);
+      console.log(` ---------------- loading nft details ${this.loadingEthNFTDetails}`);
+      return;
+    }
+
+    var tokenIdsForSale = [];
+    var nftsForSaleArr = [];
+    for (var i = 0; i < res["result"].length; i++) {
+      //   if (this.postContent.PostExtraData["tokenId"] == res["result"][i]["sell"]["data"]["token_id"]) {
+      //     this.globalVars.isEthereumNFTForSale = true;
+      //     this.ethereumNFTSalePrice = res["result"][i]["buy"]["data"]["quantity"];
+      //     this.ethereumNFTSalePrice = ethers.utils.formatEther(this.ethereumNFTSalePrice);
+      //     this.sellOrderId = res["result"][i]["order_id"];
+      //     console.log(this.sellOrderId);
+      //   }
+      tokenIdsForSale.push(res["result"][i]["sell"]["data"]["token_id"]);
+      nftsForSaleArr.push(res["result"][i]);
+    }
+
+    console.log(tokenIdsForSale);
+    console.log(typeof this.postContent.PostExtraData["tokenId"]);
+
+    if (tokenIdsForSale.includes(this.postContent.PostExtraData["tokenId"])) {
+      for (var i = 0; i < nftsForSaleArr.length; i++) {
+        if (this.postContent.PostExtraData["tokenId"] == nftsForSaleArr[i]["sell"]["data"]["token_id"]) {
+          this.globalVars.isEthereumNFTForSale = true;
+          this.ethereumNFTSalePrice = res["result"][i]["buy"]["data"]["quantity"];
+          this.ethereumNFTSalePrice = ethers.utils.formatEther(this.ethereumNFTSalePrice);
+          this.sellOrderId = res["result"][i]["order_id"];
+          console.log(this.sellOrderId);
+        }
+      }
+    } else {
+      this.globalVars.isEthereumNFTForSale = false;
+    }
+
+    this.loadingEthNFTDetails = false;
+  }
 
   _tabSerialNumberClicked(id: number) {
+    this.loadingEditionDetails = true;
     this.editionNumber = id;
-
-    // Insert selected ser into variable
-    this.nftEntryResponses.forEach((item) => {
-      if (item.SerialNumber == this.editionNumber) {
-        this.nftEntryResponse = item;
-      }
-    });
-    // Update buy now related stuff
-    this.updateBuyNow();
-
-    // Update edition specifics
-    this.updateEditionSpecificLogic();
+    // Pass to parent the wish to change edition
+    // Parent then should call sibling nft-detai-box
+    this.changeEdition.emit(id);
   }
+
   getNFTEntries() {
     this.backendApi
       .GetNFTEntriesForNFTPost(
@@ -233,6 +311,9 @@ export class FeedPostComponent implements OnInit {
         this.nftEntryResponses = res.NFTEntryResponses;
         // Set serialnumber of which to use in logic to be one that the user owns
         // or the first one if user does not own any
+        if (this.nftEntryResponses?.length > 1) {
+          this.multipleEditions = true;
+        }
         this.setSerialNumberToUse();
         // Insert selected ser into variable
         // Insert selected ser into variable
@@ -241,12 +322,6 @@ export class FeedPostComponent implements OnInit {
             this.nftEntryResponse = item;
           }
         });
-
-        // Update buy now related stuff
-        this.updateBuyNow();
-
-        // Update edition specifics
-        this.updateEditionSpecificLogic();
 
         this.nftEntryResponses.sort((a, b) => a.SerialNumber - b.SerialNumber);
         this.decryptableNFTEntryResponses = this.nftEntryResponses.filter(
@@ -296,31 +371,6 @@ export class FeedPostComponent implements OnInit {
           this.nftMinBidAmountNanos = this.nftEntryResponses[0]?.MinBidAmountNanos;
         }
       });
-  }
-
-  updateEditionSpecificLogic() {
-    this.isAvailableForSale = this.nftEntryResponse.IsForSale;
-    // Check if user owns this edition
-    this.ownsEdition =
-      this.nftEntryResponse.OwnerPublicKeyBase58Check == this.globalVars?.loggedInUser?.PublicKeyBase58Check;
-    // Check if this edition is for sale
-    this.editionForSale = this.nftEntryResponse.IsForSale;
-    // Check if edition has bids
-    this.editionHasBids = this.nftBidData?.BidEntryResponses.length > 0;
-    // Check if edition has unlockable
-    if (!this.editionIsBuyNow) {
-      this.editionHasUnlockable = this.nftEntryResponse.DecryptedUnlockableText == null;
-    }
-    // Check if user has made a bid on this edition
-    if (!this.ownsEdition) {
-      this.nftBidData.BidEntryResponses.forEach((bid) => {
-        if (bid.PublicKeyBase58Check === this.globalVars.loggedInUser.PublicKeyBase58Check) {
-          this.editionHasBidByUser = true;
-        }
-      });
-    }
-    // Check if edition has been sold before
-    this.editionHasBeenSold = this.nftEntryResponse.LastAcceptedBidAmountNanos > 0;
   }
 
   updateBuyNow() {
@@ -375,7 +425,7 @@ export class FeedPostComponent implements OnInit {
       )?.length
     );
   }
-  ngOnInit() {
+  async ngOnInit() {
     if (!this.post.RepostCount) {
       this.post.RepostCount = 0;
     }
@@ -385,10 +435,12 @@ export class FeedPostComponent implements OnInit {
     }
     this.globalVars.NFTRoyaltyToCoinBasisPoints = this.postContent.NFTRoyaltyToCoinBasisPoints / 100;
     this.globalVars.NFTRoyaltyToCreatorBasisPoints = this.postContent.NFTRoyaltyToCreatorBasisPoints / 100;
+
+    await this.updateEthNFTForSaleStatus();
+    await this.ownsEthNFTStatus();
+    console.log(` ---------- is eth nft for sale ${this.globalVars.isEthereumNFTForSale} ---------- `);
   }
-  SendAddToCartEvent() {
-    this.analyticsService.eventEmitter("place_a_bid", "transaction", "bid", "click", 10);
-  }
+
   onPostClicked(event) {
     if (this.inTutorial) {
       return;
@@ -726,6 +778,7 @@ export class FeedPostComponent implements OnInit {
   openPlaceBidModal(event: any) {
     this.clickedBuyNow = false;
     this.clickedPlaceABid = true;
+    this.mixPanel.track15("Open Place a Bid Modal");
     if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
       SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "place a bid");
       return;
@@ -746,29 +799,64 @@ export class FeedPostComponent implements OnInit {
   }
 
   openBuyNowModal(event: any) {
-    this.clickedBuyNow = true;
-    this.clickedPlaceABid = false;
+    //   is not an ETH nft
+    if (this.postContent.PostExtraData.isEthereumNFT === false) {
+      this.clickedBuyNow = true;
+      this.clickedPlaceABid = false;
 
-    if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
-      SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "buy now");
-      return;
-    }
-    event.stopPropagation();
-    const modalDetails = this.modalService.show(BuyNowModalComponent, {
-      class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
-      initialState: {
-        post: this.postContent,
-        clickedBuyNow: this.clickedBuyNow,
-      },
-    });
-
-    const onHideEvent = modalDetails.onHide;
-    onHideEvent.subscribe((response) => {
-      if (response === "bid placed") {
-        this.getNFTEntries();
-        this.nftBidPlaced.emit();
+      if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
+        SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "buy now");
+        return;
       }
-    });
+      event.stopPropagation();
+      const modalDetails = this.modalService.show(BuyNowModalComponent, {
+        class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+        initialState: {
+          post: this.postContent,
+          clickedBuyNow: this.clickedBuyNow,
+          isEthNFT: false,
+          ethereumNFTSalePrice: "",
+          sellOrderId: "",
+        },
+      });
+
+      const onHideEvent = modalDetails.onHide;
+      onHideEvent.subscribe((response) => {
+        if (response === "bid placed") {
+          this.getNFTEntries();
+          this.nftBidPlaced.emit();
+        }
+      });
+    }
+    // is an ETH NFT
+    else {
+      this.clickedBuyNow = true;
+      this.clickedPlaceABid = false;
+
+      if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
+        SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "buy now");
+        return;
+      }
+      event.stopPropagation();
+      const modalDetails = this.modalService.show(BuyNowModalComponent, {
+        class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+        initialState: {
+          post: this.postContent,
+          clickedBuyNow: this.clickedBuyNow,
+          isEthNFT: true,
+          ethereumNFTSalePrice: this.ethereumNFTSalePrice,
+          sellOrderId: this.sellOrderId,
+        },
+      });
+
+      const onHideEvent = modalDetails.onHide;
+      onHideEvent.subscribe((response) => {
+        if (response === "bid placed") {
+          this.getNFTEntries();
+          this.nftBidPlaced.emit();
+        }
+      });
+    }
   }
 
   ViewUnlockableContent() {
@@ -806,7 +894,6 @@ export class FeedPostComponent implements OnInit {
       ) {
         return "Owner";
       }
-      console.log(this.nftEntryResponse.IsForSale);
       return this.nftEntryResponse?.IsForSale === false ? "Last Sold for" : "Minimum Bid";
     } else {
       if (Number(maxBid) > 0) {
@@ -848,40 +935,23 @@ export class FeedPostComponent implements OnInit {
   closeYourAuction() {
     this.closeAuction.emit();
   }
+  async closeYourETHAuction() {
+    const link = new Link(environment.imx.ROPSTEN_LINK_URL);
+    await link.cancel({
+      orderId: this.sellOrderId,
+    });
+    // give the owner the option to list nft for sale again. you need to change it to false
+    this.globalVars.isEthereumNFTForSale = false;
+  }
   getRouterLink(val: any): any {
     return this.inTutorial ? [] : val;
-  }
-
-  onBidCancel = (event: any): void => {
-    const numberOfBids = this.nftBidData.BidEntryResponses.length;
-    if (this.hasUserPlacedBids() && numberOfBids > 0) {
-      if (numberOfBids > 1) {
-        this.onMultipleBidsCancellation.emit({
-          cancellableBids: this.nftBidData.BidEntryResponses,
-          postHashHex: this._post.PostHashHex,
-        });
-      } else {
-        this.onSingleBidCancellation.emit({
-          postHashHex: this._post.PostHashHex,
-          serialNumber: this.nftBidData.BidEntryResponses[0].SerialNumber,
-          bidAmountNanos: 0,
-        });
-      }
-    }
-  };
-
-  hasUserPlacedBids(): boolean {
-    const pastBid = this.nftBidData.BidEntryResponses.find((bidEntry: NFTBidEntryResponse) => {
-      return bidEntry.PublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check;
-    });
-    return pastBid ? true : false;
   }
 
   openCreateNFTAuctionModal(event): void {
     let createNftAuctionDetails = this.modalService.show(CreateNftAuctionModalComponent, {
       class:
         "modal-dialog-centered nft_placebid_modal_bx  nft_placebid_modal_bx_right nft_placebid_modal_bx_right modal-lg",
-      initialState: { post: this.post, nftEntryResponses: this.nftEntryResponses },
+      initialState: { post: this.post, nftEntryResponses: this.nftEntryResponses, isEthNFT: false, tokenId: "" },
     });
     const onHiddenEvent = createNftAuctionDetails.onHidden.pipe(take(1));
     onHiddenEvent.subscribe((response) => {
@@ -890,6 +960,22 @@ export class FeedPostComponent implements OnInit {
         // Refreshes this component on nft post level
         this.nftBidPlaced.emit();
       }
+    });
+  }
+
+  openCreateETHNFTAuctionModal(event): void {
+    this.token_id = this.postContent.PostExtraData["tokenId"];
+    console.log(` ------------------- tokenId from feed-post is ${this.token_id}`);
+
+    this.modalService.show(CreateNftAuctionModalComponent, {
+      class:
+        "modal-dialog-centered nft_placebid_modal_bx  nft_placebid_modal_bx_right nft_placebid_modal_bx_right modal-lg",
+      initialState: {
+        post: this.post,
+        nftEntryResponses: this.nftEntryResponses,
+        isEthNFT: true,
+        tokenId: this.token_id,
+      },
     });
   }
 }

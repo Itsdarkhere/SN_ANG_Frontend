@@ -1,0 +1,72 @@
+<div class="top-bids-container">
+  <h2>Top Bids Today</h2>
+  <div class="top-bid-horizontal-cards" [@listAnimation]="topBidsToday?.length">
+    <app-top-bids *ngFor="let x of topBidsToday" [bidDetails]="x"></app-top-bids>
+  </div>
+</div>
+<div class="analytics-main-cards">
+  <app-big-graph class="big-graph-full-height-width" [label]="'MARKET'" [graphArray]="marketCapArray"></app-big-graph>
+  <app-big-graph class="big-graph-full-height-width" [label]="'SALES'" [graphArray]="salesCapArray"></app-big-graph>
+</div>
+<div class="quick-facts-container">
+  <h2>Quick Facts</h2>
+  <div class="quick-facts-cards">
+    <app-quick-facts
+      class="quick-facts-full-height-width"
+      [label]="'AVERAGE SALES PRICE'"
+      [value]="AvgSalesPrice"
+    ></app-quick-facts>
+    <app-quick-facts
+      class="quick-facts-full-height-width"
+      [label]="'TOTAL NFTS SOLD'"
+      [value]="TotalNFTsSold"
+    ></app-quick-facts>
+    <app-quick-facts
+      class="quick-facts-full-height-width"
+      [label]="'AVG COIN ROYALTY'"
+      [value]="AvgCoinRoyalty"
+    ></app-quick-facts>
+    <app-quick-facts
+      class="quick-facts-full-height-width"
+      [label]="'AVG CREATOR ROYALTY'"
+      [value]="AvgCreatorRoyalty"
+    ></app-quick-facts>
+  </div>
+</div>
+<!-- This would not trigger in small screens, apparently since it needs to see the whole element -->
+<!-- So here is a filler element with no other prpose than triggering this, same for creator lists -->
+<div observeVisibility [debounceTime]="0" (visible)="getTopNFTSales()"></div>
+<div class="top-sales-container">
+  <app-top-sales [posts]="topNFTSales"></app-top-sales>
+</div>
+<div observeVisibility [debounceTime]="0" (visible)="getWhales()"></div>
+<div class="creator-list-container">
+  <app-creator-list
+    [label]="'Top Earning Creators'"
+    [label2]="'CREATOR'"
+    [label3]="'NFT SALES'"
+    [userList]="userListCreators"
+    class="creator-list-full-height-width"
+  ></app-creator-list>
+  <app-creator-list
+    [label]="'Top NFT Investors'"
+    [label2]="'INVESTOR'"
+    [label3]="'PURCHASES'"
+    [userList]="userListCollectors"
+    class="creator-list-full-height-width"
+  ></app-creator-list>
+</div>
+<div class="analytics-secondary-graphs" observeVisibility [debounceTime]="0" (visible)="getSmallGraphs()">
+  <app-small-graph
+    class="big-graph-full-height-width"
+    [collectors]="false"
+    [graphArray]="uniqueCreatorsArray"
+    [label]="'Unique Creators'"
+  ></app-small-graph>
+  <app-small-graph
+    class="big-graph-full-height-width"
+    [collectors]="true"
+    [graphArray]="uniqueCollectorsArray"
+    [label]="'Unique Collectors'"
+  ></app-small-graph>
+</div>

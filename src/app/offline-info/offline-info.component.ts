@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
-import { GoogleAnalyticsService } from "../google-analytics.service";
 import { RouteNames } from "../app-routing.module";
 import { Router } from "@angular/router";
+import { MixpanelService } from "../mixpanel.service";
 
 @Component({
   selector: "app-offline-info",
@@ -11,18 +11,16 @@ import { Router } from "@angular/router";
 })
 export class OfflineInfoComponent implements OnInit {
   RouteNames = RouteNames;
-  constructor(
-    public globalVars: GlobalVarsService,
-    private analyticsService: GoogleAnalyticsService,
-    private router: Router
-  ) {}
+  constructor(public globalVars: GlobalVarsService, private mixPanel: MixpanelService, private router: Router) {}
 
   ngOnInit(): void {}
 
   login() {
     this.router.navigate(["/" + this.RouteNames.SIGNUP]);
+    this.mixPanel.track2("Login clicked");
   }
   signUp() {
     this.router.navigate(["/" + this.RouteNames.SIGNUP]);
+    this.mixPanel.track("Sign-up clicked");
   }
 }

@@ -1,7 +1,10 @@
 <app-header></app-header>
-<div [class]="mobile ? 'global__mobile' : 'global__desktop'" class="position-relative">
+<div
+  [ngClass]="{ global__mobile: mobile, global__desktop: !mobile, nft_profile: isNFTProfile }"
+  class="position-relative"
+>
   <div class="m_inner_wrapper flex-column end">
-    <app-small-left-bar *ngIf="!mobile"></app-small-left-bar>
+    <left-bar *ngIf="!mobile"></left-bar>
     <left-bar-mobile *ngIf="mobile"></left-bar-mobile>
     <div class="w-100">
       <ng-content></ng-content>

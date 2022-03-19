@@ -166,7 +166,6 @@ export class AdminComponent implements OnInit {
       this.adminTabs.push("Super");
       this.adminTabs.push("Node Fees");
     }
-
     this.route.queryParams.subscribe((queryParams) => {
       if (queryParams.adminTab) {
         this.activeTab = queryParams.adminTab;
@@ -1149,6 +1148,7 @@ export class AdminComponent implements OnInit {
       )
       .subscribe(
         (res: any) => {
+          this.addUsernameToVerifiedList(this.usernameToVerify);
           this.globalVars._alertSuccess(res.Message);
         },
         (error) => {
@@ -1158,6 +1158,17 @@ export class AdminComponent implements OnInit {
       .add(() => {
         this.submittingVerifyRequest = false;
       });
+  }
+
+  addUsernameToVerifiedList(username: string) {
+    this.backendApi.InsertIntoPGVerified(this.globalVars.localNode, username).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        this.globalVars._alertError("Take a SS for Valtteri" + err + "Username: " + username);
+      }
+    );
   }
 
   getUserAdminDataClicked() {

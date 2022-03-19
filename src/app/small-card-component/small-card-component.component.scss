@@ -1,4 +1,5 @@
 .red-box {
+    position: relative;
     height: 210px;
     border-radius: 20px;
     width: 181.5px;
@@ -11,6 +12,17 @@
     &:hover {
         transform: translateY(-2px);
     }
+
+    .audio-play-icon {
+        position: absolute;
+        height: 30px;
+        width: 30px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+    }
+
     .red-box-img-cover {
         width: 100%;
         max-width: 100%;    
@@ -23,10 +35,19 @@
         border-top-right-radius: 15px;
         overflow: hidden;
         .card-image {
+            position: relative;
             display: block;
             object-fit: cover;
             width: 100%;
             height: 100%;
+
+            // .audio-play-icon {
+            //     position: absolute;
+                
+            //     top: 50%;
+            //     left: 50%;
+            //     transform
+            // }
         }
         .video-tag {
             display: block;
@@ -106,6 +127,20 @@
     }
     span {
         color: #737373 !important;
+    }
+}
+.text-nft-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    div {
+        overflow-y: scroll;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-wrap: anywhere;
+        word-break: break-word;
     }
 }
 .card-video-icon-container {

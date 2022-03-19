@@ -1,125 +1,253 @@
-<!--MARKETPLACE CONTENT-->
+<!-- DESO MARKETPLACE CONTENT-->
 <!-- Show shimmer Loader Until page completely Load -->
-<div
-  class="mrk_top pb-10px d-flex flex-end-center flex-row justify-content-between"
-  [ngClass]="mobile ? 'mt-65px' : ''"
->
-  <h2 class="fs-24px font-weight-semiboldn" style="color: #222222" *ngIf="!mobile">Marketplace</h2>
-  <div class="d-flex flex-row justify-content-between" [ngClass]="{ 'w-100': mobile }">
-    <div class="mrk_top_selector-two px-5px d-flex flex-row">
+<div *ngIf="desoMarketplace && !ethMarketplace">
+  <div
+    class="mrk_top pb-10px d-flex flex-end-center flex-row justify-content-between"
+    [ngClass]="mobile ? 'mt-65px' : ''"
+  >
+    <h2 class="fs-24px font-weight-semiboldn" style="color: #222222" *ngIf="!mobile">Marketplace</h2>
+    <div class="blockchain-selection-container">
       <button
-        class="selected"
-        (click)="setDisplayType('Card')"
-        [ngClass]="{ selected: globalVars.marketplaceViewTypeCard }"
+        class="deso-marketplace-selector-container deso-marketplace-active"
+        (click)="updateDesoMarketplaceStatus()"
       >
-        <img src="/assets/icons/market_grid_type_card_icon.svg" alt="card icon" />
+        <img src="/assets/deso/desologo.svg" class="deso-marketplace-logo" />
+        <p class="deso-marketplace-text">Deso</p>
       </button>
-      <button (click)="setDisplayType('Grid')" [ngClass]="{ selected: !globalVars.marketplaceViewTypeCard }">
-        <img src="/assets/icons/market_grid_type_grid_icon.svg" alt="grid icon" />
+      <button class="eth-marketplace-selector-container" (click)="updateEthMarketplaceStatus()">
+        <img src="/assets/eth/ethlogo.svg" class="eth-marketplace-logo" />
+        <p class="eth-marketplace-text">Eth</p>
       </button>
     </div>
-    <select
-      class="p-5px ml-20px mrk_select mrk_top_select_height fs-14px"
-      (ngModelChange)="sortSelectChange($event)"
-      [ngModel]="globalVars.marketplaceSortType"
-    >
-      <option value="most recent first">Most recent first</option>
-      <option value="oldest first">Oldest first</option>
-      <option value="highest price first">Highest price first</option>
-      <option value="lowest price first">Lowest price first</option>
-      <option value="most likes first">Most likes first</option>
-      <option value="most diamonds first">Most diamonds first</option>
-      <option value="most comments first">Most comments first</option>
-      <option value="most reposts first">Most reposts first</option>
-    </select>
+    <div class="d-flex flex-row justify-content-between" [ngClass]="{ 'w-100': mobile }">
+      <div class="mrk_top_selector-two px-5px d-flex flex-row">
+        <button
+          class="selected"
+          (click)="setDisplayType('Card')"
+          [ngClass]="{ selected: globalVars.marketplaceViewTypeCard }"
+        >
+          <img src="/assets/icons/market_grid_type_card_icon.svg" alt="card icon" />
+        </button>
+        <button (click)="setDisplayType('Grid')" [ngClass]="{ selected: !globalVars.marketplaceViewTypeCard }">
+          <img src="/assets/icons/market_grid_type_grid_icon.svg" alt="grid icon" />
+        </button>
+      </div>
+      <select
+        class="p-5px ml-20px mrk_select mrk_top_select_height fs-14px"
+        (ngModelChange)="sortSelectChange($event)"
+        [ngModel]="globalVars.marketplaceSortType"
+      >
+        <option value="most recent first">Most recent first</option>
+        <option value="oldest first">Oldest first</option>
+        <option value="highest price first">Highest price first</option>
+        <option value="lowest price first">Lowest price first</option>
+        <option value="most likes first">Most likes first</option>
+        <option value="most diamonds first">Most diamonds first</option>
+        <option value="most comments first">Most comments first</option>
+        <option value="most reposts first">Most reposts first</option>
+      </select>
+    </div>
   </div>
-</div>
-<div class="w-100 d-flex flex-row" id="market">
-  <app-marketplace-left-bar *ngIf="!mobile" [flyout]="false"></app-marketplace-left-bar>
-  <div [ngClass]="mobile ? 'global__content__width' : 'global__center__width__marketplace'">
-    <div class="nfts-card-list" *ngIf="globalVars.isMarketplaceLoading">
-      <div class="nft-col-wrap" *ngFor="let in of counter(50); let i = index">
-        <div class="card">
-          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+  <div class="w-100 d-flex flex-row" id="market">
+    <app-marketplace-left-bar *ngIf="!mobile" [flyout]="false"></app-marketplace-left-bar>
+    <div [ngClass]="mobile ? 'global__content__width' : 'global__center__width__marketplace'">
+      <div class="nfts-card-list" *ngIf="globalVars.isMarketplaceLoading">
+        <div class="nft-col-wrap" *ngFor="let in of counter(50); let i = index">
+          <div class="card">
+            <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+          </div>
         </div>
       </div>
-    </div>
-    <div *ngIf="!globalVars.isMarketplaceLoading" class="w-100 d-flex flex-row flex-start-end">
-      <div
-        class="search-results"
-        infiniteScroll
-        [infiniteScrollDistance]="4"
-        [infiniteScrollThrottle]="150"
-        (scrolled)="onScrollNFTs()"
-      >
-        <div class="nfts-card-list">
-          <div
-            [ngClass]="globalVars.marketplaceViewTypeCard ? 'nft-col-wrap' : 'small-nft-col-wrap'"
-            *ngFor="let PostEntryResponse of globalVars.marketplaceNFTsData"
+      <div *ngIf="!globalVars.isMarketplaceLoading" class="w-100 d-flex flex-row flex-start-end">
+        <div
+          class="search-results"
+          infiniteScroll
+          [infiniteScrollDistance]="4"
+          [infiniteScrollThrottle]="150"
+          (scrolled)="onScrollNFTs()"
+        >
+          <div class="nfts-card-list">
+            <div
+              [ngClass]="globalVars.marketplaceViewTypeCard ? 'nft-col-wrap' : 'small-nft-col-wrap'"
+              *ngFor="let PostEntryResponse of globalVars.marketplaceNFTsData"
+            >
+              <div class="max-width-300-plus" *ngIf="globalVars.marketplaceViewTypeCard">
+                <new-nft-card
+                  [post]="PostEntryResponse"
+                  [includePaddingOnPost]="true"
+                  [pending]="false"
+                  [showReplyingToContent]="PostEntryResponse"
+                  [parentPost]=""
+                  [contentShouldLinkToThread]="true"
+                  [showNFTDetails]="true"
+                  [showExpandedNFTDetails]="true"
+                  [setBorder]="true"
+                ></new-nft-card>
+              </div>
+              <div *ngIf="!globalVars.marketplaceViewTypeCard">
+                <app-small-card-component [post]="PostEntryResponse"></app-small-card-component>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--<div
+            class="search-results"
+            *ngIf="!globalVars.marketplaceContentTypeNFTs"
+            infiniteScroll
+            [infiniteScrollDistance]="4"
+            [infiniteScrollThrottle]="150"
+            (scrolled)="onScrollCreators()"
           >
-            <div class="max-width-350" *ngIf="globalVars.marketplaceViewTypeCard">
-              <new-nft-card
-                [post]="PostEntryResponse"
-                [includePaddingOnPost]="true"
-                [pending]="false"
-                [showReplyingToContent]="PostEntryResponse"
-                [parentPost]=""
-                [contentShouldLinkToThread]="true"
-                [showNFTDetails]="true"
-                [showExpandedNFTDetails]="true"
-                [setBorder]="true"
-              ></new-nft-card>
+            <div class="creators-card-list">
+              <div class="nft-col-wrap" *ngFor="let creatorCard of globalVars.marketplaceCreatorData">
+                <div>
+                  <app-creator-card
+                    [sizeSmall]="true"
+                    [username]="creatorCard.Username"
+                    [ImageURLs]="creatorCard.ImageURLs"
+                    [extraUserNames]="[]"
+                  ></app-creator-card>
+                </div>
+              </div>
             </div>
-            <div *ngIf="!globalVars.marketplaceViewTypeCard">
-              <app-small-card-component [post]="PostEntryResponse"></app-small-card-component>
-            </div>
-          </div>
-        </div>
+          </div>-->
       </div>
-      <!--<div
-        class="search-results"
-        *ngIf="!globalVars.marketplaceContentTypeNFTs"
-        infiniteScroll
-        [infiniteScrollDistance]="4"
-        [infiniteScrollThrottle]="150"
-        (scrolled)="onScrollCreators()"
-      >
-        <div class="creators-card-list">
-          <div class="nft-col-wrap" *ngFor="let creatorCard of globalVars.marketplaceCreatorData">
-            <div>
-              <app-creator-card
-                [sizeSmall]="true"
-                [username]="creatorCard.Username"
-                [ImageURLs]="creatorCard.ImageURLs"
-                [extraUserNames]="[]"
-              ></app-creator-card>
-            </div>
-          </div>
-        </div>
-      </div>-->
-    </div>
 
-    <div
-      *ngIf="!globalVars.isMarketplaceLoading && !this.globalVars.marketplaceNFTsData"
-      class="d-flex align-items-center justify-content-center"
-    >
       <div
-        class="d-flex flex-column align-items-center justify-content-center fc-muted fs-15px p-15px text-center"
-        style="height: 400px"
+        *ngIf="!globalVars.isMarketplaceLoading && !this.globalVars.marketplaceNFTsData"
+        class="d-flex align-items-center justify-content-center"
       >
-        <div></div>
+        <div
+          class="d-flex flex-column align-items-center justify-content-center fc-muted fs-15px p-15px text-center"
+          style="height: 400px"
+        >
+          <div></div>
+        </div>
       </div>
+      <simple-center-loader *ngIf="globalVars.isMarketplaceLoading"></simple-center-loader>
+      <bottom-bar-mobile
+        *ngIf="mobile"
+        class="global__bottom-bar-mobile scrolled"
+        [showPostButton]="showPostButton"
+      ></bottom-bar-mobile>
     </div>
-    <simple-center-loader *ngIf="globalVars.isMarketplaceLoading"></simple-center-loader>
-    <bottom-bar-mobile
-      *ngIf="mobile"
-      class="global__bottom-bar-mobile scrolled"
-      [showPostButton]="showPostButton"
-    ></bottom-bar-mobile>
   </div>
+  <app-marketplace-left-bar-mobile></app-marketplace-left-bar-mobile>
+  <button *ngIf="mobile" class="mobile-filter-button" (click)="openMarketplaceMobileFiltering()">
+    <img src="/assets/icons/market_apply_icon.svg" class="mr-5px" alt="image-icon" />
+    Filter
+  </button>
 </div>
-<app-marketplace-left-bar-mobile></app-marketplace-left-bar-mobile>
-<button *ngIf="mobile" class="mobile-filter-button" (click)="openMarketplaceMobileFiltering()">
-  <img src="/assets/icons/market_apply_icon.svg" class="mr-5px" alt="image-icon" />
-  Filter
-</button>
+
+<!-- ETH MARKETPLACE CONTENT-->
+<!-- Show shimmer Loader Until page completely Load -->
+<div *ngIf="!desoMarketplace && ethMarketplace">
+  <div
+    class="mrk_top pb-10px d-flex flex-end-center flex-row justify-content-between"
+    [ngClass]="mobile ? 'mt-65px' : ''"
+  >
+    <h2 class="fs-24px font-weight-semiboldn" style="color: #222222" *ngIf="!mobile">Marketplace</h2>
+    <div class="blockchain-selection-container">
+      <button class="deso-marketplace-selector-container" (click)="updateDesoMarketplaceStatus()">
+        <img src="/assets/deso/desologo.svg" class="deso-marketplace-logo" />
+        <p class="deso-marketplace-text">Deso</p>
+      </button>
+      <button class="eth-marketplace-selector-container eth-marketplace-active" (click)="updateEthMarketplaceStatus()">
+        <img src="/assets/eth/ethlogo.svg" class="eth-marketplace-logo" />
+        <p class="eth-marketplace-text">Eth</p>
+      </button>
+    </div>
+    <div class="d-flex flex-row justify-content-between" [ngClass]="{ 'w-100': mobile }">
+      <div class="mrk_top_selector-two px-5px d-flex flex-row">
+        <button
+          class="selected"
+          (click)="setEthDisplayType()"
+          [ngClass]="{ selected: globalVars.marketplaceViewTypeCard }"
+        >
+          <img src="/assets/icons/market_grid_type_card_icon.svg" alt="card icon" />
+        </button>
+        <button (click)="setEthDisplayType()" [ngClass]="{ selected: !globalVars.marketplaceViewTypeCard }">
+          <img src="/assets/icons/market_grid_type_grid_icon.svg" alt="grid icon" />
+        </button>
+      </div>
+      <select
+        class="p-5px ml-20px mrk_select mrk_top_select_height fs-14px"
+        (ngModelChange)="sortSelectChangeEth($event)"
+        [ngModel]="globalVars.ethMarketplaceSortType"
+      >
+        <option value="most recent first">Most recent first</option>
+        <option value="oldest first">Oldest first</option>
+        <option value="highest price first">Highest price first</option>
+        <option value="lowest price first">Lowest price first</option>
+      </select>
+    </div>
+  </div>
+  <div class="w-100 d-flex flex-row" id="market">
+    <app-eth-marketplace-left-bar *ngIf="!mobile" [flyout]="false"></app-eth-marketplace-left-bar>
+    <div [ngClass]="mobile ? 'global__content__width' : 'global__center__width__marketplace'">
+      <div class="nfts-card-list" *ngIf="globalVars.isEthMarketplaceLoading">
+        <div class="nft-col-wrap" *ngFor="let in of counter(50); let i = index">
+          <div class="card">
+            <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!globalVars.isEthMarketplaceLoading" class="w-100 d-flex flex-row flex-start-end">
+        <div
+          class="search-results"
+          infiniteScroll
+          [infiniteScrollDistance]="4"
+          [infiniteScrollThrottle]="150"
+          (scrolled)="onScrollEthNFTs()"
+        >
+          <div class="nfts-card-list">
+            <div
+              [ngClass]="globalVars.marketplaceViewTypeCard ? 'nft-col-wrap' : 'small-nft-col-wrap'"
+              *ngFor="let PostEntryResponse of globalVars.ethMarketplaceNFTsDataToShow"
+            >
+              <div class="max-width-300-plus" *ngIf="globalVars.marketplaceViewTypeCard">
+                <new-nft-card
+                  [post]="PostEntryResponse"
+                  [includePaddingOnPost]="true"
+                  [pending]="false"
+                  [showReplyingToContent]="PostEntryResponse"
+                  [parentPost]=""
+                  [contentShouldLinkToThread]="true"
+                  [showNFTDetails]="true"
+                  [showExpandedNFTDetails]="true"
+                  [setBorder]="true"
+                ></new-nft-card>
+              </div>
+              <div *ngIf="!globalVars.marketplaceViewTypeCard">
+                <app-small-card-component [post]="PostEntryResponse"></app-small-card-component>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        *ngIf="!globalVars.isEthMarketplaceLoading && !this.globalVars.ethMarketplaceNFTsData"
+        class="d-flex align-items-center justify-content-center"
+      >
+        <div
+          class="d-flex flex-column align-items-center justify-content-center fc-muted fs-15px p-15px text-center"
+          style="height: 400px"
+        >
+          <div></div>
+        </div>
+      </div>
+      <simple-center-loader *ngIf="globalVars.isEthMarketplaceLoading"></simple-center-loader>
+      <bottom-bar-mobile
+        *ngIf="mobile"
+        class="global__bottom-bar-mobile scrolled"
+        [showPostButton]="showPostButton"
+      ></bottom-bar-mobile>
+    </div>
+  </div>
+  <app-marketplace-left-bar-mobile></app-marketplace-left-bar-mobile>
+  <button *ngIf="mobile" class="mobile-filter-button" (click)="openMarketplaceMobileFiltering()">
+    <img src="/assets/icons/market_apply_icon.svg" class="mr-5px" alt="image-icon" />
+    Filter
+  </button>
+</div>

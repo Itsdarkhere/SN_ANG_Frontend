@@ -8,15 +8,12 @@ import {
   ProfileEntryResponse,
 } from "../../backend-api.service";
 import { GlobalVarsService } from "../../global-vars.service";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import * as _ from "lodash";
 import { InfiniteScroller } from "../../infinite-scroller";
-import { of, Subscription } from "rxjs";
-import { uniqBy } from "lodash";
-import { catchError } from "rxjs/operators";
 
 @Component({
   selector: "app-creator-profile-created",
@@ -77,7 +74,7 @@ export class CreatorProfileCreatedComponent implements OnInit {
     await this.datasource.adapter.relax();
     await this.datasource.adapter.update({
       predicate: ({ $index, data, element }) => {
-        let currentPost = (data as any) as PostEntryResponse;
+        let currentPost = data as any as PostEntryResponse;
         if ($index === index) {
           newComment.parentPost = currentPost;
           currentPost.Comments = currentPost.Comments || [];
@@ -125,6 +122,10 @@ export class CreatorProfileCreatedComponent implements OnInit {
       .then((res) => {
         this.posts = res.Posts.filter((post) => post.IsNFT && post.NumNFTCopiesBurned != post.NumNFTCopies);
         this.dataToShow = this.posts.slice(this.startIndex, this.endIndex);
+
+        //   get created eth NFTs
+        this.globalVars.imxWalletAddress = localStorage.getItem("address");
+        this.globalVars.getCreatedNFTs();
       })
       .finally(() => {
         this.isLoading = false;

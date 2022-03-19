@@ -1,0 +1,154 @@
+// NEW LOADER 
+$--p-1: #5001e8;
+$--p-2: 
+#2f00f3;
+$--p-3: #193fe1;
+$--p-4: #1c7ce9;
+$--p-5: #019de7
+;
+$--p-6: #00b5dd;
+$--p-7: #00dac3;
+$--p-8: #01df80;
+$--p-9: #7eda01;
+$--p-10: #d8d005;
+
+
+$--b-1: 
+#1901f5;
+$--b-2: 
+#023dec;
+$--b-3: #1786ee;
+$--b-4: #01b2e0
+;
+$--b-5: #08cdd3;
+$--b-6: #01d9b7;
+$--b-7: #04de82;
+$--b-8: #a4d502
+;
+$--b-9: #e3cc09;
+$--b-10: #f5a401;
+
+
+$--g-1: #1b62e4;
+$--g-2: #0094ea;
+$--g-3: #0fb9de;
+$--g-4: #1ad4c0;
+$--g-5: #04dc93;
+$--g-6: #04df43;
+$--g-7: #bed104;
+$--g-8: #e8c001;
+$--g-9: #f69603;
+$--g-10: #fe6305;
+
+
+$--y-1: #019ae8;
+$--y-2: #03dc9f;
+$--y-3: #35e139;
+$--y-4: #84edba;
+$--y-5: #9fd703;
+$--y-6: #cad101;
+$--y-7: #eeb108;
+$--y-8: #fa8903;
+$--y-9: #fe3d27;
+$--y-10: #f83f31;
+
+
+$--s-1: #d9d9d9;
+$--s-2: #9e9e9e;
+$--s-3: #666666;
+$--s-4: #2b2b2b;
+
+$colors: (
+  $--p-1,
+  $--p-2,
+  $--p-3,
+  $--p-4,
+  $--p-5,
+  $--p-6,
+  $--p-7,
+  $--p-8,
+  $--p-9,
+  $--p-10,
+  $--b-1,
+  $--b-2,
+  $--b-3,
+  $--b-4,
+  $--b-5,
+  $--b-6,
+  $--b-7,
+  $--b-8,
+  $--b-9,
+  $--b-10,
+  $--g-1,
+  $--g-2,
+  $--g-3,
+  $--g-4,
+  $--g-5,
+  $--g-6,
+  $--g-7,
+  $--g-8,
+  $--g-9,
+  $--g-10,
+  $--y-1,
+  $--y-2,
+  $--y-3,
+  $--y-4,
+  $--y-5,
+  $--y-6,
+  $--y-7,
+  $--y-8,
+  $--y-9,
+  $--y-10,
+);
+.supernovas-loader {
+  position: relative;
+  --cell-size: 10px;
+  --cell-spacing: 1px;
+  --border-width: 1px;
+  --cells: 11;
+  --total-size: calc(var(--cells) * (var(--cell-size) + 2 * var(--cell-spacing)));
+  
+  display: flex;
+  flex-wrap: wrap;
+  width: var(--total-size);
+  height: var(--total-size);
+  
+  .cell {
+    --cell-color: white;
+    flex: 0 0 var(--cell-size);
+    margin: var(--cell-spacing);
+    background-color: transparent;
+    box-sizing: border-box;
+    animation: 1.5s ripple ease infinite;
+    $delays: (2 * 10) - 2;
+    font-size: 16px;
+    @for $i from 1 through $delays {
+      &.d-#{$i} {
+        animation-delay: $i * 100ms;
+      }
+    }
+    @for $i from 1 through length($colors) {
+      &:nth-child(#{$i}) {
+        --cell-color: #{nth($colors, $i)};
+      }
+    }
+  }
+}
+
+@keyframes ripple {
+  0% {
+    color: transparent;
+  }
+  
+  30% {
+    color: var(--cell-color);
+  }
+  
+  60% {
+    color: transparent;
+  }
+  
+  100% {
+    color: transparent;
+  }
+}

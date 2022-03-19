@@ -2,7 +2,7 @@
   <!-- Top Bar -->
   <div *ngIf="!this.globalVars.isMobile()">
     <div
-      class="global__top-bar global__top-bar__height topbar-update-profile d-flex align-items-center pl-15px fs-18px border-bottom border-color-grey max-width-profile"
+      class="global__top-bar topbar-update-profile d-flex align-items-center pl-15px fs-18px border-bottom border-color-grey max-width-profile"
       *ngIf="!this.globalVars.loggedInUser?.CanCreateProfile"
     >
       <p class="font-weight-bold" *ngIf="!globalVars.loggedInUser?.ProfileEntryResponse?.Username">
@@ -13,7 +13,7 @@
 
   <div *ngIf="this.globalVars.isMobile()">
     <div
-      class="global__top-bar global__top-bar__height topbar-update-profile d-flex align-items-center pl-15px fs-18px max-width-profile"
+      class="global__top-bar topbar-update-profile d-flex align-items-center pl-15px fs-18px max-width-profile"
       *ngIf="!this.globalVars.loggedInUser?.CanCreateProfile"
     >
       <p
@@ -27,7 +27,9 @@
 
 
   <div class="global__top-bar__height" *ngIf="!this.globalVars.loggedInUser?.CanCreateProfile"></div>
-  <div class="global__top-bar__height" *ngIf="globalVars.isMobile()"></div>
+  <div class="" *ngIf="globalVars.isMobile()">
+    
+  </div>
 
   <div
     *ngIf="inTutorial"
@@ -161,7 +163,7 @@
             <input
               maxlength="30"
               placeholder="Your full name or artist name."
-              value="{{ this.profileData?.name ? this.profileData?.name : '' }}"
+              value="{{ this.profileData?.Name ? this.profileData?.Name : '' }}"
               [(ngModel)]="this.name"
               class="update-profile-input update-profile-input-oneliner-height fs-15px lh-18px p-10px"
             />
@@ -290,7 +292,7 @@
                 class="social-input-inner"
                 type="text"
                 placeholder="Your Twitter username without the '@'' sign"
-                value="{{ this.profileData?.twitter ? this.profileData?.twitter : '' }}"
+                value="{{ this.profileData?.Twitter ? this.profileData?.Twitter : '' }}"
                 [(ngModel)]="this.twitter"
               />
             </div>
@@ -304,7 +306,7 @@
                 class="social-input-inner"
                 type="text"
                 placeholder="Your instagram username without the '@'' sign"
-                value="{{ this.profileData?.instagram ? this.profileData?.instagram : '' }}"
+                value="{{ this.profileData?.Instagram ? this.profileData?.Instagram : '' }}"
                 [(ngModel)]="this.instagram"
               />
             </div>
@@ -318,7 +320,7 @@
                 class="social-input-inner"
                 type="text"
                 placeholder="The ID in your Discord server invite link"
-                value="{{ this.profileData?.discord ? this.profileData?.discord : '' }}"
+                value="{{ this.profileData?.Discord ? this.profileData?.Discord : '' }}"
                 [(ngModel)]="this.discord"
               />
             </div>
@@ -332,11 +334,10 @@
                 class="social-input-inner"
                 type="text"
                 placeholder="Your website URL"
-                value="{{ this.profileData?.website ? this.profileData.website : '' }}"
+                value="{{ this.profileData?.Website ? this.profileData.Website : '' }}"
                 [(ngModel)]="this.website"
               />
             </div>
-            <p>{{ this.profileData?.creator }}</p>
           </div>
           <button
             *ngIf="!globalVars.loggedInUser.JumioFinishedTime"

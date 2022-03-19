@@ -1,18 +1,16 @@
 <div class="tab-selector-wrapper disable-scrollbars">
   <div class="tab-round-box cursor-pointer">
-    <div *ngFor="let tab of tabs" (click)="_tabClicked(tab)" class="tabs_column_list_inner">
+    <div *ngFor="let tab of tabs; let i = index" (click)="_tabClicked(tab)" class="tabs_column_list_inner">
       <div
-        (mouseover)="hoverEffect = true"
-        (mouseout)="hoverEffect = false"
-        class="d-flex align-items-center h-100 fs-15px pr-35px pl-35px"
+        class="d-flex align-items-center h-100 fs-15px pr-35px pl-35px tab-selector-button"
         [ngClass]="{
           'fc-default': tab == this.activeTab,
           'tab-selector-box-active': tab == this.activeTab,
-          'fc-muted': tab != this.activeTab
+          'tab-selector-box-inactive': tab != this.activeTab
         }"
       >
+        <img *ngIf="icons" [src]="icons[i]" class="mr-5px" alt="tab icon" />
         {{ tab }}
-        <!--<div *ngIf="_isGlobal(tab)" class="bitclout-com">BITCLOUT.COM</div>-->
       </div>
     </div>
   </div>

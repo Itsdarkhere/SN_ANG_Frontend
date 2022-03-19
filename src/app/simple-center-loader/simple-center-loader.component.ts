@@ -1,4 +1,4 @@
-import { ApplicationRef, ChangeDetectorRef, Component, OnInit, Input, ViewEncapsulation } from "@angular/core";
+import { Component, Input } from "@angular/core";
 
 @Component({
   selector: "simple-center-loader",

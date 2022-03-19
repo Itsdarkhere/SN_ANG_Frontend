@@ -68,6 +68,9 @@ job "supernovas-frontend" {
     header Content-Security-Policy "
       default-src 'self';
       connect-src 'self'
+        https://link.ropsten.x.immutable.com:*
+        https://api.ropsten.x.immutable.com:*
+        https://eth-ropsten.alchemyapi.io:*
         supernovas.app:*
         node.deso.org
         https://supernovas.app
@@ -79,6 +82,7 @@ job "supernovas-frontend" {
         api.deso.org deso.org:*
         bithunt.bitclout.com
         pulse.bitclout.com
+        data:
         explorer.bitclout.com:*
         https://node1.bundlr.network
         https://api.blockchain.com/ticker
@@ -86,12 +90,17 @@ job "supernovas-frontend" {
         https://ka-f.fontawesome.com/
         https://firestore.googleapis.com
         https://firebasestorage.googleapis.com
+        https://assets9.lottiefiles.com/packages/lf20_mioxwxa4.json
         bitcoinfees.earn.com
         api.blockcypher.com 
         amp.bitclout.com
         pay.testwyre.com
         pay.sendwyre.com
+        *.mixpanel.com
+        cdn.mxpnl.com
         https://videodelivery.net
+        https://assets5.lottiefiles.com/packages/lf20_fbmcwfmt.json
+        https://assets6.lottiefiles.com/packages/lf20_u3kvgiiw.json
         https://upload.videodelivery.net;
       script-src 
         'unsafe-eval'
@@ -101,10 +110,9 @@ job "supernovas-frontend" {
         https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js
         https://supernovas.app
         https://supernovas.app:*
-        https://google-analytics.com 
-        https://ssl.google-analytics.com
+        https://cdn.mxpnl.com
+        https://cdn4.mxpnl.com
         https://diffuser-cdn.app-us1.com/diffuser/diffuser.js
-        https://www.googletagmanager.com
         https://bitclout.com/tags.js
         https://firestore.googleapis.com
         https://firebasestorage.googleapis.com
@@ -113,17 +121,19 @@ job "supernovas-frontend" {
         https://ka-f.fontawesome.com/;
       style-src 'self' 'unsafe-inline' 
         https://fonts.googleapis.com
+        https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css
         https://unpkg.com/flickity@2/dist/flickity.min.css;
       media-src 'self'
         https://arweave.net
         https://*.arweave.net;
       img-src 'self' data: 
+        https://supernovas.app:*
         https://ik.imagekit.io
         https://i.imgur.com
         https://google-analytics.com
         https://images.deso.org 
         https://images.bitclout.com 
-        https://arweave.net
+        https://arweave.net:*
         https://*.arweave.net
         https://cloudflare-ipfs.com
         https://quickchart.io;

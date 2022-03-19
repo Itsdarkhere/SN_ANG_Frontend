@@ -1,0 +1,45 @@
+<div class="deposit-eth-wrapper d-flex flex-column flex-center-start h-100">
+  <div class="deposit-eth-icon-container">
+    <img
+      class="eth-logo-deposit-icon d-flex flex-row flex-center"
+      src="/assets/eth/ethlogo.svg"
+      alt="eth-logo"
+      name="eth-logo-deposit-icon"
+    />
+    <img
+      class="imx-logo-deposit-icon d-flex flex-row flex-center"
+      src="/assets/eth/imxlogo.svg"
+      alt="imx-logo"
+      name="imx-logo-deposit-icon"
+    />
+  </div>
+  <p class="deposit-eth-description">Deposit Ethereum to Immutable X to mint and trade NFT's.</p>
+  <div class="deposit-eth-container">
+    <label for="ethDepositAmount" class="deposit-eth-label">ETH TO DEPOSIT TO IMMUTABLE X</label>
+    <div class="position-relative d-flex flex-row flex-start deposit-eth-min-price mt-10px">
+      <input
+        matInput
+        type="number"
+        placeholder="0"
+        class="pl-10px color-text font-weight-bold flex-center pr-10px deposit-eth-min-price-input m-0px h-100"
+        id="ethDepositAmount"
+      />
+      <button class="deposit-eth-min-price-label h-100 w-40 fs-23-responsive pt-5px">
+        <img
+          class="eth-logo-deposit-button d-flex flex-row flex-center"
+          src="/assets/eth/ethlogo-white.svg"
+          alt="eth-logo"
+          name="eth-logo-white"
+        />
+        <label class="mb-0px eth-deposit-text">ETH</label>
+      </button>
+    </div>
+  </div>
+  <button class="imx-deposit-button" (click)="depositButtonClicked()">
+    <div class="deposit-eth-text">Deposit ETH to Immutable X</div>
+  </button>
+  <a class="support-container">
+    <img src="/assets/eth/support-arrow.svg" alt="support-arrow" class="support-arrow" />
+    <p class="support-text">Need help? Contact our support</p>
+  </a>
+</div>

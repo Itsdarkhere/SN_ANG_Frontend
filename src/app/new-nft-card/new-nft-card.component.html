@@ -24,6 +24,7 @@
     <div *ngIf="showThreadConnectionLine" class="feed-post__parent-thread-connector"></div>
   </div>
   <h6
+    class="cursor-pointer"
     [routerLink]="['/' + globalVars.RouteNames.USER_PREFIX, postContent.ProfileEntryResponse.Username]"
     queryParamsHandling="merge"
   >
@@ -42,6 +43,8 @@
     (togglePostPin)="_pinPostToGlobalFeed($event)"
   ></feed-post-dropdown>
 </div>
+
+<!-- Other card states start here (?) -->
 <div
   class="single-card br-30px"
   [ngClass]="{
@@ -66,6 +69,8 @@
         This post was removed by the author.
       </a>
     </div>
+
+    <!-- Posts are burned -->
     <div
       *ngIf="allCopiesBurned()"
       class="p-15px background-color-grey d-flex align-items-center justify-content-center fs-15px"
@@ -79,6 +84,7 @@
         All copies of the NFT have been burned...
       </a>
     </div>
+
     <div
       *ngIf="globalVars.hasUserBlockedCreator(post.PosterPublicKeyBase58Check)"
       class="p-15px background-color-grey d-flex align-items-center justify-content-center fs-15px"
@@ -97,6 +103,7 @@
         blocked. Click here to visit their profile to unblock them.
       </a>
     </div>
+
     <div
       *ngIf="
         !post.IsHidden &&
@@ -107,11 +114,13 @@
       class="d-flex flex-column js-feed-post position-relative"
       [ngStyle]="{ 'border-radius': setBorder ? '18px 18px 0 0' : '' }"
     >
+      <!-- FYI this a tag is huge -->
       <a
         (click)="onPostClicked($event)"
         class="link--unstyled"
         [ngClass]="{ 'cursor-inherit': !contentShouldLinkToThread }"
       >
+        <!-- Not sure what this does -->
         <div
           *ngIf="showReplyingTo && post.ParentStakeID != ''"
           class="pl-15px pt-5px align-items-center"
@@ -125,6 +134,8 @@
             replying to {{ post.ParentPosts[0].ProfileEntryResponse.Username }}
           </a>
         </div>
+
+        <!-- Post is hidden -->
         <div
           *ngIf="postContent.IsHidden"
           class="p-10px background-color-grey d-flex align-items-center justify-content-center fs-15px"
@@ -145,13 +156,18 @@
             The original post was removed by its author.
           </a>
         </div>
+
+        <!-- FYI this is also huge -->
         <!--This is a plain card, for collections and marketplace-->
         <div class="card-body">
           <div class="caption-cover" [class.auto-h]="profileFeed" *ngIf="quotedContent?.IsNFT && profileFeed">
             <p [ngClass]="quotedContent ? 'pt-10px' : ''" [innerHTML]="postContent.Body | sanitizeAndAutoLink"></p>
           </div>
+
+          <!-- Audio and video NFT stuff, add 3D here? -->
           <ng-container>
             <div class="img-cover position-relative" [ngClass]="{ 'change-height-img-cover': isQuotedCard }">
+              <!-- Audio starts here -->
               <div
                 *ngIf="postContent?.PostExtraData?.arweaveAudioSrc"
                 class="card-audio-icon-container pointer-events-none d-flex flex-center top-br-30px"
@@ -163,23 +179,24 @@
                   src="/assets/icons/music-type-white.svg"
                   alt="icon"
                 />
-                <div
-                  *ngIf="!showAudioTypeIcon"
-                  [@audioIconHover]
-                  class="audio-icon-hover-state d-flex flex-row flex-center font-weight-semiboldn"
-                >
+                <div *ngIf="!showAudioTypeIcon" [@audioIconHover] class="audio-icon-hover-state">
                   <img class="mr-5px" src="/assets/icons/audio-play-small.svg" alt="audio icon small" />
                   <p>PLAY AUDIO</p>
                 </div>
               </div>
+
               <img
                 class="card-img"
+                id="nft-card-image"
+                (error)="useNormalImage()"
                 (mouseenter)="activateOnHoverAudio(false)"
                 (mouseleave)="activateOnHoverAudio(true)"
                 *ngIf="postContent.ImageURLs && postContent?.ImageURLs[0] && !post.ParentStakeID"
                 data-toggle="modal"
-                src="{{ mapImageURLs(postContent.ImageURLs[0]) }}"
+                src="{{ imageURL }}"
               />
+
+              <!-- Video starts here -->
               <div
                 class="w-100 h-100 overflow-hidden top-br-30px background-secondary position-relative d-flex flex-center"
                 *ngIf="!postContent.ImageURLs && postContent.PostExtraData.arweaveVideoSrc && !post.ParentStakeID"
@@ -200,6 +217,7 @@
                   src="{{ postContent.PostExtraData.arweaveVideoSrc + '#t=0.001' }}"
                 ></video>
               </div>
+
               <div
                 *ngIf="
                   postContent.VideoURLs &&
@@ -210,7 +228,6 @@
                 class="w-100 h-100 background-secondary position-relative d-flex flex-center"
               >
                 <iframe
-                  *ngIf="!postContent.PostExtraData.arweaveVideoSrc"
                   [src]="postContent.VideoURLs[0] | sanitizeVideoUrl"
                   allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                   allowfullscreen
@@ -234,8 +251,23 @@
                   allowfullscreen
                 ></iframe>
               </div>
+              <div
+                class="w-100 h-100 background-secondary text-nft-container p-20px"
+                *ngIf="
+                  !constructedEmbedURL &&
+                  !postContent.VideoURLs &&
+                  !postContent.ImageURLs &&
+                  !postContent.PostExtraData.arweaveVideoSrc
+                "
+              >
+                <div class="disable-scrollbars">{{ postContent.Body }}</div>
+              </div>
+
+              <!-- Add 3D here? -->
             </div>
           </ng-container>
+
+          <!-- For reposts? -->
           <ng-container *ngIf="quotedContent?.IsNFT && profileFeed">
             <div class="w-100 position-relative overflow-hidden d-flex flex-center p-20px border">
               <object data="/assets/img/nft-background.svg" class="nft-background" type="image/svg+xml"></object>
@@ -255,6 +287,7 @@
               ></new-nft-card>
             </div>
           </ng-container>
+
           <ng-container *ngIf="!quotedContent?.IsNFT && profileFeed">
             <feed-post
               *ngIf="quotedContent && showQuotedContent"
@@ -270,6 +303,8 @@
               [cardStyle]="true"
             ></feed-post>
           </ng-container>
+
+          <!-- Not sure what this is for -->
           <div class="caption-cover" *ngIf="!(quotedContent?.IsNFT && profileFeed)">
             <p *ngIf="postContent.PostExtraData?.name" class="font-weight-semibold fs-20px-im pt-5px">
               {{ postContent.PostExtraData?.name }}
@@ -307,14 +342,16 @@
               </div>
             </div>
           </div>
+
+          <!-- Bid information -->
           <div
             class="bid-cover flex-wrap"
             [ngClass]="showPlaceABid || forSale() ? 'colors-not-sold' : 'colors-sold'"
-            *ngIf="showNFTDetails && postContent.IsNFT && !pending"
+            *ngIf="showNFTDetails && postContent.IsNFT && !pending && !postContent.PostExtraData.isEthereumNFT"
           >
             <div class="bid-row">
               <div class="d-flex justify-content-space-between bid_inner_row">
-                <ng-container>
+                <ng-container *ngIf="!isBuyNow">
                   <div class="bid-col">
                     <p class="p-lighter">
                       {{
@@ -335,7 +372,18 @@
                     </div>
                   </div>
                 </ng-container>
-                <ng-container>
+                <ng-container *ngIf="isBuyNow">
+                  <div class="bid-col">
+                    <p class="p-lighter">Price</p>
+                    <div class="d-flex flex-row overflow-hidden">
+                      <p class="font-weight-semiboldn overflow-ellipsis-price-50-percent">
+                        {{ globalVars.nanosToDeSo(buyNowPriceNanos, 5) }}
+                      </p>
+                      <p class="font-weight-semiboldn">DESO</p>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="!isBuyNow">
                   <div class="bid-col">
                     <p class="p-lighter">Edition of</p>
                     <!-- <p class="font-weight-bold">{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} </p> -->
@@ -350,13 +398,23 @@
                     </p>
                   </div>
                 </ng-container>
+                <ng-container *ngIf="isBuyNow">
+                  <div class="bid-buy-now">
+                    <button class="nft-card-buy-now-button">
+                      <img src="/assets/icons/buy_now_card_icon.svg" alt="lightning" />
+                      Buy Now
+                    </button>
+                  </div>
+                </ng-container>
               </div>
             </div>
           </div>
+
+          <!-- Not sure what this is for, more bid stuff (?) -->
           <div
             class="bid-cover flex-row justify-content-space-between"
             [ngClass]="!showPlaceABid || pending ? 'colors-sold' : 'colors-not-sold'"
-            *ngIf="showNFTDetails && postContent.IsNFT && pending"
+            *ngIf="showNFTDetails && postContent.IsNFT && pending && !postContent.PostExtraData.isEthereumNFT"
           >
             <ng-container>
               <div class="bid-col">
@@ -367,9 +425,83 @@
             </ng-container>
             <button class="accept-transfer" (click)="openAcceptModal($event)">Accept transfer</button>
           </div>
+          <!-- is ethereum nft and is for sale-->
+          <div
+            class="bid-cover colors-not-sold is-ethereum-nft"
+            *ngIf="postContent.PostExtraData.isEthereumNFT && this.isEthereumNFTForSale"
+          >
+            <div class="bid-row">
+              <div class="d-flex justify-content-space-between bid_inner_row">
+                <ng-container>
+                  <div class="bid-col">
+                    <p class="p-lighter eth-price-text-align-left">Price</p>
+                    <div class="d-flex flex-row overflow-hidden">
+                      <p class="font-weight-semiboldn overflow-ellipsis-price-50-percent">
+                        {{ ethereumNFTSalePrice }}
+                      </p>
+                      <p class="font-weight-semiboldn">ETH</p>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-container>
+                  <div class="bid-col-buy-now">
+                    <button class="nft-card-buy-now-button">
+                      <img src="/assets/icons/buy_now_card_icon.svg" alt="lightning" />
+                      Buy Now
+                    </button>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <!-- is ethereum nft and not for sale-->
+          <div
+            class="bid-cover eth-nft-not-for-sale-container is-ethereum-nft-not-for-sale"
+            *ngIf="postContent.PostExtraData.isEthereumNFT && !this.isEthereumNFTForSale"
+          >
+            <p class="eth-nft-not-for-sale-text">OWNER</p>
+            <!-- DESO profile has eth wallet -->
+            <div class="d-flex flex-row eth-nft-not-for-sale-owner-container" *ngIf="this.isEthOwner">
+              <div class="card-header p-0px" style="border-bottom: 0px">
+                <div class="profile-img">
+                  <a
+                    [avatar]="postContent.PosterPublicKeyBase58Check"
+                    [routerLink]="[
+                      '/' + globalVars.RouteNames.USER_PREFIX,
+                      loadProfile ? this.creatorProfile?.Username : postContent.ProfileEntryResponse?.Username
+                    ]"
+                    queryParamsHandling="merge"
+                  ></a>
+                  <div *ngIf="showThreadConnectionLine" class="feed-post__parent-thread-connector"></div>
+                </div>
+              </div>
+              <div class="d-flex flex-column">
+                <a
+                  class="username-nft-card font-weight-bold"
+                  [routerLink]="[
+                    '/' + globalVars.RouteNames.USER_PREFIX,
+                    loadProfile ? this.creatorProfile?.Username : postContent.ProfileEntryResponse?.Username
+                  ]"
+                >
+                  {{ loadProfile ? this.creatorProfile?.Username : postContent.ProfileEntryResponse?.Username }}
+                  <i
+                    *ngIf="loadProfile ? this.creatorProfile?.IsVerified : postContent.ProfileEntryResponse?.IsVerified"
+                    class="fas fa-check-circle pl-5px fa-md text-primary"
+                  ></i>
+                </a>
+              </div>
+            </div>
+            <!-- DESO profile does not have eth wallet -->
+            <div class="d-flex flex-row eth-nft-not-for-sale-owner-container" *ngIf="!this.isEthOwner">
+              <div class="d-flex flex-column">
+                <p class="eth-nft-not-for-sale-owner-text">{{ ethPublicKeyNoDesoProfile }}</p>
+              </div>
+            </div>
+          </div>
           <div *ngIf="!showInteractionDetails" class="card-footer">
             <!-- Like, Comment, Reclout, Share Buttons -->
           </div>
+
           <div class="w-80 footer-icons-container">
             <feed-post-icon-row
               *ngIf="showIconRow"
@@ -381,7 +513,9 @@
             ></feed-post-icon-row>
           </div>
         </div>
+        <!-- This is the end of the huge a tag -->
       </a>
+
       <!--
       This HTML is used on the main post in a thread in order to show detailed info
       about the interactions with that thread.  TODO: We should probably break the
@@ -413,6 +547,7 @@
               </span>
             </div>
           </div>
+
           <!-- MOBILE -->
           <div
             class="row no-gutters d-lg-none py-10px fs-15px border-top border-bottom border-color-light-grey cursor-pointer"
@@ -438,6 +573,7 @@
           </div>
         </div>
       </div>
+
       <div
         *ngIf="showInteractionDetails"
         class="feed-post__container d-flex justify-content-left w-100"

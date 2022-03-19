@@ -1,0 +1,92 @@
+.top-bid-card-container {
+    padding: 2rem 1rem;
+    display: flex;  
+    gap: 10px; 
+    height: fit-content;
+    width: fit-content;
+    min-width: 400px;
+    max-width: 500px;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+
+    .top-bid-card-piece-section {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+
+        img {
+            height: 40px;
+            width: 40px;
+            object-fit: cover;
+        }
+
+        p {
+            color: #BBBBBB;
+            font-size: 0.7rem;
+        }
+    }
+
+    .top-bid-card-bid-section {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+
+        .deso-price {
+            color: #2C2C2C;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .dollar-price {
+            color: #9D9D9D;
+            font-size: 0.8rem;
+        }
+    }
+
+    .top-bid-card-created-by-section {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+
+        .creator-info {
+            display: flex;
+
+            .bidder-avatar {
+                height: 30px;
+                width: 30px;
+                border-radius: 50%;
+                box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+            p {
+                padding: 0 10px;
+                font-size: 0.8rem;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+        }
+    }
+
+    h4 {
+        padding-bottom: 10px;
+        color: #7a7a7a;
+        font-size: 0.8rem;
+        font-weight: 500;
+        letter-spacing: 0.03rem;
+        text-transform: uppercase;
+    }
+}

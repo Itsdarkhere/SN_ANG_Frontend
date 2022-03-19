@@ -1,0 +1,39 @@
+<div class="nft-edition-select position-relative" dropdown #dropdown="bs-dropdown">
+  <div
+    class="fs-14px fc-default px-5px cursor-pointer nft-edition-selector change-account-selector__hover"
+    [ngClass]="{ 'change-account-selector__shadow': selectorOpen }"
+    dropdownToggle
+    id="changeAccountButton"
+    aria-controls="dropdown-basic"
+  >
+    <!-- Selector (unopened state) -->
+    <div class="w-100 d-flex flex-center justify-content-between pl-5px pr-5px">
+      <div class="change-account-selector__ellipsis-restriction d-flex flex-row align-items-center cursor-pointer">
+        <span class="fs-14px">{{ editionNumber }} of {{ nftEntryResponses?.length }}</span>
+      </div>
+      <i class="fas fa-angle-down change-account-selector__down-arrow"></i>
+    </div>
+  </div>
+  <!-- Drop-down (open state) -->
+  <div
+    class="fs-14px fc-default px-5px cursor-pointer nft-edition-selector-list br-4px dropdown-menu"
+    id="dropdown-basic"
+    *dropdownMenu
+    aria-labelledby="changeAccountButton"
+  >
+    <div *ngFor="let nftEntry of nftEntryResponses; let rowNum = index">
+      <div
+        (mouseover)="hoverRow = rowNum"
+        (click)="_switchToEdition(nftEntry.SerialNumber)"
+        class="change-account-selector_list__inner pt-10px pb-10px pl-10px pr-10px d-flex align-items-center"
+      >
+        <span *ngIf="nftEntry.IsForSale" class="fs-12px nft-edition-list-item">
+          Edition {{ nftEntry.SerialNumber }} | For Sale
+        </span>
+        <span *ngIf="!nftEntry.IsForSale" class="fs-12px nft-edition-list-item-sold">
+          Edition {{ nftEntry.SerialNumber }} | For Sale
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

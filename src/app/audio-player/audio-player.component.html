@@ -15,6 +15,7 @@
       <p class="font-weight-bold" style="color: #808080">@{{ creator }}</p>
     </div>
     <button class="amplitude-play-pause p-0px border audio-play-button">
+      <!-- Can we get rid of this? -->
       <!--<img src="/assets/icons/audio-play-icon.svg" alt="play-icon" />-->
     </button>
     <div class="w-30 d-flex flex-center" id="volume-container">
@@ -25,7 +26,7 @@
         id="volume-slider"
         class="amplitude-volume-slider p-0px border-none"
         (input)="volumeColor()"
-        step=".1"
+        (change)="setVolume($event)"
       />
     </div>
   </div>

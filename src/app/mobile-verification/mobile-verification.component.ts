@@ -4,12 +4,12 @@ import { CountryISO } from "ngx-intl-tel-input";
 import { GlobalVarsService } from "../global-vars.service";
 import { BackendApiService } from "../backend-api.service";
 import { MessagesInboxComponent } from "../messages-page/messages-inbox/messages-inbox.component";
-import { animate, style, transition, trigger } from "@angular/animations";
+import { MixpanelService } from "../mixpanel.service";
 
 import { IdentityService } from "../identity.service";
 
 import { ActivatedRoute, Router } from "@angular/router";
-import { AppRoutingModule, RouteNames } from "../app-routing.module";
+import { RouteNames } from "../app-routing.module";
 
 @Component({
   selector: "app-mobile-verification",
@@ -77,6 +77,7 @@ export class MobileVerificationComponent implements OnInit {
     private backendApi: BackendApiService,
     private identityService: IdentityService,
     private route: ActivatedRoute,
+    private mixPanel: MixpanelService,
     private router: Router
   ) {}
 
@@ -101,7 +102,18 @@ export class MobileVerificationComponent implements OnInit {
       this.globalVars.wantToVerifyPhone = true;
     } else {
       this.globalVars.wantToVerifyPhone = false;
+
+      //   //   close nav bar because it will open on mobile
+      //   if (this.globalVars.isMobileIphone()) {
+      //     this.globalVars.closeLeftBarMobile();
+      //   }
+      //   console.log(
+      //     ` ----------------------- this.globalVars.wantToVerifyPhone ${this.globalVars.wantToVerifyPhone} ----------------------- `
+      //   );
+
+      //   this.router.navigate([RouteNames.COMPLETE_PROFILE]);
     }
+
     this.nextStep.emit();
   }
 
@@ -290,7 +302,7 @@ export class MobileVerificationComponent implements OnInit {
   completeVerificationButtonClicked() {
     //   close nav bar because it will open on mobile
     if (this.globalVars.isMobileIphone()) {
-      this.globalVars.isLeftBarMobileOpen = false;
+      this.globalVars.closeLeftBarMobile();
     }
 
     this.router.navigate([RouteNames.COMPLETE_PROFILE]);
@@ -323,6 +335,7 @@ export class MobileVerificationComponent implements OnInit {
 
   updateWantToVerifyPhoneClicked() {
     this.wantToVerifyPhoneClicked = false;
+    this.mixPanel.track27("Verify phone clicked");
   }
 
   phoneInputClickedBlackBorder() {

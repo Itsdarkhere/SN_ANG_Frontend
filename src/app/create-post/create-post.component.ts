@@ -7,6 +7,7 @@ import { CdkTextareaAutosize } from "@angular/cdk/text-field";
 import { EmbedUrlParserService } from "../../lib/services/embed-url-parser-service/embed-url-parser-service";
 import { environment } from "../../environments/environment";
 import { MatDialogRef } from "@angular/material/dialog";
+import { MixpanelService } from "../mixpanel.service";
 
 @Component({
   selector: "app-create-post",
@@ -111,6 +112,7 @@ export class CreatePostComponent implements OnInit {
     private backendApi: BackendApiService,
     private changeRef: ChangeDetectorRef,
     private appData: GlobalVarsService,
+    private mixPanel: MixpanelService,
     private diaref: MatDialogRef<CreatePostComponent>
   ) {
     this.globalVars = appData;
@@ -273,6 +275,7 @@ export class CreatePostComponent implements OnInit {
 
     // The user has an account and a profile. Let's create a post.
     this.submitPost();
+    this.mixPanel.track12("Submit Post");
   }
 
   _handleFilesInput(files: FileList) {

@@ -8,7 +8,6 @@ import { Title } from "@angular/platform-browser";
 import { environment } from "src/environments/environment";
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from "@angular/fire/storage";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { TransactionalEmailService } from "src/app/transactional-email.service";
 import { Observable } from "rxjs";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { GeneralSuccessModalComponent } from "../../general-success-modal/general-success-modal.component";
@@ -92,7 +91,6 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     private backendApi: BackendApiService,
     private router: Router,
     private titleService: Title,
-    private emailService: TransactionalEmailService,
     private modalService: BsModalService
   ) {}
 
@@ -102,12 +100,6 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     this.getOnlyProfileSocials();
     this.loadBannerImage();
     this._getUserMetadata();
-    if (
-      this.globalVars?.loggedInUser?.PublicKeyBase58Check === "BC1YLiiQ36NSLSK2bpLqi4PsP85mzBaKRTLxBAoTdNELohuRdrSMX9w"
-    ) {
-      console.log("Sending email");
-      this.emailService.SendInactiveUserEmail("Valtteri", "link", "valtteri@supernovas.app");
-    }
   }
 
   _getUserMetadata() {
@@ -375,6 +367,7 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
         header: "You're all set!",
         text: "Your profile has been updated.",
         buttonText: "Go to my profile",
+        buttonClickedAction: "profileRoute",
       },
     });
   }
@@ -422,11 +415,16 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     }, 2500);
   }
   getOnlyProfileSocials() {
-    return this.firestore
-      .collection("profile-details")
-      .doc(this.globalVars.loggedInUser?.PublicKeyBase58Check)
-      .valueChanges()
-      .subscribe((res) => (this.profileData = res));
+    this.backendApi
+      .GetPGProfileDetails(this.globalVars.localNode, this.globalVars.loggedInUser?.PublicKeyBase58Check)
+      .subscribe(
+        (res) => {
+          this.profileData = res;
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
   }
   async loadBannerImage() {
     try {
@@ -472,32 +470,51 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
 
   updateSocials() {
     if (this.profileData) {
-      return new Promise<any>((resolve, reject) => {
-        this.firestore
-          .collection("profile-details")
-          .doc(this.globalVars.loggedInUser?.PublicKeyBase58Check)
-          .set({
-            twitter: typeof this.twitter === "undefined" ? this.profileData.twitter : this.twitter,
-            website: typeof this.website === "undefined" ? this.profileData.website : this.website,
-            discord: typeof this.discord === "undefined" ? this.profileData.discord : this.discord,
-            instagram: typeof this.instagram === "undefined" ? this.profileData.instagram : this.instagram,
-            name: typeof this.name === "undefined" ? this.profileData.name : this.name,
-            photoLocation: this.photoLocation != "" ? this.photoLocation : this.profileData.photoLocation,
-            collector: this.profileData?.collector ? this.profileData?.collector : "",
-            creator: this.profileData?.creator ? this.profileData?.creator : "",
-          })
-          .then(
-            (res) => {
-              console.log(res);
-              console.log(this.photoLocation);
-            },
-            (err) => reject(err)
-          );
-      });
+      return this.backendApi
+        .InsertOrUpdateProfileDetails(
+          this.globalVars.localNode,
+          this.globalVars.loggedInUser.PublicKeyBase58Check,
+          typeof this.twitter === "undefined" ? this.profileData.Twitter : this.twitter,
+          typeof this.website === "undefined" ? this.profileData.Website : this.website,
+          typeof this.discord === "undefined" ? this.profileData.Discord : this.discord,
+          typeof this.instagram === "undefined" ? this.profileData.Instagram : this.instagram,
+          typeof this.name === "undefined" ? this.profileData.Name : this.name
+        )
+        .subscribe(
+          (res) => {
+            console.log(res);
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
     }
-
     // This should only happen on the very first update of profile
-    return new Promise<any>((resolve, reject) => {
+    return this.backendApi
+      .InsertOrUpdateProfileDetails(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        typeof this.twitter === "undefined" ? "" : this.twitter,
+        typeof this.website === "undefined" ? "" : this.website,
+        typeof this.discord === "undefined" ? "" : this.discord,
+        typeof this.instagram === "undefined" ? "" : this.instagram,
+        typeof this.name === "undefined" ? "" : this.name
+      )
+      .subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+  }
+  /*
+  When we used firebase this is how it worked
+   
+  to be clear that how the lower one worked
+
+  return new Promise<any>((resolve, reject) => {
       this.firestore
         .collection("profile-details")
         .doc(this.globalVars.loggedInUser?.PublicKeyBase58Check)
@@ -516,7 +533,8 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
           (err) => reject(err)
         );
     });
-  }
+  
+  */
   _resetImage() {
     this.profilePicInput = "";
   }

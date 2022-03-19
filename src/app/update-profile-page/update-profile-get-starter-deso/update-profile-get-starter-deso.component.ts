@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { GlobalVarsService } from "../../global-vars.service";
 import { RouteNames } from "../../app-routing.module";
-import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 
 @Component({
   selector: "update-profile-get-starter-deso",
@@ -11,15 +10,11 @@ import { GoogleAnalyticsService } from "src/app/google-analytics.service";
 export class UpdateProfileGetStarterDeSoComponent {
   RouteNames = RouteNames;
 
-  constructor(public globalVars: GlobalVarsService, private analyticsService: GoogleAnalyticsService) {}
+  constructor(public globalVars: GlobalVarsService) {}
 
   // rounded to nearest integer
-  ngOnInit() {
-    this.SendCreateProfileVisitEvent();
-  }
-  SendCreateProfileVisitEvent() {
-    this.analyticsService.eventEmitter("create_profile_visit", "usage", "activity", "event", 10);
-  }
+  ngOnInit() {}
+
   minPurchaseAmountInUsdRoundedUp() {
     const satoshisPerBitcoin = 1e8;
     let minimumInBitcoin = this.globalVars.minSatoshisBurnedForProfileCreation / satoshisPerBitcoin;

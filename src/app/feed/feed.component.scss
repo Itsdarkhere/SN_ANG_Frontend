@@ -1,5 +1,6 @@
 :host ::ng-deep {
     .feed_tabs {
+        width: 100%;
         .tabs_column_list {
             width: 33.33% !important;
             align-items: flex-start !important;
@@ -12,10 +13,6 @@
             }
         }
     }
-}
-.feed-tb-wrapper {
-    max-width: 450px;
-    width: 100%;
 }
 .feed-post-shadow {
     box-shadow: 0.9343936443328857px 0.9343936443328857px 30px rgba(0, 0, 0, 0.05);

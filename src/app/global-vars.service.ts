@@ -172,6 +172,7 @@ export class GlobalVarsService {
   feeRateDeSoPerKB = 1000 / 1e9;
   postsToShow = [];
   followFeedPosts = [];
+  hotFeedPosts = [];
   // Marketplace is loading / filtering
   isMarketplaceLoading = false;
   isEthMarketplaceLoading = false;
@@ -1407,9 +1408,6 @@ export class GlobalVarsService {
     if (bsModalRef) {
       bsModalRef.hide();
     }
-    this.router.navigate(["/" + this.RouteNames.BROWSE], {
-      queryParams: { feedTab: FeedComponent.SHOWCASE_TAB },
-    });
   }
 
   resentVerifyEmail = false;

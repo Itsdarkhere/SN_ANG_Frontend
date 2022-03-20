@@ -17,7 +17,7 @@ import { MixpanelService } from "../mixpanel.service";
 export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   static GLOBAL_TAB = "Supernovas Feed";
   static FOLLOWING_TAB = "Following";
-  static SHOWCASE_TAB = "⚡ NFT Showcase ⚡";
+  static HOT_TAB = "Hot";
   static TABS = [FeedComponent.GLOBAL_TAB, FeedComponent.FOLLOWING_TAB];
   static NUM_TO_FETCH = 30;
   static MIN_FOLLOWING_TO_SHOW_FOLLOW_FEED_BY_DEFAULT = 10;
@@ -31,6 +31,8 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   FeedComponent = FeedComponent;
   switchingTabs = false;
 
+  hotFeedPostHashes = [];
+
   nextNFTShowcaseTime;
 
   followedPublicKeyToProfileEntry = {};
@@ -40,6 +42,9 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   // We load the first batch of global feed posts on page load
   loadingFirstBatchOfGlobalFeedPosts = false;
+
+  // We load the first batch of follow feed posts on page load and whenever the user follows someone
+  loadingFirstBatchOfHotFeedPosts = false;
 
   // loading first batch of bitclout posts
   loadingFirstBatchOfDeSoPosts = false;
@@ -55,6 +60,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   loadingMoreFollowFeedPosts = false;
   loadingMoreGlobalFeedPosts = false;
   loadingMoreDeSoFeedPosts = false;
+  loadingMoreHotFeedPosts = false;
 
   pullToRefreshHandler;
 
@@ -130,6 +136,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
         onRefresh: () => {
           const globalPostsPromise = this._loadPosts(true);
           const followPostsPromise = this._loadFollowFeedPosts(true);
+          const hotPostsPromise = this._loadHotFeedPosts(true);
           return this.activeTab === FeedComponent.FOLLOWING_TAB ? followPostsPromise : globalPostsPromise;
         },
       });
@@ -157,10 +164,31 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
       // this._onTabSwitch()
     }
 
+    const feedPromises = [];
+    // Request the hot feed (so we have it ready for display if needed)
+    if (this.globalVars.hotFeedPosts.length === 0) {
+      this.loadingFirstBatchOfHotFeedPosts = true;
+      feedPromises.push(this._loadHotFeedPosts());
+    }
+
     // Request the follow feed (so we have it ready for display if needed)
     if (this.globalVars.followFeedPosts.length === 0) {
       this.loadingFirstBatchOfFollowFeedPosts = true;
-      this._reloadFollowFeed();
+      feedPromises.push(this._reloadFollowFeed());
+    }
+
+    if (feedPromises.length > 0) {
+      Promise.all(feedPromises).then(() => {
+        if (
+          this.globalVars.hotFeedPosts.length > 0 &&
+          this.globalVars.hotFeedPosts[0].IsPinned &&
+          this.backendApi.GetStorage("dismissedPinnedPostHashHex") !== this.globalVars.hotFeedPosts[0].PostHashHex &&
+          ((this.globalVars.followFeedPosts.length > 0 && !this.globalVars.followFeedPosts[0].IsPinned) ||
+            this.globalVars.followFeedPosts.length === 0)
+        ) {
+          this.globalVars.followFeedPosts.unshift(this.globalVars.hotFeedPosts[0]);
+        }
+      });
     }
 
     // The activeTab is set after we load the following based on whether the user is
@@ -215,6 +243,8 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
       return this.globalVars.followFeedPosts;
     } else if (this.activeTab === this.FeedComponent.GLOBAL_TAB) {
       return this.globalVars.postsToShow;
+    } else if (this.activeTab === FeedComponent.HOT_TAB) {
+      return this.globalVars.hotFeedPosts;
     }
   }
 
@@ -235,9 +265,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   showLoadingSpinner() {
-    return (
-      this.activeTab !== FeedComponent.SHOWCASE_TAB && (this.loadingFirstBatchOfActiveTabPosts() || this.switchingTabs)
-    );
+    return this.loadingFirstBatchOfActiveTabPosts() || this.switchingTabs;
   }
 
   // controls whether we show the loading spinner
@@ -251,10 +279,12 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
   }
 
-  showGlobalOrFollowingPosts() {
+  showGlobalOrFollowingOrHotPosts() {
     return (
-      this.postsToShow()?.length > 0 &&
-      (this.activeTab === FeedComponent.GLOBAL_TAB || this.activeTab === FeedComponent.FOLLOWING_TAB)
+      this.postsToShow().length > 0 &&
+      (this.activeTab === FeedComponent.GLOBAL_TAB ||
+        this.activeTab === FeedComponent.FOLLOWING_TAB ||
+        this.activeTab === FeedComponent.HOT_TAB)
     );
   }
 
@@ -270,6 +300,8 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   loadMorePosts() {
     if (this.activeTab === FeedComponent.FOLLOWING_TAB) {
       this._loadFollowFeedPosts();
+    } else if (this.activeTab === FeedComponent.HOT_TAB) {
+      this._loadHotFeedPosts();
     } else {
       this._loadPosts();
     }
@@ -449,6 +481,59 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
       )
       .toPromise();
   }
+  _loadHotFeedPosts(reload: boolean = false) {
+    this.loadingMoreHotFeedPosts = true;
+
+    // Get the reader's public key for the request.
+    let readerPubKey = "";
+    if (this.globalVars.loggedInUser) {
+      readerPubKey = this.globalVars.loggedInUser.PublicKeyBase58Check;
+    }
+
+    return this.backendApi
+      .GetHotFeed(this.globalVars.localNode, readerPubKey, this.hotFeedPostHashes, this.FeedComponent.NUM_TO_FETCH)
+      .pipe(
+        tap(
+          (res) => {
+            if (res.HotFeedPage) {
+              this.globalVars.hotFeedPosts = this.globalVars.hotFeedPosts.concat(res.HotFeedPage);
+            }
+
+            // Remove pinned post if it's been dismissed by the user
+            if (
+              this.globalVars.hotFeedPosts.length > 0 &&
+              this.globalVars.hotFeedPosts[0].IsPinned &&
+              this.backendApi.GetStorage("dismissedPinnedPostHashHex") === this.globalVars.hotFeedPosts[0].PostHashHex
+            ) {
+              this.globalVars.hotFeedPosts.shift();
+              // If the follow feed was loaded prior to the hot feed and is missing a pinned post, add it here
+            } else if (
+              this.globalVars.hotFeedPosts.length > 0 &&
+              this.globalVars.hotFeedPosts[0].IsPinned &&
+              this.backendApi.GetStorage("dismissedPinnedPostHashHex") !==
+                this.globalVars.hotFeedPosts[0].PostHashHex &&
+              this.globalVars.followFeedPosts.length > 0 &&
+              !this.globalVars.followFeedPosts[0].IsPinned
+            ) {
+              this.globalVars.followFeedPosts.unshift(this.globalVars.hotFeedPosts[0]);
+            }
+            for (let ii = 0; ii < this.globalVars.hotFeedPosts.length; ii++) {
+              this.hotFeedPostHashes = this.hotFeedPostHashes.concat(this.globalVars.hotFeedPosts[ii]?.PostHashHex);
+            }
+          },
+          (err) => {
+            console.error(err);
+            this.globalVars._alertError("Error loading posts: " + this.backendApi.stringifyError(err));
+          }
+        ),
+        finalize(() => {
+          this.loadingFirstBatchOfHotFeedPosts = false;
+          this.loadingMoreHotFeedPosts = false;
+        }),
+        first()
+      )
+      .toPromise();
+  }
   _afterLoadingFollowingOnPageLoad() {
     this.isLoadingFollowingOnPageLoad = false;
 
@@ -462,7 +547,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
       defaultActiveTab = FeedComponent.GLOBAL_TAB;
     }
     if (this.globalVars.loggedInUser) {
-      this.feedTabs = [FeedComponent.GLOBAL_TAB, FeedComponent.FOLLOWING_TAB];
+      this.feedTabs = [FeedComponent.GLOBAL_TAB, FeedComponent.HOT_TAB, FeedComponent.FOLLOWING_TAB];
     } else {
       this.feedTabs = [FeedComponent.GLOBAL_TAB];
     }

@@ -95,7 +95,7 @@ export class GlobalVarsService {
   ethWalletAddresShort: string;
   isEthQuoteRepost: boolean = false;
   isEthWalletAssociatedToDesoProfile: boolean = false;
-  ethMarketplaceCanFilter: boolean = false;
+  //   ethMarketplaceCanFilter: boolean = false;
 
   //   ----------------------------- end of imx global vars -----------------------------
 
@@ -187,11 +187,12 @@ export class GlobalVarsService {
   desoMarketplace = true;
   marketplaceViewTypeCard = true;
   marketplaceVerifiedCreators = "verified";
+  ethMarketplaceVerifiedCreators = "verified";
   marketplaceContentFormat = "all";
   marketplaceStatus = "all";
   ethMarketplaceStatus = "all";
   marketplaceNFTCategory = "all";
-  ethMarketplaceNFTCategory = "All";
+  ethMarketplaceNFTCategory = "all";
   marketplaceLowPriceNanos = 0;
   marketplaceHighPriceNanos = 0;
   marketplaceLowPriceUSD = 0;
@@ -199,7 +200,7 @@ export class GlobalVarsService {
   marketplacePriceRangeSet = false;
   marketplaceMarketType = "all";
   marketplaceSortType = "most recent first";
-  ethMarketplaceSortType = "";
+  ethMarketplaceSortType = "most recent first";
   // Marketplace Offset
   marketplaceNFTsOffset = 0;
   ethMarketplaceNFTsOffset = 0;
@@ -1529,13 +1530,14 @@ export class GlobalVarsService {
       (res) => {
         console.log(this.counter);
         this.counter++;
-        console.log(res["PostFound"]);
-        console.log(this.ethMarketplaceNFTsData);
+        // console.log(res["PostFound"]);
+        // console.log(this.ethMarketplaceNFTsData);
         this.ethMarketplaceNFTsData.push(res["PostFound"]);
-        console.log(this.ethMarketplaceNFTsData);
+        // console.log(this.ethMarketplaceNFTsData);
         if (this.counter < metadataPostHashArr.length) {
           this.getPostsRecursive(metadataPostHashArr);
         } else {
+          console.log(this.ethMarketplaceNFTsData);
           this.updateDataToShow();
         }
       },
@@ -1787,39 +1789,111 @@ export class GlobalVarsService {
       options
     );
     let resJson = await res.json();
-    console.log(resJson);
-    console.log(resJson["result"]);
     let NFTsAllLength = resJson["result"].length;
     let NFTsAllArr = [];
 
     for (var i = 0; i < NFTsAllLength; i++) {
       NFTsAllArr.push(resJson["result"][i]["token"]["data"]["token_id"]);
     }
-
-    let metadataPostHashArr = [];
     console.log(NFTsAllArr);
-    for (var i = 0; i < NFTsAllArr.length; i++) {
-      let metadataRes = await fetch(`https://supernovas.app/api/v0/imx/metadata/${NFTsAllArr[i]}`);
-      let metadataResJson = await metadataRes.json();
-      if (this.ethMarketplaceNFTCategory === "All") {
-        metadataPostHashArr.push(metadataResJson["PostHashHex"]);
-      } else {
-        if (metadataResJson["Category"] === this.ethMarketplaceNFTCategory) {
-          metadataPostHashArr.push(metadataResJson["PostHashHex"]);
-        } else {
-          continue;
+
+    // endpoint: string,
+    // ReaderPublicKeyBase58Check: string,
+    // TokenIdArray: string[],
+    // Category: string,
+    // SortType: string,
+    // CreatorsType: string
+    this.backendApi
+      .SortETHMarketplace(
+        this.localNode,
+        this.loggedInUser.PublicKeyBase58Check,
+        NFTsAllArr,
+        this.ethMarketplaceNFTCategory,
+        this.ethMarketplaceSortType,
+        this.ethMarketplaceVerifiedCreators
+      )
+      .subscribe(
+        (res) => {
+          console.log(res);
+          this.ethMarketplaceNFTsData = res["PostEntryResponse"];
+          this.updateDataToShow();
+          //   this.ethMarketplaceSortType = "most recent first";
+          this.isEthMarketplaceLoading = false;
+        },
+        (err) => {
+          console.log(err);
         }
+      );
+  }
+
+  //   get all ETH nfts by filter
+  async getEthNFTsByFilter() {
+    this.isEthMarketplaceLoading = true;
+    this.ethMarketplaceNFTsData = [];
+
+    let NFTsAllArr = [];
+    // status is all
+    if (this.ethMarketplaceStatus === "all") {
+      const options = { method: "GET", headers: { Accept: "application/json" } };
+
+      let res = await fetch(
+        `https://api.ropsten.x.immutable.com/v1/mints?token_address=${environment.imx.TOKEN_ADDRESS}`,
+        options
+      );
+      let resJson = await res.json();
+      let NFTsAllLength = resJson["result"].length;
+
+      for (var i = 0; i < NFTsAllLength; i++) {
+        NFTsAllArr.push(resJson["result"][i]["token"]["data"]["token_id"]);
       }
+      console.log(NFTsAllArr);
     }
-    console.log(" -------------- right before recursive call ---------------- ");
+    // status is for sale
+    else if (this.ethMarketplaceStatus === "for sale") {
+      const options = { method: "GET", headers: { Accept: "*/*" } };
 
-    this.counter = 0;
-    this.getPostsRecursive(metadataPostHashArr);
+      let res = await fetch(
+        `https://api.ropsten.x.immutable.com/v1/orders?status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
+        options
+      );
+      let resJson = await res.json();
+      console.log(resJson);
+      console.log(resJson["result"]);
+      let NFTsForSaleLength = resJson["result"].length;
 
-    this.isEthMarketplaceLoading = false;
-    // setTimeout(() => {
-    //   this.isEthMarketplaceLoading = false;
-    // }, 2000);
+      for (var i = 0; i < NFTsForSaleLength; i++) {
+        NFTsAllArr.push(resJson["result"][i]["sell"]["data"]["token_id"]);
+      }
+
+      console.log(NFTsAllArr);
+    }
+
+    // endpoint: string,
+    // ReaderPublicKeyBase58Check: string,
+    // TokenIdArray: string[],
+    // Category: string,
+    // SortType: string,
+    // CreatorsType: string
+    this.backendApi
+      .SortETHMarketplace(
+        this.localNode,
+        this.loggedInUser.PublicKeyBase58Check,
+        NFTsAllArr,
+        this.ethMarketplaceNFTCategory,
+        this.ethMarketplaceSortType,
+        this.ethMarketplaceVerifiedCreators
+      )
+      .subscribe(
+        (res) => {
+          console.log(res);
+          this.ethMarketplaceNFTsData = res["PostEntryResponse"];
+          this.updateDataToShow();
+          this.isEthMarketplaceLoading = false;
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
   }
 
   updateDataToShow() {

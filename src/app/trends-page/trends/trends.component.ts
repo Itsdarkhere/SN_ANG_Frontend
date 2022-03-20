@@ -96,9 +96,7 @@ export class TrendsComponent implements OnInit {
 
   updateEthMarketplaceStatus() {
     this.globalVars.desoMarketplace = false;
-    this.globalVars.ethMarketplaceNFTCategory = "All";
     this.globalVars.getAllEthNFTs();
-    console.log(this.globalVars.desoMarketplace);
   }
 
   @HostListener("window:resize") onResize() {
@@ -287,30 +285,38 @@ export class TrendsComponent implements OnInit {
     }
   }
   sortSelectChangeEth(event) {
-    if (!this.globalVars.ethMarketplaceCanFilter) {
-      this.modalService.show(GeneralSuccessModalComponent, {
-        class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
-        initialState: {
-          header: "Error",
-          text: "You can only filter on For Sale ETH items.",
-          buttonText: "Ok",
-          buttonClickedAction: "connectWalletMobileError",
-        },
-      });
-    } else {
-      if (this.globalVars.ethMarketplaceSortType != event) {
-        this.globalVars.ethMarketplaceStatus = "for sale";
-        this.globalVars.ethMarketplaceSortType = event;
-        if (this._globalVars.ethMarketplaceSortType === "most recent first") {
-          this.globalVars.sortEthMarketplaceNewestFirst();
-        } else if (this._globalVars.ethMarketplaceSortType === "oldest first") {
-          this.globalVars.sortEthMarketplaceOldestFirst();
-        } else if (this._globalVars.ethMarketplaceSortType === "highest price first") {
-          this.globalVars.sortEthMarketplaceHighestPriceFirst();
-        } else if (this._globalVars.ethMarketplaceSortType === "lowest price first") {
-          this.globalVars.sortEthMarketplaceLowestPriceFirst();
-        }
+    // if (!this.globalVars.ethMarketplaceCanFilter) {
+    //   this.modalService.show(GeneralSuccessModalComponent, {
+    //     class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+    //     initialState: {
+    //       header: "Error",
+    //       text: "You can only filter on For Sale ETH items.",
+    //       buttonText: "Ok",
+    //       buttonClickedAction: "connectWalletMobileError",
+    //     },
+    //   });
+    // } else {
+    if (this.globalVars.ethMarketplaceSortType != event) {
+      // this.globalVars.ethMarketplaceStatus = "for sale";
+      this.globalVars.ethMarketplaceSortType = event;
+
+      if (
+        this._globalVars.ethMarketplaceSortType === "highest price first" ||
+        this._globalVars.ethMarketplaceSortType === "lowest price first"
+      ) {
+        this.modalService.show(GeneralSuccessModalComponent, {
+          class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+          initialState: {
+            header: "Error",
+            text: "You cannot filter by price.",
+            buttonText: "Ok",
+            buttonClickedAction: "connectWalletMobileError",
+          },
+        });
+      } else {
+        this.globalVars.getEthNFTsByFilter();
       }
     }
+    //     }
   }
 }

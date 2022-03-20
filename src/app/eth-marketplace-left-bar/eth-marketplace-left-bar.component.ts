@@ -57,7 +57,7 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
   lastSortStatusForSale = false;
   lastSortStatusHasBids = false;
   lastSortStatusSold = false;
-  lastSortCategory = "All";
+  lastSortCategory = "all";
   // If Apply button is disabled or allowed
   canUserSort = false;
 
@@ -73,8 +73,7 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
     // Set button active states from global memory
     this.statusClick(this.globalVars.ethMarketplaceStatus);
     this.categorySelectChange(this.globalVars.ethMarketplaceNFTCategory);
-    console.log(this.globalVars.ethMarketplaceStatus);
-    console.log(this.globalVars.ethMarketplaceNFTCategory);
+    this.creatorsClick(this.globalVars.ethMarketplaceVerifiedCreators);
   }
   // Status button clicks, does not stay in memory
   statusClick(button: string) {
@@ -85,7 +84,7 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
           this.statusForSale = false;
           this.statusHasBids = false;
           this.statusSold = false;
-          this.globalVars.ethMarketplaceCanFilter = false;
+          //   this.globalVars.ethMarketplaceCanFilter = false;
         }
         break;
       case "for sale":
@@ -94,32 +93,10 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
           this.statusForSale = false;
         } else {
           this.statusForSale = true;
-          this.globalVars.ethMarketplaceCanFilter = true;
+          //   this.globalVars.ethMarketplaceCanFilter = true;
           this.statusAll = false;
           this.statusHasBids = false;
           this.statusSold = false;
-        }
-        break;
-      case "has bids":
-        if (this.statusHasBids) {
-          this.statusAll = true;
-          this.statusHasBids = false;
-        } else {
-          this.statusHasBids = true;
-          this.statusAll = false;
-          this.statusForSale = false;
-          this.statusSold = false;
-        }
-        break;
-      case "sold":
-        if (this.statusSold) {
-          this.statusAll = true;
-          this.statusSold = false;
-        } else {
-          this.statusSold = true;
-          this.statusAll = false;
-          this.statusForSale = false;
-          this.statusHasBids = false;
         }
         break;
       default:
@@ -148,13 +125,48 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
     // Check if user can sort
     this.canSort();
   }
+  // Set from click
+  creatorsClick(creatorType: string) {
+    switch (creatorType) {
+      case "verified":
+        this.creatorTypeVerified = true;
+        break;
+      case "all":
+        this.creatorTypeVerified = false;
+        // this.categoryAndFormatToBaseState();
+        break;
+      default:
+        break;
+    }
+    // Check if user can sort
+    this.canSort();
+  }
+  // Set to memory
+  setCreatorType() {
+    if (this.creatorTypeVerified) {
+      this.globalVars.marketplaceVerifiedCreators = "verified";
+      // Store to use in canSort
+      this.lastSortCreatorTypeVerified = true;
+    } else {
+      this.globalVars.marketplaceVerifiedCreators = "all";
+      // Store to use in canSort
+      this.lastSortCreatorTypeVerified = false;
+    }
+  }
+  //   categoryAndFormatToBaseState() {
+  //     this.globalVars.ethMarketplaceNFTCategory = "All";
+  //   }
   canSort() {
+    //   if category is different from last then sort
     if (this.NFTCategory != this.lastSortCategory) {
       this.canUserSort = true;
       // If content format is different from last sort
     } else if (this.lastSortStatusAll != this.statusAll || this.lastSortStatusForSale != this.statusForSale) {
       this.canUserSort = true;
-      // If status is different from last time
+      // If creator type is different from last time
+    } else if (this.lastSortCreatorTypeVerified != this.creatorTypeVerified) {
+      this.canUserSort = true;
+      // If nothing has changed user cannot sort
     } else {
       this.canUserSort = false;
     }
@@ -167,20 +179,21 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
     this.setCategory();
     // this.setContentFormat();
     this.setStatus();
-    // this.setCreatorType();
+    this.setCreatorType();
     // this.onFilter.emit("sort");
     // this.functionPass.filter("sort");
     this.canUserSort = false;
 
-    console.log(this.globalVars.ethMarketplaceStatus);
+    this.globalVars.getEthNFTsByFilter();
+    // console.log(this.globalVars.ethMarketplaceStatus);
 
-    if (this.globalVars.ethMarketplaceStatus === "all") {
-      this.globalVars.getAllEthNFTs();
-    }
+    // if (this.globalVars.ethMarketplaceStatus === "all") {
+    //   this.globalVars.getAllEthNFTs();
+    // }
 
-    if (this.globalVars.ethMarketplaceStatus === "for sale") {
-      this.globalVars.sortEthMarketplace();
-    }
+    // if (this.globalVars.ethMarketplaceStatus === "for sale") {
+    //   this.globalVars.sortEthMarketplace();
+    // }
 
     setTimeout(() => {
       this.globalVars.isMarketplaceLeftBarMobileOpen = false;

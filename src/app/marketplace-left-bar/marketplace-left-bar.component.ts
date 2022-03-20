@@ -504,12 +504,8 @@ export class MarketplaceLeftBarComponent implements OnInit {
 
       console.log(this.globalVars.ethMarketplaceStatus);
 
-      if (this.globalVars.ethMarketplaceStatus === "all") {
-        this.globalVars.getAllEthNFTs();
-      }
-
-      if (this.globalVars.ethMarketplaceStatus === "for sale") {
-        this.globalVars.sortEthMarketplace();
+      if (this.globalVars.ethMarketplaceStatus === "all" || this.globalVars.ethMarketplaceStatus === "for sale") {
+        this.globalVars.getEthNFTsByFilter();
       }
 
       setTimeout(() => {

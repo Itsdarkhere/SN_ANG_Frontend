@@ -238,6 +238,7 @@ import { MobileNavigationComponent } from "./left-bar-mobile/mobile-navigation/m
 import { NftDetailBoxComponent } from "./feed/nft-detail-box/nft-detail-box.component";
 import { CancelNftAuctionModalComponent } from "./cancel-nft-auction-modal/cancel-nft-auction-modal.component";
 import { ObserveVisibilityDirective } from "./observe-visibility.directive";
+import { EthMarketplaceLeftBarMobileComponent } from './eth-marketplace-left-bar-mobile/eth-marketplace-left-bar-mobile.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -447,6 +448,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     NftDetailBoxComponent,
     CancelNftAuctionModalComponent,
     ObserveVisibilityDirective,
+    EthMarketplaceLeftBarMobileComponent,
   ],
   imports: [
     BrowserModule,

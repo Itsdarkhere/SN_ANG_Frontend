@@ -246,6 +246,7 @@ export class GlobalVarsService {
 
   // Whether the left bar (hamburger) menu for mobile Marketplace is currently open
   isMarketplaceLeftBarMobileOpen = false;
+  isEthMarketplaceLeftBarMobileOpen = false;
 
   // NFT view type
   nftsPageViewTypeCard = true;

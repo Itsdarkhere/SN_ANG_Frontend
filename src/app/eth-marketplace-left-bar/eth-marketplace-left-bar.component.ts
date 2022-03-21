@@ -196,14 +196,18 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
     // }
 
     setTimeout(() => {
-      this.globalVars.isMarketplaceLeftBarMobileOpen = false;
+      this.globalVars.isEthMarketplaceLeftBarMobileOpen = false;
+
+      console.log(` ------- lastSortStatusAll ${this.lastSortStatusAll} `);
+      console.log(` ------- lastSortStatusForSale ${this.lastSortStatusForSale} `);
+      console.log(` ------- canSort? ${this.canUserSort}`);
     }, 200);
   }
   closeMenu() {
     this.functionPass.filter("close");
     this.onFilter.emit("close");
     setTimeout(() => {
-      this.globalVars.isMarketplaceLeftBarMobileOpen = false;
+      this.globalVars.isEthMarketplaceLeftBarMobileOpen = false;
     }, 200);
   }
   // Set to showcase active state

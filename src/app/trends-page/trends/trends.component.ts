@@ -108,6 +108,12 @@ export class TrendsComponent implements OnInit {
     this.globalVars.isMarketplaceLeftBarMobileOpen = true;
     this.disable();
   }
+  openEthMarketplaceMobileFiltering() {
+    // Get scroll position before anything else
+    this.scrollPosition = window.scrollY;
+    this.globalVars.isEthMarketplaceLeftBarMobileOpen = true;
+    this.disable();
+  }
   closeMarketplaceMobileFiltering(string: string) {
     if (string == "sort") {
       this.enableNoScroll();
@@ -115,6 +121,15 @@ export class TrendsComponent implements OnInit {
     } else if (string == "close") {
       this.enable();
       this.globalVars.isMarketplaceLeftBarMobileOpen = false;
+    }
+  }
+  closeEthMarketplaceMobileFiltering(string: string) {
+    if (string == "sort") {
+      this.enableNoScroll();
+      this.globalVars.isEthMarketplaceLeftBarMobileOpen = false;
+    } else if (string == "close") {
+      this.enable();
+      this.globalVars.isEthMarketplaceLeftBarMobileOpen = false;
     }
   }
   // Enable without scrolling, since if user applies we want to scroll to top by default

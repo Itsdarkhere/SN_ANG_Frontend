@@ -7,6 +7,8 @@ import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { FunctionPassService } from "src/app/function-pass.service";
 import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
 import { add } from "lodash";
+import { BsModalService } from "ngx-bootstrap/modal";
+import { GeneralSuccessModalComponent } from "../../general-success-modal/general-success-modal.component";
 
 @Component({
   selector: "trends",
@@ -55,7 +57,8 @@ export class TrendsComponent implements OnInit {
     private backendApi: BackendApiService,
     private route: ActivatedRoute,
     private _globalVars: GlobalVarsService,
-    private functionPass: FunctionPassService
+    private functionPass: FunctionPassService,
+    private modalService: BsModalService
   ) {
     this.globalVars = _globalVars;
     this.functionPass.listen().subscribe((m: any) => {
@@ -74,22 +77,25 @@ export class TrendsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.globalVars.marketplaceNFTsData) {
-      this.sortMarketplace(0, false);
-    }
     this.setMobileBasedOnViewport();
-    this.updateDesoMarketplaceStatus();
+    if (this.globalVars.desoMarketplace) {
+      if (!this.globalVars.marketplaceNFTsData) {
+        this.sortMarketplace(0, false);
+      }
+    } else {
+      if (!this.globalVars.ethMarketplaceNFTsData) {
+        this.updateEthMarketplaceStatus();
+      }
+    }
   }
 
   updateDesoMarketplaceStatus() {
-    this.desoMarketplace = true;
-    this.ethMarketplace = false;
+    this.globalVars.desoMarketplace = true;
+    // this.globalVars.marketplaceNFTCategory = "";
   }
 
   updateEthMarketplaceStatus() {
-    this.desoMarketplace = false;
-    this.ethMarketplace = true;
-    this.globalVars.marketplaceNFTCategory = "All";
+    this.globalVars.desoMarketplace = false;
     this.globalVars.getAllEthNFTs();
   }
 
@@ -102,6 +108,12 @@ export class TrendsComponent implements OnInit {
     this.globalVars.isMarketplaceLeftBarMobileOpen = true;
     this.disable();
   }
+  openEthMarketplaceMobileFiltering() {
+    // Get scroll position before anything else
+    this.scrollPosition = window.scrollY;
+    this.globalVars.isEthMarketplaceLeftBarMobileOpen = true;
+    this.disable();
+  }
   closeMarketplaceMobileFiltering(string: string) {
     if (string == "sort") {
       this.enableNoScroll();
@@ -109,6 +121,15 @@ export class TrendsComponent implements OnInit {
     } else if (string == "close") {
       this.enable();
       this.globalVars.isMarketplaceLeftBarMobileOpen = false;
+    }
+  }
+  closeEthMarketplaceMobileFiltering(string: string) {
+    if (string == "sort") {
+      this.enableNoScroll();
+      this.globalVars.isEthMarketplaceLeftBarMobileOpen = false;
+    } else if (string == "close") {
+      this.enable();
+      this.globalVars.isEthMarketplaceLeftBarMobileOpen = false;
     }
   }
   // Enable without scrolling, since if user applies we want to scroll to top by default
@@ -142,6 +163,7 @@ export class TrendsComponent implements OnInit {
     if (!showMore) {
       this.globalVars.isMarketplaceLoading = true;
     }
+    console.log(this.globalVars.marketplaceNFTCategory);
     this.backendApi
       .SortMarketplace(
         this.globalVars.localNode,
@@ -224,8 +246,15 @@ export class TrendsComponent implements OnInit {
   }
 
   setEthDisplayType() {
-    this.globalVars._alertError("You cannot set display type for ETH");
-    return;
+    this.modalService.show(GeneralSuccessModalComponent, {
+      class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+      initialState: {
+        header: "Error",
+        text: "You cannot set display type for ETH.",
+        buttonText: "Ok",
+        buttonClickedAction: "connectWalletMobileError",
+      },
+    });
   }
 
   getParamsAndSort() {
@@ -271,19 +300,38 @@ export class TrendsComponent implements OnInit {
     }
   }
   sortSelectChangeEth(event) {
-    // this.globalVars._alertError("You cannot sort on ETH, please use the left bar to filter.");
-    // return;
+    // if (!this.globalVars.ethMarketplaceCanFilter) {
+    //   this.modalService.show(GeneralSuccessModalComponent, {
+    //     class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+    //     initialState: {
+    //       header: "Error",
+    //       text: "You can only filter on For Sale ETH items.",
+    //       buttonText: "Ok",
+    //       buttonClickedAction: "connectWalletMobileError",
+    //     },
+    //   });
+    // } else {
     if (this.globalVars.ethMarketplaceSortType != event) {
+      // this.globalVars.ethMarketplaceStatus = "for sale";
       this.globalVars.ethMarketplaceSortType = event;
-      if (this._globalVars.ethMarketplaceSortType === "most recent first") {
-        this.globalVars.sortEthMarketplaceNewestFirst();
-      } else if (this._globalVars.ethMarketplaceSortType === "oldest first") {
-        this.globalVars.sortEthMarketplaceOldestFirst();
-      } else if (this._globalVars.ethMarketplaceSortType === "highest price first") {
-        this.globalVars.sortEthMarketplaceHighestPriceFirst();
-      } else if (this._globalVars.ethMarketplaceSortType === "lowest price first") {
-        this.globalVars.sortEthMarketplaceLowestPriceFirst();
+
+      if (
+        this._globalVars.ethMarketplaceSortType === "highest price first" ||
+        this._globalVars.ethMarketplaceSortType === "lowest price first"
+      ) {
+        this.modalService.show(GeneralSuccessModalComponent, {
+          class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+          initialState: {
+            header: "Error",
+            text: "You cannot filter by price.",
+            buttonText: "Ok",
+            buttonClickedAction: "connectWalletMobileError",
+          },
+        });
+      } else {
+        this.globalVars.getEthNFTsByFilter();
       }
     }
+    //     }
   }
 }

@@ -129,7 +129,7 @@
           <button
             class="blockchain-type-card-mint not-available-warning p-0px"
             *ngIf="!globalVars.showAdminTools()"
-            [ngClass]="{ 'electric-box-shadow': audioType, 'm-10px': mobile }"
+            [ngClass]="{ 'm-10px': mobile }"
           >
             <div class="sol-blockchain-type-card-header">
               <div class="blockchain-type-card-header-container">
@@ -460,7 +460,7 @@
         *ngIf="desoBlockchain"
         class="mb-0px font-weight-bold mint-page-step-2-continue"
         [ngClass]="mobile ? 'w-90' : 'w-80'"
-        [disabled]="!videoType && !imageType && !audioType"
+        [disabled]="!videoType && !imageType && !audioType && !modelType"
         (click)="nextStep()"
       >
         CONTINUE

@@ -34,8 +34,10 @@ export class AppComponent implements OnInit {
         // Scroll keeps on return and new data is loaded when coming back from another url
         if (!(event.url.includes("nft") || event.url.includes("Marketplace")) && this.globalVars.marketplaceNFTsData) {
           this.globalVars.marketplaceNFTsData = null;
-          this.globalVars.marketplaceCreatorData = null;
           this.globalVars.marketplaceNFTsOffset = 0;
+
+          this.globalVars.ethMarketplaceNFTsData = null;
+          this.globalVars.ethMarketplaceNFTsOffset = 0;
           // This below handles discovery -> nfts-page data
         } else if (!(event.url.includes("nft") || event.url.includes("nfts")) && this.globalVars.nftsDataToShow) {
           this.globalVars.nftsDataToShow = null;

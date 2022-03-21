@@ -29,6 +29,8 @@ export class CreatorProfileTopCardComponent implements OnInit, OnDestroy {
 
   @Output() handleTabClick = new EventEmitter();
 
+  @Input() profileData: any;
+
   AppRoutingModule = AppRoutingModule;
   globalVars: GlobalVarsService;
   followChangeSubscription: Subscription;
@@ -36,7 +38,6 @@ export class CreatorProfileTopCardComponent implements OnInit, OnDestroy {
   followingCount: number = null;
   refreshFollowingBeingCalled = false;
   publicKeyIsCopied = false;
-  profileData: any;
 
   pkCopied = false;
   profileUrlCopied = false;
@@ -73,7 +74,6 @@ export class CreatorProfileTopCardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._refreshFollowing();
-    this.getProfileSocials();
   }
 
   unblock() {
@@ -82,19 +82,6 @@ export class CreatorProfileTopCardComponent implements OnInit, OnDestroy {
 
   block() {
     this.userBlocked.emit(this.profile.PublicKeyBase58Check);
-  }
-  // TODO
-  // Make profileData into a class
-  getProfileSocials() {
-    this.backendApi.GetPGProfileDetails(this.globalVars.localNode, this.profile.PublicKeyBase58Check).subscribe(
-      (res) => {
-        this.profileData = res;
-        // console.log(` -------------- eth pk is ${JSON.stringify(this.profileData["ETHPublicKey"])}`);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
   }
   reportUser(): void {
     this.globalVars.logEvent("post : report-user");

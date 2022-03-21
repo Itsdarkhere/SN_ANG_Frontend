@@ -46,6 +46,8 @@ export class CreatorProfileDetailsComponent implements OnInit {
   task: AngularFireUploadTask;
   uploadProgress: Observable<number>;
 
+  profileData: any;
+
   // emits the UserUnblocked event
   @Output() userUnblocked = new EventEmitter();
 
@@ -194,6 +196,7 @@ export class CreatorProfileDetailsComponent implements OnInit {
         console.log(res);
         this.profile = res.Profile;
         // Load profile until request has gone trough
+        this.getProfileSocialsBackendApiCall();
         try {
           this.getBannerImage().catch(() => console.log("Error"));
         } catch (error) {
@@ -232,6 +235,19 @@ export class CreatorProfileDetailsComponent implements OnInit {
       console.log("Error");
     }
     this.loading = false;
+  }
+
+  // Make profileData into a class
+  getProfileSocialsBackendApiCall() {
+    this.backendApi.GetPGProfileDetails(this.globalVars.localNode, this.profile.PublicKeyBase58Check).subscribe(
+      (res) => {
+        this.profileData = res;
+        console.log(` -------------- eth pk is ${JSON.stringify(this.profileData["ETHPublicKey"])}`);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   // This version would get stuff from db, making it slower / but would bust the cache

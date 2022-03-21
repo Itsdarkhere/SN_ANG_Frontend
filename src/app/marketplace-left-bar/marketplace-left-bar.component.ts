@@ -194,6 +194,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
   setStatus() {
     if (this.statusAll) {
       this.globalVars.marketplaceStatus = "all";
+      this.globalVars.ethMarketplaceStatus = "all";
       // Store to use in canSort()
       this.lastSortStatusAll = true;
       this.lastSortStatusForSale = false;
@@ -201,6 +202,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
       this.lastSortStatusSold = false;
     } else if (this.statusForSale) {
       this.globalVars.marketplaceStatus = "for sale";
+      this.globalVars.ethMarketplaceStatus = "for sale";
       // Store to use in canSort()
       this.lastSortStatusForSale = true;
       this.lastSortStatusSold = false;
@@ -497,19 +499,36 @@ export class MarketplaceLeftBarComponent implements OnInit {
   }
   // Functionpass service is made to pass this argument
   apply() {
-    this.globalVars.isMarketplaceLoading = true;
-    this.setPriceRangeInNanos();
-    this.setMarketType();
-    this.setCategory();
-    this.setContentFormat();
-    this.setStatus();
-    this.setCreatorType();
-    this.onFilter.emit("sort");
-    this.functionPass.filter("sort");
-    this.canUserSort = false;
-    setTimeout(() => {
-      this.globalVars.isMarketplaceLeftBarMobileOpen = false;
-    }, 200);
+    if (this.globalVars.desoMarketplace) {
+      this.globalVars.isMarketplaceLoading = true;
+      this.setPriceRangeInNanos();
+      this.setMarketType();
+      this.setCategory();
+      this.setContentFormat();
+      this.setStatus();
+      this.setCreatorType();
+      this.onFilter.emit("sort");
+      this.functionPass.filter("sort");
+      this.canUserSort = false;
+      setTimeout(() => {
+        this.globalVars.isMarketplaceLeftBarMobileOpen = false;
+      }, 200);
+    } else {
+      this.globalVars.isEthMarketplaceLoading = true;
+      this.setCategory();
+      this.setStatus();
+      this.canUserSort = false;
+
+      console.log(this.globalVars.ethMarketplaceStatus);
+
+      if (this.globalVars.ethMarketplaceStatus === "all" || this.globalVars.ethMarketplaceStatus === "for sale") {
+        this.globalVars.getEthNFTsByFilter();
+      }
+
+      setTimeout(() => {
+        this.globalVars.isMarketplaceLeftBarMobileOpen = false;
+      }, 200);
+    }
   }
   closeMenu() {
     this.functionPass.filter("close");

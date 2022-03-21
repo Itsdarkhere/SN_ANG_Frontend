@@ -131,6 +131,7 @@ job "supernovas-frontend-alpha" {
         https://google-analytics.com
         https://images.deso.org 
         https://images.bitclout.com 
+        https://arweave.net
         https://arweave.net:*
         https://*.arweave.net
         https://cloudflare-ipfs.com

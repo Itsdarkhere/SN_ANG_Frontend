@@ -8,6 +8,7 @@
     <creator-profile-top-card
       *ngIf="profile && !loading"
       [profile]="profile"
+      [profileData]="profileData"
       (userUnblocked)="unblockUser()"
       (userBlocked)="blockUser()"
       (handleTabClick)="_handleTabClick($event)"
@@ -90,6 +91,7 @@
       <div class="w-100 d-flex flex-column" *ngIf="activeTab == 'Collected' && !loading">
         <app-creator-profile-collected
           [profile]="profile"
+          [profileData]="profileData"
           [showProfileAsReserved]="showProfileAsReserved()"
           (blockUser)="userBlocked()"
         ></app-creator-profile-collected>
@@ -100,6 +102,7 @@
       <div class="w-100 d-flex flex-column" *ngIf="activeTab == 'Created' && !loading">
         <app-creator-profile-created
           [profile]="profile"
+          [profileData]="profileData"
           [showProfileAsReserved]="showProfileAsReserved()"
           (blockUser)="userBlocked()"
         ></app-creator-profile-created>

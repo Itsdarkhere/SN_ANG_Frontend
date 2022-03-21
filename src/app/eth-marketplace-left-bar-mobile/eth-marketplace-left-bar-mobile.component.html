@@ -1,0 +1,9 @@
+<div
+  class="left-bar-mobile__flyout-div-marketplace overflow-hidden disable-scrollbars d-flex flex-center"
+  [@leftBarAnimation]
+  *ngIf="globalVars.isEthMarketplaceLeftBarMobileOpen"
+>
+  <div class="d-flex flex-center disable-scrollbars max-width-400px">
+    <app-eth-marketplace-left-bar [flyout]="true"></app-eth-marketplace-left-bar>
+  </div>
+</div>

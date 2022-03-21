@@ -1,0 +1,9 @@
+.max-width-400px {
+  max-width: 400px;
+}
+/*@supports not (aspect-ratio: 1 / 1) {
+    .max-width-400px {
+        max-width: 196px !important;
+        overflow-x: hidden;
+    }
+}*/

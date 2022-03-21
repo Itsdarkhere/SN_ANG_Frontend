@@ -99,7 +99,7 @@ export class DiscoveryPageComponent implements OnInit {
     this.postsLoading3 = true;
     this.backendApi.GetTrendingAuctions(this.globalVars.localNode, this.globalVars?.loggedInUser?.PublicKeyBase58Check).subscribe((res) => {
       this.discoveryMainNftResponse = res["PostEntryResponse"][0]
-      this.discoveryDataToShow3 = res["PostEntryResponse"].slice(0, 9);
+      this.discoveryDataToShow3 = res["PostEntryResponse"].slice(1, 9);
       setTimeout(() => {
         this.postsLoading3 = false;
       }, 350)

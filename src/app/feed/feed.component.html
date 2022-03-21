@@ -12,15 +12,17 @@
 
   <div *ngIf="isMobile" class="global__top-bar__height"></div>
   <div class="w-100 d-flex flex-center">
-    <div class="feed-tb-wrapper">
-      <tab-selector
-        class="feed_tabs"
-        [tabs]="feedTabs"
-        [icons]="['/assets/icons/feed_sn_icon.png', '/assets/icons/feed_following_icon.svg']"
-        [activeTab]="activeTab"
-        (tabClick)="_handleTabClick($event)"
-      ></tab-selector>
-    </div>
+    <tab-selector
+      class="feed_tabs"
+      [tabs]="feedTabs"
+      [icons]="[
+        '/assets/icons/feed_sn_icon.png',
+        '/assets/icons/feed_following_icon.svg',
+        '/assets/icons/feed_following_icon.svg'
+      ]"
+      [activeTab]="activeTab"
+      (tabClick)="_handleTabClick($event)"
+    ></tab-selector>
   </div>
 
   <countdown-timer
@@ -49,7 +51,7 @@
     </div>
   </div>
 
-  <div class="feed_mobile_gap" *ngIf="showGlobalOrFollowingPosts()">
+  <div class="feed_mobile_gap" *ngIf="showGlobalOrFollowingOrHotPosts()">
     <div *ngFor="let post of postsToShow()">
       <div *ngIf="post.ProfileEntryResponse">
         <!--
@@ -163,10 +165,6 @@
       <div *ngIf="!activeTabReadyForDisplay()" (click)="loadMorePosts()" class="fs-15px">Load More</div>
       <div *ngIf="activeTabReadyForDisplay()" class="fs-15px">Loading...</div>
     </div>
-  </div>
-
-  <div *ngIf="activeTab === FeedComponent.SHOWCASE_TAB">
-    <nft-showcase></nft-showcase>
   </div>
 
   <div

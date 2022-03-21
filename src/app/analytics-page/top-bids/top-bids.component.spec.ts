@@ -1,16 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { TopBidsComponent } from './top-bids.component';
+import { TopBidsComponent } from "./top-bids.component";
 
-describe('TopBidsComponent', () => {
+describe("TopBidsComponent", () => {
   let component: TopBidsComponent;
   let fixture: ComponentFixture<TopBidsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TopBidsComponent ]
-    })
-    .compileComponents();
+      declarations: [TopBidsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('TopBidsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

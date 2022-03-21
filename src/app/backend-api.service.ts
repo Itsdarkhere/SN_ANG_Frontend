@@ -141,6 +141,9 @@ export class BackendRoutes {
   static RoutePathGetCommunityFavourites = "/api/v0/get-community-favourites";
   static RoutePathGetFreshDrops = "/api/v0/get-fresh-drops";
   static RoutePathGetNFTsByCategory = "/api/v0/get-nfts-by-category";
+  static RoutePathGetTrendingAuctions = "/api/v0/get-trending-auctions";
+  static RoutePathGetRecentSales = "/api/v0/get-recent-sales";
+  static RoutePathGetSecondaryListings = "/api/v0/get-secondary-listings";
   // Marketplace postgres
   static RoutePathSortMarketplace = "/api/v0/sort-marketplace";
   static RoutePathSortCreators = "/api/v0/sort-creators";
@@ -209,6 +212,16 @@ export class BackendRoutes {
   static RoutePathUpdateIMXMetadataPostHash = "/api/v0/update-imx-post-hash";
   static RoutePathGetDesoPKbyETHPK = "/api/v0/get-deso-pk-by-ethpk";
   static RoutePathSortETHMarketplace = "/api/v0/sort-eth-marketplace";
+  // SUPERNOVAS ANALYTICS
+  static RoutePathGetUniqueCreators = "/api/v0/get-unique-creators";
+  static RoutePathGetUniqueCollectors = "/api/v0/get-unique-collectors";
+  static RoutePathGetDesoSalesCapGraph = "/api/v0/get-deso-sales-cap-graph";
+  static RoutePathGetDesoMarketCapGraph = "/api/v0/get-deso-market-cap-graph";
+  static RoutePathGetTopNFTSales = "/api/v0/get-top-nft-sales";
+  static RoutePathGetTopBidsToday = "/api/v0/get-top-bids-today";
+  static RoutePathGetTopEarningCollectors = "/api/v0/get-top-earning-collectors";
+  static RoutePathGetTopEarningCreators = "/api/v0/get-top-earning-creators";
+  static RoutePathGetQuickFacts = "/api/v0/get-quick-facts";
 }
 
 export class Transaction {
@@ -788,6 +801,14 @@ export class BackendApiService {
     return this.signAndSubmitTransaction(endpoint, req, SenderPublicKeyBase58Check);
   }
 
+  GetHotFeed(endpoint: string, ReaderPublicKeyBase58Check: string, SeenPosts, ResponseLimit): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetHotFeed, {
+      ReaderPublicKeyBase58Check,
+      SeenPosts,
+      ResponseLimit,
+    });
+  }
+
   InsertIMXMetadata(
     endpoint: string,
     Name: string,
@@ -1240,6 +1261,56 @@ export class BackendApiService {
       ReaderPublicKeyBase58Check,
     });
   }
+  // PublicKey can be omitted on the analytics queries
+  GetDesoMarketCapGraph(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetDesoMarketCapGraph, {
+      PublicKeyBase58Check,
+    });
+  }
+  // PublicKey can be omitted on the analytics queries
+  GetDesoSalesCapGraph(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetDesoSalesCapGraph, {
+      PublicKeyBase58Check,
+    });
+  }
+  GetTopNFTSales(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetTopNFTSales, {
+      PublicKeyBase58Check,
+    });
+  }
+  GetTopBidsToday(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetTopBidsToday, {
+      PublicKeyBase58Check,
+    });
+  }
+  GetTopEarningCollectors(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetTopEarningCollectors, {
+      PublicKeyBase58Check,
+    });
+  }
+  GetTopEarningCreators(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetTopEarningCreators, {
+      PublicKeyBase58Check,
+    });
+  }
+  GetQuickFacts(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetQuickFacts, {
+      PublicKeyBase58Check,
+    });
+  }
+
+  // PublicKey can be omitted on the analytics queries
+  GetUniqueCreators(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetUniqueCreators, {
+      PublicKeyBase58Check,
+    });
+  }
+  // PublicKey can be omitted on the analytics queries
+  GetUniqueCollectors(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetUniqueCollectors, {
+      PublicKeyBase58Check,
+    });
+  }
   GetNFTShowcasePaginated(
     endpoint: string,
     UserPublicKeyBase58Check: string,
@@ -1274,6 +1345,21 @@ export class BackendApiService {
       ReaderPublicKeyBase58Check,
       Category,
       Offset,
+    });
+  }
+  GetTrendingAuctions(endpoint: string, ReaderPublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetTrendingAuctions, {
+      ReaderPublicKeyBase58Check,
+    });
+  }
+  GetRecentSales(endpoint: string, ReaderPublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetRecentSales, {
+      ReaderPublicKeyBase58Check,
+    });
+  }
+  GetSecondaryListings(endpoint: string, ReaderPublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetSecondaryListings, {
+      ReaderPublicKeyBase58Check,
     });
   }
   GetFreshDrops(endpoint: string, ReaderPublicKeyBase58Check: string, ProfilePublicKey: string): Observable<any> {
@@ -2181,6 +2267,72 @@ export class BackendApiService {
     return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminGrantVerificationBadge, AdminPublicKey, {
       AdminPublicKey,
       UsernameToVerify,
+    });
+  }
+  AdminGetHotFeedAlgorithm(endpoint: string, AdminPublicKey: string): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminGetHotFeedAlgorithm, AdminPublicKey, {
+      AdminPublicKey,
+    });
+  }
+
+  AdminUpdateHotFeedAlgorithm(
+    endpoint: string,
+    AdminPublicKey: string,
+    InteractionCap: number,
+    TimeDecayBlocks: number
+  ): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminUpdateHotFeedAlgorithm, AdminPublicKey, {
+      AdminPublicKey,
+      InteractionCap,
+      TimeDecayBlocks,
+    });
+  }
+
+  AdminGetUnfilteredHotFeed(
+    endpoint: string,
+    AdminPublicKey: string,
+    ResponseLimit: number,
+    SeenPosts: Array<string>
+  ): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminGetUnfilteredHotFeed, AdminPublicKey, {
+      AdminPublicKey,
+      ResponseLimit,
+      SeenPosts,
+    });
+  }
+
+  AdminUpdateHotFeedPostMultiplier(
+    endpoint: string,
+    AdminPublicKey: string,
+    PostHashHex: string,
+    Multiplier: number
+  ): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminUpdateHotFeedPostMultiplier, AdminPublicKey, {
+      AdminPublicKey,
+      PostHashHex,
+      Multiplier,
+    });
+  }
+
+  AdminUpdateHotFeedUserMultiplier(
+    endpoint: string,
+    AdminPublicKey: string,
+    Username: string,
+    InteractionMultiplier: number,
+    PostsMultiplier: number
+  ): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminUpdateHotFeedUserMultiplier, AdminPublicKey, {
+      AdminPublicKey,
+      Username,
+      InteractionMultiplier,
+      PostsMultiplier,
+    });
+  }
+
+  AdminGetHotFeedUserMultiplier(endpoint: string, AdminPublicKey: string, Username: string): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminGetHotFeedUserMultiplier, AdminPublicKey, {
+      AdminPublicKey,
+      Username,
     });
   }
 

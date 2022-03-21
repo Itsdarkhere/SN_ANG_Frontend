@@ -125,7 +125,7 @@ export class DiscoveryComponent implements OnInit {
       .subscribe(
         (res) => {
           this.nftBidData = res;
-          if (this.nftBidData.BidEntryResponses?.length > 0) {
+          if (this.nftBidData?.BidEntryResponses?.length > 0) {
             this.bids = this.nftBidData.BidEntryResponses.filter(
               (bidEntry) => bidEntry.BidAmountNanos <= bidEntry.BidderBalanceNanos
             );

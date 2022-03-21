@@ -4869,8 +4869,10 @@ option {
 }
 .cc-follow-btn {
   max-width: 100%;
-  width: 172px;
+  width: 172px !important;
   height: 45px;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
 }
 .discovery-auct {
   display: flex;

@@ -17,7 +17,33 @@ h2 {
 .h-520 {
     height: 520px;
 }
-  
+.discovery-mobile-scroller {
+    display: grid;
+    margin-left: 10px;
+    gap: 15px;
+    grid-auto-flow: column;
+    grid-auto-columns: 300px;
+    grid-auto-rows: 500px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-inline: contain;
+}
+.discovery-users-mobile-scroller {
+    display: grid;
+    gap: 0;
+    grid-auto-flow: column;
+    grid-auto-columns: 300px;
+    grid-auto-rows: 420px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-inline: contain;
+}
+.snaps-inline {
+    scroll-snap-type: inline mandatory;
+}
+.snaps-inline > * {
+    scroll-snap-align: start;
+}
 .discovery-category-box {
     width: 263px;
     height: 176px;
@@ -101,19 +127,10 @@ h2 {
     }
 }
 .card {
-    width: 90%;
-    padding: 1rem;
-    margin: 1.5% auto;
     background-color: #fff;
-    border-radius: 10px;
+    padding: 1rem;
+    border-radius: 30px;
     box-shadow: 0 0 10px rgba(195, 209, 216, 0.5);
-    
-    @media (min-width: 768px) {
-      margin: 1.5%;
-      flex-basis: 0;
-      flex-grow: 1;
-      max-width: 100%;
-    }
 }
 .card-slide {
     width: 300px !important;

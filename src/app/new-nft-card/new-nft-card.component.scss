@@ -100,7 +100,7 @@
             flex: none;
             padding-right: 10px;
           }
-          .bid-col-buy-now {
+          .bid-buy-now {
             flex: none;
           }
         }
@@ -126,11 +126,12 @@
             font-size: 13px;
           }
         }
-        .bid-col-buy-now {
+        .bid-buy-now {
           display: flex;
           flex-direction: column;
           justify-content: center;
           flex: 1 1 auto;
+          margin-bottom: 5px;
           p {
             //color: var(--background);
             font-size: 16px;
@@ -278,7 +279,7 @@
 }
 .nft-card-buy-now-button {
   width: 120px;
-  height: 50px;
+  height: 44px;
   max-width: 100%;
   background: #ffffff;
   border: 4px solid #ffffff;

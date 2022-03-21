@@ -8,6 +8,7 @@ import { GlobalVarsService } from "../global-vars.service";
 })
 export class PageSmallNavNewComponent implements OnInit {
   @Input() isNFTProfile: boolean;
+  @Input() noBottomBar: boolean;
   mobile = false;
   constructor(public globalVars: GlobalVarsService) {}
 

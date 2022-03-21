@@ -24,14 +24,14 @@
     <left-bar-button
       [link]="'/' + this.globalVars.RouteNames.ACTIVITY"
       [imgSrc]="'/assets/icons/lb_activity_icon.svg'"
-      *ngIf="this.globalVars.isOnboardingComplete && globalVars.loggedInUser"
+      *ngIf="globalVars.loggedInUser"
       [label]="'Activity'"
     ></left-bar-button>
     <left-bar-button
       [link]="'/' + this.globalVars.RouteNames.INBOX_PREFIX"
       [hasNotifications]="true"
       [imgSrc]="'/assets/icons/lb_messages_icon.svg'"
-      *ngIf="this.globalVars.isOnboardingComplete && globalVars.loggedInUser"
+      *ngIf="globalVars.loggedInUser"
       [label]="'Messages'"
     ></left-bar-button>
     <left-bar-button
@@ -39,7 +39,6 @@
       [link]="'/' + this.globalVars.RouteNames.WALLET"
       [imgSrc]="'/assets/icons/lb_wallet_icon.svg'"
       [label]="'Wallet'"
-
     ></left-bar-button>
     <left-bar-button
       [link]="'/' + this.globalVars.RouteNames.COMPLETE_PROFILE"

@@ -1,11 +1,13 @@
 <!-- DESO MARKETPLACE CONTENT-->
 <!-- Show shimmer Loader Until page completely Load -->
 <div *ngIf="this.globalVars.desoMarketplace">
+  <!-- on desktop show long marketplace header -->
   <div
     class="mrk_top pb-10px d-flex flex-end-center flex-row justify-content-between"
     [ngClass]="mobile ? 'mt-65px' : ''"
+    *ngIf="!mobile"
   >
-    <h2 class="fs-24px font-weight-semiboldn" style="color: #222222" *ngIf="!mobile">Marketplace</h2>
+    <h2 class="fs-24px font-weight-semiboldn" style="color: #222222">Marketplace</h2>
     <div class="blockchain-selection-container">
       <button
         class="deso-marketplace-selector-container deso-marketplace-active"
@@ -36,6 +38,54 @@
         class="p-5px ml-20px mrk_select mrk_top_select_height fs-14px"
         (ngModelChange)="sortSelectChange($event)"
         [ngModel]="globalVars.marketplaceSortType"
+      >
+        <option value="most recent first">Most recent first</option>
+        <option value="oldest first">Oldest first</option>
+        <option value="highest price first">Highest price first</option>
+        <option value="lowest price first">Lowest price first</option>
+        <option value="most likes first">Most likes first</option>
+        <option value="most diamonds first">Most diamonds first</option>
+        <option value="most comments first">Most comments first</option>
+        <option value="most reposts first">Most reposts first</option>
+      </select>
+    </div>
+  </div>
+  <!-- on mobile show short marketplace header -->
+  <div class="mrk_top_mobile mobile-marketplace-header" [ngClass]="mobile ? 'mt-65px' : ''" *ngIf="mobile">
+    <div class="mobile-marketplace-header-first-row" [ngClass]="{ 'w-100': mobile }">
+      <div class="blockchain-selection-container">
+        <button
+          class="deso-marketplace-selector-container deso-marketplace-active"
+          (click)="updateDesoMarketplaceStatus()"
+        >
+          <img src="/assets/deso/desologo.svg" class="deso-marketplace-logo" />
+          <p class="deso-marketplace-text">Deso</p>
+        </button>
+        <button class="eth-marketplace-selector-container" (click)="updateEthMarketplaceStatus()">
+          <img src="/assets/eth/ethlogo.svg" class="eth-marketplace-logo" />
+          <p class="eth-marketplace-text">Eth</p>
+        </button>
+      </div>
+      <div class="mrk_top_selector-two px-5px d-flex flex-row">
+        <button
+          class="selected"
+          (click)="setDisplayType('Card')"
+          [ngClass]="{ selected: globalVars.marketplaceViewTypeCard }"
+        >
+          <img src="/assets/icons/market_grid_type_card_icon.svg" alt="card icon" />
+        </button>
+        <button (click)="setDisplayType('Grid')" [ngClass]="{ selected: !globalVars.marketplaceViewTypeCard }">
+          <img src="/assets/icons/market_grid_type_grid_icon.svg" alt="grid icon" />
+        </button>
+      </div>
+    </div>
+    <div class="mobile-marketplace-header-second-row" [ngClass]="{ 'w-100': mobile }">
+      <label for="sort-by-select" class="sort-by-select-text">Sort by</label>
+      <select
+        class="p-5px ml-20px mrk_select mrk_top_select_height fs-14px"
+        (ngModelChange)="sortSelectChange($event)"
+        [ngModel]="globalVars.marketplaceSortType"
+        id="sort-by-select"
       >
         <option value="most recent first">Most recent first</option>
         <option value="oldest first">Oldest first</option>

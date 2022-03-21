@@ -140,3 +140,36 @@
   justify-content: center;
   align-items: flex-end;
 }
+
+.mrk_top_mobile {
+  border-bottom: 2px solid var(--border);
+  height: 180px;
+  width: 100%;
+  -webkit-align-items: flex-end;
+  padding-top: 20px;
+}
+
+.mobile-marketplace-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-marketplace-header-first-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.mobile-marketplace-header-second-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.sort-by-select-text {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13.0026px;
+  line-height: 20px;
+  color: #525252;
+}

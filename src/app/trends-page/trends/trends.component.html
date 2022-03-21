@@ -191,7 +191,42 @@
           </div>
         </div>
       </div>
-      <div *ngIf="!globalVars.isEthMarketplaceLoading" class="w-100 d-flex flex-row flex-start-end-eth">
+      <!-- if desktop leave it as is -->
+      <div *ngIf="!globalVars.isEthMarketplaceLoading && !mobile" class="w-100 d-flex flex-row flex-start-end">
+        <div
+          class="search-results"
+          infiniteScroll
+          [infiniteScrollDistance]="4"
+          [infiniteScrollThrottle]="150"
+          (scrolled)="onScrollEthNFTs()"
+        >
+          <div class="nfts-card-list">
+            <div
+              [ngClass]="globalVars.marketplaceViewTypeCard ? 'nft-col-wrap' : 'small-nft-col-wrap'"
+              *ngFor="let PostEntryResponse of globalVars.ethMarketplaceNFTsDataToShow"
+            >
+              <div class="max-width-300-plus" *ngIf="globalVars.marketplaceViewTypeCard">
+                <new-nft-card
+                  [post]="PostEntryResponse"
+                  [includePaddingOnPost]="true"
+                  [pending]="false"
+                  [showReplyingToContent]="PostEntryResponse"
+                  [parentPost]=""
+                  [contentShouldLinkToThread]="true"
+                  [showNFTDetails]="true"
+                  [showExpandedNFTDetails]="true"
+                  [setBorder]="true"
+                ></new-nft-card>
+              </div>
+              <div *ngIf="!globalVars.marketplaceViewTypeCard">
+                <app-small-card-component [post]="PostEntryResponse"></app-small-card-component>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- if mobile center it on one -->
+      <div *ngIf="!globalVars.isEthMarketplaceLoading && mobile" class="w-100 d-flex flex-row flex-start-end-eth">
         <div
           class="search-results"
           infiniteScroll

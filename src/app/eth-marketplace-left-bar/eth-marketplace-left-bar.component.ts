@@ -88,7 +88,6 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
           this.statusForSale = false;
           this.statusHasBids = false;
           this.statusSold = false;
-          //   this.globalVars.ethMarketplaceCanFilter = false;
         }
         break;
       case "for sale":
@@ -97,7 +96,6 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
           this.statusForSale = false;
         } else {
           this.statusForSale = true;
-          //   this.globalVars.ethMarketplaceCanFilter = true;
           this.statusAll = false;
           this.statusHasBids = false;
           this.statusSold = false;
@@ -157,9 +155,6 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
       this.lastSortCreatorTypeVerified = false;
     }
   }
-  //   categoryAndFormatToBaseState() {
-  //     this.globalVars.ethMarketplaceNFTCategory = "All";
-  //   }
   canSort() {
     //   if category is different from last then sort
     if (this.NFTCategory != this.lastSortCategory) {
@@ -176,35 +171,33 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
     }
   }
   setFunction() {
+    console.log(` --------- statusForSale is ${this.statusForSale} `);
+
     this.setCategory();
     this.setStatus();
     this.setCreatorType();
 
     this.canSort();
+    console.log(
+      ` --------- is this.NFTCategory ${this.NFTCategory} not equal to this.lastSortCategory ${this.lastSortCategory}? then canSort`
+    );
+    console.log(
+      ` --------- is this.lastSortStatusAll ${this.lastSortStatusAll} not equal to is statusAll ${this.statusAll}`
+    );
+    console.log(
+      ` --------- is this.lastSortStatusForSale ${this.lastSortStatusForSale} not equal to is statusForSale ${this.statusForSale}`
+    );
+    console.log(` --------- ${this.canUserSort}`);
   }
   // Functionpass service is made to pass this argument
   apply() {
     this.globalVars.isEthMarketplaceLoading = true;
-    // this.setPriceRangeInNanos();
-    // this.setMarketType();
     this.setCategory();
-    // this.setContentFormat();
     this.setStatus();
     this.setCreatorType();
-    // this.onFilter.emit("sort");
-    // this.functionPass.filter("sort");
     this.canUserSort = false;
 
     this.globalVars.getEthNFTsByFilter();
-    // console.log(this.globalVars.ethMarketplaceStatus);
-
-    // if (this.globalVars.ethMarketplaceStatus === "all") {
-    //   this.globalVars.getAllEthNFTs();
-    // }
-
-    // if (this.globalVars.ethMarketplaceStatus === "for sale") {
-    //   this.globalVars.sortEthMarketplace();
-    // }
 
     setTimeout(() => {
       this.globalVars.isEthMarketplaceLeftBarMobileOpen = false;

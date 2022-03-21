@@ -195,7 +195,6 @@ export class MarketplaceLeftBarComponent implements OnInit {
   setStatus() {
     if (this.statusAll) {
       this.globalVars.marketplaceStatus = "all";
-      this.globalVars.ethMarketplaceStatus = "all";
       // Store to use in canSort()
       this.lastSortStatusAll = true;
       this.lastSortStatusForSale = false;
@@ -203,7 +202,6 @@ export class MarketplaceLeftBarComponent implements OnInit {
       this.lastSortStatusSold = false;
     } else if (this.statusForSale) {
       this.globalVars.marketplaceStatus = "for sale";
-      this.globalVars.ethMarketplaceStatus = "for sale";
       // Store to use in canSort()
       this.lastSortStatusForSale = true;
       this.lastSortStatusSold = false;
@@ -518,12 +516,6 @@ export class MarketplaceLeftBarComponent implements OnInit {
       this.setCategory();
       this.setStatus();
       this.canUserSort = false;
-
-      console.log(this.globalVars.ethMarketplaceStatus);
-
-      if (this.globalVars.ethMarketplaceStatus === "all" || this.globalVars.ethMarketplaceStatus === "for sale") {
-        this.globalVars.getEthNFTsByFilter();
-      }
 
       setTimeout(() => {
         this.globalVars.isMarketplaceLeftBarMobileOpen = false;

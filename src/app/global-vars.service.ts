@@ -1843,9 +1843,13 @@ export class GlobalVarsService {
     let collectedNFTsArr = [];
 
     for (var i = 0; i < collectedNFTsLength; i++) {
-      collectedNFTsArr.push(collectedNFTs["result"][i]["metadata"]["Token_id"].toString());
+      if (!collectedNFTs["result"][i]["metadata"]["Token_id"]) {
+        console.log("not defined -------- ");
+      } else {
+        collectedNFTsArr.push(collectedNFTs["result"][i]["metadata"]["Token_id"].toString());
+        console.log(collectedNFTsArr);
+      }
     }
-    console.log(collectedNFTsArr);
 
     // endpoint: string,
     // ReaderPublicKeyBase58Check: string,
@@ -1873,34 +1877,34 @@ export class GlobalVarsService {
       );
   }
 
-  getCreatedNFTsCounter = 0;
+  //   getCreatedNFTsCounter = 0;
 
-  getCreatedPostsRecursive(metadataPostHashArr) {
-    this.getPost(true, metadataPostHashArr[this.getCreatedNFTsCounter]).subscribe(
-      (res) => {
-        console.log(this.getCreatedNFTsCounter);
-        this.getCreatedNFTsCounter++;
-        console.log(res["PostFound"]);
-        console.log(this.ethNFTsCreated);
-        this.ethNFTsCreated.push(res["PostFound"]);
-        console.log(this.ethNFTsCreated);
-        if (this.getCreatedNFTsCounter < metadataPostHashArr.length) {
-          this.getCreatedPostsRecursive(metadataPostHashArr);
-        } else {
-          return;
-        }
-      },
-      (err: any) => {
-        console.log(err);
-        this.getCreatedNFTsCounter++;
-        if (this.getCreatedNFTsCounter < metadataPostHashArr.length) {
-          this.getCreatedPostsRecursive(metadataPostHashArr);
-        } else {
-          return;
-        }
-      }
-    );
-  }
+  //   getCreatedPostsRecursive(metadataPostHashArr) {
+  //     this.getPost(true, metadataPostHashArr[this.getCreatedNFTsCounter]).subscribe(
+  //       (res) => {
+  //         console.log(this.getCreatedNFTsCounter);
+  //         this.getCreatedNFTsCounter++;
+  //         console.log(res["PostFound"]);
+  //         console.log(this.ethNFTsCreated);
+  //         this.ethNFTsCreated.push(res["PostFound"]);
+  //         console.log(this.ethNFTsCreated);
+  //         if (this.getCreatedNFTsCounter < metadataPostHashArr.length) {
+  //           this.getCreatedPostsRecursive(metadataPostHashArr);
+  //         } else {
+  //           return;
+  //         }
+  //       },
+  //       (err: any) => {
+  //         console.log(err);
+  //         this.getCreatedNFTsCounter++;
+  //         if (this.getCreatedNFTsCounter < metadataPostHashArr.length) {
+  //           this.getCreatedPostsRecursive(metadataPostHashArr);
+  //         } else {
+  //           return;
+  //         }
+  //       }
+  //     );
+  //   }
 
   //   get created eth NFTs for logged in wallet
   async getCreatedNFTs() {
@@ -1926,15 +1930,40 @@ export class GlobalVarsService {
       createdNFTsArr.push(createdNFTs["result"][i]["token"]["data"]["token_id"]);
     }
 
-    let metadataPostHashArr = [];
-    for (var i = 0; i < createdNFTsArr.length; i++) {
-      let metadataRes = await fetch(`https://supernovas.app/api/v0/imx/metadata/${createdNFTsArr[i]}`);
-      let metadataResJson = await metadataRes.json();
-      metadataPostHashArr.push(metadataResJson["PostHashHex"]);
-    }
+    // endpoint: string,
+    // ReaderPublicKeyBase58Check: string,
+    // TokenIdArray: string[],
+    // Category: string,
+    // SortType: string,
+    // CreatorsType: string
+    this.backendApi
+      .SortETHMarketplace(
+        this.localNode,
+        this.loggedInUser.PublicKeyBase58Check,
+        createdNFTsArr,
+        "all",
+        "most recent first",
+        "all"
+      )
+      .subscribe(
+        (res) => {
+          console.log(res);
+          this.ethNFTsCreated = res["PostEntryResponse"];
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
 
-    this.getCreatedNFTsCounter = 0;
-    this.getCreatedPostsRecursive(metadataPostHashArr);
+    // let metadataPostHashArr = [];
+    // for (var i = 0; i < createdNFTsArr.length; i++) {
+    //   let metadataRes = await fetch(`https://supernovas.app/api/v0/imx/metadata/${createdNFTsArr[i]}`);
+    //   let metadataResJson = await metadataRes.json();
+    //   metadataPostHashArr.push(metadataResJson["PostHashHex"]);
+    // }
+
+    // this.getCreatedNFTsCounter = 0;
+    // this.getCreatedPostsRecursive(metadataPostHashArr);
   }
   //   ----------------- end of eth/imx functions -----------------
 }

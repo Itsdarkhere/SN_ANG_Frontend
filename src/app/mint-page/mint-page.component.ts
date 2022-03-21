@@ -892,6 +892,7 @@ export class MintPageComponent implements OnInit {
       properties: JSON.stringify(Array.from(this.KVMap)),
       isEthereumNFT: JSON.stringify(true),
       tokenId: JSON.stringify(this.token_id),
+      ethContractNumber: "1",
     };
     if (environment.node.id) {
       postExtraData["Node"] = environment.node.id.toString();
@@ -929,6 +930,7 @@ export class MintPageComponent implements OnInit {
           this.globalVars.logEvent(`post : create : error`, { parsedError });
           this.isSubmitPress = false;
           this.changeRef.detectChanges();
+          this.globalVars._alertError("Post failed, please mint again.");
         }
       );
   }

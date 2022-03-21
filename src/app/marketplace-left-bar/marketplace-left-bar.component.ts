@@ -81,11 +81,6 @@ export class MarketplaceLeftBarComponent implements OnInit {
     this.creatorsClick(this.globalVars.marketplaceVerifiedCreators);
     this.formatClick(this.globalVars.marketplaceContentFormat);
     this.categorySelectChange(this.globalVars.marketplaceNFTCategory);
-    console.log(this.globalVars.marketplaceStatus);
-    console.log(this.globalVars.marketplaceMarketType);
-    console.log(this.globalVars.marketplaceVerifiedCreators);
-    console.log(this.globalVars.marketplaceContentFormat);
-    console.log(this.globalVars.marketplaceNFTCategory);
     this.mixPanel.track18("Marketplace Viewed");
   }
   // Input validation

@@ -285,7 +285,7 @@
           Music
         </span>
       </button>
-      <button class="not-available-warning-border">
+      <button (click)="formatClick('3d')" [ngClass]="{ selected: format3D }">
         <span class="center-absolute d-flex flex-column">
           <img src="/assets/icons/market_3d_icon.svg" class="mb-5px" alt="image-icon" />
           3D

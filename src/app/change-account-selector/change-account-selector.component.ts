@@ -60,6 +60,8 @@ export class ChangeAccountSelectorComponent implements OnDestroy {
     this.selectorOpen = false;
   }
   launchLogoutFlow() {
+    this.intervalClosed = true;
+
     this.linkLogOut();
 
     const publicKey = this.globalVars.loggedInUser.PublicKeyBase58Check;

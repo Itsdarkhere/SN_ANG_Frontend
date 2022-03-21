@@ -17,7 +17,7 @@ import { MixpanelService } from "../mixpanel.service";
 export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   static GLOBAL_TAB = "Supernovas Feed";
   static FOLLOWING_TAB = "Following";
-  static HOT_TAB = "Hot";
+  static HOT_TAB = "Hot on Deso";
   static TABS = [FeedComponent.GLOBAL_TAB, FeedComponent.FOLLOWING_TAB];
   static NUM_TO_FETCH = 30;
   static MIN_FOLLOWING_TO_SHOW_FOLLOW_FEED_BY_DEFAULT = 10;

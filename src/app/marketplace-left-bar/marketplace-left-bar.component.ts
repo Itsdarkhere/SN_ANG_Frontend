@@ -45,8 +45,8 @@ export class MarketplaceLeftBarComponent implements OnInit {
   priceRangeIncorrect = false;
   // Last sort values, keep last sort values in memory to compare them to current values
   // This is to enable / disable the apply button accordingly
-  lastSortLowPrice = 0;
-  lastSortHighPrice = 0;
+  lastSortLowPrice = undefined;
+  lastSortHighPrice = undefined;
   lastSortContentFormatAll = true;
   lastSortContentFormatVideo = false;
   lastSortContentFormatMusic = false;
@@ -60,6 +60,8 @@ export class MarketplaceLeftBarComponent implements OnInit {
   lastSortStatusHasBids = false;
   lastSortStatusSold = false;
   lastSortCategory = "all";
+
+  undefinedCheck = undefined;
   // If Apply button is disabled or allowed
   canUserSort = false;
 
@@ -79,6 +81,11 @@ export class MarketplaceLeftBarComponent implements OnInit {
     this.creatorsClick(this.globalVars.marketplaceVerifiedCreators);
     this.formatClick(this.globalVars.marketplaceContentFormat);
     this.categorySelectChange(this.globalVars.marketplaceNFTCategory);
+    console.log(this.globalVars.marketplaceStatus);
+    console.log(this.globalVars.marketplaceMarketType);
+    console.log(this.globalVars.marketplaceVerifiedCreators);
+    console.log(this.globalVars.marketplaceContentFormat);
+    console.log(this.globalVars.marketplaceNFTCategory);
     this.mixPanel.track18("Marketplace Viewed");
   }
   // Input validation
@@ -126,6 +133,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
     this.globalVars.marketplaceHighPriceNanos = 0;
     this.globalVars.marketplaceHighPriceUSD = 0;
     this.globalVars.marketplaceHighPriceUSD = 0;
+    this.canSort();
   }
 
   categoryAndFormatToBaseState() {
@@ -443,15 +451,23 @@ export class MarketplaceLeftBarComponent implements OnInit {
   canSort() {
     // If price is different from last sort
     if (this.lastSortLowPrice != this.lowPrice || this.lastSortHighPrice != this.highPrice) {
+      console.log(this.lowPrice);
+      console.log(this.highPrice);
+      console.log("LOGGED 1");
+
       this.canUserSort = true;
       // If market is different from last sort
     } else if (
       this.lastSortMarketPrimary != this.marketPrimary ||
       this.lastSortMarketSecondary != this.marketSecondary
     ) {
+      console.log("LOGGED 2");
+
       this.canUserSort = true;
       // If category is different from last sort
     } else if (this.NFTCategory != this.lastSortCategory) {
+      console.log("LOGGED 3");
+
       this.canUserSort = true;
       // If content format is different from last sort
     } else if (
@@ -461,6 +477,8 @@ export class MarketplaceLeftBarComponent implements OnInit {
       this.lastSortContentFormatMusic != this.formatMusic ||
       this.lastSortContentFormat3D != this.format3D
     ) {
+      console.log("LOGGED 4");
+
       this.canUserSort = true;
       // If status is different from last time
     } else if (
@@ -469,9 +487,13 @@ export class MarketplaceLeftBarComponent implements OnInit {
       this.lastSortStatusHasBids != this.statusHasBids ||
       this.lastSortStatusSold != this.statusSold
     ) {
+      console.log("LOGGED 5");
+
       this.canUserSort = true;
       // If creator type is different from last time
     } else if (this.lastSortCreatorTypeVerified != this.creatorTypeVerified) {
+      console.log("LOGGED 6");
+
       this.canUserSort = true;
       // If nothing has changed user cannot sort
     } else {

@@ -43,7 +43,7 @@
     <left-bar-button
       [link]="'/' + this.globalVars.RouteNames.COMPLETE_PROFILE"
       [imgSrc]="'/assets/icons/profile-icon.svg'"
-      *ngIf="!this.globalVars.isOnboardingComplete"
+      *ngIf="!this.globalVars.isOnboardingComplete && this.globalVars?.loggedInUser?.PublicKeyBase58Check"
       [label]="'Onboarding'"
     ></left-bar-button>
     <button *ngIf="globalVars.showAdminTools()" class="lb-admin" [routerLink]="'/' + globalVars.RouteNames.ADMIN">

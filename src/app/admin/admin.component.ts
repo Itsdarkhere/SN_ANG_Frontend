@@ -39,15 +39,24 @@ export class AdminComponent implements OnInit {
   @Input() isMobile = false;
   nftCollections: NFTCollectionResponse[];
 
-  // QUERY
-  //dropNumber: number = 1;
-  //latestDropNumber: number = 1;
-  //latestDropEntry: any;
-  //dropTime: Date = new Date();
-  //dropEntry: any;
-  // END
-  //list2 = [];
-  //list3 = [];
+  // Hot feed.
+  hotFeedPosts = [];
+  hotFeedPostHashes = [];
+  loadingHotFeed = false;
+  loadingMoreHotFeed = false;
+  hotFeedInteractionCap = 0;
+  hotFeedTimeDecayBlocks = 0;
+  hotFeedUserForInteractionMultiplier: string;
+  hotFeedUserInteractionMultiplier: number;
+  hotFeedUserForPostsMultiplier: string;
+  hotFeedUserPostsMultiplier: number;
+  updatingHotFeedInteractionCap = false;
+  updatingHotFeedTimeDecayBlocks = false;
+  updatingHotFeedUserInteractionMultiplier = false;
+  updatingHotFeedUserPostsMultiplier = false;
+  searchingHotFeedUserMultipliers = false;
+  hotFeedUserForSearch: string;
+  hotFeedUserSearchResults;
 
   banlistPubKeyOrUsername = "";
   restrictPubKeyOrUsername = "";
@@ -117,7 +126,18 @@ export class AdminComponent implements OnInit {
   usernameVerificationAuditLogs: any = [];
   loadingVerifiedUsers = false;
   loadingVerifiedUsersAuditLog = false;
-  adminTabs = ["Posts", "Profiles", "NFTs", "Tutorial", "Network", "Mempool", "Wyre", "Jumio", "Referral Program"];
+  adminTabs = [
+    "Posts",
+    "Hot Feed",
+    "Profiles",
+    "NFTs",
+    "Tutorial",
+    "Network",
+    "Mempool",
+    "Wyre",
+    "Jumio",
+    "Referral Program",
+  ];
 
   POSTS_TAB = "Posts";
   POSTS_BY_DESO_TAB = "Posts By DESO";
@@ -181,6 +201,7 @@ export class AdminComponent implements OnInit {
     this.activePostTab = this.POSTS_TAB;
     this._loadPosts();
     this._loadPostsByDESO();
+    this._loadHotFeed();
 
     // Get the latest mempool stats.
     this._loadMempoolStats();
@@ -328,6 +349,183 @@ export class AdminComponent implements OnInit {
       .add(() => {
         this.loadingPostsByDESO = false;
         this.searchingForPostsByDESO = false;
+      });
+  }
+  _loadHotFeed() {
+    this.loadingHotFeed = true;
+
+    // If the user is a super admin, fetch the hot feed algo constants.
+    if (
+      this.globalVars.showSuperAdminTools() &&
+      (this.hotFeedInteractionCap === 0 || this.hotFeedTimeDecayBlocks === 0)
+    ) {
+      this.backendApi
+        .AdminGetHotFeedAlgorithm(this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check)
+        .subscribe(
+          (res) => {
+            this.hotFeedInteractionCap = res.InteractionCap / 1e9;
+            this.hotFeedTimeDecayBlocks = res.TimeDecayBlocks;
+          },
+          (err) => {
+            console.error(err);
+            this.globalVars._alertError("Error getting hot feed constants: " + this.backendApi.stringifyError(err));
+          }
+        );
+    }
+
+    // Fetch the hot feed.
+    if (this.hotFeedPostHashes.length > 0) {
+      this.loadingMoreHotFeed = true;
+    }
+    this.backendApi
+      .AdminGetUnfilteredHotFeed(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        50,
+        this.hotFeedPostHashes
+      )
+      .subscribe(
+        (res) => {
+          this.hotFeedPosts = this.hotFeedPosts.concat(res.HotFeedPage);
+          for (let ii = 0; ii < res.HotFeedPage?.length; ii++) {
+            this.hotFeedPostHashes = this.hotFeedPostHashes.concat(res.HotFeedPage[ii].PostHashHex);
+          }
+        },
+        (err) => {
+          console.error(err);
+          this.globalVars._alertError("Error loading hot feed: " + this.backendApi.stringifyError(err));
+        }
+      )
+      .add(() => {
+        this.loadingHotFeed = false;
+        this.loadingMoreHotFeed = false;
+      });
+  }
+
+  updateHotFeedInteractionCap() {
+    this.updatingHotFeedInteractionCap = true;
+    this.backendApi
+      .AdminUpdateHotFeedAlgorithm(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        this.hotFeedInteractionCap * 1e9,
+        0
+      )
+      .subscribe(
+        (res) => {
+          this.globalVars._alertSuccess(
+            "Successfully updated InteractionCap. The hot feed will take ~10s to recompute."
+          );
+        },
+        (err) => {
+          console.error(err);
+          this.globalVars._alertError("Error updating InteractionCap: " + this.backendApi.stringifyError(err));
+        }
+      )
+      .add(() => {
+        this.updatingHotFeedInteractionCap = false;
+      });
+  }
+
+  updateHotFeedTimeDecayBlocks() {
+    this.updatingHotFeedTimeDecayBlocks = true;
+    this.backendApi
+      .AdminUpdateHotFeedAlgorithm(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        0,
+        this.hotFeedTimeDecayBlocks
+      )
+      .subscribe(
+        (res) => {
+          this.globalVars._alertSuccess(
+            "Successfully updated TimeDecayBlocks. The hot feed will take ~10s to recompute."
+          );
+        },
+        (err) => {
+          console.error(err);
+          this.globalVars._alertError("Error updating hot TimeDecayBlocks: " + this.backendApi.stringifyError(err));
+        }
+      )
+      .add(() => {
+        this.updatingHotFeedTimeDecayBlocks = false;
+      });
+  }
+
+  updateHotFeedUserPostsMultiplier() {
+    this.updatingHotFeedUserPostsMultiplier = true;
+    this.backendApi
+      .AdminUpdateHotFeedUserMultiplier(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        this.hotFeedUserForPostsMultiplier,
+        -1 /*InteractionMultiplier -- negative values are ignored*/,
+        this.hotFeedUserPostsMultiplier
+      )
+      .subscribe(
+        (res) => {
+          this.globalVars._alertSuccess("Successfully updated posts multiplier.");
+        },
+        (err) => {
+          console.error(err);
+          this.globalVars._alertError("Error updating posts multiplier: " + this.backendApi.stringifyError(err));
+        }
+      )
+      .add(() => {
+        this.updatingHotFeedUserPostsMultiplier = false;
+      });
+  }
+
+  updateHotFeedUserInteractionMultiplier() {
+    this.updatingHotFeedUserInteractionMultiplier = true;
+    this.backendApi
+      .AdminUpdateHotFeedUserMultiplier(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        this.hotFeedUserForInteractionMultiplier,
+        this.hotFeedUserInteractionMultiplier,
+        -1 /*PostsMultiplier -- negative values are ignored*/
+      )
+      .subscribe(
+        (res) => {
+          this.globalVars._alertSuccess("Successfully updated interaction multiplier.");
+        },
+        (err) => {
+          console.error(err);
+          this.globalVars._alertError("Error updating interaction multiplier: " + this.backendApi.stringifyError(err));
+        }
+      )
+      .add(() => {
+        this.updatingHotFeedUserInteractionMultiplier = false;
+      });
+  }
+
+  searchForHotFeedUserMultipliers() {
+    this.searchingHotFeedUserMultipliers = true;
+    this.backendApi
+      .AdminGetHotFeedUserMultiplier(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        this.hotFeedUserForSearch
+      )
+      .subscribe(
+        (res) => {
+          this.hotFeedUserSearchResults = JSON.stringify(
+            {
+              InteractionMultiplier: res.InteractionMultiplier,
+              PostsMultiplier: res.PostsMultiplier,
+            },
+            null,
+            4
+          );
+        },
+        (err) => {
+          console.error(err);
+          this.globalVars._alertError("Error fetching user's multipliers: " + this.backendApi.stringifyError(err));
+        }
+      )
+      .add(() => {
+        this.searchingHotFeedUserMultipliers = false;
       });
   }
 

@@ -2244,6 +2244,72 @@ export class BackendApiService {
       UsernameToVerify,
     });
   }
+  AdminGetHotFeedAlgorithm(endpoint: string, AdminPublicKey: string): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminGetHotFeedAlgorithm, AdminPublicKey, {
+      AdminPublicKey,
+    });
+  }
+
+  AdminUpdateHotFeedAlgorithm(
+    endpoint: string,
+    AdminPublicKey: string,
+    InteractionCap: number,
+    TimeDecayBlocks: number
+  ): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminUpdateHotFeedAlgorithm, AdminPublicKey, {
+      AdminPublicKey,
+      InteractionCap,
+      TimeDecayBlocks,
+    });
+  }
+
+  AdminGetUnfilteredHotFeed(
+    endpoint: string,
+    AdminPublicKey: string,
+    ResponseLimit: number,
+    SeenPosts: Array<string>
+  ): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminGetUnfilteredHotFeed, AdminPublicKey, {
+      AdminPublicKey,
+      ResponseLimit,
+      SeenPosts,
+    });
+  }
+
+  AdminUpdateHotFeedPostMultiplier(
+    endpoint: string,
+    AdminPublicKey: string,
+    PostHashHex: string,
+    Multiplier: number
+  ): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminUpdateHotFeedPostMultiplier, AdminPublicKey, {
+      AdminPublicKey,
+      PostHashHex,
+      Multiplier,
+    });
+  }
+
+  AdminUpdateHotFeedUserMultiplier(
+    endpoint: string,
+    AdminPublicKey: string,
+    Username: string,
+    InteractionMultiplier: number,
+    PostsMultiplier: number
+  ): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminUpdateHotFeedUserMultiplier, AdminPublicKey, {
+      AdminPublicKey,
+      Username,
+      InteractionMultiplier,
+      PostsMultiplier,
+    });
+  }
+
+  AdminGetHotFeedUserMultiplier(endpoint: string, AdminPublicKey: string, Username: string): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminGetHotFeedUserMultiplier, AdminPublicKey, {
+      AdminPublicKey,
+      Username,
+    });
+  }
 
   AdminRemoveVerificationBadge(
     endpoint: string,

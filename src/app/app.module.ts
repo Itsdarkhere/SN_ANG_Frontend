@@ -234,9 +234,10 @@ import { LandingReferralsComponent } from "./landing-referrals/landing-referrals
 import { SignupPageReferralsComponent } from "./signup-page-referrals/signup-page-referrals.component";
 import { LandingPageCreatorsComponent } from "./landing-page-creators/landing-page-creators.component";
 import { LandingPageDaoComponent } from "./landing-page-dao/landing-page-dao.component";
-import { MobileNavigationComponent } from './left-bar-mobile/mobile-navigation/mobile-navigation.component';
-import { NftDetailBoxComponent } from './feed/nft-detail-box/nft-detail-box.component';
-import { ObserveVisibilityDirective } from './observe-visibility.directive';
+import { MobileNavigationComponent } from "./left-bar-mobile/mobile-navigation/mobile-navigation.component";
+import { NftDetailBoxComponent } from "./feed/nft-detail-box/nft-detail-box.component";
+import { CancelNftAuctionModalComponent } from "./cancel-nft-auction-modal/cancel-nft-auction-modal.component";
+import { ObserveVisibilityDirective } from "./observe-visibility.directive";
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -444,6 +445,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     LandingPageDaoComponent,
     MobileNavigationComponent,
     NftDetailBoxComponent,
+    CancelNftAuctionModalComponent,
     ObserveVisibilityDirective,
   ],
   imports: [

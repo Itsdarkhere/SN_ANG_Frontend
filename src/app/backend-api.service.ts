@@ -210,6 +210,8 @@ export class BackendRoutes {
   static RoutePathGetIMXMetadataById = "/api/v0/imx/metadata";
   static RoutePathInsertIMXMetadata = "/api/v0/insert/imx";
   static RoutePathUpdateIMXMetadataPostHash = "/api/v0/update-imx-post-hash";
+  static RoutePathGetDesoPKbyETHPK = "/api/v0/get-deso-pk-by-ethpk";
+  static RoutePathSortETHMarketplace = "/api/v0/sort-eth-marketplace";
   // SUPERNOVAS ANALYTICS
   static RoutePathGetUniqueCreators = "/api/v0/get-unique-creators";
   static RoutePathGetUniqueCollectors = "/api/v0/get-unique-collectors";
@@ -837,6 +839,29 @@ export class BackendApiService {
     return this.post(endpoint, BackendRoutes.RoutePathUpdateIMXMetadataPostHash, {
       Token_id,
       PostHashHex,
+    });
+  }
+
+  GetDesoPKbyETHPK(endpoint: string, ETHPK: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetDesoPKbyETHPK, {
+      ETHPK,
+    });
+  }
+
+  SortETHMarketplace(
+    endpoint: string,
+    ReaderPublicKeyBase58Check: string,
+    TokenIdArray: string[],
+    Category: string,
+    SortType: string,
+    CreatorsType: string
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathSortETHMarketplace, {
+      ReaderPublicKeyBase58Check,
+      TokenIdArray,
+      Category,
+      SortType,
+      CreatorsType,
     });
   }
 

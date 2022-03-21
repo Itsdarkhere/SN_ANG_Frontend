@@ -14,8 +14,12 @@ import { ethers } from "ethers";
 import _ from "lodash";
 import { environment } from "src/environments/environment";
 import { CreateNftAuctionModalComponent } from "src/app/create-nft-auction-modal/create-nft-auction-modal.component";
+import { CancelNftAuctionModalComponent } from "src/app/cancel-nft-auction-modal/cancel-nft-auction-modal.component";
 import { take } from "rxjs/operators";
 import { ChangeDetectorRef } from "@angular/core";
+
+import { Link, ImmutableXClient, ImmutableMethodResults } from "@imtbl/imx-sdk";
+import { GeneralSuccessModalComponent } from "../../general-success-modal/general-success-modal.component";
 
 @Component({
   selector: "app-nft-detail-box",
@@ -347,31 +351,46 @@ export class NftDetailBoxComponent implements OnInit {
     }
     // is an ETH NFT
     else {
-      this.clickedBuyNow = true;
-      this.clickedPlaceABid = false;
+      // on desktop
+      if (!this.globalVars.isMobile()) {
+        this.clickedBuyNow = true;
+        this.clickedPlaceABid = false;
 
-      if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
-        SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "buy now");
-        return;
-      }
-      event.stopPropagation();
-      const modalDetails = this.modalService.show(BuyNowModalComponent, {
-        class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
-        initialState: {
-          post: this.postContent,
-          clickedBuyNow: this.clickedBuyNow,
-          isEthNFT: true,
-          ethereumNFTSalePrice: this.ethereumNFTSalePrice,
-          sellOrderId: this.sellOrderId,
-        },
-      });
-
-      const onHideEvent = modalDetails.onHide;
-      onHideEvent.subscribe((response) => {
-        if (response === "bid placed") {
-          this.nftBidPlaced.emit();
+        if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
+          SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "buy now");
+          return;
         }
-      });
+        event.stopPropagation();
+        const modalDetails = this.modalService.show(BuyNowModalComponent, {
+          class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+          initialState: {
+            post: this.postContent,
+            clickedBuyNow: this.clickedBuyNow,
+            isEthNFT: true,
+            ethereumNFTSalePrice: this.ethereumNFTSalePrice,
+            sellOrderId: this.sellOrderId,
+          },
+        });
+
+        const onHideEvent = modalDetails.onHide;
+        onHideEvent.subscribe((response) => {
+          if (response === "bid placed") {
+            this.nftBidPlaced.emit();
+          }
+        });
+      }
+      //   cannot interact with ethereum blockchain on mobile
+      else {
+        this.modalService.show(GeneralSuccessModalComponent, {
+          class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+          initialState: {
+            header: "Error",
+            text: "Please visit Supernovas on your desktop to interact with the Ethereum blockchain.",
+            buttonText: "Ok",
+            buttonClickedAction: "connectWalletMobileError",
+          },
+        });
+      }
     }
   }
 
@@ -519,8 +538,32 @@ export class NftDetailBoxComponent implements OnInit {
       }
     });
   }
+  openCreateETHNFTAuctionModal(event): void {
+    this.token_id = this.postContent.PostExtraData["tokenId"];
+    console.log(` ------------------- tokenId from feed-post is ${this.token_id}`);
+
+    this.modalService.show(CreateNftAuctionModalComponent, {
+      class:
+        "modal-dialog-centered nft_placebid_modal_bx  nft_placebid_modal_bx_right nft_placebid_modal_bx_right modal-lg",
+      initialState: {
+        post: this.postContent,
+        nftEntryResponses: this.nftEntryResponses,
+        isEthNFT: true,
+        tokenId: this.token_id,
+      },
+    });
+  }
   closeYourAuction() {
     this.closeAuction.emit();
     //this.closeAuction.emit();
+  }
+  async closeYourETHAuction() {
+    this.modalService.show(CancelNftAuctionModalComponent, {
+      class:
+        "modal-dialog-centered nft_placebid_modal_bx  nft_placebid_modal_bx_right nft_placebid_modal_bx_right modal-lg",
+      initialState: {
+        sellOrderId: this.sellOrderId,
+      },
+    });
   }
 }

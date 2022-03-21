@@ -7,20 +7,20 @@
   height: 162px;
   background: #f4f4f4;
   border-radius: 30px;
-  color: #8E8E8E;
+  color: #8e8e8e;
   button {
-      width: 236px;
-      max-width: 90%;
-      height: 44px;
-      background: #ffffff;
-      border: 2.02604603767395px solid #000000;
-      border-radius: 25.230005264282227px;
-      box-shadow: 0.35987311601638794px 0.35987311601638794px 1.7993652820587158px rgba(0, 0, 0, 0.11);
-      color: #000000;
-      font-size: 13px;
-      img {
-          margin-bottom: 2px;
-      }
+    width: 236px;
+    max-width: 90%;
+    height: 44px;
+    background: #ffffff;
+    border: 2.02604603767395px solid #000000;
+    border-radius: 25.230005264282227px;
+    box-shadow: 0.35987311601638794px 0.35987311601638794px 1.7993652820587158px rgba(0, 0, 0, 0.11);
+    color: #000000;
+    font-size: 13px;
+    img {
+      margin-bottom: 2px;
+    }
   }
 }
 .nft-post-icon-row-wrapper {
@@ -30,39 +30,39 @@
 .bids_new_sc {
   padding-left: 30px !important;
   @media screen and (max-width: 992px) {
-      padding-left: 0px !important;
+    padding-left: 0px !important;
   }
 }
 .nft-profile-engagement-string {
   width: 100%;
   height: 50%;
-  border-top: 1px solid #F4F4F4;
+  border-top: 1px solid #f4f4f4;
   display: flex;
   justify-content: center;
   align-items: center;
-  @media  screen and (max-width: 450px) {
-      display: none;
+  @media screen and (max-width: 450px) {
+    display: none;
   }
   .engagement-string-item {
-      color: #505050;
-      font-size: 14px;
-      font-weight: medium;
-      line-height: 28px;
-      padding: 10px;
-      //width: 111px;
-      height: 33px;
-      border-radius: 10.28273868560791px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      b {
-          color: #515151;
-          padding-right: 5px;
-      }
-      &:hover {
-          background: #ebebeb;
-      }
+    color: #505050;
+    font-size: 14px;
+    font-weight: medium;
+    line-height: 28px;
+    padding: 10px;
+    //width: 111px;
+    height: 33px;
+    border-radius: 10.28273868560791px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    b {
+      color: #515151;
+      padding-right: 5px;
+    }
+    &:hover {
+      background: #ebebeb;
+    }
   }
 }
 .nft-no-bids {
@@ -71,7 +71,7 @@
   height: 70px;
   background: #f4f4f4;
   border-radius: 20px;
-  color: #8E8E8E;
+  color: #8e8e8e;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -97,30 +97,30 @@
   align-items: center;
   padding: 15px;
   span {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
   .deso-logo {
-      margin-right: 5px;
-      height: 25px;
-      width: 21px;
+    margin-right: 5px;
+    height: 25px;
+    width: 21px;
   }
   label {
-      color: #000000;
-      font-size: 21px;
-      font-weight: medium;
+    color: #000000;
+    font-size: 21px;
+    font-weight: medium;
   }
   a {
-      color: #2b2b2b;
-      font-size: 14px;
-      font-weight: medium;
-      line-height: 45px;
-      img {
-          margin-left: 10px;
-          height: 15px;
-      }
+    color: #2b2b2b;
+    font-size: 14px;
+    font-weight: medium;
+    line-height: 45px;
+    img {
+      margin-left: 10px;
+      height: 15px;
+    }
   }
 }
 .nft-profile-content-storage-arweave {
@@ -136,46 +136,45 @@
   align-items: center;
   padding: 15px;
   span {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
   .arweave-logo {
-      
   }
   .warning-centralized-server {
-      width: 204px;
-      max-width: 50%;
-      height: 45px;
-      background: #f0f0f0;
-      border-radius: 11px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #6e6e6e;
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 125px;
-      img {
-          margin-top: 2px;
-          margin-right: 5px;
-      }
+    width: 204px;
+    max-width: 50%;
+    height: 45px;
+    background: #f0f0f0;
+    border-radius: 11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #6e6e6e;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 125px;
+    img {
+      margin-top: 2px;
+      margin-right: 5px;
+    }
   }
   label {
-      color: #000000;
-      font-size: 15px;
-      font-weight: medium;
+    color: #000000;
+    font-size: 15px;
+    font-weight: medium;
   }
   a {
-      color: #2b2b2b;
-      font-size: 14px;
-      font-weight: medium;
-      line-height: 45px;
-      img {
-          margin-left: 10px;
-          height: 15px;
-      }
+    color: #2b2b2b;
+    font-size: 14px;
+    font-weight: medium;
+    line-height: 45px;
+    img {
+      margin-left: 10px;
+      height: 15px;
+    }
   }
 }
 .nft_profile_mobile_engagement_wrapper {
@@ -192,9 +191,9 @@
   margin-left: 30px;
   margin-right: 10px;
   @media screen and (max-width: 1050px) {
-      margin-left: 0;
-      margin-right: 0;
-      width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
   }
 }
 .send-message-thread-container {
@@ -221,7 +220,7 @@
   box-shadow: 1.4110177755355835px 2.144747018814087px 10.751955032348633px rgba(0, 0, 0, 0.11);
   margin-bottom: 5px;
   &:focus-within {
-      box-shadow: 0 0 10px #719ECE;
+    box-shadow: 0 0 10px #719ece;
   }
 }
 .messages-textarea {
@@ -238,7 +237,7 @@
   min-height: 29px !important;
   max-height: 200px;
   overflow-y: auto;
-  word-wrap:break-word;
+  word-wrap: break-word;
   padding-top: 15px !important;
   padding-bottom: 10px !important;
 }
@@ -257,9 +256,129 @@
   right: 10px;
   bottom: 9px;
   &:hover {
-      transform: scale(1.05);
+    transform: scale(1.05);
   }
 }
 .fa-spin {
   color: white !important;
+}
+.eth-provenance-container-mobile {
+  padding-left: 20px;
+}
+.eth-provenance-row-container {
+  display: grid;
+  grid-template-columns: 0.5fr 1fr 0.75fr 1fr;
+  align-items: center;
+}
+.eth-provenance-row-header {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 46px;
+  color: #2c2c2c;
+}
+.eth-provenance-row-header-mobile {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 46px;
+  color: #2c2c2c;
+}
+.eth-provenance-row-text {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 35px;
+  color: #000000;
+}
+.eth-provenance-row-text-mobile {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 8px;
+  line-height: 35px;
+  color: #000000;
+}
+.eth-provenance-row-price {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 46px;
+  color: #2c2c2c;
+}
+.eth-provenance-row-price-mobile {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 46px;
+  color: #2c2c2c;
+}
+.eth-provenance-row-timestamp {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 46px;
+  color: #2c2c2c;
+}
+.eth-provenance-row-timestamp-mobile {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 9px;
+  line-height: 46px;
+  color: #2c2c2c;
+}
+.eth-provenance-deso-profile-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.profile-img {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+  a {
+    width: 25px;
+    height: 25px;
+    display: block;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+  }
+}
+.profile-img-mobile {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  a {
+    width: 15px;
+    height: 15px;
+    display: block;
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+  }
+}
+.username-nft-card {
+  font-size: 13px !important;
+  color: #525252;
+  transition: all 0.2s ease;
+  &:hover {
+    transition: all 0.2s ease;
+    color: #000000;
+  }
+}
+.username-nft-card-mobile {
+  font-size: 9px !important;
+  color: #525252;
+  transition: all 0.2s ease;
+  &:hover {
+    transition: all 0.2s ease;
+    color: #000000;
+  }
+}
+
+// iphone x
+@media screen and (max-width: 375px) and (max-height: 812px) {
+  .eth-provenance-container-mobile {
+    padding-left: 10px;
+  }
 }

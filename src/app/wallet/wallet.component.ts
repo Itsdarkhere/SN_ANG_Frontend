@@ -228,7 +228,7 @@ export class WalletComponent implements OnInit, OnDestroy {
           header: "Error",
           text: "Please visit Supernovas on your desktop to interact with the Ethereum blockchain.",
           buttonText: "Ok",
-          buttonClickedAction: "general",
+          buttonClickedAction: "connectWalletMobileError",
         },
       });
     }

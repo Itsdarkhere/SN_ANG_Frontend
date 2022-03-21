@@ -1,6 +1,6 @@
 <!-- DESO MARKETPLACE CONTENT-->
 <!-- Show shimmer Loader Until page completely Load -->
-<div *ngIf="desoMarketplace && !ethMarketplace">
+<div *ngIf="this.globalVars.desoMarketplace">
   <div
     class="mrk_top pb-10px d-flex flex-end-center flex-row justify-content-between"
     [ngClass]="mobile ? 'mt-65px' : ''"
@@ -136,7 +136,7 @@
 
 <!-- ETH MARKETPLACE CONTENT-->
 <!-- Show shimmer Loader Until page completely Load -->
-<div *ngIf="!desoMarketplace && ethMarketplace">
+<div *ngIf="!this.globalVars.desoMarketplace">
   <div
     class="mrk_top pb-10px d-flex flex-end-center flex-row justify-content-between"
     [ngClass]="mobile ? 'mt-65px' : ''"
@@ -172,6 +172,10 @@
       >
         <option value="most recent first">Most recent first</option>
         <option value="oldest first">Oldest first</option>
+        <option value="most likes first">Most likes first</option>
+        <option value="most diamonds first">Most diamonds first</option>
+        <option value="most comments first">Most comments first</option>
+        <option value="most reposts first">Most reposts first</option>
         <option value="highest price first">Highest price first</option>
         <option value="lowest price first">Lowest price first</option>
       </select>

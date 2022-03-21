@@ -197,19 +197,18 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
     this.setCreatorType();
     this.canUserSort = false;
 
+    this.onFilter.emit("ethSort");
+    this.functionPass.filter("ethSort");
+
     this.globalVars.getEthNFTsByFilter();
 
     setTimeout(() => {
       this.globalVars.isEthMarketplaceLeftBarMobileOpen = false;
-
-      console.log(` ------- lastSortStatusAll ${this.lastSortStatusAll} `);
-      console.log(` ------- lastSortStatusForSale ${this.lastSortStatusForSale} `);
-      console.log(` ------- canSort? ${this.canUserSort}`);
     }, 200);
   }
   closeMenu() {
-    this.functionPass.filter("close");
-    this.onFilter.emit("close");
+    this.functionPass.filter("ethClose");
+    this.onFilter.emit("ethClose");
     setTimeout(() => {
       this.globalVars.isEthMarketplaceLeftBarMobileOpen = false;
     }, 200);

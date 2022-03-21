@@ -72,6 +72,11 @@ export class TrendsComponent implements OnInit {
         this.closeMarketplaceMobileFiltering("sort");
       } else if (m == "close") {
         this.closeMarketplaceMobileFiltering("close");
+      } else if (m == "ethSort") {
+        this.globalVars.ethMarketplaceNFTsOffset = 0;
+        this.closeEthMarketplaceMobileFiltering("ethSort");
+      } else if (m == "ethClose") {
+        this.closeEthMarketplaceMobileFiltering("ethClose");
       }
     });
   }
@@ -124,10 +129,10 @@ export class TrendsComponent implements OnInit {
     }
   }
   closeEthMarketplaceMobileFiltering(string: string) {
-    if (string == "sort") {
+    if (string == "ethSort") {
       this.enableNoScroll();
       this.globalVars.isEthMarketplaceLeftBarMobileOpen = false;
-    } else if (string == "close") {
+    } else if (string == "ethClose") {
       this.enable();
       this.globalVars.isEthMarketplaceLeftBarMobileOpen = false;
     }

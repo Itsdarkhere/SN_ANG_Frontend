@@ -497,30 +497,19 @@ export class MarketplaceLeftBarComponent implements OnInit {
   }
   // Functionpass service is made to pass this argument
   apply() {
-    if (this.globalVars.desoMarketplace) {
-      this.globalVars.isMarketplaceLoading = true;
-      this.setPriceRangeInNanos();
-      this.setMarketType();
-      this.setCategory();
-      this.setContentFormat();
-      this.setStatus();
-      this.setCreatorType();
-      this.onFilter.emit("sort");
-      this.functionPass.filter("sort");
-      this.canUserSort = false;
-      setTimeout(() => {
-        this.globalVars.isMarketplaceLeftBarMobileOpen = false;
-      }, 200);
-    } else {
-      this.globalVars.isEthMarketplaceLoading = true;
-      this.setCategory();
-      this.setStatus();
-      this.canUserSort = false;
-
-      setTimeout(() => {
-        this.globalVars.isMarketplaceLeftBarMobileOpen = false;
-      }, 200);
-    }
+    this.globalVars.isMarketplaceLoading = true;
+    this.setPriceRangeInNanos();
+    this.setMarketType();
+    this.setCategory();
+    this.setContentFormat();
+    this.setStatus();
+    this.setCreatorType();
+    this.onFilter.emit("sort");
+    this.functionPass.filter("sort");
+    this.canUserSort = false;
+    setTimeout(() => {
+      this.globalVars.isMarketplaceLeftBarMobileOpen = false;
+    }, 200);
   }
   closeMenu() {
     this.functionPass.filter("close");

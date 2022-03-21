@@ -4,6 +4,7 @@ import { Location } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FunctionPassService } from "../function-pass.service";
 import { toInteger } from "lodash";
+import { MixpanelService } from "../mixpanel.service";
 
 @Component({
   selector: "app-eth-marketplace-left-bar",
@@ -65,6 +66,7 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
     public globalVars: GlobalVarsService,
     private router: Router,
     private route: ActivatedRoute,
+    private mixPanel: MixpanelService,
     private location: Location,
     private functionPass: FunctionPassService
   ) {}
@@ -74,6 +76,8 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
     this.statusClick(this.globalVars.ethMarketplaceStatus);
     this.categorySelectChange(this.globalVars.ethMarketplaceNFTCategory);
     this.creatorsClick(this.globalVars.ethMarketplaceVerifiedCreators);
+    this.setFunction();
+    this.mixPanel.track18("Marketplace Viewed");
   }
   // Status button clicks, does not stay in memory
   statusClick(button: string) {
@@ -170,6 +174,13 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
     } else {
       this.canUserSort = false;
     }
+  }
+  setFunction() {
+    this.setCategory();
+    this.setStatus();
+    this.setCreatorType();
+
+    this.canSort();
   }
   // Functionpass service is made to pass this argument
   apply() {

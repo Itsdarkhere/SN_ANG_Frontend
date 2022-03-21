@@ -81,8 +81,8 @@ export class MarketplaceLeftBarComponent implements OnInit {
     this.creatorsClick(this.globalVars.marketplaceVerifiedCreators);
     this.formatClick(this.globalVars.marketplaceContentFormat);
     this.categorySelectChange(this.globalVars.marketplaceNFTCategory);
-    this.mixPanel.track18("Marketplace Viewed");
     this.setFunction();
+    this.mixPanel.track18("Marketplace Viewed");
   }
   // Input validation
   checkPriceRange() {
@@ -451,7 +451,6 @@ export class MarketplaceLeftBarComponent implements OnInit {
     if (this.lastSortLowPrice != this.lowPrice || this.lastSortHighPrice != this.highPrice) {
       console.log(this.lowPrice);
       console.log(this.highPrice);
-      console.log("LOGGED 1");
 
       this.canUserSort = true;
       // If market is different from last sort
@@ -459,13 +458,9 @@ export class MarketplaceLeftBarComponent implements OnInit {
       this.lastSortMarketPrimary != this.marketPrimary ||
       this.lastSortMarketSecondary != this.marketSecondary
     ) {
-      console.log("LOGGED 2");
-
       this.canUserSort = true;
       // If category is different from last sort
     } else if (this.NFTCategory != this.lastSortCategory) {
-      console.log("LOGGED 3");
-
       this.canUserSort = true;
       // If content format is different from last sort
     } else if (
@@ -475,8 +470,6 @@ export class MarketplaceLeftBarComponent implements OnInit {
       this.lastSortContentFormatMusic != this.formatMusic ||
       this.lastSortContentFormat3D != this.format3D
     ) {
-      console.log("LOGGED 4");
-
       this.canUserSort = true;
       // If status is different from last time
     } else if (
@@ -485,13 +478,9 @@ export class MarketplaceLeftBarComponent implements OnInit {
       this.lastSortStatusHasBids != this.statusHasBids ||
       this.lastSortStatusSold != this.statusSold
     ) {
-      console.log("LOGGED 5");
-
       this.canUserSort = true;
       // If creator type is different from last time
     } else if (this.lastSortCreatorTypeVerified != this.creatorTypeVerified) {
-      console.log("LOGGED 6");
-
       this.canUserSort = true;
       // If nothing has changed user cannot sort
     } else {

@@ -182,6 +182,17 @@ export class NftDetailBoxComponent implements OnInit {
     }
   }
 
+  UserOwnsSerialNumbers() {
+    const loggedInPubKey = this.globalVars?.loggedInUser?.PublicKeyBase58Check;
+    if (!this.nftEntryResponses) {
+      return false;
+    }
+    let serialList = this.nftEntryResponses.filter(
+      (NFTEntryResponse) => NFTEntryResponse.OwnerPublicKeyBase58Check === loggedInPubKey
+    );
+    return serialList.length > 0;
+  }
+
   updateBuyNow() {
     console.log(this.nftEntryResponse);
     if (this.nftEntryResponse.IsBuyNow) {

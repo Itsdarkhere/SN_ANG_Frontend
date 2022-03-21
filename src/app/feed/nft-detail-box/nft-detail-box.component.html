@@ -482,16 +482,16 @@
   >
     <span class="lb">Made By</span>
     <div class="d-flex flex-center-start">
-      <div class="bid_by_avtar" [avatar]="showNFTOwnerInfo?.ProfileEntryResponse?.PublicKeyBase58Check"></div>
+      <div class="bid_by_avtar" [avatar]="hightestBidOwner?.ProfileEntryResponse?.PublicKeyBase58Check"></div>
       <div class="name">
         <a
-          class="fc-secalt val"
+          class="fc-secalt val_sm"
           [routerLink]="
-            getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX, showNFTOwnerInfo?.ProfileEntryResponse?.Username])
+            getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX, hightestBidOwner?.ProfileEntryResponse?.Username])
           "
           queryParamsHandling="merge"
         >
-          {{ showNFTOwnerInfo?.ProfileEntryResponse?.Username }}
+          {{ hightestBidOwner?.ProfileEntryResponse?.Username }}
         </a>
 
         <span *ngIf="showNFTOwnerInfo?.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">

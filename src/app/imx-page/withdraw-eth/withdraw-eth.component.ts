@@ -25,11 +25,11 @@ export class WithdrawEthComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.checkPendingWithdrawals();
     await this.checkReadyWithdrawals();
-
     // uncomment for testing
+    // console.log(" ----------------- on init function done ---------------- ");
     // this.pendingWithdrawals = false;
-    // this.readyWithdrawals = true;
-    // this.completeWithdrawalSuccess = true;
+    // this.readyWithdrawals = false;
+    // this.completeWithdrawalSuccess = false;
   }
 
   async prepareWithdrawButtonClicked() {
@@ -49,6 +49,10 @@ export class WithdrawEthComponent implements OnInit {
       amount: this.withdrawAmount,
     });
     localStorage.setItem("imxDepositAmount", this.withdrawAmount);
+
+    // setTimeout(() => {
+    //   this.checkPendingWithdrawals();
+    // }, 1000);
     await this.checkPendingWithdrawals();
   }
 
@@ -61,10 +65,18 @@ export class WithdrawEthComponent implements OnInit {
     if (this.pendingWithdrawalsResponse.length === 0) {
       console.log("There are no pending withdrawals");
       this.pendingWithdrawals = false;
+
+      //   return new Promise<void>(function (resolve, reject) {
+      //     resolve();
+      //   });
     } else {
       console.log("There are pending withdrawals");
       this.pendingWithdrawals = true;
       this.withdrawAmount = localStorage.getItem("imxDepositAmount");
+
+      //   return new Promise<void>(function (resolve, reject) {
+      //     resolve();
+      //   });
     }
   }
 
@@ -79,6 +91,10 @@ export class WithdrawEthComponent implements OnInit {
     if (this.readyWithdrawalsResponse.length === 0) {
       console.log("There are no withdrawals ready");
       this.readyWithdrawals = false;
+
+      //   return new Promise<void>(function (resolve, reject) {
+      //     resolve();
+      //   });
     } else {
       for (var i = 0; i < this.readyWithdrawalsResponse.length; i++) {
         if (this.readyWithdrawalsResponse[i]["token"]["type"] === "ERC20") {
@@ -91,12 +107,11 @@ export class WithdrawEthComponent implements OnInit {
           this.readyWithdrawals = false;
         }
       }
+
+      //   return new Promise<void>(function (resolve, reject) {
+      //     resolve();
+      //   });
     }
-    // else {
-    //   console.log("There are withdrawals ready");
-    //   this.readyWithdrawals = true;
-    //   this.withdrawAmount = localStorage.getItem("imxDepositAmount");
-    // }
   }
 
   async completeWithdrawal() {

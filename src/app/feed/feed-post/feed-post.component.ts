@@ -230,14 +230,14 @@ export class FeedPostComponent implements OnInit {
 
     if (ethNftOwner === this.globalVars.imxWalletAddress) {
       this.ownsEthNFT = true;
-      console.log("The wallet owns the NFT");
+      //   console.log("The wallet owns the NFT");
     }
   }
 
   async updateEthNFTForSaleStatus() {
     const options = { method: "GET", headers: { Accept: "*/*" } };
 
-    console.log(environment.imx.TOKEN_ADDRESS);
+    // console.log(environment.imx.TOKEN_ADDRESS);
 
     let res = await fetch(
       `https://api.ropsten.x.immutable.com/v1/orders?status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
@@ -272,8 +272,8 @@ export class FeedPostComponent implements OnInit {
       nftsForSaleArr.push(res["result"][i]);
     }
 
-    console.log(tokenIdsForSale);
-    console.log(typeof this.postContent.PostExtraData["tokenId"]);
+    // console.log(tokenIdsForSale);
+    // console.log(typeof this.postContent.PostExtraData["tokenId"]);
 
     if (tokenIdsForSale.includes(this.postContent.PostExtraData["tokenId"])) {
       for (var i = 0; i < nftsForSaleArr.length; i++) {
@@ -438,7 +438,7 @@ export class FeedPostComponent implements OnInit {
 
     await this.updateEthNFTForSaleStatus();
     await this.ownsEthNFTStatus();
-    console.log(` ---------- is eth nft for sale ${this.globalVars.isEthereumNFTForSale} ---------- `);
+    // console.log(` ---------- is eth nft for sale ${this.globalVars.isEthereumNFTForSale} ---------- `);
   }
 
   onPostClicked(event) {

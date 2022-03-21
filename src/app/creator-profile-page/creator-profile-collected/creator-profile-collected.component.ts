@@ -33,6 +33,8 @@ export class CreatorProfileCollectedComponent implements OnInit {
   @Input() afterCommentCreatedCallback: any = null;
   @Input() showProfileAsReserved: boolean;
 
+  @Input() profileData: any;
+
   nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
   dataToShow: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
   responseHolder: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
@@ -139,35 +141,16 @@ export class CreatorProfileCollectedComponent implements OnInit {
           console.log(this.dataToShow);
 
           //   get collected eth NFTs
-          this.globalVars.imxWalletAddress = localStorage.getItem("address");
-          this.globalVars.getCollectedNFTs();
+          if (this.profileData["ETHPublicKey"]) {
+            this.globalVars.imxWalletAddress = this.profileData["ETHPublicKey"];
+            this.globalVars.getCollectedNFTs();
+          }
 
           this.isLoading = false;
           return this.nftResponse;
         }
       );
   }
-
-  //   getProfileSocials() {
-  //     this.backendApi.GetPGProfileDetails(this.globalVars.localNode, this.profile.PublicKeyBase58Check).subscribe(
-  //       (res) => {
-  //         console.log(res);
-  //         if (res["ETHPublicKey"]) {
-  //           this.globalVars.imxWalletAddress = res["ETHPublicKey"];
-  //           this.globalVars.getCollectedNFTs();
-  //           console.log(
-  //             ` ------------------------ there is an etherum public key associated with the deso wallet ------------------------ `
-  //           );
-  //         } else {
-  //           this.globalVars.ethNFTsCollected = [];
-  //         }
-  //         console.log(` -------------- eth pk is ${JSON.stringify(res["ETHPublicKey"])}`);
-  //       },
-  //       (err) => {
-  //         console.log(err);
-  //       }
-  //     );
-  //   }
 
   onScroll() {
     if (this.endIndex <= this.nftResponse.length - 1) {

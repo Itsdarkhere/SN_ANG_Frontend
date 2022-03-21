@@ -5,14 +5,14 @@
     <div class="mlb-status-grid">
       <button
         class="font-weight-semibold fs-14px"
-        (click)="statusEthClick('all')"
+        (click)="statusClick('all')"
         [ngClass]="{ selected: this.statusAll }"
       >
         All
       </button>
       <button
         class="font-weight-semibold fs-14px"
-        (click)="statusEthClick('for sale')"
+        (click)="statusClick('for sale')"
         [ngClass]="{ selected: this.statusForSale }"
       >
         For Sale
@@ -73,7 +73,7 @@
     >
       <input type="checkbox" class="marketplace-button-checkbox display-none" [checked]="marketSecondary" />
       <label class="marketplace-checkbox-label fs-14px">Secondary</label>
-    </button>
+    </button> -->
     <label class="w-100 mt-20px pl-10px marketplace-label">Creators</label>
     <div class="mrk_lb_selector px-5px">
       <button
@@ -92,22 +92,24 @@
         <img src="/assets/icons/market_globe_icon.svg" class="mr-5px" alt="image-icon" />
         All
       </button>
-    </div> -->
-    <div class="verifiedAccordion disable-scrollbars" [ngClass]="{ expanded: this.creatorTypeVerified }">
+    </div>
+
+    <!-- <div class="verifiedAccordion disable-scrollbars" [ngClass]="{ expanded: this.creatorTypeVerified }"> -->
+    <div>
       <label class="w-100 mt-20px pl-10px marketplace-label">Category</label>
       <select
         class="w-100 p-5px mrk_select mrk_select_height font-weight-semibold fs-14px"
         (ngModelChange)="categorySelectChange($event)"
         [ngModel]="NFTCategory"
       >
-        <option value="All">All</option>
-        <option value="Art">Art</option>
-        <option value="Collectibles">Collectibles</option>
-        <option value="Generative Art">Generative Art</option>
-        <option value="Metaverse & Gaming">Metaverse & Gaming</option>
-        <option value="Music">Music</option>
-        <option value="Profile Picture">Profile Picture Collection</option>
-        <option value="Photography">Photography</option>
+        <option value="all">All</option>
+        <option value="art">Art</option>
+        <option value="collectibles">Collectibles</option>
+        <option value="generative art">Generative Art</option>
+        <option value="metaverse & gaming">Metaverse & Gaming</option>
+        <option value="music">Music</option>
+        <option value="profile Picture">Profile Picture Collection</option>
+        <option value="photography">Photography</option>
       </select>
       <!-- <label class="w-100 mt-20px pl-10px marketplace-label">Content format</label>
       <button
@@ -293,11 +295,7 @@
   </div>
 </div>
 <div class="mlb-flyout-apply-button-container" *ngIf="flyout">
-  <button
-    [disabled]="!canUserSort || priceRangeIncorrect"
-    class="marketplace-flyout-apply-button font-weight-bold"
-    (click)="apply()"
-  >
+  <button [disabled]="!canUserSort" class="marketplace-flyout-apply-button font-weight-bold" (click)="apply()">
     <span class="center-absolute">
       <img src="/assets/icons/market_apply_icon.svg" class="mr-5px" alt="image-icon" />
       Apply

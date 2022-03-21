@@ -20,9 +20,7 @@ export class CompleteProfileComponent {
   constructor(public globalVars: GlobalVarsService, private router: Router, private mixPanel: MixpanelService) {}
 
   async ngOnInit(): Promise<void> {
-    // await this.globalVars.checkCreatorStatus();
-
-    await this.globalVars.checkOnboardingStatus();
+    this.globalVars.checkOnboardingStatus();
 
     if (this.globalVars.isCreator === false && this.globalVars.isCollector === false) {
       console.log(this.globalVars.loggedInUser);

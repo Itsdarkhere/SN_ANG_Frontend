@@ -82,6 +82,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
     this.formatClick(this.globalVars.marketplaceContentFormat);
     this.categorySelectChange(this.globalVars.marketplaceNFTCategory);
     this.mixPanel.track18("Marketplace Viewed");
+    this.setFunction();
   }
   // Input validation
   checkPriceRange() {
@@ -496,6 +497,16 @@ export class MarketplaceLeftBarComponent implements OnInit {
     } else {
       this.canUserSort = false;
     }
+  }
+  setFunction() {
+    this.setPriceRangeInNanos();
+    this.setMarketType();
+    this.setCategory();
+    this.setContentFormat();
+    this.setStatus();
+    this.setCreatorType();
+
+    this.canSort();
   }
   // Functionpass service is made to pass this argument
   apply() {

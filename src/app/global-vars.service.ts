@@ -172,6 +172,7 @@ export class GlobalVarsService {
   feeRateDeSoPerKB = 1000 / 1e9;
   postsToShow = [];
   followFeedPosts = [];
+  hotFeedPosts = [];
   // Marketplace is loading / filtering
   isMarketplaceLoading = false;
   isEthMarketplaceLoading = false;
@@ -832,7 +833,6 @@ export class GlobalVarsService {
   isMobile(): boolean {
     // from https://stackoverflow.com/questions/1248081/how-to-get-the-browser-viewport-dimensions
     const viewportWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-    console.log(viewportWidth);
     return viewportWidth <= 992;
   }
   isMobileIphone(): boolean {
@@ -1408,9 +1408,6 @@ export class GlobalVarsService {
     if (bsModalRef) {
       bsModalRef.hide();
     }
-    this.router.navigate(["/" + this.RouteNames.BROWSE], {
-      queryParams: { feedTab: FeedComponent.SHOWCASE_TAB },
-    });
   }
 
   resentVerifyEmail = false;

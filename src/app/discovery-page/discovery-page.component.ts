@@ -138,12 +138,7 @@ export class DiscoveryPageComponent implements OnInit {
     })
   }
   routeViewAll(category: string) {
-    this.router.navigate([this.globalVars.RouteNames.NFT_PAGE], {
-      queryParams: {
-        category: category,
-      },
-      queryParamsHandling: "merge",
-    });
+    // Make route to marketplace
   }
   _loadVerifiedUsers() {
     // Dont load if we have the content

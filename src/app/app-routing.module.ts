@@ -38,7 +38,6 @@ import { DiamondTutorialPageComponent } from "./tutorial/diamond-tutorial-page/d
 import { CreatePostTutorialPageComponent } from "./tutorial/create-post-tutorial-page/create-post-tutorial-page.component";
 import { ActivityComponent } from "./activity/activity.component";
 import { MintPageComponent } from "./mint-page/mint-page.component";
-import { NftPageComponent } from "./discovery-page/nft-page/nft-page.component";
 import { DiscoveryPageComponent } from "./discovery-page/discovery-page.component";
 import { AnalyticsPageComponent } from "./analytics-page/analytics-page.component";
 import { LandingPageComponent } from "./landing-page/landing-page.component";
@@ -108,7 +107,6 @@ const routes: Routes = [
   { path: RouteNames.ACTIVITY, component: ActivityComponent, pathMatch: "full" },
   { path: RouteNames.SIGNUP, component: SignupPageComponent, pathMatch: "full" },
   { path: RouteNames.SIGNUP + "/:username", component: SignupPageReferralsComponent, pathMatch: "full" },
-  { path: RouteNames.NFT_PAGE, component: NftPageComponent, pathMatch: "full" },
   { path: RouteNames.MINT_PAGE, component: MintPageComponent, pathMatch: "full" },
   { path: RouteNames.BROWSE, component: BrowsePageComponent, pathMatch: "full" },
   { path: RouteNames.USER_PREFIX + "/:username", component: CreatorProfilePageComponent, pathMatch: "full" },

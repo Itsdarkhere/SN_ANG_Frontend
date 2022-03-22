@@ -192,7 +192,6 @@ import { AudioPlayerComponent } from "./audio-player/audio-player.component";
 import { CancelBidModalComponent } from "./cancel-bid-modal/cancel-bid-modal.component";
 import { ConfirmationModalComponent } from "./confirmation-modal/confirmation-modal.component";
 import { DiscoveryPageComponent } from "./discovery-page/discovery-page.component";
-import { NftPageComponent } from "./discovery-page/nft-page/nft-page.component";
 import { CreatorCardComponent } from "./creator-card/creator-card.component";
 import { PageSmallNavNewComponent } from "./page-small-nav-new/page-small-nav-new.component";
 import { SmallCardComponentComponent } from "./small-card-component/small-card-component.component";
@@ -402,7 +401,6 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     CancelBidModalComponent,
     ConfirmationModalComponent,
     DiscoveryPageComponent,
-    NftPageComponent,
     CreatorCardComponent,
     PageSmallNavNewComponent,
     CompleteProfileComponent,

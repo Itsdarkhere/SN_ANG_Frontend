@@ -9,6 +9,7 @@ import { connectableObservableDescriptor } from "rxjs/internal/observable/Connec
 import { add } from "lodash";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { GeneralSuccessModalComponent } from "../../general-success-modal/general-success-modal.component";
+import { ThrowStmt } from "@angular/compiler";
 
 @Component({
   selector: "trends",
@@ -107,6 +108,12 @@ export class TrendsComponent implements OnInit {
 
   updateEthMarketplaceStatus() {
     this.globalVars.desoMarketplace = false;
+
+    this.globalVars.ethMarketplaceStatus = "all";
+    this.globalVars.ethMarketplaceNFTCategory = "all";
+    this.globalVars.ethMarketplaceVerifiedCreators = "verified";
+    this.globalVars.marketplaceSortType = "most recent first";
+
     this.globalVars.getAllEthNFTs();
     console.log("getting eth");
   }

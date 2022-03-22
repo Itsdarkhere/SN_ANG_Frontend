@@ -171,23 +171,11 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
     }
   }
   setFunction() {
-    console.log(` --------- statusForSale is ${this.statusForSale} `);
-
     this.setCategory();
     this.setStatus();
     this.setCreatorType();
 
     this.canSort();
-    console.log(
-      ` --------- is this.NFTCategory ${this.NFTCategory} not equal to this.lastSortCategory ${this.lastSortCategory}? then canSort`
-    );
-    console.log(
-      ` --------- is this.lastSortStatusAll ${this.lastSortStatusAll} not equal to is statusAll ${this.statusAll}`
-    );
-    console.log(
-      ` --------- is this.lastSortStatusForSale ${this.lastSortStatusForSale} not equal to is statusForSale ${this.statusForSale}`
-    );
-    console.log(` --------- ${this.canUserSort}`);
   }
   // Functionpass service is made to pass this argument
   apply() {

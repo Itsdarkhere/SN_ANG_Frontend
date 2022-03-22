@@ -35,7 +35,7 @@
           <option value="false">Ethereum</option>
         </select>
       </div>
-      <div class="mrk_top_selector-two mrk-grid-two px-5px d-flex flex-row">
+      <div class="mrk_top_selector-two mrk-grid-two px-5px d-flex flex-row" *ngIf="globalVars.desoMarketplace">
         <button
           class="selected"
           (click)="setDisplayType('Card')"
@@ -44,6 +44,18 @@
           <img src="/assets/icons/market_grid_type_card_icon.svg" alt="card icon" />
         </button>
         <button (click)="setDisplayType('Grid')" [ngClass]="{ selected: !globalVars.marketplaceViewTypeCard }">
+          <img src="/assets/icons/market_grid_type_grid_icon.svg" alt="grid icon" />
+        </button>
+      </div>
+      <div class="mrk_top_selector-two mrk-grid-two px-5px d-flex flex-row" *ngIf="!globalVars.desoMarketplace">
+        <button
+          class="selected"
+          (click)="setEthDisplayType()"
+          [ngClass]="{ selected: globalVars.marketplaceViewTypeCard }"
+        >
+          <img src="/assets/icons/market_grid_type_card_icon.svg" alt="card icon" />
+        </button>
+        <button (click)="setEthDisplayType()" [ngClass]="{ selected: !globalVars.marketplaceViewTypeCard }">
           <img src="/assets/icons/market_grid_type_grid_icon.svg" alt="grid icon" />
         </button>
       </div>

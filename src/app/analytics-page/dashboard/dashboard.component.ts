@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
 
   getDesoNFTMarketCapGraph() {
     this.backendApi
-      .GetDesoMarketCapGraph(this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check)
+      .GetDesoMarketCapGraph(this.globalVars.localNode, this.globalVars.loggedInUser?.PublicKeyBase58Check)
       .subscribe(
         (res) => {
           this.marketCapArray = res.Response;
@@ -69,7 +69,7 @@ export class DashboardComponent implements OnInit {
   }
   getDesoNFTSalesCapGraph() {
     this.backendApi
-      .GetDesoSalesCapGraph(this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check)
+      .GetDesoSalesCapGraph(this.globalVars.localNode, this.globalVars.loggedInUser?.PublicKeyBase58Check)
       .subscribe(
         (res) => {
           this.salesCapArray = res.Response;
@@ -81,7 +81,7 @@ export class DashboardComponent implements OnInit {
   }
   getUniqueCollectors() {
     this.backendApi
-      .GetUniqueCollectors(this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check)
+      .GetUniqueCollectors(this.globalVars.localNode, this.globalVars.loggedInUser?.PublicKeyBase58Check)
       .subscribe(
         (res) => {
           this.uniqueCollectorsArray = res.Response;
@@ -93,7 +93,7 @@ export class DashboardComponent implements OnInit {
   }
   getUniqueCreators() {
     this.backendApi
-      .GetUniqueCreators(this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check)
+      .GetUniqueCreators(this.globalVars.localNode, this.globalVars.loggedInUser?.PublicKeyBase58Check)
       .subscribe(
         (res) => {
           this.uniqueCreatorsArray = res.Response;
@@ -106,7 +106,7 @@ export class DashboardComponent implements OnInit {
   getTopNFTSales() {
     console.log("Get top nft sales");
     this.backendApi
-      .GetTopNFTSales(this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check)
+      .GetTopNFTSales(this.globalVars.localNode, this.globalVars.loggedInUser?.PublicKeyBase58Check)
       .subscribe(
         (res) => {
           this.topNFTSales = res.PostEntryResponse;
@@ -118,7 +118,7 @@ export class DashboardComponent implements OnInit {
   }
   getTopBidsToday() {
     this.backendApi
-      .GetTopBidsToday(this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check)
+      .GetTopBidsToday(this.globalVars.localNode, this.globalVars.loggedInUser?.PublicKeyBase58Check)
       .subscribe(
         (res) => {
           this.topBidsToday = res.Response;
@@ -130,7 +130,7 @@ export class DashboardComponent implements OnInit {
   }
   getTopEarningCollectors() {
     this.backendApi
-      .GetTopEarningCollectors(this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check)
+      .GetTopEarningCollectors(this.globalVars.localNode, this.globalVars.loggedInUser?.PublicKeyBase58Check)
       .subscribe(
         (res) => {
           console.log("GOT WHALES");
@@ -143,7 +143,7 @@ export class DashboardComponent implements OnInit {
   }
   getTopEarningCreators() {
     this.backendApi
-      .GetTopEarningCreators(this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check)
+      .GetTopEarningCreators(this.globalVars.localNode, this.globalVars.loggedInUser?.PublicKeyBase58Check)
       .subscribe(
         (res) => {
           console.log(res.Response);
@@ -156,7 +156,7 @@ export class DashboardComponent implements OnInit {
   }
   getQuickFacts() {
     this.backendApi
-      .GetQuickFacts(this.globalVars.localNode, this.globalVars.loggedInUser.PublicKeyBase58Check)
+      .GetQuickFacts(this.globalVars.localNode, this.globalVars.loggedInUser?.PublicKeyBase58Check)
       .subscribe(
         (res) => {
           this.AvgCoinRoyalty = res.AverageCoinRoyalty;

@@ -20,7 +20,7 @@
       [imgSrc]="'/assets/icons/lb_analytics_icon.svg'"
       [label]="'Analytics'"
     ></left-bar-button>
-    <hr />
+    <hr *ngIf="globalVars.loggedInUser" />
     <left-bar-button
       [link]="'/' + this.globalVars.RouteNames.ACTIVITY"
       [imgSrc]="'/assets/icons/lb_activity_icon.svg'"

@@ -258,7 +258,7 @@ export class NftDetailBoxComponent implements OnInit {
     if (!this.ownsEdition) {
       this.editionHasBidByUser =
         this.nftBidData?.BidEntryResponses.filter(
-          (bid) => bid.PublicKeyBase58Check === this.globalVars.loggedInUser.PublicKeyBase58Check
+          (bid) => bid.PublicKeyBase58Check === this.globalVars.loggedInUser?.PublicKeyBase58Check
         )?.length > 0;
     }
     // Check if edition has been sold before

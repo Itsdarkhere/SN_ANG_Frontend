@@ -54,6 +54,26 @@ export class TrendsComponent implements OnInit {
 
   datasource: IDatasource<IAdapter<any>> = this.infiniteScroller.getDatasource();
 
+  marketplaceSortTypeOptions = [
+    { id: "most recent first", name: "Most recent first" },
+    { id: "oldest first", name: "Oldest first" },
+    { id: "highest price first", name: "Highest price first" },
+    { id: "lowest price first", name: "Lowest price first" },
+    { id: "most likes first", name: "Most likes first" },
+    { id: "most diamonds first", name: "Most diamonds first" },
+    { id: "most comments first", name: "Most comments first" },
+    { id: "most reposts first", name: "Most reposts first" },
+  ];
+
+  ethMarketplaceSortTypeOptions = [
+    { id: "most recent first", name: "Most recent first" },
+    { id: "oldest first", name: "Oldest first" },
+    { id: "most likes first", name: "Most likes first" },
+    { id: "most diamonds first", name: "Most diamonds first" },
+    { id: "most comments first", name: "Most comments first" },
+    { id: "most reposts first", name: "Most reposts first" },
+  ];
+
   constructor(
     private backendApi: BackendApiService,
     private route: ActivatedRoute,

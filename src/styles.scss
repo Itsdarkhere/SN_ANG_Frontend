@@ -4163,7 +4163,12 @@ option {
     align-items: center;
   }
 }
-
+.nft-post-mobile-padding {
+  @media screen and (max-width: 1050px) {
+      padding: 0 10px;
+      padding-bottom: 100px;
+  }
+}
 .creators-card-list {
   display: flex;
   align-items: flex-start;

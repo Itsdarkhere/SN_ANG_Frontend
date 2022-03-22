@@ -146,7 +146,6 @@
   display: flex;
   flex-direction: row;
   padding: 5px 10px;
-  box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   border: none;
   align-items: center;
@@ -155,7 +154,7 @@
 }
 
 .deso-marketplace-active {
-  border: 2px black solid !important;
+  outline: 2px black solid !important;
 }
 
 .deso-marketplace-logo {
@@ -178,7 +177,6 @@
   display: flex;
   flex-direction: row;
   padding: 5px 10px;
-  box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   border: none;
   align-items: center;

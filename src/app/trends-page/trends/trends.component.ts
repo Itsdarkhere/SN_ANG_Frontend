@@ -89,14 +89,21 @@ export class TrendsComponent implements OnInit {
     }
   }
 
+  blockchainSelectChange(desoMarket: string) {
+    if (desoMarket == "true" && !this.globalVars.desoMarketplace) {
+      this.updateDesoMarketplaceStatus();
+    } else if (desoMarket == "false" && this.globalVars.desoMarketplace) {
+      this.updateEthMarketplaceStatus();
+    }
+  }
   updateDesoMarketplaceStatus() {
     this.globalVars.desoMarketplace = true;
-    // this.globalVars.marketplaceNFTCategory = "";
   }
 
   updateEthMarketplaceStatus() {
     this.globalVars.desoMarketplace = false;
     this.globalVars.getAllEthNFTs();
+    console.log("getting eth");
   }
 
   @HostListener("window:resize") onResize() {

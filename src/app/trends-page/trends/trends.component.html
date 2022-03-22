@@ -22,9 +22,13 @@
       </div>
       <div class="blockchain-select-container mrk-grid-one">
         <label>Blockchain</label>
-        <select class="blockchain-select">
-          <option>Deso</option>
-          <option>Ethereum</option>
+        <select
+          (ngModelChange)="blockchainSelectChange($event)"
+          [ngModel]="globalVars.desoMarketplace"
+          class="blockchain-select"
+        >
+          <option value="true">Deso</option>
+          <option value="false">Ethereum</option>
         </select>
       </div>
       <div class="mrk_top_selector-two mrk-grid-two px-5px d-flex flex-row">

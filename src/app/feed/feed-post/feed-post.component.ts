@@ -436,8 +436,10 @@ export class FeedPostComponent implements OnInit {
     this.globalVars.NFTRoyaltyToCoinBasisPoints = this.postContent.NFTRoyaltyToCoinBasisPoints / 100;
     this.globalVars.NFTRoyaltyToCreatorBasisPoints = this.postContent.NFTRoyaltyToCreatorBasisPoints / 100;
 
-    await this.updateEthNFTForSaleStatus();
-    await this.ownsEthNFTStatus();
+    if (this.postContent.PostExtraData?.isEthereumNFT) {
+      await this.updateEthNFTForSaleStatus();
+      await this.ownsEthNFTStatus();
+    }
     // console.log(` ---------- is eth nft for sale ${this.globalVars.isEthereumNFTForSale} ---------- `);
   }
 

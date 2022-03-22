@@ -366,7 +366,7 @@
           (tabClick)="_handleTabClick($event)"
         ></tab-selector>
       </div>
-      <div *ngIf="showBidsView">
+      <div *ngIf="showBidsView" class="nft-post-mobile-padding">
         <div *ngIf="!loading && !bids?.length" class="fs-15px p-15px pb-0 d-flex justify-content-center nft-no-bids">
           There are no bids yet.
         </div>
@@ -511,7 +511,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="activeTab === NftPostComponent.OWNERS">
+      <div *ngIf="activeTab === NftPostComponent.OWNERS" class="nft-post-mobile-padding">
         <div *ngIf="!loading">
           <div
             class="container d-flex align-items-center fs-14px py-15px border-bottom border-color-grey link--unstyled"
@@ -620,7 +620,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="activeTab === NftPostComponent.COMMENTS">
+      <div *ngIf="activeTab === NftPostComponent.COMMENTS" class="nft-post-mobile-padding">
         <!-- feed-post End -->
         <!-- <h3 class="hdb">Comments</h3> -->
         <!-- <simple-center-loader *ngIf="refreshingBids"></simple-center-loader> -->
@@ -691,7 +691,7 @@
         </button>
       </div>
       <!-- DETAILS -->
-      <div *ngIf="activeTab === NftPostComponent.DETAILS">
+      <div *ngIf="activeTab === NftPostComponent.DETAILS" class="nft-post-mobile-padding">
         <label *ngIf="propertiesBool" class="mt-30px nft-detail-label">PROPERTIES</label>
         <div class="nft-post-property-container">
           <div *ngFor="let property of properties" class="d-flex flex-column flex-center nft-post-property-box mt-10px">
@@ -733,7 +733,10 @@
           </a>
         </div>
       </div>
-      <div *ngIf="!loading && activeTab === NftPostComponent.THREAD && !reloadingThread">
+      <div
+        *ngIf="!loading && activeTab === NftPostComponent.THREAD && !reloadingThread"
+        class="nft-post-mobile-padding"
+      >
         <div
           *ngIf="!loading && !bids?.length"
           class="fs-15px pb-0 d-flex justify-content-center nft-no-bids font-weight-semibold"

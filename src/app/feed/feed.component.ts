@@ -549,7 +549,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     if (this.globalVars.loggedInUser) {
       this.feedTabs = [FeedComponent.GLOBAL_TAB, FeedComponent.HOT_TAB, FeedComponent.FOLLOWING_TAB];
     } else {
-      this.feedTabs = [FeedComponent.GLOBAL_TAB];
+      this.feedTabs = [FeedComponent.GLOBAL_TAB, FeedComponent.HOT_TAB];
     }
 
     if (!this.activeTab) {

@@ -174,12 +174,11 @@
               >
                 <img
                   *ngIf="showAudioTypeIcon"
-                  [@audioIconNoHover]
                   class="card-audio-icon"
                   src="/assets/icons/music-type-white.svg"
                   alt="icon"
                 />
-                <div *ngIf="!showAudioTypeIcon" [@audioIconHover] class="audio-icon-hover-state">
+                <div *ngIf="!showAudioTypeIcon" class="audio-icon-hover-state">
                   <img class="mr-5px" src="/assets/icons/audio-play-small.svg" alt="audio icon small" />
                   <p>PLAY AUDIO</p>
                 </div>

@@ -35,7 +35,7 @@
           <option value="false">Ethereum</option>
         </select>
       </div>
-      <div class="mrk_top_selector-two mrk-grid-two px-5px d-flex flex-row">
+      <div class="mrk_top_selector-two mrk-grid-two px-5px d-flex flex-row" *ngIf="globalVars.desoMarketplace">
         <button
           class="selected"
           (click)="setDisplayType('Card')"
@@ -47,21 +47,40 @@
           <img src="/assets/icons/market_grid_type_grid_icon.svg" alt="grid icon" />
         </button>
       </div>
-      <div class="d-flex flex-column mrk-grid-three">
+      <div class="mrk_top_selector-two mrk-grid-two px-5px d-flex flex-row" *ngIf="!globalVars.desoMarketplace">
+        <button
+          class="selected"
+          (click)="setEthDisplayType()"
+          [ngClass]="{ selected: globalVars.marketplaceViewTypeCard }"
+        >
+          <img src="/assets/icons/market_grid_type_card_icon.svg" alt="card icon" />
+        </button>
+        <button (click)="setEthDisplayType()" [ngClass]="{ selected: !globalVars.marketplaceViewTypeCard }">
+          <img src="/assets/icons/market_grid_type_grid_icon.svg" alt="grid icon" />
+        </button>
+      </div>
+      <div class="d-flex flex-column mrk-grid-three" *ngIf="globalVars.desoMarketplace">
         <label>Sort by</label>
         <select
           class="p-5px ml-20px mrk_select mrk_top_select_height fs-14px"
           (ngModelChange)="sortSelectChange($event)"
           [ngModel]="globalVars.marketplaceSortType"
         >
-          <option value="most recent first">Most recent first</option>
-          <option value="oldest first">Oldest first</option>
-          <option value="highest price first">Highest price first</option>
-          <option value="lowest price first">Lowest price first</option>
-          <option value="most likes first">Most likes first</option>
-          <option value="most diamonds first">Most diamonds first</option>
-          <option value="most comments first">Most comments first</option>
-          <option value="most reposts first">Most reposts first</option>
+          <option *ngFor="let option of marketplaceSortTypeOptions" [value]="option.id">
+            {{ option.name }}
+          </option>
+        </select>
+      </div>
+      <div class="d-flex flex-column mrk-grid-three" *ngIf="!globalVars.desoMarketplace">
+        <label>Sort by</label>
+        <select
+          class="p-5px ml-20px mrk_select mrk_top_select_height fs-14px"
+          (ngModelChange)="sortSelectChange($event)"
+          [ngModel]="globalVars.marketplaceSortType"
+        >
+          <option *ngFor="let option of ethMarketplaceSortTypeOptions" [value]="option.id">
+            {{ option.name }}
+          </option>
         </select>
       </div>
     </div>

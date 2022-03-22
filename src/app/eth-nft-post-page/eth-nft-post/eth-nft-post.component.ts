@@ -104,6 +104,7 @@ export class EthNftPostComponent implements OnInit {
   ethNFTOwnerDesoPublicKey: string;
   ethNFTOwnerDesoUsername: string;
   ethNFTOwnerDesoIsVerified: boolean;
+  updateEthNFTOwnerProfile: boolean;
 
   ethNFTSellerWalletAddress: string;
   ethNFTSellerWalletAddressFull: string;
@@ -438,6 +439,9 @@ export class EthNftPostComponent implements OnInit {
       this.ethNFTSellerWalletAddress = "-";
       this.ethNFTSellerPrice = "-";
       this.ethNFTSellerTimestamp = "-";
+
+      this.updateEthNFTOwnerProfile = false;
+      this.ethNFTOwnerWalletAddress = "-";
       this.ethNFTOwnerPrice = "-";
       this.ethNFTOwnerTimestamp = "-";
     } else {
@@ -464,12 +468,18 @@ export class EthNftPostComponent implements OnInit {
           this.ethNFTSellerWalletAddress = "-";
           this.ethNFTSellerPrice = "-";
           this.ethNFTSellerTimestamp = "-";
+
+          this.updateEthNFTOwnerProfile = false;
+          this.ethNFTOwnerWalletAddress = "-";
+          this.ethNFTOwnerPrice = "-";
+          this.ethNFTOwnerTimestamp = "-";
         }
       }
 
       // update owners price and timestamp for last filled order
       for (var i = 0; i < ethNFTSellerWalletAddressRes["result"].length; i++) {
         if (ethNFTSellerWalletAddressRes["result"][i]["status"] === "filled") {
+          this.updateEthNFTOwnerProfile = true;
           this.ethNFTOwnerPrice =
             ethers.utils.formatEther(ethNFTSellerWalletAddressRes["result"][i]["buy"]["data"]["quantity"]) + " ETH";
 
@@ -481,6 +491,8 @@ export class EthNftPostComponent implements OnInit {
         }
         //   if we are on the last one we know nothing has been filled
         if (i === ethNFTSellerWalletAddressRes["result"].length - 1) {
+          this.updateEthNFTOwnerProfile = false;
+          this.ethNFTOwnerWalletAddress = "-";
           this.ethNFTOwnerPrice = "-";
           this.ethNFTOwnerTimestamp = "-";
         }
@@ -506,31 +518,33 @@ export class EthNftPostComponent implements OnInit {
     this.ethTxUrl = `https://immutascan.io/tx/${ethNFTCreatorWalletAddressRes["result"][0]["transaction_id"]}`;
     this.ethImgUrl = this.nftPost["ImageURLs"][0];
 
-    // check if owner eth wallet has deso profile
-    this.backendApi.GetDesoPKbyETHPK(this.globalVars.localNode, this.ethNFTOwnerWalletAddressFull).subscribe(
-      (res) => {
-        this.ethNFTOwnerDesoProfile = true;
-        this.ethNFTOwnerDesoPublicKey = res["PublicKeyBase58Check"];
-        console.log(this.ethNFTOwnerDesoProfile);
-        console.log(this.ethNFTOwnerDesoPublicKey);
-        this.backendApi.GetSingleProfile(this.globalVars.localNode, this.ethNFTOwnerDesoPublicKey, "").subscribe(
-          (res) => {
-            console.log(res);
-            this.ethNFTOwnerDesoUsername = res["Profile"]["Username"];
-            this.ethNFTOwnerDesoIsVerified = res["Profile"]["IsVerified"];
-          },
-          (err) => {
-            console.log(err);
+    if (this.updateEthNFTOwnerProfile) {
+      // check if owner eth wallet has deso profile
+      this.backendApi.GetDesoPKbyETHPK(this.globalVars.localNode, this.ethNFTOwnerWalletAddressFull).subscribe(
+        (res) => {
+          this.ethNFTOwnerDesoProfile = true;
+          this.ethNFTOwnerDesoPublicKey = res["PublicKeyBase58Check"];
+          console.log(this.ethNFTOwnerDesoProfile);
+          console.log(this.ethNFTOwnerDesoPublicKey);
+          this.backendApi.GetSingleProfile(this.globalVars.localNode, this.ethNFTOwnerDesoPublicKey, "").subscribe(
+            (res) => {
+              console.log(res);
+              this.ethNFTOwnerDesoUsername = res["Profile"]["Username"];
+              this.ethNFTOwnerDesoIsVerified = res["Profile"]["IsVerified"];
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        },
+        (err) => {
+          console.log(err);
+          if (err["status"] === 400) {
+            this.ethNFTOwnerWalletAddress = this.ethNFTOwnerWalletAddressFull.slice(0, 15) + "...";
           }
-        );
-      },
-      (err) => {
-        console.log(err);
-        if (err["status"] === 400) {
-          this.ethNFTOwnerWalletAddress = this.ethNFTOwnerWalletAddressFull.slice(0, 15) + "...";
         }
-      }
-    );
+      );
+    }
 
     // check if seller eth wallet has deso profile
     this.backendApi.GetDesoPKbyETHPK(this.globalVars.localNode, this.ethNFTSellerWalletAddressFull).subscribe(
@@ -581,6 +595,14 @@ export class EthNftPostComponent implements OnInit {
         }
       }
     );
+
+    // setTimeout(() => {
+    //   // if there is no sale price or timestamp then there is no sale that has happened yet
+    //   if (this.ethNFTSellerPrice === "-" && this.ethNFTSellerTimestamp === "-") {
+    //     this.ethNFTOwnerDesoProfile = false;
+    //     this.ethNFTOwnerWalletAddress = "-";
+    //   }
+    // }, 1000);
   }
 
   refreshBidData(): Subscription {

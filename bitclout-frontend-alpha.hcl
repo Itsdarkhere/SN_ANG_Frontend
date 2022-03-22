@@ -68,21 +68,21 @@ job "supernovas-frontend-alpha" {
     header Content-Security-Policy "
       default-src 'self';
       connect-src 'self'
-        link.ropsten.x.immutable.com:*
-        api.ropsten.x.immutable.com:*
-        eth-ropsten.alchemyapi.io:*
-        link.x.immutable.com:*
-        api.x.immutable.com:*
-        eth-mainnet.alchemyapi.io:*
+        https://link.ropsten.x.immutable.com:*
+        https://api.ropsten.x.immutable.com:*
+        https://eth-ropsten.alchemyapi.io:*
+        https://link.x.immutable.com:*
+        https://api.x.immutable.com:*
+        https://eth-mainnet.alchemyapi.io:*
         supernovas.app:*
         node.deso.org
-        supernovas.app
-        testnovas.app
-        testnovas.app*
-        arweave.net
-        *.arweave.net
-        www.google-analytics.com
-        www.googletagmanager.com
+        https://supernovas.app
+        https://testnovas.app
+        https://testnovas.app*
+        https://arweave.net
+        https://*.arweave.net
+        https://www.google-analytics.com
+        https://www.googletagmanager.com
         api.bitclout.com bitclout.com:*
         api.deso.org deso.org:*
         bithunt.bitclout.com

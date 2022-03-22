@@ -525,7 +525,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
         this.globalVars.isMarketplaceLeftBarMobileOpen = false;
       }, 200);
     } else {
-      this.globalVars.isEthMarketplaceLoading = true;
+      this.globalVars.isMarketplaceLoading = true;
       this.setCategory();
       this.setStatus();
       this.canUserSort = false;

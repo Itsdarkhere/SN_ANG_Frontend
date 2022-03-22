@@ -111,6 +111,10 @@ export class TrendsComponent implements OnInit {
   }
   openMarketplaceMobileFiltering() {
     // Get scroll position before anything else
+    if (!this.globalVars.desoMarketplace) {
+      this.openEthMarketplaceMobileFiltering();
+      return;
+    }
     this.scrollPosition = window.scrollY;
     this.globalVars.isMarketplaceLeftBarMobileOpen = true;
     this.disable();
@@ -301,30 +305,23 @@ export class TrendsComponent implements OnInit {
     return new Array(i);
   }
   sortSelectChange(event) {
+    if (this.globalVars.desoMarketplace) {
+      this.sortSelectChangeEth(event);
+      return;
+    }
     if (this.globalVars.marketplaceSortType != event) {
       this.globalVars.marketplaceSortType = event;
       this.sortMarketplace(0, false);
     }
   }
   sortSelectChangeEth(event) {
-    // if (!this.globalVars.ethMarketplaceCanFilter) {
-    //   this.modalService.show(GeneralSuccessModalComponent, {
-    //     class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
-    //     initialState: {
-    //       header: "Error",
-    //       text: "You can only filter on For Sale ETH items.",
-    //       buttonText: "Ok",
-    //       buttonClickedAction: "connectWalletMobileError",
-    //     },
-    //   });
-    // } else {
-    if (this.globalVars.ethMarketplaceSortType != event) {
+    if (this.globalVars.marketplaceSortType != event) {
       // this.globalVars.ethMarketplaceStatus = "for sale";
-      this.globalVars.ethMarketplaceSortType = event;
+      this.globalVars.marketplaceSortType = event;
 
       if (
-        this._globalVars.ethMarketplaceSortType === "highest price first" ||
-        this._globalVars.ethMarketplaceSortType === "lowest price first"
+        this._globalVars.marketplaceSortType === "highest price first" ||
+        this._globalVars.marketplaceSortType === "lowest price first"
       ) {
         this.modalService.show(GeneralSuccessModalComponent, {
           class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",

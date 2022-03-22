@@ -179,7 +179,6 @@ export class GlobalVarsService {
   hotFeedPosts = [];
   // Marketplace is loading / filtering
   isMarketplaceLoading = false;
-  isEthMarketplaceLoading = false;
   marketplaceNFTsData: NFTCollectionResponse[];
   ethMarketplaceNFTsData: NFTCollectionResponse[];
   ethMarketplaceNFTsDataToShow: NFTCollectionResponse[];
@@ -203,7 +202,6 @@ export class GlobalVarsService {
   marketplacePriceRangeSet = false;
   marketplaceMarketType = "all";
   marketplaceSortType = "most recent first";
-  ethMarketplaceSortType = "most recent first";
   // Marketplace Offset
   marketplaceNFTsOffset = 0;
   ethMarketplaceNFTsOffset = 0;
@@ -1555,7 +1553,7 @@ export class GlobalVarsService {
 
   //   for sale ETH nfts - highest price first
   async sortEthMarketplaceHighestPriceFirst() {
-    this.isEthMarketplaceLoading = true;
+    this.isMarketplaceLoading = true;
     this.ethMarketplaceNFTsData = [];
 
     const options = { method: "GET", headers: { Accept: "*/*" } };
@@ -1593,13 +1591,13 @@ export class GlobalVarsService {
     this.getPostsRecursive(metadataPostHashArr);
 
     setTimeout(() => {
-      this.isEthMarketplaceLoading = false;
+      this.isMarketplaceLoading = false;
     }, 2000);
   }
 
   //   for sale ETH nfts - lowest price first
   async sortEthMarketplaceLowestPriceFirst() {
-    this.isEthMarketplaceLoading = true;
+    this.isMarketplaceLoading = true;
     this.ethMarketplaceNFTsData = [];
 
     const options = { method: "GET", headers: { Accept: "*/*" } };
@@ -1637,13 +1635,13 @@ export class GlobalVarsService {
     this.getPostsRecursive(metadataPostHashArr);
 
     setTimeout(() => {
-      this.isEthMarketplaceLoading = false;
+      this.isMarketplaceLoading = false;
     }, 2000);
   }
 
   //   get all ETH nfts
   async getAllEthNFTs() {
-    this.isEthMarketplaceLoading = true;
+    this.isMarketplaceLoading = true;
     this.ethMarketplaceNFTsData = [];
 
     const options = { method: "GET", headers: { Accept: "application/json" } };
@@ -1673,7 +1671,7 @@ export class GlobalVarsService {
         this.loggedInUser.PublicKeyBase58Check,
         NFTsAllArr,
         this.ethMarketplaceNFTCategory,
-        this.ethMarketplaceSortType,
+        this.marketplaceSortType,
         this.ethMarketplaceVerifiedCreators
       )
       .subscribe(
@@ -1681,8 +1679,7 @@ export class GlobalVarsService {
           console.log(res);
           this.ethMarketplaceNFTsData = res["PostEntryResponse"];
           this.updateDataToShow();
-          //   this.ethMarketplaceSortType = "most recent first";
-          this.isEthMarketplaceLoading = false;
+          this.isMarketplaceLoading = false;
         },
         (err) => {
           console.log(err);
@@ -1692,7 +1689,7 @@ export class GlobalVarsService {
 
   //   get all ETH nfts by filter
   async getEthNFTsByFilter() {
-    this.isEthMarketplaceLoading = true;
+    this.isMarketplaceLoading = true;
     this.ethMarketplaceNFTsData = [];
 
     let NFTsAllArr = [];
@@ -1744,7 +1741,7 @@ export class GlobalVarsService {
         this.loggedInUser.PublicKeyBase58Check,
         NFTsAllArr,
         this.ethMarketplaceNFTCategory,
-        this.ethMarketplaceSortType,
+        this.marketplaceSortType,
         this.ethMarketplaceVerifiedCreators
       )
       .subscribe(
@@ -1752,7 +1749,7 @@ export class GlobalVarsService {
           console.log(res);
           this.ethMarketplaceNFTsData = res["PostEntryResponse"];
           this.updateDataToShow();
-          this.isEthMarketplaceLoading = false;
+          this.isMarketplaceLoading = false;
         },
         (err) => {
           console.log(err);

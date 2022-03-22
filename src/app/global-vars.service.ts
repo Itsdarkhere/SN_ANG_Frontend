@@ -1836,6 +1836,8 @@ export class GlobalVarsService {
 
     const publicApiUrl: string = environment.imx.MAINNET_ENV_URL ?? "";
     this.imxClient = await ImmutableXClient.build({ publicApiUrl });
+    console.log(publicApiUrl);
+    console.log(this.imxClient);
 
     let collectedNFTs = await this.imxClient.getAssets({
       user: this.imxWalletAddress,

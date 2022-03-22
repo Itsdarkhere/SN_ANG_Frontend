@@ -113,11 +113,11 @@ export class TrendsComponent implements OnInit {
     // Get scroll position before anything else
     if (!this.globalVars.desoMarketplace) {
       this.openEthMarketplaceMobileFiltering();
-      return;
+    } else {
+      this.scrollPosition = window.scrollY;
+      this.globalVars.isMarketplaceLeftBarMobileOpen = true;
+      this.disable();
     }
-    this.scrollPosition = window.scrollY;
-    this.globalVars.isMarketplaceLeftBarMobileOpen = true;
-    this.disable();
   }
   openEthMarketplaceMobileFiltering() {
     // Get scroll position before anything else
@@ -305,13 +305,13 @@ export class TrendsComponent implements OnInit {
     return new Array(i);
   }
   sortSelectChange(event) {
-    if (this.globalVars.desoMarketplace) {
-      this.sortSelectChangeEth(event);
-      return;
-    }
     if (this.globalVars.marketplaceSortType != event) {
-      this.globalVars.marketplaceSortType = event;
-      this.sortMarketplace(0, false);
+      if (!this.globalVars.desoMarketplace) {
+        this.sortSelectChangeEth(event);
+      } else {
+        this.globalVars.marketplaceSortType = event;
+        this.sortMarketplace(0, false);
+      }
     }
   }
   sortSelectChangeEth(event) {

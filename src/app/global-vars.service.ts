@@ -594,15 +594,17 @@ export class GlobalVarsService {
 
     this.loggedInUser = user;
 
-    // Fetch referralLinks for the userList before completing the load.
-    this.backendApi.GetReferralInfoForUser(this.localNode, this.loggedInUser?.PublicKeyBase58Check).subscribe(
-      (res: any) => {
-        this.loggedInUser.ReferralInfoResponses = res.ReferralInfoResponses;
-      },
-      (err: any) => {
-        console.log(err);
-      }
-    );
+    if (this.loggedInUser) {
+      // Fetch referralLinks for the userList before completing the load.
+      this.backendApi.GetReferralInfoForUser(this.localNode, this.loggedInUser?.PublicKeyBase58Check).subscribe(
+        (res: any) => {
+          this.loggedInUser.ReferralInfoResponses = res.ReferralInfoResponses;
+        },
+        (err: any) => {
+          console.log(err);
+        }
+      );
+    }
 
     // If Jumio callback hasn't returned yet, we need to poll to update the user metadata.
     if (user && user?.JumioFinishedTime > 0 && !user?.JumioReturned) {
@@ -634,10 +636,10 @@ export class GlobalVarsService {
     this._notifyLoggedInUserObservers(user, isSameUserAsBefore);
     this.navigateToCurrentStepInTutorial(user);
     // Identify user
-    this.mixPanel.identify(this.loggedInUser.PublicKeyBase58Check);
+    this.mixPanel.identify(this.loggedInUser?.PublicKeyBase58Check);
     this.mixPanel.peopleset({
       $name: this.username,
-      "public Key": this.loggedInUser.PublicKeyBase58Check,
+      "public Key": this?.loggedInUser?.PublicKeyBase58Check,
     });
   }
 

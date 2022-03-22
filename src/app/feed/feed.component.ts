@@ -281,7 +281,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   showGlobalOrFollowingOrHotPosts() {
     return (
-      this.postsToShow().length > 0 &&
+      this.postsToShow()?.length > 0 &&
       (this.activeTab === FeedComponent.GLOBAL_TAB ||
         this.activeTab === FeedComponent.FOLLOWING_TAB ||
         this.activeTab === FeedComponent.HOT_TAB)

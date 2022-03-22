@@ -84,9 +84,6 @@ export class ChangeAccountSelectorComponent implements OnDestroy {
         }
       });
     });
-    if (this.globalVars.isOnboardingComplete === false) {
-      this.router.navigate(["/" + this.globalVars.RouteNames.BROWSE]);
-    }
   }
 
   linkLogOut() {

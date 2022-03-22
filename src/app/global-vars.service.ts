@@ -1671,7 +1671,7 @@ export class GlobalVarsService {
     this.backendApi
       .SortETHMarketplace(
         this.localNode,
-        this.loggedInUser.PublicKeyBase58Check,
+        this.loggedInUser?.PublicKeyBase58Check,
         NFTsAllArr,
         this.ethMarketplaceNFTCategory,
         this.marketplaceSortType,
@@ -1741,7 +1741,7 @@ export class GlobalVarsService {
     this.backendApi
       .SortETHMarketplace(
         this.localNode,
-        this.loggedInUser.PublicKeyBase58Check,
+        this.loggedInUser?.PublicKeyBase58Check,
         NFTsAllArr,
         this.ethMarketplaceNFTCategory,
         this.marketplaceSortType,
@@ -1858,7 +1858,7 @@ export class GlobalVarsService {
     this.backendApi
       .SortETHMarketplace(
         this.localNode,
-        this.loggedInUser.PublicKeyBase58Check,
+        this.loggedInUser?.PublicKeyBase58Check,
         collectedNFTsArr,
         "all",
         "most recent first",
@@ -1937,7 +1937,7 @@ export class GlobalVarsService {
     this.backendApi
       .SortETHMarketplace(
         this.localNode,
-        this.loggedInUser.PublicKeyBase58Check,
+        this.loggedInUser?.PublicKeyBase58Check,
         createdNFTsArr,
         "all",
         "most recent first",

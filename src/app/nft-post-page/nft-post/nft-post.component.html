@@ -303,12 +303,12 @@
       </div>
 
       <div *ngIf="nftPost.CommentCount || nftPost.ParentStakeID" class="nft-profile-comment-section">
-        <div class="send-message-thread-container">
+        <div class="send-message-thread-container" *ngIf="globalVars.loggedInUser?.PublicKeyBase58Check">
           <div class="fake-textarea-container">
             <div class="avatar-box-send-message">
               <a
                 class="messages-thread__avatar_send_message"
-                [avatar]="this.globalVars.loggedInUser.PublicKeyBase58Check"
+                [avatar]="this.globalVars.loggedInUser?.PublicKeyBase58Check"
               ></a>
             </div>
             <textarea

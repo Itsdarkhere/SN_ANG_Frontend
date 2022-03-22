@@ -25,13 +25,6 @@
     ></tab-selector>
   </div>
 
-  <countdown-timer
-    *ngIf="nextNFTShowcaseTime"
-    [timerText]="'The next NFT showcase drops in...'"
-    [fontWeight]="500"
-    [timerEnd]="nextNFTShowcaseTime"
-  ></countdown-timer>
-
   <div [id]="getPullToRefreshMarkerId()"></div>
   <button type="button" class="recent_post_btn" (click)="showRecent()">Show recent</button>
   <!-- Posts -->
@@ -41,7 +34,7 @@
     <div class="single-card">
       <div class="w-100">
         <div class="d-flex flex-column js-feed-post position-relative">
-          <div class="nft-col-wrap" *ngFor="let in of counter(50); let i = index">
+          <div class="nft-col-wrap" *ngFor="let in of counter(20); let i = index">
             <div class="card">
               <loading-shimmer [tabType]="'FEED'"></loading-shimmer>
             </div>
@@ -186,7 +179,6 @@
       to find more people to follow
     </div>
   </div>
-  <simple-center-loader *ngIf="showLoadingSpinner()"></simple-center-loader>
   <!-- SPACER FOR BOTTOM BAR ON MOBILE -->
   <div class="global__bottom-bar-mobile-height"></div>
   <div class="global__bottom-bar-mobile-height"></div>

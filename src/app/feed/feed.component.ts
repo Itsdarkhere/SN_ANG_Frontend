@@ -260,7 +260,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     } else if (this.activeTab === FeedComponent.GLOBAL_TAB) {
       return this.loadingMoreGlobalFeedPosts;
     } else {
-      return this.loadingMoreDeSoFeedPosts;
+      return this.loadingMoreHotFeedPosts;
     }
   }
 

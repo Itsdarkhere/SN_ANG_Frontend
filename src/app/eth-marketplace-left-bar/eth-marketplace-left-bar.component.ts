@@ -4,6 +4,7 @@ import { Location } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FunctionPassService } from "../function-pass.service";
 import { toInteger } from "lodash";
+import { MixpanelService } from "../mixpanel.service";
 
 @Component({
   selector: "app-eth-marketplace-left-bar",
@@ -65,6 +66,7 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
     public globalVars: GlobalVarsService,
     private router: Router,
     private route: ActivatedRoute,
+    private mixPanel: MixpanelService,
     private location: Location,
     private functionPass: FunctionPassService
   ) {}
@@ -74,6 +76,8 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
     this.statusClick(this.globalVars.ethMarketplaceStatus);
     this.categorySelectChange(this.globalVars.ethMarketplaceNFTCategory);
     this.creatorsClick(this.globalVars.ethMarketplaceVerifiedCreators);
+    this.setFunction();
+    this.mixPanel.track18("Marketplace Viewed");
   }
   // Status button clicks, does not stay in memory
   statusClick(button: string) {
@@ -84,7 +88,6 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
           this.statusForSale = false;
           this.statusHasBids = false;
           this.statusSold = false;
-          //   this.globalVars.ethMarketplaceCanFilter = false;
         }
         break;
       case "for sale":
@@ -93,7 +96,6 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
           this.statusForSale = false;
         } else {
           this.statusForSale = true;
-          //   this.globalVars.ethMarketplaceCanFilter = true;
           this.statusAll = false;
           this.statusHasBids = false;
           this.statusSold = false;
@@ -153,9 +155,6 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
       this.lastSortCreatorTypeVerified = false;
     }
   }
-  //   categoryAndFormatToBaseState() {
-  //     this.globalVars.ethMarketplaceNFTCategory = "All";
-  //   }
   canSort() {
     //   if category is different from last then sort
     if (this.NFTCategory != this.lastSortCategory) {
@@ -171,41 +170,47 @@ export class EthMarketplaceLeftBarComponent implements OnInit {
       this.canUserSort = false;
     }
   }
+  setFunction() {
+    console.log(` --------- statusForSale is ${this.statusForSale} `);
+
+    this.setCategory();
+    this.setStatus();
+    this.setCreatorType();
+
+    this.canSort();
+    console.log(
+      ` --------- is this.NFTCategory ${this.NFTCategory} not equal to this.lastSortCategory ${this.lastSortCategory}? then canSort`
+    );
+    console.log(
+      ` --------- is this.lastSortStatusAll ${this.lastSortStatusAll} not equal to is statusAll ${this.statusAll}`
+    );
+    console.log(
+      ` --------- is this.lastSortStatusForSale ${this.lastSortStatusForSale} not equal to is statusForSale ${this.statusForSale}`
+    );
+    console.log(` --------- ${this.canUserSort}`);
+  }
   // Functionpass service is made to pass this argument
   apply() {
     this.globalVars.isMarketplaceLoading = true;
     // this.setPriceRangeInNanos();
     // this.setMarketType();
     this.setCategory();
-    // this.setContentFormat();
     this.setStatus();
     this.setCreatorType();
-    // this.onFilter.emit("sort");
-    // this.functionPass.filter("sort");
     this.canUserSort = false;
 
+    this.onFilter.emit("ethSort");
+    this.functionPass.filter("ethSort");
+
     this.globalVars.getEthNFTsByFilter();
-    // console.log(this.globalVars.ethMarketplaceStatus);
-
-    // if (this.globalVars.ethMarketplaceStatus === "all") {
-    //   this.globalVars.getAllEthNFTs();
-    // }
-
-    // if (this.globalVars.ethMarketplaceStatus === "for sale") {
-    //   this.globalVars.sortEthMarketplace();
-    // }
 
     setTimeout(() => {
       this.globalVars.isEthMarketplaceLeftBarMobileOpen = false;
-
-      console.log(` ------- lastSortStatusAll ${this.lastSortStatusAll} `);
-      console.log(` ------- lastSortStatusForSale ${this.lastSortStatusForSale} `);
-      console.log(` ------- canSort? ${this.canUserSort}`);
     }, 200);
   }
   closeMenu() {
-    this.functionPass.filter("close");
-    this.onFilter.emit("close");
+    this.functionPass.filter("ethClose");
+    this.onFilter.emit("ethClose");
     setTimeout(() => {
       this.globalVars.isEthMarketplaceLeftBarMobileOpen = false;
     }, 200);

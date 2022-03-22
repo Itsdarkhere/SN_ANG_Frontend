@@ -18,7 +18,7 @@ import { Link, ImmutableXClient, ImmutableMethodResults, MintableERC721TokenType
 export class CancelNftAuctionModalComponent {
   @Input() sellOrderId: string;
 
-  link = new Link(environment.imx.ROPSTEN_LINK_URL);
+  link = new Link(environment.imx.MAINNET_LINK_URL);
   cancelEthNFTSuccess: boolean = false;
 
   constructor(
@@ -30,7 +30,7 @@ export class CancelNftAuctionModalComponent {
   ) {}
 
   async cancelEthNFT() {
-    const link = new Link(environment.imx.ROPSTEN_LINK_URL);
+    const link = new Link(environment.imx.MAINNET_LINK_URL);
     await link.cancel({
       orderId: this.sellOrderId,
     });

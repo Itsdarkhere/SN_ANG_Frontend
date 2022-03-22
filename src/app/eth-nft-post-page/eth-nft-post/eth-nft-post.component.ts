@@ -419,7 +419,7 @@ export class EthNftPostComponent implements OnInit {
     const ownerOptions = { method: "GET", headers: { Accept: "application/json" } };
 
     let ethNFTOwnerWalletAddressRes = await fetch(
-      `https://api.ropsten.x.immutable.com/v1/assets/${environment.imx.TOKEN_ADDRESS}/${this.token_id}`,
+      `${environment.imx.MAINNET_ENV_URL}/assets/${environment.imx.TOKEN_ADDRESS}/${this.token_id}`,
       ownerOptions
     );
     ethNFTOwnerWalletAddressRes = await ethNFTOwnerWalletAddressRes.json();
@@ -429,7 +429,7 @@ export class EthNftPostComponent implements OnInit {
     const sellerOptions = { method: "GET", headers: { Accept: "*/*" } };
 
     let ethNFTSellerWalletAddressRes = await fetch(
-      `https://api.ropsten.x.immutable.com/v1/orders?order_by=created_at&direction=desc&sell_token_id=${this.token_id}&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
+      `${environment.imx.MAINNET_ENV_URL}/orders?order_by=created_at&direction=desc&sell_token_id=${this.token_id}&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
       sellerOptions
     );
     ethNFTSellerWalletAddressRes = await ethNFTSellerWalletAddressRes.json();
@@ -503,7 +503,7 @@ export class EthNftPostComponent implements OnInit {
     const creatorOptions = { method: "GET", headers: { Accept: "application/json" } };
 
     let ethNFTCreatorWalletAddressRes = await fetch(
-      `https://api.ropsten.x.immutable.com/v1/mints?token_id=${this.token_id}&token_address=${environment.imx.TOKEN_ADDRESS}`,
+      `${environment.imx.MAINNET_ENV_URL}/mints?token_id=${this.token_id}&token_address=${environment.imx.TOKEN_ADDRESS}`,
       creatorOptions
     );
     ethNFTCreatorWalletAddressRes = await ethNFTCreatorWalletAddressRes.json();

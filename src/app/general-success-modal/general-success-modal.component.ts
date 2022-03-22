@@ -45,12 +45,12 @@ export class GeneralSuccessModalComponent implements OnInit {
     private location: Location
   ) {}
 
-  link = new Link(environment.imx.ROPSTEN_LINK_URL);
+  link = new Link(environment.imx.MAINNET_LINK_URL);
 
   ngOnInit(): void {}
 
   async linkSetup(): Promise<void> {
-    const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";
+    const publicApiUrl: string = environment.imx.MAINNET_ENV_URL ?? "";
     this.globalVars.imxClient = await ImmutableXClient.build({ publicApiUrl });
     console.log(` ----------------------- client is ${JSON.stringify(this.globalVars.imxClient)}`);
     const res = await this.link.setup({});

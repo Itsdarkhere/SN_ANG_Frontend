@@ -70,7 +70,7 @@ export class WalletComponent implements OnInit, OnDestroy {
   mobile = false;
 
   //   immutable x vars
-  link = new Link(environment.imx.ROPSTEN_LINK_URL);
+  link = new Link(environment.imx.MAINNET_LINK_URL);
   //   end of immutable x vars
 
   constructor(
@@ -159,7 +159,7 @@ export class WalletComponent implements OnInit, OnDestroy {
 
   //   -------------------- immutable x functions --------------------
   async buildIMX(): Promise<void> {
-    const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";
+    const publicApiUrl: string = environment.imx.MAINNET_ENV_URL ?? "";
     this.globalVars.imxClient = await ImmutableXClient.build({ publicApiUrl });
     if (localStorage.getItem("address")) {
       console.log("local storage hit -------------------");

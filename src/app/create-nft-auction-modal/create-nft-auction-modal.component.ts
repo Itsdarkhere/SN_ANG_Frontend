@@ -30,7 +30,7 @@ export class CreateNftAuctionModalComponent {
   creatingAuction: boolean = false;
 
   sellingPriceETH: any;
-  link = new Link(environment.imx.ROPSTEN_LINK_URL);
+  link = new Link(environment.imx.MAINNET_LINK_URL);
   createEthNFTSuccess: boolean = false;
 
   constructor(

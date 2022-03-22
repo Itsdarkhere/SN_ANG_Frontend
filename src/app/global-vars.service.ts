@@ -1561,7 +1561,7 @@ export class GlobalVarsService {
     const options = { method: "GET", headers: { Accept: "*/*" } };
 
     let res = await fetch(
-      `https://api.ropsten.x.immutable.com/v1/orders?order_by=buy_quantity&direction=desc&status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
+      `${environment.imx.MAINNET_ENV_URL}/orders?order_by=buy_quantity&direction=desc&status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
       options
     );
     let resJson = await res.json();
@@ -1605,7 +1605,7 @@ export class GlobalVarsService {
     const options = { method: "GET", headers: { Accept: "*/*" } };
 
     let res = await fetch(
-      `https://api.ropsten.x.immutable.com/v1/orders?order_by=buy_quantity&direction=asc&status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
+      `${environment.imx.MAINNET_ENV_URL}/orders?order_by=buy_quantity&direction=asc&status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
       options
     );
     let resJson = await res.json();
@@ -1653,7 +1653,7 @@ export class GlobalVarsService {
     const options = { method: "GET", headers: { Accept: "application/json" } };
 
     let res = await fetch(
-      `https://api.ropsten.x.immutable.com/v1/mints?token_address=${environment.imx.TOKEN_ADDRESS}`,
+      `${environment.imx.MAINNET_ENV_URL}/mints?token_address=${environment.imx.TOKEN_ADDRESS}`,
       options
     );
     let resJson = await res.json();
@@ -1708,7 +1708,7 @@ export class GlobalVarsService {
       const options = { method: "GET", headers: { Accept: "application/json" } };
 
       let res = await fetch(
-        `https://api.ropsten.x.immutable.com/v1/mints?token_address=${environment.imx.TOKEN_ADDRESS}`,
+        `${environment.imx.MAINNET_ENV_URL}/mints?token_address=${environment.imx.TOKEN_ADDRESS}`,
         options
       );
       let resJson = await res.json();
@@ -1724,7 +1724,7 @@ export class GlobalVarsService {
       const options = { method: "GET", headers: { Accept: "*/*" } };
 
       let res = await fetch(
-        `https://api.ropsten.x.immutable.com/v1/orders?status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
+        `${environment.imx.MAINNET_ENV_URL}/orders?status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
         options
       );
       let resJson = await res.json();
@@ -1800,7 +1800,7 @@ export class GlobalVarsService {
   //   end of marketplace imx functions
 
   // start of profile imx functions
-  link = new Link(environment.imx.ROPSTEN_LINK_URL);
+  link = new Link(environment.imx.MAINNET_LINK_URL);
   getCollectedNFTsCounter = 0;
 
   getCollectedPostsRecursive(metadataPostHashArr) {
@@ -1834,7 +1834,7 @@ export class GlobalVarsService {
   async getCollectedNFTs() {
     this.ethNFTsCollected = [];
 
-    const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";
+    const publicApiUrl: string = environment.imx.MAINNET_ENV_URL ?? "";
     this.imxClient = await ImmutableXClient.build({ publicApiUrl });
 
     let collectedNFTs = await this.imxClient.getAssets({
@@ -1915,13 +1915,13 @@ export class GlobalVarsService {
   async getCreatedNFTs() {
     this.ethNFTsCreated = [];
 
-    const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";
+    const publicApiUrl: string = environment.imx.MAINNET_ENV_URL ?? "";
     this.imxClient = await ImmutableXClient.build({ publicApiUrl });
 
     const options = { method: "GET", headers: { Accept: "application/json" } };
 
     let createdNFTs = await fetch(
-      `https://api.ropsten.x.immutable.com/v1/mints?user=${this.imxWalletAddress}&token_address=${environment.imx.TOKEN_ADDRESS}`,
+      `${environment.imx.MAINNET_ENV_URL}/mints?user=${this.imxWalletAddress}&token_address=${environment.imx.TOKEN_ADDRESS}`,
       options
     );
 

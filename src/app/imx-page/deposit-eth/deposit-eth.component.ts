@@ -15,7 +15,7 @@ export class DepositEthComponent implements OnInit {
 
   constructor(public globalVars: GlobalVarsService, private modalService: BsModalService) {}
 
-  link = new Link(environment.imx.ROPSTEN_LINK_URL);
+  link = new Link(environment.imx.MAINNET_LINK_URL);
 
   ngOnInit(): void {}
   openLink(link: string) {

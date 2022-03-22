@@ -296,7 +296,7 @@ export class NewNftCardComponent implements OnInit {
     const options = { method: "GET", headers: { Accept: "*/*" } };
 
     let res = await fetch(
-      `https://api.ropsten.x.immutable.com/v1/orders?status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
+      `${environment.imx.MAINNET_ENV_URL}/orders?status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
       options
     );
 
@@ -319,7 +319,7 @@ export class NewNftCardComponent implements OnInit {
     const options = { method: "GET", headers: { Accept: "application/json" } };
 
     let res = await fetch(
-      `https://api.ropsten.x.immutable.com/v1/assets/${environment.imx.TOKEN_ADDRESS}/${this.postContent.PostExtraData.tokenId}`,
+      `${environment.imx.MAINNET_ENV_URL}/assets/${environment.imx.TOKEN_ADDRESS}/${this.postContent.PostExtraData.tokenId}`,
       options
     );
 

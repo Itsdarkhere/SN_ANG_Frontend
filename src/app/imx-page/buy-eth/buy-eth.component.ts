@@ -11,7 +11,7 @@ import { GlobalVarsService } from "../../global-vars.service";
 export class BuyEthComponent implements OnInit {
   constructor(public globalVars: GlobalVarsService) {}
 
-  link = new Link(environment.imx.ROPSTEN_LINK_URL);
+  link = new Link(environment.imx.MAINNET_LINK_URL);
 
   ngOnInit(): void {}
   openLink(link: string) {

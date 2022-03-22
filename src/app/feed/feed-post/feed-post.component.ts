@@ -216,7 +216,7 @@ export class FeedPostComponent implements OnInit {
     const options = { method: "GET", headers: { Accept: "application/json" } };
 
     let res = await fetch(
-      `https://api.ropsten.x.immutable.com/v1/assets/${environment.imx.TOKEN_ADDRESS}/${this.postContent.PostExtraData["tokenId"]}`,
+      `${environment.imx.MAINNET_ENV_URL}/${environment.imx.TOKEN_ADDRESS}/${this.postContent.PostExtraData["tokenId"]}`,
       options
     );
 
@@ -240,7 +240,7 @@ export class FeedPostComponent implements OnInit {
     // console.log(environment.imx.TOKEN_ADDRESS);
 
     let res = await fetch(
-      `https://api.ropsten.x.immutable.com/v1/orders?status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
+      `${environment.imx.MAINNET_ENV_URL}/orders?status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
       options
     );
 
@@ -938,7 +938,7 @@ export class FeedPostComponent implements OnInit {
     this.closeAuction.emit();
   }
   async closeYourETHAuction() {
-    const link = new Link(environment.imx.ROPSTEN_LINK_URL);
+    const link = new Link(environment.imx.MAINNET_LINK_URL);
     await link.cancel({
       orderId: this.sellOrderId,
     });

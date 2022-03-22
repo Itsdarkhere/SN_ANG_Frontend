@@ -136,7 +136,7 @@ export class MintPageComponent implements OnInit {
   sellingPriceETH: any;
   token_id: any;
 
-  link = new Link(environment.imx.ROPSTEN_LINK_URL);
+  link = new Link(environment.imx.MAINNET_LINK_URL);
 
   @HostListener("window:resize") onResize() {
     this.setMobileBasedOnViewport();
@@ -748,13 +748,13 @@ export class MintPageComponent implements OnInit {
   async mintv2(token_id: any) {
     // initialise a client with the minter for your NFT smart contract
     const provider = new ethers.providers.JsonRpcProvider(
-      `https://eth-ropsten.alchemyapi.io/v2/${environment.imx.ALCHEMY_API_KEY}`
+      `${environment.imx.ALCHEMY_MAINNET_URL}/${environment.imx.ALCHEMY_API_KEY}`
     );
     const minterPrivateKey: string = environment.imx.MINTER_PK ?? ""; // registered minter for your contract
     const minter = new ethers.Wallet(minterPrivateKey).connect(provider);
-    const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";
-    const starkContractAddress: string = environment.imx.ROPSTEN_STARK_CONTRACT_ADDRESS ?? "";
-    const registrationContractAddress: string = environment.imx.ROPSTEN_REGISTRATION_ADDRESS ?? "";
+    const publicApiUrl: string = environment.imx.MAINNET_ENV_URL ?? "";
+    const starkContractAddress: string = environment.imx.MAINNET_STARK_CONTRACT_ADDRESS ?? "";
+    const registrationContractAddress: string = environment.imx.MAINNET_REGISTRATION_ADDRESS ?? "";
     const minterClient = await ImmutableXClient.build({
       publicApiUrl,
       signer: minter,
@@ -807,13 +807,13 @@ export class MintPageComponent implements OnInit {
   async mintv2WithRoyalties(token_id: any, royalty: number) {
     // initialise a client with the minter for your NFT smart contract
     const provider = new ethers.providers.JsonRpcProvider(
-      `https://eth-ropsten.alchemyapi.io/v2/${environment.imx.ALCHEMY_API_KEY}`
+      `${environment.imx.ALCHEMY_MAINNET_URL}/${environment.imx.ALCHEMY_API_KEY}`
     );
     const minterPrivateKey: string = environment.imx.MINTER_PK ?? ""; // registered minter for your contract
     const minter = new ethers.Wallet(minterPrivateKey).connect(provider);
-    const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";
-    const starkContractAddress: string = environment.imx.ROPSTEN_STARK_CONTRACT_ADDRESS ?? "";
-    const registrationContractAddress: string = environment.imx.ROPSTEN_REGISTRATION_ADDRESS ?? "";
+    const publicApiUrl: string = environment.imx.MAINNET_ENV_URL ?? "";
+    const starkContractAddress: string = environment.imx.MAINNET_STARK_CONTRACT_ADDRESS ?? "";
+    const registrationContractAddress: string = environment.imx.MAINNET_REGISTRATION_ADDRESS ?? "";
     const minterClient = await ImmutableXClient.build({
       publicApiUrl,
       signer: minter,
@@ -892,7 +892,7 @@ export class MintPageComponent implements OnInit {
       properties: JSON.stringify(Array.from(this.KVMap)),
       isEthereumNFT: JSON.stringify(true),
       tokenId: JSON.stringify(this.token_id),
-      ethContractNumber: "1",
+      ethContractNumber: environment.imx.ETH_CONTRACT_NUMBER,
     };
     if (environment.node.id) {
       postExtraData["Node"] = environment.node.id.toString();

@@ -58,7 +58,7 @@ export class ImxPageComponent implements OnInit {
   async ngOnInit() {
     this.setMobileBasedOnViewport();
 
-    const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";
+    const publicApiUrl: string = environment.imx.MAINNET_ENV_URL ?? "";
     this.globalVars.imxClient = await ImmutableXClient.build({ publicApiUrl });
     if (localStorage.getItem("address")) {
       console.log(` ----------------- address in local storage is ${localStorage.getItem("address")}`);

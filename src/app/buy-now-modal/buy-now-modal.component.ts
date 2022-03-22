@@ -91,7 +91,7 @@ export class BuyNowModalComponent implements OnInit {
   }
 
   async getImxBalance(walletAddressInput: string): Promise<void> {
-    const publicApiUrl: string = environment.imx.ROPSTEN_ENV_URL ?? "";
+    const publicApiUrl: string = environment.imx.MAINNET_ENV_URL ?? "";
     this.globalVars.imxClient = await ImmutableXClient.build({ publicApiUrl });
 
     this.globalVars.imxBalance = await this.globalVars.imxClient.getBalance({
@@ -174,7 +174,7 @@ export class BuyNowModalComponent implements OnInit {
 
     // this.buyingNFT = true;
 
-    const link = new Link(environment.imx.ROPSTEN_LINK_URL);
+    const link = new Link(environment.imx.MAINNET_LINK_URL);
     await link.buy({
       orderIds: [this.sellOrderId],
     });

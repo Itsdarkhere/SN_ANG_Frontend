@@ -71,6 +71,9 @@ job "supernovas-frontend" {
         https://link.ropsten.x.immutable.com:*
         https://api.ropsten.x.immutable.com:*
         https://eth-ropsten.alchemyapi.io:*
+        https://link.x.immutable.com:*
+        https://api.x.immutable.com:*
+        https://eth-mainnet.alchemyapi.io:*
         supernovas.app:*
         node.deso.org
         https://supernovas.app

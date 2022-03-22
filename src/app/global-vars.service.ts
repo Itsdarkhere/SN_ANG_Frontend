@@ -1642,6 +1642,7 @@ export class GlobalVarsService {
   //   get all ETH nfts
   async getAllEthNFTs() {
     this.isMarketplaceLoading = true;
+
     this.ethMarketplaceNFTsData = [];
 
     const options = { method: "GET", headers: { Accept: "application/json" } };

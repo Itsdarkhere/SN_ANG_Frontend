@@ -1642,8 +1642,11 @@ export class GlobalVarsService {
   //   get all ETH nfts
   async getAllEthNFTs() {
     this.isMarketplaceLoading = true;
-
     this.ethMarketplaceNFTsData = [];
+    // highest price and lowest price are not available on ethereum
+    if (this.marketplaceSortType === "highest price first" || this.marketplaceSortType === "lowest price first") {
+      this.marketplaceSortType = "most recent first";
+    }
 
     const options = { method: "GET", headers: { Accept: "application/json" } };
 
@@ -1692,6 +1695,10 @@ export class GlobalVarsService {
   async getEthNFTsByFilter() {
     this.isMarketplaceLoading = true;
     this.ethMarketplaceNFTsData = [];
+    // highest price and lowest price are not available on ethereum
+    if (this.marketplaceSortType === "highest price first" || this.marketplaceSortType === "lowest price first") {
+      this.marketplaceSortType = "most recent first";
+    }
 
     let NFTsAllArr = [];
     // status is all

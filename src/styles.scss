@@ -4988,7 +4988,7 @@ option {
   width: 100%;
   content: "";
   background: rgb(0 0 0 / 20%);
-  z-index: 1;
+  z-index: 75;
   @media screen and (max-width: 767px) {
     display: none;
   }

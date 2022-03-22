@@ -253,7 +253,6 @@ header {
 
 .notification-icon-cover {
   position: relative;
-  z-index: 1;
   .triangle-up {
     display: inline-block;
     transform: scaleX(1.2);
@@ -274,6 +273,7 @@ header {
     border: 0.952182px solid #fcfcfc;
     box-shadow: 1px 1.52px 7.62px rgba(0, 0, 0, 0.11);
     border-radius: 14.2827px;
+    z-index: 80;
     .notification-list {
       padding: 10px 0px 0px;
       position: relative;

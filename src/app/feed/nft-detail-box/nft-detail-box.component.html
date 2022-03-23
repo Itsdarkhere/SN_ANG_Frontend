@@ -109,14 +109,7 @@
         <div class="auction_detl" *ngIf="!editionForSale && !(ownsEdition && editionHasUnlockable)">
           <span class="hq">Owner</span>
           <div class="d-flex">
-            <div
-              class="bid_by_avtar"
-              [routerLink]="
-                getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX, nftEntryResponse?.OwnerPublicKeyBase58Check])
-              "
-              queryParamsHandling="merge"
-              [avatar]="nftEntryResponse?.OwnerPublicKeyBase58Check"
-            ></div>
+            <div class="bid_by_avtar" [avatar]="nftEntryResponse?.OwnerPublicKeyBase58Check"></div>
             <!--<div class="name">
               <a
                 class="fc-default font-weight-bold"
@@ -413,14 +406,7 @@
     <div class="val" *ngIf="decryptableNFTEntryResponses?.length && !showUnlockableContent">
       <span class="lb">Owner</span>
       <div class="owner_lft align-items-center d-flex">
-        <div
-          class="bid_by_avtar"
-          [routerLink]="
-            getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX, nftEntryResponse?.OwnerPublicKeyBase58Check])
-          "
-          queryParamsHandling="merge"
-          [avatar]="nftEntryResponse?.OwnerPublicKeyBase58Check"
-        ></div>
+        <div class="bid_by_avtar" [avatar]="nftEntryResponse?.OwnerPublicKeyBase58Check"></div>
         <!-- <div class="name">
           <a
             class="fc-secalt font-weight-bold val_sm"
@@ -524,14 +510,7 @@
   >
     <span class="lb">Owner</span>
     <div class="d-flex">
-      <div
-        class="bid_by_avtar"
-        [routerLink]="
-          getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX, nftEntryResponse?.OwnerPublicKeyBase58Check])
-        "
-        queryParamsHandling="merge"
-        [avatar]="nftEntryResponse?.OwnerPublicKeyBase58Check"
-      ></div>
+      <div class="bid_by_avtar" [avatar]="nftEntryResponse?.OwnerPublicKeyBase58Check"></div>
       <!-- <div class="name d-flex flex-row flex-center">
         <a
           class="fc-secalt font-weight-bold val_sm"

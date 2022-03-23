@@ -225,6 +225,7 @@ export class NftDetailBoxComponent implements OnInit {
     this.loadingEditionDetails = true;
     this.nftEntryResponses.forEach((item) => {
       if (item.SerialNumber == id) {
+        console.log("CHANGE EDITION");
         this.nftEntryResponse = item;
       }
     });

@@ -4509,6 +4509,8 @@ option {
       .val {
         font-size: 28.2247px;
         font-weight: 600;
+        text-overflow: ellipsis;
+        overflow: hidden;
         @media screen and (max-width: 767px) {
           font-size: 24px;
         }

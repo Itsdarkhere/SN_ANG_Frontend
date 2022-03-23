@@ -109,8 +109,15 @@
         <div class="auction_detl" *ngIf="!editionForSale && !(ownsEdition && editionHasUnlockable)">
           <span class="hq">Owner</span>
           <div class="d-flex">
-            <div class="bid_by_avtar" [avatar]="nftEntryResponse?.OwnerPublicKeyBase58Check"></div>
-            <div class="name">
+            <div
+              class="bid_by_avtar"
+              [routerLink]="
+                getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX, nftEntryResponse?.OwnerPublicKeyBase58Check])
+              "
+              queryParamsHandling="merge"
+              [avatar]="nftEntryResponse?.OwnerPublicKeyBase58Check"
+            ></div>
+            <!--<div class="name">
               <a
                 class="fc-default font-weight-bold"
                 [routerLink]="
@@ -120,11 +127,10 @@
               >
                 {{ nftEntryResponse?.ProfileEntryResponse?.Username }}
               </a>
-              <!-- CANT BE DONE -->
               <span *ngIf="nftEntryResponse?.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">
                 <i class="fas fa-check-circle fa-md align-middle"></i>
               </span>
-            </div>
+            </div>-->
           </div>
         </div>
       </ng-template>
@@ -409,9 +415,13 @@
       <div class="owner_lft align-items-center d-flex">
         <div
           class="bid_by_avtar"
-          [avatar]="nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.PublicKeyBase58Check"
+          [routerLink]="
+            getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX, nftEntryResponse?.OwnerPublicKeyBase58Check])
+          "
+          queryParamsHandling="merge"
+          [avatar]="nftEntryResponse?.OwnerPublicKeyBase58Check"
         ></div>
-        <div class="name">
+        <!-- <div class="name">
           <a
             class="fc-secalt font-weight-bold val_sm"
             [routerLink]="
@@ -427,7 +437,7 @@
           <span *ngIf="nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">
             <i class="fas fs-22px fa-check-circle fa-md align-middle"></i>
           </span>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -516,9 +526,13 @@
     <div class="d-flex">
       <div
         class="bid_by_avtar"
-        [avatar]="nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.PublicKeyBase58Check"
+        [routerLink]="
+          getRouterLink(['/' + globalVars.RouteNames.USER_PREFIX, nftEntryResponse?.OwnerPublicKeyBase58Check])
+        "
+        queryParamsHandling="merge"
+        [avatar]="nftEntryResponse?.OwnerPublicKeyBase58Check"
       ></div>
-      <div class="name d-flex flex-row flex-center">
+      <!-- <div class="name d-flex flex-row flex-center">
         <a
           class="fc-secalt font-weight-bold val_sm"
           [routerLink]="
@@ -534,7 +548,7 @@
         <span *ngIf="nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">
           <i class="fas fs-22px fa-check-circle fa-md align-middle"></i>
         </span>
-      </div>
+      </div> -->
     </div>
   </div>
   <div

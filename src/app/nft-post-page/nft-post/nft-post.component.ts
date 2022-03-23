@@ -90,6 +90,7 @@ export class NftPostComponent implements OnInit {
   submittingPost = false;
 
   contentStorage = false;
+  textNFT = false;
   propertiesBool = false;
 
   static ALL_BIDS = "All Bids";
@@ -289,7 +290,8 @@ export class NftPostComponent implements OnInit {
 
   checkPostDetails() {
     // Both 3d and banner have poster images which are stored on ar so this counts them too
-    if (this.nftPost.ImageURLs[0]) {
+    if (this.nftPost.ImageURLs) {
+      console.log("IMAGE");
       if (this.nftPost.ImageURLs[0].startsWith("https://arweave.net/")) {
         this.contentStorage = true;
         return;
@@ -297,17 +299,59 @@ export class NftPostComponent implements OnInit {
         this.contentStorage = false;
         return;
       }
-    } else if (this.nftPost.VideoURLs[0]) {
-      if (this.nftPost.ImageURLs[0].startsWith("https://arweave.net/")) {
-        this.contentStorage = true;
-        return;
-      } else {
+    } else if (this.nftPost.VideoURLs) {
+      console.log("VIDEO");
+      try {
+        if (this.nftPost.PostExtraData["arweaveVideoSrc"].startsWith("https://arweave.net/")) {
+          this.contentStorage = true;
+          return;
+        }
+      } catch (error) {
         this.contentStorage = false;
         return;
       }
     } else {
+      console.log("OTHERWISE");
       this.contentStorage = false;
+      this.textNFT = true;
     }
+  }
+  viewAssetArweave() {
+    try {
+      if (this.nftPost.PostExtraData["arweaveModelSrc"]) {
+        window.open(this.nftPost.PostExtraData["arweaveModelSrc"], "_blank");
+      }
+    } catch (error) {
+      console.log("NOT MODEL SRC");
+    }
+    try {
+      if (this.nftPost.PostExtraData["arweaveAudioSrc"]) {
+        window.open(this.nftPost.PostExtraData["arweaveAudioSrc"], "_blank");
+      }
+    } catch (error) {
+      console.log("NOT AUDIO SRC");
+    }
+    try {
+      if (this.nftPost.PostExtraData["arweaveVideoSrc"]) {
+        window.open(this.nftPost.PostExtraData["arweaveVideoSrc"], "_blank");
+      }
+    } catch (error) {
+      console.log("NOT AUDIO SRC");
+    }
+    if (this.nftPost.ImageURLs) {
+      window.open(this.nftPost.ImageURLs[0], "_blank");
+    }
+  }
+  viewAssetCentralized() {
+    if (this.nftPost.VideoURLs) {
+      window.open(this.nftPost.VideoURLs[0], "_blank");
+    } else if (this.nftPost.ImageURLs) {
+      window.open(this.nftPost.ImageURLs[0], "_blank");
+    }
+  }
+  viewBlock() {
+    console.log(this.nftPost);
+    window.open("https://www.openprosper.com/deso-scan/transaction/" + this.nftPost.PostHashHex, "_blank");
   }
   refreshBidData(): Subscription {
     this.refreshingBids = true;

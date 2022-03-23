@@ -59,7 +59,7 @@
             </div>
 
             <!-- Video Post -->
-            <div class="w-100 d-flex flex-center" *ngIf="nftPost.PostExtraData.arweaveVideoSrc">
+            <div class="w-100 d-flex flex-center" *ngIf="nftPost.PostExtraData?.arweaveVideoSrc">
               <video controls class="w-100 br-5px" src="{{ nftPost.PostExtraData.arweaveVideoSrc }}"></video>
             </div>
             <div
@@ -706,28 +706,28 @@
             <img class="deso-logo" src="/assets/deso/desologo.svg" alt="deso" />
             <label class="mb-0px">Deso</label>
           </span>
-          <a>
+          <a (click)="viewBlock()">
             View on block explorer
             <img src="/assets/icons/deso_page_link.svg" alt="go to icon" />
           </a>
         </div>
         <!-- Content storage -->
-        <label class="mt-30px nft-detail-label">CONTENT STORAGE</label>
+        <label *ngIf="!textNFT" class="mt-30px nft-detail-label">CONTENT STORAGE</label>
         <!-- ARWEAVE -->
-        <div *ngIf="contentStorage" class="nft-profile-content-storage-arweave">
+        <div *ngIf="contentStorage && !textNFT" class="nft-profile-content-storage-arweave">
           <img class="arweave-logo" src="/assets/icons/arweave_icon.svg" alt="deso" />
-          <a>
+          <a (click)="viewAssetArweave()">
             View content
             <img src="/assets/icons/deso_page_link.svg" alt="go to icon" />
           </a>
         </div>
         <!-- CENTRALIZED -->
-        <div *ngIf="!contentStorage" class="nft-profile-content-storage-arweave">
+        <div *ngIf="!contentStorage && !textNFT" class="nft-profile-content-storage-arweave">
           <div class="warning-centralized-server">
             <img src="/assets/icons/warning_circle_icon.svg" alt="warning icon" />
             Centralized Server
           </div>
-          <a>
+          <a (click)="viewAssetCentralized()">
             View asset
             <img src="/assets/icons/deso_page_link.svg" alt="go to icon" />
           </a>

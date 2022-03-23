@@ -27,6 +27,12 @@
       *ngIf="globalVars.loggedInUser"
       [label]="'Activity'"
     ></left-bar-button>
+    <!-- THIS IS ESSENTIALLY LEFT BAR BUTTON, EXCEPT WE DONT HAVE LINK, WE HAVE FUNC -->
+    <button *ngIf="globalVars.loggedInUser" class="icon position-relative" (click)="hasProfile()">
+      <img src="/assets/icons/lb_profile_icon.svg" alt="left bar icon" />
+      <label class="lb-button-label">Profile</label>
+    </button>
+    <!-- END OF LEFT BAR BUTTON RECREATION -->
     <left-bar-button
       [link]="'/' + this.globalVars.RouteNames.INBOX_PREFIX"
       [hasNotifications]="true"

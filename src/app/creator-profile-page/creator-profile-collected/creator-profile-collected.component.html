@@ -12,7 +12,7 @@
 <div *ngIf="!showProfileAsReserved">
   <div *ngIf="!globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check) && nftResponse?.length > 0">
     <div
-      class="search-results"
+      class="search-results d-flex justify-content-center"
       infiniteScroll
       [infiniteScrollDistance]="5"
       [infiniteScrollThrottle]="150"

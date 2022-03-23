@@ -253,40 +253,7 @@
   <div class="bio-cover">
     <!--<h6>BIO</h6>-->
     <p [innerHTML]="profile.Description | sanitizeAndAutoLink"></p>
-    <div class="socials-column w-10">
-      <!-- <div
-        *ngIf="!profileBelongsToLoggedInUser() && globalVars.loggedInUser"
-        class="fs-15px follow_ellips"
-        dropdown
-        container="body"
-      >
-        <a class="link--unstyled text-grey9 link--unstyled text-grey9" dropdownToggle>
-          <i class="fas fa-ellipsis-h"></i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right p-0 border background-color-light-grey fs-15px" *dropdownMenu>
-          <a
-            class="dropdown-menu-item d-block link--unstyled p-10px feed-post__dropdown-menu-item"
-            (click)="messageUser()"
-          >
-            <img class="h-15px" src="./assets/icons/profile-email.png" />
-            Message User
-          </a>
-          <a
-            class="dropdown-menu-item border-top d-block link--unstyled p-10px feed-post__dropdown-menu-item feed-post__dropdown-menu-item-color-light"
-            (click)="reportUser()"
-          >
-            <img class="scale-1_2" src="./assets/icons/report-icon.svg" />
-            Report User
-          </a>
-          <a
-            class="dropdown-menu-item d-block link--unstyled p-10px feed-post__dropdown-menu-item feed-post__dropdown-menu-item-color-light"
-            (click)="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check) ? unblock() : block()"
-          >
-            <img class="scale-1_2 pb-2px" src="./assets/icons/block-icon.svg" />
-            {{ globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check) ? "Unblock" : "Block" }} User
-          </a>
-        </div>
-      </div> -->
+    <div class="socials-column">
       <a
         *ngIf="profileData?.Website"
         href="https://{{ trimURL(profileData.Website) }}"

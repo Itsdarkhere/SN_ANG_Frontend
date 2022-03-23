@@ -29,12 +29,8 @@
         <div
           class="align-items-center change-account-selector__account-image"
           [avatar]="globalVars.loggedInUser.PublicKeyBase58Check"
-          (click)="hasProfile()"
         ></div>
-        <div
-          (click)="hasProfile()"
-          class="change-account-selector__acount-name cas-dont-copy change-account-selector__ellipsis-restriction"
-        >
+        <div class="change-account-selector__acount-name cas-dont-copy change-account-selector__ellipsis-restriction">
           {{
             globalVars.loggedInUser.ProfileEntryResponse?.Username
               ? globalVars.loggedInUser.ProfileEntryResponse.Username
@@ -48,7 +44,7 @@
           <i class="fas fa-check-circle fa-md"></i>
         </span>
       </div>
-      <div class="cas-dont-copy h-100 d-flex flex-center cas-border-left">
+      <div class="cas-dont-copy h-100 d-flex flex-center">
         <div id="nav-icon3" [ngClass]="{ open: !intervalClosed }">
           <span></span>
           <span></span>

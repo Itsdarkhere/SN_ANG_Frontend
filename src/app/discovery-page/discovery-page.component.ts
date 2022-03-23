@@ -140,6 +140,7 @@ export class DiscoveryPageComponent implements OnInit {
   routeViewAll(category: string) {
     switch (category) {
       case "trending":
+        this.globalVars.desoMarketplace = true;
         this.globalVars.marketplaceVerifiedCreators = "verified";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceNFTCategory = "all";
@@ -154,6 +155,7 @@ export class DiscoveryPageComponent implements OnInit {
         this.globalVars.marketplaceStatus = "has bids"
         break;
       case "art":
+        this.globalVars.desoMarketplace = true;
         this.globalVars.marketplaceVerifiedCreators = "verified";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
@@ -168,6 +170,7 @@ export class DiscoveryPageComponent implements OnInit {
         this.globalVars.marketplaceNFTCategory = "art"
         break;
       case "collectibles":
+        this.globalVars.desoMarketplace = true;
         this.globalVars.marketplaceVerifiedCreators = "verified";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
@@ -182,6 +185,7 @@ export class DiscoveryPageComponent implements OnInit {
         this.globalVars.marketplaceNFTCategory = "collectibles"
         break;
       case "generative":
+        this.globalVars.desoMarketplace = true;
         this.globalVars.marketplaceVerifiedCreators = "verified";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
@@ -196,6 +200,7 @@ export class DiscoveryPageComponent implements OnInit {
         this.globalVars.marketplaceNFTCategory = "generative art"
         break;
       case "metaverse":
+        this.globalVars.desoMarketplace = true;
         this.globalVars.marketplaceVerifiedCreators = "verified";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
@@ -210,6 +215,7 @@ export class DiscoveryPageComponent implements OnInit {
         this.globalVars.marketplaceNFTCategory = "metaverse"
         break;
       case "categorymusic":
+        this.globalVars.desoMarketplace = true;
         this.globalVars.marketplaceVerifiedCreators = "verified";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
@@ -224,6 +230,7 @@ export class DiscoveryPageComponent implements OnInit {
         this.globalVars.marketplaceNFTCategory = "music"
         break;
       case "profilepic":
+        this.globalVars.desoMarketplace = true;
         this.globalVars.marketplaceVerifiedCreators = "verified";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
@@ -238,6 +245,7 @@ export class DiscoveryPageComponent implements OnInit {
         this.globalVars.marketplaceNFTCategory = "profile picture"
         break;
       case "photography":
+        this.globalVars.desoMarketplace = true;
         this.globalVars.marketplaceVerifiedCreators = "verified";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
@@ -252,6 +260,7 @@ export class DiscoveryPageComponent implements OnInit {
         this.globalVars.marketplaceNFTCategory = "photography"
         break;
       case "fresh":
+        this.globalVars.desoMarketplace = true;
         this.globalVars.marketplaceVerifiedCreators = "verified";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
@@ -266,6 +275,7 @@ export class DiscoveryPageComponent implements OnInit {
         this.globalVars.marketplaceSortType = "most recent first"
         break;
       case "mostdiamonds":
+        this.globalVars.desoMarketplace = true;
         this.globalVars.marketplaceVerifiedCreators = "verified";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
@@ -280,6 +290,7 @@ export class DiscoveryPageComponent implements OnInit {
         this.globalVars.marketplaceSortType = "most diamonds first"
         break;
       case "recentsales":
+        this.globalVars.desoMarketplace = true;
         this.globalVars.marketplaceVerifiedCreators = "verified";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
@@ -294,6 +305,7 @@ export class DiscoveryPageComponent implements OnInit {
         this.globalVars.marketplaceSortType = "most recent first"
         break;
       case "secondarylistings":
+        this.globalVars.desoMarketplace = true;
         this.globalVars.marketplaceVerifiedCreators = "verified";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
@@ -309,6 +321,7 @@ export class DiscoveryPageComponent implements OnInit {
         this.globalVars.marketplaceMarketType = "secondary"
         break;
       case "image":
+        this.globalVars.desoMarketplace = true;
         this.globalVars.marketplaceVerifiedCreators = "verified";
         this.globalVars.marketplaceLowPriceNanos = 0;
         this.globalVars.marketplaceHighPriceNanos = 0;
@@ -324,6 +337,7 @@ export class DiscoveryPageComponent implements OnInit {
         this.globalVars.marketplaceContentFormat = "images"
         break;
       case "video":
+        this.globalVars.desoMarketplace = true;
         this.globalVars.marketplaceVerifiedCreators = "verified";
         this.globalVars.marketplaceLowPriceNanos = 0;
         this.globalVars.marketplaceHighPriceNanos = 0;
@@ -339,6 +353,7 @@ export class DiscoveryPageComponent implements OnInit {
         this.globalVars.marketplaceContentFormat = "video"
         break;
       case "formatmusic":
+        this.globalVars.desoMarketplace = true;
         this.globalVars.marketplaceVerifiedCreators = "verified";
         this.globalVars.marketplaceLowPriceNanos = 0;
         this.globalVars.marketplaceHighPriceNanos = 0;
@@ -354,6 +369,7 @@ export class DiscoveryPageComponent implements OnInit {
         this.globalVars.marketplaceContentFormat = "music"
         break;
       case "model":
+        this.globalVars.desoMarketplace = true;
         this.globalVars.marketplaceVerifiedCreators = "verified";
         this.globalVars.marketplaceLowPriceNanos = 0;
         this.globalVars.marketplaceHighPriceNanos = 0;

@@ -555,17 +555,19 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     if (!this.activeTab) {
       this.activeTab = defaultActiveTab;
     }
-    this._handleTabClick(this.activeTab);
+    this._handleTabClick(this.activeTab, true);
   }
 
-  _handleTabClick(tab: string) {
+  _handleTabClick(tab: string, onLoad: boolean) {
     this.activeTab = tab;
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { feedTab: this.activeTab },
       queryParamsHandling: "merge",
     });
-    this._onTabSwitch();
+    if (!onLoad) {
+      this._onTabSwitch();
+    }
   }
 
   static prependPostToFeed(postsToShow, postEntryResponse) {

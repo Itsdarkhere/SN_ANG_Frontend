@@ -3,15 +3,6 @@
   <div class="w-100 h-100 overflow-hidden">
     <div *ngIf="mobile" class="discovery-spacer-2"></div>
     <app-discovery [post]="discoveryMainNftResponse" [mobile]="mobile"></app-discovery>
-    <div class="w-100 px-5px mt-20px d-flex flex-column flex-start-center discovery-selector disable-scrollbars">
-      <div class="w-100 d-flex align-items-center justify-content-around">
-        <button class="font-weight-semibold" (click)="scrollTo('favourites')">Community favorites</button>
-        <button class="font-weight-semibold" (click)="scrollTo('categories')">Categories</button>
-        <button class="font-weight-semibold" (click)="scrollTo('fresh-drops')">Fresh drops</button>
-        <button class="font-weight-semibold" (click)="scrollTo('creators')">Supernovas verified</button>
-        <button class="font-weight-semibold" (click)="scrollTo('content-type')">Content formats</button>
-      </div>
-    </div>
     <div class="w-100 mt-50px pr-10px pl-10px d-flex align-items-center justify-content-between">
       <div class="discovery-header-box">
         <h2 id="favourites" class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">

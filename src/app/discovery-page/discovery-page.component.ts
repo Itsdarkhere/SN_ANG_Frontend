@@ -138,7 +138,241 @@ export class DiscoveryPageComponent implements OnInit {
     })
   }
   routeViewAll(category: string) {
-    // Make route to marketplace
+    switch (category) {
+      case "trending":
+        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceContentFormat = "all";
+        this.globalVars.marketplaceNFTCategory = "all";
+        this.globalVars.marketplaceLowPriceNanos = 0;
+        this.globalVars.marketplaceHighPriceNanos = 0;
+        this.globalVars.marketplaceLowPriceUSD = 0;
+        this.globalVars.marketplaceHighPriceUSD = 0;
+        this.globalVars.marketplacePriceRangeSet = false;
+        this.globalVars.marketplaceMarketType = "all";
+        this.globalVars.marketplaceSortType = "most recent first";
+        // This is important others are set to default
+        this.globalVars.marketplaceStatus = "has bids"
+        break;
+      case "art":
+        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceContentFormat = "all";
+        this.globalVars.marketplaceLowPriceNanos = 0;
+        this.globalVars.marketplaceHighPriceNanos = 0;
+        this.globalVars.marketplaceLowPriceUSD = 0;
+        this.globalVars.marketplaceHighPriceUSD = 0;
+        this.globalVars.marketplacePriceRangeSet = false;
+        this.globalVars.marketplaceMarketType = "all";
+        this.globalVars.marketplaceStatus = "all"
+        this.globalVars.marketplaceSortType = "most recent first";
+        // This is important others are set to default
+        this.globalVars.marketplaceNFTCategory = "art"
+        break;
+      case "collectibles":
+        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceContentFormat = "all";
+        this.globalVars.marketplaceLowPriceNanos = 0;
+        this.globalVars.marketplaceHighPriceNanos = 0;
+        this.globalVars.marketplaceLowPriceUSD = 0;
+        this.globalVars.marketplaceHighPriceUSD = 0;
+        this.globalVars.marketplacePriceRangeSet = false;
+        this.globalVars.marketplaceMarketType = "all";
+        this.globalVars.marketplaceStatus = "all"
+        this.globalVars.marketplaceSortType = "most recent first";
+        // This is important others are set to default
+        this.globalVars.marketplaceNFTCategory = "collectibles"
+        break;
+      case "generative":
+        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceContentFormat = "all";
+        this.globalVars.marketplaceLowPriceNanos = 0;
+        this.globalVars.marketplaceHighPriceNanos = 0;
+        this.globalVars.marketplaceLowPriceUSD = 0;
+        this.globalVars.marketplaceHighPriceUSD = 0;
+        this.globalVars.marketplacePriceRangeSet = false;
+        this.globalVars.marketplaceMarketType = "all";
+        this.globalVars.marketplaceStatus = "all"
+        this.globalVars.marketplaceSortType = "most recent first";
+        // This is important others are set to default
+        this.globalVars.marketplaceNFTCategory = "generative art"
+        break;
+      case "metaverse":
+        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceContentFormat = "all";
+        this.globalVars.marketplaceLowPriceNanos = 0;
+        this.globalVars.marketplaceHighPriceNanos = 0;
+        this.globalVars.marketplaceLowPriceUSD = 0;
+        this.globalVars.marketplaceHighPriceUSD = 0;
+        this.globalVars.marketplacePriceRangeSet = false;
+        this.globalVars.marketplaceMarketType = "all";
+        this.globalVars.marketplaceStatus = "all"
+        this.globalVars.marketplaceSortType = "most recent first";
+        // This is important others are set to default
+        this.globalVars.marketplaceNFTCategory = "metaverse"
+        break;
+      case "categorymusic":
+        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceContentFormat = "all";
+        this.globalVars.marketplaceLowPriceNanos = 0;
+        this.globalVars.marketplaceHighPriceNanos = 0;
+        this.globalVars.marketplaceLowPriceUSD = 0;
+        this.globalVars.marketplaceHighPriceUSD = 0;
+        this.globalVars.marketplacePriceRangeSet = false;
+        this.globalVars.marketplaceMarketType = "all";
+        this.globalVars.marketplaceStatus = "all"
+        this.globalVars.marketplaceSortType = "most recent first";
+        // This is important others are set to default
+        this.globalVars.marketplaceNFTCategory = "music"
+        break;
+      case "profilepic":
+        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceContentFormat = "all";
+        this.globalVars.marketplaceLowPriceNanos = 0;
+        this.globalVars.marketplaceHighPriceNanos = 0;
+        this.globalVars.marketplaceLowPriceUSD = 0;
+        this.globalVars.marketplaceHighPriceUSD = 0;
+        this.globalVars.marketplacePriceRangeSet = false;
+        this.globalVars.marketplaceMarketType = "all";
+        this.globalVars.marketplaceStatus = "all"
+        this.globalVars.marketplaceSortType = "most recent first";
+        // This is important others are set to default
+        this.globalVars.marketplaceNFTCategory = "profile picture"
+        break;
+      case "photography":
+        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceContentFormat = "all";
+        this.globalVars.marketplaceLowPriceNanos = 0;
+        this.globalVars.marketplaceHighPriceNanos = 0;
+        this.globalVars.marketplaceLowPriceUSD = 0;
+        this.globalVars.marketplaceHighPriceUSD = 0;
+        this.globalVars.marketplacePriceRangeSet = false;
+        this.globalVars.marketplaceMarketType = "all";
+        this.globalVars.marketplaceStatus = "all"
+        this.globalVars.marketplaceSortType = "most recent first";
+        // This is important others are set to default
+        this.globalVars.marketplaceNFTCategory = "photography"
+        break;
+      case "fresh":
+        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceContentFormat = "all";
+        this.globalVars.marketplaceLowPriceNanos = 0;
+        this.globalVars.marketplaceHighPriceNanos = 0;
+        this.globalVars.marketplaceLowPriceUSD = 0;
+        this.globalVars.marketplaceHighPriceUSD = 0;
+        this.globalVars.marketplacePriceRangeSet = false;
+        this.globalVars.marketplaceMarketType = "all";
+        this.globalVars.marketplaceStatus = "all"
+        this.globalVars.marketplaceNFTCategory = "all"
+        // This is important others are set to default
+        this.globalVars.marketplaceSortType = "most recent first"
+        break;
+      case "mostdiamonds":
+        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceContentFormat = "all";
+        this.globalVars.marketplaceLowPriceNanos = 0;
+        this.globalVars.marketplaceHighPriceNanos = 0;
+        this.globalVars.marketplaceLowPriceUSD = 0;
+        this.globalVars.marketplaceHighPriceUSD = 0;
+        this.globalVars.marketplacePriceRangeSet = false;
+        this.globalVars.marketplaceMarketType = "all";
+        this.globalVars.marketplaceStatus = "all"
+        this.globalVars.marketplaceNFTCategory = "all"
+        // This is important others are set to default
+        this.globalVars.marketplaceSortType = "most diamonds first"
+        break;
+      case "recentsales":
+        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceContentFormat = "all";
+        this.globalVars.marketplaceLowPriceNanos = 0;
+        this.globalVars.marketplaceHighPriceNanos = 0;
+        this.globalVars.marketplaceLowPriceUSD = 0;
+        this.globalVars.marketplaceHighPriceUSD = 0;
+        this.globalVars.marketplacePriceRangeSet = false;
+        this.globalVars.marketplaceMarketType = "all";
+        this.globalVars.marketplaceNFTCategory = "all"
+        // These are important others are set to default
+        this.globalVars.marketplaceStatus = "sold"
+        this.globalVars.marketplaceSortType = "most recent first"
+        break;
+      case "secondarylistings":
+        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceContentFormat = "all";
+        this.globalVars.marketplaceLowPriceNanos = 0;
+        this.globalVars.marketplaceHighPriceNanos = 0;
+        this.globalVars.marketplaceLowPriceUSD = 0;
+        this.globalVars.marketplaceHighPriceUSD = 0;
+        this.globalVars.marketplacePriceRangeSet = false;
+        this.globalVars.marketplaceStatus = "all"
+        this.globalVars.marketplaceNFTCategory = "all"
+        this.globalVars.marketplaceSortType = "most recent first"
+        // These are important others are set to default
+        this.globalVars.marketplaceStatus = "for sale"
+        this.globalVars.marketplaceMarketType = "secondary"
+        break;
+      case "image":
+        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceLowPriceNanos = 0;
+        this.globalVars.marketplaceHighPriceNanos = 0;
+        this.globalVars.marketplaceLowPriceUSD = 0;
+        this.globalVars.marketplaceHighPriceUSD = 0;
+        this.globalVars.marketplacePriceRangeSet = false;
+        this.globalVars.marketplaceStatus = "all"
+        this.globalVars.marketplaceNFTCategory = "all"
+        this.globalVars.marketplaceStatus = "all"
+        this.globalVars.marketplaceMarketType = "all"
+        this.globalVars.marketplaceSortType = "most recent first"
+        // This is important others are set to default
+        this.globalVars.marketplaceContentFormat = "images"
+        break;
+      case "video":
+        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceLowPriceNanos = 0;
+        this.globalVars.marketplaceHighPriceNanos = 0;
+        this.globalVars.marketplaceLowPriceUSD = 0;
+        this.globalVars.marketplaceHighPriceUSD = 0;
+        this.globalVars.marketplacePriceRangeSet = false;
+        this.globalVars.marketplaceStatus = "all"
+        this.globalVars.marketplaceNFTCategory = "all"
+        this.globalVars.marketplaceStatus = "all"
+        this.globalVars.marketplaceMarketType = "all"
+        this.globalVars.marketplaceSortType = "most recent first"
+        // This is important others are set to default
+        this.globalVars.marketplaceContentFormat = "video"
+        break;
+      case "formatmusic":
+        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceLowPriceNanos = 0;
+        this.globalVars.marketplaceHighPriceNanos = 0;
+        this.globalVars.marketplaceLowPriceUSD = 0;
+        this.globalVars.marketplaceHighPriceUSD = 0;
+        this.globalVars.marketplacePriceRangeSet = false;
+        this.globalVars.marketplaceStatus = "all"
+        this.globalVars.marketplaceNFTCategory = "all"
+        this.globalVars.marketplaceStatus = "all"
+        this.globalVars.marketplaceMarketType = "all"
+        this.globalVars.marketplaceSortType = "most recent first"
+        // This is important others are set to default
+        this.globalVars.marketplaceContentFormat = "music"
+        break;
+      case "model":
+        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceLowPriceNanos = 0;
+        this.globalVars.marketplaceHighPriceNanos = 0;
+        this.globalVars.marketplaceLowPriceUSD = 0;
+        this.globalVars.marketplaceHighPriceUSD = 0;
+        this.globalVars.marketplacePriceRangeSet = false;
+        this.globalVars.marketplaceStatus = "all"
+        this.globalVars.marketplaceNFTCategory = "all"
+        this.globalVars.marketplaceStatus = "all"
+        this.globalVars.marketplaceMarketType = "all"
+        this.globalVars.marketplaceSortType = "most recent first"
+        // This is important others are set to default
+        this.globalVars.marketplaceContentFormat = "3d"
+        break;
+      default: 
+      break;
+    }
+    // Navigate to marketplace after setting what to search by
+    this.router.navigate(["/" + this.globalVars.RouteNames.TRENDS])
   }
   _loadVerifiedUsers() {
     // Dont load if we have the content

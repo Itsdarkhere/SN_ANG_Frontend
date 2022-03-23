@@ -186,15 +186,17 @@ export class GlobalVarsService {
   ethNFTsCreated: NFTCollectionResponse[];
   marketplaceCreatorData: CreatorCardResponse[];
   // The buttons on the marketplace
+  // ETH
+  ethMarketplaceStatus = "all";
+  ethMarketplaceNFTCategory = "all";
+  ethMarketplaceVerifiedCreators = "verified";
+  // Deso
   desoMarketplace = true;
   marketplaceViewTypeCard = true;
   marketplaceVerifiedCreators = "verified";
-  ethMarketplaceVerifiedCreators = "verified";
   marketplaceContentFormat = "all";
   marketplaceStatus = "all";
-  ethMarketplaceStatus = "all";
   marketplaceNFTCategory = "all";
-  ethMarketplaceNFTCategory = "all";
   marketplaceLowPriceNanos = 0;
   marketplaceHighPriceNanos = 0;
   marketplaceLowPriceUSD = 0;

@@ -18,7 +18,7 @@
           Trending Auctions
         </h2>
       </div>
-      <a class="discovery-link" (click)="routeViewAll('communityfavourites')">
+      <a class="discovery-link" (click)="routeViewAll('trending')">
         View all
         <img src="/assets/icons/chevron_right.svg" />
       </a>
@@ -112,7 +112,7 @@
             alt="category metaverse & gaming"
           />
         </div>
-        <div class="keen-slider__slide category-slide1 pt-10px cursor-pointer" (click)="routeViewAll('music')">
+        <div class="keen-slider__slide category-slide1 pt-10px cursor-pointer" (click)="routeViewAll('categorymusic')">
           <img class="w-100 h-100" loading="lazy" src="/assets/img/category_music.png" alt="category music" />
         </div>
         <div class="keen-slider__slide category-slide1 pt-10px cursor-pointer" (click)="routeViewAll('profilepic')">
@@ -207,7 +207,7 @@
       <div class="discovery-header-box" observeVisibility [debounceTime]="0" (visible)="getCommunityFavourites()">
         <h2 id="favourites" class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">Most Diamonds</h2>
       </div>
-      <a class="discovery-link" (click)="routeViewAll('communityfavourites')">
+      <a class="discovery-link" (click)="routeViewAll('mostdiamonds')">
         View all
         <img src="/assets/icons/chevron_right.svg" />
       </a>
@@ -271,7 +271,7 @@
       <div class="discovery-header-box" observeVisibility [debounceTime]="0" (visible)="getRecentSales()">
         <h2 id="favourites" class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">Recent Sales</h2>
       </div>
-      <a class="discovery-link" (click)="routeViewAll('communityfavourites')">
+      <a class="discovery-link" (click)="routeViewAll('recentsales')">
         View all
         <img src="/assets/icons/chevron_right.svg" />
       </a>
@@ -337,7 +337,7 @@
           Secondary Listings
         </h2>
       </div>
-      <a class="discovery-link" (click)="routeViewAll('communityfavourites')">
+      <a class="discovery-link" (click)="routeViewAll('secondarylistings')">
         View all
         <img src="/assets/icons/chevron_right.svg" />
       </a>
@@ -464,7 +464,7 @@
         </button>
       </div>
       <div class="keen-slider__slide format-slide1 pt-10px pl-5px">
-        <button class="content-type-card-discovery p-0px" (click)="routeViewAll('music')">
+        <button class="content-type-card-discovery p-0px" (click)="routeViewAll('formatmusic')">
           <div class="h-60 w-100 d-flex flex-center background-color-secondary">
             <img src="/assets/icons/music-type.svg" alt="creator icon" />
           </div>

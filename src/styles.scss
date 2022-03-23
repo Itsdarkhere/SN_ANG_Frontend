@@ -4117,6 +4117,7 @@ option {
   width: 100%;
   @media screen and (max-width: 676px) {
     padding: 0px 0px 0 0px;
+    margin: 0;
   }
   &.nft_creator_list {
     @media screen and (max-width: 676px) {
@@ -4140,13 +4141,13 @@ option {
     padding: 5px;
     width: calc(100% / 4);
     min-width: 290px;
-    margin-bottom: 35px;
+    margin-bottom: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     @media screen and (max-width: 676px) {
       width: 100%;
-      margin-bottom: 35px;
+      margin-bottom: 45px;
     }
   }
   .small-nft-col-wrap {

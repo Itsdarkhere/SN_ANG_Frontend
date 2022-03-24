@@ -1709,7 +1709,15 @@ input.bs-timepicker-field {
   max-height: calc(100vh - 170px);
   overflow-y: scroll;
 }
-
+.global__nav__inner__marketplace-eth {
+  width: 210px;
+  padding: 10px 17px 80px 17px;
+  background-color: #f9f9f9;
+  border-radius: 15px;
+  //height: 940px;
+  max-height: calc(100vh - 170px);
+  overflow-y: scroll;
+}
 // Set a fixed width on desktop
 .global__desktop .global__content__width {
   width: $global__content__width;

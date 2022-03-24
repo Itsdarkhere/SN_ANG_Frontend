@@ -57,12 +57,7 @@ export class ArweaveJsService {
   }
 
   UploadImage(file: File): Observable<any> {
-    if (this.globalVars.loggedInUser?.ProfileEntryResponse?.IsVerified) {
-      return this.startUpload(file);
-    } else {
-      console.log("Uploading blocked for " + this.globalVars.loggedInUser.PublicKeyBase58Check + " - NOT VERIFIED.");
-      return;
-    }
+    return this.startUpload(file);
   }
   fundBundlr() {
     let resp2 = this.bundlr.getBalance(this.bundlr.address).then((res) => console.log(res));

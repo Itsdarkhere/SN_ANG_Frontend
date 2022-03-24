@@ -49,10 +49,7 @@
               </a>
             </div>
           </li>
-          <li
-            class="single-option d-flex flex-center position-relative"
-            *ngIf="globalVars.loggedInUser?.ProfileEntryResponse?.IsVerified"
-          >
+          <li class="single-option d-flex flex-center position-relative">
             <button
               class="header-create-button-gradient p-0px grow"
               [routerLink]="'/' + globalVars.RouteNames.MINT_PAGE"

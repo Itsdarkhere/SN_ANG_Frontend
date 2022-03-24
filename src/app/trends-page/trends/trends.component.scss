@@ -160,7 +160,11 @@
 .deso-marketplace-logo {
   height: 30px;
 }
-
+.marketplace-wrapper {
+  @media screen and (max-width: 992px) {
+    overflow: hidden;
+  }
+}
 .deso-marketplace-text {
   font-style: normal;
   font-weight: 600;

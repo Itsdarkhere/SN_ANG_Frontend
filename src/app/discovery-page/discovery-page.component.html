@@ -3,7 +3,7 @@
   <div class="w-100 h-100 overflow-hidden">
     <div *ngIf="mobile" class="discovery-spacer-2"></div>
     <app-discovery [post]="discoveryMainNftResponse" [mobile]="mobile"></app-discovery>
-    <div class="w-100 mt-50px pr-10px pl-10px d-flex align-items-center justify-content-between">
+    <div class="w-100 mt-50px pr-10px pl-20px d-flex align-items-center justify-content-between">
       <div class="discovery-header-box">
         <h2 id="favourites" class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
           Trending Auctions
@@ -70,7 +70,7 @@
       </ng-template>
     </div>
     <div class="discovery-header-box mt-20px" [ngClass]="mobile ? 'mb--10px' : 'mb-10px'">
-      <h2 id="categories" class="font-weight-semiboldn pl-10px" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
+      <h2 id="categories" class="font-weight-semiboldn pl-20px" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
         Explore categories
       </h2>
     </div>
@@ -131,7 +131,7 @@
         <img class="discovery-arrow" src="/assets/icons/chevron_right.svg" />
       </button>
     </div>
-    <div class="w-100 mt-50px pr-10px pl-10px d-flex align-items-center justify-content-between">
+    <div class="w-100 mt-50px pr-20px pl-20px d-flex align-items-center justify-content-between">
       <div class="discovery-header-box" observeVisibility [debounceTime]="0" (visible)="getFreshDrops()">
         <h2 id="fresh-drops" class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">Fresh drops</h2>
       </div>
@@ -194,7 +194,7 @@
         </div>
       </ng-template>
     </div>
-    <div class="w-100 mt-50px pr-10px pl-10px d-flex align-items-center justify-content-between">
+    <div class="w-100 mt-50px pr-20px pl-20px d-flex align-items-center justify-content-between">
       <div class="discovery-header-box" observeVisibility [debounceTime]="0" (visible)="getCommunityFavourites()">
         <h2 id="favourites" class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">Most Diamonds</h2>
       </div>
@@ -258,7 +258,7 @@
         </div>
       </ng-template>
     </div>
-    <div class="w-100 mt-50px pr-10px pl-10px d-flex align-items-center justify-content-between">
+    <div class="w-100 mt-50px pr-20px pl-20px d-flex align-items-center justify-content-between">
       <div class="discovery-header-box" observeVisibility [debounceTime]="0" (visible)="getRecentSales()">
         <h2 id="favourites" class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">Recent Sales</h2>
       </div>
@@ -322,7 +322,7 @@
         </div>
       </ng-template>
     </div>
-    <div class="w-100 mt-50px pr-10px pl-10px d-flex align-items-center justify-content-between">
+    <div class="w-100 mt-50px pr-20px pl-20px d-flex align-items-center justify-content-between">
       <div class="discovery-header-box" observeVisibility [debounceTime]="0" (visible)="getSecondaryListings()">
         <h2 id="favourites" class="font-weight-semiboldn" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
           Secondary Listings
@@ -388,7 +388,7 @@
       </ng-template>
     </div>
     <div class="discovery-header-box mt-20px" observeVisibility [debounceTime]="0" (visible)="_loadVerifiedUsers()">
-      <h2 id="creators" class="font-weight-semiboldn pl-10px" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
+      <h2 id="creators" class="font-weight-semiboldn pl-20px" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
         Verified Creators Snapshot
       </h2>
     </div>
@@ -429,7 +429,7 @@
       </ng-template>
     </div>
     <div class="discovery-header-box mt-35px">
-      <h2 id="content-type" class="font-weight-semiboldn pl-10px" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
+      <h2 id="content-type" class="font-weight-semiboldn pl-20px" [ngClass]="mobile ? 'fs-18px' : 'fs-38px'">
         Explore content formats
       </h2>
     </div>

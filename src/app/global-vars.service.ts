@@ -445,8 +445,8 @@ export class GlobalVarsService {
           console.log(
             ` ---------------------------------- res ${JSON.stringify(res)} ---------------------------------- `
           );
-          this.isCreator = res["Collector"];
-          this.isCollector = res["Creator"];
+          this.isCreator = res["Creator"];
+          this.isCollector = res["Collector"];
 
           //   update checkIsVerified
           this.checkIsVerified();

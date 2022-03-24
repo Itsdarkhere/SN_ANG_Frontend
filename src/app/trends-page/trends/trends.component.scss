@@ -162,6 +162,7 @@
 }
 .marketplace-wrapper {
   @media screen and (max-width: 992px) {
+    max-width: 100vw;
     overflow: hidden;
   }
 }

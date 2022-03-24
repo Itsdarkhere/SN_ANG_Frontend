@@ -33,7 +33,9 @@
 }
 .tab-selector-box-inactive {
         color: #444444;
-        &:hover {
-                background: #dadada;
+        @media screen and (min-width: 992px) {
+                &:hover {
+                        background: #dadada;
+                }
         }
 }

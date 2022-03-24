@@ -1328,7 +1328,7 @@
         </div>
       </div>
 
-      <!-- LEFT SIDE DESKTOP STEPS 1 - 2-->
+      <!-- LEFT SIDE DESKTOP STEPS 1 - 2 -->
       <!-- This is not just the left? -->
       <div *ngIf="!mobile && 1 < step && step < 4" class="mint-page-image-container d-flex flex-column flex-center">
         <!-- ALLOW IF ARWEAVE PROBLEMS -->
@@ -1355,6 +1355,11 @@
           <br />
           And never stop.
         </label>
+
+        <div class="mint-page__image-container m-w-80" *ngIf="postImageArweaveSrc">
+          <i class="icon-close feed-post__image-delete" (click)="postImageArweaveSrc = null"></i>
+          <img class="feed-post__image br-0px" src="{{ postImageArweaveSrc }}" />
+        </div>
 
         <!-- Video Player -->
         <div *ngIf="postVideoDESOSrc && readyToStream" class="feed-post__video-container m-w-80">
@@ -1416,18 +1421,8 @@
           />
         </div>
 
-        <ng-template #showAudioCoverArt>
-          <div class="mint-page__image-container m-w-80" *ngIf="audioType && postImageArweaveSrc">
-            <img class="feed-post__image br-0px" src="{{ postImageArweaveSrc }}" />
-            <i class="icon-close feed-post__image-delete" (click)="postImageArweaveSrc = null"></i>
-          </div>
-        </ng-template>
-
         <!-- 3D Model Upload Cover Image + Preview -->
-        <div
-          *ngIf="modelType && !postImageArweaveSrc && step === 3; else showModelCoverArt"
-          class="w-100 h-50 d-flex flex-center"
-        >
+        <div *ngIf="modelType && !postImageArweaveSrc && step === 3" class="w-100 h-50 d-flex flex-center">
           <label
             dropUpload
             (onFileDropped)="dropFileCoverImage($event)"
@@ -1464,18 +1459,11 @@
             class="br-6px"
           />
         </div>
-
-        <ng-template #showModelCoverArt>
-          <div class="mint-page__image-container m-w-80" *ngIf="modelType && postImageArweaveSrc">
-            <i class="icon-close feed-post__image-delete" (click)="postImageArweaveSrc = null"></i>
-            <img class="feed-post__image br-0px" src="{{ postImageArweaveSrc }}" />
-          </div>
-        </ng-template>
       </div>
 
       <!-- LEFT SIDE DESKTOP STEPS >= 4 -->
       <div *ngIf="!mobile && step >= 4" class="mint-page-image-container d-flex flex-center">
-        <div [@cardAppearAnimation] class="fake-card">
+        <div class="fake-card">
           <!-- LEFT SIDE DESKTOP STEPS 3 - 4 -->
           <div class="fake-card-image-box">
             <div class="w-100 z-index-100 h-100 background-secondary position-relative d-flex flex-center">
@@ -1884,7 +1872,7 @@
       </div>
       <!-- LEFT SIDE DESKTOP STEPS >= 4 -->
       <div *ngIf="!mobile && step > 2" class="mint-page-image-container d-flex flex-center">
-        <div [@cardAppearAnimation] class="fake-card">
+        <div class="fake-card">
           <!-- LEFT SIDE DESKTOP STEPS 3 - 4 -->
           <div class="fake-card-image-box">
             <div class="w-100 z-index-100 h-100 background-secondary position-relative d-flex flex-center">

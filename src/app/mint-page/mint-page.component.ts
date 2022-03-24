@@ -1118,6 +1118,24 @@ export class MintPageComponent implements OnInit {
           this.router.navigate(["/" + this.globalVars.RouteNames.POSTS + "/" + this.postHashHex]);
         }
       );
+    this.mixPanel.track42("NFT created", {
+      Poster: this.globalVars.loggedInUser?.PublicKeyBase58Check,
+      "Post hex": this.postHashHex,
+      "Royalty to creator": creatorRoyaltyBasisPoints / 100,
+      "Royalty to coin": coinRoyaltyBasisPoints / 100,
+      Unlockable: this.UNLOCKABLE_CONTENT,
+      "For Sale": this.PUT_FOR_SALE,
+      "Min Bid DeSo": this.MIN_PRICE,
+      "Is Buy Now": this.isBuyNow,
+      "Buy now price DeSo": this.buyNowPriceDESO / 1e9,
+      "Min fee rate per KB": this.globalVars.defaultFeeRateNanosPerKB,
+      "Post body": this.NAME_OF_PIECE,
+      Category: this.CATEGORY,
+      Audio: this.audioType,
+      Video: this.videoType,
+      "3D": this.modelType,
+      Image: this.imageType,
+    });
   }
 
   // These two below are for adding straight to marketplace once minted, backend has been modified to fit this need
@@ -1164,9 +1182,7 @@ export class MintPageComponent implements OnInit {
         }
       );
   }*/
-  SendMintedEvent() {
-    this.mixPanel.track11("Minted NFT");
-  }
+  SendMintedEvent() {}
 
   mintNFTSuccess(comp: MintPageComponent) {
     comp.nextStep();

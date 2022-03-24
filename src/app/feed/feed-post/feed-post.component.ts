@@ -330,6 +330,7 @@ export class FeedPostComponent implements OnInit {
             sn.EncryptedUnlockableText &&
             sn.LastOwnerPublicKeyBase58Check
         );
+
         if (this.decryptableNFTEntryResponses.length) {
           this.backendApi
             .DecryptUnlockableTexts(

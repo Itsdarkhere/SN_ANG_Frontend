@@ -974,7 +974,12 @@ export class BackendApiService {
       SerialNumber,
       MinFeeRateNanosPerKB,
     });
-
+    this.mixPanel.track50("Accept NFT Transfer", {
+      "Public Key": UpdaterPublicKeyBase58Check,
+      "Post hex": NFTPostHashHex,
+      "Serial Number": SerialNumber,
+      "Min fee rate per KB": MinFeeRateNanosPerKB,
+    })
     return this.signAndSubmitTransaction(endpoint, request, UpdaterPublicKeyBase58Check);
   }
 
@@ -991,7 +996,12 @@ export class BackendApiService {
       SerialNumber,
       MinFeeRateNanosPerKB,
     });
-
+    this.mixPanel.track49("Burn NFT", {
+      "Public Key": UpdaterPublicKeyBase58Check,
+      "Post hex": NFTPostHashHex,
+      "Serial Number": SerialNumber,
+      "Min fee rate per KB": MinFeeRateNanosPerKB,
+    })
     return this.signAndSubmitTransaction(endpoint, request, UpdaterPublicKeyBase58Check);
   }
 
@@ -1027,6 +1037,13 @@ export class BackendApiService {
           );
         })
       );
+      this.mixPanel.track48("Transfer NFT", {
+        "Sender": SenderPublicKeyBase58Check,
+        "Receiver": ReceiverPublicKeyBase58Check,
+        "Post hex": NFTPostHashHex,
+        "Serial Number": SerialNumber,
+        "Min fee rate per KB": MinFeeRateNanosPerKB,
+      })
     return this.signAndSubmitTransaction(endpoint, req, SenderPublicKeyBase58Check);
     /*const request = this.post(endpoint, BackendRoutes.RoutePathTransferNFT, {
       SenderPublicKeyBase58Check,
@@ -1084,7 +1101,6 @@ export class BackendApiService {
       BuyNowPriceNanos,
       MinFeeRateNanosPerKB,
     });
-    this.mixPanel.track42("NFT created");
     return this.signAndSubmitTransaction(endpoint, request, UpdaterPublicKeyBase58Check);
   }
 
@@ -1111,7 +1127,14 @@ export class BackendApiService {
       //   BuyNowPriceNanos,
       MinFeeRateNanosPerKB,
     });
-
+    this.mixPanel.track46("NFT updated", {
+      "Poster": UpdaterPublicKeyBase58Check,
+      "Post hex": NFTPostHashHex,
+      "Serial Number": SerialNumber,
+      "For Sale": IsForSale,
+      "Min Bid": MinBidAmountNanos/1e9,
+      "Min fee rate per KB": MinFeeRateNanosPerKB,
+    })
     return this.signAndSubmitTransaction(endpoint, request, UpdaterPublicKeyBase58Check);
   }
 
@@ -1169,6 +1192,7 @@ export class BackendApiService {
       })
     );
     return this.signAndSubmitTransaction(endpoint, request, UpdaterPublicKeyBase58Check);
+
   }
 
   DecryptUnlockableTexts(
@@ -1381,6 +1405,7 @@ export class BackendApiService {
       Email,
     });
   }
+ 
   // Sends the user an email about someone outbidding them
   SendLostNFTEmail(endpoint: string, Username: string, ArtName: string, Email: string) {
     return this.post(endpoint, BackendRoutes.RoutePathSendLostNFTEmail, {
@@ -1932,7 +1957,8 @@ export class BackendApiService {
       InTutorial,
     });
     this.mixPanel.track41("Send Diamond", {
-      Receiver: ReceiverPublicKeyBase58Check,
+      "Receiver": ReceiverPublicKeyBase58Check,
+      "Diamond Level": DiamondLevel,
       "Post hash": DiamondPostHashHex,
     });
     return this.signAndSubmitTransaction(endpoint, request, SenderPublicKeyBase58Check);

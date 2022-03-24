@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from "@angular/core";
+import { Component, HostListener, OnInit, AfterViewInit } from "@angular/core";
 import { AppRoutingModule } from "../app-routing.module";
 import { GlobalVarsService } from "../global-vars.service";
 import { Router } from "@angular/router";
@@ -12,7 +12,7 @@ import { MixpanelService } from "../mixpanel.service";
   templateUrl: "./landing-page.component.html",
   styleUrls: ["./landing-page.component.scss"],
 })
-export class LandingPageComponent implements OnInit {
+export class LandingPageComponent implements OnInit, AfterViewInit {
   AppRoutingModule = AppRoutingModule;
   environment = environment;
 
@@ -22,6 +22,24 @@ export class LandingPageComponent implements OnInit {
   spaceHolder2 = document.querySelector(".space-holder__collectors") as HTMLDivElement;
   horizontal2 = document.querySelector(".horizontal__collectors") as HTMLDivElement;
 
+  sticky: HTMLDivElement;
+  sticky2: HTMLDivElement;
+
+  section1: HTMLElement;
+  section2: HTMLElement;
+  section3: HTMLElement;
+  section4: HTMLElement;
+  section5: HTMLElement;
+  section6: HTMLElement;
+  section7: HTMLElement;
+  section8: HTMLElement;
+
+  sections = [];
+
+  source1 = "/assets/img/ape.mp4";
+  source2 = "https://testnovas.app/assets/img/ape.mp4";
+  source3 = "https://arweave.net/py_Ob9-Je5TuwKeOmNEbKyvF6ky7hdWQfm19BDVC4TM";
+
   // const Video
 
   mainVideo = "https://arweave.net/JeqeqMnLSKhDExIKPvHkRTALj5ImQ7cVfrXRLeWr8jE";
@@ -29,8 +47,8 @@ export class LandingPageComponent implements OnInit {
   doodle2 = "https://arweave.net/Ad_HY6Dp5R2gOIoapMl3uMHb5EK2Ce_AHl9_sY9v6F8";
   memegirl = "https://arweave.net/jmVlOuYU8TJLNYWEnhvBYFpt0fOJH8ahV7xcnKf1DF0";
   vitalik = "https://arweave.net/VbgoM5ncwc80YpfFh24f_Y2wnw616ld6nAjIIGdAXSc";
-  vitalik2 = "https://arweave.net/T7Warjv0kFhECEAeW-mlTz-ZDyeNFDkDGkOA_K9Izdg";
-  ape = "https://arweave.net/nYXOOYvM1HWfHQJeCBt-y38HxNTQdYnLUEuapxyjixI";
+  vitalik2 = "https://arweave.net/py_Ob9-Je5TuwKeOmNEbKyvF6ky7hdWQfm19BDVC4TM";
+  ape = "https://arweave.net/py_Ob9-Je5TuwKeOmNEbKyvF6ky7hdWQfm19BDVC4TM";
   punk = "https://arweave.net/8k3gYK7bi3rr6RsMzalTgbn0u5HLV_qTs972AtR6bhA";
   ethpolice = "https://arweave.net/T7Warjv0kFhECEAeW-mlTz-ZDyeNFDkDGkOA_K9Izdg";
 
@@ -132,37 +150,46 @@ export class LandingPageComponent implements OnInit {
     //this.spaceHolder.style.height = `${this.calcDynamicHeight(this.horizontal)}px`;
     // this.spaceHolder2.style.height = `${calcDynamicHeight(horizontal2)}px`;
   }
+  ngAfterViewInit(): void {
+    this.spaceHolder = document.querySelector(".space-holder") as HTMLDivElement;
+    this.horizontal = document.querySelector(".horizontal") as HTMLDivElement;
+    this.spaceHolder2 = document.querySelector(".space-holder__collectors") as HTMLDivElement;
+    this.horizontal2 = document.querySelector(".horizontal__collectors") as HTMLDivElement;
+    this.sticky = document.querySelector(".sticky") as HTMLDivElement;
+    this.sticky2 = document.querySelector(".sticky__collectors") as HTMLDivElement;
+    // sections
+    this.section1 = document.getElementById("section-1") as HTMLElement;
+    this.section2 = document.getElementById("creators-section") as HTMLElement;
+    this.section3 = document.getElementById("section-3") as HTMLElement;
+    this.section4 = document.getElementById("collectors-section") as HTMLElement;
+    this.section5 = document.getElementById("black-cards") as HTMLElement;
+    this.section6 = document.getElementById("dao-section") as HTMLElement;
+    this.section7 = document.getElementById("section-7") as HTMLElement;
+    this.section8 = document.getElementById("statement-section") as HTMLElement;
+
+    this.sections = [
+      this.section1,
+      this.section2,
+      this.section3,
+      this.section4,
+      this.section5,
+      this.section6,
+      this.section7,
+      this.section8,
+    ];
+  }
   @HostListener("window:scroll", []) scroll() {
-    if (!this.spaceHolder || !this.horizontal) {
-      this.spaceHolder = document.querySelector(".space-holder") as HTMLDivElement;
-      this.horizontal = document.querySelector(".horizontal") as HTMLDivElement;
-    }
-    if (!this.spaceHolder2 || !this.horizontal2) {
-      this.spaceHolder2 = document.querySelector(".space-holder__collectors") as HTMLDivElement;
-      this.horizontal2 = document.querySelector(".horizontal__collectors") as HTMLDivElement;
-    }
     // Scroll-js
-    const sticky = document.querySelector(".sticky") as HTMLDivElement;
-    this.horizontal.style.transform = `translateX(-${sticky.offsetTop}px)`;
+    this.horizontal.style.transform = `translateX(-${this.sticky.offsetTop}px)`;
     // Other scroll.js
-    const sticky2 = document.querySelector(".sticky__collectors") as HTMLDivElement;
-    this.horizontal2.style.transform = `translateX(-${sticky2.offsetTop}px)`;
+    this.horizontal2.style.transform = `translateX(-${this.sticky2.offsetTop}px)`;
     // Keep in place while scrolling
     this.spaceHolder.style.height = `${this.calcDynamicHeight(this.horizontal)}px`;
     this.spaceHolder2.style.height = `${this.calcDynamicHeight(this.horizontal2)}px`;
 
-    const section1 = document.getElementById("section-1") as HTMLElement;
-    const section2 = document.getElementById("creators-section") as HTMLElement;
-    const section3 = document.getElementById("section-3") as HTMLElement;
-    const section4 = document.getElementById("collectors-section") as HTMLElement;
-    const section5 = document.getElementById("black-cards") as HTMLElement;
-    const section6 = document.getElementById("dao-section") as HTMLElement;
-    const section7 = document.getElementById("section-7") as HTMLElement;
-    const section8 = document.getElementById("statement-section") as HTMLElement;
-    const sections = [section1, section2, section3, section4, section5, section6, section7, section8];
     const colorsBg = ["", "mainBg", "blackBg", "mainBg", "blackBg", "blackBg", "mainBg", "mainBg"];
-    for (let i = 0; sections.length > i; i++) {
-      if (window.pageYOffset <= sections[i].offsetTop) {
+    for (let i = 0; this.sections.length > i; i++) {
+      if (window.pageYOffset <= this.sections[i].offsetTop) {
         document.getElementById("main-container").className = colorsBg[i];
         break;
       }

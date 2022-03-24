@@ -703,7 +703,7 @@
                       mobile
                         ? "You can upload mp3 files up to 200Mb."
                         : "You can upload files up to 200MB. The file
-                  is stored on decentralized storage, so it will be available forever."
+                    is stored on decentralized storage, so it will be available forever."
                     }}
                   </p>
                 </div>
@@ -789,7 +789,7 @@
                       mobile
                         ? "You can upload GLB or GLTF files up to 200Mb."
                         : "You can upload GLB or GLTF files up to 200MB. The file
-                  is stored on decentralized storage, so it will be available forever."
+                    is stored on decentralized storage, so it will be available forever."
                     }}
                   </p>
                 </div>
@@ -1871,40 +1871,12 @@
         </div>
       </div>
       <!-- LEFT SIDE DESKTOP STEPS >= 4 -->
-      <div *ngIf="!mobile && step > 2" class="mint-page-image-container d-flex flex-center">
+      <div *ngIf="!mobile && step >= 3" class="mint-page-image-container d-flex flex-center">
         <div class="fake-card">
           <!-- LEFT SIDE DESKTOP STEPS 3 - 4 -->
           <div class="fake-card-image-box">
             <div class="w-100 z-index-100 h-100 background-secondary position-relative d-flex flex-center">
               <img *ngIf="postImageArweaveSrc" class="fake-card-image" src="{{ postImageArweaveSrc }}" />
-              <div
-                *ngIf="videoType || audioType"
-                class="fake-card-video-icon-container d-flex flex-center"
-                [ngClass]="{ opacity_0: !showVideoTypeIcon }"
-              >
-                <img
-                  class="fake-card-video-icon"
-                  *ngIf="!arweaveVideoLoading && videoType"
-                  src="/assets/icons/video-type-white.svg"
-                  alt="icon"
-                />
-                <img
-                  class="fake-card-video-icon"
-                  *ngIf="audioType"
-                  src="/assets/icons/music-type-white.svg"
-                  alt="icon"
-                />
-                <i class="fa fa-spinner fa-spin fa-2x" *ngIf="arweaveVideoLoading"></i>
-              </div>
-              <video
-                *ngIf="postVideoArweaveSrc && videoType"
-                id="fake-video-nft-1"
-                (mouseenter)="activateOnHover(true)"
-                (mouseleave)="activateOnHover(false)"
-                [muted]="'muted'"
-                class="fake-card-video-tag"
-                src="{{ postVideoArweaveSrc }}"
-              ></video>
             </div>
           </div>
           <div class="caption-cover w-100">

@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
-import { BackendApiService, ProfileEntryResponse } from "../../backend-api.service";
+import { BackendApiService, ProfileEntryResponse, CollectionResponse } from "../../backend-api.service";
 import { GlobalVarsService } from "../../global-vars.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Location } from "@angular/common";
+import { Location, NumberSymbol } from "@angular/common";
 import { SwalHelper } from "../../../lib/helpers/swal-helper";
 import { CreatorProfileTopCardComponent } from "../creator-profile-top-card/creator-profile-top-card.component";
 import { Title } from "@angular/platform-browser";
@@ -26,12 +26,14 @@ export class CreatorProfileDetailsComponent implements OnInit {
     "coin-purchasers": "Creator Coin",
     collected: "Collected",
     created: "Created",
+    collections: "Collections",
   };
   static TABS_LOOKUP = {
     Posts: "posts",
     "Creator Coin": "creator-coin",
     Collected: "collected",
     Created: "created",
+    Collections: "collections",
   };
 
   appData: GlobalVarsService;
@@ -48,6 +50,8 @@ export class CreatorProfileDetailsComponent implements OnInit {
 
   profileData: any;
 
+  collectionResponses: CollectionResponse[];
+  loadingCollections = false;
   // emits the UserUnblocked event
   @Output() userUnblocked = new EventEmitter();
 
@@ -79,6 +83,7 @@ export class CreatorProfileDetailsComponent implements OnInit {
   ngOnInit() {
     this.profileCardUrl = "";
     this.titleService.setTitle(this.userName + ` on ${environment.node.name}`);
+    this.getAllUserCollections();
   }
   userBlocked() {
     this.childTopCardComponent._unfollowIfBlocked();
@@ -86,6 +91,22 @@ export class CreatorProfileDetailsComponent implements OnInit {
 
   unblockUser() {
     this.unblock();
+  }
+  getAllUserCollections() {
+    if (this.loadingCollections) {
+      return;
+    }
+    this.loadingCollections = true;
+    this.backendApi.GetAllUserCollections(this.globalVars.localNode, this.userName.toLowerCase()).subscribe(
+      (res) => {
+        this.collectionResponses = res;
+        this.loadingCollections = false;
+      },
+      (err) => {
+        console.log(err);
+        this.loadingCollections = false;
+      }
+    );
   }
   click() {
     console.log(this.profile);

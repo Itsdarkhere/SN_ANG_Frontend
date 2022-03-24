@@ -2,12 +2,13 @@
     position: relative;
     height: 210px;
     border-radius: 20px;
-    width: 181.5px;
+    width: 210px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     transition: transform 0.2s ease;
+    overflow: hidden;
     box-shadow: 2.037400007247925px 2.037400007247925px 20.374000549316406px rgba(0, 0, 0, 0.1);
     &:hover {
         transform: translateY(-2px);
@@ -24,8 +25,7 @@
     }
 
     .red-box-img-cover {
-        width: 100%;
-        max-width: 100%;    
+        width: 100%;  
         height: calc(100% - 60px);
         background-color: var(--secondary);
         display: flex;
@@ -119,6 +119,10 @@
         color: #EEEEEE !important;
     }
 }
+.selected-border {
+    outline: 3px solid #3549FA !important;
+}
+
 .colors-sold {
     border: 1px solid #FFFFFF;
     background: #FFFFFF !important;

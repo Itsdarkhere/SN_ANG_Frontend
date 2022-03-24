@@ -57,6 +57,22 @@
         </div>
       </div>
 
+      <!-- Collections -->
+      <div class="creator_post_wrap" *ngIf="profile && activeTab == 'Collections' && !loading">
+        <app-creator-profile-collections
+          [loadingCollections]="loadingCollections"
+          [profile]="profile"
+          [collectionResponses]="collectionResponses"
+        ></app-creator-profile-collections>
+        <div *ngIf="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)" class="w-100 d-flex p-15px">
+          <span>
+            You have blocked {{ profile.Username }}.
+            <a (click)="unblock()">Unblock</a>
+            to see their collections.
+          </span>
+        </div>
+      </div>
+
       <!-- Creator Coin Info -->
       <div class="w-100 d-flex flex-column" *ngIf="activeTab == 'Creator Coin' && !loading">
         <div class="w-100 d-flex justify-content-start px-15px fs-15px">

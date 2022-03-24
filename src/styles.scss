@@ -1889,6 +1889,7 @@ input.bs-timepicker-field {
     border: 0.8946940898895264px solid #ffffff;
   }
 }
+
 .nav_close_marketplace {
   width: 100%;
   height: 50px;
@@ -4078,24 +4079,24 @@ option {
 }
 
 .nfts-card-list {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  margin: 20px -10px 0px;
-  padding: 0px;
-  list-style-type: none;
-  @media screen and (max-width: 992px) {
-    justify-content: center;
-  }
-  @media screen and (max-width: 676px) {
-    padding: 0px 0px 0 0px;
-  }
-  &.nft_creator_list {
-    @media screen and (max-width: 676px) {
-      padding-top: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: 20px -10px 0px;
+    padding: 0px;
+    list-style-type: none;
+    @media screen and (max-width: 992px) {
+      justify-content: center;
     }
-  }
+    @media screen and (max-width: 676px) {
+      padding: 0px 0px 0 0px;
+    }
+    &.nft_creator_list {
+      @media screen and (max-width: 676px) {
+        padding-top: 0;
+      }
+    }
   .nft-col-wrap {
     padding: 10px;
     width: calc(100% / 3);
@@ -4117,6 +4118,49 @@ option {
     justify-content: center;
     align-items: center;
   }
+}
+
+.nfts-card-list-collection {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: 0px -10px 0px;
+  padding: 0px;
+  padding-left: 20px;
+  list-style-type: none;
+  @media screen and (max-width: 992px) {
+    justify-content: center;
+  }
+  @media screen and (max-width: 676px) {
+    padding: 0px 0px 0 0px;
+  }
+  &.nft_creator_list {
+    @media screen and (max-width: 676px) {
+      padding-top: 0;
+    }
+  }
+.nft-col-wrap {
+  padding: 10px;
+  width: calc(100% / 3);
+  min-width: 300px;
+  margin-bottom: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media screen and (max-width: 676px) {
+    width: 100%;
+    margin-bottom: 35px;
+  }
+}
+.small-nft-col-wrap {
+  width: calc(100% / 5);
+  min-width: 195px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 }
 .nfts-card-list-discovery {
   display: flex;

@@ -1,4 +1,4 @@
-<div class="red-box cursor-pointer" (click)="onPostClicked($event)">
+<div class="red-box cursor-pointer" (click)="onPostClicked($event)" [ngClass]="{ 'selected-border': selectedBorder }">
   <div class="red-box-img-cover position-relative">
     <!-- The class "card-audio-icon-container" is from a different component – why is this here? -->
     <div

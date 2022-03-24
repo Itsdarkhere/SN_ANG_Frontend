@@ -43,6 +43,8 @@ import { AnalyticsPageComponent } from "./analytics-page/analytics-page.componen
 import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { LandingReferralsComponent } from "./landing-referrals/landing-referrals.component";
 import { SignupPageReferralsComponent } from "./signup-page-referrals/signup-page-referrals.component";
+import { CollectionPageComponent } from "./collection/collection-page/collection-page.component";
+import { CreateCollectionComponent } from "./collection/create-collection/create-collection.component";
 
 class RouteNames {
   // Not sure if we should have a smarter schema for this, e.g. what happens if we have
@@ -97,6 +99,11 @@ class RouteNames {
   public static CREATE_PROFILE = "create-profile";
   public static INVEST = "invest";
   public static DISCOVERY = "discovery";
+
+  public static COLLECTIONS = "collections";
+  public static COLLECTION = "collection";
+  public static CREATE_COLLECTION = "create-collection";
+  public static COLLECTION_SUCCESS_PAGE = "collection-success-page";
 }
 
 const routes: Routes = [
@@ -185,6 +192,17 @@ const routes: Routes = [
   {
     path: RouteNames.TUTORIAL + "/" + RouteNames.CREATE_POST,
     component: CreatePostTutorialPageComponent,
+    pathMatch: "full",
+  },
+  // COLLECTIONS ROUTES
+  {
+    path: RouteNames.COLLECTION + "/:username/:collection",
+    component: CollectionPageComponent,
+    pathMatch: "full",
+  },
+  {
+    path: RouteNames.CREATE_COLLECTION,
+    component: CreateCollectionComponent,
     pathMatch: "full",
   },
   // This NotFound route must be the last one as it catches all paths that were not matched above.

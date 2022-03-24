@@ -144,6 +144,14 @@ export class BackendRoutes {
   static RoutePathGetTrendingAuctions = "/api/v0/get-trending-auctions";
   static RoutePathGetRecentSales = "/api/v0/get-recent-sales";
   static RoutePathGetSecondaryListings = "/api/v0/get-secondary-listings";
+  // Collection
+  static RoutePathCreateCollection = "/api/v0/create-collection";
+  static RoutePathSortCollection = "/api/v0/sort-collection";
+  static RoutePathGetUserCollectionsData = "/api/v0/get-user-collections-data";
+  static RoutePathGetCollectionInfo = "/api/v0/get-collection-info";
+  static RoutePathGetAllUserCollections = "/api/v0/get-all-user-collections";
+  static RoutePathGetAllUserCollectionNames = "/api/v0/get-all-user-collection-names";
+  static RoutePathInsertIntoCollection = "/api/v0/insert-into-collection";
   // Marketplace postgres
   static RoutePathSortMarketplace = "/api/v0/sort-marketplace";
   static RoutePathSortCreators = "/api/v0/sort-creators";
@@ -238,7 +246,16 @@ export class Transaction {
   publicKeyBase58Check: string;
   signatureBytesHex: string;
 }
-
+// Store collections in this
+export class CollectionResponse {
+  Collection: string;
+  CollectionBannerLocation: string;
+  CollectionCreatorName: string;
+  CollectionDescription: string;
+  CollectionProfilePicLocation: string;
+  FloorPrice: number;
+  Pieces: number;
+}
 export class ProfileEntryResponse {
   Username: string;
   Description: string;
@@ -360,6 +377,13 @@ export class PostEntryResponse {
   NFTRoyaltyToCreatorBasisPoints: number;
   HotnessScore: number;
   PostMultiplier: number;
+  // This is full on supernovas
+  // Enables us to select
+  // Now used in create-collection
+  selected: boolean;
+  // This enables us to disable nfts on create-collection
+  // So that user does not add duplicates on collections
+  disabled: boolean;
 }
 
 export class DiamondsPost {
@@ -1514,6 +1538,77 @@ export class BackendApiService {
       SortType,
       ContentFormat,
       CreatorsType,
+    });
+  }
+  SortCollection(
+    endpoint: string,
+    ReaderPublicKeyBase58Check: string,
+    Username: string,
+    CollectionName: string,
+    Offset: number,
+    Status: string,
+    Market: string,
+    OrderByType: string
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathSortCollection, {
+      ReaderPublicKeyBase58Check,
+      Username,
+      CollectionName,
+      Offset,
+      Status,
+      Market,
+      OrderByType,
+    });
+  }
+  // get all rows from collections that have the username as the creator
+  // Used to filter duplicate posts and collection names inside collection creation
+  GetUserCollectionsData(endpoint: string, Username: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetUserCollectionsData, {
+      Username,
+    });
+  }
+  GetCollectionInfo(endpoint: string, CollectionName: string, CollectionCreatorName: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetCollectionInfo, {
+      CollectionName,
+      CollectionCreatorName,
+    });
+  }
+  // Used to show collections in profile
+  GetAllUserCollections(endpoint: string, Username: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetAllUserCollections, {
+      Username,
+    });
+  }
+  // Used to show which collections the user has -> which collections they can add to
+  GetAllUserCollectionNames(endpoint: string, Username: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetAllUserCollectionNames, {
+      Username,
+    });
+  }
+  // Insert a single post into a specific collection
+  InsertIntoCollection(endpoint: string, PostHashHex: string, Username: string, Collection: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathInsertIntoCollection, {
+      PostHashHex,
+      Username,
+      Collection,
+    });
+  }
+  CreateCollection(
+    endpoint: string,
+    PostHashHexArray: string[],
+    Username: string,
+    CollectionName: string,
+    CollectionDescription: string,
+    CollectionBannerLocation: string,
+    CollectionProfilePicLocation: string
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathCreateCollection, {
+      PostHashHexArray,
+      Username,
+      CollectionName,
+      CollectionDescription,
+      CollectionBannerLocation,
+      CollectionProfilePicLocation,
     });
   }
   SortCreators(endpoint: string, Offset: number, Verified): Observable<any> {

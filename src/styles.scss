@@ -1686,7 +1686,7 @@ input.bs-timepicker-field {
 .global__nav__sticky__marketplace {
   position: sticky;
   position: -webkit-sticky;
-  top: 90px;
+  top: 98px;
   left: calc((100vw - 1205px) / 2);
 }
 
@@ -4850,7 +4850,6 @@ option {
     font-size: 14.69px;
     display: block;
     margin-bottom: 10px;
-    text-transform: uppercase;
     font-weight: 600;
     color: var(--textalt);
   }

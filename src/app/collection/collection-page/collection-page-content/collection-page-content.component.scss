@@ -11,7 +11,7 @@
  /* -- COLLECTION DESCRIPTION -- */
 .collection-description {
     padding: 2rem 5rem;
-    min-height: 250px;
+    min-height: 100px;
     width: 100%;
 
     // Consider extra break point
@@ -121,7 +121,9 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
-
+        @media screen and (max-width: 767px) {
+            justify-content: space-between;
+        }
         .mrk_top_selector-adjusted {
             padding: 5px;
             height: 100%;
@@ -130,10 +132,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-
-            @media screen and (max-width: 500px) {
-                display: none;
-            }
 
             button {
                 width: 55px;

@@ -1,20 +1,16 @@
 <div class="collection-page-header">
-  <img
-    class="collection-banner"
-    src="{{ mapArweaveURLs(collectionBannerLocation, 500, 200) }}"
-    alt="collection banner image"
-  />
+  <img class="collection-banner" src="{{ collectionBannerLocation }}" alt="collection banner image" />
   <div class="banner-image-stats-container">
     <!-- Change this to use image from arweave -->
-    <img class="collection-user-image" src="{{ mapArweaveURLs(collectionBannerLocation, 100, 100) }}" />
+    <img class="collection-user-image" src="{{ collectionBannerLocation }}" />
     <div class="collection-user-stats">
       <div class="collection-pieces">
         <h2>Pieces</h2>
-        <label>{{ collectionData.Pieces }}</label>
+        <label>{{ collectionData?.Pieces }}</label>
       </div>
       <div class="collection-owners">
         <h2>Owners</h2>
-        <label>{{ collectionData.OwnersAmount }}</label>
+        <label>{{ collectionData?.OwnersAmount }}</label>
       </div>
       <div class="collection-floor-price">
         <h2>Floor Price</h2>
@@ -23,10 +19,10 @@
             <img src="/assets/icons/deso_icon_new.svg" alt="white background deso icon" />
           </div>
           <label>
-            {{ collectionData.FloorPrice == -1 ? "Null" : globalVars.nanosToDeSo(collectionData.FloorPrice, 4) }}
+            {{ collectionData?.FloorPrice == -1 ? "Null" : globalVars.nanosToDeSo(collectionData?.FloorPrice, 4) }}
           </label>
           <label>
-            {{ collectionData.FloorPrice == -1 ? "Null" : globalVars.nanosToUSD(collectionData.FloorPrice, 2) }}
+            {{ collectionData?.FloorPrice == -1 ? "Null" : globalVars.nanosToUSD(collectionData?.FloorPrice, 2) }}
           </label>
         </div>
       </div>
@@ -37,10 +33,10 @@
             <img src="/assets/icons/deso_icon_new.svg" alt="white background deso icon" />
           </div>
           <label class="mb-0px fs-20px font-weight-bold">
-            {{ globalVars.nanosToDeSo(collectionData.TradingVolume, 2) }}
+            {{ globalVars.nanosToDeSo(collectionData?.TradingVolume, 2) }}
           </label>
           <label class="mb-0px fs-16px ml-5px" style="color: #717171">
-            {{ globalVars.nanosToDeSo(collectionData.TradingVolume, 2) }}
+            {{ globalVars.nanosToDeSo(collectionData?.TradingVolume, 2) }}
           </label>
         </div>
       </div>

@@ -36,6 +36,9 @@ export class CollectionPageHeaderComponent implements OnChanges {
   }
   // Use this to load / resize / speed up arweavve images, add params to url for additional benefits
   mapArweaveURLs(imgURL: string, w: number, h: number): string {
+    console.log(w);
+    console.log(imgURL);
+    console.log(h);
     if (imgURL.startsWith("https://arweave.net/")) {
       // Build cloudflare imageString
       imgURL =

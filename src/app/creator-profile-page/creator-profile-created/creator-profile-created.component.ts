@@ -126,7 +126,7 @@ export class CreatorProfileCreatedComponent implements OnInit {
         this.dataToShow = this.posts.slice(this.startIndex, this.endIndex);
 
         //   get created eth NFTs
-        if (this.profileData["ETHPublicKey"]) {
+        if (this.profileData["ETHPublicKey"] !== "") {
           this.globalVars.imxWalletAddress = this.profileData["ETHPublicKey"];
           this.globalVars.getCreatedNFTs();
         }

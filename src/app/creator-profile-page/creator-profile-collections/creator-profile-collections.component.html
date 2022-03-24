@@ -29,15 +29,11 @@
     *ngFor="let collection of collectionResponses"
     (click)="routeToCollection(collection)"
   >
-    <img
-      class="single-collection-banner"
-      src="{{ mapArweaveURLs(collection.CollectionBannerLocation, 500, 200) }}"
-      alt="collection banner"
-    />
+    <img class="single-collection-banner" src="{{ collection.CollectionBannerLocation }}" alt="collection banner" />
     <div class="collection-middle-details">
       <img
         class="single-collection-pp"
-        src="{{ mapArweaveURLs(collection.CollectionProfilePicLocation, 100, 100) }}"
+        src="{{ collection.CollectionProfilePicLocation }}"
         alt="collection profile pic"
       />
       <span class="single-collection-stats">

@@ -140,8 +140,9 @@ export class CreatorProfileCollectedComponent implements OnInit {
           this.lastPage = Math.floor(this.nftResponse.length / CreatorProfileCollectedComponent.PAGE_SIZE);
           console.log(this.dataToShow);
 
+          console.log(this.profileData);
           //   get collected eth NFTs
-          if (this.profileData["ETHPublicKey"]) {
+          if (this.profileData["ETHPublicKey"] !== "") {
             this.globalVars.imxWalletAddress = this.profileData["ETHPublicKey"];
             this.globalVars.getCollectedNFTs();
           }

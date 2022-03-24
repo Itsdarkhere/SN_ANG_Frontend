@@ -159,6 +159,7 @@ export class TrendsComponent implements OnInit {
   }
   closeMarketplaceMobileFiltering(string: string) {
     if (string == "sort") {
+      console.log("SORT");
       this.enableNoScroll();
       this.globalVars.isMarketplaceLeftBarMobileOpen = false;
     } else if (string == "close") {
@@ -181,6 +182,7 @@ export class TrendsComponent implements OnInit {
     this.body.style.removeProperty("position");
     this.body.style.removeProperty("top");
     this.body.style.removeProperty("width");
+    window.scrollTo(0, 0);
   }
   // Enable scroll
   enable() {

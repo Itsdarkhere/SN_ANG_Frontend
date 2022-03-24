@@ -39,6 +39,7 @@ import { take } from "rxjs/operators";
 import { EmbedUrlParserService } from "src/lib/services/embed-url-parser-service/embed-url-parser-service";
 import { PostThreadComponent } from "src/app/post-thread-page/post-thread/post-thread.component";
 import { NftDetailBoxComponent } from "src/app/feed/nft-detail-box/nft-detail-box.component";
+import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: "nft-post",
@@ -71,7 +72,7 @@ export class NftPostComponent implements OnInit {
   hightestBidOwner: any = {};
   NftPostComponent = NftPostComponent;
   activeTab = NftPostComponent.THREAD;
-  properties: any;
+  properties = [];
   showIconRow = true;
   firstIconPath = FIRST_ICON_PATH;
   secondIconPath = SECOND_ICON_PATH;
@@ -270,6 +271,9 @@ export class NftPostComponent implements OnInit {
         this.titleService.setTitle(this.nftPost.ProfileEntryResponse.Username + ` on ${environment.node.name}`);
         this.refreshBidData();
         this.checkPostDetails();
+
+        // Set properties to display under details tab
+        this.setProperties();
       },
       (err) => {
         // TODO: post threads: rollbar
@@ -280,6 +284,31 @@ export class NftPostComponent implements OnInit {
     );
   }
 
+  setProperties() {
+    Object.entries(this.nftPost.PostExtraData).forEach(([key, value]) => {
+      if (!(key == "properties" || key == "arweaveVideoSrc" || key == "arweaveModelSrc" || key == "arweaveAudioSrc")) {
+        if (this.properties) {
+          this.properties = this.properties.concat([[key, value]]);
+          console.log(this.properties);
+        } else {
+          this.properties = [[key, value]];
+        }
+      }
+    });
+    if (this.nftPost.PostExtraData?.properties) {
+      if (Array.isArray(JSON.parse(this.nftPost.PostExtraData?.properties))) {
+        // If it has properties
+        let propertiesList = JSON.parse(this.nftPost.PostExtraData?.properties);
+        // Make sure its an Array
+        if (Array.isArray(propertiesList)) {
+          this.properties = this.properties.concat(propertiesList);
+        }
+      }
+    }
+    if (this.properties?.length > 0) {
+      this.propertiesBool = true;
+    }
+  }
   checkPostDetails() {
     // Both 3d and banner have poster images which are stored on ar so this counts them too
     if (this.nftPost.ImageURLs) {
@@ -385,18 +414,7 @@ export class NftPostComponent implements OnInit {
             this.tabs = this.tabs.filter((t) => t !== NftPostComponent.MY_BIDS);
             this.activeTab = this.activeTab === NftPostComponent.MY_BIDS ? this.tabs[0] : this.activeTab;
           }
-          if (this.nftPost.PostExtraData?.properties) {
-            if (Array.isArray(JSON.parse(this.nftPost.PostExtraData?.properties))) {
-              // If it has properties
-              let propertiesList = JSON.parse(this.nftPost.PostExtraData?.properties);
-              // Make sure its an Array
-              if (Array.isArray(propertiesList)) {
-                this.properties = propertiesList;
-              }
-            }
-          } else {
-            this.propertiesBool = false;
-          }
+
           this.showPlaceABid = !!(this.availableSerialNumbers?.length - this.myAvailableSerialNumbers?.length);
           this.highBid = _.maxBy(this.nftBidData.NFTEntryResponses, "HighestBidAmountNanos")?.HighestBidAmountNanos;
           this.lowBid = _.minBy(this.nftBidData.NFTEntryResponses, "LowestBidAmountNanos")?.LowestBidAmountNanos;

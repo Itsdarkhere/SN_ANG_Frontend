@@ -1653,6 +1653,7 @@ export class GlobalVarsService {
     }
 
     const options = { method: "GET", headers: { Accept: "application/json" } };
+    // https://api.ropsten.x.immutable.com/v1/mints?token_address=
 
     let res = await fetch(
       `${environment.imx.MAINNET_ENV_URL}/mints?token_address=${environment.imx.TOKEN_ADDRESS}`,

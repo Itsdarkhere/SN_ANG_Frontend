@@ -323,7 +323,7 @@ export class NftDetailBoxComponent implements OnInit {
   }
   openBuyNowModal(event: any) {
     //   is not an ETH nft
-    if (this.postContent?.PostExtraData["isEthereumNFT"] === false) {
+    if (!this.postContent?.PostExtraData["isEthereumNFT"]) {
       this.clickedBuyNow = true;
       this.clickedPlaceABid = false;
 

@@ -136,6 +136,10 @@ html {
   background-color: var(--secondary);
   border: 1px solid #cacaca;
   border-radius: 7.037036895751953px;
+  label {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 }
 
 @media (max-width: 1000px) {

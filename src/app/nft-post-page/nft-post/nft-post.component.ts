@@ -286,7 +286,15 @@ export class NftPostComponent implements OnInit {
 
   setProperties() {
     Object.entries(this.nftPost.PostExtraData).forEach(([key, value]) => {
-      if (!(key == "properties" || key == "arweaveVideoSrc" || key == "arweaveModelSrc" || key == "arweaveAudioSrc")) {
+      if (
+        !(
+          key == "properties" ||
+          key == "arweaveVideoSrc" ||
+          key == "arweaveModelSrc" ||
+          key == "arweaveAudioSrc" ||
+          key == "Description"
+        )
+      ) {
         if (this.properties) {
           this.properties = this.properties.concat([[key, value]]);
           console.log(this.properties);

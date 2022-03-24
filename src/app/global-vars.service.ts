@@ -396,6 +396,7 @@ export class GlobalVarsService {
 
   checkNullUsername() {
     this.isNullUsernameRes = JSON.stringify(this.loggedInUser?.ProfileEntryResponse);
+
     if (this.isNullUsernameRes === "null") {
       // comment/uncomment line below out for testing
       this.isNullUsername = true;
@@ -648,7 +649,7 @@ export class GlobalVarsService {
     // Identify user
     this.mixPanel.identify1(this.loggedInUser?.PublicKeyBase58Check);
     this.mixPanel.peopleset({
-      $name: this.loggedInUser?.ProfileEntryResponse.Username,
+      $name: this.loggedInUser?.ProfileEntryResponse?.Username,
     });
   }
 

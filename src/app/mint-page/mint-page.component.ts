@@ -670,21 +670,21 @@ export class MintPageComponent implements OnInit {
       if (this.step === 2) {
         this.uploadEthMetadata();
       }
+      //   if (this.step === 3) {
+      //     this.isEthNFTForSale = true;
+      //   }
       if (this.step === 3) {
-        this.isEthNFTForSale = true;
-      }
-      if (this.step === 4) {
+        if (this.CREATOR_ROYALTY === undefined || this.CREATOR_ROYALTY === 0) {
+          await this.mintv2(this.token_id);
+        } else {
+          await this.mintv2WithRoyalties(this.token_id, this.CREATOR_ROYALTY);
+        }
+
         await this.sellNFT();
         // add post function
-        console.log("step 4 before createEthPost");
         await this.createEthPost();
-        console.log("step 4 after createEthPost");
       }
       this.step++;
-      // Arweave needs a boost to start itself
-      if (this.step === 4 && this.videoType) {
-        this.loadArweaveVideo();
-      }
     }
   }
   previousStep() {
@@ -729,11 +729,11 @@ export class MintPageComponent implements OnInit {
         console.log(res["Response"]);
         this.token_id = res["Response"];
 
-        if (this.CREATOR_ROYALTY === undefined || this.CREATOR_ROYALTY === 0) {
-          this.mintv2(this.token_id);
-        } else {
-          this.mintv2WithRoyalties(this.token_id, this.CREATOR_ROYALTY);
-        }
+        // if (this.CREATOR_ROYALTY === undefined || this.CREATOR_ROYALTY === 0) {
+        //   this.mintv2(this.token_id);
+        // } else {
+        //   this.mintv2WithRoyalties(this.token_id, this.CREATOR_ROYALTY);
+        // }
       });
   }
 

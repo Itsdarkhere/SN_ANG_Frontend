@@ -19,10 +19,6 @@ export class LeftBarComponent {
 
   applycreator = true;
 
-  @HostBinding("class") get classes() {
-    return !this.isMobile ? "global__nav__flex" : "";
-  }
-
   @Input() isMobile = false;
   @Input() inTutorial: boolean = false;
   @Output() closeMobile = new EventEmitter<boolean>();

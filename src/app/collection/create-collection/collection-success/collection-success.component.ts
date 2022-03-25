@@ -9,6 +9,8 @@ import { Router } from "@angular/router";
 })
 export class CollectionSuccessComponent implements OnInit {
   @Input() collectionName: string;
+  @Input() headingText: string;
+  @Input() descriptionText: string;
   constructor(public globalVars: GlobalVarsService, private router: Router) {}
 
   ngOnInit(): void {}

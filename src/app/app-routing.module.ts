@@ -45,6 +45,7 @@ import { LandingReferralsComponent } from "./landing-referrals/landing-referrals
 import { SignupPageReferralsComponent } from "./signup-page-referrals/signup-page-referrals.component";
 import { CollectionPageComponent } from "./collection/collection-page/collection-page.component";
 import { CreateCollectionComponent } from "./collection/create-collection/create-collection.component";
+import { AddToCollectionComponent } from "./collection/add-to-collection/add-to-collection.component";
 
 class RouteNames {
   // Not sure if we should have a smarter schema for this, e.g. what happens if we have
@@ -103,6 +104,7 @@ class RouteNames {
   public static COLLECTIONS = "collections";
   public static COLLECTION = "collection";
   public static CREATE_COLLECTION = "create-collection";
+  public static ADD_TO_COLLECTION = "add-to-collection";
   public static COLLECTION_SUCCESS_PAGE = "collection-success-page";
 }
 
@@ -203,6 +205,11 @@ const routes: Routes = [
   {
     path: RouteNames.CREATE_COLLECTION,
     component: CreateCollectionComponent,
+    pathMatch: "full",
+  },
+  {
+    path: RouteNames.ADD_TO_COLLECTION,
+    component: AddToCollectionComponent,
     pathMatch: "full",
   },
   // This NotFound route must be the last one as it catches all paths that were not matched above.

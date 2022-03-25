@@ -254,6 +254,7 @@ import { ObserveVisibilityDirective } from "./observe-visibility.directive";
 import { EthMarketplaceLeftBarMobileComponent } from "./eth-marketplace-left-bar-mobile/eth-marketplace-left-bar-mobile.component";
 import { CollectionFailureComponent } from "./collection/create-collection/collection-failure/collection-failure.component";
 import { CreatorProfileCollectionsComponent } from './creator-profile-page/creator-profile-collections/creator-profile-collections.component';
+import { AddToCollectionComponent } from './collection/add-to-collection/add-to-collection.component';
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -478,6 +479,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     EthMarketplaceLeftBarMobileComponent,
     CollectionFailureComponent,
     CreatorProfileCollectionsComponent,
+    AddToCollectionComponent,
   ],
   imports: [
     BrowserModule,

@@ -64,7 +64,7 @@
             type="button"
             class="black-rounded-button"
             (click)="nextStep()"
-            [disabled]="canContinueStepOne() || uploadingBannerImage || collectionNameHasError"
+            [disabled]="canContinueStepOne() || uploadingBannerImage || collectionNameHasError || !uploadedProfileImage"
           >
             Continue
           </button>

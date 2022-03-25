@@ -35,14 +35,15 @@ export class CollectionPageHeaderComponent implements OnChanges {
     );
   }
   mapImageURLs1(imgURL: string): string {
-    if (imgURL.startsWith("https://arweave.net/")) {
+    return imgURL
+    if (imgURL && imgURL.startsWith("https://arweave.net/")) {
       // Build cloudflare imageString
-      imgURL = "https://supernovas.app/cdn-cgi/image/width=1250,height=300,fit=scale-down,quality=85/" + imgURL;
+      imgURL = "https://supernovas.app/cdn-cgi/image/width=1250,height=300,fit=cover,quality=85/" + imgURL;
     }
     return imgURL;
   }
   mapImageURLs2(imgURL: string): string {
-    if (imgURL.startsWith("https://arweave.net/")) {
+    if (imgURL && imgURL.startsWith("https://arweave.net/")) {
       // Build cloudflare imageString
       imgURL = "https://supernovas.app/cdn-cgi/image/width=200,height=200,fit=scale-down,quality=85/" + imgURL;
     }

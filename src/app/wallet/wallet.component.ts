@@ -208,19 +208,22 @@ export class WalletComponent implements OnInit, OnDestroy {
     });
   }
 
-  openGeneralSuccessModal() {
-    console.log(` ------------------------- general success modal function hit -------------- `);
-
+  async openGeneralSuccessModal() {
     if (!this.globalVars.isMobile()) {
-      this.modalService.show(GeneralSuccessModalComponent, {
-        class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
-        initialState: {
-          header: "Connect your Ethereum wallet to Immutable X",
-          text: "By connecting your wallet to Immutable X, you are able to mint and trade Ethereum NFT's with zero gas fees.",
-          buttonText: "Connect with Immutable X",
-          buttonClickedAction: "connectWallet",
-        },
-      });
+      // if they have not connected before then show modal
+      if (!localStorage.getItem("firstTimeEthWalletConnection")) {
+        this.modalService.show(GeneralSuccessModalComponent, {
+          class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+          initialState: {
+            header: "Connect your Ethereum wallet to Immutable X",
+            text: "By connecting your wallet to Immutable X, you are able to mint and trade Ethereum NFT's with zero gas fees.",
+            buttonText: "Connect with Immutable X",
+            buttonClickedAction: "connectWallet",
+          },
+        });
+      } else {
+        await this.linkSetup();
+      }
     } else {
       this.modalService.show(GeneralSuccessModalComponent, {
         class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
@@ -232,6 +235,51 @@ export class WalletComponent implements OnInit, OnDestroy {
         },
       });
     }
+  }
+
+  async linkSetup(): Promise<void> {
+    const publicApiUrl: string = environment.imx.MAINNET_ENV_URL ?? "";
+    this.globalVars.imxClient = await ImmutableXClient.build({ publicApiUrl });
+    console.log(` ----------------------- client is ${JSON.stringify(this.globalVars.imxClient)}`);
+    const res = await this.link.setup({});
+    this.globalVars.imxWalletConnected = true;
+    this.globalVars.imxWalletAddress = res.address;
+    this.globalVars.ethWalletAddresShort = this.globalVars.imxWalletAddress.slice(0, 15) + "...";
+    console.log(
+      ` ----------------------- walletConnected is ${this.globalVars.imxWalletConnected} ----------------------- `
+    );
+    console.log(` ----------------------- walletAddress ${this.globalVars.imxWalletAddress} ----------------------- `);
+
+    await this.getImxBalance(this.globalVars.imxWalletAddress);
+
+    localStorage.setItem("address", res.address);
+
+    // Add key to postgres
+    // This should both create a new one or replace an existing one.
+    this.addIMXPublicKeyToProfileDetails();
+    // pass this.globalVars.imxWalletAddress into postgres function to associate with DESO public key this.globalVars.loggedInUser.PublicKeyBase58Check
+    // for example, fetch(https://supernovas.app/api/updateDesoProfile, body)
+    // body = {"desoPublicKey": "this.globalVars.loggedInUser.PublicKeyBase58Check", "imxWalletAddress": "this.globalVars.imxWalletAddress"}
+  }
+
+  addIMXPublicKeyToProfileDetails() {
+    if (!this.globalVars.loggedInUser.PublicKeyBase58Check) {
+      return;
+    }
+    this.backendApi
+      .InsertOrUpdateIMXPK(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        this.globalVars.imxWalletAddress
+      )
+      .subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
   }
   //   -------------------- end of immutable x functions --------------------
 

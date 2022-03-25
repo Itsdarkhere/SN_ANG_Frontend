@@ -35,15 +35,6 @@ export class CompleteProfileComponent {
       }
       return;
     }
-
-    // if (this.globalVars.isOnboardingComplete === true) {
-    //   this.router.navigate([RouteNames.UPDATE_PROFILE]);
-    // }
-
-    // if (this.globalVars.isMobileIphone()) {
-    //   // testing closing the mobile nav on page load
-    //   this.globalVars.isLeftBarMobileOpen = false;
-    // }
   }
 
   // rounded to nearest integer

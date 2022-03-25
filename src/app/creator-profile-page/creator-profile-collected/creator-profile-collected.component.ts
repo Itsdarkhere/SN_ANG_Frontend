@@ -145,6 +145,8 @@ export class CreatorProfileCollectedComponent implements OnInit {
           if (this.profileData["ETHPublicKey"] !== "") {
             this.globalVars.imxWalletAddress = this.profileData["ETHPublicKey"];
             this.globalVars.getCollectedNFTs();
+          } else {
+            this.globalVars.ethNFTsCollected = [];
           }
 
           this.isLoading = false;

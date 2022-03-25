@@ -279,6 +279,7 @@ export class MintPageComponent implements OnInit {
         setTimeout(() => {
           let url = "https://arweave.net/" + res;
           this.postImageArweaveSrc = url;
+          //   this.postImageArweaveSrc = this.mapImageURLs(this.postImageArweaveSrc);
           this.postVideoArweaveSrc = null;
           this.isUploading = false;
           this.isUploaded = this.postImageArweaveSrc.length > 0;
@@ -292,6 +293,16 @@ export class MintPageComponent implements OnInit {
         this.globalVars._alertError("Failed to upload image to arweave: " + err.message);
       }
     );
+  }
+
+  mapImageURLs(imgURL: string): string {
+    if (imgURL.startsWith("https://i.imgur.com")) {
+      return imgURL.replace("https://i.imgur.com", "https://images.bitclout.com/i.imgur.com");
+    } else if (imgURL.startsWith("https://arweave.net/")) {
+      // Build cloudflare imageString
+      imgURL = "https://supernovas.app/cdn-cgi/image/width=500,height=500,fit=scale-down,quality=85/" + imgURL;
+    }
+    return imgURL;
   }
 
   // This is just so we dont have animations start on other 'input' when uploading to this
@@ -663,27 +674,28 @@ export class MintPageComponent implements OnInit {
       }
     }
   }
-  async nextStepEth() {
+  nextStepEth() {
     this.animationType = "next";
     this.changeRef.detectChanges();
     if (this.step + 1 < 6) {
+      if (this.step === 1) {
+        this.step++;
+      }
+
       if (this.step === 2) {
+        //   step++ on uploadEthMetadata
         this.uploadEthMetadata();
       }
+      //   if (this.step === 3) {
+      //     this.isEthNFTForSale = true;
+      //   }
+      //   step++ on updateIMXMetadataPostHash
       if (this.step === 3) {
-        this.isEthNFTForSale = true;
-      }
-      if (this.step === 4) {
-        await this.sellNFT();
-        // add post function
-        console.log("step 4 before createEthPost");
-        await this.createEthPost();
-        console.log("step 4 after createEthPost");
-      }
-      this.step++;
-      // Arweave needs a boost to start itself
-      if (this.step === 4 && this.videoType) {
-        this.loadArweaveVideo();
+        if (this.CREATOR_ROYALTY === undefined || this.CREATOR_ROYALTY === 0) {
+          this.mintv2(this.token_id);
+        } else {
+          this.mintv2WithRoyalties(this.token_id, this.CREATOR_ROYALTY);
+        }
       }
     }
   }
@@ -729,11 +741,12 @@ export class MintPageComponent implements OnInit {
         console.log(res["Response"]);
         this.token_id = res["Response"];
 
-        if (this.CREATOR_ROYALTY === undefined || this.CREATOR_ROYALTY === 0) {
-          this.mintv2(this.token_id);
-        } else {
-          this.mintv2WithRoyalties(this.token_id, this.CREATOR_ROYALTY);
-        }
+        this.step++;
+        // if (this.CREATOR_ROYALTY === undefined || this.CREATOR_ROYALTY === 0) {
+        //   this.mintv2(this.token_id);
+        // } else {
+        //   this.mintv2WithRoyalties(this.token_id, this.CREATOR_ROYALTY);
+        // }
       });
   }
 
@@ -741,7 +754,8 @@ export class MintPageComponent implements OnInit {
     this.backendApi
       .UpdateIMXMetadataPostHash(this.globalVars.localNode, this.token_id, this.postHashHex)
       .subscribe((res) => {
-        console.log(` --------------- updated IMXMetadataPoshHash and res is ${res} --------------- `);
+        console.log(` --------------- updated IMXMetadataPoshHash and res is ${JSON.stringify(res)} --------------- `);
+        this.step++;
       });
   }
 
@@ -802,6 +816,8 @@ export class MintPageComponent implements OnInit {
       },
     ]);
     console.log(`Token minted: ${JSON.stringify(result)}`);
+
+    this.createEthPost();
   }
 
   async mintv2WithRoyalties(token_id: any, royalty: number) {
@@ -861,6 +877,8 @@ export class MintPageComponent implements OnInit {
       },
     ]);
     console.log(`Token minted with royalty: ${JSON.stringify(result)}`);
+
+    this.createEthPost();
   }
 
   async sellNFT() {
@@ -875,6 +893,7 @@ export class MintPageComponent implements OnInit {
     });
 
     console.log(sellOrderId);
+    this.updateIMXMetadataPostHash();
   }
 
   async createEthPost() {
@@ -922,7 +941,7 @@ export class MintPageComponent implements OnInit {
             ` ---------------------------- response is ${JSON.stringify(response)} ---------------------------- `
           );
           console.log(` ---------------------------- postHashHex ${this.postHashHex} ---------------------------- `);
-          this.updateIMXMetadataPostHash();
+          this.sellNFT();
         },
         (err) => {
           const parsedError = this.backendApi.parsePostError(err);

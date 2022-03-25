@@ -398,6 +398,7 @@ export class GlobalVarsService {
 
   checkNullUsername() {
     this.isNullUsernameRes = JSON.stringify(this.loggedInUser?.ProfileEntryResponse);
+
     if (this.isNullUsernameRes === "null") {
       // comment/uncomment line below out for testing
       this.isNullUsername = true;
@@ -447,8 +448,8 @@ export class GlobalVarsService {
           console.log(
             ` ---------------------------------- res ${JSON.stringify(res)} ---------------------------------- `
           );
-          this.isCreator = res["Collector"];
-          this.isCollector = res["Creator"];
+          this.isCreator = res["Creator"];
+          this.isCollector = res["Collector"];
 
           //   update checkIsVerified
           this.checkIsVerified();

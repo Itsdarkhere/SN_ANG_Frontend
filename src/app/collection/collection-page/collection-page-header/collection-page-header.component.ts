@@ -34,15 +34,17 @@ export class CollectionPageHeaderComponent implements OnChanges {
       }
     );
   }
-  // Use this to load / resize / speed up arweavve images, add params to url for additional benefits
-  mapArweaveURLs(imgURL: string, w: number, h: number): string {
-    console.log(w);
-    console.log(imgURL);
-    console.log(h);
+  mapImageURLs1(imgURL: string): string {
     if (imgURL.startsWith("https://arweave.net/")) {
       // Build cloudflare imageString
-      imgURL =
-        "https://supernovas.app/cdn-cgi/image/width=" + w + ",height=" + h + ",fit=scale-down,quality=85/" + imgURL;
+      imgURL = "https://supernovas.app/cdn-cgi/image/width=1250,height=300,fit=scale-down,quality=85/" + imgURL;
+    }
+    return imgURL;
+  }
+  mapImageURLs2(imgURL: string): string {
+    if (imgURL.startsWith("https://arweave.net/")) {
+      // Build cloudflare imageString
+      imgURL = "https://supernovas.app/cdn-cgi/image/width=200,height=200,fit=scale-down,quality=85/" + imgURL;
     }
     return imgURL;
   }

@@ -19,11 +19,17 @@ export class CreatorProfileCollectionsComponent implements OnInit {
     this.getAllUserCollections();
   }
 
-  mapArweaveURLs(imgURL: string, w: number, h: number): string {
+  mapImageURLs1(imgURL: string): string {
     if (imgURL.startsWith("https://arweave.net/")) {
       // Build cloudflare imageString
-      imgURL =
-        "https://supernovas.app/cdn-cgi/image/width=" + w + ",height=" + h + ",fit=scale-down,quality=85/" + imgURL;
+      imgURL = "https://supernovas.app/cdn-cgi/image/width=500,height=500,fit=scale-down,quality=85/" + imgURL;
+    }
+    return imgURL;
+  }
+  mapImageURLs2(imgURL: string): string {
+    if (imgURL.startsWith("https://arweave.net/")) {
+      // Build cloudflare imageString
+      imgURL = "https://supernovas.app/cdn-cgi/image/width=200,height=200,fit=scale-down,quality=85/" + imgURL;
     }
     return imgURL;
   }

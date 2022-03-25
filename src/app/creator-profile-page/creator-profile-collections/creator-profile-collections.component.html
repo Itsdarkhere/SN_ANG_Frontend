@@ -26,11 +26,15 @@
     *ngFor="let collection of collectionResponses"
     (click)="routeToCollection(collection)"
   >
-    <img class="single-collection-banner" src="{{ collection.CollectionBannerLocation }}" alt="collection banner" />
+    <img
+      class="single-collection-banner"
+      src="{{ mapImageURLs1(collection.CollectionBannerLocation) }}"
+      alt="collection banner"
+    />
     <div class="collection-middle-details">
       <img
         class="single-collection-pp"
-        src="{{ collection.CollectionProfilePicLocation }}"
+        src="{{ mapImageURLs2(collection.CollectionProfilePicLocation) }}"
         alt="collection profile pic"
       />
       <span class="single-collection-stats">
@@ -62,10 +66,7 @@
     </div>
   </div>
 </div>
-<div
-  *ngIf="collectionResponses?.length && !loadingCollections"
-  class="create-new-collection-container "
->
+<div *ngIf="collectionResponses?.length && !loadingCollections" class="create-new-collection-container">
   <button class="black-rounded-button" [routerLink]="'/create-collection'">Create new collection</button>
 </div>
 <div class="creator-profile-collections-bottom-bar"></div>

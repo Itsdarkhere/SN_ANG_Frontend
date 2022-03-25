@@ -242,8 +242,10 @@ export class CreateCollectionComponent implements OnInit {
           this.createCollectionError = JSON.stringify(res);
           this.creatingCollection = false;
           this.nextSuccessOrError(true);
+          console.log(res);
         },
         (error) => {
+          console.log(error);
           this.creatingCollection = false;
           this.nextSuccessOrError(false);
         }

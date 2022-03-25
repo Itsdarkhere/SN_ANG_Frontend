@@ -650,7 +650,7 @@ export class GlobalVarsService {
     // Identify user
     this.mixPanel.identify1(this.loggedInUser?.PublicKeyBase58Check);
     this.mixPanel.peopleset({
-      $name: this.loggedInUser?.ProfileEntryResponse.Username,
+      $name: this.loggedInUser?.ProfileEntryResponse?.Username,
     });
   }
 

@@ -49,7 +49,7 @@
               </a>
             </div>
           </li>
-          <li class="single-option d-flex flex-center position-relative">
+          <li *ngIf="globalVars?.loggedInUser" class="single-option d-flex flex-center position-relative">
             <button
               class="header-create-button-gradient p-0px grow"
               [routerLink]="'/' + globalVars.RouteNames.MINT_PAGE"

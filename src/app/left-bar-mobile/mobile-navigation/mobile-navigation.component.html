@@ -35,7 +35,7 @@
       </button>
       <label>Feed</label>
     </span>
-    <span class="mobile-nav-item">
+    <!-- <span class="mobile-nav-item">
       <button
         (click)="closeMobileNav()"
         [routerLink]="'/' + this.globalVars.RouteNames.ANALYTICS"
@@ -44,7 +44,7 @@
         <img src="/assets/icons/lb_analytics_icon.svg" />
       </button>
       <label>Analytics</label>
-    </span>
+    </span> -->
     <span class="mobile-nav-item" *ngIf="this.globalVars?.loggedInUser">
       <button
         (click)="closeMobileNav()"

@@ -125,7 +125,7 @@
                 label {
                     // not sure why this is necessary, but a margin is being triggered here
                     // this defaults the margin back to 0 to keep the text baseline center
-                    margin: 0;
+                    margin-bottom: 0;
                     height: 100%;
                     display: flex;
                     align-items: center;
@@ -155,7 +155,7 @@
                 label {
                     // not sure why this is necessary, but a margin is being triggered here
                     // this defaults the margin back to 0 to keep the text baseline center
-                    margin: 0;
+                    margin-bottom: 0;
                     height: 100%;
                     display: flex;
                     align-items: center;
@@ -275,7 +275,11 @@
         height: 15px;
     }
 }
-
+.hide-on-mobile {
+    @media screen and (max-width: 500px) {
+        display: none !important;
+    }
+}
 .collection-creator-avatar {
     width: 35px;
     height: 34px;

@@ -21,7 +21,7 @@
           <label>
             {{ collectionData?.FloorPrice == -1 ? "Null" : globalVars.nanosToDeSo(collectionData?.FloorPrice, 4) }}
           </label>
-          <label>
+          <label class="hide-on-mobile ml-5px">
             {{ collectionData?.FloorPrice == -1 ? "Null" : globalVars.nanosToUSD(collectionData?.FloorPrice, 2) }}
           </label>
         </div>
@@ -35,7 +35,7 @@
           <label class="mb-0px fs-20px font-weight-bold">
             {{ globalVars.nanosToDeSo(collectionData?.TradingVolume, 2) }}
           </label>
-          <label class="mb-0px fs-16px ml-5px" style="color: #717171">
+          <label class="hide-on-mobile mb-0px fs-16px ml-5px" style="color: #717171">
             {{ globalVars.nanosToDeSo(collectionData?.TradingVolume, 2) }}
           </label>
         </div>

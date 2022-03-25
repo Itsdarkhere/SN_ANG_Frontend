@@ -83,7 +83,6 @@ export class CreatorProfileDetailsComponent implements OnInit {
   ngOnInit() {
     this.profileCardUrl = "";
     this.titleService.setTitle(this.userName + ` on ${environment.node.name}`);
-    this.getAllUserCollections();
   }
   userBlocked() {
     this.childTopCardComponent._unfollowIfBlocked();
@@ -91,22 +90,6 @@ export class CreatorProfileDetailsComponent implements OnInit {
 
   unblockUser() {
     this.unblock();
-  }
-  getAllUserCollections() {
-    if (this.loadingCollections) {
-      return;
-    }
-    this.loadingCollections = true;
-    this.backendApi.GetAllUserCollections(this.globalVars.localNode, this.userName.toLowerCase()).subscribe(
-      (res) => {
-        this.collectionResponses = res;
-        this.loadingCollections = false;
-      },
-      (err) => {
-        console.log(err);
-        this.loadingCollections = false;
-      }
-    );
   }
   click() {
     console.log(this.profile);

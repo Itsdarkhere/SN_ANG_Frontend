@@ -8,12 +8,16 @@ import { Router } from "@angular/router";
   styleUrls: ["./creator-profile-collections.component.scss"],
 })
 export class CreatorProfileCollectionsComponent implements OnInit {
-  @Input() loadingCollections: boolean;
+  @Input() username: string;
   @Input() profile: ProfileEntryResponse;
   @Input() collectionResponses: CollectionResponse[];
+
+  loadingCollections: boolean;
   constructor(public globalVars: GlobalVarsService, private backendApi: BackendApiService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getAllUserCollections();
+  }
 
   mapArweaveURLs(imgURL: string, w: number, h: number): string {
     if (imgURL.startsWith("https://arweave.net/")) {
@@ -22,6 +26,23 @@ export class CreatorProfileCollectionsComponent implements OnInit {
         "https://supernovas.app/cdn-cgi/image/width=" + w + ",height=" + h + ",fit=scale-down,quality=85/" + imgURL;
     }
     return imgURL;
+  }
+
+  getAllUserCollections() {
+    if (this.loadingCollections) {
+      return;
+    }
+    this.loadingCollections = true;
+    this.backendApi.GetAllUserCollections(this.globalVars.localNode, this.username.toLowerCase()).subscribe(
+      (res) => {
+        this.collectionResponses = res;
+        this.loadingCollections = false;
+      },
+      (err) => {
+        console.log(err);
+        this.loadingCollections = false;
+      }
+    );
   }
 
   profileBelongsToLoggedInUser(): boolean {

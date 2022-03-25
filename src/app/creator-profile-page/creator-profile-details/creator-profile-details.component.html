@@ -60,11 +60,7 @@
 
       <!-- Collections -->
       <div class="w-100 d-flex flex-column" *ngIf="profile && activeTab == 'Collections' && !loading">
-        <app-creator-profile-collections
-          [loadingCollections]="loadingCollections"
-          [profile]="profile"
-          [collectionResponses]="collectionResponses"
-        ></app-creator-profile-collections>
+        <app-creator-profile-collections [username]="userName" [profile]="profile"></app-creator-profile-collections>
         <div *ngIf="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)" class="w-100 d-flex p-15px">
           <span>
             You have blocked {{ profile.Username }}.

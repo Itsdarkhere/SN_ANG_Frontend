@@ -1,4 +1,5 @@
-<div class="red-box cursor-pointer" (click)="onPostClicked($event)">
+<!-- DESO small card -->
+<div class="red-box cursor-pointer" (click)="onPostClicked($event)" *ngIf="!post?.PostExtraData.isEthereumNFT">
   <div class="red-box-img-cover position-relative">
     <!-- The class "card-audio-icon-container" is from a different component – why is this here? -->
     <div
@@ -94,6 +95,101 @@
       <span *ngIf="!isForSale" class="pl-5px small-card-bid-size">
         {{ globalVars.nanosToDeSo(lastSalePrice, 5) }} DESO
       </span>
+    </div>
+  </div>
+</div>
+
+<!-- ETH small card -->
+<div class="red-box cursor-pointer" (click)="onPostClicked($event)" *ngIf="post?.PostExtraData.isEthereumNFT">
+  <div class="red-box-img-cover position-relative">
+    <!-- The class "card-audio-icon-container" is from a different component – why is this here? -->
+    <div
+      *ngIf="post?.PostExtraData['arweaveAudioSrc']"
+      class="card-audio-icon-container pointer-events-none d-flex flex-center top-br-30px"
+    >
+      <!-- Two beam notes -->
+      <img *ngIf="showAudioTypeIcon" class="card-audio-icon" src="/assets/icons/music-type-white.svg" alt="icon" />
+
+      <!-- "audio-icon-hover-state" is from the new-nft-card-component -->
+      <!-- If this is supposed to affect the hover state it doesn't seem to be doing anything? -->
+      <div *ngIf="!showAudioTypeIcon" class="audio-icon-hover-state d-flex flex-row flex-center font-weight-semiboldn">
+        <img class="audio-play-icon" src="/assets/icons/audio-play-small.svg" alt="audio icon small" />
+        <!-- <p>PLAY AUDIO</p> -->
+      </div>
+    </div>
+
+    <img
+      class="card-image"
+      *ngIf="post.ImageURLs && post.ImageURLs[0] && !post.ParentStakeID"
+      data-toggle="modal"
+      src="{{ mapImageURLs(post.ImageURLs[0]) }}"
+    />
+
+    <!-- Video stuff seems to start here -->
+    <div
+      class="w-100 h-100 overflow-hidden top-br-30px background-secondary position-relative d-flex flex-center"
+      *ngIf="!post.ImageURLs && post.PostExtraData['arweaveVideoSrc'] && !post.ParentStakeID"
+    >
+      <div class="card-video-icon-container top-br-30px" [ngClass]="{ opacity_0: !showVideoTypeIcon }">
+        <img class="card-video-icon" src="/assets/icons/video-type-white.svg" alt="icon" />
+      </div>
+      <video
+        *ngIf="post.PostExtraData['arweaveVideoSrc']"
+        id="video-nft-1"
+        (mouseenter)="activateOnHover($event, true)"
+        (mouseleave)="activateOnHover($event, false)"
+        loop
+        [muted]="'muted'"
+        muted
+        class="video-tag"
+        preload="metadata"
+        src="{{ post.PostExtraData['arweaveVideoSrc'] + '#t=0.001' }}"
+      ></video>
+    </div>
+
+    <div
+      *ngIf="post.VideoURLs && post.VideoURLs[0] && !post.ParentStakeID && !post.PostExtraData['arweaveVideoSrc']"
+      class="w-100 h-100 overflow-hidden top-br-30px background-secondary position-relative d-flex flex-center"
+    >
+      <iframe
+        *ngIf="!post.PostExtraData['arweaveVideoSrc']"
+        [src]="post.VideoURLs[0] | sanitizeVideoUrl"
+        allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+        allowfullscreen
+        class="video-tag"
+      ></iframe>
+    </div>
+    <div *ngIf="constructedEmbedURL" class="w-100 h-100 background-secondary position-relative d-flex flex-center">
+      <iframe
+        id="embed-iframe"
+        [height]="getEmbedHeight()"
+        class="video-tag"
+        [ngStyle]="{
+          'max-width': getEmbedWidth(constructedEmbedURL)
+        }"
+        [src]="constructedEmbedURL | sanitizeEmbed"
+        frameborder="0"
+        allow="picture-in-picture; clipboard-write; encrypted-media; gyroscope; accelerometer; encrypted-media;"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <div
+      class="w-100 h-100 background-secondary d-flex flex-start-center text-nft-container p-20px"
+      *ngIf="!constructedEmbedURL && !post.VideoURLs && !post.ImageURLs && !post.PostExtraData['arweaveVideoSrc']"
+    >
+      <div class="disable-scrollbars">{{ post.Body }}</div>
+    </div>
+  </div>
+
+  <div class="red-box-div" [ngClass]="isEthereumNFTForSale ? 'colors-for-sale' : 'colors-sold'">
+    <p *ngIf="post.PostExtraData?.name" class="font-weight-semibold">
+      {{ post.PostExtraData?.name }}
+    </p>
+    <p *ngIf="!post.PostExtraData?.name" class="">{{ post.Body }}</p>
+    <div class="d-flex flex-row">
+      <span *ngIf="!isEthereumNFTForSale">Not for sale</span>
+      <span *ngIf="isEthereumNFTForSale">Buy Now</span>
+      <span *ngIf="isEthereumNFTForSale" class="pl-5px small-card-bid-size">{{ ethereumNFTSalePrice }} ETH</span>
     </div>
   </div>
 </div>

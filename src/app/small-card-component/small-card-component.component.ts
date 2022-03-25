@@ -5,6 +5,8 @@ import { BackendApiService } from "../backend-api.service";
 import { Router } from "@angular/router";
 import _ from "lodash";
 import { EmbedUrlParserService } from "src/lib/services/embed-url-parser-service/embed-url-parser-service";
+import { environment } from "src/environments/environment";
+import { ethers } from "ethers";
 
 @Component({
   selector: "app-small-card-component",
@@ -26,13 +28,75 @@ export class SmallCardComponentComponent implements OnInit {
   minBid: number = null;
   lastSalePrice: number = null;
 
+  isEthereumNFTForSale: boolean;
+  ethereumNFTSalePrice: any;
+  ethPublicKeyNoDesoProfile: string;
+  isEthOwner: boolean;
+
   ngOnInit(): void {
     if (!this.post.RepostCount) {
       this.post.RepostCount = 0;
     }
     this.setEmbedURLForPostContent();
     this.getNFTEntries();
+
+    console.log(this.post);
+    // if the post is an Ethereum NFT, check if it's for sale
+    if (this.post["PostExtraData"]["isEthereumNFT"]) {
+      console.log("isEthereumNFT hit");
+      this.updateEthNFTForSaleStatus();
+
+      // check eth NFT owner
+      this.checkEthNFTOwner();
+    }
   }
+
+  async updateEthNFTForSaleStatus() {
+    const options = { method: "GET", headers: { Accept: "*/*" } };
+
+    let res = await fetch(
+      `${environment.imx.MAINNET_ENV_URL}/orders?status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
+      options
+    );
+
+    res = await res.json();
+
+    for (var i = 0; i < res["result"].length; i++) {
+      if (this.post["PostExtraData"]["tokenId"] == res["result"][i]["sell"]["data"]["token_id"]) {
+        this.isEthereumNFTForSale = true;
+        this.ethereumNFTSalePrice = res["result"][i]["buy"]["data"]["quantity"];
+        this.ethereumNFTSalePrice = ethers.utils.formatEther(this.ethereumNFTSalePrice);
+      }
+    }
+
+    console.log("upadated ETH NFT for Sale Status");
+
+    // determine if you own it, if not then say which eth wallet owns it
+  }
+
+  async checkEthNFTOwner() {
+    const options = { method: "GET", headers: { Accept: "application/json" } };
+
+    let res = await fetch(
+      `${environment.imx.MAINNET_ENV_URL}/assets/${environment.imx.TOKEN_ADDRESS}/${this.post["PostExtraData"]["tokenId"]}`,
+      options
+    );
+
+    res = await res.json();
+
+    this.ethPublicKeyNoDesoProfile = res["user"];
+    this.ethPublicKeyNoDesoProfile = this.ethPublicKeyNoDesoProfile.slice(0, 15) + "...";
+
+    this.globalVars.imxWalletAddress = localStorage.getItem("address");
+
+    if (res["user"] === this.globalVars.imxWalletAddress) {
+      this.isEthOwner = true;
+      console.log(` ----------------- isEthOwner ${this.isEthOwner}`);
+    } else {
+      this.isEthOwner = false;
+    }
+  }
+
   setEmbedURLForPostContent(): void {
     EmbedUrlParserService.getEmbedURL(
       this.backendApi,
@@ -90,6 +154,7 @@ export class SmallCardComponentComponent implements OnInit {
     return imgURL;
   }
   onPostClicked(event) {
+    //   deso post
     // don't navigate if the user is selecting text
     // from https://stackoverflow.com/questions/31982407/prevent-onclick-event-when-selecting-text
     const selection = window.getSelection();
@@ -100,7 +165,14 @@ export class SmallCardComponentComponent implements OnInit {
     if (event.target.tagName.toLowerCase() === "a") {
       return true;
     }
-    const route = this.globalVars.RouteNames.NFT;
+
+    let route = "";
+    if (!this.post["PostExtraData"]["isEthereumNFT"]) {
+      route = this.globalVars.RouteNames.NFT;
+    }
+    if (this.post["PostExtraData"]["isEthereumNFT"]) {
+      route = this.globalVars.RouteNames.ETH_NFT;
+    }
     // identify ctrl+click (or) cmd+clik and opens feed in new tab
     if (event.ctrlKey) {
       const url = this.router.serializeUrl(

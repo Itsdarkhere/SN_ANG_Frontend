@@ -11,7 +11,7 @@ import { ArweaveJsService } from "src/app/arweave-js.service";
 })
 export class CreateCollectionComponent implements OnInit {
   constructor(
-    private globalVars: GlobalVarsService,
+    public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
     private router: Router,
     private arweave: ArweaveJsService

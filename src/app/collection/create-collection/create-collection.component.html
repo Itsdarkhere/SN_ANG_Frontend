@@ -1,5 +1,5 @@
 <div class="create-collection-page">
-  <div class="logo">supernovas</div>
+  <div class="logo" [routerLink]="'/' + this.globalVars.RouteNames.BROWSE">supernovas</div>
   <a (click)="hasProfile()" alt="Return to Profile"><div class="exit">✕&nbsp;&nbsp;&nbsp;Return to Profile</div></a>
 
   <div class="full-height-width-container">
@@ -23,7 +23,7 @@
               <img src="/assets/icons/upload_grey.svg" alt="Upload Banner Image" />
               <h2>Click to upload banner image</h2>
             </div>
-            <h3 *ngIf="!uploadingBannerImage && !uploadedBannerImage">Recommended size is 925 x 250 pixels.</h3>
+            <h3 *ngIf="!uploadingBannerImage && !uploadedBannerImage">Recommended size is 1250 x 250 pixels.</h3>
             <i *ngIf="uploadingBannerImage" class="fa fa-spinner fa-spin"></i>
           </div>
 

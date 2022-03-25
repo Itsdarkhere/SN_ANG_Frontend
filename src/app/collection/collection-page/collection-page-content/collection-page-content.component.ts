@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { BackendApiService, PostEntryResponse } from "src/app/backend-api.service";
 import { GlobalVarsService } from "src/app/global-vars.service";
@@ -10,23 +10,39 @@ import { ApplyService } from "../apply.service";
   templateUrl: "./collection-page-content.component.html",
   styleUrls: ["./collection-page-content.component.scss"],
 })
-export class CollectionPageContentComponent implements OnInit {
+export class CollectionPageContentComponent implements OnChanges {
   collectionName: string;
   collectionCreator: string;
   collectionCollection = true;
   collectionOrderByType = "most recent first";
+  @Input() collectionCreatorPK: string;
   @Input() collectionNFTs: PostEntryResponse[];
   @Input() collectionDescription: string;
+
+  loggedInUserIsCreator = false;
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private titleService: Title,
     private backendApi: BackendApiService,
     public globalVars: GlobalVarsService,
     private applyService: ApplyService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.collectionCreatorPK && this.collectionCreatorPK) {
+      this.loggedInIsCreator();
+    }
+  }
 
+  loggedInIsCreator() {
+    if (this.globalVars.loggedInUser.PublicKeyBase58Check == this.collectionCreatorPK) {
+      this.loggedInUserIsCreator = true;
+    }
+  }
+  routeToAddToCollection() {
+    this.router.navigate(["/" + this.globalVars.RouteNames.ADD_TO_COLLECTION]);
+  }
   // Choosing between a grid display of NFTs and Card display
   setDisplayType(display: string) {
     switch (display) {

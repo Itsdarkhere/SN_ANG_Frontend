@@ -111,3 +111,20 @@
         color: #FFFFFF;
     }
 }
+.creator-profile-collections-bottom-bar {
+    height: 100px;
+}
+.create-new-collection-container {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    button {
+        width: 280px;
+        height: 53px;
+        font-weight: 500;
+        font-size: 18px;
+    }
+}

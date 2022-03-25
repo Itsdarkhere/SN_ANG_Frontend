@@ -5,14 +5,13 @@ import { Router } from "@angular/router";
 import { ArweaveJsService } from "src/app/arweave-js.service";
 
 @Component({
-  selector: 'app-add-to-collection',
-  templateUrl: './add-to-collection.component.html',
-  styleUrls: ['./add-to-collection.component.scss']
+  selector: "app-add-to-collection",
+  templateUrl: "./add-to-collection.component.html",
+  styleUrls: ["./add-to-collection.component.scss"],
 })
 export class AddToCollectionComponent implements OnInit {
-
   constructor(
-    private globalVars: GlobalVarsService,
+    public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
     private router: Router,
     private arweave: ArweaveJsService
@@ -126,12 +125,12 @@ export class AddToCollectionComponent implements OnInit {
   }
   getDistinctArray(arr) {
     var dups = {};
-    return arr.filter(function(el) {
-        var hash = el.valueOf();
-        var isDup = dups[hash];
-        dups[hash] = true;
-        return !isDup;
-    })
+    return arr.filter(function (el) {
+      var hash = el.valueOf();
+      var isDup = dups[hash];
+      dups[hash] = true;
+      return !isDup;
+    });
   }
 
   handleImageInput(files: FileList) {
@@ -332,5 +331,4 @@ export class AddToCollectionComponent implements OnInit {
       );
     });
   }
-
 }

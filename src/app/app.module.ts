@@ -198,7 +198,6 @@ import { PageSmallNavNewComponent } from "./page-small-nav-new/page-small-nav-ne
 import { SmallCardComponentComponent } from "./small-card-component/small-card-component.component";
 import { CompleteProfileComponent } from "./update-profile-page/complete-profile/complete-profile.component";
 import { CollectionPageComponent } from "./collection/collection-page/collection-page.component";
-import { CollectionCardComponent } from "./collection/collection-card/collection-card.component";
 import { CollectionPageHeaderComponent } from "./collection/collection-page/collection-page-header/collection-page-header.component";
 import { CollectionPageContentComponent } from "./collection/collection-page/collection-page-content/collection-page-content.component";
 import { CreateCollectionComponent } from "./collection/create-collection/create-collection.component";
@@ -253,8 +252,8 @@ import { CancelNftAuctionModalComponent } from "./cancel-nft-auction-modal/cance
 import { ObserveVisibilityDirective } from "./observe-visibility.directive";
 import { EthMarketplaceLeftBarMobileComponent } from "./eth-marketplace-left-bar-mobile/eth-marketplace-left-bar-mobile.component";
 import { CollectionFailureComponent } from "./collection/create-collection/collection-failure/collection-failure.component";
-import { CreatorProfileCollectionsComponent } from './creator-profile-page/creator-profile-collections/creator-profile-collections.component';
-import { AddToCollectionComponent } from './collection/add-to-collection/add-to-collection.component';
+import { CreatorProfileCollectionsComponent } from "./creator-profile-page/creator-profile-collections/creator-profile-collections.component";
+import { AddToCollectionComponent } from "./collection/add-to-collection/add-to-collection.component";
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -423,7 +422,6 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     CompleteProfileComponent,
     SmallCardComponentComponent,
     CollectionPageComponent,
-    CollectionCardComponent,
     CollectionPageHeaderComponent,
     CollectionPageContentComponent,
     CreateCollectionComponent,

@@ -166,3 +166,13 @@
     height: 100%;
     width: 100%;
 }
+.add-to-collection-button {
+    height: 53px;
+    min-height: 53px;
+    width: 250px;
+    max-width: 100%;
+    font-weight: 500;
+    @media screen and (max-width: 600px) {
+        display: none;
+    }
+}

@@ -7,29 +7,15 @@
 
   <!-- Collection Tab/Filter Menu Options -->
   <div class="collection-tab-options">
-    <!-- <div class="collection-tab-options-left">
-      <div class="collection-content-tabs-container">
-        <button
-          class="collection-content-tab"
-          (click)="setCollectionContentType(true)"
-          [ngClass]="{ selected: collectionCollection }"
-        >
-          <img src="/assets/icons/collection_collection_icon.svg" alt="Collection Icon" />
-          <p>Collection</p>
-        </button>
-        <button
-          class="collection-content-tab"
-          (click)="setCollectionContentType(false)"
-          [ngClass]="{ selected: !collectionCollection }"
-        >
-          <img src="/assets/icons/collection_activity_icon.svg" alt="Activity Icon" />
-          <p>Activity</p>
-        </button>
-      </div>
-    </div> -->
-
     <!-- Desktop -->
     <div class="collection-tab-options-right">
+      <button
+        *ngIf="loggedInUserIsCreator"
+        (click)="routeToAddToCollection()"
+        class="black-rounded-button add-to-collection-button mr-20px"
+      >
+        Add to collection
+      </button>
       <div class="mrk_top_selector-adjusted">
         <button
           class="selected"

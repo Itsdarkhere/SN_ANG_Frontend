@@ -47,6 +47,9 @@ export class CollectionPageNftViewComponent implements OnInit {
     });
   }
   onScrollNFTs() {
+    if (this.globalVars.collectionNFTsLoading) {
+      return;
+    }
     this.applyService.onScroll();
   }
 }

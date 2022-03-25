@@ -179,6 +179,7 @@ export class GlobalVarsService {
   hotFeedPosts = [];
   // Marketplace is loading / filtering
   isMarketplaceLoading = false;
+  isCollectionLoadingMore = false;
   marketplaceNFTsData: NFTCollectionResponse[];
   ethMarketplaceNFTsData: NFTCollectionResponse[];
   ethMarketplaceNFTsDataToShow: NFTCollectionResponse[];

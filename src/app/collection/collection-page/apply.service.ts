@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-
+import { GlobalVarsService } from "src/app/global-vars.service";
 @Injectable({
   providedIn: "root",
 })
@@ -19,7 +19,7 @@ export class ApplyService {
     loadMore: false,
   });
   currentSort = this.sortSource.asObservable();
-  constructor() {}
+  constructor(private globalVars: GlobalVarsService) {}
 
   applyPress(status: string, marketType: string) {
     // Set Vars
@@ -53,6 +53,9 @@ export class ApplyService {
   }
   onScroll() {
     // Apply
+    if (this.globalVars.collectionNFTsLoading) {
+      return;
+    }
     this.offset = this.offset + 30;
     this.sortSource.next({
       marketType: this.marketType,

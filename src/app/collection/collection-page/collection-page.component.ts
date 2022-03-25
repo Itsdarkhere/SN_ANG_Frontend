@@ -28,6 +28,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   collectionOrderByType = "most recent first";
   // For apply service
   subscription: Subscription;
+  loadingMore = false;
   constructor(
     private globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
@@ -40,13 +41,14 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
       this.collectionName = params.collection;
       this.titleService.setTitle(`${this.collectionName} collection`);
       // Load data here
+      this.subscription = this.applyService.currentSort.subscribe((object) =>
+        this.sortCollection(object.status, object.marketType, object.orderByType, object.offset, object.loadMore)
+      );
     });
   }
 
   ngOnInit(): void {
-    this.subscription = this.applyService.currentSort.subscribe((object) =>
-      this.sortCollection(object.status, object.marketType, object.orderByType, object.offset, object.loadMore)
-    );
+    this.sortCollection("all", "all", "most recent first", 0, false);
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
@@ -71,15 +73,19 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
           if (!loadMore) {
             console.log(res);
             this.collectionNFTs = res?.PostEntryResponse;
-            this.collectionBannerLocation = res?.CollectionBannerLocation;
-            this.collectionProfilePicLocation = res?.CollectionProfilePicLocation;
-            this.collectionDescription = res?.CollectionDescription;
+            if (res.CollectionBannerLocation) {
+              this.collectionBannerLocation = res?.CollectionBannerLocation;
+              this.collectionProfilePicLocation = res?.CollectionProfilePicLocation;
+              this.collectionDescription = res?.CollectionDescription;
+            }
             this.globalVars.collectionNFTsLoading = false;
-            if (this.collectionNFTs[0]) {
+
+            if (this.collectionNFTs) {
               this.collectionCreatorPK = this.collectionNFTs[0]?.PosterPublicKeyBase58Check;
             }
           } else if (res?.PostEntryResponse?.lenght > 0) {
             this.collectionNFTs = this.collectionNFTs.concat(res?.PostEntryResponse);
+            this.globalVars.collectionNFTsLoading = false;
           }
         },
         (err) => {

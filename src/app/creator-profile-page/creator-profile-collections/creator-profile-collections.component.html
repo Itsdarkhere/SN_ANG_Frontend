@@ -21,9 +21,6 @@
   </div>
 </div>
 <div class="profile-collections-container cursor-pointer">
-  <div class="p-15px pb-0">
-    <div *ngIf="collectionResponses?.length">Collections by @{{ profile.Username }}</div>
-  </div>
   <div
     class="single-profile-collection"
     *ngFor="let collection of collectionResponses"
@@ -55,9 +52,9 @@
       </span>
     </div>
     <div class="collection-bottom-details">
-      <h3 class="col-bottom-name font-weight-semiboldn">COLLECTION</h3>
-      <label class="col-bottom-value-1 font-weight-semiboldn">{{ collection.Collection }}</label>
-      <h3 class="col-bottom-name font-weight-semiboldn">CREATOR</h3>
+      <h3 class="collection-bottom-name font-weight-semiboldn">COLLECTION</h3>
+      <label class="collection-bottom-value-1 font-weight-semiboldn">{{ collection.Collection }}</label>
+      <h3 class="collection-bottom-name font-weight-semiboldn">CREATOR</h3>
       <span>
         <div class="single-collection-avatar" [avatar]="profile.PublicKeyBase58Check"></div>
         <label class="mb-0px">@{{ profile.Username }}</label>

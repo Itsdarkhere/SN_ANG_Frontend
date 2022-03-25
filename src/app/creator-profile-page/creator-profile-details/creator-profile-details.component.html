@@ -59,7 +59,7 @@
       </div>
 
       <!-- Collections -->
-      <div class="creator_post_wrap" *ngIf="profile && activeTab == 'Collections' && !loading">
+      <div class="w-100 d-flex flex-column" *ngIf="profile && activeTab == 'Collections' && !loading">
         <app-creator-profile-collections
           [loadingCollections]="loadingCollections"
           [profile]="profile"

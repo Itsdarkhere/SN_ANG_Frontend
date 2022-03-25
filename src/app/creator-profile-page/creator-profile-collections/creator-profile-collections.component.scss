@@ -26,8 +26,11 @@
         .single-collection-pp {
             width: 86px;
             height: 84px;
-            border: 2.687500476837158px solid #ffffff;
-            border-radius: 13.4375px;
+            border: 2px solid #ffffff;
+            border-radius: 13px;
+            @media screen and (max-width: 500px) {
+                display: none;
+            }
         }
         .single-collection-stats {
             display: flex;
@@ -63,11 +66,11 @@
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
-        .col-bottom-name {
+        .collection-bottom-name {
             color: #FFFFFF;
             font-size: 14.5px;
         }
-        .col-bottom-value-1 {
+        .collection-bottom-value-1 {
             color: #FFFFFF;
             font-size: 30px;
         }
@@ -91,6 +94,16 @@
             }
         }
     }
+}
+.profile-collections-container {
+    width: 100%;
+    max-width: 1050px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+
 }
 .create-collection-button {
     color: #FFFFFF;

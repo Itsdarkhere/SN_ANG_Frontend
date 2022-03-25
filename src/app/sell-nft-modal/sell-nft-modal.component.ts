@@ -10,7 +10,6 @@ import { AddUnlockableModalComponent } from "../add-unlockable-modal/add-unlocka
 import { Router } from "@angular/router";
 import { MixpanelService } from "../mixpanel.service";
 
-
 @Component({
   selector: "sell-nft-modal",
   templateUrl: "./sell-nft-modal.component.html",
@@ -44,6 +43,7 @@ export class SellNftModalComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.post);
     console.log(this.selectedBidEntries);
+    console.log(this.nftEntries);
     this.sellingPrice = _.sumBy(this.selectedBidEntries, "BidAmountNanos") / 1e9;
     const coinRoyaltyBasisPoints = this.post.NFTRoyaltyToCoinBasisPoints;
     const creatorRoyaltyBasisPoints = this.post.NFTRoyaltyToCreatorBasisPoints;
@@ -107,24 +107,24 @@ export class SellNftModalComponent implements OnInit {
         this.sellNFTDisabled = false;
         this.sellingNFT = false;
       });
-      this.selectedBidEntries.forEach((bid) => {
-        this.mixPanel.track47("Accept NFT Bid", {
-          "Buyer": bid.ProfileEntryResponse?.PublicKeyBase58Check,
-          "Serial number": bid.SerialNumber,
-          "Price in DeSo": this.sellingPrice,
-          "Post Body": this.post.Body,
-          "Seller": this.post.PosterPublicKeyBase58Check,
-          "Creator royalty": this.post.NFTRoyaltyToCreatorBasisPoints /100,
-          "CC royalty": this.post.NFTRoyaltyToCoinBasisPoints /100,
-          "Diamonds": this.post.DiamondCount,
-          "Category": this.post.PostExtraData.category,
-          "Post": this.post.PostExtraData.name,
-          "Post hex": this.post.PostHashHex,
-          "Properties": this.post.PostExtraData.properties,
-          "Likes": this.post.LikeCount,
-          "Comments": this.post.CommentCount,
-        })
-      })
+    this.selectedBidEntries.forEach((bid) => {
+      this.mixPanel.track47("Accept NFT Bid", {
+        Buyer: bid.ProfileEntryResponse?.PublicKeyBase58Check,
+        "Serial number": bid.SerialNumber,
+        "Price in DeSo": this.sellingPrice,
+        "Post Body": this.post.Body,
+        Seller: this.post.PosterPublicKeyBase58Check,
+        "Creator royalty": this.post.NFTRoyaltyToCreatorBasisPoints / 100,
+        "CC royalty": this.post.NFTRoyaltyToCoinBasisPoints / 100,
+        Diamonds: this.post.DiamondCount,
+        Category: this.post.PostExtraData.category,
+        Post: this.post.PostExtraData.name,
+        "Post hex": this.post.PostHashHex,
+        Properties: this.post.PostExtraData.properties,
+        Likes: this.post.LikeCount,
+        Comments: this.post.CommentCount,
+      });
+    });
   }
   selectBidEntry(bidEntry: NFTBidEntryResponse): void {
     this.selectedBidEntries.forEach((bidEntry) => (bidEntry.selected = false));

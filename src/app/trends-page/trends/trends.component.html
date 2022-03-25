@@ -5,7 +5,7 @@
     [ngClass]="mobile ? 'mt-65px' : ''"
   >
     <h2 class="fs-24px font-weight-semiboldn" style="color: #222222" *ngIf="!mobile">Marketplace</h2>
-    <div class="marketplace-top-selections" [ngClass]="{ 'w-100': mobile }">
+    <div class="marketplace-top-selections-blockchain-selector" [ngClass]="{ 'w-100': mobile }">
       <div class="blockchain-selection-container mrk-grid-one">
         <button
           class="deso-marketplace-selector-container"
@@ -17,13 +17,15 @@
         </button>
         <button
           class="eth-marketplace-selector-container"
-          [ngClass]="{ 'deso-marketplace-active': !globalVars.desoMarketplace }"
+          [ngClass]="{ 'eth-marketplace-active': !globalVars.desoMarketplace }"
           (click)="updateEthMarketplaceStatus()"
         >
           <img src="/assets/eth/ethlogo.svg" class="eth-marketplace-logo" />
           <p class="eth-marketplace-text">Eth</p>
         </button>
       </div>
+    </div>
+    <div class="marketplace-top-selections" [ngClass]="{ 'w-100': mobile }">
       <div class="blockchain-select-container mrk-grid-one">
         <label>Blockchain</label>
         <select
@@ -50,12 +52,12 @@
       <div class="mrk_top_selector-two mrk-grid-two px-5px d-flex flex-row" *ngIf="!globalVars.desoMarketplace">
         <button
           class="selected"
-          (click)="setEthDisplayType()"
+          (click)="setDisplayType('Card')"
           [ngClass]="{ selected: globalVars.marketplaceViewTypeCard }"
         >
           <img src="/assets/icons/market_grid_type_card_icon.svg" alt="card icon" />
         </button>
-        <button (click)="setEthDisplayType()" [ngClass]="{ selected: !globalVars.marketplaceViewTypeCard }">
+        <button (click)="setDisplayType('Grid')" [ngClass]="{ selected: !globalVars.marketplaceViewTypeCard }">
           <img src="/assets/icons/market_grid_type_grid_icon.svg" alt="grid icon" />
         </button>
       </div>

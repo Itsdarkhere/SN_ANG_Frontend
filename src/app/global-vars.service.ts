@@ -460,6 +460,10 @@ export class GlobalVarsService {
           //   update onboardingcomplete status
           this.checkOnboardingCompleted();
 
+          //   this.isNullUsername = true;
+          //   this.isVerified = false;
+          //   this.isCreator = false;
+          //   this.isCollector = true;
           //   console.log(` -------------- isCreator true? ${this.isCreator}`);
           //   console.log(` -------------- isNullUsername true? ${this.isNullUsername}`);
           //   console.log(` -------------- isVerified false? ${this.isVerified}`);

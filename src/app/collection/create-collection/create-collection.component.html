@@ -82,8 +82,8 @@
           </div>
 
           <!-- Populated NFT Content -->
-          <div class="collection-selections-main-content">
-            <div class="collection-selections-user-nfts" *ngIf="isLoading == false">
+          <div class="collection-selections-main-content disable-scrollbars">
+            <div class="nfts-card-list-create-collection disable-scrollbars" *ngIf="isLoading == false">
               <span *ngFor="let post of postData" class="single-nft-container m-10px">
                 <button class="select-nft-button" (click)="selectNFT(post)" [disabled]="post.disabled">
                   <div *ngIf="!post.disabled" class="checkbox-container" [ngClass]="{ selected: post.selected }"></div>

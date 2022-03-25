@@ -72,6 +72,8 @@ export class GeneralSuccessModalComponent implements OnInit {
     // pass this.globalVars.imxWalletAddress into postgres function to associate with DESO public key this.globalVars.loggedInUser.PublicKeyBase58Check
     // for example, fetch(https://supernovas.app/api/updateDesoProfile, body)
     // body = {"desoPublicKey": "this.globalVars.loggedInUser.PublicKeyBase58Check", "imxWalletAddress": "this.globalVars.imxWalletAddress"}
+
+    localStorage.setItem("firstTimeEthWalletConnection", "true");
   }
 
   addIMXPublicKeyToProfileDetails() {

@@ -18,7 +18,11 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   static GLOBAL_TAB = "Supernovas Feed";
   static FOLLOWING_TAB = "Following";
   static HOT_TAB = "Hot on Deso";
-  static TABS = [FeedComponent.GLOBAL_TAB, FeedComponent.FOLLOWING_TAB];
+  static GLOBAL_TAB_ICON = "/assets/icons/feed_sn_icon.png";
+  static FOLLOWING_TAB_ICON = "/assets/icons/feed_following_icon.svg";
+  static HOT_TAB_ICON = "/assets/icons/hot_feed_icon.svg";
+  static TABS = [FeedComponent.GLOBAL_TAB, FeedComponent.HOT_TAB, FeedComponent.FOLLOWING_TAB];
+  static ICONS = [FeedComponent.GLOBAL_TAB_ICON, FeedComponent.HOT_TAB_ICON, FeedComponent.FOLLOWING_TAB_ICON];
   static NUM_TO_FETCH = 30;
   static MIN_FOLLOWING_TO_SHOW_FOLLOW_FEED_BY_DEFAULT = 10;
   static PULL_TO_REFRESH_MARKER_ID = "pull-to-refresh-marker";
@@ -71,6 +75,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   // So if user1 is following folks, and we switch to user2 who isn't following anyone,
   // the empty follow feed will be the first tab (which is incorrect) and
   feedTabs = [];
+  iconTabs = [];
 
   constructor(
     private appData: GlobalVarsService,
@@ -548,8 +553,10 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
     if (this.globalVars.loggedInUser) {
       this.feedTabs = [FeedComponent.FOLLOWING_TAB, FeedComponent.GLOBAL_TAB, FeedComponent.HOT_TAB];
+      this.iconTabs = [FeedComponent.FOLLOWING_TAB_ICON, FeedComponent.GLOBAL_TAB_ICON, FeedComponent.HOT_TAB_ICON]
     } else {
       this.feedTabs = [FeedComponent.GLOBAL_TAB, FeedComponent.HOT_TAB];
+      this.iconTabs = [FeedComponent.GLOBAL_TAB_ICON, FeedComponent.HOT_TAB_ICON];
     }
 
     if (!this.activeTab) {

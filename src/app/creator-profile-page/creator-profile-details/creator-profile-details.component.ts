@@ -36,6 +36,15 @@ export class CreatorProfileDetailsComponent implements OnInit {
     Collections: "collections",
   };
 
+  tab_selector_tabs = ["Posts", "Created", "Collected", "Creator Coin"];
+  tab_selector_icons = [
+    "/assets/icons/profile_posts_icon.svg",
+    "/assets/icons/profile_created_icon.svg",
+    "/assets/icons/profile_collected_icon.svg",
+    "/assets/icons/profile_cc_icon.svg",
+  ];
+  // "Collections",
+  //  "/assets/icons/profile_collections_icon.svg",
   appData: GlobalVarsService;
   userName: string;
   profile: ProfileEntryResponse;
@@ -180,7 +189,6 @@ export class CreatorProfileDetailsComponent implements OnInit {
 
   _refreshContent() {
     if (this.loading) {
-      console.log("loading");
       return;
     }
 
@@ -197,10 +205,10 @@ export class CreatorProfileDetailsComponent implements OnInit {
           this.router.navigateByUrl("/" + this.appData.RouteNames.NOT_FOUND, { skipLocationChange: true });
           return;
         }
-        console.log(res);
         this.profile = res.Profile;
         // Load profile until request has gone trough
         this.getProfileSocialsBackendApiCall();
+        this.checkIfAddCollections();
         try {
           this.getBannerImage().catch(() => console.log("Error"));
         } catch (error) {
@@ -212,7 +220,23 @@ export class CreatorProfileDetailsComponent implements OnInit {
       }
     );
   }
-
+  allowedPKs = [
+    "BC1YLi2CCqL4ptq9zBZP9XFSJfrupjvNwFHQu4g5Nc6y5WckhSZWmNm",
+    "BC1YLhocSA7zKnroJGSCxDLm8aueLpvmKHTUUPa9PmsEY8rxTkGqiG8",
+    "BC1YLhTgAHqJJLwD84GAeu3G6wm2miK1enixN7cCVMYWR97kfiRGrM3",
+    "BC1YLgBZL9X2GsE4WVNAaQcS6mEyDdAh5Jq4RkJ7aA8uM4DZuwzBsth",
+    "BC1YLieqjbv3UpApWUgstoXMZJKBwsQhDRfRoSPKq1opA7mc4hvjvEN",
+    "BC1YLiuQcvSqFzRUaoSChucEXWSrj68Kmaepnbj7iQfo7eFzpBFVYJ2",
+    "BC1YLiJziwbto5Loxdgq72wpJdAxqK5NU8ngoxGrVF14jt5h5k8uRTV",
+  ];
+  checkIfAddCollections() {
+    if (this.profile?.PublicKeyBase58Check == this.globalVars?.loggedInUser?.PublicKeyBase58Check) {
+      if (this.allowedPKs.includes(this.profile?.PublicKeyBase58Check)) {
+        this.tab_selector_icons.push("/assets/icons/profile_collections_icon.svg");
+        this.tab_selector_tabs.push("Collections");
+      }
+    }
+  }
   // first get photo ID from db, then get photo from storage
   // This version gets it straight from user publickey, so dont need to make an extra roundtrip to db
   async getBannerImage() {

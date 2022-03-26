@@ -17,14 +17,8 @@
       <!-- Feed Selector -->
       <div class="profile-tab-selector-wrapper">
         <tab-selector
-          [tabs]="['Posts', 'Created', 'Collected', 'Collections', 'Creator Coin']"
-          [icons]="[
-            '/assets/icons/profile_posts_icon.svg',
-            '/assets/icons/profile_created_icon.svg',
-            '/assets/icons/profile_collected_icon.svg',
-            '/assets/icons/profile_collected_icon.svg',
-            '/assets/icons/profile_cc_icon.svg'
-          ]"
+          [tabs]="tab_selector_tabs"
+          [icons]="tab_selector_icons"
           [activeTab]="activeTab"
           (tabClick)="_handleTabClick($event)"
         ></tab-selector>

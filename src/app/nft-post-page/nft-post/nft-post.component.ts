@@ -101,18 +101,17 @@ export class NftPostComponent implements OnInit {
   static THREAD = "Bids";
   static DETAILS = "Details";
   static COMMENTS = "Comments";
+  static OWNERS_ICON = "/assets/icons/nft_provenance_icon.svg";
+  static THREAD_ICON = "/assets/icons/nft_bids_icon.svg";
+  static DETAILS_ICON = "/assets/icons/nft_details_icon.svg";
+  static COMMENTS_ICON = "/assets/icons/nft_bids_icon.svg";
 
-  tabs = [
-    NftPostComponent.THREAD,
-    NftPostComponent.MY_BIDS,
-    //NftPostComponent.MY_AUCTIONS,
-    NftPostComponent.OWNERS,
-    NftPostComponent.DETAILS,
-  ];
+  tabs = [NftPostComponent.THREAD, NftPostComponent.MY_BIDS, NftPostComponent.OWNERS, NftPostComponent.DETAILS];
   icons = [
-    "/assets/icons/nft_bids_icon.svg",
-    "/assets/icons/nft_provenance_icon.svg",
-    "/assets/icons/nft_details_icon.svg",
+    NftPostComponent.THREAD_ICON,
+    NftPostComponent.THREAD_ICON,
+    NftPostComponent.DETAILS_ICON,
+    NftPostComponent.DETAILS_ICON,
   ];
   isMobile = false;
   constructor(
@@ -138,12 +137,11 @@ export class NftPostComponent implements OnInit {
   ngOnInit() {
     if (this.globalVars.isMobile()) {
       this.isMobile = true;
-      this.tabs.push("Comments");
-      this.icons.push("/assets/icons/nft_bids_icon.svg");
+      this.tabs.push(NftPostComponent.COMMENTS);
+      this.icons.push(NftPostComponent.COMMENTS_ICON);
     } else {
       // WIP
       this.isMobile = false;
-      this.tabs = this.tabs.filter((t) => t !== "Comments");
     }
   }
   logString() {

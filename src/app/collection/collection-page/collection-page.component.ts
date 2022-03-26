@@ -54,11 +54,9 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
   sortCollection(status: string, marketType: string, orderByType: string, offset: number, loadMore: boolean) {
-    console.log("SORT collection failed");
     if (!loadMore) {
       this.globalVars.collectionNFTsLoading = true;
     }
-    console.log("SORT COLLECTION STEP 3");
     this.backendApi
       .SortCollection(
         this.globalVars.localNode,
@@ -73,13 +71,12 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
       .subscribe(
         (res) => {
           if (!loadMore) {
-            console.log("Response");
-            console.log(res);
             this.collectionNFTs = res?.PostEntryResponse;
             if (res.CollectionBannerLocation) {
               this.collectionBannerLocation = res?.CollectionBannerLocation;
               this.collectionProfilePicLocation = res?.CollectionProfilePicLocation;
               this.collectionDescription = res?.CollectionDescription;
+              this.setBannerAndProfileImage();
             }
             this.globalVars.collectionNFTsLoading = false;
 
@@ -87,19 +84,22 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
               this.collectionCreatorPK = this.collectionNFTs[0]?.PosterPublicKeyBase58Check;
             }
           } else if (res?.PostEntryResponse?.length > 0) {
-            console.log("Response");
-            console.log(res);
             this.collectionNFTs = this.collectionNFTs.concat(res?.PostEntryResponse);
             this.globalVars.collectionNFTsLoading = false;
-          } else {
-            console.log(res);
           }
         },
         (err) => {
-          console.log("ERROR");
           console.log(err);
           this.globalVars.collectionNFTsLoading = false;
         }
       );
+  }
+  setBannerAndProfileImage() {
+    if (this.collectionBannerLocation != "") {
+      document.getElementById("collection-banner").setAttribute("src", this.collectionBannerLocation);
+    }
+    if (this.collectionProfilePicLocation != "") {
+      document.getElementById("collection-pp").setAttribute("src", this.collectionProfilePicLocation);
+    }
   }
 }

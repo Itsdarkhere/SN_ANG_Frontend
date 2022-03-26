@@ -35,7 +35,7 @@ export class CollectionPageHeaderComponent implements OnChanges {
     );
   }
   mapImageURLs1(imgURL: string): string {
-    return imgURL
+    return imgURL;
     if (imgURL && imgURL.startsWith("https://arweave.net/")) {
       // Build cloudflare imageString
       imgURL = "https://supernovas.app/cdn-cgi/image/width=1250,height=300,fit=cover,quality=85/" + imgURL;

@@ -9,7 +9,7 @@ git sssclone https://gitlab.com/love4src/frontend.git
 - Setup hosts mapping
 
 ```
-sudo nano /etc/hosts
+sudo nano /etc/hostss
 
 # Add 127.0.0.1 dev.love4src.com
 

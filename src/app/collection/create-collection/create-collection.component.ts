@@ -83,14 +83,14 @@ export class CreateCollectionComponent implements OnInit {
   }
 
   checkCollectionName() {
-    const alphaOnlyPattern = new RegExp("^[a-zA-Z]+$");
+    const alphaOnlyPattern = new RegExp("^[a-zA-Z0-9\\s]+$");
     if (this.collectionName == "") {
       this.collectionNameError = "Collection must have a name.";
       this.collectionNameHasError = true;
       return;
     }
     if (!alphaOnlyPattern.test(this.collectionName)) {
-      this.collectionNameError = "Collection name must be A-Z only with no spaces.";
+      this.collectionNameError = "Collection name must be A-Z & 0-9 only.";
       this.collectionNameHasError = true;
       return;
     }

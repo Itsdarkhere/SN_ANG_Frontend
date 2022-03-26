@@ -214,6 +214,7 @@ export class GlobalVarsService {
   nftsEndIndex = 20;
   // Collection page
   collectionNFTsLoading = true;
+  collectionOffset = 0;
 
   messageResponse = null;
   messageMeta = {

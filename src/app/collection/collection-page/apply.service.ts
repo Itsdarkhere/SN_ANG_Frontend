@@ -9,13 +9,12 @@ export class ApplyService {
   marketType = "all";
   status = "all";
   orderByType = "most recent first";
-  offset = 0;
 
   private sortSource = new BehaviorSubject({
     marketType: this.marketType,
     status: this.status,
     orderByType: this.orderByType,
-    offset: this.offset,
+    offset: this.globalVars.collectionOffset,
     loadMore: false,
   });
   currentSort = this.sortSource.asObservable();
@@ -26,13 +25,13 @@ export class ApplyService {
     this.status = status;
     this.marketType = marketType;
     // Offset back to 0
-    this.offset = 0;
+    this.globalVars.collectionOffset = 0;
     // Apply
     this.sortSource.next({
       marketType: this.marketType,
       status: this.status,
       orderByType: this.orderByType,
-      offset: this.offset,
+      offset: this.globalVars.collectionOffset,
       loadMore: false,
     });
   }
@@ -40,13 +39,13 @@ export class ApplyService {
     if (this.orderByType != orderByType) {
       this.orderByType = orderByType;
       // Offset back to 0
-      this.offset = 0;
+      this.globalVars.collectionOffset = 0;
       // Apply
       this.sortSource.next({
         marketType: this.marketType,
         status: this.status,
         orderByType: this.orderByType,
-        offset: this.offset,
+        offset: this.globalVars.collectionOffset,
         loadMore: false,
       });
     }
@@ -56,13 +55,12 @@ export class ApplyService {
     if (this.globalVars.collectionNFTsLoading) {
       return;
     }
-    this.offset = this.offset + 30;
-    console.log("ONSCROLL: " + this.offset);
+    this.globalVars.collectionOffset = this.globalVars.collectionOffset + 30;
     this.sortSource.next({
       marketType: this.marketType,
       status: this.status,
       orderByType: this.orderByType,
-      offset: this.offset,
+      offset: this.globalVars.collectionOffset,
       loadMore: true,
     });
   }

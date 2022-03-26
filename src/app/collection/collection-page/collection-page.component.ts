@@ -96,10 +96,28 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   }
   setBannerAndProfileImage() {
     if (this.collectionBannerLocation != "") {
-      document.getElementById("collection-banner").setAttribute("src", this.collectionBannerLocation);
+      document
+        .getElementById("collection-banner")
+        .setAttribute("src", this.mapImageURLs1(this.collectionBannerLocation));
     }
     if (this.collectionProfilePicLocation != "") {
-      document.getElementById("collection-pp").setAttribute("src", this.collectionProfilePicLocation);
+      document
+        .getElementById("collection-pp")
+        .setAttribute("src", this.mapImageURLs2(this.collectionProfilePicLocation));
     }
+  }
+  mapImageURLs1(imgURL: string): string {
+    if (imgURL && imgURL.startsWith("https://arweave.net/")) {
+      // Build cloudflare imageString
+      imgURL = "https://supernovas.app/cdn-cgi/image/width=1250,height=300,fit=cover,quality=85/" + imgURL;
+    }
+    return imgURL;
+  }
+  mapImageURLs2(imgURL: string): string {
+    if (imgURL && imgURL.startsWith("https://arweave.net/")) {
+      // Build cloudflare imageString
+      imgURL = "https://supernovas.app/cdn-cgi/image/width=200,height=200,fit=scale-down,quality=85/" + imgURL;
+    }
+    return imgURL;
   }
 }

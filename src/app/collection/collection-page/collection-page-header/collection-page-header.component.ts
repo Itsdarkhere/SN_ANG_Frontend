@@ -8,8 +8,6 @@ import { GlobalVarsService } from "src/app/global-vars.service";
   styleUrls: ["./collection-page-header.component.scss"],
 })
 export class CollectionPageHeaderComponent implements OnChanges {
-  @Input() collectionBannerLocation: string;
-  @Input() collectionProfilePicLocation: string;
   @Input() collectionCreatorPK: string;
   @Input() collectionName: string;
   @Input() collectionCreator: string;
@@ -33,21 +31,6 @@ export class CollectionPageHeaderComponent implements OnChanges {
         console.log(err);
       }
     );
-  }
-  mapImageURLs1(imgURL: string): string {
-    return imgURL;
-    if (imgURL && imgURL.startsWith("https://arweave.net/")) {
-      // Build cloudflare imageString
-      imgURL = "https://supernovas.app/cdn-cgi/image/width=1250,height=300,fit=cover,quality=85/" + imgURL;
-    }
-    return imgURL;
-  }
-  mapImageURLs2(imgURL: string): string {
-    if (imgURL && imgURL.startsWith("https://arweave.net/")) {
-      // Build cloudflare imageString
-      imgURL = "https://supernovas.app/cdn-cgi/image/width=200,height=200,fit=scale-down,quality=85/" + imgURL;
-    }
-    return imgURL;
   }
 }
 class collectionInfoResponse {

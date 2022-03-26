@@ -52,6 +52,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.globalVars.collectionOffset = 0;
   }
   sortCollection(status: string, marketType: string, orderByType: string, offset: number, loadMore: boolean) {
     if (!loadMore) {

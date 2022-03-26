@@ -41,10 +41,10 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
       this.collectionName = params.collection;
       this.titleService.setTitle(`${this.collectionName} collection`);
       // Load data here
-      this.subscription = this.applyService.currentSort.subscribe((object) =>
-        this.sortCollection(object.status, object.marketType, object.orderByType, object.offset, object.loadMore)
-      );
     });
+    this.subscription = this.applyService.currentSort.subscribe((object) =>
+      this.sortCollection(object.status, object.marketType, object.orderByType, object.offset, object.loadMore)
+    );
   }
 
   ngOnInit(): void {
@@ -54,9 +54,11 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
   sortCollection(status: string, marketType: string, orderByType: string, offset: number, loadMore: boolean) {
+    console.log("SORT collection failed");
     if (!loadMore) {
       this.globalVars.collectionNFTsLoading = true;
     }
+    console.log("SORT COLLECTION STEP 3");
     this.backendApi
       .SortCollection(
         this.globalVars.localNode,
@@ -71,6 +73,7 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
       .subscribe(
         (res) => {
           if (!loadMore) {
+            console.log("Response");
             console.log(res);
             this.collectionNFTs = res?.PostEntryResponse;
             if (res.CollectionBannerLocation) {
@@ -83,12 +86,17 @@ export class CollectionPageComponent implements OnInit, OnDestroy {
             if (this.collectionNFTs) {
               this.collectionCreatorPK = this.collectionNFTs[0]?.PosterPublicKeyBase58Check;
             }
-          } else if (res?.PostEntryResponse?.lenght > 0) {
+          } else if (res?.PostEntryResponse?.length > 0) {
+            console.log("Response");
+            console.log(res);
             this.collectionNFTs = this.collectionNFTs.concat(res?.PostEntryResponse);
             this.globalVars.collectionNFTsLoading = false;
+          } else {
+            console.log(res);
           }
         },
         (err) => {
+          console.log("ERROR");
           console.log(err);
           this.globalVars.collectionNFTsLoading = false;
         }

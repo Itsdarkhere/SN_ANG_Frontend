@@ -82,12 +82,7 @@ export class AddToCollectionComponent implements OnInit {
   selectCollection(collectionName: string) {
     const alphaOnlyPattern = new RegExp("^[a-zA-Z]+$");
     if (collectionName == "") {
-      this.collectionNameError = "Collection must have a name.";
-      this.collectionNameHasError = true;
-      return;
-    }
-    if (!alphaOnlyPattern.test(collectionName)) {
-      this.collectionNameError = "Collection name must be A-Z only with no spaces.";
+      this.collectionNameError = "Field cannot be empty.";
       this.collectionNameHasError = true;
       return;
     }
@@ -228,20 +223,23 @@ export class AddToCollectionComponent implements OnInit {
     this.selectedPosts.forEach((post) => {
       hashHexArr.push(post.PostHashHex);
     });
+    console.log(hashHexArr);
     this.backendApi
       .AddToCollection(
         this.globalVars.localNode,
         hashHexArr,
         this.globalVars.loggedInUser.ProfileEntryResponse.Username.toLowerCase(),
-        this.collectionName.toLowerCase()
+        this.collectionName
       )
       .subscribe(
         (res) => {
+          console.log(res);
           this.createCollectionError = JSON.stringify(res);
           this.creatingCollection = false;
           this.nextSuccessOrError(true);
         },
         (error) => {
+          console.log(error);
           this.creatingCollection = false;
           this.nextSuccessOrError(false);
         }

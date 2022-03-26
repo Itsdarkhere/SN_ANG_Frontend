@@ -18,6 +18,24 @@
         flex: 3;
     }
 }
+.empty-collection {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    div {
+        margin-top: 5px;
+        padding: 20px;
+        width: 500px;
+        min-height: 75px;
+        max-width: 100%;
+        border-radius: 20px;
+        background-color: var(--border);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
 .card {
     width: 90%;
     padding: 1rem;

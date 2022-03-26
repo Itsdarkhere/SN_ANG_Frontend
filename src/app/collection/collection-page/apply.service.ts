@@ -57,6 +57,7 @@ export class ApplyService {
       return;
     }
     this.offset = this.offset + 30;
+    console.log("ONSCROLL: " + this.offset);
     this.sortSource.next({
       marketType: this.marketType,
       status: this.status,

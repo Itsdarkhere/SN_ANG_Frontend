@@ -17,6 +17,7 @@
       [infiniteScrollDistance]="4"
       [infiniteScrollThrottle]="150"
       (scrolled)="onScrollNFTs()"
+      *ngIf="collectionNFTs; else elseBlock"
     >
       <div class="nfts-card-list-collection">
         <!--[ngClass]="globalVars.marketplaceViewTypeCard ? 'nft-col-wrap' : 'small-nft-col-wrap'"-->
@@ -43,5 +44,14 @@
         </div>
       </div>
     </div>
+    <ng-template #elseBlock>
+      <div class="empty-collection">
+        <div>
+          <label class="mb-0px font-weight-semibold text-align-center">
+            There are no NFTs in the collection using the current sort
+          </label>
+        </div>
+      </div>
+    </ng-template>
   </div>
 </div>

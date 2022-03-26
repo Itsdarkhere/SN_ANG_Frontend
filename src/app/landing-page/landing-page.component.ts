@@ -7,7 +7,6 @@ import { AnimationItem } from "lottie-web";
 import { AnimationOptions } from "ngx-lottie";
 import { MixpanelService } from "../mixpanel.service";
 
-
 @Component({
   selector: "app-landing-page",
   templateUrl: "./landing-page.component.html",
@@ -52,7 +51,6 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   ape = "https://arweave.net/py_Ob9-Je5TuwKeOmNEbKyvF6ky7hdWQfm19BDVC4TM";
   punk = "https://arweave.net/8k3gYK7bi3rr6RsMzalTgbn0u5HLV_qTs972AtR6bhA";
   ethpolice = "https://arweave.net/T7Warjv0kFhECEAeW-mlTz-ZDyeNFDkDGkOA_K9Izdg";
-
 
   dao: AnimationOptions = {
     path: "https://assets5.lottiefiles.com/packages/lf20_fbmcwfmt.json",
@@ -143,8 +141,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
       likes: "236",
     },
   ];
-  constructor(public globalVars: GlobalVarsService, private router: Router, private mixPanel: MixpanelService,
-    ) {}
+  constructor(public globalVars: GlobalVarsService, private router: Router, private mixPanel: MixpanelService) {}
 
   // Scroll effects
   @HostListener("window:resize") onResize() {
@@ -210,20 +207,18 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
     if (!this.globalVars.showLandingPage()) {
       //this.router.navigate(["/" + this.globalVars.RouteNames.BROWSE], { queryParamsHandling: "merge" });
     }
-    this.mixPanel.track3("Landing page viewed")
+    this.mixPanel.track3("Landing page viewed");
   }
   getLogoBackground() {
     return `url("${environment.node.logoAssetDir}camelcase_logo.svg")`;
   }
   launchLogin() {
     this.router.navigate(["/" + this.globalVars.RouteNames.SIGNUP]);
-    this.mixPanel.track38("Landing page - login clicked")
-
+    this.mixPanel.track38("Landing page - login clicked");
   }
   launchSignUp() {
     this.router.navigate(["/" + this.globalVars.RouteNames.SIGNUP]);
-    this.mixPanel.track39("Landing page - Signup clicked")
-
+    this.mixPanel.track39("Landing page - Signup clicked");
   }
   animationCreated(animationItem: AnimationItem): void {
     console.log(animationItem);

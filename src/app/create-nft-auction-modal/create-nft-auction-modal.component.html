@@ -1,4 +1,5 @@
-<div app-theme class="nft-modal-container puton_sell p-15px">
+<!-- deso nft -->
+<div app-theme class="nft-modal-container puton_sell p-15px" *ngIf="!isEthNFT">
   <nft-modal-header [header]="'Put for sale'" [bsModalRef]="bsModalRef"></nft-modal-header>
   <div class="fs-15px nft_para text-center text-grey5">Relist the NFT for sale on Deso blockchain.</div>
   <!-- Pricing -->
@@ -58,4 +59,51 @@
   </div>
 
   <simple-center-loader *ngIf="loading"></simple-center-loader>
+</div>
+
+<!-- eth nft -->
+<div app-theme class="nft-modal-container puton_sell p-15px" *ngIf="isEthNFT && !createEthNFTSuccess">
+  <nft-modal-header [header]="'Put for sale'" [bsModalRef]="bsModalRef"></nft-modal-header>
+  <div class="fs-15px nft_para text-center text-grey5">Relist the NFT for sale on Immutable X.</div>
+  <!-- Pricing -->
+
+  <div class="page-place-a-bid">
+    <div class="popup-body">
+      <div class="input-with-button bid_bg_blk_inp">
+        <div class="plc_bid_inp_wp">
+          <input
+            [(ngModel)]="sellingPriceETH"
+            (ngModelChange)="updateSellingPriceETH($event)"
+            aria-describedby="usd-label"
+            class="form-control fs-15px text-right d-inline-block"
+            type="number"
+            min="0"
+            placeholder="0.00"
+            [disabled]="creatingAuction"
+          />
+          <button class="btn btn-black bid_deso_btn">
+            <i><img src="assets/eth/ethlogo-white.svg" class="ethlogo-white" alt="" /></i>
+            ETH
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column align-items-center">
+    <button class="pop_singl_btn sellEthNFTButton" (click)="sellEthNFT()">Sell your NFT</button>
+  </div>
+
+  <simple-center-loader *ngIf="loading"></simple-center-loader>
+</div>
+
+<div app-theme class="nft-modal-container puton_sell p-15px" *ngIf="isEthNFT && createEthNFTSuccess">
+  <div class="flex-container-column">
+    <img src="../../assets/img/buy-now-success.png" class="buy-now-success-img" />
+    <p class="buy-now-success-header">Congratulations!</p>
+    <p class="buy-now-success-text">You have put your Ethereum NFT up for sale</p>
+    <button class="btn blk_line_btn with_ico big buy_now_btn close_window_btn" (click)="closeEthSaleSuccess()">
+      Close this window
+    </button>
+  </div>
 </div>

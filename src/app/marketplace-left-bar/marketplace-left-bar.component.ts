@@ -45,8 +45,8 @@ export class MarketplaceLeftBarComponent implements OnInit {
   priceRangeIncorrect = false;
   // Last sort values, keep last sort values in memory to compare them to current values
   // This is to enable / disable the apply button accordingly
-  lastSortLowPrice = 0;
-  lastSortHighPrice = 0;
+  lastSortLowPrice = undefined;
+  lastSortHighPrice = undefined;
   lastSortContentFormatAll = true;
   lastSortContentFormatVideo = false;
   lastSortContentFormatMusic = false;
@@ -60,6 +60,8 @@ export class MarketplaceLeftBarComponent implements OnInit {
   lastSortStatusHasBids = false;
   lastSortStatusSold = false;
   lastSortCategory = "all";
+
+  undefinedCheck = undefined;
   // If Apply button is disabled or allowed
   canUserSort = false;
 
@@ -79,6 +81,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
     this.creatorsClick(this.globalVars.marketplaceVerifiedCreators);
     this.formatClick(this.globalVars.marketplaceContentFormat);
     this.categorySelectChange(this.globalVars.marketplaceNFTCategory);
+    this.setFunction();
     this.mixPanel.track18("Marketplace Viewed");
   }
   // Input validation
@@ -126,6 +129,7 @@ export class MarketplaceLeftBarComponent implements OnInit {
     this.globalVars.marketplaceHighPriceNanos = 0;
     this.globalVars.marketplaceHighPriceUSD = 0;
     this.globalVars.marketplaceHighPriceUSD = 0;
+    this.canSort();
   }
 
   categoryAndFormatToBaseState() {
@@ -443,6 +447,9 @@ export class MarketplaceLeftBarComponent implements OnInit {
   canSort() {
     // If price is different from last sort
     if (this.lastSortLowPrice != this.lowPrice || this.lastSortHighPrice != this.highPrice) {
+      console.log(this.lowPrice);
+      console.log(this.highPrice);
+
       this.canUserSort = true;
       // If market is different from last sort
     } else if (
@@ -478,21 +485,48 @@ export class MarketplaceLeftBarComponent implements OnInit {
       this.canUserSort = false;
     }
   }
-  // Functionpass service is made to pass this argument
-  apply() {
-    this.globalVars.isMarketplaceLoading = true;
+  setFunction() {
     this.setPriceRangeInNanos();
     this.setMarketType();
     this.setCategory();
     this.setContentFormat();
     this.setStatus();
     this.setCreatorType();
-    this.onFilter.emit("sort");
-    this.functionPass.filter("sort");
-    this.canUserSort = false;
-    setTimeout(() => {
-      this.globalVars.isMarketplaceLeftBarMobileOpen = false;
-    }, 200);
+
+    this.canSort();
+  }
+  // Functionpass service is made to pass this argument
+  apply() {
+    if (this.globalVars.desoMarketplace) {
+      this.globalVars.isMarketplaceLoading = true;
+      this.setPriceRangeInNanos();
+      this.setMarketType();
+      this.setCategory();
+      this.setContentFormat();
+      this.setStatus();
+      this.setCreatorType();
+      this.onFilter.emit("sort");
+      this.functionPass.filter("sort");
+      this.canUserSort = false;
+      setTimeout(() => {
+        this.globalVars.isMarketplaceLeftBarMobileOpen = false;
+      }, 200);
+    } else {
+      this.globalVars.isMarketplaceLoading = true;
+      this.setCategory();
+      this.setStatus();
+      this.canUserSort = false;
+
+      console.log(this.globalVars.ethMarketplaceStatus);
+
+      if (this.globalVars.ethMarketplaceStatus === "all" || this.globalVars.ethMarketplaceStatus === "for sale") {
+        this.globalVars.getEthNFTsByFilter();
+      }
+
+      setTimeout(() => {
+        this.globalVars.isMarketplaceLeftBarMobileOpen = false;
+      }, 200);
+    }
   }
   closeMenu() {
     this.functionPass.filter("close");

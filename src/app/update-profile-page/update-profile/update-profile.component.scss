@@ -66,6 +66,7 @@ input[type="number"] {
   border: 0.9521816372871399px solid #fbfbfb;
   border-radius: 14.282723426818848px;
   box-shadow: 1px 1.5199999809265137px 7.619999885559082px rgba(0, 0, 0, 0.11);
+  margin-top: 20px;
 }
 .contactsAccordion {
   height: 0px;
@@ -251,15 +252,12 @@ input[type="number"] {
 .update-profile-get-starter-deso-container {
   height: calc(var(--pixelHeight) - 165px);
   margin-top: 30px;
+  @media screen and (max-width: 992px) {
+    margin-top: 65px;
+  }
 }
 
 .settings-text-mobile {
   margin-top: 50px;
 }
 
-// iphone 13 pro and above
-@media screen and (max-width: 480px) {
-  .update-profile-get-starter-deso-container {
-    margin-top: 0px;
-  }
-}

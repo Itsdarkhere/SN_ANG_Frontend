@@ -136,6 +136,10 @@ html {
   background-color: var(--secondary);
   border: 1px solid #cacaca;
   border-radius: 7.037036895751953px;
+  label {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 }
 
 @media (max-width: 1000px) {
@@ -413,7 +417,6 @@ $green-font-color: #19b028;
 .w-45 {
   width: 45%;
 }
-
 .w-47_5 {
   width: 47.5%;
 }
@@ -701,8 +704,17 @@ $green-font-color: #19b028;
   border-color: $buy-button-blue;
 }
 
+//TODO
+
 .tab-underline-active {
   border-bottom: solid $buy-button-blue 3px;
+}
+
+.tab-box-active {
+    background-color: white;
+    /* padding: 58px; */
+    border-radius: 5em;
+    margin: 4px;
 }
 
 .tab-underline-inactive {
@@ -1333,9 +1345,15 @@ $green-font-color: #19b028;
   align-items: stretch;
   margin: 0;
   padding: 0;
-  padding-left: 7%;
+  padding-left: clamp(90px, 7%, 7%);
   padding-right: 7%;
   padding-top: 77px;
+}
+.global__desktop.nft_profile {
+  padding-right: 0;
+  @media screen and (min-width: 1450px) {
+    padding-right: 7%;
+  }
 }
 
 .feed-post__video {
@@ -1491,6 +1509,7 @@ input.bs-timepicker-field {
 .disable-scrollbars::-webkit-scrollbar {
   width: 0px;
   background: transparent;
+  display: none;
   /* Chrome/Safari/Webkit */
 }
 
@@ -1520,6 +1539,7 @@ input.bs-timepicker-field {
 
 .global__nav__fixed {
   top: 77px;
+  left: 10px;
   position: fixed;
   @media (max-width: 900px) {
     top: 0;
@@ -1571,6 +1591,11 @@ input.bs-timepicker-field {
   padding-left: 20px;
   margin-bottom: 0;
 }
+/*
+  display: flex;
+  justify-content: center;
+  align-items: center;
+*/
 .marketplace-flyout-checkbox-label {
   display: flex;
   justify-content: center;
@@ -1661,7 +1686,7 @@ input.bs-timepicker-field {
 .global__nav__sticky__marketplace {
   position: sticky;
   position: -webkit-sticky;
-  top: 90px;
+  top: 98px;
   left: calc((100vw - 1205px) / 2);
 }
 
@@ -1688,7 +1713,15 @@ input.bs-timepicker-field {
   max-height: calc(100vh - 170px);
   overflow-y: scroll;
 }
-
+.global__nav__inner__marketplace-eth {
+  width: 210px;
+  padding: 10px 17px 80px 17px;
+  background-color: #f9f9f9;
+  border-radius: 15px;
+  //height: 940px;
+  max-height: calc(100vh - 170px);
+  overflow-y: scroll;
+}
 // Set a fixed width on desktop
 .global__desktop .global__content__width {
   width: $global__content__width;
@@ -1816,16 +1849,28 @@ input.bs-timepicker-field {
 }
 
 .nav_close {
-  position: fixed;
+  position: absolute;
   right: 39px;
   bottom: 3.3vh;
-  width: 45px;
-  height: 45px;
   z-index: 999;
+  width: 76px;
+  height: 53px;
+  background: #ffffff;
+  border: 1.1521738767623901px solid #e2e2e2;
+  border-radius: 30px;
+  box-shadow: 4px 0px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:active {
+    transform: scale(0.9);
+    transition-duration: 0.2s;
+  }
 }
 // used in all nft widescreen feeds
 .mrk_top_selector-two {
   height: 52px;
+  width: max-content;
   background: #f5f5f5;
   border-radius: 7.531645774841309px;
   display: flex;
@@ -1844,6 +1889,7 @@ input.bs-timepicker-field {
     border: 0.8946940898895264px solid #ffffff;
   }
 }
+
 .nav_close_marketplace {
   width: 100%;
   height: 50px;
@@ -1859,36 +1905,24 @@ input.bs-timepicker-field {
   }
 }
 
-.background-gradient {
-  z-index: 100; // Needs to be higher than the bottom bar and staked posts.
-  position: fixed;
-  height: 65vh;
-  min-height: 650px;
-  bottom: -40px;
-  width: 100%;
-  max-width: 500px;
-  right: 0;
-  transform-origin: bottom;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 30px;
-  background: linear-gradient(125deg, #f3a83c 0%, #ec5454 20%, #f51ac1 35%, #265eeb 74%, #593eb7 99%) !important;
-}
-
 .nft-page-audio-cover-image {
   max-width: 80%;
   border-radius: 2.1255195140838623px;
 }
 .left-bar-mobile__flyout-div {
-  border-radius: 25px;
-  width: calc(100% - 10px);
-  height: calc(100% - 10px);
-  background-color: #ffffff;
-  padding-top: 5px;
+  z-index: 100; // Needs to be higher than the bottom bar and staked posts.
+  position: fixed;
+  height: 100vh;
+  bottom: 0px;
+  width: 100%;
+  max-width: 500px;
+  right: 0;
+  transform-origin: bottom;
+  background-color: #F6F6F6;
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  pointer-events: all;
 }
 
 .left-bar-mobile__flyout-div-marketplace {
@@ -2013,36 +2047,32 @@ input.bs-timepicker-field {
 }
 
 .feed-create-post__avatar.change-account-selector__account-image {
-  width: 24px;
-  height: 24px;
-  min-width: 24px;
-  margin-right: 10px;
-  border-radius: 23px;
-  border: 3px solid #fff;
-  box-shadow: 0px 0 5px rgb(0 0 0 / 20%);
-  @media (max-width: 676px) {
-    width: 34px;
-    height: 34px;
-  }
+  width: 35px;
+  height: 35px;
+  border: 2.6492977142333984px solid #ffffff;
+  border-radius: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .change-account-selector {
   position: relative;
   z-index: 30;
-  width: 100%;
-  padding-top: 15px;
-  border-radius: 6px;
-  padding-bottom: 15px;
-  border: 1px solid var(--border);
-  @media (max-width: 900px) {
-    border: 0;
-    padding-top: 0;
-    padding-left: 0;
+  width: 227px;
+  height: 50px;
+  background: #ffffff;
+  border: 1.4px solid #f8f8f8;
+  border-radius: 29px;
+  box-shadow: 0px 0.95px 11px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 4px solid #FFFFFF;
+  transition: all 0.2s;
+  &:hover {
+    transition: all 0.2s;
+    background-color: #ECECEC;
   }
-}
-
-.change-account-selector_list__inner {
-  border-bottom: 1px solid var(--border);
 }
 
 .change-account-selector__down-arrow {
@@ -2063,16 +2093,17 @@ input.bs-timepicker-field {
   width: 100%;
   z-index: 99;
   border: 1px solid var(--border);
-  overflow-y: scroll !important;
-  max-height: 300px;
 }
 
 .change-account-selector_list-item {
   overflow: hidden;
 }
-
+.change-account-selector_list__inner {
+  border-radius: 10px;
+  height: 48px;
+}
 .change-account-selector_list__inner:hover {
-  background-color: var(--formbg);
+  background: #ebebeb;
 }
 
 .change-account-selector__shadow {
@@ -2089,9 +2120,11 @@ input.bs-timepicker-field {
 
 .change-account-selector__acount-name {
   overflow: hidden;
-  @media (max-width: 676px) {
-    font-size: 15px;
-  }
+  color: rgba(27, 27, 27, 0.95);
+  font-weight: bold;
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 34px;
 }
 
 .change-account-selector__trash {
@@ -2155,7 +2188,6 @@ input.bs-timepicker-field {
 }
 
 .post-thread__comment-container {
-  border-top: 4px solid var(--secondary);
   flex-grow: 1;
 }
 
@@ -2237,7 +2269,7 @@ input.bs-timepicker-field {
   margin-top: 10px;
   margin-bottom: 5px;
 }
-
+// This has to be on top of cas-dropdown-menu
 .dropdown-menu {
   background-color: #ffffff;
   background: #ffffff;
@@ -2245,6 +2277,20 @@ input.bs-timepicker-field {
   border: 1px solid #dedede;
   border-radius: 6.950549602508545px;
   box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.1);
+}
+.cas-dropdown-menu {
+  background-color: #ffffff;
+  background: #ffffff;
+  margin-top: 5px;
+  overflow: hidden;
+  border-radius: 6.950549602508545px;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.1);
+  width: 282px;
+  max-width: 90vw;
+  height: 369px;
+  border: 1.5px solid #ffffff;
+  border-radius: 20px;
+  box-shadow: 4px 0px 20px rgba(0, 0, 0, 0.1);
 }
 
 .feed-post__image-container {
@@ -2450,18 +2496,13 @@ input.bs-timepicker-field {
 
 .right-bar-creators__balance-box {
   color: var(--text);
-  @media (max-width: 992px) {
-    padding-bottom: 15px;
-    padding-top: 0;
+}
+.right-bar-creators__balance-box.smaller-font {
+  .rb-name {
+    font-size: 13px !important;
   }
-  @media (max-width: 767px) {
-    .fs-9px {
-      font-size: 11px !important;
-      font-weight: 600;
-    }
-    .fs-13px {
-      font-size: 15px;
-    }
+  .rb-value {
+    font-size: 20px !important;
   }
 }
 
@@ -2479,7 +2520,20 @@ input.bs-timepicker-field {
   background-repeat: no-repeat;
   background-position: center;
 }
-
+.rb-name {
+  opacity: 0.8;
+  color: #7b7b7b;
+  font-family: Poppins;
+  font-size: 17.365581512451172px;
+  font-weight: 500;
+}
+.rb-value {
+  color: #444444;
+  font-size: 27px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 47px;
+}
 .mobile-messages-thread-name-avatar {
   width: 100%;
   margin-right: 24px;
@@ -3348,20 +3402,23 @@ input {
 }
 
 .notification {
-  margin-left: 10px;
   width: auto;
-  padding-left: 3.5px;
-  padding-right: 3.5px;
-  height: 15px;
   font-size: 12px;
   color: #ffffff;
   background: #f5685f;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1.2572486400604248px solid #ffffff;
-  border-radius: 20px;
-  box-shadow: 0px 1.625px 8.125px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  bottom: -1%;
+  right: -1%;
+  padding: 0 3px;
+  min-width: 19px;
+  height: 19px;
+  background: #f5685f;
+  border: 1.8375171422958374px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0.7916666865348816px 0.7916666865348816px 1.5833333730697632px rgba(0, 0, 0, 0.1),0.7916666865348816px 0.7916666865348816px 1.5833333730697632px rgba(0, 0, 0, 0.1),0.7916666865348816px 0.7916666865348816px 1.5833333730697632px rgba(0, 0, 0, 0.1),0.7916666865348816px 0.7916666865348816px 1.5833333730697632px rgba(0, 0, 0, 0.1),0.7916666865348816px 0.7916666865348816px 1.5833333730697632px rgba(0, 0, 0, 0.1);
 }
 
 .bg-light {
@@ -4022,12 +4079,55 @@ option {
 }
 
 .nfts-card-list {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: 20px -10px 0px;
+    padding: 0px;
+    list-style-type: none;
+    @media screen and (max-width: 992px) {
+      justify-content: center;
+    }
+    @media screen and (max-width: 676px) {
+      padding: 0px 0px 0 0px;
+    }
+    &.nft_creator_list {
+      @media screen and (max-width: 676px) {
+        padding-top: 0;
+      }
+    }
+  .nft-col-wrap {
+    padding: 10px;
+    width: calc(100% / 3);
+    min-width: 300px;
+    margin-bottom: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media screen and (max-width: 676px) {
+      width: 100%;
+      margin-bottom: 35px;
+    }
+  }
+  .small-nft-col-wrap {
+    width: calc(100% / 5);
+    min-width: 195px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.nfts-card-list-collection {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   flex-wrap: wrap;
-  margin: 20px -10px 0px;
+  margin: 0px -10px 0px;
   padding: 0px;
+  padding-left: 20px;
   list-style-type: none;
   @media screen and (max-width: 992px) {
     justify-content: center;
@@ -4062,6 +4162,38 @@ option {
     align-items: center;
   }
 }
+.nfts-card-list-create-collection {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  height: calc(100% - 100px);
+  padding: 0px;
+  padding-left: 20px;
+  padding-bottom: 100px;
+  list-style-type: none;
+  overflow-y: scroll;
+  @media screen and (max-width: 992px) {
+    justify-content: center;
+  }
+  @media screen and (max-width: 676px) {
+    padding: 0px 0px 100px 0px;
+  }
+  &.nft_creator_list {
+    @media screen and (max-width: 676px) {
+      padding-top: 0;
+    }
+  }
+  .small-nft-col-wrap {
+    width: calc(100% / 5);
+    min-width: 195px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
 .nfts-card-list-discovery {
   display: flex;
   align-items: flex-start;
@@ -4073,6 +4205,7 @@ option {
   width: 100%;
   @media screen and (max-width: 676px) {
     padding: 0px 0px 0 0px;
+    margin: 0;
   }
   &.nft_creator_list {
     @media screen and (max-width: 676px) {
@@ -4092,6 +4225,19 @@ option {
       margin-bottom: 35px;
     }
   }
+  .nft-col-wrap-2 {
+    padding: 5px;
+    width: calc(100% / 4);
+    min-width: 290px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media screen and (max-width: 676px) {
+      width: 100%;
+      margin-bottom: 45px;
+    }
+  }
   .small-nft-col-wrap {
     width: calc(100% / 6);
     min-width: 195px;
@@ -4101,7 +4247,12 @@ option {
     align-items: center;
   }
 }
-
+.nft-post-mobile-padding {
+  @media screen and (max-width: 1050px) {
+      padding: 0 10px;
+      padding-bottom: 100px;
+  }
+}
 .creators-card-list {
   display: flex;
   align-items: flex-start;
@@ -4173,6 +4324,9 @@ option {
   height: 85px;
   width: 100%;
   -webkit-align-items: flex-end;
+  @media screen and (max-width: 650px) {
+    height: 190px;
+  }
 }
 
 .feed_mobile_gap {
@@ -4218,8 +4372,25 @@ option {
     margin: 0 -50px;
   }
   @media screen and (max-width: 1050px) {
-    padding: 70px 10px 10px 10px;
+    padding: 70px 0px 0px 0px;
     align-items: flex-start;
+  }
+  .nft-details-top {
+    width: 100%;
+    min-height: 630px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--secondary);
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    @media screen and (max-width: 1050px) {
+      flex-direction: column;
+    }
+    .nft_bx {
+      height: 100%;
+    }
   }
   .nft_bx {
     width: calc(50% - 10px);
@@ -4232,6 +4403,7 @@ option {
     }
     @media screen and (max-width: 1050px) {
       width: 100%;
+      margin-bottom: 0px;
     }
     .creator-coin-info {
       margin-left: 0.5rem !important;
@@ -4249,7 +4421,6 @@ option {
       }
     }
     &.gray {
-      background-color: var(--secondary);
       padding: 0 50px;
       @media screen and (min-width: 1400px) {
         width: calc(100% - 573px);
@@ -4300,6 +4471,7 @@ option {
         width: 40px;
         height: 40px;
         border-radius: 50%;
+        padding: 0 !important;
       }
     }
     .feed-max-width-name {
@@ -4334,13 +4506,9 @@ option {
         -webkit-text-fill-color: transparent;
         line-height: 1.4;
       }
-      > div {
-        width: 80%;
-        min-width: 380px;
-      }
     }
     &.linebx {
-      border-radius: 7px;
+      border-radius: 30px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -4351,9 +4519,6 @@ option {
       @media screen and (min-width: 1366px) {
         width: calc(100% - 600px);
       }
-    }
-    &.bids_new_sc {
-      padding-left: 20px;
     }
     .bids_list_sec {
       margin-top: 30px;
@@ -4409,7 +4574,11 @@ option {
   padding: 30px;
   border: 5px solid #e9e9e9;
   box-shadow: 2px 2px 20px rgb(0 0 0 / 9%);
-  border-radius: 23.2633px;
+  border-radius: 23px;
+  @media screen and (max-width: 1050px) {
+    border: none;
+    border-radius: 0;
+  }
   .nft_current_bid_tpwrapper {
     margin-bottom: 40px;
     .nft_current_bid {
@@ -4425,6 +4594,8 @@ option {
       .val {
         font-size: 28.2247px;
         font-weight: 600;
+        text-overflow: ellipsis;
+        overflow: hidden;
         @media screen and (max-width: 767px) {
           font-size: 24px;
         }
@@ -4756,7 +4927,6 @@ option {
     font-size: 14.69px;
     display: block;
     margin-bottom: 10px;
-    text-transform: uppercase;
     font-weight: 600;
     color: var(--textalt);
   }
@@ -4794,8 +4964,10 @@ option {
 }
 .cc-follow-btn {
   max-width: 100%;
-  width: 172px;
+  width: 172px !important;
   height: 45px;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
 }
 .discovery-auct {
   display: flex;
@@ -4902,7 +5074,7 @@ option {
   width: 100%;
   content: "";
   background: rgb(0 0 0 / 20%);
-  z-index: 1;
+  z-index: 75;
   @media screen and (max-width: 767px) {
     display: none;
   }
@@ -5947,8 +6119,15 @@ option {
 
 .comments_likes_list {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  margin-bottom: 10px;
+  align-items: center;
+  background: #ffffff;
+  border: 1.1226364374160767px solid #f6f6f6;
+  height: 110px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  width: 100%;
   .ls_sc {
     font-size: 16px;
     color: #909090;
@@ -5998,6 +6177,7 @@ option {
   .modal-bids-container {
     height: calc(100% - 40px);
     overflow-y: scroll;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;

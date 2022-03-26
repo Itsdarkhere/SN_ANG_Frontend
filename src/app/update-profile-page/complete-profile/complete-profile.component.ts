@@ -2,7 +2,6 @@ import { Component } from "@angular/core";
 import { RouteNames } from "../../app-routing.module";
 import { GlobalVarsService } from "../../global-vars.service";
 import { Router } from "@angular/router";
-import { AngularFirestore } from "@angular/fire/firestore";
 import { MixpanelService } from "src/app/mixpanel.service";
 
 @Component({
@@ -18,24 +17,24 @@ export class CompleteProfileComponent {
   username: any;
   isNullUsername: boolean;
 
-  constructor(
-    public globalVars: GlobalVarsService,
-    private router: Router,
-    private mixPanel: MixpanelService,
-    private firestore: AngularFirestore
-  ) {}
+  constructor(public globalVars: GlobalVarsService, private router: Router, private mixPanel: MixpanelService) {}
 
   async ngOnInit(): Promise<void> {
-    await this.globalVars.checkOnboardingStatus();
+    this.globalVars.checkOnboardingStatus();
 
-    if (this.globalVars.isOnboardingComplete === true) {
-      this.router.navigate([RouteNames.UPDATE_PROFILE]);
+    if (this.globalVars.isCreator === false && this.globalVars.isCollector === false) {
+      console.log(this.globalVars.loggedInUser);
+      //   if they have an old username you know it's an old deso profile
+      //   if they have a deso public key you know they started to signup, but then clicked away
+      if (
+        this.globalVars.loggedInUser.ProfileEntryResponse?.Username ||
+        this.globalVars.loggedInUser.PublicKeyBase58Check
+      ) {
+        this.globalVars.needToPickCreatorOrCollector = true;
+        this.globalVars.flowRedirect(true, this.globalVars.loggedInUser.PublicKeyBase58Check);
+      }
+      return;
     }
-
-    // if (this.globalVars.isMobileIphone()) {
-    //   // testing closing the mobile nav on page load
-    //   this.globalVars.isLeftBarMobileOpen = false;
-    // }
   }
 
   // rounded to nearest integer

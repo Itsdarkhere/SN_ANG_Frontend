@@ -159,11 +159,12 @@ import { IvyCarouselModule } from "angular-responsive-carousel";
 import { NgApexchartsModule } from "ng-apexcharts";
 import { LottieModule } from "ngx-lottie";
 import player from "lottie-web";
+// import { CdkStepperModule } from "@angular/cdk/stepper";
 
 // Modular Themes for DeSo by Carsen Klock @carsenk
 import { ThemeModule } from "./theme/theme.module";
 import { Theme } from "./theme/symbols";
-import { HeaderComponent } from "./header/header.component";
+import { HeaderComponent } from "./general-success-modal/header/header.component";
 import { CreatePostComponent } from "./create-post/create-post.component";
 import { PlaceABidComponent } from "./place-a-bid/place-a-bid.component";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
@@ -192,11 +193,22 @@ import { AudioPlayerComponent } from "./audio-player/audio-player.component";
 import { CancelBidModalComponent } from "./cancel-bid-modal/cancel-bid-modal.component";
 import { ConfirmationModalComponent } from "./confirmation-modal/confirmation-modal.component";
 import { DiscoveryPageComponent } from "./discovery-page/discovery-page.component";
-import { NftPageComponent } from "./discovery-page/nft-page/nft-page.component";
 import { CreatorCardComponent } from "./creator-card/creator-card.component";
 import { PageSmallNavNewComponent } from "./page-small-nav-new/page-small-nav-new.component";
 import { SmallCardComponentComponent } from "./small-card-component/small-card-component.component";
 import { CompleteProfileComponent } from "./update-profile-page/complete-profile/complete-profile.component";
+import { CollectionPageComponent } from "./collection/collection-page/collection-page.component";
+import { CollectionPageHeaderComponent } from "./collection/collection-page/collection-page-header/collection-page-header.component";
+import { CollectionPageContentComponent } from "./collection/collection-page/collection-page-content/collection-page-content.component";
+import { CreateCollectionComponent } from "./collection/create-collection/create-collection.component";
+import { CollectionSuccessComponent } from "./collection/create-collection/collection-success/collection-success.component";
+// import { CollectionSelectionsComponent } from "./collection/create-collection/collection-selections/collection-selections.component";
+// import { CollectionDetailsComponent } from "./collection/create-collection/collection-details/collection-details.component";
+// import { CollectionStepperComponent } from "./collection/create-collection/collection-stepper/collection-stepper.component";
+import { NftCardMinimalComponent } from "./nft-card-minimal/nft-card-minimal.component";
+import { CollectionPageSidebarComponent } from "./collection/collection-page/collection-page-content/collection-page-sidebar/collection-page-sidebar.component";
+import { CollectionPageNftViewComponent } from "./collection/collection-page/collection-page-content/collection-page-nft-view/collection-page-nft-view.component";
+import { CollectionPageActivityViewComponent } from "./collection/collection-page/collection-page-content/collection-page-activity-view/collection-page-activity-view.component";
 import { ActionResponseSlideupComponent } from "./action-response-slideup/action-response-slideup.component";
 import { TradeCreatorBuyComponent } from "./trade-creator-page/trade-creator-buy/trade-creator-buy.component";
 import { TradeCreatorSellComponent } from "./trade-creator-page/trade-creator-sell/trade-creator-sell.component";
@@ -218,15 +230,30 @@ import { QuickFactsComponent } from "./analytics-page/quick-facts/quick-facts.co
 import { TopSalesComponent } from "./analytics-page/top-sales/top-sales.component";
 import { CreatorListComponent } from "./analytics-page/creator-list/creator-list.component";
 import { SmallGraphComponent } from "./analytics-page/small-graph/small-graph.component";
+import { ImxPageComponent } from "./imx-page/imx-page.component";
+import { DepositEthComponent } from "./imx-page/deposit-eth/deposit-eth.component";
+import { BuyEthComponent } from "./imx-page/buy-eth/buy-eth.component";
+import { WithdrawEthComponent } from "./imx-page/withdraw-eth/withdraw-eth.component";
+import { EthNftPostPageComponent } from "./eth-nft-post-page/eth-nft-post-page.component";
+import { EthNftPostComponent } from "./eth-nft-post-page/eth-nft-post/eth-nft-post.component";
+import { EthMarketplaceLeftBarComponent } from "./eth-marketplace-left-bar/eth-marketplace-left-bar.component";
 import { DashboardComponent } from "./analytics-page/dashboard/dashboard.component";
 import { AnalyticsActivityComponent } from "./analytics-page/analytics-activity/analytics-activity.component";
 import { ActivityLeftBarComponent } from "./analytics-page/analytics-activity/activity-left-bar/activity-left-bar.component";
 import { ActivityTableComponent } from "./analytics-page/analytics-activity/activity-table/activity-table.component";
 import { ModelComponent } from "./mint-page/model/model.component";
-import { LandingReferralsComponent } from './landing-referrals/landing-referrals.component';
-import { SignupPageReferralsComponent } from './signup-page-referrals/signup-page-referrals.component';
-import { LandingPageCreatorsComponent } from './landing-page-creators/landing-page-creators.component';
-import { LandingPageDaoComponent } from './landing-page-dao/landing-page-dao.component';
+import { LandingReferralsComponent } from "./landing-referrals/landing-referrals.component";
+import { SignupPageReferralsComponent } from "./signup-page-referrals/signup-page-referrals.component";
+import { LandingPageCreatorsComponent } from "./landing-page-creators/landing-page-creators.component";
+import { LandingPageDaoComponent } from "./landing-page-dao/landing-page-dao.component";
+import { MobileNavigationComponent } from "./left-bar-mobile/mobile-navigation/mobile-navigation.component";
+import { NftDetailBoxComponent } from "./feed/nft-detail-box/nft-detail-box.component";
+import { CancelNftAuctionModalComponent } from "./cancel-nft-auction-modal/cancel-nft-auction-modal.component";
+import { ObserveVisibilityDirective } from "./observe-visibility.directive";
+import { EthMarketplaceLeftBarMobileComponent } from "./eth-marketplace-left-bar-mobile/eth-marketplace-left-bar-mobile.component";
+import { CollectionFailureComponent } from "./collection/create-collection/collection-failure/collection-failure.component";
+import { CreatorProfileCollectionsComponent } from "./creator-profile-page/creator-profile-collections/creator-profile-collections.component";
+import { AddToCollectionComponent } from "./collection/add-to-collection/add-to-collection.component";
 
 const lightTheme: Theme = { key: "light", name: "Light Theme" };
 const darkTheme: Theme = { key: "light", name: "Dark Theme" };
@@ -235,7 +262,6 @@ const legendsTheme: Theme = { key: "light", name: "Legends Theme" };
 const cakeTheme: Theme = { key: "light", name: "Cake Theme" };
 const greenishTheme: Theme = { key: "light", name: "Green Theme" };
 const coderTheme: Theme = { key: "light", name: "Coder Theme" };
-
 
 @NgModule({
   declarations: [
@@ -391,11 +417,22 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     CancelBidModalComponent,
     ConfirmationModalComponent,
     DiscoveryPageComponent,
-    NftPageComponent,
     CreatorCardComponent,
     PageSmallNavNewComponent,
     CompleteProfileComponent,
     SmallCardComponentComponent,
+    CollectionPageComponent,
+    CollectionPageHeaderComponent,
+    CollectionPageContentComponent,
+    CreateCollectionComponent,
+    CollectionSuccessComponent,
+    // CollectionSelectionsComponent,
+    // CollectionDetailsComponent,
+    // CollectionStepperComponent,
+    NftCardMinimalComponent,
+    CollectionPageSidebarComponent,
+    CollectionPageNftViewComponent,
+    CollectionPageActivityViewComponent,
     TradeCreatorBuyComponent,
     TradeCreatorSellComponent,
     TradeCreatorTransferComponent,
@@ -417,6 +454,13 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     TopSalesComponent,
     CreatorListComponent,
     SmallGraphComponent,
+    ImxPageComponent,
+    DepositEthComponent,
+    BuyEthComponent,
+    WithdrawEthComponent,
+    EthNftPostPageComponent,
+    EthNftPostComponent,
+    EthMarketplaceLeftBarComponent,
     DashboardComponent,
     AnalyticsActivityComponent,
     ActivityLeftBarComponent,
@@ -426,6 +470,14 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     SignupPageReferralsComponent,
     LandingPageCreatorsComponent,
     LandingPageDaoComponent,
+    MobileNavigationComponent,
+    NftDetailBoxComponent,
+    CancelNftAuctionModalComponent,
+    ObserveVisibilityDirective,
+    EthMarketplaceLeftBarMobileComponent,
+    CollectionFailureComponent,
+    CreatorProfileCollectionsComponent,
+    AddToCollectionComponent,
   ],
   imports: [
     BrowserModule,
@@ -454,6 +506,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
     NgxShimmerLoadingModule,
     NgApexchartsModule,
     LottieModule.forRoot({ player: playerFactory }),
+    // CdkStepperModule,
     AnimateOnScrollModule.forRoot(),
     ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),
@@ -471,7 +524,7 @@ const coderTheme: Theme = { key: "light", name: "Coder Theme" };
   ],
   providers: [BackendApiService, GlobalVarsService, BsModalService, IdentityService],
   bootstrap: [AppComponent],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
 

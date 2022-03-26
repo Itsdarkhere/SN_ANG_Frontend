@@ -5,6 +5,11 @@ import { GlobalVarsService } from "../../global-vars.service";
 import { InfiniteScroller } from "../../infinite-scroller";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { FunctionPassService } from "src/app/function-pass.service";
+import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
+import { add } from "lodash";
+import { BsModalService } from "ngx-bootstrap/modal";
+import { GeneralSuccessModalComponent } from "../../general-success-modal/general-success-modal.component";
+import { ThrowStmt } from "@angular/compiler";
 
 @Component({
   selector: "trends",
@@ -33,6 +38,11 @@ export class TrendsComponent implements OnInit {
   displayGrid = false;
   // Scroll Y position
   scrollPosition: number;
+  body = document.querySelector("body");
+
+  desoMarketplace: boolean = true;
+  ethMarketplace: boolean = false;
+  postEntryResponseArr: [];
 
   infiniteScroller: InfiniteScroller = new InfiniteScroller(
     TrendsComponent.PAGE_SIZE,
@@ -44,11 +54,32 @@ export class TrendsComponent implements OnInit {
 
   datasource: IDatasource<IAdapter<any>> = this.infiniteScroller.getDatasource();
 
+  marketplaceSortTypeOptions = [
+    { id: "most recent first", name: "Most recent first" },
+    { id: "oldest first", name: "Oldest first" },
+    { id: "highest price first", name: "Highest price first" },
+    { id: "lowest price first", name: "Lowest price first" },
+    { id: "most likes first", name: "Most likes first" },
+    { id: "most diamonds first", name: "Most diamonds first" },
+    { id: "most comments first", name: "Most comments first" },
+    { id: "most reposts first", name: "Most reposts first" },
+  ];
+
+  ethMarketplaceSortTypeOptions = [
+    { id: "most recent first", name: "Most recent first" },
+    { id: "oldest first", name: "Oldest first" },
+    { id: "most likes first", name: "Most likes first" },
+    { id: "most diamonds first", name: "Most diamonds first" },
+    { id: "most comments first", name: "Most comments first" },
+    { id: "most reposts first", name: "Most reposts first" },
+  ];
+
   constructor(
     private backendApi: BackendApiService,
     private route: ActivatedRoute,
     private _globalVars: GlobalVarsService,
-    private functionPass: FunctionPassService
+    private functionPass: FunctionPassService,
+    private modalService: BsModalService
   ) {
     this.globalVars = _globalVars;
     this.functionPass.listen().subscribe((m: any) => {
@@ -57,32 +88,78 @@ export class TrendsComponent implements OnInit {
       if (m == "sort") {
         this.sortMarketplace(0, false);
         this.globalVars.marketplaceNFTsOffset = 0;
-        document.body.scrollTop = 0; // For Safari
-        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        //document.body.scrollTop = 0; // For Safari
+        //document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         this.closeMarketplaceMobileFiltering("sort");
       } else if (m == "close") {
         this.closeMarketplaceMobileFiltering("close");
+      } else if (m == "ethSort") {
+        this.globalVars.ethMarketplaceNFTsOffset = 0;
+        this.closeEthMarketplaceMobileFiltering("ethSort");
+      } else if (m == "ethClose") {
+        this.closeEthMarketplaceMobileFiltering("ethClose");
       }
     });
   }
 
   ngOnInit(): void {
-    if (!this.globalVars.marketplaceNFTsData) {
-      this.sortMarketplace(0, false);
-    }
     this.setMobileBasedOnViewport();
+    if (this.globalVars.desoMarketplace) {
+      if (!this.globalVars.marketplaceNFTsData) {
+        this.sortMarketplace(0, false);
+      }
+    } else {
+      if (!this.globalVars.ethMarketplaceNFTsData) {
+        this.updateEthMarketplaceStatus();
+      }
+    }
   }
+
+  blockchainSelectChange(desoMarket: string) {
+    if (desoMarket == "true" && !this.globalVars.desoMarketplace) {
+      this.updateDesoMarketplaceStatus();
+    } else if (desoMarket == "false" && this.globalVars.desoMarketplace) {
+      this.updateEthMarketplaceStatus();
+    }
+  }
+  updateDesoMarketplaceStatus() {
+    this.globalVars.desoMarketplace = true;
+  }
+
+  updateEthMarketplaceStatus() {
+    this.globalVars.desoMarketplace = false;
+
+    this.globalVars.ethMarketplaceStatus = "all";
+    this.globalVars.ethMarketplaceNFTCategory = "all";
+    this.globalVars.ethMarketplaceVerifiedCreators = "verified";
+    this.globalVars.marketplaceSortType = "most recent first";
+
+    this.globalVars.getAllEthNFTs();
+    console.log("getting eth");
+  }
+
   @HostListener("window:resize") onResize() {
     this.setMobileBasedOnViewport();
   }
   openMarketplaceMobileFiltering() {
     // Get scroll position before anything else
+    if (!this.globalVars.desoMarketplace) {
+      this.openEthMarketplaceMobileFiltering();
+    } else {
+      this.scrollPosition = window.scrollY;
+      this.globalVars.isMarketplaceLeftBarMobileOpen = true;
+      this.disable();
+    }
+  }
+  openEthMarketplaceMobileFiltering() {
+    // Get scroll position before anything else
     this.scrollPosition = window.scrollY;
-    this.globalVars.isMarketplaceLeftBarMobileOpen = true;
+    this.globalVars.isEthMarketplaceLeftBarMobileOpen = true;
     this.disable();
   }
   closeMarketplaceMobileFiltering(string: string) {
     if (string == "sort") {
+      console.log("SORT");
       this.enableNoScroll();
       this.globalVars.isMarketplaceLeftBarMobileOpen = false;
     } else if (string == "close") {
@@ -90,28 +167,38 @@ export class TrendsComponent implements OnInit {
       this.globalVars.isMarketplaceLeftBarMobileOpen = false;
     }
   }
+  closeEthMarketplaceMobileFiltering(string: string) {
+    if (string == "ethSort") {
+      this.enableNoScroll();
+      this.globalVars.isEthMarketplaceLeftBarMobileOpen = false;
+    } else if (string == "ethClose") {
+      this.enable();
+      this.globalVars.isEthMarketplaceLeftBarMobileOpen = false;
+    }
+  }
   // Enable without scrolling, since if user applies we want to scroll to top by default
   enableNoScroll() {
-    let anotherElement = document.getElementById("market") as HTMLDivElement;
-    anotherElement.style.pointerEvents = "all";
-    anotherElement.style.position = "";
-    anotherElement.style.overflowY = "";
+    this.body.style.removeProperty("overflow");
+    this.body.style.removeProperty("position");
+    this.body.style.removeProperty("top");
+    this.body.style.removeProperty("width");
+    window.scrollTo(0, 0);
   }
   // Enable scroll
   enable() {
-    let anotherElement = document.getElementById("market") as HTMLDivElement;
-    anotherElement.style.pointerEvents = "all";
-    anotherElement.style.position = "";
-    anotherElement.style.overflowY = "";
+    this.body.style.removeProperty("overflow");
+    this.body.style.removeProperty("position");
+    this.body.style.removeProperty("top");
+    this.body.style.removeProperty("width");
     window.scrollTo(0, this.scrollPosition);
   }
   // Disable scroll
   disable() {
-    let anotherElement = document.getElementById("market") as HTMLDivElement;
-    anotherElement.style.pointerEvents = "none";
-    anotherElement.style.position = "fixed";
-    anotherElement.style.overflowY = "hidden";
-    anotherElement.style.top = -this.scrollPosition + 140 + "px";
+    this.scrollPosition = window.pageYOffset;
+    this.body.style.overflow = "hidden";
+    this.body.style.position = "fixed";
+    this.body.style.top = `-${this.scrollPosition}px`;
+    this.body.style.width = "100%";
   }
   setMobileBasedOnViewport() {
     this.mobile = this.globalVars.isMobile();
@@ -121,6 +208,7 @@ export class TrendsComponent implements OnInit {
     if (!showMore) {
       this.globalVars.isMarketplaceLoading = true;
     }
+    console.log(this.globalVars.marketplaceNFTCategory);
     this.backendApi
       .SortMarketplace(
         this.globalVars.localNode,
@@ -150,6 +238,7 @@ export class TrendsComponent implements OnInit {
         }
       );
   }
+
   sortCreators(offset: number, showMore: boolean) {
     if (!showMore) {
       this.globalVars.isMarketplaceLoading = true;
@@ -200,6 +289,19 @@ export class TrendsComponent implements OnInit {
         break;
     }
   }
+
+  setEthDisplayType() {
+    this.modalService.show(GeneralSuccessModalComponent, {
+      class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+      initialState: {
+        header: "Error",
+        text: "You cannot set display type for ETH.",
+        buttonText: "Ok",
+        buttonClickedAction: "connectWalletMobileError",
+      },
+    });
+  }
+
   getParamsAndSort() {
     this.route.queryParams
       .subscribe((params) => {
@@ -217,13 +319,57 @@ export class TrendsComponent implements OnInit {
     this.globalVars.marketplaceNFTsOffset = this.globalVars.marketplaceNFTsOffset + 30;
     this.sortMarketplace(this.globalVars.marketplaceNFTsOffset, true);
   }
+  onScrollEthNFTs() {
+    if (this.globalVars.ethMarketplaceNFTsData.length > 30) {
+      //   console.log(" ------------- greater then 30 ");
+      //   console.log(this.globalVars.ethMarketplaceNFTsData);
+      this.globalVars.ethMarketplaceNFTsOffset = this.globalVars.ethMarketplaceNFTsOffset + 30;
+      console.log(this.globalVars.ethMarketplaceNFTsOffset);
+      //   additional array
+      let additionalData = this.globalVars.ethMarketplaceNFTsData.slice(this.globalVars.ethMarketplaceNFTsOffset);
+      console.log(additionalData);
+      this.globalVars.ethMarketplaceNFTsDataToShow =
+        this.globalVars.ethMarketplaceNFTsDataToShow.concat(additionalData);
+      console.log(this.globalVars.ethMarketplaceNFTsDataToShow);
+    } else {
+      return;
+    }
+  }
   counter(i: number) {
     return new Array(i);
   }
   sortSelectChange(event) {
     if (this.globalVars.marketplaceSortType != event) {
-      this.globalVars.marketplaceSortType = event;
-      this.sortMarketplace(0, false);
+      if (!this.globalVars.desoMarketplace) {
+        this.sortSelectChangeEth(event);
+      } else {
+        this.globalVars.marketplaceSortType = event;
+        this.sortMarketplace(0, false);
+      }
     }
+  }
+  sortSelectChangeEth(event) {
+    if (this.globalVars.marketplaceSortType != event) {
+      // this.globalVars.ethMarketplaceStatus = "for sale";
+      this.globalVars.marketplaceSortType = event;
+
+      if (
+        this._globalVars.marketplaceSortType === "highest price first" ||
+        this._globalVars.marketplaceSortType === "lowest price first"
+      ) {
+        this.modalService.show(GeneralSuccessModalComponent, {
+          class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+          initialState: {
+            header: "Error",
+            text: "You cannot filter by price.",
+            buttonText: "Ok",
+            buttonClickedAction: "connectWalletMobileError",
+          },
+        });
+      } else {
+        this.globalVars.getEthNFTsByFilter();
+      }
+    }
+    //     }
   }
 }

@@ -1,0 +1,80 @@
+@import "../../assets/popup-ui.scss";
+.page-place-a-bid {
+  text-align: center;
+  width: 430px;
+  margin: 0 auto;
+  max-width: 100%;
+  .text-red {
+    color: var(--cred);
+    margin-top: 30px;
+    line-height: 1.6;
+  }
+  .text-light {
+    color: var(--grey) !important;
+  }
+}
+
+/* Chrome, Safari, Edge, Opera */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.ethlogo-white {
+  height: 25px;
+}
+
+.cancelEthNFTButton {
+  margin-top: 250px;
+}
+
+.flex-container-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.close_window_btn {
+  margin-top: 140px;
+}
+
+.cancel-success-img {
+  height: 100px;
+  width: 100px;
+  margin: 0 auto;
+}
+
+.cancel-success-header {
+  margin-top: 30px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 48px;
+
+  text-align: center;
+
+  color: #0d0d0d;
+}
+
+.cancel-success-text {
+  margin: 0 auto;
+  margin-top: 20px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 28px;
+  width: 400px;
+
+  text-align: center;
+
+  color: #070707;
+}

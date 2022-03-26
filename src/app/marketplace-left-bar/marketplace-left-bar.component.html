@@ -150,10 +150,8 @@
   </div>
 </div>
 <!-- Style way aspect ration differently for mobile -->
-<div
-  class="flyout__nav__inner__marketplace w-100 disable-scrollbars position-relative pointer-events-all"
-  *ngIf="flyout"
->
+<!-- disable-scrollbars -->
+<div class="flyout__nav__inner__marketplace w-100 position-relative pointer-events-all" *ngIf="flyout">
   <div class="nav_close_marketplace position-relative">
     <img src="assets/img/close_square.svg" class="cursor-pointer" (click)="closeMenu()" alt="" />
   </div>
@@ -237,7 +235,8 @@
       </span>
     </button>
   </div>
-  <div class="verifiedFlyoutAccordion disable-scrollbars" [ngClass]="{ expanded: this.creatorTypeVerified }">
+  <!-- disable-scrollbars -->
+  <div class="verifiedFlyoutAccordion" [ngClass]="{ expanded: this.creatorTypeVerified }">
     <label class="w-100 mt-20px pl-10px marketplace-flyout-label">Category</label>
     <select
       class="w-100 p-5px mrk_select_flyout font-weight-semibold"
@@ -283,7 +282,7 @@
           Music
         </span>
       </button>
-      <button class="not-available-warning-border">
+      <button (click)="formatClick('3d')" [ngClass]="{ selected: format3D }">
         <span class="center-absolute d-flex flex-column">
           <img src="/assets/icons/market_3d_icon.svg" class="mb-5px" alt="image-icon" />
           3D
@@ -304,4 +303,3 @@
     </span>
   </button>
 </div>
-<!--</div>-->

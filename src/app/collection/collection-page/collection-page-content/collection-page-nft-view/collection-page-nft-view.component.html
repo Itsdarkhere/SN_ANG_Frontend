@@ -1,0 +1,57 @@
+<div class="collection-page-nft-main-content">
+  <app-collection-page-sidebar class="collection-page-sidebar"></app-collection-page-sidebar>
+  <!--globalVars.collectionNFTsLoading-->
+  <div *ngIf="globalVars.collectionNFTsLoading" class="w-100 d-flex flex-row flex-start-start">
+    <div class="nfts-card-list-collection">
+      <div class="nft-col-wrap" *ngFor="let in of counter(9); let i = index">
+        <div class="card">
+          <loading-shimmer [tabType]="'MARKETPLACE'"></loading-shimmer>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!globalVars.collectionNFTsLoading" class="w-100 d-flex flex-row flex-start-start">
+    <div
+      class="search-results"
+      infiniteScroll
+      [infiniteScrollDistance]="4"
+      [infiniteScrollThrottle]="150"
+      (scrolled)="onScrollNFTs()"
+      *ngIf="collectionNFTs; else elseBlock"
+    >
+      <div class="nfts-card-list-collection">
+        <!--[ngClass]="globalVars.marketplaceViewTypeCard ? 'nft-col-wrap' : 'small-nft-col-wrap'"-->
+        <div
+          [ngClass]="globalVars.marketplaceViewTypeCard ? 'nft-col-wrap' : 'small-nft-col-wrap'"
+          *ngFor="let post of collectionNFTs"
+        >
+          <div class="max-width-300-plus" *ngIf="globalVars.marketplaceViewTypeCard">
+            <new-nft-card
+              [post]="post"
+              [includePaddingOnPost]="true"
+              [pending]="false"
+              [showReplyingToContent]="post"
+              [parentPost]=""
+              [contentShouldLinkToThread]="true"
+              [showNFTDetails]="true"
+              [showExpandedNFTDetails]="true"
+              [setBorder]="true"
+            ></new-nft-card>
+          </div>
+          <div *ngIf="!globalVars.marketplaceViewTypeCard">
+            <app-small-card-component [post]="post"></app-small-card-component>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #elseBlock>
+      <div class="empty-collection">
+        <div>
+          <label class="mb-0px font-weight-semibold text-align-center">
+            There are no NFTs in the collection using the current sort
+          </label>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

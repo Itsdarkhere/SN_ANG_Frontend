@@ -1,27 +1,25 @@
 <div class="top-bid-card-container">
-	<div class="top-bid-card-piece-section">
-		<h4>Piece</h4>
-		<!-- Check if this is the right way to target img src -->
-		<img [src]="this.globalVars.loggedInUser.PublicKeyBase58Check">
-		<!-- <div class="top-bid-piece" [avatar]="this.globalVars.loggedInUser.PublicKeyBase58Check"></div> -->
-		<!-- Is this necessary -->
-		<p>The longer piece text</p>
-	</div>
-	<div class="top-bid-card-bid-section">
-		<h4>Bid</h4>
-		<div class="d-flex flex-column">
-			<p class="deso-price">1.4 DESO</p>
-			<p class="dollar-price">124.67 USD</p>
-		</div>
-	</div>
-	<div class="top-bid-card-created-by-section">
-		<h4>Created By</h4>
-		<div class="creator-info">
-			<img [src]="this.globalVars.loggedInUser.PublicKeyBase58Check">
-			<!-- <div class="top-bid-avatar" [avatar]="this.globalVars.loggedInUser.PublicKeyBase58Check"></div> -->
-			<p>JUVONEN</p>
-		</div>
-	</div>
+  <div class="top-bid-card-piece-section">
+    <h4>Piece</h4>
+    <!-- Check if this is the right way to target img src -->
+    <img *ngIf="postImage" [src]="postImage" />
+    <!-- <div class="top-bid-piece" [avatar]="this.globalVars.loggedInUser.PublicKeyBase58Check"></div> -->
+    <!-- Is this necessary -->
+  </div>
+  <div class="top-bid-card-bid-section">
+    <h4>Bid</h4>
+    <div class="d-flex flex-column">
+      <p class="deso-price">{{ globalVars.nanosToDeSo(bidDetails.BidAmountNanos, 2) }} DESO</p>
+      <p class="dollar-price">{{ globalVars.nanosToDeSo(bidDetails.BidAmountNanos, 2) }} USD</p>
+    </div>
+  </div>
+  <div class="top-bid-card-created-by-section">
+    <h4>Created By</h4>
+    <div class="creator-info">
+      <div *ngIf="creatorPublicKey" [avatar]="creatorPublicKey" class="bidder-avatar"></div>
+      <p>{{ creatorUsername }}</p>
+    </div>
+  </div>
 </div>
 
 <!-- 

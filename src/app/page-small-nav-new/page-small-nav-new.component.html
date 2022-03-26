@@ -1,10 +1,18 @@
 <app-header></app-header>
-<div [ngClass]="mobile ? 'global__mobile' : 'global__desktop'" class="position-relative">
-  <div class="m_inner_wrapper flex-column end" [ngClass]="mobile ? 'marketplace-mobile-margin' : ''">
-    <app-small-left-bar *ngIf="!mobile"></app-small-left-bar>
+<div
+  [ngClass]="{ global__mobile: mobile, global__desktop: !mobile, nft_profile: isNFTProfile }"
+  class="position-relative"
+>
+  <div class="m_inner_wrapper flex-column end">
+    <left-bar *ngIf="!mobile"></left-bar>
     <left-bar-mobile *ngIf="mobile"></left-bar-mobile>
     <div class="w-100">
       <ng-content></ng-content>
     </div>
+    <bottom-bar-mobile
+      *ngIf="mobile && !noBottomBar"
+      class="global__bottom-bar-mobile scrolled"
+      [showPostButton]="showPostButton"
+    ></bottom-bar-mobile>
   </div>
 </div>

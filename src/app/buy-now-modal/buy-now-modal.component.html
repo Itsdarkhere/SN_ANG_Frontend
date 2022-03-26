@@ -1,4 +1,4 @@
-<div app-theme class="nft-modal-container p-15px">
+<div app-theme class="nft-modal-container p-15px" *ngIf="!isEthNFT">
   <div *ngIf="biddableSerialNumbers?.length" [ngClass]="{ 'd-none': !isSelectingSerialNumber }">
     <nft-modal-header [bsModalRef]="bsModalRef" [header]="'Select an edition'"></nft-modal-header>
     <div class="fs-15px nft_para text-center text-grey5">
@@ -96,6 +96,58 @@
         Quote repost your NFT
       </button>
       <button class="btn blk_line_btn with_ico big buy_now_btn close_window_btn" (click)="this.bsModalRef.hide()">
+        Close this window
+      </button>
+    </div>
+  </div>
+</div>
+
+<div app-theme class="nft-modal-container p-15px" *ngIf="isEthNFT">
+  <div *ngIf="!buyNowNftSuccess">
+    <nft-modal-header [bsModalRef]="bsModalRef" [clickedBuyNow]="clickedBuyNow" [isBuyNow]="true"></nft-modal-header>
+    <div class="flex-container-column">
+      <div class="purchase-price-container">
+        <p class="purchase-price-header">PURCHASE PRICE</p>
+        <div class="d-flex flex-row flex-center">
+          <img src="../../assets/eth/ethlogo.svg" class="deso-logo-img" />
+          <p class="buy-now-price-deso pt-5px">{{ ethereumNFTSalePrice }}</p>
+        </div>
+      </div>
+      <div class="deso-balance-container">
+        <p class="deso-balance-text">Your ETH balance on IMX: {{ this.globalVars.imxBalance }}</p>
+      </div>
+      <div class="eth-royalty-fee-container">
+        <!-- <div class="d-flex flex-row royalty-fee-row">
+          <p class="royalty-fee-text">Creator Royalty</p>
+          <p class="royalty-fee-number">{{ this.globalVars.NFTRoyaltyToCreatorBasisPoints }}%</p>
+        </div> -->
+        <!-- <div class="line-divider"></div> -->
+        <div class="d-flex flex-row royalty-fee-row">
+          <p class="royalty-fee-text">Blockchain fee</p>
+          <p class="royalty-fee-number">0.00 ETH</p>
+        </div>
+        <div class="d-flex flex-row royalty-fee-row">
+          <p class="royalty-fee-text">Supernovas service fee</p>
+          <p class="royalty-fee-number">0.00 ETH</p>
+        </div>
+      </div>
+      <button class="blk_line_btn with_ico big black-rounded-button mt-20px-important" (click)="buyNowETHNft()">
+        Purchase
+      </button>
+    </div>
+  </div>
+  <div *ngIf="this.buyNowNftSuccess">
+    <div class="flex-container-column">
+      <img src="../../assets/img/buy-now-success.png" class="buy-now-success-img" />
+      <p class="buy-now-success-header">Congratulations!</p>
+      <p class="buy-now-success-text">
+        You are the new owner of this NFT. Thank you for supporting the artists of Supernovas - you are the hero the
+        world needs.
+      </p>
+      <button class="btn blk_line_btn with_ico big buy_now_btn quote_repost_btn" (click)="quoteRepost($event)">
+        Quote repost your NFT
+      </button>
+      <button class="btn blk_line_btn with_ico big buy_now_btn close_window_btn" (click)="closeBuyEthSuccess()">
         Close this window
       </button>
     </div>

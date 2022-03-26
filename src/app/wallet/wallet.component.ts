@@ -12,6 +12,11 @@ import { environment } from "src/environments/environment";
 import { animate, style, transition, trigger } from "@angular/animations";
 import { MixpanelService } from "../mixpanel.service";
 
+import { Link, ImmutableXClient, ImmutableMethodResults, ETHTokenType, ImmutableRollupStatus } from "@imtbl/imx-sdk";
+import { ethers } from "ethers";
+import { BsModalService } from "ngx-bootstrap/modal";
+import { GeneralSuccessModalComponent } from "../general-success-modal/general-success-modal.component";
+
 @Component({
   selector: "wallet",
   templateUrl: "./wallet.component.html",
@@ -64,13 +69,18 @@ export class WalletComponent implements OnInit, OnDestroy {
 
   mobile = false;
 
+  //   immutable x vars
+  link = new Link(environment.imx.MAINNET_LINK_URL);
+  //   end of immutable x vars
+
   constructor(
     private appData: GlobalVarsService,
     private titleService: Title,
     private router: Router,
     private route: ActivatedRoute,
-    private mixPanel: MixpanelService,
-    private backendApi: BackendApiService
+    private backendApi: BackendApiService,
+    private modalService: BsModalService,
+    private mixPanel: MixpanelService
   ) {
     this.globalVars = appData;
     this.route.params.subscribe((params) => {
@@ -83,6 +93,8 @@ export class WalletComponent implements OnInit, OnDestroy {
   subscriptions = new Subscription();
   tutorialHeaderText: string = "";
   tutorialStepNumber: number;
+
+  imxBalanceFull: string;
 
   ngOnInit() {
     this.setMobileBasedOnViewport();
@@ -136,7 +148,140 @@ export class WalletComponent implements OnInit, OnDestroy {
       );
     }
     this.titleService.setTitle(`Wallet - ${environment.node.name}`);
+
+    // ran this function to highlight the deso tab first
+    this.tabDesoClick();
+
+    this.buildIMX();
+
+    console.log(this.globalVars.loggedInUser);
   }
+
+  //   -------------------- immutable x functions --------------------
+  async buildIMX(): Promise<void> {
+    const publicApiUrl: string = environment.imx.MAINNET_ENV_URL ?? "";
+    this.globalVars.imxClient = await ImmutableXClient.build({ publicApiUrl });
+    if (localStorage.getItem("address")) {
+      console.log("local storage hit -------------------");
+      this.globalVars.imxWalletAddress = localStorage.getItem("address") as string;
+      this.globalVars.imxWalletConnected = true;
+      await this.getImxBalance(this.globalVars.imxWalletAddress);
+    }
+    this.imxBalanceFull = this.globalVars.imxBalance + " ETH";
+  }
+
+  //   async linkSetup(): Promise<void> {
+  //     console.log(` ----------------------- client is ${JSON.stringify(this.globalVars.imxClient)}`);
+  //     const res = await this.link.setup({});
+  //     this.globalVars.imxWalletConnected = true;
+  //     this.globalVars.imxWalletAddress = res.address;
+  //     console.log(
+  //       ` ----------------------- walletConnected is ${this.globalVars.imxWalletConnected} ----------------------- `
+  //     );
+  //     console.log(` ----------------------- walletAddress ${this.globalVars.imxWalletAddress} ----------------------- `);
+
+  //     await this.getImxBalance(this.globalVars.imxWalletAddress);
+
+  //     localStorage.setItem("address", res.address);
+  //   }
+
+  async getImxBalance(walletAddressInput: string): Promise<void> {
+    this.globalVars.imxBalance = await this.globalVars.imxClient.getBalance({
+      user: walletAddressInput,
+      tokenAddress: "eth",
+    });
+    this.globalVars.imxBalance = this.globalVars.imxBalance.balance.toString();
+    this.globalVars.imxBalance = ethers.utils.formatEther(this.globalVars.imxBalance);
+    console.log(` ----------------------- balance is ${this.globalVars.imxBalance} ETH ----------------------- `);
+  }
+
+  linkLogOut() {
+    localStorage.removeItem("address");
+    this.globalVars.imxWalletAddress = "undefined";
+    this.globalVars.imxWalletConnected = false;
+  }
+
+  async depositETH() {
+    await this.link.deposit({
+      type: ETHTokenType.ETH,
+      amount: "0.01",
+    });
+  }
+
+  async openGeneralSuccessModal() {
+    if (!this.globalVars.isMobile()) {
+      // if they have not connected before then show modal
+      if (!localStorage.getItem("firstTimeEthWalletConnection")) {
+        this.modalService.show(GeneralSuccessModalComponent, {
+          class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+          initialState: {
+            header: "Connect your Ethereum wallet to Immutable X",
+            text: "By connecting your wallet to Immutable X, you are able to mint and trade Ethereum NFT's with zero gas fees.",
+            buttonText: "Connect with Immutable X",
+            buttonClickedAction: "connectWallet",
+          },
+        });
+      } else {
+        await this.linkSetup();
+      }
+    } else {
+      this.modalService.show(GeneralSuccessModalComponent, {
+        class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+        initialState: {
+          header: "Error",
+          text: "Please visit Supernovas on your desktop to interact with the Ethereum blockchain.",
+          buttonText: "Ok",
+          buttonClickedAction: "connectWalletMobileError",
+        },
+      });
+    }
+  }
+
+  async linkSetup(): Promise<void> {
+    const publicApiUrl: string = environment.imx.MAINNET_ENV_URL ?? "";
+    this.globalVars.imxClient = await ImmutableXClient.build({ publicApiUrl });
+    console.log(` ----------------------- client is ${JSON.stringify(this.globalVars.imxClient)}`);
+    const res = await this.link.setup({});
+    this.globalVars.imxWalletConnected = true;
+    this.globalVars.imxWalletAddress = res.address;
+    this.globalVars.ethWalletAddresShort = this.globalVars.imxWalletAddress.slice(0, 15) + "...";
+    console.log(
+      ` ----------------------- walletConnected is ${this.globalVars.imxWalletConnected} ----------------------- `
+    );
+    console.log(` ----------------------- walletAddress ${this.globalVars.imxWalletAddress} ----------------------- `);
+
+    await this.getImxBalance(this.globalVars.imxWalletAddress);
+
+    localStorage.setItem("address", res.address);
+
+    // Add key to postgres
+    // This should both create a new one or replace an existing one.
+    this.addIMXPublicKeyToProfileDetails();
+    // pass this.globalVars.imxWalletAddress into postgres function to associate with DESO public key this.globalVars.loggedInUser.PublicKeyBase58Check
+    // for example, fetch(https://supernovas.app/api/updateDesoProfile, body)
+    // body = {"desoPublicKey": "this.globalVars.loggedInUser.PublicKeyBase58Check", "imxWalletAddress": "this.globalVars.imxWalletAddress"}
+  }
+
+  addIMXPublicKeyToProfileDetails() {
+    if (!this.globalVars.loggedInUser.PublicKeyBase58Check) {
+      return;
+    }
+    this.backendApi
+      .InsertOrUpdateIMXPK(
+        this.globalVars.localNode,
+        this.globalVars.loggedInUser.PublicKeyBase58Check,
+        this.globalVars.imxWalletAddress
+      )
+      .subscribe(
+        (res) => {
+          console.log(res);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+  }
+  //   -------------------- end of immutable x functions --------------------
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
@@ -412,5 +557,8 @@ export class WalletComponent implements OnInit, OnDestroy {
   }
   routeToBuyDeso() {
     this.router.navigate([RouteNames.DESO_PAGE]);
+  }
+  routeToImxPage() {
+    this.router.navigate([RouteNames.IMX_PAGE]);
   }
 }

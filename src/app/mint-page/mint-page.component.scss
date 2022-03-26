@@ -170,12 +170,207 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 80%;
+  //   min-height: 80%;
   @media (max-width: 500px) {
     padding-top: 20px;
     flex-direction: column;
     min-height: auto;
   }
+}
+.content-type-card-mint {
+  height: 200px;
+  width: 196px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 2.5910093784332275px solid #efefef;
+  border-radius: 19.54926872253418px;
+  box-shadow: 1.3432013988494873px 1.3432013988494873px 26.864025115966797px rgba(0, 0, 0, 0.05);
+}
+.deso-logo-header {
+  height: 25px;
+  margin-right: 10px;
+}
+.eth-logo-header {
+  height: 25px;
+  margin-right: 10px;
+}
+.sol-logo-header {
+  height: 25px;
+  margin-right: 10px;
+}
+.deso-wallet-connected {
+  height: 15px;
+}
+.deso-wallet-connected-container {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-left: 10px;
+}
+.deso-wallet-connected-address {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 112.5%;
+  color: #ffffff;
+}
+.deso-wallet-connected-text {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 112.5%;
+  color: rgba(255, 255, 255, 0.85);
+}
+.deso-wallet-connected-text-not-connected {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 112.5%;
+  color: rgba(24, 24, 24, 0.95);
+}
+.blockchain-type-card-mint {
+  width: 349.33px;
+  height: 235.37px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 2.5910093784332275px solid #efefef;
+  border-radius: 19.54926872253418px;
+  box-shadow: 1.3432013988494873px 1.3432013988494873px 26.864025115966797px rgba(0, 0, 0, 0.05);
+  flex-direction: column;
+  display: flex;
+}
+.deso-blockchain-type-card-header {
+  width: 100%;
+  height: 30%;
+  background: #0d1a2e;
+  border-radius: 16.0713px 16.0713px 0px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.eth-blockchain-type-card-header {
+  background: #181818;
+  width: 100%;
+  height: 30%;
+  border-radius: 16.0713px 16.0713px 0px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.sol-blockchain-type-card-header {
+  background: #000000;
+  width: 100%;
+  height: 30%;
+  border-radius: 16.0713px 16.0713px 0px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.blockchain-type-card-header-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  width: 300px;
+  justify-content: space-between;
+}
+.deso-header-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+.eth-header-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+.blockchain-header-text {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22.9068px;
+  line-height: 34px;
+  color: #ffffff;
+}
+.deso-wallet-container-not-connected {
+  background: white;
+  border: 2.29068px solid #ffffff;
+  box-shadow: 0.260887px 0.260887px 1.30444px 0.130444px rgba(0, 0, 0, 0.11);
+  border-radius: 18.2903px;
+  height: 40px;
+  width: 150px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.deso-wallet-container {
+  background: #0c0c0c;
+  border: 2.29068px solid #ffffff;
+  box-shadow: 0.260887px 0.260887px 1.30444px 0.130444px rgba(0, 0, 0, 0.11);
+  border-radius: 18.2903px;
+  height: 40px;
+  width: 150px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.blockchain-type-card-body {
+  width: 100%;
+  height: 70%;
+  border-radius: 16.0713px 16.0713px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.blockchain-body-text {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13.7441px;
+  line-height: 128.5%;
+  display: flex;
+  color: #3f3f3f;
+  text-align: left;
+  margin-top: 15px;
+  width: 300px;
+}
+.deso-blockchain-line-separator {
+  width: 320px;
+  border: 0.5px solid #dadada;
+  transform: rotate(0.16deg);
+  margin-top: 10px;
+}
+.eth-blockchain-line-separator {
+  width: 320px;
+  border: 0.5px solid #dadada;
+  transform: rotate(0.16deg);
+  margin-top: 28px;
+}
+.sol-blockchain-line-separator {
+  width: 320px;
+  border: 0.5px solid #dadada;
+  transform: rotate(0.16deg);
+  margin-top: 82px;
+}
+.gas-fees-container {
+  display: flex;
+  text-align: left;
+  margin-top: 7.5px;
+  width: 300px;
+  justify-content: space-between;
+}
+.gas-fees-text {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12.7726px;
+  line-height: 23px;
+  color: #656565;
+}
+.gas-fees-amount {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12.7726px;
+  line-height: 23px;
+  color: #656565;
 }
 .fs-11px {
   font-size: 11px;
@@ -237,6 +432,97 @@
 .overflow-scroll {
   overflow-y: scroll;
   overflow-x: hidden;
+}
+.eth-price-logo {
+  height: 50px;
+}
+.eth-price-text {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 46px;
+}
+.imx-fee-container {
+  width: 484px;
+  height: 97px;
+  background: #ffffff;
+  box-shadow: 0px 3.45562px 43.1953px rgb(0 0 0 / 5%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.imx-fee-container-line-1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
+}
+.imx-fee-container-line-1-text {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: #656565;
+}
+.imx-fee-container-line-break {
+  width: 444.96px;
+  height: 0px;
+  border: 1.02624px solid #dadada;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.imx-fee-container-line-2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
+}
+.imx-fee-container-line-2-text {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: #656565;
+}
+.eth-step-2-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.eth-minted-success-img {
+  height: 90px;
+  margin-top: 50px;
+}
+.eth-sale-success-img {
+  height: 115px;
+  margin-top: 50px;
+}
+.eth-minted-step-2-header {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 48px;
+  text-align: center;
+  color: #0d0d0d;
+  margin-top: 40px;
+}
+.eth-minted-step-2-body {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 28px;
+  text-align: center;
+  color: #070707;
+  margin-top: 20px;
+}
+.eth-minted-step-2-sale-now-button {
+  bottom: 10% !important;
+}
+.eth-minted-step-2-sale-later-button {
+  background-color: white !important;
+  color: black !important;
 }
 .mint-page-auction-selection {
   border-radius: 10px;
@@ -1076,4 +1362,8 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.height-zero {
+  height: 0% !important;
 }

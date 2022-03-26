@@ -5,6 +5,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 
     @media (max-width: 626px) {
         align-items: center;

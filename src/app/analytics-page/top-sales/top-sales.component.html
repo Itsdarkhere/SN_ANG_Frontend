@@ -1,9 +1,12 @@
 <div class="top-sales-container">
-	<h2>Top NFT Sales on Deso</h2>
-	<div class="top-sales-cards-container">
-		<div class="nft-item" *ngFor="let post of topSalesPosts">
-			<app-small-card-component [post]="post"></app-small-card-component>
-			<p>1</p>
-		</div>
-	</div>
+  <h2>
+    <img class="mr-10px" src="/assets/icons/top_sales_trophy_icon.svg" alt="trophy" />
+    Top NFT Sales on Deso
+  </h2>
+  <div class="top-sales-cards-container" [@listAnimation]="posts?.length">
+    <div class="nft-item" *ngFor="let post of posts; let i = index">
+      <p>{{ i + 1 }}{{ orderList[i] }}</p>
+      <app-small-card-component [post]="post"></app-small-card-component>
+    </div>
+  </div>
 </div>

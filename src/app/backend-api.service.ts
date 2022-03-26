@@ -141,9 +141,29 @@ export class BackendRoutes {
   static RoutePathGetCommunityFavourites = "/api/v0/get-community-favourites";
   static RoutePathGetFreshDrops = "/api/v0/get-fresh-drops";
   static RoutePathGetNFTsByCategory = "/api/v0/get-nfts-by-category";
+  static RoutePathGetTrendingAuctions = "/api/v0/get-trending-auctions";
+  static RoutePathGetRecentSales = "/api/v0/get-recent-sales";
+  static RoutePathGetSecondaryListings = "/api/v0/get-secondary-listings";
+  // Collection
+  static RoutePathCreateCollection = "/api/v0/create-collection";
+  static RoutePathAddToCollection = "/api/v0/add-to-collection";
+  static RoutePathSortCollection = "/api/v0/sort-collection";
+  static RoutePathGetUserCollectionsData = "/api/v0/get-user-collections-data";
+  static RoutePathGetCollectionInfo = "/api/v0/get-collection-info";
+  static RoutePathGetAllUserCollections = "/api/v0/get-all-user-collections";
+  static RoutePathGetAllUserCollectionNames = "/api/v0/get-all-user-collection-names";
+  static RoutePathInsertIntoCollection = "/api/v0/insert-into-collection";
   // Marketplace postgres
   static RoutePathSortMarketplace = "/api/v0/sort-marketplace";
   static RoutePathSortCreators = "/api/v0/sort-creators";
+  // PG verified list
+  static RoutePathInsertIntoPGVerified = "/api/v0/insert-into-pg-verified";
+  // PG profile details
+  static RoutePathInsertOrUpdateProfileDetails = "/api/v0/insert-or-update-profile-details";
+  static RoutePathGetPGProfileDetails = "/api/v0/get-pg-profile-details";
+  static RoutePathUpdateCollectorOrCreator = "/api/v0/update-collector-or-creator";
+  static RoutePathGetCollectorOrCreator = "/api/v0/get-collector-or-creator";
+  static RoutePathInsertOrUpdateIMXPK = "/api/v0/insert-or-update-imx-pk";
   // Same as the two above but for supernovas uses
   static RoutePathGetMarketplaceRefSupernovas = "/api/v0/get-marketplace-ref-supernovas";
   static RoutePathAddToMarketplaceSupernovas = "/api/v0/add-to-marketplace-supernovas";
@@ -194,6 +214,23 @@ export class BackendRoutes {
   static RoutePathAdminGetTransactionFeeMap = "/api/v0/admin/get-transaction-fee-map";
   static RoutePathAdminAddExemptPublicKey = "/api/v0/admin/add-exempt-public-key";
   static RoutePathAdminGetExemptPublicKeys = "/api/v0/admin/get-exempt-public-keys";
+
+  // IMX SUPERNOVAS
+  static RoutePathGetIMXMetadataById = "/api/v0/imx/metadata";
+  static RoutePathInsertIMXMetadata = "/api/v0/insert/imx";
+  static RoutePathUpdateIMXMetadataPostHash = "/api/v0/update-imx-post-hash";
+  static RoutePathGetDesoPKbyETHPK = "/api/v0/get-deso-pk-by-ethpk";
+  static RoutePathSortETHMarketplace = "/api/v0/sort-eth-marketplace";
+  // SUPERNOVAS ANALYTICS
+  static RoutePathGetUniqueCreators = "/api/v0/get-unique-creators";
+  static RoutePathGetUniqueCollectors = "/api/v0/get-unique-collectors";
+  static RoutePathGetDesoSalesCapGraph = "/api/v0/get-deso-sales-cap-graph";
+  static RoutePathGetDesoMarketCapGraph = "/api/v0/get-deso-market-cap-graph";
+  static RoutePathGetTopNFTSales = "/api/v0/get-top-nft-sales";
+  static RoutePathGetTopBidsToday = "/api/v0/get-top-bids-today";
+  static RoutePathGetTopEarningCollectors = "/api/v0/get-top-earning-collectors";
+  static RoutePathGetTopEarningCreators = "/api/v0/get-top-earning-creators";
+  static RoutePathGetQuickFacts = "/api/v0/get-quick-facts";
 }
 
 export class Transaction {
@@ -210,7 +247,16 @@ export class Transaction {
   publicKeyBase58Check: string;
   signatureBytesHex: string;
 }
-
+// Store collections in this
+export class CollectionResponse {
+  Collection: string;
+  CollectionBannerLocation: string;
+  CollectionCreatorName: string;
+  CollectionDescription: string;
+  CollectionProfilePicLocation: string;
+  FloorPrice: number;
+  Pieces: number;
+}
 export class ProfileEntryResponse {
   Username: string;
   Description: string;
@@ -332,6 +378,13 @@ export class PostEntryResponse {
   NFTRoyaltyToCreatorBasisPoints: number;
   HotnessScore: number;
   PostMultiplier: number;
+  // This is full on supernovas
+  // Enables us to select
+  // Now used in create-collection
+  selected: boolean;
+  // This enables us to disable nfts on create-collection
+  // So that user does not add duplicates on collections
+  disabled: boolean;
 }
 
 export class DiamondsPost {
@@ -451,7 +504,11 @@ export class DeSoNode {
   providedIn: "root",
 })
 export class BackendApiService {
-  constructor(private httpClient: HttpClient, private identityService: IdentityService, private mixPanel: MixpanelService) {}
+  constructor(
+    private httpClient: HttpClient,
+    private identityService: IdentityService,
+    private mixPanel: MixpanelService
+  ) {}
 
   static GET_PROFILES_ORDER_BY_INFLUENCER_COIN_PRICE = "influencer_coin_price";
   static BUY_CREATOR_COIN_OPERATION_TYPE = "buy";
@@ -769,6 +826,70 @@ export class BackendApiService {
     return this.signAndSubmitTransaction(endpoint, req, SenderPublicKeyBase58Check);
   }
 
+  GetHotFeed(endpoint: string, ReaderPublicKeyBase58Check: string, SeenPosts, ResponseLimit): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetHotFeed, {
+      ReaderPublicKeyBase58Check,
+      SeenPosts,
+      ResponseLimit,
+    });
+  }
+
+  InsertIMXMetadata(
+    endpoint: string,
+    Name: string,
+    Description: string,
+    Image: string,
+    Image_url: string,
+    Category: string,
+    PostHashHex: string
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathInsertIMXMetadata, {
+      Name,
+      Description,
+      Image,
+      Image_url,
+      Category,
+      PostHashHex,
+    });
+  }
+
+  GetIMXMetadatById(endpoint: string): Observable<any> {
+    return this.httpClient.get<any>(this.GetIMXMetadataURL(endpoint), {});
+  }
+  GetIMXMetadataURL(endpoint: string): string {
+    return this._makeRequestURL(endpoint, BackendRoutes.RoutePathGetIMXMetadataById + "/1");
+  }
+
+  UpdateIMXMetadataPostHash(endpoint: string, Token_id: string, PostHashHex: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathUpdateIMXMetadataPostHash, {
+      Token_id,
+      PostHashHex,
+    });
+  }
+
+  GetDesoPKbyETHPK(endpoint: string, ETHPK: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetDesoPKbyETHPK, {
+      ETHPK,
+    });
+  }
+
+  SortETHMarketplace(
+    endpoint: string,
+    ReaderPublicKeyBase58Check: string,
+    TokenIdArray: string[],
+    Category: string,
+    SortType: string,
+    CreatorsType: string
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathSortETHMarketplace, {
+      ReaderPublicKeyBase58Check,
+      TokenIdArray,
+      Category,
+      SortType,
+      CreatorsType,
+    });
+  }
+
   // User-related functions.
   GetUsersStateless(endpoint: string, publicKeys: any[], SkipForLeaderboard: boolean = false): Observable<any> {
     return this.post(endpoint, BackendRoutes.GetUsersStatelessRoute, {
@@ -883,7 +1004,7 @@ export class BackendApiService {
       "Post hex": NFTPostHashHex,
       "Serial Number": SerialNumber,
       "Min fee rate per KB": MinFeeRateNanosPerKB,
-    })
+    });
     return this.signAndSubmitTransaction(endpoint, request, UpdaterPublicKeyBase58Check);
   }
 
@@ -905,7 +1026,7 @@ export class BackendApiService {
       "Post hex": NFTPostHashHex,
       "Serial Number": SerialNumber,
       "Min fee rate per KB": MinFeeRateNanosPerKB,
-    })
+    });
     return this.signAndSubmitTransaction(endpoint, request, UpdaterPublicKeyBase58Check);
   }
 
@@ -941,13 +1062,13 @@ export class BackendApiService {
           );
         })
       );
-      this.mixPanel.track48("Transfer NFT", {
-        "Sender": SenderPublicKeyBase58Check,
-        "Receiver": ReceiverPublicKeyBase58Check,
-        "Post hex": NFTPostHashHex,
-        "Serial Number": SerialNumber,
-        "Min fee rate per KB": MinFeeRateNanosPerKB,
-      })
+    this.mixPanel.track48("Transfer NFT", {
+      Sender: SenderPublicKeyBase58Check,
+      Receiver: ReceiverPublicKeyBase58Check,
+      "Post hex": NFTPostHashHex,
+      "Serial Number": SerialNumber,
+      "Min fee rate per KB": MinFeeRateNanosPerKB,
+    });
     return this.signAndSubmitTransaction(endpoint, req, SenderPublicKeyBase58Check);
     /*const request = this.post(endpoint, BackendRoutes.RoutePathTransferNFT, {
       SenderPublicKeyBase58Check,
@@ -1005,7 +1126,6 @@ export class BackendApiService {
       BuyNowPriceNanos,
       MinFeeRateNanosPerKB,
     });
-
     return this.signAndSubmitTransaction(endpoint, request, UpdaterPublicKeyBase58Check);
   }
 
@@ -1033,13 +1153,13 @@ export class BackendApiService {
       MinFeeRateNanosPerKB,
     });
     this.mixPanel.track46("NFT updated", {
-      "Poster": UpdaterPublicKeyBase58Check,
+      Poster: UpdaterPublicKeyBase58Check,
       "Post hex": NFTPostHashHex,
       "Serial Number": SerialNumber,
       "For Sale": IsForSale,
-      "Min Bid": MinBidAmountNanos/1e9,
+      "Min Bid": MinBidAmountNanos / 1e9,
       "Min fee rate per KB": MinFeeRateNanosPerKB,
-    })
+    });
     return this.signAndSubmitTransaction(endpoint, request, UpdaterPublicKeyBase58Check);
   }
 
@@ -1097,7 +1217,6 @@ export class BackendApiService {
       })
     );
     return this.signAndSubmitTransaction(endpoint, request, UpdaterPublicKeyBase58Check);
-
   }
 
   DecryptUnlockableTexts(
@@ -1190,6 +1309,56 @@ export class BackendApiService {
       ReaderPublicKeyBase58Check,
     });
   }
+  // PublicKey can be omitted on the analytics queries
+  GetDesoMarketCapGraph(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetDesoMarketCapGraph, {
+      PublicKeyBase58Check,
+    });
+  }
+  // PublicKey can be omitted on the analytics queries
+  GetDesoSalesCapGraph(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetDesoSalesCapGraph, {
+      PublicKeyBase58Check,
+    });
+  }
+  GetTopNFTSales(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetTopNFTSales, {
+      PublicKeyBase58Check,
+    });
+  }
+  GetTopBidsToday(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetTopBidsToday, {
+      PublicKeyBase58Check,
+    });
+  }
+  GetTopEarningCollectors(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetTopEarningCollectors, {
+      PublicKeyBase58Check,
+    });
+  }
+  GetTopEarningCreators(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetTopEarningCreators, {
+      PublicKeyBase58Check,
+    });
+  }
+  GetQuickFacts(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetQuickFacts, {
+      PublicKeyBase58Check,
+    });
+  }
+
+  // PublicKey can be omitted on the analytics queries
+  GetUniqueCreators(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetUniqueCreators, {
+      PublicKeyBase58Check,
+    });
+  }
+  // PublicKey can be omitted on the analytics queries
+  GetUniqueCollectors(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetUniqueCollectors, {
+      PublicKeyBase58Check,
+    });
+  }
   GetNFTShowcasePaginated(
     endpoint: string,
     UserPublicKeyBase58Check: string,
@@ -1226,6 +1395,21 @@ export class BackendApiService {
       Offset,
     });
   }
+  GetTrendingAuctions(endpoint: string, ReaderPublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetTrendingAuctions, {
+      ReaderPublicKeyBase58Check,
+    });
+  }
+  GetRecentSales(endpoint: string, ReaderPublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetRecentSales, {
+      ReaderPublicKeyBase58Check,
+    });
+  }
+  GetSecondaryListings(endpoint: string, ReaderPublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetSecondaryListings, {
+      ReaderPublicKeyBase58Check,
+    });
+  }
   GetFreshDrops(endpoint: string, ReaderPublicKeyBase58Check: string, ProfilePublicKey: string): Observable<any> {
     return this.post(endpoint, BackendRoutes.RoutePathGetFreshDrops, {
       ReaderPublicKeyBase58Check,
@@ -1245,7 +1429,7 @@ export class BackendApiService {
       Email,
     });
   }
- 
+
   // Sends the user an email about someone outbidding them
   SendLostNFTEmail(endpoint: string, Username: string, ArtName: string, Email: string) {
     return this.post(endpoint, BackendRoutes.RoutePathSendLostNFTEmail, {
@@ -1356,10 +1540,151 @@ export class BackendApiService {
       CreatorsType,
     });
   }
+  SortCollection(
+    endpoint: string,
+    ReaderPublicKeyBase58Check: string,
+    Username: string,
+    CollectionName: string,
+    Offset: number,
+    Status: string,
+    Market: string,
+    OrderByType: string
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathSortCollection, {
+      ReaderPublicKeyBase58Check,
+      Username,
+      CollectionName,
+      Offset,
+      Status,
+      Market,
+      OrderByType,
+    });
+  }
+  // get all rows from collections that have the username as the creator
+  // Used to filter duplicate posts and collection names inside collection creation
+  GetUserCollectionsData(endpoint: string, Username: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetUserCollectionsData, {
+      Username,
+    });
+  }
+  GetCollectionInfo(endpoint: string, CollectionName: string, CollectionCreatorName: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetCollectionInfo, {
+      CollectionName,
+      CollectionCreatorName,
+    });
+  }
+  // Used to show collections in profile
+  GetAllUserCollections(endpoint: string, Username: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetAllUserCollections, {
+      Username,
+    });
+  }
+  // Used to show which collections the user has -> which collections they can add to
+  GetAllUserCollectionNames(endpoint: string, Username: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetAllUserCollectionNames, {
+      Username,
+    });
+  }
+  // Insert a single post into a specific collection
+  InsertIntoCollection(endpoint: string, PostHashHex: string, Username: string, Collection: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathInsertIntoCollection, {
+      PostHashHex,
+      Username,
+      Collection,
+    });
+  }
+  CreateCollection(
+    endpoint: string,
+    PostHashHexArray: string[],
+    Username: string,
+    CollectionName: string,
+    CollectionDescription: string,
+    CollectionBannerLocation: string,
+    CollectionProfilePicLocation: string
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathCreateCollection, {
+      PostHashHexArray,
+      Username,
+      CollectionName,
+      CollectionDescription,
+      CollectionBannerLocation,
+      CollectionProfilePicLocation,
+    });
+  }
+  AddToCollection(
+    endpoint: string,
+    PostHashHexArray: string[],
+    Username: string,
+    CollectionName: string
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathAddToCollection, {
+      PostHashHexArray,
+      Username,
+      CollectionName,
+    });
+  }
   SortCreators(endpoint: string, Offset: number, Verified): Observable<any> {
     return this.post(endpoint, BackendRoutes.RoutePathSortCreators, {
       Offset,
       Verified,
+    });
+  }
+  // Gets info if user is collector / creator / both
+  GetCollectorOrCreator(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetCollectorOrCreator, {
+      PublicKeyBase58Check,
+    });
+  }
+  // When user connects eth wallet, add it to their profile details
+  InsertOrUpdateIMXPK(endpoint: string, PublicKeyBase58Check: string, ETH_PublicKey: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathInsertOrUpdateIMXPK, {
+      PublicKeyBase58Check,
+      ETH_PublicKey,
+    });
+  }
+  // update / set if user creator / collector status
+  UpdateCollectorOrCreator(
+    endpoint: string,
+    PublicKeyBase58Check: string,
+    Creator: boolean,
+    Collector: boolean
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathUpdateCollectorOrCreator, {
+      PublicKeyBase58Check,
+      Creator,
+      Collector,
+    });
+  }
+  // Gets everything needed in profile / update profile
+  GetPGProfileDetails(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetPGProfileDetails, {
+      PublicKeyBase58Check,
+    });
+  }
+  // Adds to the list of verified users in pg
+  // tie this to admin panel verification
+  InsertIntoPGVerified(endpoint: string, Username: string): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathInsertIntoPGVerified, {
+      Username,
+    });
+  }
+  // Works for both initial creation and updating
+  InsertOrUpdateProfileDetails(
+    endpoint: string,
+    PublicKeyBase58Check: string,
+    Twitter: string,
+    Website: string,
+    Discord: string,
+    Instagram: string,
+    Name: string
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathInsertOrUpdateProfileDetails, {
+      PublicKeyBase58Check,
+      Twitter,
+      Website,
+      Discord,
+      Instagram,
+      Name,
     });
   }
   GetNFTCollectionSummary(endpoint: string, ReaderPublicKeyBase58Check: string, PostHashHex: string): Observable<any> {
@@ -1716,7 +2041,7 @@ export class BackendApiService {
       MinFeeRateNanosPerKB,
     });
     this.mixPanel.track40("Liked post", {
-      "post": LikedPostHashHex,
+      post: LikedPostHashHex,
     });
     return this.signAndSubmitTransaction(endpoint, request, ReaderPublicKeyBase58Check);
   }
@@ -1739,9 +2064,9 @@ export class BackendApiService {
       InTutorial,
     });
     this.mixPanel.track41("Send Diamond", {
-      "Receiver": ReceiverPublicKeyBase58Check,
+      Receiver: ReceiverPublicKeyBase58Check,
       "Diamond Level": DiamondLevel,
-      "Post hash": DiamondPostHashHex
+      "Post hash": DiamondPostHashHex,
     });
     return this.signAndSubmitTransaction(endpoint, request, SenderPublicKeyBase58Check);
   }
@@ -2075,6 +2400,72 @@ export class BackendApiService {
     return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminGrantVerificationBadge, AdminPublicKey, {
       AdminPublicKey,
       UsernameToVerify,
+    });
+  }
+  AdminGetHotFeedAlgorithm(endpoint: string, AdminPublicKey: string): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminGetHotFeedAlgorithm, AdminPublicKey, {
+      AdminPublicKey,
+    });
+  }
+
+  AdminUpdateHotFeedAlgorithm(
+    endpoint: string,
+    AdminPublicKey: string,
+    InteractionCap: number,
+    TimeDecayBlocks: number
+  ): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminUpdateHotFeedAlgorithm, AdminPublicKey, {
+      AdminPublicKey,
+      InteractionCap,
+      TimeDecayBlocks,
+    });
+  }
+
+  AdminGetUnfilteredHotFeed(
+    endpoint: string,
+    AdminPublicKey: string,
+    ResponseLimit: number,
+    SeenPosts: Array<string>
+  ): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminGetUnfilteredHotFeed, AdminPublicKey, {
+      AdminPublicKey,
+      ResponseLimit,
+      SeenPosts,
+    });
+  }
+
+  AdminUpdateHotFeedPostMultiplier(
+    endpoint: string,
+    AdminPublicKey: string,
+    PostHashHex: string,
+    Multiplier: number
+  ): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminUpdateHotFeedPostMultiplier, AdminPublicKey, {
+      AdminPublicKey,
+      PostHashHex,
+      Multiplier,
+    });
+  }
+
+  AdminUpdateHotFeedUserMultiplier(
+    endpoint: string,
+    AdminPublicKey: string,
+    Username: string,
+    InteractionMultiplier: number,
+    PostsMultiplier: number
+  ): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminUpdateHotFeedUserMultiplier, AdminPublicKey, {
+      AdminPublicKey,
+      Username,
+      InteractionMultiplier,
+      PostsMultiplier,
+    });
+  }
+
+  AdminGetHotFeedUserMultiplier(endpoint: string, AdminPublicKey: string, Username: string): Observable<any> {
+    return this.jwtPost(endpoint, BackendRoutes.RoutePathAdminGetHotFeedUserMultiplier, AdminPublicKey, {
+      AdminPublicKey,
+      Username,
     });
   }
 

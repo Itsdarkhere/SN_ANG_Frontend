@@ -1,86 +1,88 @@
-<div class="global__top-bar__height" *ngIf="mobile"></div>
-<div
-  *ngIf="readyForDisplay(); else loadingElseBlock"
-  [ngClass]="mobile ? 'w-100' : 'feed-cover'"
-  class="d-flex flex-center flex-column mt-20px"
->
-  <div [avatar]="creatorProfile.PublicKeyBase58Check" class="trade-creator-avatar"></div>
-  <h3 class="font-weight-semiboldn trade-creator-name-heading mt-20px" style="color: #0d0d0d">
-    ${{ creatorProfile.Username }} coin
-  </h3>
-  <div class="d-flex flex-row mt-10px">
-    <span class="trade-creator-price-heading font-weight-semiboldn" style="color: #9c9c9c">
-      {{ globalVars.nanosToUSD(creatorProfile.CoinPriceDeSoNanos, 2) }}
-    </span>
-    <span class="trade-creator-coin-price-heading pl-5px" style="color: #8a8a8a">Coin price</span>
-  </div>
-  <div class="trade-creator-actions-wrapper mt-20px d-flex flex-column flex-center">
-    <div class="trade-creator-tab-selector d-flex flex-center px-10px mt-5px">
-      <button
-        (click)="_handleTabClick('Buy')"
-        class="br-top-left-30px font-weight-semiboldn"
-        [ngClass]="{ active: creatorCoinTrade.tradeType == 'Buy' }"
-      >
-        <label class="mb-0px pl-5px">Buy</label>
-      </button>
-      <button
-        (click)="_handleTabClick('Sell')"
-        class="font-weight-semiboldn"
-        [ngClass]="{ active: creatorCoinTrade.tradeType == 'Sell' }"
-      >
-        <label class="mb-0px pl-5px">Sell</label>
-      </button>
-      <button
-        (click)="_handleTabClick('Transfer')"
-        class="br-top-right-30px font-weight-semiboldn"
-        [ngClass]="{ active: creatorCoinTrade.tradeType == 'Transfer' }"
-      >
-        <label class="mb-0px pl-5px">Transfer</label>
-      </button>
+<div class="w-100 d-flex flex-center">
+  <div class="global__top-bar__height" *ngIf="mobile"></div>
+  <div
+    *ngIf="readyForDisplay(); else loadingElseBlock"
+    [ngClass]="mobile ? 'w-100' : 'feed-cover'"
+    class="d-flex flex-center flex-column mt-20px"
+  >
+    <div [avatar]="creatorProfile.PublicKeyBase58Check" class="trade-creator-avatar"></div>
+    <h3 class="font-weight-semiboldn trade-creator-name-heading mt-20px" style="color: #0d0d0d">
+      ${{ creatorProfile.Username }} coin
+    </h3>
+    <div class="d-flex flex-row mt-10px">
+      <span class="trade-creator-price-heading font-weight-semiboldn" style="color: #9c9c9c">
+        {{ globalVars.nanosToUSD(creatorProfile.CoinPriceDeSoNanos, 2) }}
+      </span>
+      <span class="trade-creator-coin-price-heading pl-5px" style="color: #8a8a8a">Coin price</span>
     </div>
-    <app-trade-creator-buy
-      *ngIf="creatorCoinTrade.tradeType === 'Buy'"
-      (buyClick)="_buyOrSellCreatorCoin()"
-      [buyingCoin]="creatorCoinTradeBeingCalled"
-      (invalidateAndUpdateAmounts)="_invalidateAndUpdateAmounts()"
-      [creatorProfile]="creatorProfile"
-      [creatorCoinTrade]="creatorCoinTrade"
-      class="w-100 h-100 pb-10px d-flex flex-center"
-    ></app-trade-creator-buy>
-    <app-trade-creator-sell
-      (sellClick)="_buyOrSellCreatorCoin()"
-      [sellingCoin]="creatorCoinTradeBeingCalled"
-      (sellMax)="_maxButtonClicked()"
-      (invalidateAndUpdateAmounts)="_invalidateAndUpdateAmounts()"
-      [creatorProfile]="creatorProfile"
-      [creatorCoinTrade]="creatorCoinTrade"
-      *ngIf="creatorCoinTrade.tradeType === 'Sell'"
-      class="w-100 h-100 pb-10px d-flex flex-center"
-    ></app-trade-creator-sell>
-    <app-trade-creator-transfer
-      (transferClick)="_transferCreatorCoin()"
-      [transferingCoin]="creatorCoinTradeBeingCalled"
-      (invalidateAndUpdateAmounts)="_invalidateAndUpdateAmounts()"
-      [creatorProfile]="creatorProfile"
-      [creatorCoinTrade]="creatorCoinTrade"
-      *ngIf="creatorCoinTrade.tradeType === 'Transfer'"
-      class="w-100 h-100 pb-10px d-flex flex-center"
-    ></app-trade-creator-transfer>
+    <div class="trade-creator-actions-wrapper mt-20px d-flex flex-column flex-center">
+      <div class="trade-creator-tab-selector d-flex flex-center px-10px mt-5px">
+        <button
+          (click)="_handleTabClick('Buy')"
+          class="br-top-left-30px font-weight-semiboldn"
+          [ngClass]="{ active: creatorCoinTrade.tradeType == 'Buy' }"
+        >
+          <label class="mb-0px pl-5px">Buy</label>
+        </button>
+        <button
+          (click)="_handleTabClick('Sell')"
+          class="font-weight-semiboldn"
+          [ngClass]="{ active: creatorCoinTrade.tradeType == 'Sell' }"
+        >
+          <label class="mb-0px pl-5px">Sell</label>
+        </button>
+        <button
+          (click)="_handleTabClick('Transfer')"
+          class="br-top-right-30px font-weight-semiboldn"
+          [ngClass]="{ active: creatorCoinTrade.tradeType == 'Transfer' }"
+        >
+          <label class="mb-0px pl-5px">Transfer</label>
+        </button>
+      </div>
+      <app-trade-creator-buy
+        *ngIf="creatorCoinTrade.tradeType === 'Buy'"
+        (buyClick)="_buyOrSellCreatorCoin()"
+        [buyingCoin]="creatorCoinTradeBeingCalled"
+        (invalidateAndUpdateAmounts)="_invalidateAndUpdateAmounts()"
+        [creatorProfile]="creatorProfile"
+        [creatorCoinTrade]="creatorCoinTrade"
+        class="w-100 h-100 pb-10px d-flex flex-center"
+      ></app-trade-creator-buy>
+      <app-trade-creator-sell
+        (sellClick)="_buyOrSellCreatorCoin()"
+        [sellingCoin]="creatorCoinTradeBeingCalled"
+        (sellMax)="_maxButtonClicked()"
+        (invalidateAndUpdateAmounts)="_invalidateAndUpdateAmounts()"
+        [creatorProfile]="creatorProfile"
+        [creatorCoinTrade]="creatorCoinTrade"
+        *ngIf="creatorCoinTrade.tradeType === 'Sell'"
+        class="w-100 h-100 pb-10px d-flex flex-center"
+      ></app-trade-creator-sell>
+      <app-trade-creator-transfer
+        (transferClick)="_transferCreatorCoin()"
+        [transferingCoin]="creatorCoinTradeBeingCalled"
+        (invalidateAndUpdateAmounts)="_invalidateAndUpdateAmounts()"
+        [creatorProfile]="creatorProfile"
+        [creatorCoinTrade]="creatorCoinTrade"
+        *ngIf="creatorCoinTrade.tradeType === 'Transfer'"
+        class="w-100 h-100 pb-10px d-flex flex-center"
+      ></app-trade-creator-transfer>
+    </div>
+    <app-action-response-slideup
+      [isOpen]="openMobileActionResponse"
+      (closeSlideUp)="closeSlideUp($event)"
+      [headingText]="headingText"
+      [mainText]="mainText"
+      [buttonOneText]="buttonOneText"
+    ></app-action-response-slideup>
   </div>
-  <app-action-response-slideup
-    [isOpen]="openMobileActionResponse"
-    (closeSlideUp)="closeSlideUp($event)"
-    [headingText]="headingText"
-    [mainText]="mainText"
-    [buttonOneText]="buttonOneText"
-  ></app-action-response-slideup>
-</div>
-<!--
+  <!--
 
   headingText: "Sold!",
         modalText: "You sold the Creator Coin successfully.",
         buttonOneText: "View Wallet",
 -->
-<ng-template #loadingElseBlock>
-  <simple-center-loader></simple-center-loader>
-</ng-template>
+  <ng-template #loadingElseBlock>
+    <simple-center-loader></simple-center-loader>
+  </ng-template>
+</div>

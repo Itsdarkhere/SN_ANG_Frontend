@@ -68,6 +68,12 @@ job "supernovas-frontend" {
     header Content-Security-Policy "
       default-src 'self';
       connect-src 'self'
+        https://link.ropsten.x.immutable.com:*
+        https://api.ropsten.x.immutable.com:*
+        https://eth-ropsten.alchemyapi.io:*
+        https://link.x.immutable.com:*
+        https://api.x.immutable.com:*
+        https://eth-mainnet.alchemyapi.io:*
         supernovas.app:*
         node.deso.org
         https://supernovas.app
@@ -124,12 +130,13 @@ job "supernovas-frontend" {
         https://arweave.net
         https://*.arweave.net;
       img-src 'self' data: 
+        https://supernovas.app:*
         https://ik.imagekit.io
         https://i.imgur.com
         https://google-analytics.com
         https://images.deso.org 
         https://images.bitclout.com 
-        https://arweave.net
+        https://arweave.net:*
         https://*.arweave.net
         https://cloudflare-ipfs.com
         https://quickchart.io;

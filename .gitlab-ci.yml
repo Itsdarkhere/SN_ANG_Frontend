@@ -1,3 +1,28 @@
+# #normal
+# image: docker:20.10.6
+
+# variables:
+#   CI_REGISTRY: "registry.gitlab.com/supernovas2/frontend"
+
+# build:
+#   stage: build
+#   script:
+#     - echo "$DEPLOY_DOCKER_PASS" | docker login -u "$DEPLOY_DOCKER_USER" --password-stdin registry.gitlab.com
+#     - docker build --tag $CI_REGISTRY:$CI_COMMIT_SHA .
+#     - docker push $CI_REGISTRY:$CI_COMMIT_SHA
+#     - docker logout
+#   only:
+#     - main
+
+# release:
+#   stage: deploy
+#   image: "hashicorp/levant:0.3.0"
+#   script:
+#     - levant deploy -address="http://65.21.93.96:4646" -var "commit_sha=$CI_COMMIT_SHA" bitclout-frontend.hcl
+#   only:
+#     - main
+
+# alpha
 image: docker:20.10.6
 
 variables:
@@ -11,12 +36,12 @@ build:
     - docker push $CI_REGISTRY:$CI_COMMIT_SHA
     - docker logout
   only:
-    - main
+    - alpha
 
 release:
   stage: deploy
   image: "hashicorp/levant:0.3.0"
   script:
-    - levant deploy -address="http://65.21.93.96:4646" -var "commit_sha=$CI_COMMIT_SHA" bitclout-frontend.hcl
+    - levant deploy -address="http://65.21.93.96:4646" -var "commit_sha=$CI_COMMIT_SHA" bitclout-frontend-alpha.hcl
   only:
-    - main
+    - alpha

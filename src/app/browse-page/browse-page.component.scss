@@ -14,3 +14,8 @@
 .mt-47_5px {
     margin-top: 47.5px;
 }
+.browser-page-mobile {
+    @media screen and (max-width: 992px) {
+        overflow: hidden;
+    }
+}

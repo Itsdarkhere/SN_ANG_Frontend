@@ -1,0 +1,95 @@
+<div class="collection-page-sidebar-container">
+  <label class="w-100 pl-10px marketplace-label">Status</label>
+  <div class="mlb-status-grid">
+    <button class="font-weight-semibold fs-14px" (click)="statusClick('all')" [ngClass]="{ selected: this.statusAll }">
+      All
+    </button>
+    <button
+      class="font-weight-semibold fs-14px"
+      (click)="statusClick('for sale')"
+      [ngClass]="{ selected: this.statusForSale }"
+    >
+      For Sale
+    </button>
+    <button
+      class="font-weight-semibold fs-14px"
+      (click)="statusClick('has bids')"
+      [ngClass]="{ selected: this.statusHasBids }"
+    >
+      Has Bids
+    </button>
+    <button
+      class="font-weight-semibold fs-14px"
+      (click)="statusClick('sold')"
+      [ngClass]="{ selected: this.statusSold }"
+    >
+      Sold
+    </button>
+  </div>
+  <label class="w-100 mt-20px pl-10px marketplace-label">Market</label>
+  <button
+    class="w-100 marketplace-filter-button d-flex flex-row align-items-center pl-10px position-relative"
+    [ngClass]="marketPrimary ? 'market-button-checked' : ''"
+    (click)="marketClick('primary')"
+  >
+    <input type="checkbox" class="marketplace-button-checkbox display-none" [checked]="marketPrimary" />
+    <label class="marketplace-checkbox-label fs-14px">Primary</label>
+  </button>
+  <button
+    class="w-100 mt-10px marketplace-filter-button d-flex flex-row align-items-center pl-10px position-relative"
+    [ngClass]="marketSecondary ? 'market-button-checked' : ''"
+    (click)="marketClick('secondary')"
+  >
+    <input type="checkbox" class="marketplace-button-checkbox display-none" [checked]="marketSecondary" />
+    <label class="marketplace-checkbox-label fs-14px">Secondary</label>
+  </button>
+  <button
+    [disabled]="globalVars.collectionNFTsLoading"
+    (click)="applyClick()"
+    class="marketplace-apply-button mt-20px fs-12px font-weight-bold"
+  >
+    <img src="/assets/icons/market_apply_icon.svg" class="mr-5px" alt="image-icon" />
+    Apply
+  </button>
+</div>
+<!-- Style way aspect ration differently for mobile -->
+<div
+  class="flyout__nav__inner__marketplace w-100 disable-scrollbars position-relative pointer-events-all"
+  *ngIf="flyout"
+>
+  <div class="nav_close_marketplace position-relative">
+    <img src="assets/img/close_square.svg" class="cursor-pointer" (click)="closeMenu()" alt="" />
+  </div>
+  <label class="w-100 pl-10px marketplace-flyout-label">Status</label>
+  <div class="mlb-flyout-status-grid">
+    <button class="font-weight-semibold" (click)="statusClick('all')" [ngClass]="{ selected: this.statusAll }">
+      <p class="center-absolute">All</p>
+    </button>
+    <button class="font-weight-semibold" (click)="statusClick('for sale')" [ngClass]="{ selected: this.statusForSale }">
+      <p class="center-absolute">For Sale</p>
+    </button>
+    <button class="font-weight-semibold" (click)="statusClick('has bids')" [ngClass]="{ selected: this.statusHasBids }">
+      <p class="center-absolute">Has bids</p>
+    </button>
+    <button class="font-weight-semibold" (click)="statusClick('sold')" [ngClass]="{ selected: this.statusSold }">
+      <p class="center-absolute">Sold</p>
+    </button>
+  </div>
+  <label class="w-100 mt-20px pl-10px marketplace-flyout-label">Market</label>
+  <button
+    class="w-100 marketplace-flyout-filter-button d-flex flex-center-start"
+    [ngClass]="marketPrimary ? 'market-button-checked' : ''"
+    (click)="marketClick('primary')"
+  >
+    <input type="checkbox" class="marketplace-button-checkbox display-none" [checked]="marketPrimary" />
+    <label class="marketplace-flyout-checkbox-label pl-20px">Primary</label>
+  </button>
+  <button
+    class="w-100 mt-10px marketplace-flyout-filter-button d-flex flex-center-start"
+    [ngClass]="marketSecondary ? 'market-button-checked' : ''"
+    (click)="marketClick('secondary')"
+  >
+    <input type="checkbox" class="marketplace-button-checkbox display-none" [checked]="marketSecondary" />
+    <label class="marketplace-flyout-checkbox-label pl-20px">Secondary</label>
+  </button>
+</div>

@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from "@angular/core";
+import { Component, HostListener, Input, OnInit } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
 
 @Component({
@@ -7,6 +7,8 @@ import { GlobalVarsService } from "../global-vars.service";
   styleUrls: ["./page-small-nav-new.component.scss"],
 })
 export class PageSmallNavNewComponent implements OnInit {
+  @Input() isNFTProfile: boolean;
+  @Input() noBottomBar: boolean;
   mobile = false;
   constructor(public globalVars: GlobalVarsService) {}
 

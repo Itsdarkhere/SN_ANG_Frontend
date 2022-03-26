@@ -33,6 +33,8 @@ export class CreatorProfileCollectedComponent implements OnInit {
   @Input() afterCommentCreatedCallback: any = null;
   @Input() showProfileAsReserved: boolean;
 
+  @Input() profileData: any;
+
   nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
   dataToShow: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
   responseHolder: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
@@ -73,7 +75,7 @@ export class CreatorProfileCollectedComponent implements OnInit {
     await this.datasource.adapter.relax();
     await this.datasource.adapter.update({
       predicate: ({ $index, data, element }) => {
-        let currentPost = (data as any) as PostEntryResponse;
+        let currentPost = data as any as PostEntryResponse;
         if ($index === index) {
           newComment.parentPost = currentPost;
           currentPost.Comments = currentPost.Comments || [];
@@ -136,6 +138,17 @@ export class CreatorProfileCollectedComponent implements OnInit {
           }
           this.dataToShow = this.nftResponse.slice(this.startIndex, this.endIndex);
           this.lastPage = Math.floor(this.nftResponse.length / CreatorProfileCollectedComponent.PAGE_SIZE);
+          console.log(this.dataToShow);
+
+          console.log(this.profileData);
+          //   get collected eth NFTs
+          if (this.profileData["ETHPublicKey"] !== "") {
+            this.globalVars.imxWalletAddress = this.profileData["ETHPublicKey"];
+            this.globalVars.getCollectedNFTs();
+          } else {
+            this.globalVars.ethNFTsCollected = [];
+          }
+
           this.isLoading = false;
           return this.nftResponse;
         }

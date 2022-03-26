@@ -1,0 +1,603 @@
+.withdraw-eth-wrapper {
+  background-color: #ffffff;
+  width: calc(100% - 30px) !important;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  position: relative;
+}
+.sell-deso-help {
+  color: #545454;
+  font-size: clamp(12px, 4vw, 18px);
+  position: absolute;
+  bottom: 50px;
+  cursor: pointer;
+  img {
+    margin-bottom: 3px;
+  }
+}
+.deso-sell-subheading {
+  color: #6c6c6c;
+  padding-left: 10px;
+  margin-bottom: 5px;
+  font-size: clamp(14px, 3.5vw, 16px);
+  width: 95%;
+  text-align: start;
+}
+.deso-sell-exchange-container {
+  border-radius: 11.918519020080566px;
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1);
+  width: 95%;
+  height: 20vw;
+  max-height: 120px;
+  padding-left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  label {
+    color: #1652f0;
+    font-weight: 600;
+    margin-bottom: 0;
+    font-size: clamp(16px, 4vw, 30px);
+    cursor: pointer;
+  }
+  p {
+    color: #535353;
+    font-size: clamp(14px, 3.5vw, 18px);
+  }
+}
+
+// --------- new css
+
+.general-success-modal-container {
+  color: #333333;
+  background-clip: padding-box;
+  flex-direction: column;
+  width: 100%;
+  display: flex;
+  outline: 0;
+  position: relative;
+  background: #fefefe;
+  border: 0.5px solid #e5e5e5;
+  box-sizing: border-box;
+  box-shadow: 4px 4px 20px 2px rgba(0, 0, 0, 0.16);
+  border-radius: 30px;
+  align-items: center;
+  &.gray_bg {
+    background: #fefefe !important;
+  }
+}
+
+.general-success-modal-header {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 48px;
+
+  color: #0d0d0d;
+
+  margin-top: 20px;
+  margin-bottom: 10px;
+  max-width: 565px;
+}
+
+.general-success-modal-text {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 37px;
+
+  color: #070707;
+
+  margin-bottom: 20px;
+  max-width: 500px;
+}
+
+.general-success-modal-button {
+  background: black;
+  color: white;
+  width: 275px;
+  max-width: 100%;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  border-radius: 40px;
+  margin: 0 auto;
+  border: 2.02605px solid #000000;
+  box-sizing: border-box;
+  font-weight: 600;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.375rem 0.75rem;
+  line-height: 1.5;
+  margin-bottom: 30px;
+}
+
+.general-success-modal-button-logo {
+  background: black;
+  color: white;
+  width: 300px;
+  max-width: 100%;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  border-radius: 40px;
+  margin: 0 auto;
+  border: 2.02605px solid #000000;
+  box-sizing: border-box;
+  font-weight: 600;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.375rem 0.75rem;
+  line-height: 1.5;
+  margin-bottom: 30px;
+}
+
+//  connectedWallet
+.walletConnectedSuccessImg {
+  margin-top: 20px;
+}
+
+.general-success-modal-container-connectedWallet {
+  color: #333333;
+  background-clip: padding-box;
+  flex-direction: column;
+  width: 619px;
+  height: 534px;
+  display: flex;
+  outline: 0;
+  position: relative;
+  background: #fefefe;
+  border: 0.5px solid #e5e5e5;
+  box-sizing: border-box;
+  box-shadow: 4px 4px 20px 2px rgba(0, 0, 0, 0.16);
+  border-radius: 30px;
+  align-items: center;
+  &.gray_bg {
+    background: #fefefe !important;
+  }
+}
+
+.general-success-modal-header-connectedWallet {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 48px;
+  color: #0d0d0d;
+  margin-top: 70px;
+  margin-bottom: 10px;
+  margin-left: 50px;
+  margin-right: 50px;
+  max-width: 565px;
+  text-align: center;
+  flex: 1;
+}
+
+.withdraw-ethereum-header {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 48px;
+  color: #0d0d0d;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-left: 50px;
+  margin-right: 50px;
+  max-width: 565px;
+  text-align: center;
+  flex: 1;
+}
+
+.buy-ethereum-header {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 48px;
+  color: #0d0d0d;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-left: 50px;
+  margin-right: 50px;
+  max-width: 565px;
+  text-align: center;
+  flex: 1;
+}
+
+.general-success-modal-text-connectedWallet {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  color: #474747;
+  margin-bottom: 20px;
+  max-width: 500px;
+  text-align: center;
+  flex: 1;
+  margin-left: 80px;
+  margin-right: 80px;
+  margin-top: 35px;
+}
+
+.general-success-modal-container-connectedWallet-success {
+  color: #333333;
+  background-clip: padding-box;
+  flex-direction: column;
+  width: 619px;
+  height: 631px;
+  display: flex;
+  outline: 0;
+  position: relative;
+  background: #fefefe;
+  border: 0.5px solid #e5e5e5;
+  box-sizing: border-box;
+  box-shadow: 4px 4px 20px 2px rgba(0, 0, 0, 0.16);
+  border-radius: 30px;
+  align-items: center;
+  &.gray_bg {
+    background: #fefefe !important;
+  }
+}
+
+.general-success-modal-header-connectedWallet-success {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 48px;
+  color: #0d0d0d;
+  margin-bottom: 10px;
+  margin-left: 50px;
+  margin-right: 50px;
+  max-width: 565px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.general-success-modal-text-connectedWallet-success {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  color: #474747;
+  margin-bottom: 35px;
+  max-width: 500px;
+  text-align: center;
+  margin-left: 80px;
+  margin-right: 80px;
+  margin-top: 20px;
+}
+
+.close-modal-container {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 30px;
+  height: 30px;
+  background: #f1f1f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.close-modal-container:hover {
+  cursor: pointer;
+}
+
+.imx-connect-button {
+  border-radius: 8px;
+  height: 72px;
+  width: 481px;
+  margin-bottom: 70px;
+}
+
+.ethlogo-white {
+  margin-right: 20px;
+}
+
+.general-success-modal-button-text {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 120%;
+}
+
+.withdraw-eth-text {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 112.5%;
+}
+
+.want-to-withdraw-button {
+  margin-bottom: 20px;
+  border-radius: 37px;
+  height: 75px;
+  width: 350px;
+}
+
+.imx-withdraw-button {
+  background: black;
+  color: white;
+  max-width: 100%;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  border-radius: 40px;
+  margin: 0 auto;
+  border: 2.02605px solid #000000;
+  box-sizing: border-box;
+  font-weight: 600;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.375rem 0.75rem;
+  line-height: 1.5;
+  border-radius: 37px;
+  height: 72px;
+  width: 350px;
+  margin-bottom: 30px;
+  margin-top: 40px;
+}
+
+.imx-complete-withdraw-button {
+  background: black;
+  color: white;
+  max-width: 100%;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  border-radius: 40px;
+  margin: 0 auto;
+  border: 2.02605px solid #000000;
+  box-sizing: border-box;
+  font-weight: 600;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.375rem 0.75rem;
+  line-height: 1.5;
+  border-radius: 37px;
+  height: 72px;
+  width: 350px;
+  margin-bottom: 30px;
+  margin-top: 300px;
+}
+
+.want-to-buy-button {
+  border-radius: 37px;
+  margin-bottom: 30px;
+  background-color: white;
+  color: black;
+  height: 75px;
+  width: 350px;
+}
+
+.imx-buy-button {
+  border-radius: 37px;
+  height: 72px;
+  width: 350px;
+  margin-bottom: 70px;
+  background-color: white;
+  color: black;
+}
+
+.withdraw-eth-min-price {
+  height: 61px;
+  width: 400px;
+}
+
+.withdraw-eth-min-price-label {
+  right: 0;
+  position: absolute;
+  background-color: #0e0f22;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  outline: none;
+  border: none;
+  color: var(--background);
+  padding: 0px;
+  flex-grow: 1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+}
+
+.withdraw-eth-min-price-input {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border: 3px solid #0e0f22;
+  width: 70%;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 42px;
+  color: #0d0d0d;
+}
+
+// hide input arrows in chrome, safari, and edge
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+// hide input arrows in firefox
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.eth-logo-withdraw-button {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.eth-logo-withdraw-icon {
+  height: 40px;
+  margin-right: 100px;
+}
+
+.imx-logo-withdraw-icon {
+  height: 30px;
+  margin-right: 10px;
+}
+
+.eth-withdraw-text {
+  color: white;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 48px;
+  margin-right: 10px;
+}
+
+.withdraw-eth-description {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  text-align: center;
+  color: #767676;
+  margin-bottom: 80px;
+  max-width: 500px;
+  text-align: center;
+  margin-left: 80px;
+  margin-right: 80px;
+  margin-top: 30px;
+}
+
+.buy-eth-description {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  text-align: center;
+  color: #767676;
+  margin-bottom: 30px;
+  max-width: 500px;
+  text-align: center;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+.withdraw-eth-label {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  color: #565656;
+  opacity: 0.8;
+  margin-bottom: 0px;
+  margin-left: 10px;
+}
+
+.eth-being-prepared-label {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  color: #565656;
+  opacity: 0.8;
+  margin-bottom: 0px;
+  margin-left: 10px;
+}
+
+.eth-being-prepared-withdraw-amount {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 54px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #6b6b6b;
+}
+
+.eth-ready-withdraw-amount {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 54px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #0d0d0d;
+}
+
+.withdraw-eth-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 100px;
+}
+
+.withdraw-eth-icon-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 40px;
+}
+
+.support-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.support-text {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  color: #545454;
+  opacity: 0.8;
+}
+
+.support-arrow {
+  height: 30px;
+}
+
+.moonpay-container {
+  border: 2.5px solid #f3f3f3;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 357px;
+  height: 90px;
+  margin-bottom: 160px;
+}
+
+.moonpay-container-header {
+  display: flex;
+  flex-direction: row;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.moonpay-text {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 21px;
+  color: #535353;
+  margin-top: 7.5px;
+  margin-right: 5px;
+  margin-left: 5px;
+}

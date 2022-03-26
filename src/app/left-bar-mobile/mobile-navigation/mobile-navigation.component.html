@@ -1,0 +1,89 @@
+<div class="mobile-navigation-container disable-scrollbars">
+  <change-account-selector class="ml-5px"></change-account-selector>
+  <!--<div class="mobile-nav-balance-info px-20px">
+    <right-bar-creators></right-bar-creators>
+  </div>-->
+  <hr class="w-100" />
+  <div class="mobile-nav-grid">
+    <span class="mobile-nav-item">
+      <button
+        (click)="closeMobileNav()"
+        [routerLink]="'/' + this.globalVars.RouteNames.DISCOVERY"
+        [routerLinkActive]="['active']"
+      >
+        <img src="/assets/icons/lb_discovery_icon.svg" />
+      </button>
+      <label>Discover</label>
+    </span>
+    <span class="mobile-nav-item">
+      <button
+        (click)="closeMobileNav()"
+        [routerLink]="'/' + this.globalVars.RouteNames.TRENDS"
+        [routerLinkActive]="['active']"
+      >
+        <img src="/assets/icons/lb_marketplace_icon.svg" />
+      </button>
+      <label>Market</label>
+    </span>
+    <span class="mobile-nav-item">
+      <button
+        (click)="closeMobileNav()"
+        [routerLink]="'/' + this.globalVars.RouteNames.BROWSE"
+        [routerLinkActive]="['active']"
+      >
+        <img src="/assets/icons/lb_feed_icon.svg" />
+      </button>
+      <label>Feed</label>
+    </span>
+    <!-- <span class="mobile-nav-item">
+      <button
+        (click)="closeMobileNav()"
+        [routerLink]="'/' + this.globalVars.RouteNames.ANALYTICS"
+        [routerLinkActive]="['active']"
+      >
+        <img src="/assets/icons/lb_analytics_icon.svg" />
+      </button>
+      <label>Analytics</label>
+    </span> -->
+    <span class="mobile-nav-item" *ngIf="this.globalVars?.loggedInUser">
+      <button
+        (click)="closeMobileNav()"
+        [routerLink]="'/' + this.globalVars.RouteNames.ACTIVITY"
+        [routerLinkActive]="['active']"
+      >
+        <img src="/assets/icons/lb_activity_icon.svg" />
+      </button>
+      <label>Activity</label>
+    </span>
+    <span class="mobile-nav-item" *ngIf="this.globalVars?.loggedInUser">
+      <button
+        (click)="closeMobileNav()"
+        [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser?.ProfileEntryResponse?.Username)"
+        [routerLinkActive]="['active']"
+      >
+        <img src="/assets/icons/lb_feed_icon.svg" />
+      </button>
+      <label>Profile</label>
+    </span>
+    <span class="mobile-nav-item" *ngIf="this.globalVars?.loggedInUser">
+      <button
+        (click)="closeMobileNav()"
+        [routerLink]="'/' + this.globalVars.RouteNames.WALLET"
+        [routerLinkActive]="['active']"
+      >
+        <img src="/assets/icons/lb_wallet_icon.svg" />
+      </button>
+      <label>Wallet</label>
+    </span>
+    <span class="mobile-nav-item" *ngIf="this.globalVars?.loggedInUser">
+      <button
+        (click)="closeMobileNav()"
+        [routerLink]="'/' + this.globalVars.RouteNames.INBOX_PREFIX"
+        [routerLinkActive]="['active']"
+      >
+        <img src="/assets/icons/lb_messages_icon.svg" />
+      </button>
+      <label>Messages</label>
+    </span>
+  </div>
+</div>

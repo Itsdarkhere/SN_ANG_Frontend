@@ -38,11 +38,7 @@
       </button>
     </div>
     <div
-      *ngIf="
-        stepNum === 2 &&
-        globalVars.loggedInUser?.PublicKeyBase58Check &&
-        !globalVars.loggedInUser?.ProfileEntryResponse?.Username
-      "
+      *ngIf="stepNum === 2 && globalVars.loggedInUser?.PublicKeyBase58Check"
       class="signup-center disable-scrollbars signup-center-height"
     >
       <label class="font-weight-semiboldn mb-0px fs-32px text-align-center signup-window-header">
@@ -88,11 +84,7 @@
       </button>
     </div>
     <div
-      *ngIf="
-        stepNum === 3 &&
-        globalVars.loggedInUser?.PublicKeyBase58Check &&
-        !globalVars.loggedInUser?.ProfileEntryResponse?.Username
-      "
+      *ngIf="stepNum === 3 && globalVars.loggedInUser?.PublicKeyBase58Check"
       class="signup-center signup-center-height disable-scrollbars"
     >
       <label class="font-weight-semiboldn mb-0px mt-20px header-font-rezising text-align-center signup-window-header">
@@ -126,11 +118,7 @@
     </div>
 
     <div
-      *ngIf="
-        stepNum === 4 &&
-        globalVars.loggedInUser?.PublicKeyBase58Check &&
-        !globalVars.loggedInUser?.ProfileEntryResponse?.Username
-      "
+      *ngIf="stepNum === 4 && globalVars.loggedInUser?.PublicKeyBase58Check"
       class="signup-center signup-center-height disable-scrollbars"
     >
       <label
@@ -198,11 +186,7 @@
       </button>
     </div>
     <div
-      *ngIf="
-        stepNum === 2 &&
-        globalVars.loggedInUser?.PublicKeyBase58Check &&
-        !globalVars.loggedInUser?.ProfileEntryResponse?.Username
-      "
+      *ngIf="stepNum === 2 && globalVars.loggedInUser?.PublicKeyBase58Check"
       class="signup-center-mobile disable-scrollbars"
     >
       <label class="font-weight-semiboldn mb-0px mt-20px fs-32px text-align-center signup-window-header-mobile">
@@ -256,11 +240,7 @@
       </button>
     </div>
     <div
-      *ngIf="
-        stepNum === 3 &&
-        globalVars.loggedInUser?.PublicKeyBase58Check &&
-        !globalVars.loggedInUser?.ProfileEntryResponse?.Username
-      "
+      *ngIf="stepNum === 3 && globalVars.loggedInUser?.PublicKeyBase58Check"
       class="signup-center-mobile signup-center-height-mobile disable-scrollbars"
     >
       <label
@@ -296,11 +276,7 @@
     </div>
 
     <div
-      *ngIf="
-        stepNum === 4 &&
-        globalVars.loggedInUser?.PublicKeyBase58Check &&
-        !globalVars.loggedInUser?.ProfileEntryResponse?.Username
-      "
+      *ngIf="stepNum === 4 && globalVars.loggedInUser?.PublicKeyBase58Check"
       class="signup-center-mobile signup-center-height-mobile disable-scrollbars"
     >
       <div class="signup-window">

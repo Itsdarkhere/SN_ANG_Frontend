@@ -1,0 +1,62 @@
+.collection-success-container {
+    padding: 30px;
+    height: 500px;
+    width: 600px;
+    max-width: 90vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    border: 1px solid #F5F5F5;
+    border-radius: 45px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+
+    .collection-success-avatar {
+        margin-top: 40px;
+        height: 85px;
+        width: 85px;
+        border-radius: 50%;
+        background-size: cover;
+        background-position: center;
+    }
+    
+    h1 {
+        padding: 15px 0;
+        font-size: 2rem;
+        font-weight: 600;
+
+        @media screen and (max-width: 480px) {
+            text-align: center;
+            font-size: 1.5rem;
+        }
+    }
+
+    p {
+        color: #535353;
+        font-size: 0.9rem;
+        text-align: center;
+
+        @media screen and (max-width: 300px) {
+            font-size: 0.8rem;
+        }
+    }
+
+    button {
+        margin: 40px 0;
+        padding: 10px 75px;
+        width: fit-content;
+        background: #313131;
+        border: none;
+        border-radius: 60px;
+        color: white;
+        font-size: 0.88rem; 
+        font-weight: 600;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); 
+        white-space: nowrap;
+
+        @media screen and (max-width: 300px) {
+            padding: 10px 20px;
+        }
+    }
+}

@@ -3,7 +3,19 @@
     cursor: pointer;
   }
 }
-
+.post_engagement_border {
+  border-top: 1px solid #E1E1E1;
+  border-bottom: 1px solid #E1E1E1;
+}
+.pl-72px {
+  padding-left: 72px;
+}
+.post-thread-engagement-detail {
+  color: #8b8b8b;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 27.6px;
+}
 .nft_current_bid_both {
   padding-right: 20px;
   padding-left: 30px;
@@ -21,7 +33,7 @@
     }
   }
   .color-EE {
-    color: #EEEEEE;
+    color: #eeeeee;
   }
   .val_st {
     font-size: clamp(17px, 5vw, 22px);
@@ -35,7 +47,6 @@
 .buy_now_text_container {
   text-align: center;
 }
-
 
 .buy_now_btn {
   background: black;
@@ -51,4 +62,10 @@
 
 .buy_now_img {
   height: 18px;
+}
+
+.put-nft-for-sale-container {
+  display: flex;
+  justify-content: center;
+  margin: 0;
 }

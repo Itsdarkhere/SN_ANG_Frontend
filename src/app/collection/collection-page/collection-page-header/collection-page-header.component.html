@@ -1,0 +1,66 @@
+<div class="collection-page-header">
+  <img
+    class="collection-banner"
+    id="collection-banner"
+    src="./assets/img/default-banner.png"
+    alt="collection banner image"
+  />
+  <!-- <img id="banner-image" src="./assets/img/default-banner.png" class="firebase-cover-image" /> -->
+  <div class="banner-image-stats-container">
+    <!-- Change this to use image from arweave -->
+    <img class="collection-user-image" id="collection-pp" src="./assets/img/default-banner.png" />
+    <div class="collection-user-stats">
+      <div class="collection-pieces">
+        <h2>Pieces</h2>
+        <label>{{ collectionData?.Pieces }}</label>
+      </div>
+      <div class="collection-owners">
+        <h2>Owners</h2>
+        <label>{{ collectionData?.OwnersAmount }}</label>
+      </div>
+      <div class="collection-floor-price">
+        <h2>Floor Price</h2>
+        <div class="floor-price-content">
+          <div class="white-bg-deso-icon">
+            <img src="/assets/icons/deso_icon_new.svg" alt="white background deso icon" />
+          </div>
+          <label>
+            {{ collectionData?.FloorPrice == -1 ? "Null" : globalVars.nanosToDeSo(collectionData?.FloorPrice, 4) }}
+          </label>
+          <label class="hide-on-mobile ml-5px">
+            {{ collectionData?.FloorPrice == -1 ? "Null" : globalVars.nanosToUSD(collectionData?.FloorPrice, 2) }}
+          </label>
+        </div>
+      </div>
+      <div class="collection-trading-volume">
+        <h2>Trading Volume</h2>
+        <div class="trading-volume-content">
+          <div class="white-bg-deso-icon">
+            <img src="/assets/icons/deso_icon_new.svg" alt="white background deso icon" />
+          </div>
+          <label class="mb-0px fs-20px font-weight-bold">
+            {{ globalVars.nanosToDeSo(collectionData?.TradingVolume, 2) }}
+          </label>
+          <label class="hide-on-mobile mb-0px fs-16px ml-5px" style="color: #717171">
+            {{ globalVars.nanosToDeSo(collectionData?.TradingVolume, 2) }}
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="banner-blur-overlay">
+    <div class="collection-details">
+      <div class="title-details">
+        <h2>Collection</h2>
+        <h1>{{ collectionName }}</h1>
+      </div>
+      <div class="creator-details">
+        <h2>Creator</h2>
+        <div class="creator-image-handle d-flex flex-center">
+          <div class="collection-creator-avatar mr-5px" [avatar]="collectionCreatorPK"></div>
+          @{{ collectionCreator }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

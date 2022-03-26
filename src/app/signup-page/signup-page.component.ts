@@ -1,11 +1,10 @@
-import { Component, HostListener, OnInit } from "@angular/core";
+import { Component, ComponentFactoryResolver, HostListener, OnInit } from "@angular/core";
 import { GlobalVarsService } from "../global-vars.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { BackendApiService } from "../backend-api.service";
 import { AppRoutingModule, RouteNames } from "../app-routing.module";
 import { SwalHelper } from "src/lib/helpers/swal-helper";
-import { AngularFirestore } from "@angular/fire/firestore";
 import { isNil } from "lodash";
 import { MixpanelService } from "../mixpanel.service";
 
@@ -28,6 +27,7 @@ export type ProfileUpdateErrors = {
   styleUrls: ["./signup-page.component.scss"],
 })
 export class SignupPageComponent implements OnInit {
+  RouteNames = RouteNames;
   stepNum = 1;
   creator = false;
   collector = false;
@@ -58,7 +58,6 @@ export class SignupPageComponent implements OnInit {
 
   constructor(
     public globalVars: GlobalVarsService,
-    private firestore: AngularFirestore,
     private route: ActivatedRoute,
     private mixPanel: MixpanelService,
     private router: Router,
@@ -129,6 +128,24 @@ export class SignupPageComponent implements OnInit {
   updateProfileType() {
     this.mixPanel.track17("Update profile type");
     if (this.globalVars.loggedInUser.PublicKeyBase58Check) {
+      return this.backendApi
+        .UpdateCollectorOrCreator(
+          this.globalVars.localNode,
+          this.globalVars.loggedInUser?.PublicKeyBase58Check,
+          this.creator,
+          this.collector
+        )
+        .subscribe(
+          (res) => {
+            console.log(res);
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+      /*
+      How the above was with firebase:
+
       return new Promise<any>((resolve, reject) => {
         this.firestore
           .collection("profile-details")
@@ -147,7 +164,7 @@ export class SignupPageComponent implements OnInit {
             (res) => {},
             (err) => reject(err)
           );
-      });
+      });*/
     }
   }
   _validateUsername(username) {
@@ -183,6 +200,11 @@ export class SignupPageComponent implements OnInit {
     this.setMobileBasedOnViewport();
     // Sets default profile picture for the user
     this.urlToObject();
+
+    if (this.globalVars.needToPickCreatorOrCollector) {
+      this.stepNum = 2;
+      console.log(` -------------------- the user needs to pick creator or collector ----------------- `);
+    }
   }
   login() {
     this.globalVars.launchLoginFlow();
@@ -192,12 +214,24 @@ export class SignupPageComponent implements OnInit {
   }
   nextStep() {
     if (this.stepNum === 2) {
+      console.log(` ----------------- on step ${this.stepNum}`);
       this.updateProfileType();
       this.stepNum++;
+
+      this.globalVars.needToPickCreatorOrCollector = false;
+      if (this.creator) {
+        this.globalVars.isCreator = true;
+        this.globalVars.isCollector = false;
+      }
+      if (this.collector) {
+        this.globalVars.isCreator = false;
+        this.globalVars.isCollector = true;
+      }
 
       return;
     }
     if (this.stepNum === 3) {
+      console.log(` ----------------- on step ${this.stepNum}`);
       // if the email is valid then update the email
       if (!this.invalidEmailEntered) {
         this._updateEmail();
@@ -210,10 +244,9 @@ export class SignupPageComponent implements OnInit {
     if (this.stepNum === 4) {
       this.updateProfileType();
       if (this.globalVars.wantToVerifyPhone === false) {
-
         //   close nav bar because it will open on mobile
         if (this.globalVars.isMobileIphone()) {
-          this.globalVars.isLeftBarMobileOpen = false;
+          this.globalVars.closeLeftBarMobile();
         }
 
         this.router.navigate([RouteNames.COMPLETE_PROFILE]);

@@ -1,8 +1,7 @@
 .creator-profile-details-container {
-    margin-top: 20px;
-    max-width: 953px;
-    @media (max-width: 900px) {
-        margin-top: 65px;
+    @media (max-width: 992px) {
+        max-width: 100vw;
+        overflow: hidden;
     }
 }
 .firebase-cover-image {
@@ -15,6 +14,9 @@
     }
 }
 .profile-content-container {
-    width: 97.5%;
-    margin-left: 2.5%;
+    width: 100%;
+}
+.profile-tab-selector-wrapper {
+    width: 100%;
+    max-width: 880px;
 }

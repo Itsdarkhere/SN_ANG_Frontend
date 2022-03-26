@@ -1,0 +1,65 @@
+<header [class.bg_notification]="isNotificationOpen">
+  <div class="header_golal_wrapper">
+    <div class="header-search-right-container">
+      <div class="logo-cover global__tooltip-icon" [routerLink]="'/' + this.globalVars.RouteNames.BROWSE">
+        <h1 class="header-logo">supernovas</h1>
+      </div>
+      <div class="search-bar-cover" [class.active-mobile]="isSearchOpen">
+        <search-bar [focusSearchInput]="isSearchOpen" [headerSearchBar]="true"></search-bar>
+      </div>
+      <div class="right-portion">
+        <ul class="right-side-options for-mobile">
+          <li class="single-option">
+            <img
+              src="assets/icons/search-icon-mobile.svg"
+              class="clout"
+              alt=""
+              (click)="showSearchBar()"
+              *ngIf="!isSearchOpen"
+            />
+            <i class="icon-close" *ngIf="isSearchOpen" (click)="showSearchBar()" title="Close search"></i>
+          </li>
+        </ul>
+        <ul class="right-side-options menu-options-list">
+          <li
+            *ngIf="globalVars.loggedInUser"
+            class="notification-icon-cover single-option h-100 d-flex flex-center flex-column"
+            (clickOutside)="clickOutside()"
+          >
+            <div class="noti_hv">
+              <img src="assets/icons/notification-icon.svg" title="Notification" (click)="showNotification()" />
+              <label
+                class="mb-0px fs-10px ml-5px notification-amount pointer-events-none"
+                *ngIf="globalVars.unreadNotifications > 0"
+              >
+                {{ globalVars.unreadNotifications > 99 ? "99+" : globalVars.unreadNotifications }}
+              </label>
+            </div>
+            <div class="notification-list-cover" *ngIf="isNotificationOpen">
+              <!-- <div class="triangle-up">▲</div> -->
+              <div class="header_notification_list_inner">
+                <app-notifications-list [isNotificationBar]="true"></app-notifications-list>
+              </div>
+              <a
+                [routerLink]="'/' + globalVars.RouteNames.NOTIFICATIONS"
+                class="view-all-text text-primary"
+                title="View All Notifications"
+              >
+                View all
+              </a>
+            </div>
+          </li>
+          <li *ngIf="globalVars?.loggedInUser" class="single-option d-flex flex-center position-relative">
+            <button
+              class="header-create-button-gradient p-0px grow"
+              [routerLink]="'/' + globalVars.RouteNames.MINT_PAGE"
+            >
+              <p class="color-white fs-14px">Create</p>
+            </button>
+          </li>
+          <change-account-selector class="ml-20px"></change-account-selector>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>

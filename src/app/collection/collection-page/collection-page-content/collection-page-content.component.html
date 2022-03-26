@@ -1,0 +1,57 @@
+<div class="collection-page-content-container">
+  <!-- Collection Description -->
+  <div class="collection-description">
+    <h2>Description</h2>
+    {{ collectionDescription }}
+  </div>
+
+  <!-- Collection Tab/Filter Menu Options -->
+  <div class="collection-tab-options">
+    <!-- Desktop -->
+    <div class="collection-tab-options-right">
+      <button
+        *ngIf="loggedInUserIsCreator"
+        (click)="routeToAddToCollection()"
+        class="black-rounded-button add-to-collection-button mr-20px"
+      >
+        Add to collection
+      </button>
+      <div class="mrk_top_selector-adjusted">
+        <button
+          class="selected"
+          (click)="setDisplayType('Card')"
+          [ngClass]="{ selected: globalVars.marketplaceViewTypeCard }"
+        >
+          <img src="/assets/icons/market_grid_type_card_icon.svg" alt="card icon" />
+        </button>
+        <button (click)="setDisplayType('Grid')" [ngClass]="{ selected: !globalVars.marketplaceViewTypeCard }">
+          <img src="/assets/icons/market_grid_type_grid_icon.svg" alt="grid icon" />
+        </button>
+      </div>
+
+      <select
+        class="p-5px ml-20px mrk_select mrk_top_select_height fs-14px"
+        (ngModelChange)="sortSelectChange($event)"
+        [ngModel]="collectionOrderByType"
+      >
+        <option value="most recent first">Most recent first</option>
+        <option value="oldest first">Oldest first</option>
+        <option value="highest price first">Highest price first</option>
+        <option value="lowest price first">Lowest price first</option>
+        <option value="most likes first">Most likes first</option>
+        <option value="most diamonds first">Most diamonds first</option>
+        <option value="most comments first">Most comments first</option>
+        <option value="most reposts first">Most reposts first</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Collection Page Main NFT Content Area -->
+  <app-collection-page-nft-view
+    [collectionNFTs]="collectionNFTs"
+    class="collection-main-content-full-height-width"
+  ></app-collection-page-nft-view>
+  <!-- <app-collection-page-activity-view
+    class="collection-main-content-full-height-width"
+  ></app-collection-page-activity-view> -->
+</div>

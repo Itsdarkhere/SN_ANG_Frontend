@@ -1,0 +1,22 @@
+<!-- eth nft -->
+<div app-theme class="nft-modal-container puton_sell p-15px" *ngIf="!cancelEthNFTSuccess">
+  <nft-modal-header [header]="'Cancel your sale'" [bsModalRef]="bsModalRef"></nft-modal-header>
+  <div class="fs-15px nft_para text-center text-grey5">Cancel your sale on Immutable X.</div>
+
+  <div class="d-flex flex-column align-items-center">
+    <button class="pop_singl_btn cancelEthNFTButton" (click)="cancelEthNFT()">Cancel your sale</button>
+  </div>
+
+  <simple-center-loader *ngIf="loading"></simple-center-loader>
+</div>
+
+<div app-theme class="nft-modal-container puton_sell p-15px" *ngIf="cancelEthNFTSuccess">
+  <div class="flex-container-column">
+    <img src="../../assets/img/buy-now-success.png" class="cancel-success-img" />
+    <p class="cancel-success-header">Congratulations!</p>
+    <p class="cancel-success-text">You cancelled the sale of your NFT on Immutable X.</p>
+    <button class="btn blk_line_btn with_ico big buy_now_btn close_window_btn" (click)="cancelEthSaleSuccess()">
+      Close this window
+    </button>
+  </div>
+</div>

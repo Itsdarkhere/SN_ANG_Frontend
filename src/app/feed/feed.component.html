@@ -11,19 +11,15 @@
   </div>
 
   <div *ngIf="isMobile" class="global__top-bar__height"></div>
-  <tab-selector
-    class="feed_tabs"
-    [tabs]="feedTabs"
-    [activeTab]="activeTab"
-    (tabClick)="_handleTabClick($event)"
-  ></tab-selector>
-
-  <countdown-timer
-    *ngIf="nextNFTShowcaseTime"
-    [timerText]="'The next NFT showcase drops in...'"
-    [fontWeight]="500"
-    [timerEnd]="nextNFTShowcaseTime"
-  ></countdown-timer>
+  <div class="w-100 d-flex flex-center">
+    <tab-selector
+      class="feed_tabs"
+      [tabs]="feedTabs"
+      [icons]="iconTabs"
+      [activeTab]="activeTab"
+      (tabClick)="_handleTabClick($event, false)"
+    ></tab-selector>
+  </div>
 
   <div [id]="getPullToRefreshMarkerId()"></div>
   <button type="button" class="recent_post_btn" (click)="showRecent()">Show recent</button>
@@ -34,7 +30,7 @@
     <div class="single-card">
       <div class="w-100">
         <div class="d-flex flex-column js-feed-post position-relative">
-          <div class="nft-col-wrap" *ngFor="let in of counter(50); let i = index">
+          <div class="nft-col-wrap" *ngFor="let in of counter(20); let i = index">
             <div class="card">
               <loading-shimmer [tabType]="'FEED'"></loading-shimmer>
             </div>
@@ -44,7 +40,7 @@
     </div>
   </div>
 
-  <div class="feed_mobile_gap" *ngIf="showGlobalOrFollowingPosts()">
+  <div class="feed_mobile_gap" *ngIf="showGlobalOrFollowingOrHotPosts()">
     <div *ngFor="let post of postsToShow()">
       <div *ngIf="post.ProfileEntryResponse">
         <!--
@@ -52,7 +48,7 @@
             in the feed with the "replying to @[parentPost.Username]" content diplayed.
             post.parentPost is set in appendCommentAfterParentPost
           -->
-        <ng-container *ngIf="post?.IsNFT">
+        <ng-container *ngIf="post?.IsNFT || post?.PostExtraData?.isEthereumNFT">
           <div class="mobile_feed_post">
             <app-nft-card-post
               [post]="post"
@@ -109,7 +105,9 @@
             </app-nft-card-repost>
           </div>
         </ng-container>
-        <ng-container *ngIf="!isRepost(post) && post?.RepostedPostEntryResponse?.IsNFT">
+        <ng-container
+          *ngIf="!isRepost(post) && post?.RepostedPostEntryResponse?.IsNFT && !post?.PostExtraData?.isEthereumNFT"
+        >
           <feed-post
             *ngIf="post.ProfileEntryResponse"
             [contentShouldLinkToThread]="true"
@@ -126,7 +124,9 @@
             (userBlocked)="userBlocked()"
           ></feed-post>
         </ng-container>
-        <ng-container *ngIf="!(post?.IsNFT || post?.RepostedPostEntryResponse?.IsNFT)">
+        <ng-container
+          *ngIf="!(post?.IsNFT || post?.RepostedPostEntryResponse?.IsNFT) && !post?.PostExtraData?.isEthereumNFT"
+        >
           <feed-post
             *ngIf="post.ProfileEntryResponse"
             [contentShouldLinkToThread]="true"
@@ -156,10 +156,6 @@
     </div>
   </div>
 
-  <div *ngIf="activeTab === FeedComponent.SHOWCASE_TAB">
-    <nft-showcase></nft-showcase>
-  </div>
-
   <div
     *ngIf="showNoPostsFound()"
     class="d-flex flex-column align-items-center justify-content-center fc-muted fs-15px p-15px text-center"
@@ -179,7 +175,6 @@
       to find more people to follow
     </div>
   </div>
-  <simple-center-loader *ngIf="showLoadingSpinner()"></simple-center-loader>
   <!-- SPACER FOR BOTTOM BAR ON MOBILE -->
   <div class="global__bottom-bar-mobile-height"></div>
   <div class="global__bottom-bar-mobile-height"></div>

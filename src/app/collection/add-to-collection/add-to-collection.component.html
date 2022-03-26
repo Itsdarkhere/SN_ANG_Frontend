@@ -1,0 +1,90 @@
+<div class="create-collection-page">
+  <div class="logo" [routerLink]="'/' + this.globalVars.RouteNames.BROWSE">supernovas</div>
+  <a (click)="hasProfile()" alt="Return to Profile"><div class="exit">✕&nbsp;&nbsp;&nbsp;Return to Profile</div></a>
+
+  <div class="full-height-width-container">
+    <div class="full-height-width-container" *ngIf="postData">
+      <!-- View 1: COLLECTION DETAILS -->
+      <div *ngIf="stepNumber === 1" class="collection-details-fieldset border">
+        <h1 class="create-collection-title">Select collection</h1>
+
+        <!-- Collection Information -->
+        <div class="add-to-collection-name-selection">
+          <label for="collectionName">Collection Name:</label>
+          <select (ngModelChange)="selectCollection($event)" [ngModel]="collectionName">
+            <option [value]="x" *ngFor="let x of userCollectionNames">{{ x }}</option>
+          </select>
+          <div *ngIf="collectionNameHasError" class="collection-name-error">
+            {{ collectionNameError }}
+          </div>
+        </div>
+        <button
+          type="button"
+          class="add-to-collection-button black-rounded-button"
+          (click)="nextStep()"
+          [disabled]="canContinueStepOne()"
+        >
+          Continue
+        </button>
+      </div>
+
+      <!-- View 2: SELECT NFTS FOR COLLECTION -->
+      <div *ngIf="stepNumber === 2" class="collection-nft-selection-fieldset">
+        <!-- Create Collection Content Area -->
+        <div class="collection-selections-main">
+          <div class="collection-selections-main-headline">
+            <h1>Pick NFTs to add to {{ collectionName }}</h1>
+            <!-- Add logic -->
+            <button (click)="selectAllNFTs()">Select all</button>
+          </div>
+
+          <!-- Populated NFT Content -->
+          <div class="collection-selections-main-content disable-scrollbars">
+            <div class="nfts-card-list-create-collection disable-scrollbars" *ngIf="isLoading == false">
+              <span *ngFor="let post of postData" class="single-nft-container m-10px">
+                <div class="position-relative">
+                  <button class="select-nft-button" (click)="selectNFT(post)" [disabled]="post.disabled">
+                    <div
+                      *ngIf="!post.disabled"
+                      class="checkbox-container"
+                      [ngClass]="{ selected: post.selected }"
+                    ></div>
+                  </button>
+                  <app-small-card-component [selectedBorder]="post.selected" [post]="post"></app-small-card-component>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Create Collection Bottom Bar (Form Navigation) -->
+        <div class="collection-selections-bottom-bar">
+          <!-- Add variable -->
+          <p>{{ this.selectedPosts?.length }} NFTS selected</p>
+          <button
+            [disabled]="!(this.selectedPosts?.length > 0)"
+            class="create-collection-button"
+            (click)="createCollection()"
+          >
+            <ng-container *ngIf="!creatingCollection; else createCollectionElse">Add to collection</ng-container>
+            <ng-template #createCollectionElse>
+              <i class="fa fa-spinner fa-spin"></i>
+            </ng-template>
+          </button>
+        </div>
+      </div>
+      <!-- View 3: Collection Successfully Created -->
+      <app-collection-success
+        *ngIf="stepNumber === 3 && !createCollectionFailed"
+        [collectionName]="this.collectionName.toLowerCase()"
+        [headingText]="'Success'"
+        [descriptionText]="'The NFTs have now been added to the collection!'"
+      ></app-collection-success>
+      <app-collection-failure
+        [error]="createCollectionError"
+        [headingText]="'Error adding to collection...'"
+        *ngIf="stepNumber === 3 && createCollectionFailed"
+      ></app-collection-failure>
+    </div>
+  </div>
+</div>

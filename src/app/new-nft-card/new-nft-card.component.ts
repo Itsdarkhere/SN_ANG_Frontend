@@ -24,6 +24,8 @@ import { FeedPostImageModalComponent } from "../feed/feed-post-image-modal/feed-
 import { TransferModalComponent } from "../transfer-modal/transfer-modal.component";
 import { environment } from "src/environments/environment";
 import { animate, style, transition, trigger } from "@angular/animations";
+import { ethers } from "ethers";
+
 import { MixpanelService } from "../mixpanel.service";
 @Component({
   selector: "new-nft-card",
@@ -33,19 +35,6 @@ import { MixpanelService } from "../mixpanel.service";
     trigger("audioIconNoHover", [
       transition(":enter", [style({ opacity: "0" }), animate("800ms ease", style({ opacity: "1" }))]),
       transition(":leave", [style({ opacity: "1" }), animate("800ms ease", style({ opacity: "0" }))]),
-    ]),
-    trigger("audioIconHover", [
-      transition(":enter", [
-        style({ opacity: "0" }),
-        animate("800ms ease", style({ opacity: "1" })),
-        // style({ transform: "translateY(100%)" }),
-        // animate("400ms ease", style({ transform: "translateY(0%)" })),
-      ]),
-      transition(":leave", [
-        // style({ opacity: "1" }), animate("800ms ease", style({ opacity: "0" }))
-        // style({ transform: "translateY(0%)", opacity: "1" }),
-        // animate("400ms ease", style({ transform: "translateY(100%)", opacity: "0" })),
-      ]),
     ]),
   ],
 })
@@ -172,6 +161,14 @@ export class NewNftCardComponent implements OnInit {
   buyNowPriceNanos: number;
   // ImageURL
   imageURL: string;
+
+  ethereumNFTSalePrice: any;
+  token_id: any;
+  isEthereumNFTForSale: boolean;
+  ethPublicKey: any;
+  isEthOwner: boolean;
+  ethPublicKeyNoDesoProfile: string;
+
   unlockableTooltip =
     "This NFT will come with content that's encrypted and only unlockable by the winning bidder. Note that if an NFT is being resold, it is not guaranteed that the new unlockable will be the same original unlockable.";
   mOfNNFTTooltip =
@@ -260,7 +257,7 @@ export class NewNftCardComponent implements OnInit {
   onResize() {
     this.setMobileBasedOnViewport();
   }
-  ngOnInit() {
+  async ngOnInit() {
     if (!this.post.RepostCount) {
       this.post.RepostCount = 0;
     }
@@ -284,7 +281,63 @@ export class NewNftCardComponent implements OnInit {
     if (this.showNFTDetails && this.postContent.IsNFT && !this.nftEntryResponses?.length) {
       this.getNFTEntries();
     }
+
+    // if the post is an Ethereum NFT, check if it's for sale
+    if (this.postContent.PostExtraData.isEthereumNFT) {
+      console.log("isEthereumNFT hit");
+      this.updateEthNFTForSaleStatus();
+
+      // check eth NFT owner
+      this.checkEthNFTOwner();
+    }
   }
+
+  async updateEthNFTForSaleStatus() {
+    const options = { method: "GET", headers: { Accept: "*/*" } };
+
+    let res = await fetch(
+      `${environment.imx.MAINNET_ENV_URL}/orders?status=active&sell_token_address=${environment.imx.TOKEN_ADDRESS}`,
+      options
+    );
+
+    res = await res.json();
+
+    for (var i = 0; i < res["result"].length; i++) {
+      if (this.postContent.PostExtraData.tokenId == res["result"][i]["sell"]["data"]["token_id"]) {
+        this.isEthereumNFTForSale = true;
+        this.ethereumNFTSalePrice = res["result"][i]["buy"]["data"]["quantity"];
+        this.ethereumNFTSalePrice = ethers.utils.formatEther(this.ethereumNFTSalePrice);
+      }
+    }
+
+    console.log("upadated ETH NFT for Sale Status");
+
+    // determine if you own it, if not then say which eth wallet owns it
+  }
+
+  async checkEthNFTOwner() {
+    const options = { method: "GET", headers: { Accept: "application/json" } };
+
+    let res = await fetch(
+      `${environment.imx.MAINNET_ENV_URL}/assets/${environment.imx.TOKEN_ADDRESS}/${this.postContent.PostExtraData.tokenId}`,
+      options
+    );
+
+    res = await res.json();
+
+    this.ethPublicKeyNoDesoProfile = res["user"];
+    this.ethPublicKeyNoDesoProfile = this.ethPublicKeyNoDesoProfile.slice(0, 15) + "...";
+
+    this.globalVars.imxWalletAddress = localStorage.getItem("address");
+
+    if (res["user"] === this.globalVars.imxWalletAddress) {
+      this.isEthOwner = true;
+      console.log(` ----------------- isEthOwner ${this.isEthOwner}`);
+    } else {
+      this.isEthOwner = false;
+    }
+  }
+
   allCopiesBurned() {
     if (this.post.NumNFTCopies === 0 && this.post.NumNFTCopiesBurned === 0) {
       return false;
@@ -309,7 +362,16 @@ export class NewNftCardComponent implements OnInit {
     if (event.target.tagName.toLowerCase() === "a") {
       return true;
     }
-    const route = this.postContent.IsNFT ? this.globalVars.RouteNames.NFT : this.globalVars.RouteNames.POSTS;
+
+    let route: string;
+    if (this.post.IsNFT) {
+      route = this.globalVars.RouteNames.NFT;
+    } else if (this.postContent?.PostExtraData?.isEthereumNFT) {
+      route = this.globalVars.RouteNames.ETH_NFT;
+    } else {
+      route = this.globalVars.RouteNames.POSTS;
+    }
+
     // identify ctrl+click (or) cmd+clik and opens feed in new tab
     if (event.ctrlKey) {
       const url = this.router.serializeUrl(
@@ -330,8 +392,8 @@ export class NewNftCardComponent implements OnInit {
       "is NFT": this.postContent.isNFT,
       "Like Count": this.postContent.LikeCount,
       "Poster Key": this.postContent.PosterPublicKeyBase58Check,
-      "Diamonds": this.postContent.DiamondCount,
-      "Category": this.postContent.PostExtraData,
+      Diamonds: this.postContent.DiamondCount,
+      Category: this.postContent.PostExtraData,
     });
   }
   isRepost(post: any): boolean {
@@ -606,7 +668,7 @@ export class NewNftCardComponent implements OnInit {
       return imgURL.replace("https://i.imgur.com", "https://images.bitclout.com/i.imgur.com");
     } else if (imgURL.startsWith("https://arweave.net/")) {
       // Build cloudflare imageString
-      imgURL = "https://supernovas.app/cdn-cgi/image/width=500,height=500,fit=scale-down,quality=85/" + imgURL;
+      imgURL = "https://supernovas.app/cdn-cgi/image/width=400,height=400,fit=scale-down,quality=85/" + imgURL;
     }
     this.imageURL = imgURL;
   }

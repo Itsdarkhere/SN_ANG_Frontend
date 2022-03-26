@@ -11,6 +11,10 @@ import { ToastrService } from "ngx-toastr";
 import { CommentModalComponent } from "../comment-modal/comment-modal.component";
 import { MixpanelService } from "../mixpanel.service";
 
+import { Link, ImmutableXClient, ImmutableMethodResults, ETHTokenType, ImmutableRollupStatus } from "@imtbl/imx-sdk";
+import { ethers } from "ethers";
+import { environment } from "src/environments/environment";
+
 @Component({
   selector: "app-buy-now-modal",
   templateUrl: "./buy-now-modal.component.html",
@@ -27,6 +31,10 @@ export class BuyNowModalComponent implements OnInit {
   @Input() post: PostEntryResponse;
   @Output() closeModal = new EventEmitter<any>();
   @Input() clickedBuyNow: boolean;
+  @Input() isEthNFT: boolean;
+  @Input() ethereumNFTSalePrice: any;
+  @Input() sellOrderId: any;
+
   bidAmountDESO: number;
   bidAmountUSD: string;
   selectedSerialNumber: NFTEntryResponse = null;
@@ -58,24 +66,41 @@ export class BuyNowModalComponent implements OnInit {
     private location: Location
   ) {}
 
-  ngOnInit(): void {
-    this.backendApi
-      .GetNFTCollectionSummary(
-        this.globalVars.localNode,
-        this.globalVars.loggedInUser.PublicKeyBase58Check,
-        this.post.PostHashHex
-      )
-      .subscribe((res) => {
-        this.availableSerialNumbers = _.values(res.SerialNumberToNFTEntryResponse).sort(
-          (a, b) => a.SerialNumber - b.SerialNumber
-        );
-        this.availableCount = res.NFTCollectionResponse.PostEntryResponse.NumNFTCopiesForSale;
-        this.biddableSerialNumbers = this.availableSerialNumbers.filter(
-          (nftEntryResponse) =>
-            nftEntryResponse.OwnerPublicKeyBase58Check !== this.globalVars.loggedInUser.PublicKeyBase58Check
-        );
-      })
-      .add(() => (this.loading = false));
+  async ngOnInit(): Promise<void> {
+    if (this.isEthNFT === false) {
+      this.backendApi
+        .GetNFTCollectionSummary(
+          this.globalVars.localNode,
+          this.globalVars.loggedInUser.PublicKeyBase58Check,
+          this.post.PostHashHex
+        )
+        .subscribe((res) => {
+          this.availableSerialNumbers = _.values(res.SerialNumberToNFTEntryResponse).sort(
+            (a, b) => a.SerialNumber - b.SerialNumber
+          );
+          this.availableCount = res.NFTCollectionResponse.PostEntryResponse.NumNFTCopiesForSale;
+          this.biddableSerialNumbers = this.availableSerialNumbers.filter(
+            (nftEntryResponse) =>
+              nftEntryResponse.OwnerPublicKeyBase58Check !== this.globalVars.loggedInUser.PublicKeyBase58Check
+          );
+        })
+        .add(() => (this.loading = false));
+    } else {
+      await this.getImxBalance(this.globalVars.imxWalletAddress);
+    }
+  }
+
+  async getImxBalance(walletAddressInput: string): Promise<void> {
+    const publicApiUrl: string = environment.imx.MAINNET_ENV_URL ?? "";
+    this.globalVars.imxClient = await ImmutableXClient.build({ publicApiUrl });
+
+    this.globalVars.imxBalance = await this.globalVars.imxClient.getBalance({
+      user: walletAddressInput,
+      tokenAddress: "eth",
+    });
+    this.globalVars.imxBalance = this.globalVars.imxBalance.balance.toString();
+    this.globalVars.imxBalance = ethers.utils.formatEther(this.globalVars.imxBalance);
+    console.log(` ----------------------- balance is ${this.globalVars.imxBalance} ETH ----------------------- `);
   }
 
   updateBidAmountUSD(desoAmount) {
@@ -134,25 +159,72 @@ export class BuyNowModalComponent implements OnInit {
           this.globalVars._alertError(this.backendApi.parseMessageError(err));
         }
       )
-      .add(() => {
-      });
-      this.mixPanel.track13("Buy Now", {
-        "Buyer": this.globalVars.loggedInUser?.PublicKeyBase58Check,
-        "Serial number": this.serialNumber,
-        "Price in DeSo": this.buyNowPriceNanos /1e9,
-        "Post Body": this.post.Body,
-        "Seller": this.post.PosterPublicKeyBase58Check,
-        "Creator royalty": this.post.NFTRoyaltyToCreatorBasisPoints /100,
-        "CC royalty": this.post.NFTRoyaltyToCoinBasisPoints /100,
-        "Diamonds": this.post.DiamondCount,
-        "Category": this.post.PostExtraData.category,
-        "Post": this.post.PostExtraData.name,
-        "Post hex": this.post.PostHashHex,
-        "Properties": this.post.PostExtraData.properties,
-        "Likes": this.post.LikeCount,
-        "Comments": this.post.CommentCount,
-      });
+      .add(() => {});
+    this.mixPanel.track13("Buy Now", {
+      Buyer: this.globalVars.loggedInUser?.PublicKeyBase58Check,
+      "Serial number": this.serialNumber,
+      "Price in DeSo": this.buyNowPriceNanos / 1e9,
+      "Post Body": this.post.Body,
+      Seller: this.post.PosterPublicKeyBase58Check,
+      "Creator royalty": this.post.NFTRoyaltyToCreatorBasisPoints / 100,
+      "CC royalty": this.post.NFTRoyaltyToCoinBasisPoints / 100,
+      Diamonds: this.post?.DiamondCount,
+      Category: this.post.PostExtraData?.category,
+      Post: this.post.PostExtraData?.name,
+      "Post hex": this.post.PostHashHex,
+      Properties: this.post.PostExtraData?.properties,
+      Likes: this.post.LikeCount,
+      Comments: this.post.CommentCount,
+    });
+  }
 
+  async buyNowETHNft() {
+    // this.setErrors();
+    // if (this.errors) {
+    //   return;
+    // }
+    // this.saveSelectionDisabled = true;
+    // this.placingBids = true;
+
+    // this.buyingNFT = true;
+
+    const link = new Link(environment.imx.MAINNET_LINK_URL);
+    await link.buy({
+      orderIds: [this.sellOrderId],
+    });
+
+    this.buyNowNftSuccess = true;
+    this.globalVars.isEthereumNFTForSale = false;
+
+    // this.backendApi
+    //   .CreateNFTBid(
+    //     this.globalVars.localNode,
+    //     this.globalVars.loggedInUser.PublicKeyBase58Check,
+    //     this.post.PostHashHex,
+    //     this.serialNumber,
+    //     // Math.trunc(this.bidAmountDESO * 1e9),
+    //     this.buyNowPriceNanos,
+    //     this.globalVars.defaultFeeRateNanosPerKB
+    //   )
+    //   .subscribe(
+    //     (res) => {
+    //       this.buyNowNftSuccess = true;
+    //     },
+    //     (err) => {
+    //       console.error(err);
+    //       this.buyNowNftSuccess = false;
+    //       this.globalVars._alertError(this.backendApi.parseMessageError(err));
+    //     }
+    //   )
+    //   .add(() => {
+    //     // this.buyingNFT = false;
+    //   });
+  }
+
+  closeBuyEthSuccess() {
+    this.bsModalRef.hide();
+    location.reload();
+    this.mixPanel.track13("Buy Now", {});
   }
 
   quoteRepost(event, isQuote = true) {
@@ -178,6 +250,9 @@ export class BuyNowModalComponent implements OnInit {
         this.globalVars._alertError("Cannot Quote repost, create profile to post...");
         return;
       }
+
+      this.globalVars.isEthQuoteRepost = true;
+
       // If the user has an account and a profile, open the modal so they can comment.
       this.modalService.show(CommentModalComponent, {
         class: "modal-dialog-centered",

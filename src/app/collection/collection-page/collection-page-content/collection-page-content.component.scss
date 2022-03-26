@@ -1,0 +1,178 @@
+.collection-page-content-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-left: 1px solid #EFEFEF;
+    border-right: 1px solid #EFEFEF;
+}
+
+ /* -- COLLECTION DESCRIPTION -- */
+.collection-description {
+    padding: 2rem 5rem;
+    min-height: 100px;
+    width: 100%;
+
+    // Consider extra break point
+    @media(max-width: 768px) {
+        margin-top: 85px;
+        padding: 4rem 2rem;
+    }
+
+    @media(max-width: 300px) {
+        margin-top: 85px;
+        padding: 4rem 0.75rem;
+    }
+
+    h2 {
+        padding: 20px 0;
+        color: #555555;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        font-weight: 500;
+    }
+}
+
+/* -- TAB & VIEW FILTER AREA -- */
+.collection-tab-options {
+    position: relative;
+    padding-bottom: 10px;
+    height: 5rem;
+    width: calc(100% - 2rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #EFEFEF;
+
+     /* -- MAIN CONTENT TABS -- */
+    .collection-tab-options-left {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        .collection-content-tabs-container {
+            padding: 5px;
+            height: 100%;
+            width: fit-content;
+            display: flex;
+            align-items: center;
+            background-color: #F5F5F5;
+            border-radius: 12px;
+
+            .collection-content-tab {
+                border: none;
+                outline: none;
+                padding: 10px 20px;
+                height: 100%;
+                border-radius: 10px;
+                font-size: 17px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: transparent;
+                color: #717171;
+
+                img {
+                    height: 15px;
+                    width: 15px;
+                    -webkit-filter: brightness(150%);
+                    filter: brightness(150%);
+                }
+
+                @media screen and (max-width: 768px) {
+                    padding: 10px 15px;;
+                }
+                
+            }
+
+            .collection-content-tab.selected {
+                color: #2D2D2D;
+                background-color: white;
+                font-weight: 600;
+
+                img {
+                    -webkit-filter: none;
+                    filter: none;
+                }
+            }
+
+            p {
+                @media screen and (min-width: 768px) {
+                    padding-left: 5px;
+                    font-size: 1rem;
+                    font-weight: 500;
+                }
+
+                @media screen and (max-width: 768px) {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    /* -- VIEW STYLE TABS -- */
+    .collection-tab-options-right {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        @media screen and (max-width: 767px) {
+            justify-content: space-between;
+        }
+        .mrk_top_selector-adjusted {
+            padding: 5px;
+            height: 100%;
+            background: #f5f5f5;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            button {
+                width: 55px;
+                height: 100%;
+                border-radius: 10px;
+                border: none;
+                background-color: #f5f5f5;
+            }
+
+            button.selected {
+                background: #ffffff;
+                box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.05);
+                border: 1px solid #ffffff;
+            }
+        }
+
+        select {
+            @media screen and (max-width: 480px) {
+                margin: 0;
+                max-width: 175px;
+            }
+
+            @media screen and (max-width: 300px) {
+                margin: 0;
+                width: 115px;
+            }
+        }
+    }
+}
+
+.collection-main-content-full-height-width {
+    height: 100%;
+    width: 100%;
+}
+.add-to-collection-button {
+    height: 53px;
+    min-height: 53px;
+    width: 250px;
+    max-width: 100%;
+    font-weight: 500;
+    @media screen and (max-width: 600px) {
+        display: none;
+    }
+}

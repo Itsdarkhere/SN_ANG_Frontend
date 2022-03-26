@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 export class TabSelectorComponent implements OnInit {
   @Output() tabClick = new EventEmitter<string>();
   @Input() tabs: any; // Should be a list of strings with tab names.
+  @Input() icons: any; // Should be a list of strings with tab names.
   @Input() extraTab: string;
   @Input() activeTab: string;
 

@@ -1,0 +1,537 @@
+/* ---------- CSS DIRECTORY ----------- */
+//	1. Component Base Styles
+//	2. View 1: Collection Details
+//	3. View 2: Collection NFT Selection
+/* ------------------------------------ */
+
+/* -------------------------------------------------------------------------- */
+/*                        1. COMPONENT BASE STYLES                            */
+/* -------------------------------------------------------------------------- */
+
+.create-collection-page {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background-color: #F5F5F5; // update to appropriate variable
+}
+
+.full-height-width-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.logo {
+    position: absolute;
+    top: 1rem;
+    left: 2rem;
+    padding: 0;
+    font-size: 1.7rem;
+    font-weight: 600;
+    z-index: 1;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.exit {
+    position: absolute;
+    width: fit-content;
+    top: 1.25rem;
+    right: 2rem;
+    padding: 8px 15px;
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.05);
+    font-size: 0.8rem;
+    font-weight: 400;
+    z-index: 1;
+
+    @media screen and (max-width: 480px) {
+        top: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 1rem;
+        white-space: nowrap;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                        2. COLLECTION DETAILS                               */
+/* -------------------------------------------------------------------------- */
+
+.collection-details-fieldset {
+    padding: 30px;
+    height: 80%;
+    width: 50%;
+    min-width: 600px;
+    max-width: 600px;
+    max-height: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    border: 1px solid #F5F5F5;
+    border-radius: 45px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+    
+    @media screen and (max-width: 676px) {
+        width: calc(100% - 2rem);
+        min-width: 260px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        font-weight: 500;
+
+        @media screen and (max-height: 740px) {
+            padding-bottom: 20px;
+        }
+
+        @media screen and (max-width: 480px) {
+            font-size: 1.2rem;
+        }
+    }
+
+    .collection-details-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 400;
+    }
+}
+
+.collection-details-header {
+    position: relative;
+    width: 100%;
+    height: 10em;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(242, 242, 242, 1.0);
+    border-radius: 15px 15px 0 0;
+
+    @media screen and (max-height: 740px) {
+        justify-content: flex-start;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        padding: 8px 10px;
+        font-size: 1rem;
+        font-weight: 500;
+        color: #7D7D7D;
+        text-align: center;
+
+        @media screen and (max-width: 480px) {
+            padding: 4px 5px;
+            font-size: 0.7rem;
+        }
+    }
+
+    h3 {
+        padding: 8px 0;
+        font-size: 0.75rem;
+        color: #7D7D7D;
+
+        @media screen and (max-width: 480px) {
+            padding: 4px 0;
+            font-size: 0.6rem;
+        }
+
+        @media screen and (max-height: 700px) {
+            padding: 4px 0 20px 0;
+            font-size: 0.55rem;
+        }
+    }
+
+    .collection-details-banner {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 15px 15px 0 0;
+        &:hover {
+            background-color: rgb(226, 226, 226);
+        }
+
+        .banner-text-h2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                height: 20px;
+                width: 20px;
+
+                @media screen and (max-width: 480px) {
+                    height: 15px;
+                    width: 15px;
+                }
+
+                @media screen and (max-width: 300px) {
+                    display: none;
+                }
+            }
+        }
+
+        .uploaded-banner-image {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 15px 15px 0 0;
+        }
+
+        input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%; 
+            cursor: pointer; 
+            opacity: 0; 
+        }
+    }
+
+    .display-image {
+        position: absolute;
+        height: 80px;
+        width: 80px;
+        left: 4rem;
+        bottom: -20px;
+        background-color: #EAEAEA;
+        border: 2px solid white;
+        border-radius: 10px;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+            background-color: rgb(226, 226, 226);
+        }
+
+        @media screen and (max-width: 480px) {
+            height: 60px;
+            width: 60px;
+            left: 1rem;
+        }
+
+        @media screen and (max-height: 600px) {
+            height: 60px;
+            width: 60px;
+        }
+
+        img {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        input {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            z-index: 1;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.collection-details-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    label {
+        width: 75%;
+        display: block;
+        color: #1D1D1D;
+        font-size: 0.9rem;
+        font-weight: 500;
+
+        @media screen and (max-width: 480px) {
+            width: 90%;
+        }
+    }
+
+    input[type=text] {
+        margin-bottom: 15px;
+        padding: 8px 10px;
+        width: 75%;
+        display: block;
+        border: 1px solid #B0B0B0;
+        border-radius: 5px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+
+        @media screen and (max-width: 480px) {
+            width: 90%;
+        }
+    }
+
+    .collection-name-error {
+        width: 75%;
+        height: auto;
+        min-height: 50px;
+        color: red;
+        font-weight: 500;
+        font-size: 0.8rem;
+        text-align: center;
+
+        @media screen and (max-width: 480px) {
+            font-size: 0.7rem;
+            width: 90%;
+        }
+    }
+
+    textarea {
+        padding: 8px 10px;
+        width: 75%;
+        display: block;
+        border: 1px solid #B0B0B0;
+        border-radius: 5px;
+        resize: none;
+
+        @media screen and (max-width: 480px) {
+            width: 90%;
+        }
+
+        @media screen and (max-height: 600px) {
+            height: 20%;
+        }
+    }
+
+    button {
+        margin: 25px 0;
+        padding: 10px 75px;
+        width: fit-content;
+
+        @media screen and (max-width: 300px) {
+            font-size: 0.8rem;
+            padding: 8px 40px;
+        }
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/*                      3. COLLECTION NFT SELECTION                           */
+/* -------------------------------------------------------------------------- */
+
+.single-nft-container {
+    position: relative;
+    height: 210px !important;
+}
+.selected-border {
+    border: 2px solid #3549FA;
+}
+.select-nft-button {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+
+    .checkbox-container {
+        border-radius: 30px;
+        position: absolute;
+        width: 27px;
+        height: 27px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.9);
+        // border: 1px solid #4a4a4a;
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+        // box-shadow: 1.9333332777023315px 1.9333332777023315px 9.666666984558105px rgba(0, 0, 0, 0.1);
+        right: 15px;
+        top: 15px;
+
+        // For Nesthub
+        @media screen and (max-height: 600px) {
+            top: 20px;
+            right: 30px;
+        }
+    }
+
+    .checkbox-container.selected {
+        border: none;
+        background-image: url("/assets/icons/select_verified_icon.svg");
+        background-position: center;
+    }
+    &:disabled {
+        background-color: rgba(0, 0, 0, 0.6) !important;
+    }
+}
+
+.collection-nft-selection-fieldset {
+    position: relative;
+    height: 80%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 1px solid #F5F5F5;
+    border-radius: 45px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    @media screen and (max-width: 676px) {
+        width: calc(100% - 2rem);
+        min-width: 260px;
+    }
+}
+
+.collection-selections-main {
+    padding: 0 20px;
+    flex: 8;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .collection-selections-main-headline {
+        padding: 30px 50px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        @media screen and (max-width: 626px) {
+            padding: 30px 10px;
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+
+            @media screen and (max-width: 626px) {
+                font-size: 1.1rem;
+            }
+        }
+    
+        button {
+            padding: 10px 20px;
+            background: #ECECEC;
+            border: none;
+            border-radius: 60px;
+            color: #626262;
+            font-size: 0.8rem;
+            font-weight: 600;
+
+            @media screen and (max-width: 626px) {
+                padding: 10px 15px;
+                font-size: 0.7rem;
+                white-space: nowrap;
+            }
+        }
+    }
+
+    .collection-selections-main-content {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        margin-bottom: 100px;
+        // Targets all NFTs
+        .collection-selections-user-nfts {
+            padding: 10px 0 30px 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: fit-content;
+            max-width: 100%;
+            display: grid;
+            align-items: center;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            column-gap: 10px;
+            row-gap: 15px;
+
+            @media screen and (max-width: 864px) {  
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-evenly;
+            }
+
+            @media screen and (max-width: 480px) {  
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }   
+    }
+}
+
+.collection-selections-bottom-bar {
+    position: absolute;
+    bottom: 0;
+    flex: 1;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-top: 1px solid #DADADA;
+    background-color: #FFFFFF;
+    z-index: 2;
+    @media screen and (max-height: 600px) {
+        padding: 15px 0;
+    }
+
+    p {
+        @media screen and (max-width: 626px) {
+            padding-left: 10px;
+            font-size: 0.8rem;
+        }
+    }
+
+    .create-collection-button {
+        padding: 10px 75px;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+        border: 1px solid var(--text);
+        border-radius: 30px;
+        background: var(--text);
+        color: var(--background);
+    
+        &:disabled {
+          background-color: grey;
+          border: 1px solid grey;
+          cursor: not-allowed;
+    
+          label {
+            cursor: not-allowed;
+          }
+        }
+
+        @media screen and (max-width: 626px) {
+            padding: 8px 15px;
+            font-size: 0.8rem;
+        }
+
+        @media screen and (max-width: 300px) {
+            margin-right: 10px;
+            padding: 8px 10px;
+            font-size: 0.7rem;
+        }
+    }
+}
+
+.disable-link {
+    pointer-events: none !important;
+}

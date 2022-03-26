@@ -29,7 +29,14 @@
               Received
             </div>
             <div *ngIf="row.HasPurchased" class="text-grey9" style="font-size: 10px">
-              <div *ngIf="row.HODLerPublicKeyBase58Check === profile.PublicKeyBase58Check && row.ProfileEntryResponse.IsReserved && !row.ProfileEntryResponse.IsVerified; else purchasedCoins">
+              <div
+                *ngIf="
+                  row.HODLerPublicKeyBase58Check === profile.PublicKeyBase58Check &&
+                    row.ProfileEntryResponse.IsReserved &&
+                    !row.ProfileEntryResponse.IsVerified;
+                  else purchasedCoins
+                "
+              >
                 <i class="far fa-clock fa-md pr-5px font-weight-bold"></i>
                 Reserved
               </div>

@@ -19,10 +19,6 @@ export class LeftBarComponent {
 
   applycreator = true;
 
-  @HostBinding("class") get classes() {
-    return !this.isMobile ? "global__nav__flex" : "";
-  }
-
   @Input() isMobile = false;
   @Input() inTutorial: boolean = false;
   @Output() closeMobile = new EventEmitter<boolean>();
@@ -61,15 +57,15 @@ export class LeftBarComponent {
   hasProfile() {
     //   close nav bar because it will open on mobile
     if (this.globalVars.isMobileIphone()) {
-      this.globalVars.isLeftBarMobileOpen = false;
+      this.globalVars.closeLeftBarMobile();
     }
 
     if (this.globalVars?.loggedInUser?.ProfileEntryResponse?.Username) {
       this.router.navigate(["/u/" + this.globalVars?.loggedInUser?.ProfileEntryResponse.Username]);
-      this.globalVars.isLeftBarMobileOpen = false;
+      this.globalVars.closeLeftBarMobile();
     } else {
       this.router.navigate(["/update-profile"]);
-      this.globalVars.isLeftBarMobileOpen = false;
+      this.globalVars.closeLeftBarMobile();
     }
   }
 }

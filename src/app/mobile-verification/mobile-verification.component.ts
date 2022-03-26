@@ -102,7 +102,18 @@ export class MobileVerificationComponent implements OnInit {
       this.globalVars.wantToVerifyPhone = true;
     } else {
       this.globalVars.wantToVerifyPhone = false;
+
+      //   //   close nav bar because it will open on mobile
+      //   if (this.globalVars.isMobileIphone()) {
+      //     this.globalVars.closeLeftBarMobile();
+      //   }
+      //   console.log(
+      //     ` ----------------------- this.globalVars.wantToVerifyPhone ${this.globalVars.wantToVerifyPhone} ----------------------- `
+      //   );
+
+      //   this.router.navigate([RouteNames.COMPLETE_PROFILE]);
     }
+
     this.nextStep.emit();
   }
 
@@ -291,7 +302,7 @@ export class MobileVerificationComponent implements OnInit {
   completeVerificationButtonClicked() {
     //   close nav bar because it will open on mobile
     if (this.globalVars.isMobileIphone()) {
-      this.globalVars.isLeftBarMobileOpen = false;
+      this.globalVars.closeLeftBarMobile();
     }
 
     this.router.navigate([RouteNames.COMPLETE_PROFILE]);

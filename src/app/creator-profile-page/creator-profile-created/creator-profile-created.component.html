@@ -19,7 +19,7 @@
       (scrolled)="onScroll()"
     >
       <div class="nfts-card-list-discovery nft_creator_list">
-        <div class="nft-col-wrap-2" *ngFor="let post of dataToShow">
+        <div class="nft-col-wrap-2" *ngFor="let post of this.globalVars.createdNFTsToShow">
           <div class="max-width-300-plus">
             <new-nft-card
               [contentShouldLinkToThread]="true"
@@ -38,9 +38,8 @@
             ></new-nft-card>
           </div>
         </div>
-        <div class="nft-col-wrap-2" *ngFor="let post of this.globalVars.ethNFTsCreated; let index = index">
-          <div class="max-width-300-plus">
-            <!-- used new-nft-card setup from trends.component -->
+        <!-- <div class="nft-col-wrap-2" *ngFor="let post of this.globalVars.ethNFTsCreated; let index = index">
+          <div class="max-width-300-plus">=
             <new-nft-card
               [post]="post"
               [includePaddingOnPost]="true"
@@ -53,7 +52,7 @@
               [setBorder]="true"
             ></new-nft-card>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

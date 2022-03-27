@@ -399,8 +399,8 @@ export class EthNftPostComponent implements OnInit {
 
         this.checkPostDetails();
 
-        //   load provenance and details eth data
         console.log(` ------------------- this.nftPost ${JSON.stringify(this.nftPost)} ------------------- `);
+        //   load provenance and details eth data
         this.loadProvenanceAndDetails();
       },
       (err) => {

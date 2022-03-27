@@ -122,15 +122,15 @@ export class CreatorProfileCreatedComponent implements OnInit {
       )
       .toPromise()
       .then((res) => {
+        this.globalVars.createdNFTsToShow = [];
         this.posts = res.Posts.filter((post) => post.IsNFT && post.NumNFTCopiesBurned != post.NumNFTCopies);
         this.dataToShow = this.posts.slice(this.startIndex, this.endIndex);
+        this.globalVars.createdNFTsToShow = this.dataToShow;
 
         //   get created eth NFTs
         if (this.profileData["ETHPublicKey"] !== "") {
           this.globalVars.imxWalletAddress = this.profileData["ETHPublicKey"];
           this.globalVars.getCreatedNFTs();
-        } else {
-          this.globalVars.ethNFTsCollected = [];
         }
       })
       .finally(() => {
@@ -141,7 +141,10 @@ export class CreatorProfileCreatedComponent implements OnInit {
     if (this.endIndex <= this.posts.length - 1) {
       this.startIndex = this.endIndex;
       this.endIndex += 20;
-      this.dataToShow = [...this.dataToShow, ...this.posts.slice(this.startIndex, this.endIndex)];
+      this.globalVars.createdNFTsToShow = [
+        ...this.globalVars.createdNFTsToShow,
+        ...this.posts.slice(this.startIndex, this.endIndex),
+      ];
     }
   }
 }

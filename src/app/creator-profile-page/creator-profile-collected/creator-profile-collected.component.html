@@ -19,7 +19,25 @@
       (scrolled)="onScroll()"
     >
       <div class="nfts-card-list-discovery nft_creator_list">
-        <div class="nft-col-wrap-2" *ngFor="let nftEntry of dataToShow">
+        <div class="nft-col-wrap-2" *ngFor="let post of this.globalVars.collectedNFTsToShow">
+          <div class="max-width-300-plus">
+            <new-nft-card
+              [contentShouldLinkToThread]="true"
+              [includePaddingOnPost]="true"
+              [post]="post"
+              [afterCommentCreatedCallback]="_prependComment.bind(this, post, index)"
+              [blocked]="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)"
+              [showNFTDetails]="true"
+              [showExpandedNFTDetails]="false"
+              [setBorder]="true"
+              [showAvailableSerialNumbers]="true"
+              [cardStyle]="true"
+              [profilePublicKeyBase58Check]="profile.PublicKeyBase58Check"
+              (userBlocked)="userBlocked()"
+            ></new-nft-card>
+          </div>
+        </div>
+        <!-- <div class="nft-col-wrap-2" *ngFor="let nftEntry of this.globalVars.collectedNFTsToShow">
           <div class="max-width-300-plus">
             <new-nft-card
               *ngIf="nftEntry.PostEntryResponse.ProfileEntryResponse"
@@ -37,10 +55,9 @@
               (userBlocked)="userBlocked()"
             ></new-nft-card>
           </div>
-        </div>
-        <div class="nft-col-wrap-2" *ngFor="let post of this.globalVars.ethNFTsCollected; let index = index">
+        </div> -->
+        <!-- <div class="nft-col-wrap-2" *ngFor="let post of this.globalVars.ethNFTsCollected; let index = index">
           <div class="max-width-300-plus">
-            <!-- used new-nft-card setup from trends.component -->
             <new-nft-card
               [post]="post"
               [includePaddingOnPost]="true"
@@ -53,7 +70,7 @@
               [setBorder]="true"
             ></new-nft-card>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

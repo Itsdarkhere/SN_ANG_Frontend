@@ -132,6 +132,7 @@
           <feed-post
             [isNFTProfile]="true"
             [nftBidData]="nftBidData"
+            [isNFTDetail]="true"
             [hoverable]="false"
             [post]="nftPost"
             [includePaddingOnPost]="true"
@@ -142,9 +143,8 @@
             [showName]="true"
             [showNFTDetails]="true"
             [showExpandedNFTDetails]="true"
-            [contentShouldLinkToThread]="true"
+            [contentShouldLinkToThread]="false"
             [afterCommentCreatedCallback]="incrementCommentCounter.bind(this)"
-            [isNFTDetail]="true"
             [showNFTOwnerInfo]="hightestBidOwner"
             [bidsOnMyNFTs]="bidsOnMyNfts?.length"
             (userBlocked)="afterUserBlocked($event)"

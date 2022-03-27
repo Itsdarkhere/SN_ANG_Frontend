@@ -218,6 +218,7 @@ export class NftPostComponent implements OnInit {
       initialState: {
         imageURL,
       },
+      animated: false,
     });
   }
 
@@ -228,6 +229,7 @@ export class NftPostComponent implements OnInit {
       initialState: {
         postModelArweaveSrc,
       },
+      animated: false,
     });
   }
 

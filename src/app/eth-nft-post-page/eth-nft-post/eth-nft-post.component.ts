@@ -354,6 +354,7 @@ export class EthNftPostComponent implements OnInit {
       initialState: {
         imageURL,
       },
+      animated: false,
     });
   }
 

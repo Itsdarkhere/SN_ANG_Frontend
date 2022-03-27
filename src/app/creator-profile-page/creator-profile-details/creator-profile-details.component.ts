@@ -229,6 +229,7 @@ export class CreatorProfileDetailsComponent implements OnInit {
     "BC1YLiuQcvSqFzRUaoSChucEXWSrj68Kmaepnbj7iQfo7eFzpBFVYJ2",
     "BC1YLiJziwbto5Loxdgq72wpJdAxqK5NU8ngoxGrVF14jt5h5k8uRTV",
     "BC1YLgXj87QsqYEQMQMgcMKDHqnxcsonMmtoA6vJMg5N9fd5j6sHrez",
+    "BC1YLfibiKTP1kgacxP6ks7uZ1Ygm9UjgVxH3BoK79S1kfqn1Hjog6k",
   ];
   checkIfAddCollections() {
     if (this.profile?.PublicKeyBase58Check == this.globalVars?.loggedInUser?.PublicKeyBase58Check) {

@@ -4356,7 +4356,15 @@ option {
     font-size: 13px;
   }
 }
-
+.discovery-button-movement {
+  &:active {
+      transform: scale(0.96);
+    }
+    &:hover {
+      transition-duration: 0.2;
+      //filter: brightness(110%);
+    }
+}
 .nft_details_main_wrapper {
   display: flex;
   flex-wrap: wrap;

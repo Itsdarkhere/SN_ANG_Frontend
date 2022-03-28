@@ -106,7 +106,7 @@ job "supernovas-frontend" {
         https://assets6.lottiefiles.com/packages/lf20_u3kvgiiw.json
         https://upload.videodelivery.net;
       script-src 
-        'nonce-er!Ơm}y=~zꢝ߈~<}y~!xk*{(0y߹{km'
+        'nonce-osyiDe/ftMPk3ck5ARPUUZv7LZjajuA2'
         'unsafe-eval'
         ajax.cloudflare.com
         https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194

@@ -30,6 +30,8 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   @Input() activeTab: string;
   @Input() isMobile = false;
 
+  canPost = false;
+
   loggedInUserSubscription: Subscription;
   followChangeSubscription: Subscription;
   FeedComponent = FeedComponent;
@@ -120,6 +122,11 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
           this.nextNFTShowcaseTime = new Date(res.NextNFTShowcaseTstamp / 1e6);
         }
       });
+  }
+
+  changeCanPost(canPost: boolean) {
+    console.log("CANPOST IS: " + canPost);
+    this.canPost = canPost;
   }
 
   ngOnInit() {

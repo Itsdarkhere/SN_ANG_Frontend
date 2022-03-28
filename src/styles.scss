@@ -5137,11 +5137,12 @@ option {
 
 .create_post_wrapper {
   margin: 21px 0 20px 0;
-  box-shadow: 1px 1.52px 7.62px rgba(0, 0, 0, 0.11);
-  border-radius: 14.2827px;
+  border-radius: 30px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
   //position: relative;
   .formbg {
-    background: transparent !important;
+    background: #FFFFFF !important;
     .textarea {
       font-size: 16px !important;
     }
@@ -5157,22 +5158,48 @@ option {
     background-size: cover;
   }
   .post_btn {
-    //background-color: #000 !important;
-    //border: 2px solid #000;
-    //color: #fff;
-    border-radius: 4.68267px;
-    padding: 7px 23px;
-    width: auto !important;
-    height: auto !important;
+    border-radius: 30px;
+    width: 140px;
+    height: 51px;
+    background: #090909;
+    color: #ebebeb;
+    border: 3px solid #090909;
+    font-size: 17px;
+    font-weight: 700;
+    text-align: justified;
     &.disabled {
       opacity: 1;
       user-select: none;
       border: 1px solid transparent;
-      border-color: #5c5c5c !important;
-      background-color: #fff !important;
-      color: #5c5c5c !important;
+      border-color: #b1b1b1 !important;
+      background-color: #FFFFFF !important;
+      color: #b1b1b1 !important;
     }
   }
+}
+.create-post-form-wrapper {
+  .post_btn {
+    border-radius: 30px;
+    width: 140px;
+    height: 51px;
+    background: #090909;
+    color: #ebebeb;
+    border: 3px solid #090909;
+    font-size: 17px;
+    font-weight: 700;
+    text-align: justified;
+    &.disabled {
+      opacity: 1;
+      user-select: none;
+      border: 1px solid transparent;
+      border-color: #b1b1b1 !important;
+      background-color: #FFFFFF !important;
+      color: #b1b1b1 !important;
+    }
+  }
+}
+.create_post_wrapper.active-box-shadow {
+  box-shadow: 1px 2px 40px rgba(0, 0, 0, 0.05) !important;
 }
 
 .media_ico {
@@ -5205,8 +5232,8 @@ option {
 .embed_wrp {
   position: absolute;
   left: 0;
-  bottom: 15px;
-  width: calc(100% - 99px);
+  bottom: 25px;
+  width: calc(100% - 300px);
   @media screen and (max-width: 767px) {
     bottom: auto;
     width: calc(100% - 89px);
@@ -5217,6 +5244,7 @@ option {
     padding: 5px 30px 5px 10px;
     background-color: #fff;
     font-size: 14px;
+    border-radius: 10px;
   }
   .feed-post_delete {
     position: absolute;

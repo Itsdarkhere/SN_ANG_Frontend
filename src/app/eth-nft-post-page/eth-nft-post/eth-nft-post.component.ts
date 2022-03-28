@@ -176,8 +176,8 @@ export class EthNftPostComponent implements OnInit {
       console.log("PERKELE");
       if (this.globalVars.isMobile()) {
         this.isMobile = true;
-        this.tabs.push("Comments");
-        this.icons.push("/assets/icons/nft_bids_icon.svg");
+        this.tabs.splice(1, 0, "Comments");
+        this.icons.splice(1, 0, "/assets/icons/nft_bids_icon.svg");
       } else {
         // WIP
         this.isMobile = false;

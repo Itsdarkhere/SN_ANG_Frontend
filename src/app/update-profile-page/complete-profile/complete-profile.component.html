@@ -2,12 +2,7 @@
   <!-- -------------------------------------- if isMobile is false render desktop -------------------------------------- -->
   <!-- creator, no profile and not verified -->
   <div
-    *ngIf="
-      !this.globalVars.isMobile() &&
-      this.globalVars.isCreator &&
-      this.globalVars.isNullUsername &&
-      !this.globalVars.isVerified
-    "
+    *ngIf="!this.globalVars.isMobile() && this.globalVars.isCreator && this.globalVars.isNullUsername"
     class="onboarding-card-shadow"
   >
     <div class="onboarding-card">
@@ -40,9 +35,10 @@
       <button (click)="buyCreatorCoin()" class="onboarding-card-button onboarding-card-button-3">Buy your Coin</button>
       <!-- step 4 -->
       <img src="../../../assets/complete-onboarding/checkmark.png" alt="checkmark" class="checkmark-4" />
-      <p class="step-4-header">Verify your creator profile</p>
+      <p class="step-4-header">Verify your creator profile (Optional)</p>
       <p class="step-4-text">
-        All Supernovas Creators are verified to ensure only authentic work. We'll complete verification within 24 hours.
+        You can get your Supernovas Creator profile verified to ensure the authenticity of your work. We'll complete the
+        verification in 24 hours.
       </p>
       <button (click)="verifyProfile()" class="onboarding-card-button onboarding-card-button-4">Verify Profile</button>
       <!-- done -->
@@ -57,8 +53,8 @@
       </button>
     </div>
   </div>
-  <!-- creator, has profile, not verified -->
-  <div
+  <!-- creator, has profile, not verified ----------- old -->
+  <!-- <div
     *ngIf="
       !this.globalVars.isMobile() &&
       this.globalVars.isCreator &&
@@ -79,16 +75,14 @@
       <button (click)="verifyProfile()" class="onboarding-card-button onboarding-card-button-4-hasProfile">
         Verify Your Profile
       </button>
-      <!-- line break -->
       <div class="line-break-hasProfile"></div>
-      <!-- support -->
       <p class="support-header-hasProfile">Need Help? We got you.</p>
       <p class="support-text-hasProfile">Browse the support articles or reach out to us and we'll get you started!</p>
       <button (click)="contactSupport()" class="onboarding-card-button onboarding-support-button-hasProfile">
         Supernovas Support
       </button>
     </div>
-  </div>
+  </div> -->
   <!-- is collector and no profile -->
   <div
     *ngIf="!this.globalVars.isMobile() && this.globalVars.isCollector && this.globalVars.isNullUsername"
@@ -141,14 +135,7 @@
 
   <!-- -------------------------------------- if isMobile is true render mobile -------------------------------------- -->
   <!-- creator, no profile and not verified -->
-  <div
-    *ngIf="
-      this.globalVars.isMobile() &&
-      this.globalVars.isCreator &&
-      this.globalVars.isNullUsername &&
-      !this.globalVars.isVerified
-    "
-  >
+  <div *ngIf="this.globalVars.isMobile() && this.globalVars.isCreator && this.globalVars.isNullUsername">
     <div class="onboarding-card-mobile">
       <p class="onboarding-card-header-1-mobile">Welcome to Supernovas!</p>
       <p class="onboarding-card-subheader-mobile">Complete the last steps to finalize your onboarding 🌈</p>
@@ -189,9 +176,10 @@
       </button>
       <!-- step 4 -->
       <img src="../../../assets/complete-onboarding/checkmark.png" alt="checkmark" class="checkmark-4-mobile" />
-      <p class="step-4-header-mobile">Verify your creator profile</p>
+      <p class="step-4-header-mobile">Verify your creator profile (Optional)</p>
       <p class="step-4-text-mobile">
-        All Supernovas Creators are verified to ensure only authentic work. We'll complete verification within 24 hours.
+        You can get your Supernovas Creator profile verified to ensure the authenticity of your work. We'll complete the
+        verification in 24 hours.
       </p>
       <button (click)="verifyProfile()" class="onboarding-card-button-mobile onboarding-card-button-4-mobile">
         Verify Profile
@@ -208,8 +196,8 @@
       </button>
     </div>
   </div>
-  <!-- creator, has profile, not verified -->
-  <div
+  <!-- creator, has profile, not verified ----------- old -->
+  <!-- <div
     *ngIf="
       this.globalVars.isMobile() &&
       this.globalVars.isCreator &&
@@ -232,9 +220,7 @@
       >
         Verify Your Profile
       </button>
-      <!-- line break -->
       <div class="line-break-hasProfile-mobile"></div>
-      <!-- support -->
       <p class="support-header-hasProfile-mobile">Need Help? We got you.</p>
       <p class="support-text-hasProfile-mobile">
         Browse the support articles or reach out to us and we'll get you started!
@@ -246,7 +232,7 @@
         Supernovas Support
       </button>
     </div>
-  </div>
+  </div> -->
   <!-- is collector and no profile -->
   <div *ngIf="this.globalVars.isMobile() && this.globalVars.isCollector && this.globalVars.isNullUsername">
     <div class="onboarding-card-collector-mobile">

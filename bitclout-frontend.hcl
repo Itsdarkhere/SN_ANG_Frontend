@@ -109,6 +109,8 @@ job "supernovas-frontend" {
         'nonce-osyiDe/ftMPk3ck5ARPUUZv7LZjajuA2'
         'unsafe-eval'
         ajax.cloudflare.com
+        cloudflare.com
+        cloudflare.com:*
         https://supernovas.app/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js
         https://www.googletagmanager.com/gtag/js?id=UA-182977456-1
         https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194

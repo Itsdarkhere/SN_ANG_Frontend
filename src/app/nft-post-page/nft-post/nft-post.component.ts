@@ -137,8 +137,8 @@ export class NftPostComponent implements OnInit {
   ngOnInit() {
     if (this.globalVars.isMobile()) {
       this.isMobile = true;
-      this.tabs.push(NftPostComponent.COMMENTS);
-      this.icons.push(NftPostComponent.COMMENTS_ICON);
+      this.tabs.splice(1, 0, NftPostComponent.COMMENTS);
+      this.icons.splice(1, 0, NftPostComponent.COMMENTS_ICON);
     } else {
       // WIP
       this.isMobile = false;

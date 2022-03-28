@@ -319,7 +319,7 @@ export class NftPostComponent implements OnInit {
     // Both 3d and banner have poster images which are stored on ar so this counts them too
     if (this.nftPost.ImageURLs) {
       console.log("IMAGE");
-      if (this.nftPost.ImageURLs[0].startsWith("https://arweave.net/")) {
+      if (this.nftPost.ImageURLs[0].includes("arweave.net")) {
         this.contentStorage = true;
         return;
       } else {

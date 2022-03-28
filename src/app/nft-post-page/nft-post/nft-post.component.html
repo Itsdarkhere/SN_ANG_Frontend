@@ -35,7 +35,7 @@
                 id="post-image"
                 (click)="openImgModal($event, nftPost.ImageURLs[0])"
                 data-toggle="modal"
-                class="feed-post__image"
+                class="feed-post__image nft-profile-image-shadow"
                 (error)="useNormalImage(nftPost.ImageURLs[0])"
                 src="{{ mapImageURLs(nftPost.ImageURLs[0]) }}"
               />
@@ -47,7 +47,7 @@
                 <img
                   (click)="openImgModal($event, nftPost.ImageURLs[0])"
                   data-toggle="modal"
-                  class="mb-20px nft-page-audio-cover-image"
+                  class="mb-20px nft-profile-image-shadow nft-page-audio-cover-image"
                   src="{{ mapImageURLs(nftPost.ImageURLs[0]) }}"
                 />
               </div>

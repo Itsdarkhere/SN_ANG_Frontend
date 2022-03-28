@@ -32,7 +32,7 @@
         <div class="btn-cover">
           <div class="w-45">
             <button
-              class="btn btn-buy cta-animation"
+              class="btn btn-buy discovery-button-movement"
               [routerLink]="AppRoutingModule.buyCreatorPath(profile.Username)"
               queryParamsHandling="merge"
             >
@@ -42,7 +42,7 @@
           <div *ngIf="globalVars.loggedInUser" class="w-45 d-inline-block fs-15px follow-container">
             <div *ngIf="profileBelongsToLoggedInUser(); else elseBlock">
               <a
-                class="btn btn-follow cta-animation"
+                class="btn btn-follow discovery-button-movement"
                 [routerLink]="'/' + this.globalVars.RouteNames.UPDATE_PROFILE"
                 [queryParams]="{ stepNum: null }"
                 queryParamsHandling="merge"
@@ -173,7 +173,7 @@
       <div class="btn-cover">
         <div class="w-45">
           <button
-            class="btn btn-buy cta-animation"
+            class="btn btn-buy discovery-button-movement"
             [routerLink]="AppRoutingModule.buyCreatorPath(profile.Username)"
             queryParamsHandling="merge"
           >
@@ -183,7 +183,7 @@
         <div *ngIf="globalVars.loggedInUser" class="w-45 d-inline-block fs-15px follow-container">
           <div *ngIf="profileBelongsToLoggedInUser(); else elseBlock">
             <a
-              class="btn btn-follow cta-animation"
+              class="btn btn-follow discovery-button-movement"
               [routerLink]="'/' + this.globalVars.RouteNames.UPDATE_PROFILE"
               [queryParams]="{ stepNum: null }"
               queryParamsHandling="merge"
@@ -196,6 +196,8 @@
               *ngIf="!globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)"
               [displayAsLink]="true"
               [followedPubKeyBase58Check]="profile.PublicKeyBase58Check"
+              [followButtonClasses]="['discovery-button-movement']"
+              [unfollowButtonClasses]="['discovery-button-movement']"
             ></follow-button>
           </ng-template>
         </div>

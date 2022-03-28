@@ -194,7 +194,7 @@ export class GlobalVarsService {
   // Deso
   desoMarketplace = true;
   marketplaceViewTypeCard = true;
-  marketplaceVerifiedCreators = "verified";
+  marketplaceVerifiedCreators = "all";
   marketplaceContentFormat = "all";
   marketplaceStatus = "all";
   marketplaceNFTCategory = "all";

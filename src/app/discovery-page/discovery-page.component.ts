@@ -145,7 +145,7 @@ export class DiscoveryPageComponent implements OnInit {
     switch (category) {
       case "trending":
         this.globalVars.desoMarketplace = true;
-        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceVerifiedCreators = "all";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceNFTCategory = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
@@ -160,7 +160,7 @@ export class DiscoveryPageComponent implements OnInit {
         break;
       case "art":
         this.globalVars.desoMarketplace = true;
-        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceVerifiedCreators = "all";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
         this.globalVars.marketplaceHighPriceNanos = 0;
@@ -175,7 +175,7 @@ export class DiscoveryPageComponent implements OnInit {
         break;
       case "collectibles":
         this.globalVars.desoMarketplace = true;
-        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceVerifiedCreators = "all";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
         this.globalVars.marketplaceHighPriceNanos = 0;
@@ -190,7 +190,7 @@ export class DiscoveryPageComponent implements OnInit {
         break;
       case "generative":
         this.globalVars.desoMarketplace = true;
-        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceVerifiedCreators = "all";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
         this.globalVars.marketplaceHighPriceNanos = 0;
@@ -205,7 +205,7 @@ export class DiscoveryPageComponent implements OnInit {
         break;
       case "metaverse":
         this.globalVars.desoMarketplace = true;
-        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceVerifiedCreators = "all";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
         this.globalVars.marketplaceHighPriceNanos = 0;
@@ -220,7 +220,7 @@ export class DiscoveryPageComponent implements OnInit {
         break;
       case "categorymusic":
         this.globalVars.desoMarketplace = true;
-        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceVerifiedCreators = "all";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
         this.globalVars.marketplaceHighPriceNanos = 0;
@@ -235,7 +235,7 @@ export class DiscoveryPageComponent implements OnInit {
         break;
       case "profilepic":
         this.globalVars.desoMarketplace = true;
-        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceVerifiedCreators = "all";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
         this.globalVars.marketplaceHighPriceNanos = 0;
@@ -250,7 +250,7 @@ export class DiscoveryPageComponent implements OnInit {
         break;
       case "photography":
         this.globalVars.desoMarketplace = true;
-        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceVerifiedCreators = "all";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
         this.globalVars.marketplaceHighPriceNanos = 0;
@@ -265,7 +265,7 @@ export class DiscoveryPageComponent implements OnInit {
         break;
       case "fresh":
         this.globalVars.desoMarketplace = true;
-        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceVerifiedCreators = "all";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
         this.globalVars.marketplaceHighPriceNanos = 0;
@@ -280,7 +280,7 @@ export class DiscoveryPageComponent implements OnInit {
         break;
       case "mostdiamonds":
         this.globalVars.desoMarketplace = true;
-        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceVerifiedCreators = "all";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
         this.globalVars.marketplaceHighPriceNanos = 0;
@@ -295,7 +295,7 @@ export class DiscoveryPageComponent implements OnInit {
         break;
       case "recentsales":
         this.globalVars.desoMarketplace = true;
-        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceVerifiedCreators = "all";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
         this.globalVars.marketplaceHighPriceNanos = 0;
@@ -310,7 +310,7 @@ export class DiscoveryPageComponent implements OnInit {
         break;
       case "secondarylistings":
         this.globalVars.desoMarketplace = true;
-        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceVerifiedCreators = "all";
         this.globalVars.marketplaceContentFormat = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
         this.globalVars.marketplaceHighPriceNanos = 0;
@@ -326,7 +326,7 @@ export class DiscoveryPageComponent implements OnInit {
         break;
       case "image":
         this.globalVars.desoMarketplace = true;
-        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceVerifiedCreators = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
         this.globalVars.marketplaceHighPriceNanos = 0;
         this.globalVars.marketplaceLowPriceUSD = 0;
@@ -342,7 +342,7 @@ export class DiscoveryPageComponent implements OnInit {
         break;
       case "video":
         this.globalVars.desoMarketplace = true;
-        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceVerifiedCreators = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
         this.globalVars.marketplaceHighPriceNanos = 0;
         this.globalVars.marketplaceLowPriceUSD = 0;
@@ -358,7 +358,7 @@ export class DiscoveryPageComponent implements OnInit {
         break;
       case "formatmusic":
         this.globalVars.desoMarketplace = true;
-        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceVerifiedCreators = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
         this.globalVars.marketplaceHighPriceNanos = 0;
         this.globalVars.marketplaceLowPriceUSD = 0;
@@ -374,7 +374,7 @@ export class DiscoveryPageComponent implements OnInit {
         break;
       case "model":
         this.globalVars.desoMarketplace = true;
-        this.globalVars.marketplaceVerifiedCreators = "verified";
+        this.globalVars.marketplaceVerifiedCreators = "all";
         this.globalVars.marketplaceLowPriceNanos = 0;
         this.globalVars.marketplaceHighPriceNanos = 0;
         this.globalVars.marketplaceLowPriceUSD = 0;

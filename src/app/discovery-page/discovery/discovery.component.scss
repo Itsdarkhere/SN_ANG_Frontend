@@ -65,6 +65,16 @@
                 @media screen and (max-width: 767px) {
                     padding: 0px;
                 }
+                p {
+                    color: #fff;
+                    font-weight: 500;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2; /* number of lines to show */
+                    -webkit-box-orient: vertical;
+                    font-size: 18px;
+                }
                 h3 {
                     color: #fff;
                     font-size: 52px;

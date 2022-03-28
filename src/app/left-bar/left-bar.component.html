@@ -36,7 +36,7 @@
     <left-bar-button
       [link]="'/update-profile'"
       [imgSrc]="'/assets/icons/lb_profile_icon.svg'"
-      *ngIf="!this.globalVars?.loggedInUser?.ProfileEntryResponse?.Username"
+      *ngIf="this.globalVars?.loggedInUser && !this.globalVars?.loggedInUser?.ProfileEntryResponse?.Username"
       [label]="'Profile'"
     ></left-bar-button>
     <left-bar-button

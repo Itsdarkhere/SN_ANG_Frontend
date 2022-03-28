@@ -65,7 +65,10 @@
       </button>
       <label>Profile</label>
     </span>
-    <span class="mobile-nav-item" *ngIf="!this.globalVars?.loggedInUser?.ProfileEntryResponse?.Username">
+    <span
+      class="mobile-nav-item"
+      *ngIf="this.globalVars?.loggedInUser && !this.globalVars?.loggedInUser?.ProfileEntryResponse?.Username"
+    >
       <button (click)="closeMobileNav()" [routerLink]="'/update-profile'" [routerLinkActive]="['active']">
         <img src="/assets/icons/lb_feed_icon.svg" />
       </button>

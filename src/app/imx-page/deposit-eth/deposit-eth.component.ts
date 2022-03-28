@@ -3,6 +3,7 @@ import { environment } from "src/environments/environment";
 import { Link, ImmutableXClient, ImmutableMethodResults, ETHTokenType, ImmutableRollupStatus } from "@imtbl/imx-sdk";
 import { GlobalVarsService } from "../../global-vars.service";
 import { BsModalService } from "ngx-bootstrap/modal";
+import { MixpanelService } from "src/app/mixpanel.service";
 import { GeneralSuccessModalComponent } from "../../general-success-modal/general-success-modal.component";
 
 @Component({
@@ -13,7 +14,11 @@ import { GeneralSuccessModalComponent } from "../../general-success-modal/genera
 export class DepositEthComponent implements OnInit {
   depositAmount: any;
 
-  constructor(public globalVars: GlobalVarsService, private modalService: BsModalService) {}
+  constructor(
+    public globalVars: GlobalVarsService,
+    private mixPanel: MixpanelService,
+    private modalService: BsModalService
+  ) {}
 
   link = new Link(environment.imx.MAINNET_LINK_URL);
 
@@ -37,6 +42,9 @@ export class DepositEthComponent implements OnInit {
     await this.link.deposit({
       type: ETHTokenType.ETH,
       amount: this.depositAmount,
+    });
+    this.mixPanel.track53("ETH deposited", {
+      "Amount": this.depositAmount
     });
     this.modalService.show(GeneralSuccessModalComponent, {
       class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",

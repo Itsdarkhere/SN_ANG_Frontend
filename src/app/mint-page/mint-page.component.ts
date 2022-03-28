@@ -952,6 +952,27 @@ export class MintPageComponent implements OnInit {
           this.globalVars._alertError("Post failed, please mint again.");
         }
       );
+    this.mixPanel.track51("ETH NFT Created", {
+      Poster: this.globalVars.loggedInUser?.PublicKeyBase58Check,
+      "Post hex": this.postHashHex,
+      "Royalty to creator": this.CREATOR_ROYALTY,
+      "Royalty to coin": this.COIN_ROYALTY,
+      Unlockable: this.UNLOCKABLE_CONTENT,
+      "For Sale": this.PUT_FOR_SALE,
+      "Min Bid ETH": this.MIN_PRICE,
+      "Is Buy Now": this.isBuyNow,
+      "Buy now price ETH": this.sellingPriceETH,
+      "Min fee rate per KB": this.globalVars.defaultFeeRateNanosPerKB,
+      "Post body": this.DESCRIPTION,
+      Name: this.NAME_OF_PIECE,
+      Category: this.CATEGORY,
+      "Token ID": this.token_id,
+      Audio: this.audioType,
+      Video: this.videoType,
+      "3D": this.modelType,
+      Image: this.imageType,
+      "Created by Verified?": this.post.PostEntryResponse?.IsVerified,
+    });
   }
 
   quoteEthRepost(event, isQuote = true) {
@@ -1154,6 +1175,7 @@ export class MintPageComponent implements OnInit {
       Video: this.videoType,
       "3D": this.modelType,
       Image: this.imageType,
+      "Created by Verified?": this.post.PostEntryResponse?.IsVerified,
     });
   }
 

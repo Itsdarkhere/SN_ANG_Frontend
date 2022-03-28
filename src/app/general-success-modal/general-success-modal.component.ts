@@ -5,11 +5,9 @@ import { BackendApiService, NFTEntryResponse, PostEntryResponse } from "../backe
 import * as _ from "lodash";
 import { Router } from "@angular/router";
 // import { InfiniteScroller } from "../infinite-scroller";
-import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import { Location } from "@angular/common";
 import { ToastrService } from "ngx-toastr";
-import { CommentModalComponent } from "../comment-modal/comment-modal.component";
-
+import { MixpanelService } from "../mixpanel.service";
 import { environment } from "src/environments/environment";
 import { Link, ImmutableXClient, ImmutableMethodResults, ETHTokenType, ImmutableRollupStatus } from "@imtbl/imx-sdk";
 import { ethers } from "ethers";
@@ -41,6 +39,7 @@ export class GeneralSuccessModalComponent implements OnInit {
     private modalService: BsModalService,
     public bsModalRef: BsModalRef,
     private router: Router,
+    private mixPanel: MixpanelService,
     private toastr: ToastrService,
     private location: Location
   ) {}
@@ -89,9 +88,15 @@ export class GeneralSuccessModalComponent implements OnInit {
       .subscribe(
         (res) => {
           console.log(res);
+          this.mixPanel.track52("ETH Wallet Connected",[{
+            "IMX Wallet address": this.globalVars.imxWalletAddress,
+          }])
         },
         (err) => {
           console.log(err);
+          this.mixPanel.track52("ETH Wallet Error Connecting...",[{
+            "IMX Wallet address": this.globalVars.imxWalletAddress,
+          }])
         }
       );
   }

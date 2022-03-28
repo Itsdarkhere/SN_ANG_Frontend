@@ -158,23 +158,25 @@ export class BuyNowModalComponent implements OnInit {
           this.buyNowNftSuccess = false;
           this.globalVars._alertError(this.backendApi.parseMessageError(err));
         }
-      )
-      .add(() => {});
+      );
     this.mixPanel.track13("Buy Now", {
       Buyer: this.globalVars.loggedInUser?.PublicKeyBase58Check,
-      "Serial number": this.serialNumber,
+      "Serial number": this.selectedSerialNumber.SerialNumber,
       "Price in DeSo": this.buyNowPriceNanos / 1e9,
       "Post Body": this.post.Body,
-      Seller: this.post.PosterPublicKeyBase58Check,
+      Creator: this.post.PosterPublicKeyBase58Check,
+      Seller: this.selectedSerialNumber.OwnerPublicKeyBase58Check,
+      "Primary sale?": this.post.PosterPublicKeyBase58Check == this.selectedSerialNumber.OwnerPublicKeyBase58Check,
       "Creator royalty": this.post.NFTRoyaltyToCreatorBasisPoints / 100,
       "CC royalty": this.post.NFTRoyaltyToCoinBasisPoints / 100,
-      Diamonds: this.post?.DiamondCount,
-      Category: this.post.PostExtraData?.category,
-      Post: this.post.PostExtraData?.name,
+      Diamonds: this.post.DiamondCount,
+      Category: this.post.PostExtraData.category,
+      Post: this.post.PostExtraData.name,
       "Post hex": this.post.PostHashHex,
-      Properties: this.post.PostExtraData?.properties,
+      Properties: this.post.PostExtraData.properties,
       Likes: this.post.LikeCount,
       Comments: this.post.CommentCount,
+      "Created by Verified?": this.post.ProfileEntryResponse?.IsVerified,
     });
   }
 
@@ -224,7 +226,6 @@ export class BuyNowModalComponent implements OnInit {
   closeBuyEthSuccess() {
     this.bsModalRef.hide();
     location.reload();
-    this.mixPanel.track13("Buy Now", {});
   }
 
   quoteRepost(event, isQuote = true) {

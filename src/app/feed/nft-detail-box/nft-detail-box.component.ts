@@ -389,6 +389,22 @@ export class NftDetailBoxComponent implements OnInit {
           onHideEvent.subscribe((response) => {
             if (response === "bid placed") {
               this.nftBidPlaced.emit();
+              this.mixPanel.track56("ETH NFT Sold", {
+                Buyer: this.globalVars?.loggedInUser?.PublicKeyBase58Check,
+                Creator: this.postContent?.PosterPublicKeyBase58Check,
+                Seller: this.postContent?.OwnerPublicKeyBase58Check,
+                "Primary Sale?":
+                  this.postContent?.OwnerPublicKeyBase58Check == this.postContent?.PosterPublicKeyBase58Check,
+                Price: this.ethereumNFTSalePrice,
+                Name: this.postContent.name,
+                "Created by Verified?": this.postContent?.PosterPublicKeyBase58Check?.IsVerified,
+                "Extra data": this.postContent.PostExtraData,
+                Comments: this._post.CommentCount,
+                Likes: this._post.LikeCount,
+                Diamonds: this._post.DiamondCount,
+                "Serial Number": this.serialNumber,
+                "Post hex": this._post.PostHashHex,
+              });
             }
           });
         }

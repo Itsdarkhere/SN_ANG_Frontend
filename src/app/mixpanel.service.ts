@@ -286,6 +286,61 @@ export class MixpanelService {
     mixpanel.track(name, data);
     console.log(name);
   }
+  // "ETH NFT Created"
+  track51(name: string, data) {
+    mixpanel.track(name, data);
+    console.log(name);
+  }
+  // "ETH Wallet connected"
+  track52(name: string, data) {
+    mixpanel.track(name, data);
+    console.log(name);
+  }
+  // "ETH Deposited"
+  track53(name: string, data) {
+    mixpanel.track(name, data);
+    console.log(name);
+  }
+  // "Login launched"
+  track54(name: string) {
+    mixpanel.track(name);
+    console.log(name);
+  }
+  // "Buy ETH clicked"
+  track55(name: string) {
+    mixpanel.track(name);
+    console.log(name);
+  }
+  // "ETH NFT sold"
+  track56(name: string, data) {
+    mixpanel.track(name, data);
+    console.log(name);
+  }
+  // "Click login"
+  track57(name: string) {
+    mixpanel.track(name);
+    console.log(name);
+  }
+  // "Click Create Profile"
+  track58(name: string) {
+    mixpanel.track(name);
+    console.log(name);
+  }
+  // "Create a collection"
+  track59(name: string, data) {
+    mixpanel.track(name, data);
+    console.log(name);
+  }
+  // "Delete NFT from Collection"
+  track61(name: string, data) {
+    mixpanel.track(name, data);
+    console.log(name);
+  }
+  // "Add NFT to Collection"
+  track60(name: string, data) {
+    mixpanel.track(name, data);
+    console.log(name);
+  }
   // People Set email
   peoplesetemail(name) {
     mixpanel.people.set(name);

@@ -1185,6 +1185,7 @@ export class GlobalVarsService {
 
   launchLoginFlow() {
     this.launchIdentityFlow("login");
+    this.mixPanel.track54("Login launch");
   }
 
   launchSignupFlow() {

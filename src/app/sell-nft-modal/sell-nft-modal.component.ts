@@ -108,21 +108,26 @@ export class SellNftModalComponent implements OnInit {
         this.sellingNFT = false;
       });
     this.selectedBidEntries.forEach((bid) => {
+      let selected = this.nftEntries.filter((entry) => (entry.SerialNumber = bid.SerialNumber));
+      let seller = selected[0].OwnerPublicKeyBase58Check;
       this.mixPanel.track47("Accept NFT Bid", {
         Buyer: bid.ProfileEntryResponse?.PublicKeyBase58Check,
         "Serial number": bid.SerialNumber,
         "Price in DeSo": this.sellingPrice,
         "Post Body": this.post.Body,
-        Seller: this.post.PosterPublicKeyBase58Check,
+        Seller: seller,
         "Creator royalty": this.post.NFTRoyaltyToCreatorBasisPoints / 100,
         "CC royalty": this.post.NFTRoyaltyToCoinBasisPoints / 100,
         Diamonds: this.post.DiamondCount,
-        Category: this.post.PostExtraData.category,
+        Category: this.post.PostExtraData?.category,
         Post: this.post.PostExtraData.name,
         "Post hex": this.post.PostHashHex,
-        Properties: this.post.PostExtraData.properties,
+        Properties: this.post.PostExtraData?.properties,
         Likes: this.post.LikeCount,
         Comments: this.post.CommentCount,
+        Creator: this.post?.PosterPublicKeyBase58Check,
+        "Primary Sale?": seller == this.post?.PosterPublicKeyBase58Check,
+        "Created by verified?": this.post.ProfileEntryResponse?.IsVerified,
       });
     });
   }

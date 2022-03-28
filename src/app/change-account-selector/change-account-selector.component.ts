@@ -8,6 +8,7 @@ import { animate, style, transition, trigger } from "@angular/animations";
 import { ChangeDetectorRef } from "@angular/core";
 import { AppRoutingModule } from "../app-routing.module";
 import { RouteNames } from "../app-routing.module";
+import { MixpanelService } from "../mixpanel.service";
 
 @Component({
   selector: "change-account-selector",
@@ -55,6 +56,7 @@ export class ChangeAccountSelectorComponent implements OnDestroy {
     private backendApi: BackendApiService,
     private identityService: IdentityService,
     private router: Router,
+    private mixPanel: MixpanelService,
     private changeRef: ChangeDetectorRef
   ) {
     this.selectorOpen = false;
@@ -115,6 +117,7 @@ export class ChangeAccountSelectorComponent implements OnDestroy {
     this.animationType = "next";
     this.changeRef.detectChanges();
     this.pageOne = false;
+    this.mixPanel.track57("Click Switch profile");
   }
   clickBack(event) {
     event.stopPropagation();
@@ -139,6 +142,7 @@ export class ChangeAccountSelectorComponent implements OnDestroy {
     clearInterval(this.interval);
   }
   createProfile() {
+    this.mixPanel.track58("Create profile clicked");
     this.router.navigate(["/" + this.RouteNames.SIGNUP]);
   }
   hasProfile() {

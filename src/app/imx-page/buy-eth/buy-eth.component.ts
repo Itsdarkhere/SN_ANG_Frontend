@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { Link, ImmutableXClient, ImmutableMethodResults, ETHTokenType, ImmutableRollupStatus } from "@imtbl/imx-sdk";
 import { GlobalVarsService } from "../../global-vars.service";
+import { MixpanelService } from "src/app/mixpanel.service";
 
 @Component({
   selector: "app-buy-eth",
@@ -9,7 +10,7 @@ import { GlobalVarsService } from "../../global-vars.service";
   styleUrls: ["./buy-eth.component.scss"],
 })
 export class BuyEthComponent implements OnInit {
-  constructor(public globalVars: GlobalVarsService) {}
+  constructor(public globalVars: GlobalVarsService, private mixPanel: MixpanelService) {}
 
   link = new Link(environment.imx.MAINNET_LINK_URL);
 
@@ -23,5 +24,6 @@ export class BuyEthComponent implements OnInit {
     this.globalVars._alertSuccess(
       "Successfully purchased ETH on Imx with Moonpay. Please give a couple of hours for your Imx balance to update."
     );
+    this.mixPanel.track55("Buy ETH clicked");
   }
 }

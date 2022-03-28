@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { GlobalVarsService } from "../../global-vars.service";
 import { BackendApiService, NFTBidEntryResponse, NFTEntryResponse, PostEntryResponse } from "../../backend-api.service";
 import { Router } from "@angular/router";
+import { MixpanelService } from "src/app/mixpanel.service";
 import { ArweaveJsService } from "src/app/arweave-js.service";
 
 @Component({
@@ -14,7 +15,8 @@ export class CreateCollectionComponent implements OnInit {
     public globalVars: GlobalVarsService,
     private backendApi: BackendApiService,
     private router: Router,
-    private arweave: ArweaveJsService
+    private arweave: ArweaveJsService,
+    private mixPanel: MixpanelService
   ) {}
 
   createCollectionForm: any;
@@ -250,6 +252,14 @@ export class CreateCollectionComponent implements OnInit {
           this.nextSuccessOrError(false);
         }
       );
+    this.mixPanel.track59("Collection created", {
+      Creator: this.globalVars.loggedInUser?.PublicKeyBase58Check,
+      "Created by Verified?": this.globalVars.loggedInUser?.ProfileEntryResponse?.IsVerified,
+      "Collection Name": this.collectionName,
+      "Collection Description": this.collectionDescription,
+      Posts: this.posts,
+      "Post data": this.postData,
+    });
   }
 
   hasProfile() {
@@ -305,6 +315,17 @@ export class CreateCollectionComponent implements OnInit {
     let index = this.selectedPosts.indexOf(post);
     this.selectedPosts.splice(index, 1);
     post.selected = false;
+    this.mixPanel.track61("Remove NFT from selected", {
+      Creator: this.globalVars.loggedInUser?.PublicKeyBase58Check,
+      "Created by Verified?": this.globalVars.loggedInUser?.ProfileEntryResponse?.IsVerified,
+      "Collection Name": this.collectionName,
+      "Collection Description": this.collectionDescription,
+      Posts: this.posts,
+      "Post data": this.postData,
+      "Post hash hex": post.PostHashHex,
+      Category: post.PostExtraData?.category,
+      Name: post.PostExtraData?.name,
+    });
   }
 
   addNFTToSelected(post: PostEntryResponse) {
@@ -319,6 +340,17 @@ export class CreateCollectionComponent implements OnInit {
       this.selectedPosts.push(post);
     }
     post.selected = true;
+    this.mixPanel.track60("Add NFT to selected", {
+      Creator: this.globalVars.loggedInUser?.PublicKeyBase58Check,
+      "Created by Verified?": this.globalVars.loggedInUser?.ProfileEntryResponse?.IsVerified,
+      "Collection Name": this.collectionName,
+      "Collection Description": this.collectionDescription,
+      Posts: this.posts,
+      "Post data": this.postData,
+      "Post hash hex": post.PostHashHex,
+      Category: post.PostExtraData?.category,
+      Name: post.PostExtraData?.name,
+    });
   }
   getPage(page: number) {
     if (this.lastPage != null && page > this.lastPage) {

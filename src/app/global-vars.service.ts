@@ -85,6 +85,9 @@ export class GlobalVarsService {
 
   needToPickCreatorOrCollector: boolean;
 
+  createdNFTsToShow = [];
+  collectedNFTsToShow = [];
+
   //   ----------------------------- imx global vars -----------------------------
   imxWalletConnected: boolean;
   imxWalletAddress: string;
@@ -1896,6 +1899,9 @@ export class GlobalVarsService {
         (res) => {
           console.log(res);
           this.ethNFTsCollected = res["PostEntryResponse"];
+          this.collectedNFTsToShow = this.collectedNFTsToShow.concat(this.ethNFTsCollected);
+          this.collectedNFTsToShow.sort((a, b) => b.TimestampNanos - a.TimestampNanos);
+          console.log(this.collectedNFTsToShow);
         },
         (err) => {
           console.log(err);
@@ -1975,6 +1981,9 @@ export class GlobalVarsService {
         (res) => {
           console.log(res);
           this.ethNFTsCreated = res["PostEntryResponse"];
+          this.createdNFTsToShow = this.createdNFTsToShow.concat(this.ethNFTsCreated);
+          this.createdNFTsToShow.sort((a, b) => b.TimestampNanos - a.TimestampNanos);
+          console.log(this.createdNFTsToShow);
         },
         (err) => {
           console.log(err);

@@ -218,6 +218,7 @@ export class NftPostComponent implements OnInit {
       initialState: {
         imageURL,
       },
+      animated: false,
     });
   }
 
@@ -228,6 +229,7 @@ export class NftPostComponent implements OnInit {
       initialState: {
         postModelArweaveSrc,
       },
+      animated: false,
     });
   }
 
@@ -272,6 +274,8 @@ export class NftPostComponent implements OnInit {
 
         // Set properties to display under details tab
         this.setProperties();
+
+        console.log(` ------------------- this.nftPost ${JSON.stringify(this.nftPost)} ------------------- `);
       },
       (err) => {
         // TODO: post threads: rollbar

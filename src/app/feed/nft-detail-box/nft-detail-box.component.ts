@@ -128,7 +128,7 @@ export class NftDetailBoxComponent implements OnInit {
     res = await res.json();
 
     // console.log(typeof this.nftPost.PostExtraData["tokenId"]);
-    // console.log(res);
+    console.log(res);
 
     if (res["result"]["length"] === 0) {
       this.globalVars.isEthereumNFTForSale = false;
@@ -354,34 +354,47 @@ export class NftDetailBoxComponent implements OnInit {
     else {
       // on desktop
       if (!this.globalVars.isMobile()) {
-        this.clickedBuyNow = true;
-        this.clickedPlaceABid = false;
+        // if their eth wallet is not connected
+        if (!localStorage.getItem("address")) {
+          this.modalService.show(GeneralSuccessModalComponent, {
+            class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+            initialState: {
+              header: "Error",
+              text: "Please connect your wallet to interact with the Ethereum blockchain.",
+              buttonText: "Ok",
+              buttonClickedAction: "connectWalletMobileError",
+            },
+          });
+        } else {
+          this.clickedBuyNow = true;
+          this.clickedPlaceABid = false;
 
-        if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
-          SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "buy now");
-          return;
-        }
-        event.stopPropagation();
-        const modalDetails = this.modalService.show(BuyNowModalComponent, {
-          class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
-          initialState: {
-            post: this.postContent,
-            clickedBuyNow: this.clickedBuyNow,
-            isEthNFT: true,
-            ethereumNFTSalePrice: this.ethereumNFTSalePrice,
-            sellOrderId: this.sellOrderId,
-          },
-        });
-
-        const onHideEvent = modalDetails.onHide;
-        onHideEvent.subscribe((response) => {
-          if (response === "bid placed") {
-            this.nftBidPlaced.emit();
+          if (!this.globalVars.loggedInUser?.ProfileEntryResponse) {
+            SharedDialogs.showCreateProfileToPerformActionDialog(this.router, "buy now");
+            return;
           }
-        });
+          event.stopPropagation();
+          const modalDetails = this.modalService.show(BuyNowModalComponent, {
+            class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+            initialState: {
+              post: this.postContent,
+              clickedBuyNow: this.clickedBuyNow,
+              isEthNFT: true,
+              ethereumNFTSalePrice: this.ethereumNFTSalePrice,
+              sellOrderId: this.sellOrderId,
+            },
+          });
+
+          const onHideEvent = modalDetails.onHide;
+          onHideEvent.subscribe((response) => {
+            if (response === "bid placed") {
+              this.nftBidPlaced.emit();
+            }
+          });
+        }
       }
       //   cannot interact with ethereum blockchain on mobile
-      else {
+      else if (this.globalVars.isMobile()) {
         this.modalService.show(GeneralSuccessModalComponent, {
           class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
           initialState: {

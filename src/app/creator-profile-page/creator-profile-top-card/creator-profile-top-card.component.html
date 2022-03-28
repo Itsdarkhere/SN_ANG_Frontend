@@ -116,6 +116,8 @@
       <div class="name-stats-profile">
         <div [ngClass]="{ 'mt-65px': profileData?.Name }">
           <h5 class="font-weight-semiboldn primary-name" *ngIf="profileData?.Name">{{ profileData?.Name }}</h5>
+          <!-- if there is no display name, make the display name the username -->
+          <h5 class="font-weight-semiboldn primary-name" *ngIf="!profileData?.Name">{{ profile.Username }}</h5>
           <h5 class="font-weight-semiboldn secondary-name" [ngClass]="profileData?.Name ? 'secondary-name' : ''">
             @{{ profile.Username }} &nbsp;
             <ng-container

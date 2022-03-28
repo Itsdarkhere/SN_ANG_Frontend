@@ -2,25 +2,42 @@
   <div class="w-100 d-flex flex-center">
     <div class="w-100 mw-activity">
       <div *ngIf="mobile" class="global__top-bar__height"></div>
+      <div class="activity-tab-selector-wrapper" *ngIf="!mobile">
+        <tab-selector
+          [tabs]="['Bids Made', 'Bids Received', 'Transfers']"
+          [activeTab]="activeTab"
+          (tabClick)="_handleTabClick($event)"
+        ></tab-selector>
+      </div>
       <tab-selector
         [tabs]="['Bids Made', 'Bids Received', 'Transfers']"
         [activeTab]="activeTab"
         (tabClick)="_handleTabClick($event)"
+        *ngIf="mobile"
       ></tab-selector>
       <simple-center-loader [height]="200" *ngIf="isLoading"></simple-center-loader>
       <div [ngClass]="mobile ? 'p-10px' : ''" class="pt-0px max-width-100">
         <div *ngIf="!nftResponse?.length && activeTab === 'Transfers' && !isLoading" class="pt-15px">
-          <div class="background-color-grey p-35px br-12px d-flex flex-row align-items-center" style="text-align: center">
+          <div
+            class="background-color-grey p-35px br-12px d-flex flex-row align-items-center"
+            style="text-align: center"
+          >
             <span>There is no pending transfers</span>
           </div>
         </div>
         <div *ngIf="!myBids?.length && activeTab === 'Bids Made' && !isLoading" class="pt-15px">
-          <div class="background-color-grey p-35px br-12px d-flex flex-row align-items-center" style="text-align: center">
+          <div
+            class="background-color-grey p-35px br-12px d-flex flex-row align-items-center"
+            style="text-align: center"
+          >
             <span>No bids yet.</span>
           </div>
         </div>
         <div *ngIf="!checkNFTbidsReceived() && activeTab === 'Bids Received' && !isLoading" class="pt-15px">
-          <div class="background-color-grey p-35px br-12px d-flex flex-row align-items-center" style="text-align: center">
+          <div
+            class="background-color-grey p-35px br-12px d-flex flex-row align-items-center"
+            style="text-align: center"
+          >
             <span>No NFTs for sale with bids on them...</span>
           </div>
         </div>

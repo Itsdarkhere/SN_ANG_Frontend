@@ -126,6 +126,7 @@ export class CreatorProfileCollectedComponent implements OnInit {
         (res: {
           NFTsMap: { [k: string]: { PostEntryResponse: PostEntryResponse; NFTEntryResponses: NFTEntryResponse[] } };
         }) => {
+          this.globalVars.collectedNFTsToShow = [];
           this.nftResponse = [];
           for (const k in res.NFTsMap) {
             const responseElement = res.NFTsMap[k];
@@ -138,15 +139,17 @@ export class CreatorProfileCollectedComponent implements OnInit {
           }
           this.dataToShow = this.nftResponse.slice(this.startIndex, this.endIndex);
           this.lastPage = Math.floor(this.nftResponse.length / CreatorProfileCollectedComponent.PAGE_SIZE);
-          console.log(this.dataToShow);
 
-          console.log(this.profileData);
+          this.dataToShow.forEach((nftEntry) => {
+            if (nftEntry.PostEntryResponse.ProfileEntryResponse) {
+              this.globalVars.collectedNFTsToShow.push(nftEntry.PostEntryResponse);
+            }
+          });
+
           //   get collected eth NFTs
           if (this.profileData["ETHPublicKey"] !== "") {
             this.globalVars.imxWalletAddress = this.profileData["ETHPublicKey"];
             this.globalVars.getCollectedNFTs();
-          } else {
-            this.globalVars.ethNFTsCollected = [];
           }
 
           this.isLoading = false;

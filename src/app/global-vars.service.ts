@@ -643,27 +643,18 @@ export class GlobalVarsService {
       this.followFeedPosts = [];
     }
 
-    if (this.loggedInUser?.MustCompleteTutorial && this.loggedInUser?.TutorialStatus === TutorialStatus.EMPTY) {
-      this.startTutorialAlert();
-    }
-    let email: string;
-    this.backendApi.GetUserGlobalMetadata(this.localNode, this.loggedInUser?.PublicKeyBase58Check).subscribe(
-      (res) => {
-        email = res?.Email;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
     this._notifyLoggedInUserObservers(user, isSameUserAsBefore);
-    this.navigateToCurrentStepInTutorial(user);
-    // Identify user
-    this.mixPanel.identify1(this.loggedInUser?.PublicKeyBase58Check);
-    this.mixPanel.peopleset({
-      $name: this.loggedInUser?.ProfileEntryResponse?.Username,
-    });
+    this.trackLoggedInUser();
   }
 
+  trackLoggedInUser() {
+    if (this.loggedInUser) {
+      this.mixPanel.identify1(this.loggedInUser?.PublicKeyBase58Check);
+      this.mixPanel.peopleset({
+        $name: this.loggedInUser?.ProfileEntryResponse?.Username,
+      });
+    }
+  }
   navigateToCurrentStepInTutorial(user: User): Promise<boolean> {
     if (this.userInTutorial(user)) {
       // drop user at correct point in tutorial.

@@ -38,6 +38,7 @@ export class FeedCreatePostComponent implements OnInit, AfterViewInit {
   @Input() parentPost: PostEntryResponse = null;
   @Input() isQuote: boolean = false;
   @Input() inTutorial: boolean = false;
+  @Output() changeCanPost = new EventEmitter();
 
   isComment: boolean;
 
@@ -228,6 +229,19 @@ export class FeedCreatePostComponent implements OnInit, AfterViewInit {
 
     if (blob) {
       this._handleFileInput(blob);
+    }
+  }
+
+  canPost() {
+    if (
+      (this.postInput.length <= 0 && !this.postImageSrc && !this.postVideoSrc) ||
+      this.characterCountExceedsMaxLength()
+    ) {
+      this.changeCanPost.emit(false);
+      return true;
+    } else {
+      this.changeCanPost.emit(true);
+      return false;
     }
   }
 

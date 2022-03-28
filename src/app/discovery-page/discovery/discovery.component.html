@@ -10,6 +10,7 @@
         </div>-->
 
         <h3>{{ post?.PostExtraData?.name }}</h3>
+        <p *ngIf="!post?.PostExtraData?.name">{{ post?.Body }}</p>
         <div class="art_details_nv" *ngIf="post">
           By
 
@@ -56,7 +57,7 @@
             !isBuyNow
           "
           type="button"
-          class="fill_btn"
+          class="fill_btn discovery-button-movement"
           (click)="openPlaceBidModal($event)"
         >
           {{ myBidsLength > 0 ? "Bid again" : "Place a Bid" }}
@@ -68,7 +69,7 @@
             isBuyNow
           "
           type="button"
-          class="fill_btn"
+          class="fill_btn discovery-button-movement"
           (click)="openBuyNowModal($event)"
         >
           Buy Now
@@ -81,8 +82,8 @@
           "
         >
           <follow-button
-            [followButtonClasses]="['discovery-follow-button']"
-            [unfollowButtonClasses]="['discovery-follow-button']"
+            [followButtonClasses]="['discovery-follow-button', 'discovery-button-movement']"
+            [unfollowButtonClasses]="['discovery-follow-button', 'discovery-button-movement']"
             [followedPubKeyBase58Check]="post?.PosterPublicKeyBase58Check"
           ></follow-button>
         </div>
@@ -104,6 +105,7 @@
         *ngIf="post?.ImageURLs && post?.ImageURLs[0] && !post?.PostExtraData?.arweaveAudioSrc"
       >
         <img
+          class="discovery-image-shadow"
           id="discovery-main-image"
           data-toggle="modal"
           (click)="openImgModal($event, post.ImageURLs[0])"
@@ -116,6 +118,7 @@
         *ngIf="post?.PostExtraData?.arweaveAudioSrc"
       >
         <img
+          class="discovery-image-shadow"
           id="discovery-main-image"
           (click)="openImgModal($event, post.ImageURLs[0])"
           data-toggle="modal"

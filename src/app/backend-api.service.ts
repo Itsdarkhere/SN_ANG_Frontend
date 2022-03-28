@@ -215,6 +215,8 @@ export class BackendRoutes {
   static RoutePathAdminAddExemptPublicKey = "/api/v0/admin/add-exempt-public-key";
   static RoutePathAdminGetExemptPublicKeys = "/api/v0/admin/get-exempt-public-keys";
 
+  // Nonce supernovas, allows inline execution of script safely
+  static RoutePathGetBase64Nonce = "/api/v0/get-base64-nonce";
   // IMX SUPERNOVAS
   static RoutePathGetIMXMetadataById = "/api/v0/imx/metadata";
   static RoutePathInsertIMXMetadata = "/api/v0/insert/imx";
@@ -852,7 +854,12 @@ export class BackendApiService {
       PostHashHex,
     });
   }
-
+  GetBase64Nonce(endpoint: string): Observable<any> {
+    return this.httpClient.get<any>(this.GetBase64NonceURL(endpoint), {});
+  }
+  GetBase64NonceURL(endpoint: string): string {
+    return this._makeRequestURL(endpoint, BackendRoutes.RoutePathGetBase64Nonce);
+  }
   GetIMXMetadatById(endpoint: string): Observable<any> {
     return this.httpClient.get<any>(this.GetIMXMetadataURL(endpoint), {});
   }

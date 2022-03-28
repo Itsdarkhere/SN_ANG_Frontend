@@ -137,8 +137,8 @@ export class NftPostComponent implements OnInit {
   ngOnInit() {
     if (this.globalVars.isMobile()) {
       this.isMobile = true;
-      this.tabs.push(NftPostComponent.COMMENTS);
-      this.icons.push(NftPostComponent.COMMENTS_ICON);
+      this.tabs.splice(1, 0, NftPostComponent.COMMENTS);
+      this.icons.splice(1, 0, NftPostComponent.COMMENTS_ICON);
     } else {
       // WIP
       this.isMobile = false;
@@ -323,7 +323,7 @@ export class NftPostComponent implements OnInit {
     // Both 3d and banner have poster images which are stored on ar so this counts them too
     if (this.nftPost.ImageURLs) {
       console.log("IMAGE");
-      if (this.nftPost.ImageURLs[0].startsWith("https://arweave.net/")) {
+      if (this.nftPost.ImageURLs[0].includes("arweave.net")) {
         this.contentStorage = true;
         return;
       } else {

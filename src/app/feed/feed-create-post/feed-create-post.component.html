@@ -20,6 +20,7 @@
         <textarea
           [(ngModel)]="postInput"
           rows="{{ parentPost ? 3 : numberOfRowsInTextArea }}"
+          class="disable-scrollbars"
           [ngClass]="{
             'border-0': !parentPost,
             'feed-create-post__textarea': !parentPost,
@@ -113,7 +114,6 @@
       <img src="assets/icons/close_round.svg" alt="" />
     </i>
     <input
-      class="br-3px"
       type="url"
       [(ngModel)]="embedURL"
       (ngModelChange)="setEmbedURL()"
@@ -125,29 +125,32 @@
     [ngClass]="{ 'pr-15px': !isComment }"
     (click)="showEmbedURL = !showEmbedURL"
   >
-    <img src="assets/icons/media_btn.svg" class="media_ico" alt="" />
+    <img src="assets/icons/create_post_embed.svg" alt="" />
   </i>
   <ng-container *ngIf="!isComment">
     <input #videoInput class="d-none" type="file" accept="video/*" (change)="_handleFilesInput($event.target.files)" />
-    <i
-      class="fas fa-video fa-lg text-grey8A cursor-pointer pr-15px feed-create-post__image-icon"
-      (click)="videoInput.click()"
-    ></i>
+    <i class="text-grey8A cursor-pointer pr-15px feed-create-post__image-icon" (click)="videoInput.click()">
+      <img src="assets/icons/create_post_video.svg" alt="" />
+    </i>
     <input #imageInput class="d-none" type="file" accept="image/*" (change)="_handleFilesInput($event.target.files)" />
     <i class="text-grey8A cursor-pointer feed-create-post__image-icon" (click)="imageInput.click()">
-      <img src="assets/icons/img_ico.svg" alt="" />
+      <img src="assets/icons/create_post_image.svg" alt="" />
     </i>
   </ng-container>
   <button
-    class="btn-primary post_btn font-weight-bold ml-15px fs-14px br-12px"
-    style="height: 40px; width: 75px; line-height: 15px"
+    class="btn-primary post_btn ml-15px"
     [ngClass]="{
-      disabled: (postInput.length <= 0 && !postImageSrc && !postVideoSrc) || characterCountExceedsMaxLength(),
-      'btn-loading': submittingPost
+      disabled: canPost() || submittingPost
     }"
     (click)="_createPost()"
   >
-    Post
+    <ng-container *ngIf="!submittingPost; else loadingBlock">
+      <img src="/assets/icons/create_post_icon.svg" class="mr-5px" alt="post-icon" />
+      Post
+    </ng-container>
+    <ng-template #loadingBlock>
+      <i class="fa fa-spinner fa-spin"></i>
+    </ng-template>
   </button>
 </div>
 <!-- <div class="feed_approved">

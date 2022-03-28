@@ -198,12 +198,13 @@
                           postContent.ProfileEntryResponse?.Username
                         ])
                       "
+                      [ngClass]="{ 'nft-detail-username': isNFTDetail }"
                       queryParamsHandling="merge"
                     >
                       {{ postContent.ProfileEntryResponse?.Username }}
                     </a>
                     <span *ngIf="postContent.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">
-                      <i class="fas fa-check-circle fa-md align-middle"></i>
+                      <i class="fas fa-check-circle fa-md align-middle" [ngClass]="{ 'fs-14px': isNFTDetail }"></i>
                     </span>
                   </div>
                   <app-nft-edition-dropdown
@@ -284,7 +285,7 @@
             <!-- Content -->
             <div
               *ngIf="showName"
-              class="feed-post-PED-name fs-20px"
+              class="feed-post-PED-name"
               [innerHTML]="postContent.PostExtraData?.name | sanitizeAndAutoLink"
             ></div>
             <div
@@ -356,6 +357,7 @@
               >
                 <object data="/assets/img/nft-background.svg" class="nft-background" type="image/svg+xml"></object>
                 <new-nft-card
+                  class="w-100 d-flex flex-center"
                   [insidePost]="true"
                   *ngIf="quotedContent && showQuotedContent"
                   [post]="quotedContent"
@@ -540,90 +542,4 @@
       </div>
     </div>
   </div>
-
-  <!-- Deso NFT bidding containers -->
-  <!--<ng-container *ngIf="!isNFTDetail">
-    <div
-      *ngIf="showNFTDetails && postContent.IsNFT"
-      class="p-15px fs-15px w-100 background-color-grey"
-      [ngStyle]="{ 'border-radius': setBorder || cardStyle ? '0 0 12px 12px' : '' }"
-      [ngClass]="{ 'feed-post__blue-border': showLeftSelectedBorder }"
-    >
-      <div
-        class="d-flex justify-content-between"
-        [ngClass]="{
-          'flex-column': isQuotedContent,
-          'align-items-start': isQuotedContent,
-          'align-items-center': !isQuotedContent
-        }"
-      >
-        <div>
-          <span *ngIf="showAvailableSerialNumbers">{{ serialNumbersDisplay }}&nbsp;</span>
-          <span
-            *ngIf="!showAvailableSerialNumbers"
-            class="cursor-pointer"
-            (click)="NFTMOfNTooltip.toggle(); toggleShowMOfNNFTTooltip()"
-            matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
-            [matTooltip]="mOfNNFTTooltip"
-            #NFTMOfNTooltip="matTooltip"
-          >
-            <b>{{ postContent.NumNFTCopiesForSale }} of {{ postContent.NumNFTCopies }} available&nbsp;</b>
-          </span>
-          <span *ngIf="postContent.HasUnlockable" class="d-lg-inline-block d-none">|&nbsp;</span>
-          <span
-            *ngIf="postContent.HasUnlockable"
-            class="cursor-pointer d-lg-inline-block d-block mt-5px"
-            (click)="tooltip.toggle(); toggleShowUnlockableContent()"
-            matTooltipClass="global__mat-tooltip global__mat-tooltip-font-size"
-            [matTooltip]="unlockableTooltip"
-            #tooltip="matTooltip"
-          >
-            <i
-              class="fas"
-              [ngClass]="{
-                'fa-lock': !decryptableNFTEntryResponses?.length || showUnlockableContent,
-                'fa-unlock-alt': decryptableNFTEntryResponses?.length && !showUnlockableContent
-              }"
-            ></i>
-            {{
-              decryptableNFTEntryResponses?.length
-                ? showUnlockableContent
-                  ? "Hide Unlockable"
-                  : "Show Unlockable"
-                : "Unlockable Content"
-            }}
-          </span>
-        </div>
-        <button
-          class="btn btn-primary font-weight-bold br-8px fs-13px"
-          [ngClass]="{ 'mt-15px': isQuotedContent }"
-          (click)="openPlaceBidModal($event)"
-          *ngIf="showPlaceABid"
-          |
-        >
-          Place a bid
-        </button>
-      </div>
-      <div *ngIf="showUnlockableContent">
-        <div *ngFor="let nftEntry of decryptableNFTEntryResponses" class="d-flex flex-row">
-          <div>#{{ nftEntry.SerialNumber }}:&nbsp;</div>
-          <div [innerHTML]="nftEntry.DecryptedUnlockableText | sanitizeAndAutoLink"></div>
-        </div>
-        <div *ngIf="nftMinBidAmountNanos">
-          <b>Min bid: {{ globalVars.nanosToDeSo(nftMinBidAmountNanos) }} $DESO</b>
-        </div>
-      </div>
-      <div></div>
-      <div *ngIf="showExpandedNFTDetails && (highBid || lowBid)" [ngClass]="{ 'pt-15px': globalVars.isMobile() }">
-        <div *ngIf="highBid != null">
-          Highest: {{ globalVars.nanosToDeSo(highBid, 5) }} DESO
-          <span class="text-grey7">(~{{ globalVars.nanosToUSD(highBid, 2) }})</span>
-        </div>
-        <div *ngIf="lowBid != null">
-          From: {{ globalVars.nanosToDeSo(lowBid, 5) }} DESO
-          <span class="text-grey7">(~{{ globalVars.nanosToUSD(lowBid, 2) }})</span>
-        </div>
-      </div>
-    </div>
-  </ng-container>-->
 </div>

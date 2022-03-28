@@ -125,7 +125,6 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   changeCanPost(canPost: boolean) {
-    console.log("CANPOST IS: " + canPost);
     this.canPost = canPost;
   }
 

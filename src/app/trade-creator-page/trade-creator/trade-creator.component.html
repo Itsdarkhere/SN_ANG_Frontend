@@ -1,10 +1,10 @@
 <div class="w-100 d-flex flex-center">
-  <div class="global__top-bar__height" *ngIf="mobile"></div>
   <div
     *ngIf="readyForDisplay(); else loadingElseBlock"
     [ngClass]="mobile ? 'w-100' : 'feed-cover'"
     class="d-flex flex-center flex-column mt-20px"
   >
+    <div class="global__top-bar__height" *ngIf="mobile"></div>
     <div [avatar]="creatorProfile.PublicKeyBase58Check" class="trade-creator-avatar"></div>
     <h3 class="font-weight-semiboldn trade-creator-name-heading mt-20px" style="color: #0d0d0d">
       ${{ creatorProfile.Username }} coin

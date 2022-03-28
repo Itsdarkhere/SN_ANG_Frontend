@@ -107,6 +107,7 @@ job "supernovas-frontend" {
         https://upload.videodelivery.net;
       script-src 
         'unsafe-eval'
+        {{ window.nonce }}
         ajax.cloudflare.com
         https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194
         https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js

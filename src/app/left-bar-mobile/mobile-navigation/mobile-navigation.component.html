@@ -55,12 +55,18 @@
       </button>
       <label>Activity</label>
     </span>
-    <span class="mobile-nav-item" *ngIf="this.globalVars?.loggedInUser">
+    <span class="mobile-nav-item" *ngIf="this.globalVars?.loggedInUser?.ProfileEntryResponse?.Username">
       <button
         (click)="closeMobileNav()"
         [routerLink]="AppRoutingModule.profilePath(globalVars.loggedInUser?.ProfileEntryResponse?.Username)"
         [routerLinkActive]="['active']"
       >
+        <img src="/assets/icons/lb_feed_icon.svg" />
+      </button>
+      <label>Profile</label>
+    </span>
+    <span class="mobile-nav-item" *ngIf="!this.globalVars?.loggedInUser?.ProfileEntryResponse?.Username">
+      <button (click)="closeMobileNav()" [routerLink]="'/update-profile'" [routerLinkActive]="['active']">
         <img src="/assets/icons/lb_feed_icon.svg" />
       </button>
       <label>Profile</label>

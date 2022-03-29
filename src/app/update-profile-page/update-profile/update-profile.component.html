@@ -1,8 +1,8 @@
 <app-page-small-nav-new>
   <!-- Top Bar -->
-  <div class="w-100 d-flex flex-center">
+  <div class="w-100 d-flex flex-column flex-center">
     <div class="global__top-bar__height" *ngIf="!this.globalVars.loggedInUser?.CanCreateProfile"></div>
-    <div class="" *ngIf="globalVars.isMobile()"></div>
+    <div class="mt-20px" *ngIf="globalVars.isMobile()"></div>
 
     <div
       *ngIf="inTutorial"
@@ -30,7 +30,7 @@
         this.globalVars.loggedInUser?.CanCreateProfile
       "
       class="d-flex flex-center"
-      [ngClass]="globalVars.isMobile() ? 'w-100' : 'feed-cover'"
+      [ngClass]="globalVars.isMobile() ? 'w-100 mt-25px' : 'feed-cover'"
     >
       <div class="p-15px fs-14px font-weight-semiboldn d-flex flex-center up-cost-warning h-100 w-100">
         <img src="../assets/icons/info-icon.svg" class="mr-10px" alt="info icon" />

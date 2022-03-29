@@ -111,8 +111,6 @@ job "supernovas-frontend" {
         ajax.cloudflare.com:*
         cloudflare.com
         cloudflare.com:*
-        https://supernovas.app/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js
-        https://www.googletagmanager.com/gtag/js?id=UA-182977456-1
         https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194
         https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js
         https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.min.js

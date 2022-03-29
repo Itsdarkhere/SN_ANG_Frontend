@@ -347,7 +347,7 @@
 <div *ngIf="!isNFTDetail && !postContent.PostExtraData?.isEthereumNFT" class="w-100 discovery-hgs">
   <div class="w-50">
     <div *ngIf="editionIsBuyNow && editionForSale">
-      <span class="lb">BUY NOW PRICE</span>
+      <span class="lb">Buy Now Price</span>
       <div class="val">
         {{ this.globalVars.nanosToDeSo(this.buyNowPriceNanos, 5) }}
         DESO
@@ -357,7 +357,7 @@
       </div>
     </div>
     <div *ngIf="editionIsBuyNow && !editionForSale && editionHasBeenSold">
-      <span class="lb">LAST SOLD FOR</span>
+      <span class="lb">Last Sold For</span>
       <!-- FOR LAST SOLD FOR-->
       <div class="val">
         {{ globalVars.nanosToUSD(this.nftEntryResponse.LastAcceptedBidAmountNanos, 2) }}

@@ -963,9 +963,9 @@ export class MintPageComponent implements OnInit {
         class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
         initialState: {
           header: "Error",
-          text: "There was an error minting, please try again.",
+          text: "The sale of your NFT has failed. You can choose to sell it later.",
           buttonText: "Ok",
-          buttonClickedAction: "ethMintingError",
+          buttonClickedAction: "profileRoute",
         },
       });
       return;

@@ -394,7 +394,7 @@ export class FeedComponent implements OnInit, OnDestroy, AfterViewChecked {
           },
           (err) => {
             console.error(err);
-            this.globalVars._alertError("Error loading posts: " + this.backendApi.stringifyError(err));
+            //this.globalVars._alertError("Error loading posts: " + this.backendApi.stringifyError(err));
           }
         ),
         finalize(() => {

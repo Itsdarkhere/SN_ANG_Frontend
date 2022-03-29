@@ -356,6 +356,17 @@
         {{ this.globalVars.nanosToUSD(this.buyNowPriceNanos, 2) }}
       </div>
     </div>
+    <div *ngIf="editionIsBuyNow && !editionForSale && editionHasBeenSold">
+      <span class="lb">LAST SOLD FOR</span>
+      <!-- FOR LAST SOLD FOR-->
+      <div class="val">
+        {{ globalVars.nanosToUSD(this.nftEntryResponse.LastAcceptedBidAmountNanos, 2) }}
+      </div>
+      <div class="val_sm">
+        {{ globalVars.nanosToDeSo(this.nftEntryResponse.LastAcceptedBidAmountNanos, 5) }}
+        DESO
+      </div>
+    </div>
     <span class="lb" *ngIf="!editionIsBuyNow && (!decryptableNFTEntryResponses?.length || showUnlockableContent)">
       {{
         compareBit(
@@ -407,23 +418,6 @@
       <span class="lb">Owner</span>
       <div class="owner_lft align-items-center d-flex">
         <div class="bid_by_avtar" [avatar]="nftEntryResponse?.OwnerPublicKeyBase58Check"></div>
-        <!-- <div class="name">
-          <a
-            class="fc-secalt font-weight-bold val_sm"
-            [routerLink]="
-              getRouterLink([
-                '/' + globalVars.RouteNames.USER_PREFIX,
-                nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.Username
-              ])
-            "
-            queryParamsHandling="merge"
-          >
-            {{ nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.Username }}
-          </a>
-          <span *ngIf="nftBidData?.NFTEntryResponses[0]?.ProfileEntryResponse?.IsVerified" class="ml-1 text-primary">
-            <i class="fas fs-22px fa-check-circle fa-md align-middle"></i>
-          </span>
-        </div> -->
       </div>
     </div>
   </div>

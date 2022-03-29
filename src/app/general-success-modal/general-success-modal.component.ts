@@ -88,15 +88,19 @@ export class GeneralSuccessModalComponent implements OnInit {
       .subscribe(
         (res) => {
           console.log(res);
-          this.mixPanel.track52("ETH Wallet Connected",[{
-            "IMX Wallet address": this.globalVars.imxWalletAddress,
-          }])
+          this.mixPanel.track52("ETH Wallet Connected", [
+            {
+              "IMX Wallet address": this.globalVars.imxWalletAddress,
+            },
+          ]);
         },
         (err) => {
           console.log(err);
-          this.mixPanel.track52("ETH Wallet Error Connecting...",[{
-            "IMX Wallet address": this.globalVars.imxWalletAddress,
-          }])
+          this.mixPanel.track52("ETH Wallet Error Connecting...", [
+            {
+              "IMX Wallet address": this.globalVars.imxWalletAddress,
+            },
+          ]);
         }
       );
   }
@@ -114,8 +118,12 @@ export class GeneralSuccessModalComponent implements OnInit {
   async generalSuccessModalButtonClicked() {
     if (this.buttonClickedAction === "general" || this.buttonClickedAction === "connectWalletMobileError") {
       this.bsModalRef.hide();
-    } else if (this.buttonClickedAction === "connectWalletMobileErrorPageReload") {
+    } else if (
+      this.buttonClickedAction === "connectWalletMobileErrorPageReload" ||
+      this.buttonClickedAction === "ethMintingError"
+    ) {
       this.bsModalRef.hide();
+      window.location.reload();
     } else if (this.buttonClickedAction === "profileRoute") {
       this.router.navigate(["/u/" + this.globalVars?.loggedInUser?.ProfileEntryResponse.Username]);
       this.bsModalRef.hide();

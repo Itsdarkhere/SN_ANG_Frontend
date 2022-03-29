@@ -1211,7 +1211,7 @@ export class MintPageComponent implements OnInit {
         latestDrop.DropTstampNanos,
         latestDrop.IsActive,
         postHash ,
-        "" 
+        ""
       )
       .subscribe(
         (res: any) => {
@@ -1341,12 +1341,6 @@ export class MintPageComponent implements OnInit {
     if (!this.globalVars?.doesLoggedInUserHaveProfile()) {
       this.globalVars.logEvent("alert : post : profile");
       //SharedDialogs.showCreateProfileToPostDialog(this.router);
-      return;
-    }
-
-    // Check if the user's profile is verified
-    if (!this.globalVars.loggedInUser.ProfileEntryResponse?.IsVerified) {
-      this.globalVars.logEvent("alert : post : no-verification");
       return;
     }
 

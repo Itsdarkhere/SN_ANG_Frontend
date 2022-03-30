@@ -95,8 +95,8 @@ export class MixpanelService {
     console.log(name);
   }
   // "Update profile type"
-  track17(name: string) {
-    mixpanel.track(name);
+  track17(name: string, data) {
+    mixpanel.track(name, data);
     console.log(name);
   }
   // "Marketplace Viewed"
@@ -154,7 +154,7 @@ export class MixpanelService {
     mixpanel.identify(name);
     console.log(name);
   }
-  // "Verify phone clicked"
+  // "Verify phone skipped"
   track27(name: string) {
     mixpanel.track(name);
     console.log(name);
@@ -341,6 +341,31 @@ export class MixpanelService {
     mixpanel.track(name, data);
     console.log(name);
   }
+  // "Signup page opened"
+  track62(name: string) {
+    mixpanel.track(name);
+    console.log(name);
+  }
+  // "Verify phone clicked""
+  track63(name: string) {
+    mixpanel.track(name);
+    console.log(name);
+    }
+  // "End of signup flow"
+  track64(name: string) {
+    mixpanel.track(name);
+    console.log(name);
+    }
+ // "Connect with Deso - Signup flow started"
+ track65(name: string) {
+  mixpanel.track(name);
+  console.log(name);
+  }  
+   // "Connect with Deso - Signup flow started"
+ track66(name: string) {
+  mixpanel.track(name);
+  console.log(name);
+  }      
   // People Set email
   peoplesetemail(name) {
     mixpanel.people.set(name);

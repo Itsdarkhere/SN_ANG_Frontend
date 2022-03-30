@@ -1161,12 +1161,12 @@ export class BackendApiService {
       //   BuyNowPriceNanos,
       MinFeeRateNanosPerKB,
     });
-    this.mixPanel.track46("NFT updated", {
-      Poster: UpdaterPublicKeyBase58Check,
+    this.mixPanel.track46("NFT set for resale", {
+      "Poster": UpdaterPublicKeyBase58Check,
       "Post hex": NFTPostHashHex,
       "Serial Number": SerialNumber,
       "For Sale": IsForSale,
-      "Min Bid": MinBidAmountNanos / 1e9,
+      "Min Bid": MinBidAmountNanos/1e9,
       "Min fee rate per KB": MinFeeRateNanosPerKB,
     });
     return this.signAndSubmitTransaction(endpoint, request, UpdaterPublicKeyBase58Check);

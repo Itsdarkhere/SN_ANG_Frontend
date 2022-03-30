@@ -102,6 +102,10 @@ export class MobileVerificationComponent implements OnInit {
       this.globalVars.wantToVerifyPhone = true;
     } else {
       this.globalVars.wantToVerifyPhone = false;
+      this.mixPanel.track27("Skip Verify phone");
+      this.mixPanel.track64("End of signup flow");
+
+      
 
       //   //   close nav bar because it will open on mobile
       //   if (this.globalVars.isMobileIphone()) {
@@ -303,8 +307,8 @@ export class MobileVerificationComponent implements OnInit {
     //   close nav bar because it will open on mobile
     if (this.globalVars.isMobileIphone()) {
       this.globalVars.closeLeftBarMobile();
+      this.mixPanel.track66("Phone complete verification clicked")
     }
-
     this.router.navigate([RouteNames.COMPLETE_PROFILE]);
   }
 
@@ -335,7 +339,6 @@ export class MobileVerificationComponent implements OnInit {
 
   updateWantToVerifyPhoneClicked() {
     this.wantToVerifyPhoneClicked = false;
-    this.mixPanel.track27("Verify phone clicked");
   }
 
   phoneInputClickedBlackBorder() {
@@ -385,6 +388,8 @@ export class MobileVerificationComponent implements OnInit {
   }
 
   verifyPhoneNumberClicked() {
+    this.mixPanel.track63("Verify phone clicked");
+    this.mixPanel.track64("End of signup flow");
     this.wantToVerifyPhoneClicked = true;
 
     //   initialize check error function

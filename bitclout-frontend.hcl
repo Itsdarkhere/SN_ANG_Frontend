@@ -134,8 +134,8 @@ job "supernovas-frontend" {
         https://*.arweave.net;
       img-src 'self' data: 
         https://supernovas.app:*
-        https://pbs.twing.com:*
-        https://pbs.twing.com
+        https://pbs.twimg.com:*
+        https://pbs.twimg.com
         https://ik.imagekit.io
         https://i.imgur.com
         https://google-analytics.com

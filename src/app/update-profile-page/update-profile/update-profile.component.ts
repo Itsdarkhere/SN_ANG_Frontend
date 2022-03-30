@@ -265,6 +265,7 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
   //
   // This is a standalone function in case we decide we want to confirm fees before doing a real transaction.
   _callBackendUpdateProfile() {
+    console.log("UPDATE PROFILE");
     return this.backendApi.UpdateProfile(
       this.globalVars.localNode,
       this.globalVars.loggedInUser.PublicKeyBase58Check /*UpdaterPublicKeyBase58Check*/,

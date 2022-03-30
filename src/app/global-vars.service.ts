@@ -427,7 +427,8 @@ export class GlobalVarsService {
 
   checkOnboardingCompleted() {
     //   if they are a creator, have a profile (username) and are verified then onboarding is complete
-    if (this.isCreator === true && this.isNullUsername === false && this.isVerified === true) {
+    // if (this.isCreator === true && this.isNullUsername === false && this.isVerified === true) {
+    if (this.isCreator === true && this.isNullUsername === false) {
       this.needToPickCreatorOrCollector = false;
       this.isOnboardingComplete = true;
     }
@@ -457,7 +458,7 @@ export class GlobalVarsService {
           this.isCollector = res["Collector"];
 
           //   update checkIsVerified
-          this.checkIsVerified();
+          //   this.checkIsVerified();
 
           //   update checkNullUsername
           this.checkNullUsername();
@@ -465,14 +466,14 @@ export class GlobalVarsService {
           //   update onboardingcomplete status
           this.checkOnboardingCompleted();
 
-          //   this.isNullUsername = true;
-          //   this.isVerified = false;
           //   this.isCreator = false;
           //   this.isCollector = true;
+          //   this.isNullUsername = true;
+          //   this.isVerified = false;
           //   console.log(` -------------- isCreator true? ${this.isCreator}`);
           //   console.log(` -------------- isNullUsername true? ${this.isNullUsername}`);
           //   console.log(` -------------- isVerified false? ${this.isVerified}`);
-          //   console.log(` -------------- isOnboardingComplete? ${this.isOnboardingComplete} `);
+          console.log(` -------------- isOnboardingComplete? ${this.isOnboardingComplete} `);
         },
         (err) => {
           console.log(err);

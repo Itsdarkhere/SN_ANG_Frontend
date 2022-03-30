@@ -656,6 +656,7 @@ export class EthNftPostComponent implements OnInit {
               this.tabs = this.tabs.filter((t) => t !== EthNftPostComponent.DETAILS);
               this.activeTab = this.activeTab === EthNftPostComponent.DETAILS ? this.tabs[0] : this.activeTab;
             } else {
+              this.propertiesBool = true;
               // If it has properties
               let propertiesList = JSON.parse(this.nftPost.PostExtraData?.properties);
               // Make sure its an Array

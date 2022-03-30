@@ -234,38 +234,34 @@
   width: 26.57px;
   height: 26.57px;
   left: 50px;
-  top: 447px;
+  top: 405px;
 }
 
 .step-3-header {
   position: absolute;
   left: 95px;
-  top: 447px;
-
+  top: 405px;
   font-style: normal;
   font-weight: bold;
   font-size: 18.5px;
   line-height: 112.5%;
-
   color: #262626;
 }
 
 .step-3-text {
   position: absolute;
   left: 95px;
-  top: 477px;
+  top: 435px;
   width: 495px;
-
   font-style: normal;
   font-weight: 500;
   font-size: 17px;
   line-height: 137%;
-
   color: #707070;
 }
 
 .onboarding-card-button-3 {
-  top: 477px;
+  top: 435px;
   right: 50px;
 }
 
@@ -618,13 +614,13 @@
   position: absolute;
   height: 30px;
   left: 9px;
-  top: 445px;
+  top: 390px;
 }
 
 .step-3-header-mobile {
   position: absolute;
   left: 60px;
-  top: 450px;
+  top: 390px;
   font-style: normal;
   font-weight: bold;
   font-size: 18.5px;
@@ -635,7 +631,7 @@
 .step-3-text-mobile {
   position: absolute;
   left: 60px;
-  top: 480px;
+  top: 420px;
   width: 415px;
   font-style: normal;
   font-weight: 500;
@@ -645,7 +641,7 @@
 }
 
 .onboarding-card-button-3-mobile {
-  top: 480px;
+  top: 420px;
   right: 40px;
 }
 
@@ -895,7 +891,7 @@
   width: 300px;
 }
 
-// iphone 13 pro max and above
+// 775 responsive
 @media screen and (max-width: 775px) {
   // creator no profile
   .onboarding-card-mobile {
@@ -1415,12 +1411,12 @@
     position: absolute;
     height: 20px;
     left: -1px;
-    top: 340px;
+    top: 325px;
   }
 
   .step-2-header-mobile {
     left: 40px;
-    top: 340px;
+    top: 325px;
     font-size: 16px;
     font-weight: bold;
     display: block;
@@ -1430,7 +1426,7 @@
 
   .step-2-text-mobile {
     left: 40px;
-    top: 370px;
+    top: 355px;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -1441,7 +1437,7 @@
   }
 
   .onboarding-card-button-2-mobile {
-    top: 485px;
+    top: 430px;
     left: 40px;
   }
 
@@ -1449,16 +1445,16 @@
     position: absolute;
     height: 20px;
     left: -1px;
-    top: 590px;
+    top: 515px;
   }
 
   .step-3-header-mobile {
     position: absolute;
     left: 40px;
-    top: 590px;
+    top: 515px;
     font-style: normal;
     font-weight: bold;
-    font-size: 18.5px;
+    font-size: 16px;
     line-height: 112.5%;
     color: #262626;
   }
@@ -1466,7 +1462,7 @@
   .step-3-text-mobile {
     position: absolute;
     left: 40px;
-    top: 620px;
+    top: 550px;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -1477,7 +1473,7 @@
   }
 
   .onboarding-card-button-3-mobile {
-    top: 700px;
+    top: 680px;
     left: 40px;
   }
 
@@ -1485,16 +1481,16 @@
     position: absolute;
     height: 20px;
     left: -1px;
-    top: 790px;
+    top: 760px;
   }
 
   .step-4-header-mobile {
     position: absolute;
     left: 40px;
-    top: 790px;
+    top: 760px;
     font-style: normal;
     font-weight: bold;
-    font-size: 18.5px;
+    font-size: 16px;
     line-height: 112.5%;
     color: #262626;
   }
@@ -1502,7 +1498,7 @@
   .step-4-text-mobile {
     position: absolute;
     left: 40px;
-    top: 820px;
+    top: 790px;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -1513,7 +1509,7 @@
   }
 
   .onboarding-card-button-4-mobile {
-    top: 900px;
+    top: 880px;
     left: 40px;
   }
 
@@ -1643,7 +1639,7 @@
 
   //   collector
   .onboarding-card-collector-mobile {
-    width: 410px;
+    width: 95%;
     height: calc(var(--pixelHeight) - 165px);
     left: 10px;
     top: 80px;
@@ -1657,7 +1653,7 @@
     left: 5px;
     top: 112px;
     position: absolute;
-    height: 700px;
+    height: 650px;
     width: 7px;
   }
 
@@ -1665,7 +1661,7 @@
     position: absolute;
     height: 12px;
     left: 0px;
-    top: 805px;
+    top: 750px;
   }
 
   .line-break-collector-mobile {
@@ -1673,14 +1669,14 @@
     width: 100%;
     height: 0px;
     left: 0px;
-    top: 840px;
+    top: 785px;
     border: 1px solid rgba(199, 199, 199, 0.5);
   }
 
   .support-header-collector-mobile {
     position: absolute;
     left: 40px;
-    top: 865px;
+    top: 805px;
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
@@ -1691,7 +1687,7 @@
   .support-text-collector-mobile {
     position: absolute;
     left: 40px;
-    top: 890px;
+    top: 830px;
     width: 70vw;
     font-style: normal;
     font-weight: 500;
@@ -1701,7 +1697,7 @@
   }
 
   .onboarding-support-button-collector-mobile {
-    top: 935px;
+    top: 870px;
     left: 40px;
     width: 290px;
   }

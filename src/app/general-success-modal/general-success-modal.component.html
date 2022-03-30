@@ -13,8 +13,13 @@
   <p class="general-success-modal-text-wallet-mobile-error">{{ text }}</p>
   <button class="general-success-modal-button" (click)="generalSuccessModalButtonClicked()">{{ buttonText }}</button>
 </div>
-<!-- connectWalletMobileErrorPageReload -->
-<div class="general-success-modal-container" *ngIf="this.buttonClickedAction === 'connectWalletMobileErrorPageReload'">
+<!-- connectWalletMobileErrorPageReload || ethMintingError -->
+<div
+  class="general-success-modal-container"
+  *ngIf="
+    this.buttonClickedAction === 'connectWalletMobileErrorPageReload' || this.buttonClickedAction === 'ethMintingError'
+  "
+>
   <p class="general-success-modal-header">{{ header }}</p>
   <p class="general-success-modal-text-wallet-mobile-error">{{ text }}</p>
   <button class="general-success-modal-button" (click)="generalSuccessModalButtonClicked()">{{ buttonText }}</button>

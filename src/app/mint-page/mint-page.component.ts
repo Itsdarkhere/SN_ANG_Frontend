@@ -679,12 +679,16 @@ export class MintPageComponent implements OnInit {
     this.changeRef.detectChanges();
     if (this.step + 1 < 6) {
       if (this.step === 1) {
+        console.log(this.step);
         this.step++;
+        return;
       }
 
       if (this.step === 2) {
         //   step++ on uploadEthMetadata
+        console.log(this.step);
         this.uploadEthMetadata();
+        return;
       }
       //   if (this.step === 3) {
       //     this.isEthNFTForSale = true;
@@ -693,8 +697,10 @@ export class MintPageComponent implements OnInit {
       if (this.step === 3) {
         if (this.CREATOR_ROYALTY === undefined || this.CREATOR_ROYALTY === 0) {
           this.mintv2(this.token_id);
+          return;
         } else {
           this.mintv2WithRoyalties(this.token_id, this.CREATOR_ROYALTY);
+          return;
         }
       }
     }
@@ -737,26 +743,54 @@ export class MintPageComponent implements OnInit {
         this.CATEGORY,
         this.postHashHex
       )
-      .subscribe((res) => {
-        console.log(res["Response"]);
-        this.token_id = res["Response"];
-
-        this.step++;
-        // if (this.CREATOR_ROYALTY === undefined || this.CREATOR_ROYALTY === 0) {
-        //   this.mintv2(this.token_id);
-        // } else {
-        //   this.mintv2WithRoyalties(this.token_id, this.CREATOR_ROYALTY);
-        // }
-      });
+      .subscribe(
+        (res) => {
+          console.log(res["Response"]);
+          this.token_id = res["Response"];
+        },
+        (err) => {
+          console.error(err);
+          this.modalService.show(GeneralSuccessModalComponent, {
+            class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+            initialState: {
+              header: "Error",
+              text: "There was an error minting, please try again.",
+              buttonText: "Ok",
+              buttonClickedAction: "ethMintingError",
+            },
+          });
+          return;
+        },
+        () => {
+          // onCompleted next step
+          this.step++;
+        }
+      );
   }
 
   updateIMXMetadataPostHash() {
-    this.backendApi
-      .UpdateIMXMetadataPostHash(this.globalVars.localNode, this.token_id, this.postHashHex)
-      .subscribe((res) => {
+    this.backendApi.UpdateIMXMetadataPostHash(this.globalVars.localNode, this.token_id, this.postHashHex).subscribe(
+      (res) => {
         console.log(` --------------- updated IMXMetadataPoshHash and res is ${JSON.stringify(res)} --------------- `);
+      },
+      (err) => {
+        console.error(err);
+        this.modalService.show(GeneralSuccessModalComponent, {
+          class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+          initialState: {
+            header: "Error",
+            text: "There was an error minting, please try again.",
+            buttonText: "Ok",
+            buttonClickedAction: "ethMintingError",
+          },
+        });
+        return;
+      },
+      () => {
+        // onCompleted next step
         this.step++;
-      });
+      }
+    );
   }
 
   async mintv2(token_id: any) {
@@ -784,40 +818,54 @@ export class MintPageComponent implements OnInit {
     token_id = token_id.toString();
     var mintBlueprintv2 = `https://supernovas.app/api/v0/imx/metadata/${token_id}`;
 
-    const result = await minterClient.mintV2([
-      {
-        users: [
-          {
-            etherKey: tokenReceiverAddress.toLowerCase(),
-            tokens: [
-              {
-                id: token_id,
-                blueprint: mintBlueprintv2,
-                // overriding royalties for specific token
-                // royalties: [
-                //   {
-                //     recipient: tokenReceiverAddress.toLowerCase(),
-                //     percentage: 0.0,
-                //   },
-                // ],
-              },
-            ],
-          },
-        ],
-        contractAddress: token_address.toLowerCase(),
+    try {
+      const result = await minterClient.mintV2([
+        {
+          users: [
+            {
+              etherKey: tokenReceiverAddress.toLowerCase(),
+              tokens: [
+                {
+                  id: token_id,
+                  blueprint: mintBlueprintv2,
+                  // overriding royalties for specific token
+                  // royalties: [
+                  //   {
+                  //     recipient: tokenReceiverAddress.toLowerCase(),
+                  //     percentage: 0.0,
+                  //   },
+                  // ],
+                },
+              ],
+            },
+          ],
+          contractAddress: token_address.toLowerCase(),
 
-        // globally set royalties
-        // royalties: [
-        //   {
-        //     recipient: royaltyRecieverAddress.toLowerCase(),
-        //     percentage: 0.0,
-        //   },
-        // ],
-      },
-    ]);
-    console.log(`Token minted: ${JSON.stringify(result)}`);
+          // globally set royalties
+          // royalties: [
+          //   {
+          //     recipient: royaltyRecieverAddress.toLowerCase(),
+          //     percentage: 0.0,
+          //   },
+          // ],
+        },
+      ]);
+      console.log(`Token minted: ${JSON.stringify(result)}`);
 
-    this.createEthPost();
+      this.createEthPost();
+    } catch (err) {
+      console.error(err);
+      this.modalService.show(GeneralSuccessModalComponent, {
+        class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+        initialState: {
+          header: "Error",
+          text: "There was an error minting, please try again.",
+          buttonText: "Ok",
+          buttonClickedAction: "ethMintingError",
+        },
+      });
+      return;
+    }
   }
 
   async mintv2WithRoyalties(token_id: any, royalty: number) {
@@ -845,40 +893,54 @@ export class MintPageComponent implements OnInit {
     token_id = token_id.toString();
     var mintBlueprintv2 = `https://supernovas.app/api/v0/imx/metadata/${token_id}`;
 
-    const result = await minterClient.mintV2([
-      {
-        users: [
-          {
-            etherKey: tokenReceiverAddress.toLowerCase(),
-            tokens: [
-              {
-                id: token_id,
-                blueprint: mintBlueprintv2,
-                // overriding royalties for specific token
-                royalties: [
-                  {
-                    recipient: tokenReceiverAddress.toLowerCase(),
-                    percentage: royalty,
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-        contractAddress: token_address.toLowerCase(),
+    try {
+      const result = await minterClient.mintV2([
+        {
+          users: [
+            {
+              etherKey: tokenReceiverAddress.toLowerCase(),
+              tokens: [
+                {
+                  id: token_id,
+                  blueprint: mintBlueprintv2,
+                  // overriding royalties for specific token
+                  royalties: [
+                    {
+                      recipient: tokenReceiverAddress.toLowerCase(),
+                      percentage: royalty,
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          contractAddress: token_address.toLowerCase(),
 
-        // globally set royalties
-        // royalties: [
-        //   {
-        //     recipient: royaltyRecieverAddress.toLowerCase(),
-        //     percentage: 0.0,
-        //   },
-        // ],
-      },
-    ]);
-    console.log(`Token minted with royalty: ${JSON.stringify(result)}`);
+          // globally set royalties
+          // royalties: [
+          //   {
+          //     recipient: royaltyRecieverAddress.toLowerCase(),
+          //     percentage: 0.0,
+          //   },
+          // ],
+        },
+      ]);
+      console.log(`Token minted with royalty: ${JSON.stringify(result)}`);
 
-    this.createEthPost();
+      this.createEthPost();
+    } catch (err) {
+      console.error(err);
+      this.modalService.show(GeneralSuccessModalComponent, {
+        class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+        initialState: {
+          header: "Error",
+          text: "There was an error minting, please try again.",
+          buttonText: "Ok",
+          buttonClickedAction: "ethMintingError",
+        },
+      });
+      return;
+    }
   }
 
   async sellNFT() {
@@ -886,14 +948,28 @@ export class MintPageComponent implements OnInit {
       this.globalVars._alertError("The selling price must be greater then 0.");
     }
 
-    const sellOrderId = await this.link.sell({
-      amount: this.sellingPriceETH,
-      tokenId: this.token_id,
-      tokenAddress: environment.imx.TOKEN_ADDRESS,
-    });
+    try {
+      const sellOrderId = await this.link.sell({
+        amount: this.sellingPriceETH,
+        tokenId: this.token_id,
+        tokenAddress: environment.imx.TOKEN_ADDRESS,
+      });
 
-    console.log(sellOrderId);
-    this.updateIMXMetadataPostHash();
+      console.log(sellOrderId);
+      this.updateIMXMetadataPostHash();
+    } catch (err) {
+      console.error(err);
+      this.modalService.show(GeneralSuccessModalComponent, {
+        class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+        initialState: {
+          header: "Error",
+          text: "The sale of your NFT has failed. You can choose to sell it later.",
+          buttonText: "Ok",
+          buttonClickedAction: "profileRoute",
+        },
+      });
+      return;
+    }
   }
 
   async createEthPost() {
@@ -941,15 +1017,27 @@ export class MintPageComponent implements OnInit {
             ` ---------------------------- response is ${JSON.stringify(response)} ---------------------------- `
           );
           console.log(` ---------------------------- postHashHex ${this.postHashHex} ---------------------------- `);
-          this.sellNFT();
         },
         (err) => {
           const parsedError = this.backendApi.parsePostError(err);
-          this.globalVars._alertError(parsedError);
+          console.error(parsedError);
           this.globalVars.logEvent(`post : create : error`, { parsedError });
           this.isSubmitPress = false;
           this.changeRef.detectChanges();
-          this.globalVars._alertError("Post failed, please mint again.");
+          this.modalService.show(GeneralSuccessModalComponent, {
+            class: "modal-dialog-centered nft_placebid_modal_bx  modal-lg",
+            initialState: {
+              header: "Error",
+              text: "There was an error minting, please try again.",
+              buttonText: "Ok",
+              buttonClickedAction: "ethMintingError",
+            },
+          });
+          return;
+        },
+        () => {
+          // on completed sellNFT
+          this.sellNFT();
         }
       );
     this.mixPanel.track51("ETH NFT Created", {

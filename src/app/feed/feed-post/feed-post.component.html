@@ -289,8 +289,12 @@
               [innerHTML]="postContent.PostExtraData?.name | sanitizeAndAutoLink"
             ></div>
             <div
-              class="poppins-regular mt-1 feed-text-wrap"
-              [ngClass]="{ 'pb-10px': quotedContent && showQuotedContent, nft_para: isNFTDetail }"
+              class="poppins-regular disable-scrollbars mt-1 feed-text-wrap"
+              [ngClass]="{
+                'pb-10px': quotedContent && showQuotedContent,
+                nft_para: isNFTDetail,
+                nft_prof_text: isNFTProfile
+              }"
               style="overflow-wrap: anywhere; word-break: break-word; outline: none"
               [innerHTML]="postContent.Body | sanitizeAndAutoLink"
               queryParamsHandling="merge"

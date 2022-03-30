@@ -22,6 +22,13 @@
   font-weight: 500 !important;
   line-height: 30px;
 }
+.nft_prof_text {
+    overflow: scroll;
+    /* text-overflow: ellipsis; */
+    display: -webkit-box;
+    -webkit-line-clamp: 10;
+    -webkit-box-orient: vertical;
+}
 .nft_current_bid_both {
   padding-right: 20px;
   padding-left: 30px;

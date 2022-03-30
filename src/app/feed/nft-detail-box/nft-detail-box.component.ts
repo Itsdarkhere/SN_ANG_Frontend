@@ -393,8 +393,7 @@ export class NftDetailBoxComponent implements OnInit {
                 Buyer: this.globalVars?.loggedInUser?.PublicKeyBase58Check,
                 Creator: this.postContent?.PosterPublicKeyBase58Check,
                 Seller: this.postContent?.OwnerPublicKeyBase58Check,
-                "Primary Sale?":
-                  this.postContent?.OwnerPublicKeyBase58Check == this.postContent?.PosterPublicKeyBase58Check,
+                "Primary Sale?": this.postContent?.OwnerPublicKeyBase58Check == this.postContent?.PosterPublicKeyBase58Check,
                 Price: this.ethereumNFTSalePrice,
                 Name: this.postContent.name,
                 "Created by Verified?": this.postContent?.PosterPublicKeyBase58Check?.IsVerified,

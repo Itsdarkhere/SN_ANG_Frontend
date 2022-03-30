@@ -1041,25 +1041,25 @@ export class MintPageComponent implements OnInit {
         }
       );
     this.mixPanel.track51("ETH NFT Created", {
-      Poster: this.globalVars.loggedInUser?.PublicKeyBase58Check,
+      "Poster": this.globalVars.loggedInUser?.PublicKeyBase58Check,
       "Post hex": this.postHashHex,
       "Royalty to creator": this.CREATOR_ROYALTY,
       "Royalty to coin": this.COIN_ROYALTY,
-      Unlockable: this.UNLOCKABLE_CONTENT,
+      "Unlockable": this.UNLOCKABLE_CONTENT,
       "For Sale": this.PUT_FOR_SALE,
       "Min Bid ETH": this.MIN_PRICE,
       "Is Buy Now": this.isBuyNow,
       "Buy now price ETH": this.sellingPriceETH,
-      "Min fee rate per KB": this.globalVars.defaultFeeRateNanosPerKB,
+      "Min fee rate per KB": this.globalVars?.defaultFeeRateNanosPerKB,
       "Post body": this.DESCRIPTION,
-      Name: this.NAME_OF_PIECE,
-      Category: this.CATEGORY,
+      "Name": this.NAME_OF_PIECE,
+      "Category": this.CATEGORY,
       "Token ID": this.token_id,
-      Audio: this.audioType,
-      Video: this.videoType,
+      "Audio": this.audioType,
+      "Video": this.videoType,
       "3D": this.modelType,
-      Image: this.imageType,
-      "Created by Verified?": this.post.PostEntryResponse?.IsVerified,
+      "Image": this.imageType,
+      "Created by Verified?": this.globalVars?.isVerified,
     });
   }
 
@@ -1247,23 +1247,23 @@ export class MintPageComponent implements OnInit {
         }
       );
     this.mixPanel.track42("NFT created", {
-      Poster: this.globalVars.loggedInUser?.PublicKeyBase58Check,
+      "Poster": this.globalVars.loggedInUser?.PublicKeyBase58Check,
       "Post hex": this.postHashHex,
       "Royalty to creator": creatorRoyaltyBasisPoints / 100,
       "Royalty to coin": coinRoyaltyBasisPoints / 100,
-      Unlockable: this.UNLOCKABLE_CONTENT,
+      "Unlockable": this.UNLOCKABLE_CONTENT,
       "For Sale": this.PUT_FOR_SALE,
       "Min Bid DeSo": this.MIN_PRICE,
       "Is Buy Now": this.isBuyNow,
-      "Buy now price DeSo": this.buyNowPriceDESO / 1e9,
+      "Buy now price DeSo": this.buyNowPriceDESO,
       "Min fee rate per KB": this.globalVars.defaultFeeRateNanosPerKB,
       "Post body": this.NAME_OF_PIECE,
-      Category: this.CATEGORY,
-      Audio: this.audioType,
-      Video: this.videoType,
+      "Category": this.CATEGORY,
+      "Audio": this.audioType,
+      "Video": this.videoType,
       "3D": this.modelType,
-      Image: this.imageType,
-      "Created by Verified?": this.post.PostEntryResponse?.IsVerified,
+      "Image": this.imageType,
+      "Created by Verified?": this.globalVars?.isVerified,
     });
   }
 

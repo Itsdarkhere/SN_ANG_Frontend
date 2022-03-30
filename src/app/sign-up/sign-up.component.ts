@@ -5,6 +5,7 @@ import { GlobalVarsService } from "../global-vars.service";
 import { BackendApiService, User } from "../backend-api.service";
 import { CountryISO, PhoneNumberFormat } from "ngx-intl-tel-input";
 import { FeedComponent } from "../feed/feed.component";
+import { MixpanelService } from "../mixpanel.service";
 
 @Component({
   selector: "sign-up",
@@ -27,7 +28,8 @@ export class SignUpComponent {
     private globalVars: GlobalVarsService,
     private router: Router,
     private route: ActivatedRoute,
-    private backendApi: BackendApiService
+    private backendApi: BackendApiService,
+    private mixPanel: MixpanelService,
   ) {
     this.route.queryParams.subscribe((queryParams) => {
       this.stepNum = 1;

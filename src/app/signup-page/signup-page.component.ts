@@ -126,7 +126,10 @@ export class SignupPageComponent implements OnInit {
     };
   }
   updateProfileType() {
-    this.mixPanel.track17("Update profile type");
+    this.mixPanel.track17("Update profile type", {
+      "Collector": this.collector,
+      "Creator": this.collector,
+    });
     if (this.globalVars.loggedInUser.PublicKeyBase58Check) {
       return this.backendApi
         .UpdateCollectorOrCreator(
@@ -200,6 +203,7 @@ export class SignupPageComponent implements OnInit {
     this.setMobileBasedOnViewport();
     // Sets default profile picture for the user
     this.urlToObject();
+    this.mixPanel.track62("Signup page opened")
 
     if (this.globalVars.needToPickCreatorOrCollector) {
       this.stepNum = 2;
@@ -211,6 +215,7 @@ export class SignupPageComponent implements OnInit {
   }
   signUp() {
     this.globalVars.launchSignupFlow();
+    this.mixPanel.track65("Connect with Deso - Signup flow started")
   }
   nextStep() {
     if (this.stepNum === 2) {

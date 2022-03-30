@@ -212,6 +212,11 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   getLogoBackground() {
     return `url("${environment.node.logoAssetDir}camelcase_logo.svg")`;
   }
+  routeToSignUp() {
+    this.mixPanel.track39("Signup clicked on Landing page");
+    window.open("https://supernovas.app/signup")
+  }
+
   launchLogin() {
     this.router.navigate(["/" + this.globalVars.RouteNames.SIGNUP]);
     this.mixPanel.track38("Landing page - login clicked");

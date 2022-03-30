@@ -22,5 +22,6 @@ export class SignupPageReferralsComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("LOOGGGGG 2");
+    this.mixPanel.track62("Signup page opened");
   }
 }

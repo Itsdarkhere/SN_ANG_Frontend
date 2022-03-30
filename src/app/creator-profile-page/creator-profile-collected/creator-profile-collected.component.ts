@@ -70,8 +70,8 @@ export class CreatorProfileCollectedComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.profileData) {
       //   get collected eth NFTs
-      if (this.profileData?.ETHPublicKey !== "") {
-        this.globalVars.imxWalletAddress = this.profileData["ETHPublicKey"];
+      if (this.profileData?.ETHPublicKey != "") {
+        this.globalVars.imxWalletAddress = this.profileData.ETHPublicKey;
         this.globalVars.getCollectedNFTs();
       }
     }

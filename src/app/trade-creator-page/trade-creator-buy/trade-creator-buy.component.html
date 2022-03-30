@@ -52,7 +52,8 @@
       </span>
     </div>
     <span class="founder-reward h-50 d-flex flex-center">
-      {{ creatorProfile.Username }} receives 5% as Founder Reward
+      {{ creatorProfile.Username }} receives {{ creatorProfile?.CoinEntry?.CreatorBasisPoints / 100 }}% as Founder
+      Reward
     </span>
   </div>
   <button

@@ -19,7 +19,9 @@ export class TradeCreatorBuyComponent implements OnInit {
   // Leave some DeSo in the user's account so they can do normal site activity (like, post, etc)
   MIN_DESO_NANOS_TO_LEAVE_WHEN_BUYING_CREATOR_COINS = 100_000;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.creatorProfile);
+  }
 
   clickBuy() {
     this.buyClick.emit();

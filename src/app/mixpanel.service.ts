@@ -6,7 +6,7 @@ import mixpanel from "mixpanel-browser";
 
 // Enabling the debug mode flag is useful during implementation,
 // but it's recommended you remove it for production
-mixpanel.init("e7c3c13be89ce2df93f47cad4932e8ac", { debug: false });
+mixpanel.init("28e1ccdde0bc00420d6819f0b695f62b", { debug: false });
 
 @Injectable({
   providedIn: "root",

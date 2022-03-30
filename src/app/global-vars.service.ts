@@ -1894,7 +1894,6 @@ export class GlobalVarsService {
           this.ethNFTsCollected = res["PostEntryResponse"];
           this.collectedNFTsToShow = this.collectedNFTsToShow.concat(this.ethNFTsCollected);
           this.collectedNFTsToShow.sort((a, b) => b.TimestampNanos - a.TimestampNanos);
-          console.log(this.collectedNFTsToShow);
         },
         (err) => {
           console.log(err);

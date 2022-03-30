@@ -35,8 +35,10 @@ export class CreatorProfileCollectedComponent implements OnInit {
 
   @Input() profileData: any;
 
-  nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
-  dataToShow: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
+  //   nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
+  nftResponse: PostEntryResponse[];
+  //   dataToShow: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
+  dataToShow: PostEntryResponse[];
   responseHolder: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
   myBids: NFTBidEntryResponse[];
 
@@ -134,17 +136,19 @@ export class CreatorProfileCollectedComponent implements OnInit {
               res.NFTsMap[k].PostEntryResponse.PosterPublicKeyBase58Check != this.profile.PublicKeyBase58Check &&
               !responseElement.NFTEntryResponses[0].IsPending
             ) {
-              this.nftResponse.push(responseElement);
+              this.nftResponse.push(responseElement.PostEntryResponse);
             }
           }
           this.dataToShow = this.nftResponse.slice(this.startIndex, this.endIndex);
           this.lastPage = Math.floor(this.nftResponse.length / CreatorProfileCollectedComponent.PAGE_SIZE);
 
+          console.log(this.dataToShow);
           this.dataToShow.forEach((nftEntry) => {
-            if (nftEntry.PostEntryResponse.ProfileEntryResponse) {
-              this.globalVars.collectedNFTsToShow.push(nftEntry.PostEntryResponse);
+            if (nftEntry.ProfileEntryResponse) {
+              this.globalVars.collectedNFTsToShow.push(nftEntry);
             }
           });
+          console.log(this.globalVars.collectedNFTsToShow);
 
           //   get collected eth NFTs
           if (this.profileData["ETHPublicKey"] !== "") {
@@ -162,7 +166,10 @@ export class CreatorProfileCollectedComponent implements OnInit {
     if (this.endIndex <= this.nftResponse.length - 1) {
       this.startIndex = this.endIndex;
       this.endIndex += 20;
-      this.dataToShow = [...this.dataToShow, ...this.nftResponse.slice(this.startIndex, this.endIndex)];
+      this.globalVars.collectedNFTsToShow = [
+        ...this.globalVars.collectedNFTsToShow,
+        ...this.nftResponse.slice(this.startIndex, this.endIndex),
+      ];
     }
   }
 }

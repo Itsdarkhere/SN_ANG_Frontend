@@ -803,7 +803,7 @@ export class FeedPostComponent implements OnInit {
 
   openBuyNowModal(event: any) {
     //   is not an ETH nft
-    if (this.postContent.PostExtraData.isEthereumNFT === false) {
+    if (this.postContent.PostExtraData?.isEthereumNFT === false) {
       this.clickedBuyNow = true;
       this.clickedPlaceABid = false;
 

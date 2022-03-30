@@ -233,6 +233,8 @@ export class BackendRoutes {
   static RoutePathGetTopEarningCollectors = "/api/v0/get-top-earning-collectors";
   static RoutePathGetTopEarningCreators = "/api/v0/get-top-earning-creators";
   static RoutePathGetQuickFacts = "/api/v0/get-quick-facts";
+  // Supernovas profile created
+  static RoutePathGetCreatedNfts = "/api/v0/get-created-nfts";
 }
 
 export class Transaction {
@@ -1353,7 +1355,18 @@ export class BackendApiService {
       PublicKeyBase58Check,
     });
   }
-
+  GetCreatedNfts(
+    endpoint: string,
+    ReaderPublicKeyBase58Check: string,
+    Username: string,
+    Offset: number
+  ): Observable<any> {
+    return this.post(endpoint, BackendRoutes.RoutePathGetCreatedNfts, {
+      ReaderPublicKeyBase58Check,
+      Username,
+      Offset,
+    });
+  }
   // PublicKey can be omitted on the analytics queries
   GetUniqueCreators(endpoint: string, PublicKeyBase58Check: string): Observable<any> {
     return this.post(endpoint, BackendRoutes.RoutePathGetUniqueCreators, {

@@ -1,4 +1,13 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  OnChanges,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+  SimpleChanges,
+} from "@angular/core";
 import {
   BackendApiService,
   NFTBidEntryResponse,
@@ -20,7 +29,7 @@ import { SwalHelper } from "../../../lib/helpers/swal-helper";
   templateUrl: "./creator-profile-collected.component.html",
   styleUrls: ["./creator-profile-collected.component.scss"],
 })
-export class CreatorProfileCollectedComponent implements OnInit {
+export class CreatorProfileCollectedComponent implements OnInit, OnChanges {
   static PAGE_SIZE = 10;
   static BUFFER_SIZE = 5;
   static WINDOW_VIEWPORT = true;
@@ -35,10 +44,10 @@ export class CreatorProfileCollectedComponent implements OnInit {
 
   @Input() profileData: any;
 
-  //   nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
-  nftResponse: PostEntryResponse[];
-  //   dataToShow: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
-  dataToShow: PostEntryResponse[];
+  nftResponse: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
+  //nftResponse: PostEntryResponse[];
+  dataToShow: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
+  //dataToShow: PostEntryResponse[];
   responseHolder: { NFTEntryResponses: NFTEntryResponse[]; PostEntryResponse: PostEntryResponse }[];
   myBids: NFTBidEntryResponse[];
 
@@ -58,6 +67,15 @@ export class CreatorProfileCollectedComponent implements OnInit {
     private router: Router,
     private location: Location
   ) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.profileData) {
+      //   get collected eth NFTs
+      if (this.profileData?.ETHPublicKey !== "") {
+        this.globalVars.imxWalletAddress = this.profileData["ETHPublicKey"];
+        this.globalVars.getCollectedNFTs();
+      }
+    }
+  }
 
   ngOnInit(): void {
     this.getNFTs();
@@ -136,7 +154,7 @@ export class CreatorProfileCollectedComponent implements OnInit {
               res.NFTsMap[k].PostEntryResponse.PosterPublicKeyBase58Check != this.profile.PublicKeyBase58Check &&
               !responseElement.NFTEntryResponses[0].IsPending
             ) {
-              this.nftResponse.push(responseElement.PostEntryResponse);
+              this.nftResponse.push(responseElement);
             }
           }
           this.dataToShow = this.nftResponse.slice(this.startIndex, this.endIndex);
@@ -144,17 +162,11 @@ export class CreatorProfileCollectedComponent implements OnInit {
 
           console.log(this.dataToShow);
           this.dataToShow.forEach((nftEntry) => {
-            if (nftEntry.ProfileEntryResponse) {
+            if (nftEntry) {
               this.globalVars.collectedNFTsToShow.push(nftEntry);
             }
           });
           console.log(this.globalVars.collectedNFTsToShow);
-
-          //   get collected eth NFTs
-          if (this.profileData["ETHPublicKey"] !== "") {
-            this.globalVars.imxWalletAddress = this.profileData["ETHPublicKey"];
-            this.globalVars.getCollectedNFTs();
-          }
 
           this.isLoading = false;
           return this.nftResponse;

@@ -22,6 +22,7 @@
         <div class="nft-col-wrap-2" *ngFor="let post of this.globalVars.createdNFTsToShow">
           <div class="max-width-300-plus">
             <new-nft-card
+              *ngIf="post"
               [contentShouldLinkToThread]="true"
               [loadProfile]="true"
               [includePaddingOnPost]="true"

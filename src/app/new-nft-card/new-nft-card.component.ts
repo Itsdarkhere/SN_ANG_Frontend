@@ -59,7 +59,6 @@ export class NewNftCardComponent implements OnInit {
     }
     this.setEmbedURLForPostContent();
     if (this.postContent?.ImageURLs?.length > 0) {
-      console.log(this.postContent?.ImageURLs);
       this.changeImageURLs(this.postContent.ImageURLs[0]);
     }
   }
@@ -284,7 +283,7 @@ export class NewNftCardComponent implements OnInit {
     }
 
     // if the post is an Ethereum NFT, check if it's for sale
-    if (this.postContent.PostExtraData.isEthereumNFT) {
+    if (this.postContent.PostExtraData?.isEthereumNFT) {
       console.log("isEthereumNFT hit");
       this.updateEthNFTForSaleStatus();
 

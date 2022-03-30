@@ -14,6 +14,7 @@ import { Location } from "@angular/common";
 import { IAdapter, IDatasource } from "ngx-ui-scroll";
 import * as _ from "lodash";
 import { InfiniteScroller } from "../../infinite-scroller";
+var bs58check = require("bs58check");
 
 @Component({
   selector: "app-creator-profile-created",
@@ -60,6 +61,7 @@ export class CreatorProfileCreatedComponent implements OnInit {
 
   ngOnInit(): void {
     this.getNFTs();
+    console.log(this.getPublicKeyBase64(this.globalVars.loggedInUser.PublicKeyBase58Check));
   }
 
   infiniteScroller: InfiniteScroller = new InfiniteScroller(
@@ -91,6 +93,12 @@ export class CreatorProfileCreatedComponent implements OnInit {
       },
     });
   }
+  getPublicKeyBase64(publicKeyBase58Check: string) {
+    const decoded = bs58check.decode(publicKeyBase58Check);
+    const payload = Uint8Array.from(decoded).slice(3);
+    return Buffer.from(payload).toString("base64");
+  }
+
   getPage(page: number) {
     if (this.lastPage != null && page > this.lastPage) {
       return [];
@@ -129,6 +137,7 @@ export class CreatorProfileCreatedComponent implements OnInit {
 
         //   get created eth NFTs
         if (this.profileData["ETHPublicKey"] !== "") {
+          console.log("get created");
           this.globalVars.imxWalletAddress = this.profileData["ETHPublicKey"];
           this.globalVars.getCreatedNFTs();
         }

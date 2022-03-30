@@ -1892,8 +1892,17 @@ export class GlobalVarsService {
         (res) => {
           console.log(res);
           this.ethNFTsCollected = res["PostEntryResponse"];
-          this.collectedNFTsToShow = this.collectedNFTsToShow.concat(this.ethNFTsCollected);
-          this.collectedNFTsToShow.sort((a, b) => b.TimestampNanos - a.TimestampNanos);
+          let temp = [];
+          this.ethNFTsCollected.forEach((post) => {
+            temp.push({
+              PostEntryResponse: post,
+              NFTEntryResponses: [],
+            });
+          });
+          this.collectedNFTsToShow = this.collectedNFTsToShow.concat(temp);
+          this.collectedNFTsToShow.sort(
+            (a, b) => b.PostEntryResponse.TimestampNanos - a.PostEntryResponse.TimestampNanos
+          );
         },
         (err) => {
           console.log(err);
@@ -1975,7 +1984,6 @@ export class GlobalVarsService {
           this.ethNFTsCreated = res["PostEntryResponse"];
           this.createdNFTsToShow = this.createdNFTsToShow.concat(this.ethNFTsCreated);
           this.createdNFTsToShow.sort((a, b) => b.TimestampNanos - a.TimestampNanos);
-          console.log(this.createdNFTsToShow);
         },
         (err) => {
           console.log(err);

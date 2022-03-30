@@ -22,9 +22,10 @@
         <div class="nft-col-wrap-2" *ngFor="let post of this.globalVars.collectedNFTsToShow">
           <div class="max-width-300-plus">
             <new-nft-card
+              *ngIf="post.PostEntryResponse"
               [contentShouldLinkToThread]="true"
               [includePaddingOnPost]="true"
-              [post]="post"
+              [post]="post.PostEntryResponse"
               [afterCommentCreatedCallback]="_prependComment.bind(this, post, index)"
               [blocked]="globalVars.hasUserBlockedCreator(profile.PublicKeyBase58Check)"
               [showNFTDetails]="true"

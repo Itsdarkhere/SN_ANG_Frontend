@@ -381,8 +381,10 @@ export class NftPostComponent implements OnInit {
     }
   }
   viewBlock() {
-    console.log(this.nftPost);
-    window.open("https://www.openprosper.com/deso-scan/transaction/" + this.nftPost.PostHashHex, "_blank");
+    window.open(
+      "https://explorer.deso.org/?query-node=https:%2F%2Fnode.deso.org&transaction-id=" + this.nftPost.PostHashHex,
+      "_blank"
+    );
   }
   refreshBidData(): Subscription {
     this.refreshingBids = true;
